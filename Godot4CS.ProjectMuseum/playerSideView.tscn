@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcxa10qjiqp81"]
+
+[ext_resource type="Script" path="res://PlayerScripts/PlayerSideView.cs" id="1_8fa0e"]
+[ext_resource type="Texture2D" uid="uid://d1k4mqhb18ogb" path="res://Sprites/player rocket.png" id="2_lmt50"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_82gg3"]
+
+[node name="playerSideView" type="CharacterBody2D"]
+script = ExtResource("1_8fa0e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_82gg3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_lmt50")

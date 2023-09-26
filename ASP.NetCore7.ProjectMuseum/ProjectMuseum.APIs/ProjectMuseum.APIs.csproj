@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ASP.NetCore7.ProjectMuseum</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectMuseum.DTOs\ProjectMuseum.DTOs.csproj" />
+    <ProjectReference Include="..\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />
+    <ProjectReference Include="..\ProjectMuseum.Repositories\ProjectMuseum.Repositories.csproj" />
+    <ProjectReference Include="..\ProjectMuseum.Services\ProjectMuseum.Services.csproj" />
+  </ItemGroup>
+
+</Project>

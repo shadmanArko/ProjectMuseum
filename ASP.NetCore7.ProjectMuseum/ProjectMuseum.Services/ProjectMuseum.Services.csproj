@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ProjectMuseum.DTOs\ProjectMuseum.DTOs.csproj" />
+      <ProjectReference Include="..\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />
+      <ProjectReference Include="..\ProjectMuseum.Repositories\ProjectMuseum.Repositories.csproj" />
+    </ItemGroup>
+
+</Project>

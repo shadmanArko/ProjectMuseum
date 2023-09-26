@@ -1,0 +1,11 @@
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/bin/Debug/net7.0/ProjectMuseum.Dtos.deps.json
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/bin/Debug/net7.0/ProjectMuseum.Dtos.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/bin/Debug/net7.0/ProjectMuseum.Dtos.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ProjectMuseum.Dtos.GeneratedMSBuildEditorConfig.editorconfig
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ProjectMuseum.Dtos.AssemblyInfoInputs.cache
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ProjectMuseum.Dtos.AssemblyInfo.cs
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ProjectMuseum.Dtos.csproj.CoreCompileInputs.cache
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ProjectMuseum.Dtos.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/refint/ProjectMuseum.Dtos.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ProjectMuseum.Dtos.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ref/ProjectMuseum.Dtos.dll

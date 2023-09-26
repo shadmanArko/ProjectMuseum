@@ -1,0 +1,15 @@
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/bin/Debug/net7.0/ProjectMuseum.Models.deps.json
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/bin/Debug/net7.0/ProjectMuseum.Models.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/bin/Debug/net7.0/ProjectMuseum.Models.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/bin/Debug/net7.0/ProjectMuseum.Dtos.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/bin/Debug/net7.0/ProjectMuseum.Dtos.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.csproj.AssemblyReference.cache
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.GeneratedMSBuildEditorConfig.editorconfig
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.AssemblyInfoInputs.cache
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.AssemblyInfo.cs
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.csproj.CoreCompileInputs.cache
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.csproj.CopyComplete
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/refint/ProjectMuseum.Models.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ProjectMuseum.Models.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/obj/Debug/net7.0/ref/ProjectMuseum.Models.dll

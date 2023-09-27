@@ -1,17 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcxa10qjiqp81"]
 
-[ext_resource type="Script" path="res://PlayerScripts/PlayerSideView.cs" id="1_8fa0e"]
-[ext_resource type="Texture2D" uid="uid://d1k4mqhb18ogb" path="res://Sprites/player rocket.png" id="2_lmt50"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/PlayerSideView.cs" id="1_chsp7"]
+[ext_resource type="Texture2D" uid="uid://ddora4xlqxmwi" path="res://Sprites/player_rocket-removebg-preview.png" id="2_dljyc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_82gg3"]
+size = Vector2(332, 475)
 
 [node name="playerSideView" type="CharacterBody2D"]
-script = ExtResource("1_8fa0e")
+script = ExtResource("1_chsp7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_82gg3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 2
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_lmt50")
+texture = ExtResource("2_dljyc")

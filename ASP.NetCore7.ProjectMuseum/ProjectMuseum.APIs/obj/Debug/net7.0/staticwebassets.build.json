@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "7984YSr6nPINzBiP4fh2WCbczet03QoAKw2rvyhpxBI=",
-  "Source": "ProjectMuseum.Api",
-  "BasePath": "_content/ProjectMuseum.Api",
+  "Hash": "eG1UVWmGDNJLFMea68A592yD2PLYXS9tDCIT8H7pq1w=",
+  "Source": "ProjectMuseum.APIs",
+  "BasePath": "_content/ProjectMuseum.APIs",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

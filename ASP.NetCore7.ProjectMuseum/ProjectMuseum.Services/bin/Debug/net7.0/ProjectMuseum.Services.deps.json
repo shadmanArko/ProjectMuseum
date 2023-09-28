@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "ProjectMuseum.Services/1.0.0": {
         "dependencies": {
-          "ProjectMuseum.Dtos": "1.0.0",
+          "ProjectMuseum.DTOs": "1.0.0",
           "ProjectMuseum.Models": "1.0.0",
           "ProjectMuseum.Repositories": "1.0.0"
         },
@@ -16,14 +16,14 @@
           "ProjectMuseum.Services.dll": {}
         }
       },
-      "ProjectMuseum.Dtos/1.0.0": {
+      "ProjectMuseum.DTOs/1.0.0": {
         "runtime": {
-          "ProjectMuseum.Dtos.dll": {}
+          "ProjectMuseum.DTOs.dll": {}
         }
       },
       "ProjectMuseum.Models/1.0.0": {
         "dependencies": {
-          "ProjectMuseum.Dtos": "1.0.0"
+          "ProjectMuseum.DTOs": "1.0.0"
         },
         "runtime": {
           "ProjectMuseum.Models.dll": {}
@@ -45,7 +45,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "ProjectMuseum.Dtos/1.0.0": {
+    "ProjectMuseum.DTOs/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

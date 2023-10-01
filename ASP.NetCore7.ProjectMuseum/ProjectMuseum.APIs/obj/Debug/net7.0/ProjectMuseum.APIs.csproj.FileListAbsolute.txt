@@ -40,3 +40,5 @@
 /Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/obj/Debug/net7.0/ProjectMuseum.APIs.pdb
 /Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/obj/Debug/net7.0/ProjectMuseum.APIs.genruntimeconfig.cache
 /Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/obj/Debug/net7.0/ref/ProjectMuseum.APIs.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Debug/net7.0/AutoMapper.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -1,13 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddht2o4c4jnal"]
+[gd_scene load_steps=3 format=3 uid="uid://ddht2o4c4jnal"]
 
-[sub_resource type="TileSet" id="TileSet_ke0y0"]
-tile_shape = 1
-tile_layout = 5
-tile_size = Vector2i(32, 16)
+[ext_resource type="Script" path="res://Scripts/Cell.cs" id="1_2bcg6"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hexaf"]
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_ke0y0")
-cell_quadrant_size = 18
-format = 2
+[node name="RigidBody2D" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_2bcg6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hexaf")

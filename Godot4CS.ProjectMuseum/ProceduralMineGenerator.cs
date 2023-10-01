@@ -1,39 +1,39 @@
 using Godot;
-using System;
 using Godot4CS.ProjectMuseum.Scripts;
-using Range = Godot.Range;
+
 
 public partial class ProceduralMineGenerator : TileMap
 {
-	[Export] private FastNoiseLite perlinNoise = new();  
-	[Export] private Vector2 _initialBlockPosition;
-	public Cell[,] grid;
+	private FastNoiseLite _perlinNoise = new();  
+	private Vector2 _initialBlockPosition;
+	private Cell[,] _grid;
 
-	public float scale = 0.1f;
-	public int width = 25;
-	public int length = 64;
+	[Export] private TileMap _tileMap;
+	[Export] private int _totalTiles;
+
+	[Export] private float _noiseScale = 0.1f;
+
+	[Export] private int _cellSize = 64;
+	[Export] private int _width = 25;
+	[Export] private int _length = 32; //must be 64
 
 	private RandomNumberGenerator _randomNumberGenerator = new();
 
 	[Export] private float _cellBreakThreshold = 0.9f;
 	public override void _Ready()
 	{
+		//_tileMap = GetNode<TileMap>();
+		GeneratePerlinNoise();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void GeneratePerlinNoise()
 	{
-		
-	}
-
-	public void GeneratePerlinNoise()
-	{
-		var noiseMap = new float[width, length];
-		for (var y = 0; y < length; y++)
+		var noiseMap = new float[_width, _length];
+		for (var y = 0; y < _length; y++)
 		{
-			for (var x = 0; x < width; x++)
+			for (var x = 0; x < _width; x++)
 			{
-				var noiseValue = perlinNoise.GetNoise2D(x * scale,y * scale);
+				var noiseValue = _perlinNoise.GetNoise2D(x * _noiseScale,y * _noiseScale);
 				noiseMap[x, y] = noiseValue;
 			}
 		}
@@ -41,20 +41,30 @@ public partial class ProceduralMineGenerator : TileMap
 		GenerateGridFromPerlinNoise(noiseMap);
 	}
 
-	public void GenerateGridFromPerlinNoise(float[,] noiseMap)
+	private void GenerateGridFromPerlinNoise(float[,] noiseMap)
 	{
-		grid = new Cell[width, length];
+		_grid = new Cell[_width, _length];
 
-		for (int y = 0; y < length; y++)
+		for (var y = 0; y < _length; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (var x = 0; x < _width; x++)
 			{
-				var cell = new Cell();
-				float noiseValue = noiseMap[x, y];
+				var noiseValue = noiseMap[x, y];
 
-				cell.IsBreakable = noiseValue < _cellBreakThreshold;
-				cell.BreakStrength = _randomNumberGenerator.RandiRange(1, 3);
-				grid[x, y] = cell;
+				var isBreakable = noiseValue < _cellBreakThreshold;
+				var breakStrength = _randomNumberGenerator.RandiRange(1, 3);
+
+				var cell = new Cell(isBreakable, false, breakStrength)
+				{
+					Pos = new Vector2(x * _cellSize, y * _cellSize)
+				};
+
+				var tileIndex = Mathf.RoundToInt(noiseValue * (_totalTiles - 1));
+				//cell.Sprite2D = _tileMap.TileSet.
+				_grid[x, y] = cell;
+				var tilePos = _tileMap.LocalToMap(_grid[x, y].Pos);
+				_tileMap.SetCell(0,tilePos,4,new Vector2I(6,1));
+				GD.Print($"Set to tile size");
 			}
 		}
 	}

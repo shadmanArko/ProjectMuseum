@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvpmyuf8myb7g"]
+
+[ext_resource type="PackedScene" uid="uid://bcxa10qjiqp81" path="res://Scenes/playerSideView.tscn" id="1_c6hbs"]
+[ext_resource type="PackedScene" uid="uid://bnjcqjjv5m807" path="res://Scenes/mine.tscn" id="2_b3g6j"]
+
+[node name="Game" type="Node2D"]
+
+[node name="playerSideView" parent="." instance=ExtResource("1_c6hbs")]
+position = Vector2(548, 318)
+scale = Vector2(0.100283, 0.0935579)
+_maxSpeed = 500
+
+[node name="Camera2D" type="Camera2D" parent="playerSideView"]
+
+[node name="TileMap" parent="." instance=ExtResource("2_b3g6j")]

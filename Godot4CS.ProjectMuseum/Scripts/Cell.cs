@@ -1,10 +1,20 @@
+
 using Godot;
 
 namespace Godot4CS.ProjectMuseum.Scripts;
 
-public class Cell : Node2D
+public class Cell
 {
-    public bool IsBreakable = true;
-    public bool HasArtifact = false;
-    public int BreakStrength = 0;
+    public Vector2 Pos;
+    public bool IsBreakable;
+    public bool HasArtifact;
+    public int BreakStrength;
+    public Sprite2D Sprite2D;
+
+    public Cell(bool isBreakable, bool hasArtifact, int breakStrength)
+    {
+        IsBreakable = isBreakable;
+        HasArtifact = hasArtifact;
+        BreakStrength = breakStrength;
+    }
 }

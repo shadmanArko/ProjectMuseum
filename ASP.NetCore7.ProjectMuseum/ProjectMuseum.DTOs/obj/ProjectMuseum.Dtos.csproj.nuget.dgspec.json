@@ -1,26 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj": {}
+    "C:\\Users\\User\\Documents\\_Work_Dont Touch\\_GODOT Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj": {}
   },
   "projects": {
-    "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj": {
+    "C:\\Users\\User\\Documents\\_Work_Dont Touch\\_GODOT Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\_Work_Dont Touch\\_GODOT Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj",
         "projectName": "ProjectMuseum.DTOs",
-        "projectPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj",
-        "packagesPath": "/Users/redthorninteractive/.nuget/packages/",
-        "outputPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/obj/",
+        "projectPath": "C:\\Users\\User\\Documents\\_Work_Dont Touch\\_GODOT Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\_Work_Dont Touch\\_GODOT Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/redthorninteractive/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -54,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

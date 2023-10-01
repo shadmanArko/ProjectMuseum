@@ -9,3 +9,15 @@
 /Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/refint/ProjectMuseum.Dtos.dll
 /Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ProjectMuseum.Dtos.pdb
 /Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Dtos/obj/Debug/net7.0/ref/ProjectMuseum.Dtos.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\bin\Debug\net7.0\ProjectMuseum.DTOs.deps.json
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\bin\Debug\net7.0\ProjectMuseum.DTOs.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\bin\Debug\net7.0\ProjectMuseum.DTOs.pdb
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.csproj.AssemblyReference.cache
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.AssemblyInfoInputs.cache
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.AssemblyInfo.cs
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\refint\ProjectMuseum.DTOs.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.pdb
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ref\ProjectMuseum.DTOs.dll

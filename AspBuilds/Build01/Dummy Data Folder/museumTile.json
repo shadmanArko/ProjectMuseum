@@ -1,0 +1,23 @@
+[
+  {
+    "Id": "tile1",
+    "XPosition": 10.5,
+    "YPosition": 20.0,
+    "Flooring": "Tile",
+    "Decoration": "Painting"
+  },
+  {
+    "Id": "tile2",
+    "XPosition": 15.0,
+    "YPosition": 25.5,
+    "Flooring": "Carpet",
+    "Decoration": "Sculpture"
+  },
+  {
+    "Id": "tile3",
+    "XPosition": 5.0,
+    "YPosition": 30.0,
+    "Flooring": "Wood",
+    "Decoration": "Vase"
+  }
+]

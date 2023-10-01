@@ -1,0 +1,17 @@
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\bin\Release\net7.0\ProjectMuseum.Repositories.deps.json
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\bin\Release\net7.0\ProjectMuseum.Repositories.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\bin\Release\net7.0\ProjectMuseum.Repositories.pdb
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\bin\Release\net7.0\ProjectMuseum.DTOs.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\bin\Release\net7.0\ProjectMuseum.Models.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\bin\Release\net7.0\ProjectMuseum.Models.pdb
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\bin\Release\net7.0\ProjectMuseum.DTOs.pdb
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.csproj.AssemblyReference.cache
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.AssemblyInfoInputs.cache
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.AssemblyInfo.cs
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.csproj.CopyComplete
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\refint\ProjectMuseum.Repositories.dll
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ProjectMuseum.Repositories.pdb
+C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Repositories\obj\Release\net7.0\ref\ProjectMuseum.Repositories.dll

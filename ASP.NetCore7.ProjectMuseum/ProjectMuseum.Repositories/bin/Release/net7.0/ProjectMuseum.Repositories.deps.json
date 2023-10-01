@@ -1,0 +1,49 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "ProjectMuseum.Repositories/1.0.0": {
+        "dependencies": {
+          "ProjectMuseum.Models": "1.0.0"
+        },
+        "runtime": {
+          "ProjectMuseum.Repositories.dll": {}
+        }
+      },
+      "ProjectMuseum.DTOs/1.0.0": {
+        "runtime": {
+          "ProjectMuseum.DTOs.dll": {}
+        }
+      },
+      "ProjectMuseum.Models/1.0.0": {
+        "dependencies": {
+          "ProjectMuseum.DTOs": "1.0.0"
+        },
+        "runtime": {
+          "ProjectMuseum.Models.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ProjectMuseum.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ProjectMuseum.DTOs/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ProjectMuseum.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://byejs1rbih0rj"]
+
+[ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://tile_map.tscn" id="1_onpai"]
+[ext_resource type="Script" path="res://TileSpawner.cs" id="2_02iai"]
+
+[node name="museum" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_onpai")]
+y_sort_enabled = true
+layer_0/y_sort_enabled = true
+script = ExtResource("2_02iai")
+numberOfTilesInX = 20
+numberOfTilesInY = 32
+originStartsY = 50

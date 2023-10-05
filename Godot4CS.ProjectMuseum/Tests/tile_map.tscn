@@ -51,6 +51,7 @@ texture_region_size = Vector2i(32, 16)
 
 [sub_resource type="TileSet" id="TileSet_fxgui"]
 tile_shape = 1
+tile_layout = 5
 tile_size = Vector2i(32, 16)
 sources/0 = SubResource("TileSetAtlasSource_1xacu")
 sources/1 = SubResource("TileSetAtlasSource_v2a8q")
@@ -66,3 +67,5 @@ texture_filter = 1
 tile_set = SubResource("TileSet_fxgui")
 format = 2
 layer_0/name = "Layer 0"
+layer_0/tile_data = PackedInt32Array(65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, -65533, 1, 0, -65534, 1, 0, -65535, 1, 0, -131071, 1, 0, -131072, 1, 0, -196608, 1, 0, 65537, 1, 0, 65538, 1, 0, 131074, 1, 0, 196610, 1, 0, 196611, 1, 0, 262147, 1, 0, 327683, 1, 0, 262146, 1, 0, -65536, 1, 0, -131073, 1, 0, -196609, 1, 0, -65537, 1, 0, -1, 1, 0, 131073, 1, 0, 196609, 1, 0, 65536, 1, 0, 131071, 1, 0, 131072, 1, 0, 262145, 1, 0, 196608, 1, 0, 262143, 1, 0, 196607, 1, 0, 262144, 1, 0, 327679, 1, 0, 131075, 1, 0, 65539, 1, 0, 65540, 1, 0, 131076, 1, 0)
+metadata/_edit_horizontal_guides_ = []

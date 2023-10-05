@@ -11,37 +11,25 @@ public partial class ProceduralMineGenerator : TileMap
 	[Export] private TileMap _tileMap;
 	[Export] private int _totalTiles;
 
-	[Export] private float _noiseScale = 0.1f;
+	//[Export] private float _noiseScale = 0.1f;
 
 	[Export] private int _cellSize = 64;
 	[Export] private int _width = 25;
 	[Export] private int _length = 32; //must be 64
+	
+	private PackedScene _cellPrefab;
+	[Export] private string _cellPath; 
 
 	private RandomNumberGenerator _randomNumberGenerator = new();
 
 	[Export] private float _cellBreakThreshold = 0.9f;
 	public override void _Ready()
 	{
-		//_tileMap = GetNode<TileMap>();
-		GeneratePerlinNoise();
+		_cellPrefab = (PackedScene)ResourceLoader.Load(_cellPath);
+		GenerateGrid();
 	}
 
-	private void GeneratePerlinNoise()
-	{
-		var noiseMap = new float[_width, _length];
-		for (var y = 0; y < _length; y++)
-		{
-			for (var x = 0; x < _width; x++)
-			{
-				var noiseValue = _perlinNoise.GetNoise2D(x * _noiseScale,y * _noiseScale);
-				noiseMap[x, y] = noiseValue;
-			}
-		}
-		
-		GenerateGridFromPerlinNoise(noiseMap);
-	}
-
-	private void GenerateGridFromPerlinNoise(float[,] noiseMap)
+	private void GenerateGrid()
 	{
 		_grid = new Cell[_width, _length];
 
@@ -49,23 +37,21 @@ public partial class ProceduralMineGenerator : TileMap
 		{
 			for (var x = 0; x < _width; x++)
 			{
-				var noiseValue = noiseMap[x, y];
-
-				var isBreakable = noiseValue < _cellBreakThreshold;
-				var breakStrength = _randomNumberGenerator.RandiRange(1, 3);
-
-				var cell = new Cell(isBreakable, false, breakStrength)
-				{
-					Pos = new Vector2(x * _cellSize, y * _cellSize)
-				};
-
-				var tileIndex = Mathf.RoundToInt(noiseValue * (_totalTiles - 1));
-				//cell.Sprite2D = _tileMap.TileSet.
-				_grid[x, y] = cell;
+				_grid[x, y] = InstantiateCell(x,y);
 				var tilePos = _tileMap.LocalToMap(_grid[x, y].Pos);
 				_tileMap.SetCell(0,tilePos,4,new Vector2I(6,1));
-				GD.Print($"Set to tile size");
 			}
 		}
+	}
+
+	private Cell InstantiateCell(int width, int height)
+	{
+		var breakStrength = _randomNumberGenerator.RandiRange(1, 3);
+		var cell = new Cell(false, false, breakStrength)
+		{
+			Pos = new Vector2(width * _cellSize, height * _cellSize)
+		};
+
+		return cell;
 	}
 }

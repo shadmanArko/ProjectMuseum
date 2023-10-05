@@ -130,6 +130,7 @@
       },
       "ProjectMuseum.Repositories/1.0.0": {
         "dependencies": {
+          "AutoMapper": "12.0.1",
           "ProjectMuseum.Models": "1.0.0"
         },
         "runtime": {
@@ -138,6 +139,7 @@
       },
       "ProjectMuseum.Services/1.0.0": {
         "dependencies": {
+          "AutoMapper": "12.0.1",
           "ProjectMuseum.DTOs": "1.0.0",
           "ProjectMuseum.Models": "1.0.0",
           "ProjectMuseum.Repositories": "1.0.0"

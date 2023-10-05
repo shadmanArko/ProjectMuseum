@@ -1,12 +1,12 @@
 using System.Text.Json;
 
-namespace ProjectMuseum.Services;
+namespace ProjectMuseum.Repositories.MuseumTileRepository;
 
-public class JsonFileService<T>
+public class JsonFileDatabase<T>
 {
     private readonly string _filePath;
 
-    public JsonFileService(string filePath)
+    public JsonFileDatabase(string filePath)
     {
         _filePath = filePath;
     }

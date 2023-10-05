@@ -7,7 +7,7 @@ public interface IMuseumTileRepository
 {
     Task<MuseumTile> Insert(MuseumTile museumTile);
     Task<MuseumTile> Update(MuseumTile museumTile);
-    Task<MuseumTile> GetById(string id);
-    Task<List<MuseumTileDto>> GetAll();
+    Task<MuseumTile?> GetById(string id);
+    Task<List<MuseumTile>?> GetAll();
     Task<MuseumTile> Delete();
 }

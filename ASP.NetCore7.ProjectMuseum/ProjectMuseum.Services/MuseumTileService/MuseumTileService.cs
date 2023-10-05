@@ -8,25 +8,40 @@ namespace ProjectMuseum.Services.MuseumTileService;
 public class MuseumTileService : IMuseumTileService
 {
     private readonly IMuseumTileRepository _museumTileRepository;
+    private readonly IMapper _mapper;
 
-    public MuseumTileService(IMuseumTileRepository museumTileRepository)
+    public MuseumTileService(IMuseumTileRepository museumTileRepository, IMapper mapper)
     {
         _museumTileRepository = museumTileRepository;
+        _mapper = mapper;
     }
 
-    public Task<MuseumTile> InsertMuseumTile(MuseumTileDto museumTileDto)
+    public async Task<MuseumTileDto> InsertMuseumTile(MuseumTileDto museumTileDto)
     {
-        throw new NotImplementedException();
+        var museumTile = new MuseumTile
+        {
+            Id = Guid.NewGuid().ToString(),
+            XPosition = museumTileDto.XPosition,
+            YPosition = museumTileDto.YPosition,
+            Decoration = museumTileDto.Decoration,
+            Flooring = museumTileDto.Flooring
+        };
+        await _museumTileRepository.Insert(museumTile);
+        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(museumTile);
+        return newMuseumTileDto;
     }
 
-    public Task<MuseumTile> GetMuseumTileById(string tileId)
+    public async Task<MuseumTileDto?> GetMuseumTileById(string tileId)
     {
-        throw new NotImplementedException();
+        var museumTile = await _museumTileRepository.GetById(tileId);
+        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(museumTile);
+        return newMuseumTileDto;
     }
 
     public async Task<List<MuseumTileDto>> GetAllMuseumTiles()
     {
-        var museumTileDtos = await _museumTileRepository.GetAll();
+        var museumTiles = await _museumTileRepository.GetAll();
+        var museumTileDtos = _mapper.Map<List<MuseumTileDto>>(museumTiles);
         return museumTileDtos;
     }
 

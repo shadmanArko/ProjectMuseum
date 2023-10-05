@@ -15,9 +15,12 @@ public class MuseumTileRepository : IMuseumTileRepository
         _mapper = mapper;
     }
 
-    public Task<MuseumTile> Insert(MuseumTile museumTile)
+    public async Task<MuseumTile> Insert(MuseumTile museumTile)
     {
-        throw new NotImplementedException();
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        museumTiles?.Add(museumTile);
+        if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTile;
     }
 
     public Task<MuseumTile> Update(MuseumTile museumTile)
@@ -25,16 +28,17 @@ public class MuseumTileRepository : IMuseumTileRepository
         throw new NotImplementedException();
     }
 
-    public Task<MuseumTile> GetById(string id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<List<MuseumTileDto>> GetAll()
+    public async Task<MuseumTile?> GetById(string id)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();
-        var museumTileDtos = _mapper.Map<List<MuseumTileDto>>(museumTiles);
-        return museumTileDtos;
+        var museumTile = museumTiles!.FirstOrDefault(tile => tile.Id == id);
+        return museumTile;
+    }
+
+    public async Task<List<MuseumTile>?> GetAll()
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        return museumTiles;
     }
 
     public Task<MuseumTile> Delete()

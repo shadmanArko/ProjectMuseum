@@ -35,4 +35,18 @@ public class MuseumTileController : ControllerBase
         var newMuseumTileDto = await _museumTileService.InsertMuseumTile(museumTileDto);
         return Ok(newMuseumTileDto);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateMuseumTile(string id, [FromBody]MuseumTileDto museumTileDto)
+    {
+        var updatedMuseumTileDto = await _museumTileService.UpdateMuseumTileById(id, museumTileDto);
+        return Ok(updatedMuseumTileDto);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteMuseumTile(string id)
+    {
+        var museumTileDto = await _museumTileService.DeleteMuseumTileById(id);
+        return Ok(museumTileDto);
+    }
 }

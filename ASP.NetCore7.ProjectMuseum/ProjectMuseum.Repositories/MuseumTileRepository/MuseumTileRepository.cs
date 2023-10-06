@@ -23,9 +23,19 @@ public class MuseumTileRepository : IMuseumTileRepository
         return museumTile;
     }
 
-    public Task<MuseumTile> Update(MuseumTile museumTile)
+    public async Task<MuseumTile> Update(string id, MuseumTile museumTile)
     {
-        throw new NotImplementedException();
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        var museumTileToUpdate = museumTiles!.FirstOrDefault(tile => tile.Id == id);
+        if (museumTileToUpdate != null)
+        {
+            museumTileToUpdate.Decoration = museumTile.Decoration;
+            museumTileToUpdate.Flooring = museumTile.Flooring;
+            museumTileToUpdate.XPosition = museumTile.XPosition;
+            museumTileToUpdate.YPosition = museumTile.YPosition;
+        }
+        if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTile;
     }
 
     public async Task<MuseumTile?> GetById(string id)
@@ -41,8 +51,12 @@ public class MuseumTileRepository : IMuseumTileRepository
         return museumTiles;
     }
 
-    public Task<MuseumTile> Delete()
+    public async Task<MuseumTile?> Delete(string id)
     {
-        throw new NotImplementedException();
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        var museumTile = museumTiles!.FirstOrDefault(tile => tile.Id == id);
+        if (museumTile != null) museumTiles?.Remove(museumTile);
+        if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTile;
     }
 }

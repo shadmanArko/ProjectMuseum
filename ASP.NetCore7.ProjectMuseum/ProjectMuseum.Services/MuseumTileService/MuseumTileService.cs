@@ -45,8 +45,24 @@ public class MuseumTileService : IMuseumTileService
         return museumTileDtos;
     }
 
-    public Task<MuseumTile> DeleteMuseumTileById()
+    public async Task<MuseumTileDto> UpdateMuseumTileById(string tileId, MuseumTileDto museumTileDto)
     {
-        throw new NotImplementedException();
+        var museumTile = new MuseumTile
+        {
+            Decoration = museumTileDto.Decoration,
+            Flooring = museumTileDto.Flooring,
+            XPosition = museumTileDto.XPosition,
+            YPosition = museumTileDto.YPosition
+        };
+        var updatedMuseumTile = await _museumTileRepository.Update(tileId, museumTile);
+        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(updatedMuseumTile);
+        return newMuseumTileDto;
+    }
+
+    public async Task<MuseumTileDto> DeleteMuseumTileById(string tileId)
+    {
+        var museumTile = await _museumTileRepository.Delete(tileId);
+        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(museumTile);
+        return newMuseumTileDto;
     }
 }

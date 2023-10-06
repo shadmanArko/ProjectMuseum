@@ -8,5 +8,6 @@ public interface IMuseumTileService
     Task<MuseumTileDto> InsertMuseumTile(MuseumTileDto museumTileDto);
     Task<MuseumTileDto?> GetMuseumTileById(string tileId);
     Task<List<MuseumTileDto>> GetAllMuseumTiles();
-    Task<MuseumTile> DeleteMuseumTileById();
+    Task<MuseumTileDto> UpdateMuseumTileById(string tileId, MuseumTileDto museumTileDto);
+    Task<MuseumTileDto> DeleteMuseumTileById(string tileId);
 }

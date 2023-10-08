@@ -5,9 +5,9 @@ namespace ProjectMuseum.Services.MuseumTileService;
 
 public interface IMuseumTileService
 {
-    Task<MuseumTileDto> InsertMuseumTile(MuseumTileDto museumTileDto);
-    Task<MuseumTileDto?> GetMuseumTileById(string tileId);
-    Task<List<MuseumTileDto>> GetAllMuseumTiles();
-    Task<MuseumTileDto> UpdateMuseumTileById(string tileId, MuseumTileDto museumTileDto);
-    Task<MuseumTileDto> DeleteMuseumTileById(string tileId);
+    Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile);
+    Task<MuseumTile?> GetMuseumTileById(string tileId);
+    Task<List<MuseumTile>?> GetAllMuseumTiles();
+    Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile);
+    Task<MuseumTile?> DeleteMuseumTileById(string tileId);
 }

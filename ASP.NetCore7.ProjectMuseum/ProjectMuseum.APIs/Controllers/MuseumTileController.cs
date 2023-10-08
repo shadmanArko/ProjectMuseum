@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.DTOs;
+using ProjectMuseum.Models;
 using ProjectMuseum.Services.MuseumTileService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -18,35 +19,35 @@ public class MuseumTileController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllMuseumTiles()
     {
-        var museumTileDtos =await _museumTileService.GetAllMuseumTiles();
-        return Ok(museumTileDtos);
+        var museumTiles =await _museumTileService.GetAllMuseumTiles();
+        return Ok(museumTiles);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAllMuseumTileById(string id)
     {
-        var museumTileDto = await _museumTileService.GetMuseumTileById(id);
-        return Ok(museumTileDto);
+        var museumTile = await _museumTileService.GetMuseumTileById(id);
+        return Ok(museumTile);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateMuseumTile([FromForm] MuseumTileDto museumTileDto)
+    public async Task<IActionResult> CreateMuseumTile([FromBody] MuseumTile museumTile)
     {
-        var newMuseumTileDto = await _museumTileService.InsertMuseumTile(museumTileDto);
-        return Ok(newMuseumTileDto);
+        var newMuseumTile = await _museumTileService.InsertMuseumTile(museumTile);
+        return Ok(newMuseumTile);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateMuseumTile(string id, [FromBody]MuseumTileDto museumTileDto)
+    public async Task<IActionResult> UpdateMuseumTile(string id, [FromBody]MuseumTile museumTile)
     {
-        var updatedMuseumTileDto = await _museumTileService.UpdateMuseumTileById(id, museumTileDto);
-        return Ok(updatedMuseumTileDto);
+        var updatedMuseumTile = await _museumTileService.UpdateMuseumTileById(id, museumTile);
+        return Ok(updatedMuseumTile);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMuseumTile(string id)
     {
-        var museumTileDto = await _museumTileService.DeleteMuseumTileById(id);
-        return Ok(museumTileDto);
+        var museumTile = await _museumTileService.DeleteMuseumTileById(id);
+        return Ok(museumTile);
     }
 }

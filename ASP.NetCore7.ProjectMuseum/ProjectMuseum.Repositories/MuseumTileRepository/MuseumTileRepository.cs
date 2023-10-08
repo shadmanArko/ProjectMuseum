@@ -26,14 +26,8 @@ public class MuseumTileRepository : IMuseumTileRepository
     public async Task<MuseumTile> Update(string id, MuseumTile museumTile)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();
-        var museumTileToUpdate = museumTiles!.FirstOrDefault(tile => tile.Id == id);
-        if (museumTileToUpdate != null)
-        {
-            museumTileToUpdate.Decoration = museumTile.Decoration;
-            museumTileToUpdate.Flooring = museumTile.Flooring;
-            museumTileToUpdate.XPosition = museumTile.XPosition;
-            museumTileToUpdate.YPosition = museumTile.YPosition;
-        }
+        var museumTileToUpdate = museumTile;
+        museumTileToUpdate.Id = id;
         if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTile;
     }

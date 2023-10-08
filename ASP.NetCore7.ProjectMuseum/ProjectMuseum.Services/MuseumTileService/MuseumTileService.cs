@@ -16,53 +16,35 @@ public class MuseumTileService : IMuseumTileService
         _mapper = mapper;
     }
 
-    public async Task<MuseumTileDto> InsertMuseumTile(MuseumTileDto museumTileDto)
+    public async Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile)
     {
-        var museumTile = new MuseumTile
-        {
-            Id = Guid.NewGuid().ToString(),
-            XPosition = museumTileDto.XPosition,
-            YPosition = museumTileDto.YPosition,
-            Decoration = museumTileDto.Decoration,
-            Flooring = museumTileDto.Flooring
-        };
+        var newMuseumTile = museumTile;
+        newMuseumTile.Id = Guid.NewGuid().ToString();
         await _museumTileRepository.Insert(museumTile);
-        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(museumTile);
-        return newMuseumTileDto;
+        return newMuseumTile;
     }
 
-    public async Task<MuseumTileDto?> GetMuseumTileById(string tileId)
+    public async Task<MuseumTile?> GetMuseumTileById(string tileId)
     {
         var museumTile = await _museumTileRepository.GetById(tileId);
-        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(museumTile);
-        return newMuseumTileDto;
+        return museumTile;
     }
 
-    public async Task<List<MuseumTileDto>> GetAllMuseumTiles()
+    public async Task<List<MuseumTile>?> GetAllMuseumTiles()
     {
         var museumTiles = await _museumTileRepository.GetAll();
-        var museumTileDtos = _mapper.Map<List<MuseumTileDto>>(museumTiles);
-        return museumTileDtos;
+        return museumTiles;
     }
 
-    public async Task<MuseumTileDto> UpdateMuseumTileById(string tileId, MuseumTileDto museumTileDto)
+    public async Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile)
     {
-        var museumTile = new MuseumTile
-        {
-            Decoration = museumTileDto.Decoration,
-            Flooring = museumTileDto.Flooring,
-            XPosition = museumTileDto.XPosition,
-            YPosition = museumTileDto.YPosition
-        };
         var updatedMuseumTile = await _museumTileRepository.Update(tileId, museumTile);
-        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(updatedMuseumTile);
-        return newMuseumTileDto;
+        return updatedMuseumTile;
     }
 
-    public async Task<MuseumTileDto> DeleteMuseumTileById(string tileId)
+    public async Task<MuseumTile?> DeleteMuseumTileById(string tileId)
     {
         var museumTile = await _museumTileRepository.Delete(tileId);
-        var newMuseumTileDto = _mapper.Map<MuseumTileDto>(museumTile);
-        return newMuseumTileDto;
+        return museumTile;
     }
 }

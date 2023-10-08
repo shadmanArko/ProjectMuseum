@@ -15,5 +15,5 @@ func _input(event):
 			zoom += Vector2(zoomSpd, zoomSpd)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom -= Vector2(zoomSpd, zoomSpd)
-			zoom = clamp(zoom, Vector2(Minzoom, Minzoom), Vector2(Maxzoom, Maxzoom))
+		zoom = clamp(zoom, Vector2(Minzoom, Minzoom), Vector2(Maxzoom, Maxzoom))
 

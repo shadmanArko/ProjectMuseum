@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://byejs1rbih0rj"]
+[gd_scene load_steps=4 format=3 uid="uid://byejs1rbih0rj"]
 
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Tests/tile_map.tscn" id="1_lvrix"]
 [ext_resource type="Script" path="res://Tests/TileSpawner.cs" id="2_2q62p"]
+[ext_resource type="Script" path="res://Tests/museum_camera.gd" id="3_3u7wu"]
 
 [node name="museum" type="Node2D"]
 
@@ -15,3 +16,4 @@ numberOfTilesInY = 24
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(574, 314)
+script = ExtResource("3_3u7wu")

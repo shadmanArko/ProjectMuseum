@@ -16,7 +16,7 @@ public partial class TileSpawner : TileMap
         {
             for (int y = originStartsY; y > originStartsY - numberOfTilesInY; y--)
             {
-                SetCell(GD.RandRange(0, 0), new Vector2I( x, y), ZERO, Vector2I.Zero);
+                SetCell(0, new Vector2I( x, y), GD.RandRange(0, 2), Vector2I.Zero);
 				GD.Print($"{x}, {y}"); 
             }
         }

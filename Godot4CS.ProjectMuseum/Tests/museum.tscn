@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Tests/tile_map.tscn" id="1_lvrix"]
 [ext_resource type="Script" path="res://Tests/TileSpawner.cs" id="2_2q62p"]
-[ext_resource type="Script" path="res://Tests/museum_camera.gd" id="3_3u7wu"]
+[ext_resource type="Script" path="res://Tests/CameraPanAndZoom.cs" id="3_t4ehu"]
 
 [node name="museum" type="Node2D"]
 
@@ -16,4 +16,6 @@ numberOfTilesInY = 24
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(574, 314)
-script = ExtResource("3_3u7wu")
+script = ExtResource("3_t4ehu")
+zoomSpd = 0.2
+Minzoom = 0.5

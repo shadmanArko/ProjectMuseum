@@ -1,39 +1,36 @@
-// using Godot;
-// using System;
+using Godot;
+using System;
 
-// public partial class CameraPanAndZoom : Camera2D
-// {
-// 	// Zoom parameters
-//     private const float MinZoom = 0.5f;
-//     private const float MaxZoom = 2.0f;
-//     private const float ZoomSpeed = 0.05f;
+public partial class CameraPanAndZoom : Camera2D
+{
+	// Zoom parameters
+    [Export] private float zoomSpd = 0.05f;
+    [Export] private float Minzoom = 0.001f;
+    [Export] private float Maxzoom = 3.0f;
+    [Export] private Vector2 dragSensitivity = new Vector2(1f, 1f);
 
-//     // Pan parameters
-//     private const float PanSpeed = 200.0f;
-//     private Vector2 panPosition;
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseMotion)
+        {
+            if (Input.IsActionPressed("ui_right_click"))
+            {
+                Position -= ((InputEventMouseMotion)@event).Relative * (dragSensitivity / Zoom);
+            }
+        }
 
-//     // Called when the node enters the scene tree for the first time.
-//     public override void _Ready()
-//     {
-//         Input.SetMouseMode(Input.MouseMode.Captured); // Capture the mouse cursor
-//     }
-
-//     // Called every frame
-//     public override void _Process(float delta)
-//     {
-//         // Zooming
-//         float zoomLevel = Zoom;
-//         zoomLevel += Input.GetMouseWheelDelta() * ZoomSpeed;
-//         zoomLevel = Mathf.Clamp(zoomLevel, MinZoom, MaxZoom);
-//         Zoom = zoomLevel;
-
-//         // Panning
-//         if (Input.IsMouseButtonPressed((int)ButtonList.Right))
-//         {
-//             var mouseDelta = -Input.GetMouseMotion() / Zoom;
-//             panPosition += mouseDelta * PanSpeed * delta;
-//         }
-
-//         GlobalPosition = panPosition;
-//     }
-// }
+        if (@event is InputEventMouseButton) // for zooming
+        {
+            var mouseButtonEvent = (InputEventMouseButton)@event;
+            if (Input.IsActionPressed("ui_wheel_up"))
+            {
+                Zoom += new Vector2(zoomSpd, zoomSpd);
+            }
+            else if (Input.IsActionPressed("ui_wheel_down"))
+            {
+                Zoom -= new Vector2(zoomSpd, zoomSpd);
+            }
+            Zoom = new Vector2(Mathf.Clamp(Zoom.X, Minzoom, Maxzoom), Mathf.Clamp(Zoom.Y, Minzoom, Maxzoom));
+        }
+    }
+}

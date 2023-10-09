@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://byejs1rbih0rj"]
+[gd_scene load_steps=6 format=3 uid="uid://byejs1rbih0rj"]
 
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Tests/tile_map.tscn" id="1_lvrix"]
 [ext_resource type="Script" path="res://Tests/TileSpawner.cs" id="2_2q62p"]
-[ext_resource type="Script" path="res://Tests/museum_camera.gd" id="3_3u7wu"]
+[ext_resource type="Script" path="res://Tests/CameraPanAndZoom.cs" id="3_t4ehu"]
+[ext_resource type="PackedScene" uid="uid://sgl77f0jk8fl" path="res://character_body_2d.tscn" id="4_7awcf"]
+[ext_resource type="Script" path="res://CharacterBody2DIsometric.cs" id="5_ds4df"]
 
 [node name="museum" type="Node2D"]
 
@@ -15,5 +17,12 @@ numberOfTilesInX = 20
 numberOfTilesInY = 24
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(574, 314)
-script = ExtResource("3_3u7wu")
+position = Vector2(576, 324)
+script = ExtResource("3_t4ehu")
+zoomSpd = 0.2
+Minzoom = 0.5
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("4_7awcf")]
+position = Vector2(611, 428)
+scale = Vector2(0.155, 0.155)
+script = ExtResource("5_ds4df")

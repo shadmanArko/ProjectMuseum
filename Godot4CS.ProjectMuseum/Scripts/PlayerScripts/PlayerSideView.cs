@@ -38,9 +38,9 @@ public partial class PlayerSideView : CharacterBody2D
 	{
 		var collision = MoveAndCollide(Velocity);
 		if(collision == null) return;
-        
+		
 		Velocity = Vector2.Zero;
-        
+		
 		GD.Print($"After collision velocity = {Velocity}");
 		var inverseDirection = collision.GetNormal();
 		var collidedObject = collision.GetColliderShape();
@@ -48,7 +48,7 @@ public partial class PlayerSideView : CharacterBody2D
 		inverseVelocity = inverseVelocity.Lerp(inverseVelocity, _interpolationTime);
 		Velocity = inverseVelocity;
 		GD.Print($"Inverse velocity {Velocity}");
-        
+		
 		// var cell = collision.GetScript();
 		// if(cell.Obj == null)
 		// 	GD.Print("Cell is null");

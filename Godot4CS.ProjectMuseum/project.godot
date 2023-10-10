@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/SideView.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://Tests/DragAndDrop/game_manager.gd"
+
 [display]
 
 window/size/mode=3

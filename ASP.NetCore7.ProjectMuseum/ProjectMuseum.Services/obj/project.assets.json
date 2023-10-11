@@ -64,70 +64,6 @@
           "bin/placeholder/ProjectMuseum.Repositories.dll": {}
         }
       }
-    },
-    "net7.0/osx-x64": {
-      "AutoMapper/12.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.7.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.CSharp/4.7.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/_._": {}
-        }
-      },
-      "ProjectMuseum.DTOs/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "compile": {
-          "bin/placeholder/ProjectMuseum.DTOs.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ProjectMuseum.DTOs.dll": {}
-        }
-      },
-      "ProjectMuseum.Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "ProjectMuseum.DTOs": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/ProjectMuseum.Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ProjectMuseum.Models.dll": {}
-        }
-      },
-      "ProjectMuseum.Repositories/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "AutoMapper": "12.0.1",
-          "ProjectMuseum.Models": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/ProjectMuseum.Repositories.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ProjectMuseum.Repositories.dll": {}
-        }
-      }
     }
   },
   "libraries": {
@@ -309,11 +245,6 @@
           }
         },
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
-      }
-    },
-    "runtimes": {
-      "osx-x64": {
-        "#import": []
       }
     }
   }

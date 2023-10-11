@@ -1,13 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcxa10qjiqp81"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerScripts/PlayerSideView.cs" id="1_chsp7"]
-[ext_resource type="Texture2D" uid="uid://ddora4xlqxmwi" path="res://Sprites/player_rocket-removebg-preview.png" id="2_dljyc"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/PlayerSideView.cs" id="1_m2pna"]
+[ext_resource type="Texture2D" uid="uid://ddora4xlqxmwi" path="res://Sprites/player_rocket-removebg-preview.png" id="2_1dxw1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_82gg3"]
 size = Vector2(332, 475)
 
 [node name="playerSideView" type="CharacterBody2D"]
-script = ExtResource("1_chsp7")
+script = ExtResource("1_m2pna")
+_acceleration = 100
 _deceleration = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -16,4 +17,7 @@ shape = SubResource("RectangleShape2D_82gg3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 2
-texture = ExtResource("2_dljyc")
+texture = ExtResource("2_1dxw1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.2, 0.2)

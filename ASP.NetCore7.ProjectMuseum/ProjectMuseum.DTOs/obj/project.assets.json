@@ -1,33 +1,31 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {},
-    "net7.0/osx-x64": {}
+    "net7.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
     "net7.0": []
   },
   "packageFolders": {
-    "/Users/redthorninteractive/.nuget/packages/": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj",
+      "projectUniqueName": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj",
       "projectName": "ProjectMuseum.DTOs",
-      "projectPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj",
-      "packagesPath": "/Users/redthorninteractive/.nuget/packages/",
-      "outputPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/obj/",
+      "projectPath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/redthorninteractive/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -61,12 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
-      }
-    },
-    "runtimes": {
-      "osx-x64": {
-        "#import": []
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

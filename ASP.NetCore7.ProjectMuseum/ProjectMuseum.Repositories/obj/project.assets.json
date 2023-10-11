@@ -50,56 +50,6 @@
           "bin/placeholder/ProjectMuseum.Models.dll": {}
         }
       }
-    },
-    "net7.0/osx-x64": {
-      "AutoMapper/12.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.7.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.CSharp/4.7.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/_._": {}
-        }
-      },
-      "ProjectMuseum.DTOs/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "compile": {
-          "bin/placeholder/ProjectMuseum.DTOs.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ProjectMuseum.DTOs.dll": {}
-        }
-      },
-      "ProjectMuseum.Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "ProjectMuseum.DTOs": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/ProjectMuseum.Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ProjectMuseum.Models.dll": {}
-        }
-      }
     }
   },
   "libraries": {
@@ -205,33 +155,32 @@
     ]
   },
   "packageFolders": {
-    "/Users/redthorninteractive/.nuget/packages/": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Repositories/ProjectMuseum.Repositories.csproj",
+      "projectUniqueName": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.Repositories\\ProjectMuseum.Repositories.csproj",
       "projectName": "ProjectMuseum.Repositories",
-      "projectPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Repositories/ProjectMuseum.Repositories.csproj",
-      "packagesPath": "/Users/redthorninteractive/.nuget/packages/",
-      "outputPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Repositories/obj/",
+      "projectPath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.Repositories\\ProjectMuseum.Repositories.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/redthorninteractive/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/ProjectMuseum.Models.csproj": {
-              "projectPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Models/ProjectMuseum.Models.csproj"
+            "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.Models\\ProjectMuseum.Models.csproj": {
+              "projectPath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.Models\\ProjectMuseum.Models.csproj"
             }
           }
         }
@@ -267,12 +216,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
-      }
-    },
-    "runtimes": {
-      "osx-x64": {
-        "#import": []
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

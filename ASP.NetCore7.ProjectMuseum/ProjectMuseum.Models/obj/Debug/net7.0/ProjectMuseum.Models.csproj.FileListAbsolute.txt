@@ -28,3 +28,18 @@ C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCo
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\refint\ProjectMuseum.Models.dll
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.pdb
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ref\ProjectMuseum.Models.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\bin\Debug\net7.0\ProjectMuseum.Models.deps.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\bin\Debug\net7.0\ProjectMuseum.Models.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\bin\Debug\net7.0\ProjectMuseum.Models.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\bin\Debug\net7.0\ProjectMuseum.DTOs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\bin\Debug\net7.0\ProjectMuseum.DTOs.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.csproj.AssemblyReference.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.GeneratedMSBuildEditorConfig.editorconfig
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.AssemblyInfoInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.AssemblyInfo.cs
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.csproj.CoreCompileInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.csproj.CopyComplete
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\refint\ProjectMuseum.Models.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ProjectMuseum.Models.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\obj\Debug\net7.0\ref\ProjectMuseum.Models.dll

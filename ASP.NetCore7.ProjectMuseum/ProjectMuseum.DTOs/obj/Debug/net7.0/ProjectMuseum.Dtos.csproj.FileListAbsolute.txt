@@ -21,3 +21,14 @@ C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCo
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\refint\ProjectMuseum.DTOs.dll
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.pdb
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ref\ProjectMuseum.DTOs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\bin\Debug\net7.0\ProjectMuseum.DTOs.deps.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\bin\Debug\net7.0\ProjectMuseum.DTOs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\bin\Debug\net7.0\ProjectMuseum.DTOs.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.AssemblyInfoInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.AssemblyInfo.cs
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.csproj.CoreCompileInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\refint\ProjectMuseum.DTOs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ProjectMuseum.DTOs.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\obj\Debug\net7.0\ref\ProjectMuseum.DTOs.dll

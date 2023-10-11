@@ -36,3 +36,22 @@ C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCo
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\refint\ProjectMuseum.Services.dll
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.pdb
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ref\ProjectMuseum.Services.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.Services.deps.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.Services.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.Services.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.DTOs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.Models.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.Repositories.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.DTOs.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.Models.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\bin\Debug\net7.0\ProjectMuseum.Repositories.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.csproj.AssemblyReference.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.GeneratedMSBuildEditorConfig.editorconfig
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.AssemblyInfoInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.AssemblyInfo.cs
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.csproj.CoreCompileInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.csproj.CopyComplete
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\refint\ProjectMuseum.Services.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ProjectMuseum.Services.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Services\obj\Debug\net7.0\ref\ProjectMuseum.Services.dll

@@ -86,3 +86,47 @@ C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCo
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.pdb
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.genruntimeconfig.cache
 C:\Users\User\Documents\_Work_Dont Touch\_GODOT Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ref\ProjectMuseum.APIs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\appsettings.Development.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\appsettings.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\Dummy Data Folder\museumTile.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.APIs.exe
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.APIs.deps.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.APIs.runtimeconfig.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.APIs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.APIs.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\AutoMapper.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\Microsoft.OpenApi.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.DTOs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.Models.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.Repositories.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.Services.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.DTOs.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.Models.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.Repositories.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\bin\Debug\net7.0\ProjectMuseum.Services.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.csproj.AssemblyReference.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.GeneratedMSBuildEditorConfig.editorconfig
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.AssemblyInfoInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.AssemblyInfo.cs
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.csproj.CoreCompileInputs.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.MvcApplicationPartsAssemblyInfo.cs
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.MvcApplicationPartsAssemblyInfo.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\staticwebassets\msbuild.ProjectMuseum.APIs.Microsoft.AspNetCore.StaticWebAssets.props
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\staticwebassets\msbuild.build.ProjectMuseum.APIs.props
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ProjectMuseum.APIs.props
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.ProjectMuseum.APIs.props
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\staticwebassets.pack.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\staticwebassets.build.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\staticwebassets.development.json
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\scopedcss\bundle\ProjectMuseum.APIs.styles.css
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.csproj.CopyComplete
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\refint\ProjectMuseum.APIs.dll
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.pdb
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ProjectMuseum.APIs.genruntimeconfig.cache
+E:\Godot Projects\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.APIs\obj\Debug\net7.0\ref\ProjectMuseum.APIs.dll

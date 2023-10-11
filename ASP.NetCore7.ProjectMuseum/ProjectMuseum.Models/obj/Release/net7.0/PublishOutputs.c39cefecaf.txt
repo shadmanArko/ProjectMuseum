@@ -1,5 +1,0 @@
-/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Models.dll
-/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Models.deps.json
-/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Models.pdb
-/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.DTOs.dll
-/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.DTOs.pdb

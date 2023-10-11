@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../buildMultiTargeting/ProjectMuseum.APIs.props" />
-</Project>

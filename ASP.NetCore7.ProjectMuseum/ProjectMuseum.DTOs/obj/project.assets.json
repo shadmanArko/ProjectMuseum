@@ -8,24 +8,25 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {}
+    "/Users/redthorninteractive/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj",
+      "projectUniqueName": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj",
       "projectName": "ProjectMuseum.DTOs",
-      "projectPath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\ProjectMuseum.DTOs.csproj",
-      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.DTOs\\obj\\",
+      "projectPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/ProjectMuseum.DTOs.csproj",
+      "packagesPath": "/Users/redthorninteractive/.nuget/packages/",
+      "outputPath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.DTOs/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/redthorninteractive/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -59,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
       }
     }
   }

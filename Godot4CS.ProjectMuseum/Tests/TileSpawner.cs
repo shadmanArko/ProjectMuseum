@@ -13,8 +13,8 @@ public partial class TileSpawner : TileMap
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
-		var httpRequest = new HttpRequest();
-		AddChild(httpRequest);
+		
+		
 		
 		for (int x = originStartsX; x > originStartsX - numberOfTilesInX; x--)
 		{
@@ -22,7 +22,6 @@ public partial class TileSpawner : TileMap
 			{
 				var tileSetId = GD.RandRange(0, 2); 
 				SetCell(0, new Vector2I( x, y), tileSetId, Vector2I.Zero);
-				await Task.Delay(1000);
 				string body = Json.Stringify(new Godot.Collections.Dictionary
 				{
 					{ "id", "string" },
@@ -35,10 +34,12 @@ public partial class TileSpawner : TileMap
 					{"wallId", "string"},
 					{"exhibitId", "string"},
 					{"hangingLightId", "string"}
-					
 				});
-				Error error = httpRequest.Request("http://localhost:5178/api/MuseumTile", null, HttpClient.Method.Post,body);
-
+				var httpRequest = new HttpRequest();
+				AddChild(httpRequest);
+				string[] headers = { "Content-Type: application/json"};
+				Error error = httpRequest.Request("http://localhost:5178/api/MuseumTile", headers, HttpClient.Method.Post,body);
+				await Task.Delay(10);
 				if (error != Error.Ok)
 				{
 					GD.PushError("An error occurred in the HTTP request.");

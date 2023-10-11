@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "BCmZKkfS/p0Hy1i/FkarjFh/wnKoEsG78UAHI8fSv0KKgO2ji2M63+ZRRkk9tnSG6lylpIJd5JDCnSrOPqvG1g==",
+  "dgSpecHash": "JgHyMU4hBeHw1BLHkWfgn8SVzupsTJTsnLovABShxA0KgSHzDdJ+2fZ2AyDRFK340ZFLXVmV0g/Z6sCnBj357g==",
   "success": true,
-  "projectFilePath": "E:\\Godot Projects\\ProjectMuseum\\ASP.NetCore7.ProjectMuseum\\ProjectMuseum.Repositories\\ProjectMuseum.Repositories.csproj",
+  "projectFilePath": "/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.Repositories/ProjectMuseum.Repositories.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\USER\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+    "/Users/redthorninteractive/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/redthorninteractive/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

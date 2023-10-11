@@ -38,16 +38,9 @@ public partial class ProceduralMineGenerator : TileMap
 				//var tilePos = _tileMap.LocalToMap(_grid[x, y].Pos);
 				//_tileMap.SetCell(0,tilePos,4,new Vector2I(6,1));
 				
-				Node newCell = _cellPrefab.Instantiate();
-				var cell = new Cell(new Vector2(x * _cellSize, y * _cellSize), false, false, 3);
-				newCell.Name = $"cell{x}{y}";
-				//var tilePos = _tileMap.LocalToMap(_grid[x, y].Pos);
-				//_tileMap.SetCell(0,tilePos,4,new Vector2I(6,1));
-				GD.Print($"cell generated at ");
-				AddChild(newCell);
-				newCell.Set("position", cell.Pos);
 				
-				_grid[x, y] = cell;
+				
+				_grid[x, y] = InstantiateCell(x,y);
 				
 				GD.Print($"cell instantiated at {_grid[x,y].Pos}");
 			}
@@ -58,13 +51,14 @@ public partial class ProceduralMineGenerator : TileMap
 	
 	private Cell InstantiateCell(int width, int height)
 	{
-		var newCell = _cellPrefab.Instantiate();
-		var cell = newCell as Cell;
-		cell = new Cell(new Vector2(width * _cellSize, height * _cellSize), false, false,
-			_randomNumberGenerator.RandiRange(1, 3));
+		Node newCell = _cellPrefab.Instantiate();
+		var cell = new Cell(new Vector2(width * _cellSize, height * _cellSize), false, false, 3);
 		newCell.Name = $"cell{width}{height}";
-		GD.Print($"cell generated at {cell.Pos}");
+		//var tilePos = _tileMap.LocalToMap(_grid[x, y].Pos);
+		//_tileMap.SetCell(0,tilePos,4,new Vector2I(6,1));
+		GD.Print($"cell generated at ");
 		AddChild(newCell);
+		newCell.Set("position", cell.Pos);
 		return cell;
 	}
 
@@ -74,7 +68,7 @@ public partial class ProceduralMineGenerator : TileMap
 		AddChild(temp);
 		var playerScript = temp as PlayerSideView;
 		GD.Print($"playerScript null = {playerScript is null}");
-		GD.Print(playerScript._maxSpeed);
+		//GD.Print(playerScript._maxSpeed);
 		playerScript.Position = _grid[0, 0].Pos;
 		GD.Print("Instantiated player at "+_grid[0,0].Pos);
 	}

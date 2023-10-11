@@ -5,6 +5,8 @@ using ProjectMuseum.Services.MuseumTileService;
 
 var builder = WebApplication.CreateBuilder(args);
 string dataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json");
+//string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
+
 
 // Add services to the container.
 

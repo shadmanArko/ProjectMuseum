@@ -1,0 +1,23 @@
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.APIs
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/appsettings.Development.json
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/appsettings.json
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/Dummy Data Folder/museumTile.json
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.APIs.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.APIs.deps.json
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.APIs.runtimeconfig.json
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.APIs.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/AutoMapper.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/Microsoft.AspNetCore.OpenApi.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/Microsoft.OpenApi.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/Swashbuckle.AspNetCore.Swagger.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.DTOs.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.Models.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.Repositories.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.Services.dll
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.DTOs.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.Models.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.Repositories.pdb
+/Users/redthorninteractive/Documents/Projects/Game Development Projects/Godot/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/osx-x64/publish/ProjectMuseum.Services.pdb

@@ -8,7 +8,7 @@ func _ready():
 	http_request.request_completed.connect(self._on_http_request_request_completed)
 
 	# Perform a GET request. The URL below returns JSON as of writing.
-	var error = http_request.request("http://localhost:5178/api/MuseumTile")
+	var error = http_request.request("http://localhost:5000/api/MuseumTile")
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
@@ -24,10 +24,10 @@ func _ready():
 	  "tileAtlasCoOrdinateY": 0,
 	  "layer": 0,
 	  "flooring": "GoDotFlooring",
-	  "decoration": "GG"
+	  "decoration": "inBuild godot"
 	}
 	var body = JSON.new().stringify(data)
-	error = http_request.request("http://localhost:5178/api/MuseumTile", [], HTTPClient.METHOD_POST, body)
+	error = http_request.request("http://localhost:5000/api/MuseumTile", [], HTTPClient.METHOD_POST, body)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
@@ -36,6 +36,7 @@ func _on_putDataOnAPI_button_up():
 
 
 	var http_request = HTTPRequest.new()
+	var flooring = "Godot 2nd test"
 	add_child(http_request)
 	var data = {
 	  "id": "string",
@@ -45,13 +46,13 @@ func _on_putDataOnAPI_button_up():
 	  "tileAtlasCoOrdinateX": 0,
 	  "tileAtlasCoOrdinateY": 0,
 	  "layer": 0,
-	  "flooring": "GoDotFlooring",
-	  "decoration": "GG"
+	  "flooring": flooring,
+	  "decoration": "inBuild godot"
 	}
 	
 	var query = JSON.stringify(data);
 	var header = ["Content-Type: application/json"];
-	var error = http_request.request("http://localhost:5178/api/MuseumTile", header, HTTPClient.METHOD_POST,query);
+	var error = http_request.request("http://localhost:5000/api/MuseumTile", header, HTTPClient.METHOD_POST,query);
 	
 
 

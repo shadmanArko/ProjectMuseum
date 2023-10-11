@@ -1,0 +1,23 @@
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.APIs
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/appsettings.Development.json
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/appsettings.json
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/Dummy Data Folder/museumTile.json
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.APIs.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.APIs.deps.json
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.APIs.runtimeconfig.json
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.APIs.pdb
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/AutoMapper.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/Microsoft.AspNetCore.OpenApi.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/Microsoft.OpenApi.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/Swashbuckle.AspNetCore.Swagger.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.DTOs.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Models.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Repositories.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Services.dll
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.DTOs.pdb
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Models.pdb
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Repositories.pdb
+/Users/redthorninteractive/Documents/DOTNET Projects/Published Product/Project Museum 01/ProjectMuseum02/ProjectMuseum.Services.pdb

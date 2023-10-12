@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://yh5b6vst1avw"]
+
+[ext_resource type="Script" path="res://Scripts/Cell.cs" id="1_pbrgk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w04tu"]
+
+[node name="Cell" type="RigidBody2D"]
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_pbrgk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_w04tu")

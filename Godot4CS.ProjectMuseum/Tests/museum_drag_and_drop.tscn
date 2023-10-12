@@ -6,11 +6,11 @@
 [ext_resource type="Script" path="res://Tests/CameraPanAndZoom.cs" id="3_wc653"]
 [ext_resource type="PackedScene" uid="uid://sgl77f0jk8fl" path="res://character_body_2d.tscn" id="4_8kb8k"]
 [ext_resource type="Script" path="res://CharacterBody2DIsometric.cs" id="5_ju8yt"]
-[ext_resource type="Texture2D" uid="uid://cqfrqomw1mp8o" path="res://icon.svg" id="6_bde3n"]
+[ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Sprites/Exhibits/Sprite-0006.png" id="7_52501"]
 [ext_resource type="Script" path="res://Tests/DragAndDrop/item.gd" id="7_lrumy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
-size = Vector2(31.9184, 23.5253)
+size = Vector2(9.03596, 4.38426)
 
 [node name="museum" type="Node2D"]
 script = ExtResource("1_eiper")
@@ -35,14 +35,16 @@ scale = Vector2(0.155, 0.155)
 script = ExtResource("5_ju8yt")
 
 [node name="Item" type="Sprite2D" parent="."]
-scale = Vector2(0.205, 0.205)
-texture = ExtResource("6_bde3n")
-centered = false
+position = Vector2(0, -97)
+texture = ExtResource("7_52501")
 script = ExtResource("7_lrumy")
 
 [node name="Area2D" type="Area2D" parent="Item"]
+position = Vector2(-17, -64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item/Area2D"]
-position = Vector2(63.4146, 63.4146)
+position = Vector2(17, 64)
 scale = Vector2(3.2094, 4.56177)
 shape = SubResource("RectangleShape2D_6rwst")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.6, 0.701961, 0)

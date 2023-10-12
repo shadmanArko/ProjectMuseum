@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvpmyuf8myb7g"]
+
+[ext_resource type="PackedScene" uid="uid://bnjcqjjv5m807" path="res://Scenes/MineScenes/mine.tscn" id="1_r1hm3"]
+[ext_resource type="PackedScene" uid="uid://bcxa10qjiqp81" path="res://Scenes/MineScenes/player.tscn" id="2_otmpt"]
+
+[node name="Game" type="Node2D"]
+position = Vector2(5628, 462)
+
+[node name="MineGenerator" parent="." instance=ExtResource("1_r1hm3")]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+_width = 10
+_length = 10
+
+[node name="player" parent="." instance=ExtResource("2_otmpt")]
+position = Vector2(0, -30)
+slide_on_ceiling = false
+_deceleration = 1

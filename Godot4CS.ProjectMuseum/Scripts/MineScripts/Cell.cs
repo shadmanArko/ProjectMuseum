@@ -1,7 +1,7 @@
 
 using Godot;
 
-namespace Godot4CS.ProjectMuseum.Scripts;
+namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
 public class Cell
 {

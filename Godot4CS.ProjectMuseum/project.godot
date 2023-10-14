@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://Tests/DragAndDrop/game_manager.gd"
+DependencyInjectionNode="*res://Scripts/Dependency Injection/DependencyInjectionNode.cs"
 
 [display]
 

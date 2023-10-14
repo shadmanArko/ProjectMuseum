@@ -8,6 +8,7 @@ public class DependencyRegistrationNode : Node, IServicesConfigurator
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        throw new System.NotImplementedException();
+        services.AddGodotServices();
+        //services.AddTransient<IService, Service>();
     }
 }

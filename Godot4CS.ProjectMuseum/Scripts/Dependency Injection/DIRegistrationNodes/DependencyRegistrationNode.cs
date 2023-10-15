@@ -9,8 +9,8 @@ public class DependencyRegistrationNode : Node, IServicesConfigurator
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddGodotServices();
-        services.AddSingleton<>();
-        services.AddTransient<>();
+        // services.AddSingleton<>();
+        // services.AddTransient<>();
         //services.AddTransient<IService, Service>();
     }
 }

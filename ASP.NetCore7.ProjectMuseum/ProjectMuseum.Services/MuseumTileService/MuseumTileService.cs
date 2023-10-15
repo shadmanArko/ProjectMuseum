@@ -8,12 +8,12 @@ namespace ProjectMuseum.Services.MuseumTileService;
 public class MuseumTileService : IMuseumTileService
 {
     private readonly IMuseumTileRepository _museumTileRepository;
-    private readonly IMapper _mapper;
+    private  MuseumTileDataGenerator _museumTileDataGenerator;
 
-    public MuseumTileService(IMuseumTileRepository museumTileRepository, IMapper mapper)
+    public MuseumTileService(IMuseumTileRepository museumTileRepository)
     {
         _museumTileRepository = museumTileRepository;
-        _mapper = mapper;
+        _museumTileDataGenerator = new MuseumTileDataGenerator(_museumTileRepository);
     }
 
     public async Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile)
@@ -46,5 +46,10 @@ public class MuseumTileService : IMuseumTileService
     {
         var museumTile = await _museumTileRepository.Delete(tileId);
         return museumTile;
+    }
+
+    public async Task<List<MuseumTile>?> GenerateMuseumTileForNewGame()
+    {
+       return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();
     }
 }

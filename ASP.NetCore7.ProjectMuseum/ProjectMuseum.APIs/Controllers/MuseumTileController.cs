@@ -16,10 +16,17 @@ public class MuseumTileController : ControllerBase
         _museumTileService = museumTileService;
     }
     
-    [HttpGet]
+    [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
     {
         var museumTiles =await _museumTileService.GetAllMuseumTiles();
+        return Ok(museumTiles);
+    }
+    
+    [HttpGet("GetAllMuseumTilesForNewGame")]
+    public async Task<IActionResult> GetAllMuseumTilesForNewGame()
+    {
+        var museumTiles =await _museumTileService.GenerateMuseumTileForNewGame();
         return Ok(museumTiles);
     }
 

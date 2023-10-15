@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Godot4CS.ProjectMuseum"
-run/main_scene="res://Scenes/SideView.tscn"
+run/main_scene="res://Tests/museum.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameManager="*res://Tests/DragAndDrop/game_manager.gd"
+DependencyInjectionNode="*res://Scripts/Dependency Injection/Base/DependencyInjectionNode.cs"
 
 [display]
 

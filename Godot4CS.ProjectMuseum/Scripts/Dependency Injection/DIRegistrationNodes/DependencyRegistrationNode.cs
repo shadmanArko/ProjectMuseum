@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Dependency_Injection.DIRegistrationNodes;
 
-public class DependencyRegistrationNode : Node, IServicesConfigurator
+public partial class DependencyRegistrationNode : Node, IServicesConfigurator
 {
     public void ConfigureServices(IServiceCollection services)
     {

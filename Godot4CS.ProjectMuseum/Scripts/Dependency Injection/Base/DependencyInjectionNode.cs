@@ -2,7 +2,7 @@ using Godot.DependencyInjection;
 
 namespace Godot4CS.ProjectMuseum.Scripts;
 
-public class DependencyInjectionNode : DependencyInjectionManagerNode
+public partial class DependencyInjectionNode : DependencyInjectionManagerNode
 {
     
 }

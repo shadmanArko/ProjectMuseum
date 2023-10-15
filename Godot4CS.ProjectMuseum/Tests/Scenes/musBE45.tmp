@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=11 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Tests/DragAndDrop/museum.gd" id="1_jjlmf"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Tests/tile_map.tscn" id="2_6134k"]
@@ -6,11 +6,12 @@
 [ext_resource type="Script" path="res://Tests/CameraPanAndZoom.cs" id="4_wdbbp"]
 [ext_resource type="PackedScene" uid="uid://sgl77f0jk8fl" path="res://character_body_2d.tscn" id="5_hrpp3"]
 [ext_resource type="Script" path="res://CharacterBody2DIsometric.cs" id="6_ofl4w"]
-[ext_resource type="PackedScene" uid="uid://cv15qeuxawq6p" path="res://item_1.tscn" id="7_f41yu"]
-[ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Tests/museum_ui.tscn" id="9_o4qrk"]
+[ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Sprites/Exhibits/Sprite-0006.png" id="7_xbvng"]
+[ext_resource type="Script" path="res://Tests/DragAndDrop/item.gd" id="8_e3vpp"]
+[ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Sprites/Exhibits/Sprite-0009.png" id="9_ownnh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfckc"]
-size = Vector2(116.129, 116.129)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
+size = Vector2(16.514, 6.13797)
 
 [node name="museum" type="Node2D"]
 script = ExtResource("1_jjlmf")
@@ -34,12 +35,36 @@ position = Vector2(611, 428)
 scale = Vector2(0.155, 0.155)
 script = ExtResource("6_ofl4w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_bfckc")
+[node name="Item1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(21, -125)
+texture = ExtResource("7_xbvng")
+offset = Vector2(0, -4)
+script = ExtResource("8_e3vpp")
 
-[node name="Item1" parent="." instance=ExtResource("7_f41yu")]
+[node name="Area2D" type="Area2D" parent="Item1"]
+position = Vector2(-17, -64)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item1/Area2D"]
+position = Vector2(17, 60)
+scale = Vector2(3.2094, 4.56177)
+shape = SubResource("RectangleShape2D_6rwst")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource("9_o4qrk")]
+[node name="Item2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-38, -123)
+texture = ExtResource("9_ownnh")
+offset = Vector2(0, -4)
+script = ExtResource("8_e3vpp")
+
+[node name="Area2D" type="Area2D" parent="Item2"]
+position = Vector2(-17, -64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item2/Area2D"]
+position = Vector2(15.5, 60)
+scale = Vector2(3.2094, 4.56177)
+shape = SubResource("RectangleShape2D_6rwst")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.6, 0.701961, 0)

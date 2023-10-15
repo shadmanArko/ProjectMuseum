@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerSideView : CharacterBody2D
+public partial class PlayerController : CharacterBody2D
 {
 	[Export] private int _maxSpeed = 100;
 	[Export] private int _acceleration = 20;
@@ -8,6 +8,9 @@ public partial class PlayerSideView : CharacterBody2D
 	
 	[Export] private int _deceleration = 5;
 	[Export] private float _interpolationTime = 0.5f;
+    
+	[Signal]
+	public delegate void OnPlayerCollisionEventHandler(KinematicCollision2D collision2D);
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -38,7 +41,7 @@ public partial class PlayerSideView : CharacterBody2D
 	{
 		var collision = MoveAndCollide(Velocity);
 		if(collision == null) return;
-		
+		EmitSignal("OnPlayerCollision", collision);
 		Velocity = Vector2.Zero;
 		
 		GD.Print($"After collision velocity = {Velocity}");
@@ -48,15 +51,6 @@ public partial class PlayerSideView : CharacterBody2D
 		inverseVelocity = inverseVelocity.Lerp(inverseVelocity, _interpolationTime);
 		Velocity = inverseVelocity;
 		GD.Print($"Inverse velocity {Velocity}");
-		
-		// var cell = collision.GetScript();
-		// if(cell.Obj == null)
-		// 	GD.Print("Cell is null");
-		// else
-		// {
-		// 	var newCell = (Cell)cell.Obj;
-		// 	GD.Print($"Cell position: {newCell.Pos}, breakStrength: {newCell.BreakStrength}");
-		// }
 	}
 
 

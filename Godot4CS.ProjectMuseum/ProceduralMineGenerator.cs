@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts;
 
@@ -11,22 +12,28 @@ public partial class ProceduralMineGenerator : TileMap
 	[Export] private TileMap _tileMap;
 	[Export] private int _totalTiles;
 
-	//[Export] private float _noiseScale = 0.1f;
-
 	[Export] private int _cellSize = 64;
 	[Export] private int _width = 25;
 	[Export] private int _length = 32; //must be 64
 	
 	private PackedScene _cellPrefab;
-	[Export] private string _cellPath; 
+	[Export] private string _cellPath;
+
+	[Export] private PlayerController _playerController;
 
 	private RandomNumberGenerator _randomNumberGenerator = new();
 
 	[Export] private float _cellBreakThreshold = 0.9f;
 	public override void _Ready()
 	{
+		_playerController.OnPlayerCollision += CheckIfColliderIsTileMap;
 		_cellPrefab = (PackedScene)ResourceLoader.Load(_cellPath);
 		GenerateGrid();
+	}
+
+	private void Print(KinematicCollision2D collision2D)
+	{
+		GD.Print("Signal called successfully");
 	}
 
 	private void GenerateGrid()
@@ -53,5 +60,21 @@ public partial class ProceduralMineGenerator : TileMap
 		};
 
 		return cell;
+	}
+
+	private void CheckIfColliderIsTileMap(KinematicCollision2D collision2D)
+	{
+		//var collider = collision2D.GetCollider();
+		if (collision2D.GetCollider() == _tileMap)
+		{
+			var tilePos = _tileMap.LocalToMap(_playerController.Position);
+			tilePos -= (Vector2I) collision2D.GetNormal();
+			var tile = _tileMap.GetCellSourceId(0, tilePos);
+			if (tile > 0)
+			{
+				GD.Print("Changing tile color");
+				_tileMap.SetCell(0,tilePos,4,new Vector2I(11,1));
+			}
+		}
 	}
 }

@@ -1,0 +1,104 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcxa10qjiqp81"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/PlayerController.cs" id="1_gjetc"]
+[ext_resource type="Texture2D" uid="uid://bdh036gwvfpo4" path="res://Sprites/Player Animations/playerAnimations.png" id="2_5adrl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_82gg3"]
+size = Vector2(10, 15)
+
+[sub_resource type="Animation" id="Animation_t7vn8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2ulx2"]
+resource_name = "attack"
+length = 0.55
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_3xsuv"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_tq5uu"]
+resource_name = "run"
+length = 0.55
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2kevo"]
+_data = {
+"RESET": SubResource("Animation_t7vn8"),
+"attack": SubResource("Animation_2ulx2"),
+"idle": SubResource("Animation_3xsuv"),
+"run": SubResource("Animation_tq5uu")
+}
+
+[node name="Player" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_gjetc")
+_deceleration = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_82gg3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_5adrl")
+hframes = 6
+vframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_2kevo")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]

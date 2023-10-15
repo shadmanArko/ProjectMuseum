@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using ProjectMuseum.Models;
 
 public partial class TileSpawner : TileMap
 {
@@ -13,7 +16,10 @@ public partial class TileSpawner : TileMap
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
-		
+		var httpRequest2 = new HttpRequest();
+		var newTileJson = httpRequest2.Request("http://localhost:5178/api/MuseumTile/GetAllMuseumTilesForNewGame").ToString();
+		List<MuseumTile> museumTiles = JsonConverter<>
+			
 		
 		
 		for (int x = originStartsX; x > originStartsX - numberOfTilesInX; x--)

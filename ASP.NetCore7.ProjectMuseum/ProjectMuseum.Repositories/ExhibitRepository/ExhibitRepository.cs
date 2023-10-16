@@ -2,7 +2,7 @@ using ProjectMuseum.Models;
 
 namespace ProjectMuseum.Repositories.ExhibitRepository;
 
-public class ExhibitRepository: IExhibitRepository
+public class ExhibitRepository : IExhibitRepository
 {
     private readonly JsonFileDatabase<Exhibit> _exhibitDatabase;
 

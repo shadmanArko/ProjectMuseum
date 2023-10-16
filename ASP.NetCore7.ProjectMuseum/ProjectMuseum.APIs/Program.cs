@@ -1,5 +1,6 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
+using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Services;
 using ProjectMuseum.Services.MuseumTileService;
@@ -20,6 +21,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFol
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
+builder.Services.AddScoped<IExhibitRepository, ExhibitRepository>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

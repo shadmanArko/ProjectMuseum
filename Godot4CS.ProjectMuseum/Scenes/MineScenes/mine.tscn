@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnjcqjjv5m807"]
+
+[ext_resource type="TileSet" uid="uid://fp1turhp7v3g" path="res://TileMaps/MineWallTileMap.tres" id="1_t2u3l"]
+[ext_resource type="Script" path="res://Scripts/MineScripts/ProceduralMineGenerator.cs" id="2_8xq8q"]
+
+[node name="Mine" type="TileMap" node_paths=PackedStringArray("_tileMap")]
+texture_filter = 1
+tile_set = ExtResource("1_t2u3l")
+collision_animatable = true
+format = 2
+script = ExtResource("2_8xq8q")
+_tileMap = NodePath(".")
+_cellSize = 16
+_width = 33
+_length = 64

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://yh5b6vst1avw"]
 
-[ext_resource type="Script" path="res://Scripts/Cell.cs" id="1_pbrgk"]
+[ext_resource type="Script" path="res://Scripts/MineScripts/Cell.cs" id="1_x2pne"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w04tu"]
 
@@ -8,7 +8,7 @@
 gravity_scale = 0.0
 freeze = true
 freeze_mode = 1
-script = ExtResource("1_pbrgk")
+script = ExtResource("1_x2pne")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_w04tu")

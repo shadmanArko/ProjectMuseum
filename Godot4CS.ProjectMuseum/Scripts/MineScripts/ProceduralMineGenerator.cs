@@ -1,7 +1,6 @@
-using System.Diagnostics;
 using Godot;
-using Godot4CS.ProjectMuseum.Scripts;
 
+namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
 public partial class ProceduralMineGenerator : TileMap
 {
@@ -31,11 +30,6 @@ public partial class ProceduralMineGenerator : TileMap
 		GenerateGrid();
 	}
 
-	private void Print(KinematicCollision2D collision2D)
-	{
-		GD.Print("Signal called successfully");
-	}
-
 	private void GenerateGrid()
 	{
 		_grid = new Cell[_width, _length];
@@ -46,14 +40,15 @@ public partial class ProceduralMineGenerator : TileMap
 			{
 				_grid[x, y] = InstantiateCell(x,y);
 				var tilePos = _tileMap.LocalToMap(_grid[x, y].Pos);
-				_tileMap.SetCell(0,tilePos,4,new Vector2I(6,1));
+				_tileMap.SetCell(0,tilePos,1,new Vector2I(0,0));
+				GD.Print("Generating Cells");
 			}
 		}
 	}
 
 	private Cell InstantiateCell(int width, int height)
 	{
-		var breakStrength = _randomNumberGenerator.RandiRange(1, 3);
+		var breakStrength = 3;
 		var cell = new Cell(false, false, breakStrength)
 		{
 			Pos = new Vector2(width * _cellSize, height * _cellSize)
@@ -64,17 +59,38 @@ public partial class ProceduralMineGenerator : TileMap
 
 	private void CheckIfColliderIsTileMap(KinematicCollision2D collision2D)
 	{
-		//var collider = collision2D.GetCollider();
+		GD.Print("inside check if collider is tilemap");
 		if (collision2D.GetCollider() == _tileMap)
 		{
 			var tilePos = _tileMap.LocalToMap(_playerController.Position);
-			tilePos -= (Vector2I) collision2D.GetNormal();
+			tilePos -= new Vector2I(Mathf.RoundToInt(collision2D.GetNormal().X),
+				Mathf.RoundToInt(collision2D.GetNormal().Y));
 			var tile = _tileMap.GetCellSourceId(0, tilePos);
 			if (tile > 0)
 			{
-				GD.Print("Changing tile color");
-				_tileMap.SetCell(0,tilePos,4,new Vector2I(11,1));
+				GD.Print($"Co-ordinates: {tilePos.X} {tilePos.Y}");
+				BreakCell(tilePos);
 			}
 		}
+	}
+
+	private void BreakCell(Vector2I tilePos)
+	{
+		var cell = _grid[tilePos.X, tilePos.Y];
+		GD.Print($"cell strength: {cell.BreakStrength}");
+		_grid[tilePos.X, tilePos.Y].BreakStrength--;
+		if (cell.BreakStrength >= 2)
+		{
+			_tileMap.SetCell(0,tilePos,1,new Vector2I(1,0));
+		}
+		else if (cell.BreakStrength >= 1)
+		{
+			_tileMap.SetCell(0,tilePos,1,new Vector2I(2,0));
+		}
+		else
+		{
+			_tileMap.SetCell(0,tilePos,1,new Vector2I(3,0));
+		}
+		
 	}
 }

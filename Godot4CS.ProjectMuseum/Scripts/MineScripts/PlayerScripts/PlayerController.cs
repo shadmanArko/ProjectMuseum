@@ -2,6 +2,9 @@ using Godot;
 
 public partial class PlayerController : CharacterBody2D
 {
+	[Export] private Sprite2D _sprite;
+	[Export] private AnimationPlayer _animationPlayer;
+	
 	[Export] private int _maxSpeed = 100;
 	[Export] private int _acceleration = 20;
 	[Export] private int _friction = 100;
@@ -15,6 +18,13 @@ public partial class PlayerController : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		PlayerMovement(delta);
+	}
+
+	private bool PlayerAttack()
+	{
+		var input = Input.IsActionJustReleased("attack");
+		if(input) PlayAnimation("attack");
+		return input;
 	}
 
 	private void PlayerMovement(double delta)
@@ -33,28 +43,47 @@ public partial class PlayerController : CharacterBody2D
 			Velocity = Velocity.LimitLength(_maxSpeed);
 		}
 
-		//MoveAndSlide();
+		SetAnimation();
 		DetectCollision();
+	}
+	
+	private void SetAnimation()
+	{
+		var tempVelocity = Velocity.Normalized();
+		if(tempVelocity.X == 0 && !PlayerAttack())
+			PlayAnimation("idle");
+		else
+		{
+			switch (tempVelocity.X)
+			{
+				case > 0:
+					_sprite.FlipH = false;
+					PlayAnimation("run");
+					break;
+				case < 0:
+					_sprite.FlipH = true;
+					PlayAnimation("run");
+					break;
+				default:
+					_sprite.FlipH = _sprite.FlipH;
+					break;
+			}
+		}
+	}
+
+	private void PlayAnimation(string state)
+	{
+		_animationPlayer.Play(state);
 	}
 	
 	private void DetectCollision()
 	{
 		var collision = MoveAndCollide(Velocity);
 		if(collision == null) return;
-		EmitSignal("OnPlayerCollision", collision);
-		Velocity = Vector2.Zero;
-		
-		GD.Print($"After collision velocity = {Velocity}");
-		var inverseDirection = collision.GetNormal();
-		var collidedObject = collision.GetColliderShape();
-		var inverseVelocity = inverseDirection * _deceleration;
-		inverseVelocity = inverseVelocity.Lerp(inverseVelocity, _interpolationTime);
-		Velocity = inverseVelocity;
-		GD.Print($"Inverse velocity {Velocity}");
+		if(PlayerAttack())
+            EmitSignal("OnPlayerCollision", collision);
 	}
-
-
-
+    
 	private Vector2 GetInputKeyboard()
 	{
 		var motion = new Vector2

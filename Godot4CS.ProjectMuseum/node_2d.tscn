@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddht2o4c4jnal"]
 
-[ext_resource type="Script" path="res://Scripts/Cell.cs" id="1_2bcg6"]
+[ext_resource type="Script" path="res://Scripts/MineScripts/Cell.cs" id="1_2bcg6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hexaf"]
 

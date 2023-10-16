@@ -1,10 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://bcxa10qjiqp81"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerScripts/PlayerController.cs" id="1_gjetc"]
+[ext_resource type="Script" path="res://Scripts/MineScripts/PlayerScripts/PlayerController.cs" id="1_ju0lo"]
 [ext_resource type="Texture2D" uid="uid://bdh036gwvfpo4" path="res://Sprites/Player Animations/playerAnimations.png" id="2_5adrl"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_82gg3"]
-size = Vector2(10, 15)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5pbfi"]
+radius = 6.0
+height = 13.0
 
 [sub_resource type="Animation" id="Animation_t7vn8"]
 length = 0.001
@@ -23,7 +24,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2ulx2"]
 resource_name = "attack"
-length = 0.55
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -80,14 +81,18 @@ _data = {
 "run": SubResource("Animation_tq5uu")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer")]
 texture_filter = 1
-script = ExtResource("1_gjetc")
-_deceleration = 3
+script = ExtResource("1_ju0lo")
+_sprite = NodePath("Sprite2D")
+_animationPlayer = NodePath("AnimationPlayer")
+_acceleration = 5
+_friction = 200
+_deceleration = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_82gg3")
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_5pbfi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -102,3 +107,4 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)

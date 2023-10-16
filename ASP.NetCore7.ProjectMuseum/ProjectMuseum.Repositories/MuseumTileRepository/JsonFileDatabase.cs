@@ -1,45 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace ProjectMuseum.Repositories.MuseumTileRepository;
-
-public class JsonFileDatabase<T>
+namespace ProjectMuseum.Repositories.MuseumTileRepository
 {
-    private readonly string _filePath;
-
-    public JsonFileDatabase(string filePath)
+    public class JsonFileDatabase<T>
     {
-        _filePath = filePath;
-    }
+        private readonly string _filePath;
 
-    public async Task<List<T>?> ReadDataAsync()
-    {
-        try
+        public JsonFileDatabase(string filePath)
         {
-            if (File.Exists(_filePath))
+            _filePath = filePath;
+        }
+
+        public async Task<List<T>?> ReadDataAsync()
+        {
+            try
             {
-                await using FileStream fileStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                return await JsonSerializer.DeserializeAsync<List<T>>(fileStream);
-            }
-            return new List<T>();
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions here, e.g., log the error.
-            throw new ApplicationException("Error reading JSON file.", ex);
-        }
-    }
+                if (File.Exists(_filePath))
+                {
+                    await using FileStream fileStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-    public async Task WriteDataAsync(List<T> data)
-    {
-        try
-        {
-            await using FileStream fileStream = new FileStream(_filePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            await JsonSerializer.SerializeAsync(fileStream, data);
+                    // Configure the JsonSerializerOptions with your custom naming policy.
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = new PascalCaseNamingPolicy()
+                    };
+
+                    return await JsonSerializer.DeserializeAsync<List<T>>(fileStream, options);
+                }
+                return new List<T>();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here, e.g., log the error.
+                throw new ApplicationException("Error reading JSON file.", ex);
+            }
         }
-        catch (Exception ex)
+
+        public async Task WriteDataAsync(List<T> data)
         {
-            // Handle exceptions here, e.g., log the error.
-            throw new ApplicationException("Error writing to JSON file.", ex);
+            try
+            {
+                await using FileStream fileStream = new FileStream(_filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                // Configure the JsonSerializerOptions with your custom naming policy.
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = new PascalCaseNamingPolicy()
+                };
+
+                await JsonSerializer.SerializeAsync(fileStream, data, options);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here, e.g., log the error.
+                throw new ApplicationException("Error writing to JSON file.", ex);
+            }
         }
     }
 }

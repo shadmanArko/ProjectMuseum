@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Services;
 using ProjectMuseum.Services.MuseumTileService;
@@ -18,6 +19,11 @@ builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(dataFolderPath));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = new PascalCaseNamingPolicy();
+    });
 
 var app = builder.Build();
 

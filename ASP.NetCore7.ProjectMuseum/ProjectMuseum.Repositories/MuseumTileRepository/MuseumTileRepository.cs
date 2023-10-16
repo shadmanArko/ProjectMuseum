@@ -7,12 +7,10 @@ namespace ProjectMuseum.Repositories.MuseumTileRepository;
 public class MuseumTileRepository : IMuseumTileRepository
 {
     private readonly JsonFileDatabase<MuseumTile> _museumTileDatabase;
-    private readonly IMapper _mapper;
 
-    public MuseumTileRepository(JsonFileDatabase<MuseumTile> museumTileDatabase, IMapper mapper)
+    public MuseumTileRepository(JsonFileDatabase<MuseumTile> museumTileDatabase)
     {
         _museumTileDatabase = museumTileDatabase;
-        _mapper = mapper;
     }
 
     public async Task<MuseumTile> Insert(MuseumTile museumTile)
@@ -36,6 +34,13 @@ public class MuseumTileRepository : IMuseumTileRepository
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();
         var museumTile = museumTiles!.FirstOrDefault(tile => tile.Id == id);
+        return museumTile;
+    }
+
+    public async Task<MuseumTile?> GetByPosition(int xPosition, int yPosition)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        var museumTile = museumTiles!.FirstOrDefault(tile => tile.XPosition == xPosition && tile.YPosition == yPosition);
         return museumTile;
     }
 

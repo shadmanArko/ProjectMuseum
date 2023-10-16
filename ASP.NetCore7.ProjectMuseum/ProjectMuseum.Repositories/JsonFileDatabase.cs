@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace ProjectMuseum.Repositories.MuseumTileRepository
+namespace ProjectMuseum.Repositories
 {
     public class JsonFileDatabase<T>
     {

@@ -1,19 +1,24 @@
 using AutoMapper;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 
 namespace ProjectMuseum.Services.MuseumTileService;
 
-public class MuseumTileService : IMuseumTileService
+public class MuseumService : IMuseumService
 {
     private readonly IMuseumTileRepository _museumTileRepository;
     private  MuseumTileDataGenerator _museumTileDataGenerator;
+    private readonly ExhibitPlacementCondition _exhibitPlacementCondition;
+    private readonly IExhibitRepository _exhibitRepository;
 
-    public MuseumTileService(IMuseumTileRepository museumTileRepository)
+    public MuseumService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository)
     {
         _museumTileRepository = museumTileRepository;
+        _exhibitRepository = exhibitRepository;
         _museumTileDataGenerator = new MuseumTileDataGenerator(_museumTileRepository);
+        _exhibitPlacementCondition = new ExhibitPlacementCondition(_exhibitRepository, _museumTileRepository);
     }
 
     public async Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile)
@@ -34,6 +39,11 @@ public class MuseumTileService : IMuseumTileService
     {
         var museumTiles = await _museumTileRepository.GetAll();
         return museumTiles;
+    }
+
+    public async Task<bool> GetEligibilityOfPositioningExhibit(string exhibitType, int tileXPosition, int tileYPosition)
+    {
+        return await _exhibitPlacementCondition.CanExhibitBePlacedOnThisTile(exhibitType, tileXPosition, tileYPosition);
     }
 
     public async Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile)

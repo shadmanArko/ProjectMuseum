@@ -13,7 +13,7 @@ func _physics_process(delta):
 	
 	var local_pos = GameManager.tilemap.map_to_local(mouse_tile)
 	var world_pos = GameManager.tilemap.to_global(local_pos)
-	#if the tile is empty
+	#check if the tile is eligible for this item placement
 	#apply effect based on eligibility
 	global_position = world_pos
 	if selectedItem and Input.is_action_pressed("ui_left_click"):

@@ -10,3 +10,4 @@ func _ready():
 			var tile : Vector2 = Vector2(x, y)
 			set_cell(ZERO, tile, ZERO, Vector2i.ZERO)
 
+

@@ -8,14 +8,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if !selectedItem: return
 	var mouse_tile = GameManager.tilemap.local_to_map(get_global_mouse_position())
 	
 	var local_pos = GameManager.tilemap.map_to_local(mouse_tile)
 	var world_pos = GameManager.tilemap.to_global(local_pos)
+	#if the tile is empty
+	#apply effect based on eligibility
 	global_position = world_pos
+	if selectedItem and Input.is_action_pressed("ui_left_click"):
+		selectedItem = false
+	if selectedItem and Input.is_action_pressed("ui_right_click"):
+		queue_free()
 
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		set_physics_process(false)
-		set_process_unhandled_input(false)
-		$Area2D.monitoring = false

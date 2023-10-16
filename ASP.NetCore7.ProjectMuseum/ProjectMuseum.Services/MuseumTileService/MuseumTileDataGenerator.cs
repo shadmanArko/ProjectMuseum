@@ -26,7 +26,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                 var tileSetId = r.Next(0, 2);
                 var museumTile = new MuseumTile
                 {
-                    Id = "string",
+                    Id = Guid.NewGuid().ToString(),
                     XPosition = x,
                     YPosition = y,
                     TileSetNumber = tileSetId,

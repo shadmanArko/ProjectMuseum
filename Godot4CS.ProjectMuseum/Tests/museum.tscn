@@ -16,6 +16,8 @@ script = ExtResource("2_2q62p")
 numberOfTilesInX = 20
 numberOfTilesInY = 24
 
+[node name="HTTPRequest" type="HTTPRequest" parent="TileMap"]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 script = ExtResource("3_t4ehu")
@@ -26,3 +28,5 @@ Minzoom = 0.5
 position = Vector2(611, 428)
 scale = Vector2(0.155, 0.155)
 script = ExtResource("5_ds4df")
+
+[connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

@@ -6,6 +6,9 @@
   <ItemGroup>
     <PackageReference Include="Godot.DependencyInjection" Version="0.3.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />
+  </ItemGroup>
 <!--  <ItemGroup>-->
 <!--    <ProjectReference Include="..\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />-->
 <!--  </ItemGroup>-->

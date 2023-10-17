@@ -10,7 +10,7 @@ public class ExhibitRepository : IExhibitRepository
     {
         _exhibitDatabase = exhibitDatabase;
     }
-
+ 
     public async Task<Exhibit> Insert(Exhibit exhibit)
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();

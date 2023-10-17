@@ -18,7 +18,7 @@ public class SaveDataJsonFileDatabase
         _saveDataFolderPath = saveDataFolderPath;
     }
 
-    public async void MergeJSONFiles()
+    public async Task MergeJsonFiles()
     {
         var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(await File.ReadAllTextAsync(_museumTileDataFolderPath));
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(await File.ReadAllTextAsync(_exhibitDataFolderPath));
@@ -37,7 +37,7 @@ public class SaveDataJsonFileDatabase
         await File.WriteAllTextAsync(_saveDataFolderPath, mergedJson);
     }
     
-    public void SplitJSONFile()
+    public void SplitJsonFile()
     {
         var mergedJson = File.ReadAllText(_saveDataFolderPath);
         var mergedData = JsonSerializer.Deserialize<MergedData>(mergedJson);

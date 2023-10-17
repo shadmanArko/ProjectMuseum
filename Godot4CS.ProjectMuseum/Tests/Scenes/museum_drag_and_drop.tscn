@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bclpm0kveaxk6"]
 
-[ext_resource type="Script" path="res://Tests/DragAndDrop/museum.gd" id="1_jjlmf"]
+[ext_resource type="Script" path="res://Tests/DragAndDrop/Museum.cs" id="1_2ba1m"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Tests/tile_map.tscn" id="2_6134k"]
 [ext_resource type="Script" path="res://Tests/TileSpawner.cs" id="3_idv5t"]
 [ext_resource type="Script" path="res://Tests/CameraPanAndZoom.cs" id="4_wdbbp"]
@@ -13,7 +13,7 @@
 size = Vector2(116.129, 116.129)
 
 [node name="museum" type="Node2D"]
-script = ExtResource("1_jjlmf")
+script = ExtResource("1_2ba1m")
 
 [node name="TileMap" parent="." instance=ExtResource("2_6134k")]
 y_sort_enabled = true

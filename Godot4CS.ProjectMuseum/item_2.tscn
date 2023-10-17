@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dstn0yvcl70w0"]
 
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Sprites/Exhibits/Sprite-0009.png" id="1_dn2gd"]
-[ext_resource type="Script" path="res://Tests/DragAndDrop/item.gd" id="2_3pk1c"]
+[ext_resource type="Script" path="res://Tests/DragAndDrop/Item.cs" id="2_e8wms"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(16.514, 6.13797)
@@ -11,7 +11,7 @@ texture_filter = 1
 position = Vector2(-38, -123)
 texture = ExtResource("1_dn2gd")
 offset = Vector2(0, -12)
-script = ExtResource("2_3pk1c")
+script = ExtResource("2_e8wms")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -64)

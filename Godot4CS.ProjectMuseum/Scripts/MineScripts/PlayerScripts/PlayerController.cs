@@ -1,9 +1,11 @@
+using System;
+using System.Diagnostics;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D
 {
-	[Export] private Sprite2D _sprite;
-	[Export] private AnimationPlayer _animationPlayer;
+	[Export] private AnimationController _animationController;
 	
 	[Export] private int _maxSpeed = 100;
 	[Export] private int _acceleration = 20;
@@ -15,6 +17,17 @@ public partial class PlayerController : CharacterBody2D
 	[Signal]
 	public delegate void OnPlayerCollisionEventHandler(KinematicCollision2D collision2D);
 
+	[Signal]
+	public delegate void OnClickAttackEventHandler();
+
+	[Signal]
+	public delegate void OnMouseMotionEventHandler(double angle);
+
+	public override void _Process(double delta)
+	{
+		
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		PlayerMovement(delta);
@@ -22,8 +35,12 @@ public partial class PlayerController : CharacterBody2D
 
 	private bool PlayerAttack()
 	{
-		var input = Input.IsActionJustReleased("attack");
-		if(input) PlayAnimation("attack");
+		var input = Input.IsActionJustReleased("ui_left_click");
+		if (input)
+		{
+			_animationController.PlayAnimation("attack");
+			EmitSignal("OnClickAttack");
+		}
 		return input;
 	}
 
@@ -39,46 +56,17 @@ public partial class PlayerController : CharacterBody2D
 		}
 		else
 		{
-			Velocity += (input * _acceleration * (float)delta);
+			Velocity = (input * _acceleration * (float)delta);
 			Velocity = Velocity.LimitLength(_maxSpeed);
 		}
 
-		SetAnimation();
+		_animationController.SetAnimation(Velocity, PlayerAttack());
 		DetectCollision();
 	}
-	
-	private void SetAnimation()
-	{
-		var tempVelocity = Velocity.Normalized();
-		if(tempVelocity.X == 0 && !PlayerAttack())
-			PlayAnimation("idle");
-		else
-		{
-			switch (tempVelocity.X)
-			{
-				case > 0:
-					_sprite.FlipH = false;
-					PlayAnimation("run");
-					break;
-				case < 0:
-					_sprite.FlipH = true;
-					PlayAnimation("run");
-					break;
-				default:
-					_sprite.FlipH = _sprite.FlipH;
-					break;
-			}
-		}
-	}
-
-	private void PlayAnimation(string state)
-	{
-		_animationPlayer.Play(state);
-	}
-	
+    
 	private void DetectCollision()
 	{
-		var collision = MoveAndCollide(Velocity);
+		var collision = MoveAndCollide(Velocity, recoveryAsCollision:true);
 		if(collision == null) return;
 		if(PlayerAttack())
             EmitSignal("OnPlayerCollision", collision);
@@ -91,7 +79,16 @@ public partial class PlayerController : CharacterBody2D
 			X = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left"),
 			Y = Input.GetActionStrength("move_down") - Input.GetActionStrength("move_up")
 		};
-
+        
 		return motion.Normalized();
+	}
+	
+	public override void _Input(InputEvent @event)
+	{
+		if(@event is not InputEventMouseMotion) return;
+		var mousePos = GetGlobalMousePosition();
+		var angle = GetAngleTo(mousePos);
+		var degree = angle * (180 / Math.PI);
+		EmitSignal("OnMouseMotion", degree);
 	}
 }

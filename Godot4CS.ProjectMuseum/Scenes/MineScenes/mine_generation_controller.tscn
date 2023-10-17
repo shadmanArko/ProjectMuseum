@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ixsqn5hwwnac"]
+
+[ext_resource type="Script" path="res://Scripts/MineScripts/MineGenerationController.cs" id="1_2elrx"]
+[ext_resource type="PackedScene" uid="uid://bnjcqjjv5m807" path="res://Scenes/MineScenes/Mine.tscn" id="2_ooqno"]
+[ext_resource type="Script" path="res://Scripts/MineScripts/MineGenerationView.cs" id="3_bsmgm"]
+
+[node name="MineGenerationController" type="Node2D" node_paths=PackedStringArray("_mineGenerationView")]
+script = ExtResource("1_2elrx")
+_mineGenerationView = NodePath("Mine")
+_cellSize = 16
+_width = 33
+_length = 64
+
+[node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("2_ooqno")]
+script = ExtResource("3_bsmgm")
+TileMap = NodePath(".")

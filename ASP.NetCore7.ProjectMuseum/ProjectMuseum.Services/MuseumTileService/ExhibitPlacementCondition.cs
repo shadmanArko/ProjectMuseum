@@ -1,3 +1,4 @@
+using ProjectMuseum.Models;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 
@@ -14,15 +15,26 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
         _museumTileRepository = museumTileRepository;
     }
     
-    public async Task<bool> CanExhibitBePlacedOnThisTile(string exhibitType, int tileXPosition, int tileYPosition)
+    public async Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitType)
     {
+        var listOfExhibitPlacementConditionData = new List<ExhibitPlacementConditionData>();
+        var museumTiles = await _museumTileRepository.GetAll();
         switch (exhibitType)
         {
             case "small":
-                var museumTile = await _museumTileRepository.GetByPosition(tileXPosition, tileYPosition);
-                return (museumTile != null && museumTile.ExhibitId.Equals("string"));
+
+                foreach (var museumTile in museumTiles)
+                {
+                    var exhibitTilePlacementData = new ExhibitPlacementConditionData();
+                    exhibitTilePlacementData.Id = museumTile.Id;
+                    exhibitTilePlacementData.TileXPosition = museumTile.XPosition;
+                    exhibitTilePlacementData.TileYPosition = museumTile.YPosition;
+                    exhibitTilePlacementData.IsEligible = museumTile.ExhibitId == "string";
+                    listOfExhibitPlacementConditionData.Add(exhibitTilePlacementData);
+                }
+                break;
         }
 
-        return false;
+        return listOfExhibitPlacementConditionData;
     }
 }

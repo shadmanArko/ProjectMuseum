@@ -37,4 +37,28 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
 
         return listOfExhibitPlacementConditionData;
     }
+
+    public async Task<bool> PlaceExhibitOnTile(string tileId, string exhibitType)
+    {
+        var museumTile = await _museumTileRepository.GetById(tileId);
+        if (museumTile != null && museumTile.ExhibitId != "string") return false;
+        if (museumTile == null) return false;
+        var exhibit = new Exhibit
+        {
+            Id = Guid.NewGuid().ToString(),
+            XPosition = museumTile.XPosition,
+            YPosition = museumTile.YPosition,
+            ExhibitDecoration = "string",
+            ExhibitArtifactSlot1 = "string",
+            ExhibitArtifactSlot2 = "string",
+            ExhibitArtifactSlot3 = "string",
+            ExhibitArtifactSlot4 = "string",
+            ExhibitArtifactSlot5 = "string",
+            IsHangingExhibit = false,
+            IsWallExhibit = false
+        };
+        await _exhibitRepository.Insert(exhibit);
+        await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
+        return true;
+    }
 }

@@ -22,6 +22,12 @@ public class MuseumTileController : ControllerBase
         var museumTiles =await _museumService.GetAllMuseumTiles();
         return Ok(museumTiles);
     }
+    [HttpGet("PlaceAnExhibit/{tileId}/{exhibitType}")]
+    public async Task<IActionResult> PlaceAnExhibit(string tileId, string exhibitType )
+    {
+        var exhibitPlacementResult = await _museumService.PlaceExhibitOnTile(tileId, exhibitType);
+        return Ok(exhibitPlacementResult);
+    }
     
     [HttpGet("GetAllMuseumTilesForNewGame")]
     public async Task<IActionResult> GetAllMuseumTilesForNewGame()

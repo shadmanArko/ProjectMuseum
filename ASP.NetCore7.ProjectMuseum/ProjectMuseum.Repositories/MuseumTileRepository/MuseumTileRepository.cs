@@ -50,6 +50,15 @@ public class MuseumTileRepository : IMuseumTileRepository
         return museumTiles;
     }
 
+    public async Task<MuseumTile?> UpdateExhibitToMuseumTile(string tileId, string exhibitId)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        var museumTile = museumTiles!.FirstOrDefault(tile => tile.Id == tileId);
+        if (museumTile != null) museumTile.ExhibitId = exhibitId;
+        if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTile;
+    }
+
     public async Task<MuseumTile?> Delete(string id)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();

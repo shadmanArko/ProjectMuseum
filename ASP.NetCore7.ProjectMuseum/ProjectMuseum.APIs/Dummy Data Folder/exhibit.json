@@ -1,1 +1,39 @@
-[]
+[{
+  "Id": "1",
+  "XPosition": "100",
+  "YPosition": "200",
+  "ExhibitDecoration": "Ornate",
+  "ExhibitArtifactSlot1": "Artifact1",
+  "ExhibitArtifactSlot2": "Artifact2",
+  "ExhibitArtifactSlot3": "Artifact3",
+  "ExhibitArtifactSlot4": "Artifact4",
+  "ExhibitArtifactSlot5": "Artifact5",
+  "IsHangingExhibit": false,
+  "IsWallExhibit": true
+},
+  {
+    "Id": "2",
+    "XPosition": "150",
+    "YPosition": "250",
+    "ExhibitDecoration": "Simple",
+    "ExhibitArtifactSlot1": "Artifact6",
+    "ExhibitArtifactSlot2": "Artifact7",
+    "ExhibitArtifactSlot3": "Artifact8",
+    "ExhibitArtifactSlot4": "Artifact9",
+    "ExhibitArtifactSlot5": "Artifact10",
+    "IsHangingExhibit": true,
+    "IsWallExhibit": false
+  },
+  {
+    "Id": "3",
+    "XPosition": "300",
+    "YPosition": "300",
+    "ExhibitDecoration": "Elaborate",
+    "ExhibitArtifactSlot1": "Artifact11",
+    "ExhibitArtifactSlot2": "Artifact12",
+    "ExhibitArtifactSlot3": "Artifact13",
+    "ExhibitArtifactSlot4": "Artifact14",
+    "ExhibitArtifactSlot5": "Artifact15",
+    "IsHangingExhibit": false,
+    "IsWallExhibit": true
+  }]

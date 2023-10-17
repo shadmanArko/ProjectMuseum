@@ -8,7 +8,7 @@ public interface IMuseumService
     Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile);
     Task<MuseumTile?> GetMuseumTileById(string tileId);
     Task<List<MuseumTile>?> GetAllMuseumTiles();
-    Task<bool> GetEligibilityOfPositioningExhibit(string exhibitType, int tileXPosition, int tileYPosition);
+    Task<List<ExhibitPlacementConditionData>> GetEligibilityOfPositioningExhibit(string exhibitType);
     Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile);
     Task<MuseumTile?> DeleteMuseumTileById(string tileId);
     Task<List<MuseumTile>?> GenerateMuseumTileForNewGame();

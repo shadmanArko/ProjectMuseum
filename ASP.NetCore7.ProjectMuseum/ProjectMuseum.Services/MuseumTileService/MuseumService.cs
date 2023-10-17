@@ -41,9 +41,9 @@ public class MuseumService : IMuseumService
         return museumTiles;
     }
 
-    public async Task<bool> GetEligibilityOfPositioningExhibit(string exhibitType, int tileXPosition, int tileYPosition)
+    public async Task<List<ExhibitPlacementConditionData>> GetEligibilityOfPositioningExhibit(string exhibitType)
     {
-        return await _exhibitPlacementCondition.CanExhibitBePlacedOnThisTile(exhibitType, tileXPosition, tileYPosition);
+        return await _exhibitPlacementCondition.CanExhibitBePlacedOnThisTile(exhibitType);
     }
 
     public async Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile)

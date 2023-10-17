@@ -30,12 +30,12 @@ public class MuseumTileController : ControllerBase
         return Ok(museumTiles);
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetAllMuseumTileById(string id)
-    {
-        var museumTile = await _museumService.GetMuseumTileById(id);
-        return Ok(museumTile);
-    }
+    // [HttpGet("{id}")]
+    // public async Task<IActionResult> GetAllMuseumTileById(string id)
+    // {
+    //     var museumTile = await _museumService.GetMuseumTileById(id);
+    //     return Ok(museumTile);
+    // }
 
     [HttpPost]
     public async Task<IActionResult> CreateMuseumTile([FromBody] MuseumTile museumTile)
@@ -57,10 +57,10 @@ public class MuseumTileController : ControllerBase
         var museumTile = await _museumService.DeleteMuseumTileById(id);
         return Ok(museumTile);
     }
-    [HttpGet("{exhibitType}/{tileXPosition}/{tileYPosition}")]
-    public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitType, int tileXPosition, int tileYPosition)
+    [HttpGet("{exhibitType}")]
+    public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitType)
     {
-        var exhibitEligibility = await _museumService.GetEligibilityOfPositioningExhibit( exhibitType,  tileXPosition,  tileYPosition);
+        var exhibitEligibility = await _museumService.GetEligibilityOfPositioningExhibit( exhibitType);
         return Ok(exhibitEligibility);
     }
 }

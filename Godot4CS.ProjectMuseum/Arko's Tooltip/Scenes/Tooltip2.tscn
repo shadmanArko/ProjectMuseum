@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://di1yf22ube71y"]
+
+[node name="Tooltip2" type="Node"]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(24.6223, 16.0492)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextEdit" type="TextEdit" parent="NinePatchRect"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(5.74191, 4.99065)

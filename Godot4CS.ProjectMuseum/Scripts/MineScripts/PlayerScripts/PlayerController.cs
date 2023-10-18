@@ -1,49 +1,32 @@
 using System;
-using System.Diagnostics;
 using Godot;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
+
+namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D
 {
 	[Export] private AnimationController _animationController;
-	
+
+	#region Movement Variables
+
 	[Export] private int _maxSpeed = 100;
 	[Export] private int _acceleration = 20;
 	[Export] private int _friction = 100;
 	
 	[Export] private int _deceleration = 5;
 	[Export] private float _interpolationTime = 0.5f;
-    
-	[Signal]
-	public delegate void OnPlayerCollisionEventHandler(KinematicCollision2D collision2D);
 
-	[Signal]
-	public delegate void OnClickAttackEventHandler();
+	#endregion
 
-	[Signal]
-	public delegate void OnMouseMotionEventHandler(double angle);
-
-	public override void _Process(double delta)
-	{
-		
-	}
+	[Export] private float _gravity;
+	[Export] private float _terminalVelocity;
+	[Export] private bool _isGrounded;
 
 	public override void _PhysicsProcess(double delta)
 	{
 		PlayerMovement(delta);
 	}
-
-	private bool PlayerAttack()
-	{
-		var input = Input.IsActionJustReleased("ui_left_click");
-		if (input)
-		{
-			_animationController.PlayAnimation("attack");
-			EmitSignal("OnClickAttack");
-		}
-		return input;
-	}
-
+    
 	private void PlayerMovement(double delta)
 	{
 		var input = GetInputKeyboard();
@@ -61,17 +44,28 @@ public partial class PlayerController : CharacterBody2D
 		}
 
 		_animationController.SetAnimation(Velocity, PlayerAttack());
+		ApplyGravity(delta);
 		DetectCollision();
 	}
-    
+
+	private void ApplyGravity(double delta)
+	{
+		if(_isGrounded) return;
+
+		var previousGravityY = Velocity.Y;
+		var newGravityY = Mathf.Round(Velocity.Y + _gravity * (float)delta);
+		newGravityY = Mathf.Clamp(newGravityY, -Mathf.Inf, _terminalVelocity);
+		var newVelocityY = (previousGravityY + newGravityY) * 0.5f;
+		Velocity = new Vector2(Velocity.X, newVelocityY);
+	}
+
 	private void DetectCollision()
 	{
-		var collision = MoveAndCollide(Velocity, recoveryAsCollision:true);
-		if(collision == null) return;
-		if(PlayerAttack())
-            EmitSignal("OnPlayerCollision", collision);
+		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
 	}
-    
+
+	#region Input
+
 	private Vector2 GetInputKeyboard()
 	{
 		var motion = new Vector2
@@ -83,12 +77,21 @@ public partial class PlayerController : CharacterBody2D
 		return motion.Normalized();
 	}
 	
+	private bool PlayerAttack()
+	{
+		var input = Input.IsActionJustReleased("ui_left_click");
+		if (input) MineActions.OnPlayerAttackAction?.Invoke();
+		return input;
+	}
+	
 	public override void _Input(InputEvent @event)
 	{
 		if(@event is not InputEventMouseMotion) return;
 		var mousePos = GetGlobalMousePosition();
 		var angle = GetAngleTo(mousePos);
 		var degree = angle * (180 / Math.PI);
-		EmitSignal("OnMouseMotion", degree);
+		MineActions.OnMouseMotionAction?.Invoke(degree);
 	}
+
+	#endregion
 }

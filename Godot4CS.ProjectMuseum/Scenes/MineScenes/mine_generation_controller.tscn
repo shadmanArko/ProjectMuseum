@@ -7,9 +7,7 @@
 [node name="MineGenerationController" type="Node2D" node_paths=PackedStringArray("_mineGenerationView")]
 script = ExtResource("1_2elrx")
 _mineGenerationView = NodePath("Mine")
-_cellSize = 16
 _width = 33
-_length = 64
 
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("2_ooqno")]
 script = ExtResource("3_bsmgm")

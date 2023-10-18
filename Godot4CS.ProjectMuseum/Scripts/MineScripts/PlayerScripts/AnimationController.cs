@@ -7,7 +7,8 @@ public partial class AnimationController : AnimationPlayer
 	[Export] private PlayerController _playerController;
 	public override void _Ready()
 	{
-		_playerController.OnMouseMotion += SpriteFlipBasedOnMousePosition;
+		MineActions.OnPlayerAttackAction += PlayAttackAnimation;
+		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 	}
 
 	[Export] private Sprite2D _sprite;
@@ -35,7 +36,12 @@ public partial class AnimationController : AnimationPlayer
 		}
 	}
 
-	public void PlayAnimation(string state)
+	private void PlayAttackAnimation()
+	{
+		PlayAnimation("attack");
+	}
+
+	private void PlayAnimation(string state)
 	{
 		if (state == "idle")
 		{

@@ -1,27 +1,23 @@
+using System;
 using Godot;
+using Godot.DependencyInjection.Attributes;
 
 namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
 public partial class MineGenerationController : Node2D
 {
-	private Cell[,] _grid;
-
-	private double mouseAngle = 0;
-
 	[Export] private MineGenerationView _mineGenerationView;
 
-	[Export] private int _cellSize = 64;
-	[Export] private int _width = 25;
-	[Export] private int _length = 32; //must be 64
+	private Cell[,] _grid;
+	[Export] private int _cellSize = 16;
+	[Export] private int _width = 35;
+	[Export] private int _length = 64;
 
-	[Export] private PlayerController _playerController;
-
-	private RandomNumberGenerator _randomNumberGenerator = new();
+	[Export] private PlayerScripts.PlayerController _playerController;
     
 	public override void _Ready()
 	{
-		//_playerController.OnPlayerCollision += CheckIfColliderIsTileMap;
-		_playerController.OnClickAttack += AttackWall;
+		MineActions.OnPlayerAttackAction += AttackWall;
 		GenerateGrid();
 	}
 
@@ -31,23 +27,23 @@ public partial class MineGenerationController : Node2D
 	{
 		_grid = new Cell[_width, _length];
 
-		for (var y = 0; y < _length; y++)
+		for (var x = 0; x < _width; x++)
 		{
-			for (var x = 0; x < _width; x++)
+			for (var y = 0; y < _length; y++)
 			{
-				if (x == 0 || x== _width -1)
+				if (y == 0 || y == _length -1)
 				{
-					if (x == 0 && y == 17)
+					if (y == 0 && x == 17)
 					{
 						_grid[x, y] = BlankCell(x, y);
 						continue;
 					}
-
+					
 					_grid[x, y] = InstantiateUnbreakableCell(x, y);
 					continue;
 				}
 
-				if (y == 0 || y == _length -1)
+				if (x == 0 || x == _width -1)
 				{
 					_grid[x, y] = InstantiateUnbreakableCell(x, y);
 					continue;
@@ -65,7 +61,8 @@ public partial class MineGenerationController : Node2D
 			Pos = new Vector2(width * _cellSize, height * _cellSize),
 			IsInstantiated = false
 		};
-
+		var tilePos = _mineGenerationView.LocalToMap(cell.Pos);
+		_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(4,0));
 		return cell;
 	}
 
@@ -76,8 +73,8 @@ public partial class MineGenerationController : Node2D
 			Pos = new Vector2(width * _cellSize, height * _cellSize),
 			IsInstantiated = true
 		};
-
-		_mineGenerationView.SetCell(0,new Vector2I(Mathf.RoundToInt(cell.Pos.X), Mathf.RoundToInt(cell.Pos.Y)),1,new Vector2I(1,0));
+		var tilePos = _mineGenerationView.LocalToMap(cell.Pos);
+		_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(3,0));
 		return cell;
 	}
 
@@ -89,43 +86,38 @@ public partial class MineGenerationController : Node2D
 			Pos = new Vector2(width * _cellSize, height * _cellSize),
 			IsInstantiated = true
 		};
-		_mineGenerationView.SetCell(0,new Vector2I(Mathf.RoundToInt(cell.Pos.X), Mathf.RoundToInt(cell.Pos.Y)),1,new Vector2I(1,0));
+		var tilePos = _mineGenerationView.LocalToMap(cell.Pos);
+		_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(0,0));
 
 		return cell;
 	}
 
 	#endregion
 
-	#region Collision Detection
-
-	private void CheckIfColliderIsTileMap(KinematicCollision2D collision2D)
-	{
-		GD.Print("inside check if collider is tilemap");
-		if (collision2D.GetCollider() == _mineGenerationView)
-		{
-			var tilePos = _mineGenerationView.LocalToMap(_playerController.Position);
-			tilePos -= new Vector2I(Mathf.RoundToInt(collision2D.GetNormal().X),
-				Mathf.RoundToInt(collision2D.GetNormal().Y));
-			var tile = _mineGenerationView.GetCellSourceId(0, tilePos);
-			if (tile > 0)
-			{
-				GD.Print($"Co-ordinates: {tilePos.X} {tilePos.Y}");
-				
-				BreakCell(tilePos);
-			}
-		}
-	}
-
+	#region Wall Attack Detection
+    
 	private void AttackWall()
 	{
 		var tilePos = _mineGenerationView.LocalToMap(_playerController.Position);
-		var mousePos = GetGlobalMousePosition().Normalized().Ceil();
-		tilePos += (Vector2I) mousePos;
-		GD.Print($"MousePos {mousePos}, Breaking Cell{tilePos}");
+		var playerPos = _playerController.Position;
+		var mousePos = GetGlobalMousePosition() - playerPos;
+		var angle = GetAngleTo(mousePos);
+		var degree = angle * (180 / Math.PI);
+
+		var newPos = degree switch
+		{
+			<= 45 and > -45 => new Vector2I(1,0),
+			<= -45 and > -135 => new Vector2I(0,-1),
+			> 45 and <= 135 => new Vector2I(0,1),
+			_ => new Vector2I(-1,0)
+		};
+        
+		tilePos += newPos;
+		GD.Print($"Breaking Cell{tilePos}");
+		GD.Print($"newPos: {newPos}");
 		BreakCell(tilePos);
 	}
-    
-
+	
 	private void BreakCell(Vector2I tilePos)
 	{
 		if (tilePos.X < 0 || tilePos.Y < 0)
@@ -141,23 +133,15 @@ public partial class MineGenerationController : Node2D
 		}
 		GD.Print($"cell strength: {cell.BreakStrength}");
 		_grid[tilePos.X, tilePos.Y].BreakStrength--;
+		Math.Clamp(-_grid[tilePos.X, tilePos.Y].BreakStrength, 0, 100);
+		
 		if (cell.BreakStrength >= 2)
-		{
 			_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(1,0));
-		}
 		else if (cell.BreakStrength >= 1)
-		{
 			_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(2,0));
-		}
 		else
-		{
-			_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(3,0));
-		}
+			_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(4,0));
 	}
-
-	
-
-	
-
+    
 	#endregion
 }

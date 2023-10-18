@@ -87,6 +87,8 @@ _animationController = NodePath("AnimationPlayer")
 _acceleration = 5
 _friction = 200
 _deceleration = 2
+_gravity = 800.0
+_terminalVelocity = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)

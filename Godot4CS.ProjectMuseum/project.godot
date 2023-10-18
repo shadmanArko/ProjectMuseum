@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://Tests/DragAndDrop/game_manager.gd"
 DependencyInjectionNode="*res://Scripts/Dependency Injection/Base/DependencyInjectionNode.cs"
+MineSignals="*res://Scripts/MineScripts/MineSignals.cs"
 
 [dotnet]
 

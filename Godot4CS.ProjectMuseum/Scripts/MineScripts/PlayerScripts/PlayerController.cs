@@ -5,6 +5,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D
 {
+	[Export] private MineGenerationController _mapGenerationController;
 	[Export] private AnimationController _animationController;
 
 	#region Movement Variables
@@ -21,6 +22,8 @@ public partial class PlayerController : CharacterBody2D
 	[Export] private float _gravity;
 	[Export] private float _terminalVelocity;
 	[Export] private bool _isGrounded;
+
+	[Export] private bool _isHanging;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -62,6 +65,23 @@ public partial class PlayerController : CharacterBody2D
 	private void DetectCollision()
 	{
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
+		if (collision == null)
+		{
+			_isGrounded = false;
+			return;
+		}
+		var tileMap = _mapGenerationController._mineGenerationView.TileMap;
+		if (collision.GetCollider() == tileMap)
+		{
+			var tilePos = _mapGenerationController._mineGenerationView.TileMap.LocalToMap(Position);
+			var playerPos = _mapGenerationController._mineGenerationView.TileMap.LocalToMap(Position);
+			tilePos -= (Vector2I) collision.GetNormal();
+
+			if (tilePos.Y > playerPos.Y)
+				_isGrounded = true;
+            
+			GD.Print($"tilepos: {tilePos.X}, {tilePos.Y} | PlayerPos: {playerPos.X}, {playerPos.Y}");
+		}
 	}
 
 	#region Input
@@ -82,6 +102,15 @@ public partial class PlayerController : CharacterBody2D
 		var input = Input.IsActionJustReleased("ui_left_click");
 		if (input) MineActions.OnPlayerAttackAction?.Invoke();
 		return input;
+	}
+
+	private void PlayerGrab()
+	{
+		var grab = Input.IsActionJustReleased("toggle_grab");
+		if (grab)
+		{
+			
+		}
 	}
 	
 	public override void _Input(InputEvent @event)

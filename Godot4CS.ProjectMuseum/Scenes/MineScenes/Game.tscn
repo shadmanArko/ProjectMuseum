@@ -10,10 +10,12 @@
 script = ExtResource("1_ey8hr")
 
 [node name="MineGenerationController" parent="." node_paths=PackedStringArray("_playerController") instance=ExtResource("1_1g6vs")]
+_width = 48
 _playerController = NodePath("../Player")
 
-[node name="Player" parent="." instance=ExtResource("1_c6hbs")]
+[node name="Player" parent="." node_paths=PackedStringArray("_mapGenerationController") instance=ExtResource("1_c6hbs")]
 position = Vector2(332, -230)
+_mapGenerationController = NodePath("../MineGenerationController")
 _acceleration = 100
 _friction = 100
 _gravity = 360.0

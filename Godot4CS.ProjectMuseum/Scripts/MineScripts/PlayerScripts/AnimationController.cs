@@ -4,7 +4,6 @@ namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class AnimationController : AnimationPlayer
 {
-	[Export] private PlayerController _playerController;
 	public override void _Ready()
 	{
 		MineActions.OnPlayerAttackAction += PlayAttackAnimation;

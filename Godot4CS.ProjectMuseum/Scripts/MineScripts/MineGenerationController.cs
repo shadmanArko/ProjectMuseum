@@ -6,14 +6,14 @@ namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
 public partial class MineGenerationController : Node2D
 {
-	[Export] private MineGenerationView _mineGenerationView;
+	[Export] public MineGenerationView _mineGenerationView;
 
 	private Cell[,] _grid;
 	[Export] private int _cellSize = 16;
 	[Export] private int _width = 35;
 	[Export] private int _length = 64;
 
-	[Export] private PlayerScripts.PlayerController _playerController;
+	[Export] [Inject] private PlayerScripts.PlayerController _playerController;
     
 	public override void _Ready()
 	{

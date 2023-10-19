@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=11 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Tests/DragAndDrop/Museum.cs" id="1_2ba1m"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Tests/tile_map.tscn" id="2_6134k"]
@@ -7,13 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://sgl77f0jk8fl" path="res://character_body_2d.tscn" id="5_hrpp3"]
 [ext_resource type="Script" path="res://CharacterBody2DIsometric.cs" id="6_ofl4w"]
 [ext_resource type="PackedScene" uid="uid://cv15qeuxawq6p" path="res://item_1.tscn" id="7_f41yu"]
+[ext_resource type="Script" path="res://Scripts/Dependency Injection/DIRegistrationNodes/MuseumSecneRegistrationNode.cs" id="9_fvrs0"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Tests/museum_ui.tscn" id="9_o4qrk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bfckc"]
 size = Vector2(116.129, 116.129)
 
 [node name="museum" type="Node2D"]
-script = ExtResource("1_2ba1m")
+script = ExtResource("9_fvrs0")
 
 [node name="TileMap" parent="." instance=ExtResource("2_6134k")]
 y_sort_enabled = true
@@ -40,7 +41,11 @@ shape = SubResource("RectangleShape2D_bfckc")
 [node name="Item1" parent="." instance=ExtResource("7_f41yu")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("9_fvrs0")
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("9_o4qrk")]
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_2ba1m")
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

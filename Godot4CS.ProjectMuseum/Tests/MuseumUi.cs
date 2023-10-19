@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Godot.DependencyInjection.Attributes;
 using ProjectMuseum.Models;
+using Godot.DependencyInjection.Services.Input;
 
 public partial class MuseumUi : Control  // Replace with the appropriate node type for your UI
 {
@@ -16,11 +17,14 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     public void Inject(List<ExhibitPlacementConditionData> exhibitPlacementConditionDatas)
     {
         ExhibitPlacementConditionDatas = exhibitPlacementConditionDatas;
+        GD.Print("inject being called");
     }
     public override void _Ready()
     {
         item1 = (PackedScene)ResourceLoader.Load("res://item_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://item_2.tscn");
+        GD.Print("ready from ui being called");
+        if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
     }
 
     public void OnExhibit0Pressed()

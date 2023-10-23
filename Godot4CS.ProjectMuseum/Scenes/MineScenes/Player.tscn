@@ -79,16 +79,16 @@ _data = {
 "run": SubResource("Animation_tq5uu")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_mapGenerationController", "_animationController")]
 texture_filter = 1
 disable_mode = 1
 script = ExtResource("1_ju0lo")
+_mapGenerationController = NodePath(".")
 _animationController = NodePath("AnimationPlayer")
-_acceleration = 5
+_acceleration = 100
 _friction = 200
 _deceleration = 2
 _gravity = 800.0
-_terminalVelocity = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)

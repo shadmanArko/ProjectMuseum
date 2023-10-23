@@ -20,7 +20,8 @@ public partial class PlayerController : CharacterBody2D
 	#endregion
 
 	[Export] private float _gravity;
-	[Export] private float _terminalVelocity;
+	[Export] private const float InitialGravity = 800f;
+	[Export] private const float GravityLimit = 800f;
 	[Export] private bool _isGrounded;
 
 	[Export] private bool _isHanging;
@@ -42,10 +43,11 @@ public partial class PlayerController : CharacterBody2D
 		}
 		else
 		{
-			Velocity = (input * _acceleration * (float)delta);
+			Velocity = input * _acceleration * (float)delta;
 			Velocity = Velocity.LimitLength(_maxSpeed);
 		}
 
+		PlayerGrab();
 		_animationController.SetAnimation(Velocity, PlayerAttack());
 		ApplyGravity(delta);
 		DetectCollision();
@@ -57,7 +59,7 @@ public partial class PlayerController : CharacterBody2D
 
 		var previousGravityY = Velocity.Y;
 		var newGravityY = Mathf.Round(Velocity.Y + _gravity * (float)delta);
-		newGravityY = Mathf.Clamp(newGravityY, -Mathf.Inf, _terminalVelocity);
+		newGravityY = Mathf.Clamp(newGravityY, -Mathf.Inf, GravityLimit);
 		var newVelocityY = (previousGravityY + newGravityY) * 0.5f;
 		Velocity = new Vector2(Velocity.X, newVelocityY);
 	}
@@ -88,12 +90,23 @@ public partial class PlayerController : CharacterBody2D
 
 	private Vector2 GetInputKeyboard()
 	{
-		var motion = new Vector2
+		var motion = new Vector2();
+		if (_isHanging)
 		{
-			X = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left"),
-			Y = Input.GetActionStrength("move_down") - Input.GetActionStrength("move_up")
-		};
-        
+			motion = new Vector2
+			{
+				X = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left"),
+				Y = Input.GetActionStrength("move_down") - Input.GetActionStrength("move_up")
+			};
+		}
+		else
+		{
+			motion = new Vector2
+			{
+				X = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left")
+			};
+		}
+		
 		return motion.Normalized();
 	}
 	
@@ -109,7 +122,8 @@ public partial class PlayerController : CharacterBody2D
 		var grab = Input.IsActionJustReleased("toggle_grab");
 		if (grab)
 		{
-			
+			_isHanging = !_isHanging;
+			_gravity = _isHanging ? 1 : InitialGravity;
 		}
 	}
 	

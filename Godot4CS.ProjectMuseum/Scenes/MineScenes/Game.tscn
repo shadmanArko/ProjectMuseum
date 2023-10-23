@@ -1,22 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvpmyuf8myb7g"]
+[gd_scene load_steps=3 format=3 uid="uid://bvpmyuf8myb7g"]
 
 [ext_resource type="PackedScene" uid="uid://ixsqn5hwwnac" path="res://Scenes/MineScenes/mine_generation_controller.tscn" id="1_1g6vs"]
 [ext_resource type="PackedScene" uid="uid://bcxa10qjiqp81" path="res://Scenes/MineScenes/Player.tscn" id="1_c6hbs"]
-[ext_resource type="Script" path="res://Scripts/Dependency Injection/DIRegistrationNodes/MineSceneRegistrationNode.cs" id="1_ey8hr"]
 
 [node name="Game" type="Node2D"]
-
-[node name="SceneContext" type="Node" parent="."]
-script = ExtResource("1_ey8hr")
 
 [node name="MineGenerationController" parent="." node_paths=PackedStringArray("_playerController") instance=ExtResource("1_1g6vs")]
 _width = 48
 _playerController = NodePath("../Player")
 
 [node name="Player" parent="." node_paths=PackedStringArray("_mapGenerationController") instance=ExtResource("1_c6hbs")]
-position = Vector2(332, -230)
+position = Vector2(0, -230)
 _mapGenerationController = NodePath("../MineGenerationController")
-_acceleration = 100
 _friction = 100
-_gravity = 360.0
-_terminalVelocity = 360.0
+_initialGravity = 0.0

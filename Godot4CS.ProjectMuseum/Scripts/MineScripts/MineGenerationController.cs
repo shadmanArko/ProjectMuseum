@@ -1,6 +1,6 @@
 using System;
 using Godot;
-using Godot.DependencyInjection.Attributes;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
@@ -13,12 +13,14 @@ public partial class MineGenerationController : Node2D
 	[Export] private int _width = 35;
 	[Export] private int _length = 64;
 
-	[Export] [Inject] private PlayerScripts.PlayerController _playerController;
+	[Export] private PlayerController _playerController;
     
 	public override void _Ready()
 	{
 		MineActions.OnPlayerAttackAction += AttackWall;
 		GenerateGrid();
+		var pos = _grid[_width / 2, 0].Pos + new Vector2(0,-15);
+		_playerController.Position = pos;
 	}
 
 	#region Mine Generator

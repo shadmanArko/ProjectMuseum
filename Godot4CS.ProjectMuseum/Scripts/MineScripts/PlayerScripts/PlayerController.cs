@@ -21,7 +21,7 @@ public partial class PlayerController : CharacterBody2D
 
 	[Export] private float _gravity;
 	[Export] private const float InitialGravity = 800f;
-	[Export] private const float GravityLimit = 800f;
+	[Export] private const float MaxGravity = 800f;
 	[Export] private bool _isGrounded;
 
 	[Export] private bool _isHanging;
@@ -59,7 +59,7 @@ public partial class PlayerController : CharacterBody2D
 
 		var previousGravityY = Velocity.Y;
 		var newGravityY = Mathf.Round(Velocity.Y + _gravity * (float)delta);
-		newGravityY = Mathf.Clamp(newGravityY, -Mathf.Inf, GravityLimit);
+		newGravityY = Mathf.Clamp(newGravityY, -Mathf.Inf, MaxGravity);
 		var newVelocityY = (previousGravityY + newGravityY) * 0.5f;
 		Velocity = new Vector2(Velocity.X, newVelocityY);
 	}
@@ -124,6 +124,7 @@ public partial class PlayerController : CharacterBody2D
 		{
 			_isHanging = !_isHanging;
 			_gravity = _isHanging ? 1 : InitialGravity;
+			_acceleration = _isHanging ? _maxSpeed / 2 : _maxSpeed;
 		}
 	}
 	

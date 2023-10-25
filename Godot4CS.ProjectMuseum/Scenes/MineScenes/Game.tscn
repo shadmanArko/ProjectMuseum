@@ -13,4 +13,3 @@ _playerController = NodePath("../Player")
 position = Vector2(0, -230)
 _mapGenerationController = NodePath("../MineGenerationController")
 _friction = 100
-_initialGravity = 0.0

@@ -22,3 +22,7 @@ scale = Vector2(3.2094, 4.56177)
 shape = SubResource("RectangleShape2D_6rwst")
 one_way_collision_margin = 0.0
 debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="OnHttpRequestRequestCompleted"]

@@ -3,6 +3,7 @@ using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.ExhibitRepository;
+using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 
 namespace ProjectMuseum.Services.MuseumTileService;
@@ -13,13 +14,15 @@ public class MuseumService : IMuseumService
     private  MuseumTileDataGenerator _museumTileDataGenerator;
     private readonly ExhibitPlacementCondition _exhibitPlacementCondition;
     private readonly IExhibitRepository _exhibitRepository;
+    private readonly IMuseumRepository _museumRepository;
     private readonly SaveDataJsonFileDatabase _saveDataJsonFileDatabase;
 
-    public MuseumService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase)
+    public MuseumService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IMuseumRepository museumRepository)
     {
         _museumTileRepository = museumTileRepository;
         _exhibitRepository = exhibitRepository;
         _saveDataJsonFileDatabase = saveDataJsonFileDatabase;
+        _museumRepository = museumRepository;
         _museumTileDataGenerator = new MuseumTileDataGenerator(_museumTileRepository);
         _exhibitPlacementCondition = new ExhibitPlacementCondition(_exhibitRepository, _museumTileRepository);
     }
@@ -69,5 +72,10 @@ public class MuseumService : IMuseumService
     public async Task<List<MuseumTile>?> GenerateMuseumTileForNewGame()
     {
        return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();
+    }
+
+    public async Task<int> GetMuseumCurrentMoneyAmount(string id)
+    {
+        return await _museumRepository.GetMuseumBalance(id);
     }
 }

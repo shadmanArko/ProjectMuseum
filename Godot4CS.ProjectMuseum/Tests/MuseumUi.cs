@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
 using Godot.DependencyInjection.Attributes;
 using ProjectMuseum.Models;
 using Godot.DependencyInjection.Services.Input;
@@ -9,7 +11,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 {
     private PackedScene item1;
     private PackedScene item2;
-
+    private RichTextLabel museumMoneyTextField;
     [Inject]
     public List<ExhibitPlacementConditionData> ExhibitPlacementConditionDatas { get; set; }
     
@@ -23,10 +25,21 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     {
         item1 = (PackedScene)ResourceLoader.Load("res://item_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://item_2.tscn");
+        museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
         if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
+        
+        HttpRequest http = GetNode<HttpRequest>("HTTPRequest");
+        string url = "http://localhost:5178/api/MuseumTile/GetMuseumBalance/museum0";
+        http.Request(url);
     }
-
+    private void OnHttpRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+        string jsonStr = Encoding.UTF8.GetString(body);
+        // var jsonString = JsonSerializer.Deserialize<List<ExhibitPlacementConditionData>>(jsonStr);
+        museumMoneyTextField.Text = jsonStr;
+        GD.Print($"from ui" + jsonStr);
+    }
     public void OnExhibit0Pressed()
     {
         var instance = (Node)item1.Instantiate();

@@ -78,4 +78,16 @@ public class MuseumTileController : ControllerBase
         var exhibitEligibility = await _museumService.GetMuseumCurrentMoneyAmount(id);
         return Ok(exhibitEligibility);
     }
+    [HttpGet("AddToMuseumBalance/{id}/{amount}")]
+    public async Task<IActionResult> AddToMuseumBalance(string id, int amount)
+    {
+        var addToMuseumBalance = await _museumService.AddToMuseumBalance(id, amount);
+        return Ok(addToMuseumBalance);
+    }
+    [HttpGet("ReduceMuseumBalance/{id}/{amount}")]
+    public async Task<IActionResult> ReduceMuseumBalance(string id, int amount)
+    {
+        var reduceMuseumBalance = await _museumService.ReduceMuseumBalance(id, amount);
+        return Ok(reduceMuseumBalance);
+    }
 }

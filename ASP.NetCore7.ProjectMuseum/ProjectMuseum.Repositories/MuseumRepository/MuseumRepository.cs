@@ -15,10 +15,7 @@ public class MuseumRepository : IMuseumRepository
         throw new NotImplementedException();
     }
 
-    public Task<Museum> Update(string id, Museum museum)
-    {
-        throw new NotImplementedException();
-    }
+    
 
     public async Task<Museum?> GetById(string id)
     {
@@ -37,6 +34,24 @@ public class MuseumRepository : IMuseumRepository
         var museums = await _museumDatabase.ReadDataAsync();
         var museum = museums!.FirstOrDefault(tile => tile.Id == id);
         return museum!.Money;
+    }
+
+    public async Task<Museum> ReduceMuseumBalance(string id, int amount)
+    {
+        var museums = await _museumDatabase.ReadDataAsync();
+        var museum = museums!.FirstOrDefault(tile => tile.Id == id);
+        museum!.Money -= amount;
+        if (museums != null) await _museumDatabase.WriteDataAsync(museums);
+        return museum;
+    }
+
+    public async Task<Museum> AddToMuseumBalance(string id, int amount)
+    {
+        var museums = await _museumDatabase.ReadDataAsync();
+        var museum = museums!.FirstOrDefault(tile => tile.Id == id);
+        museum!.Money += amount;
+        if (museums != null) await _museumDatabase.WriteDataAsync(museums);
+        return museum;
     }
 
     public Task<Museum?> Delete(string id)

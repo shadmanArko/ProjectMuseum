@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
+using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumTileService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -10,10 +11,12 @@ namespace ASP.NetCore7.ProjectMuseum.Controllers;
 public class MuseumTileController : ControllerBase
 {
     private readonly IMuseumTileService _museumTileService;
+    private readonly IMuseumService _museumService;
 
-    public MuseumTileController(IMuseumTileService museumTileService)
+    public MuseumTileController(IMuseumTileService museumTileService, IMuseumService museumService)
     {
         _museumTileService = museumTileService;
+        _museumService = museumService;
     }
     
     [HttpGet("GetAllMuseumTiles")]
@@ -72,7 +75,7 @@ public class MuseumTileController : ControllerBase
     [HttpGet("GetMuseumBalance/{id}")]
     public async Task<IActionResult> GetMuseumBalance(string id)
     {
-        var exhibitEligibility = await _museumTileService.GetMuseumCurrentMoneyAmount(id);
+        var exhibitEligibility = await _museumService.GetMuseumCurrentMoneyAmount(id);
         return Ok(exhibitEligibility);
     }
 }

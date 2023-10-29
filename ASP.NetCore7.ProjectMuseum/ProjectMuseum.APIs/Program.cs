@@ -4,6 +4,7 @@ using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Services;
+using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumTileService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
 builder.Services.AddScoped<IExhibitRepository, ExhibitRepository>();
 builder.Services.AddScoped<IMuseumTileService, MuseumTileTileService>();
+builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

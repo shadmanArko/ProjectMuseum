@@ -14,7 +14,7 @@ public class MuseumTileTileService : IMuseumTileService
     private  MuseumTileDataGenerator _museumTileDataGenerator;
     private readonly ExhibitPlacementCondition _exhibitPlacementCondition;
     private readonly IExhibitRepository _exhibitRepository;
-    private readonly IMuseumRepository _museumRepository;
+    
     private readonly SaveDataJsonFileDatabase _saveDataJsonFileDatabase;
 
     public MuseumTileTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IMuseumRepository museumRepository)
@@ -22,7 +22,6 @@ public class MuseumTileTileService : IMuseumTileService
         _museumTileRepository = museumTileRepository;
         _exhibitRepository = exhibitRepository;
         _saveDataJsonFileDatabase = saveDataJsonFileDatabase;
-        _museumRepository = museumRepository;
         _museumTileDataGenerator = new MuseumTileDataGenerator(_museumTileRepository);
         _exhibitPlacementCondition = new ExhibitPlacementCondition(_exhibitRepository, _museumTileRepository);
     }
@@ -74,8 +73,5 @@ public class MuseumTileTileService : IMuseumTileService
        return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();
     }
 
-    public async Task<int> GetMuseumCurrentMoneyAmount(string id)
-    {
-        return await _museumRepository.GetMuseumBalance(id);
-    }
+    
 }

@@ -69,10 +69,10 @@ public class MuseumTileController : ControllerBase
         var exhibitEligibility = await _museumService.GetEligibilityOfPositioningExhibit( exhibitType);
         return Ok(exhibitEligibility);
     }
-    // [HttpGet("{id}")]
-    // public async Task<IActionResult> GetMuseumBalance(string id)
-    // {
-    //     var exhibitEligibility = await _museumService.GetMuseumCurrentMoneyAmount(id);
-    //     return Ok(exhibitEligibility);
-    // }
+    [HttpGet("GetMuseumBalance/{id}")]
+    public async Task<IActionResult> GetMuseumBalance(string id)
+    {
+        var exhibitEligibility = await _museumService.GetMuseumCurrentMoneyAmount(id);
+        return Ok(exhibitEligibility);
+    }
 }

@@ -24,12 +24,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Museum>(museumDataFolderPath));
-builder.Services.AddSingleton(new SaveDataJsonFileDatabase(museumTileDataFolderPath,exhibitDataFolderPath, saveDataFolderPath));
+builder.Services.AddSingleton(new SaveDataJsonFileDatabase(museumTileDataFolderPath,exhibitDataFolderPath, saveDataFolderPath, museumDataFolderPath));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
 builder.Services.AddScoped<IExhibitRepository, ExhibitRepository>();
-builder.Services.AddScoped<IMuseumService, MuseumService>();
+builder.Services.AddScoped<IMuseumTileService, MuseumTileTileService>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

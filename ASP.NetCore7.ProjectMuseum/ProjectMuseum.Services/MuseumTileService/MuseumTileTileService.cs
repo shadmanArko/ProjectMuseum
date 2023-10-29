@@ -8,7 +8,7 @@ using ProjectMuseum.Repositories.MuseumTileRepository;
 
 namespace ProjectMuseum.Services.MuseumTileService;
 
-public class MuseumService : IMuseumService
+public class MuseumTileTileService : IMuseumTileService
 {
     private readonly IMuseumTileRepository _museumTileRepository;
     private  MuseumTileDataGenerator _museumTileDataGenerator;
@@ -17,7 +17,7 @@ public class MuseumService : IMuseumService
     private readonly IMuseumRepository _museumRepository;
     private readonly SaveDataJsonFileDatabase _saveDataJsonFileDatabase;
 
-    public MuseumService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IMuseumRepository museumRepository)
+    public MuseumTileTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IMuseumRepository museumRepository)
     {
         _museumTileRepository = museumTileRepository;
         _exhibitRepository = exhibitRepository;

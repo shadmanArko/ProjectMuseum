@@ -3,7 +3,7 @@ using ProjectMuseum.Models;
 
 namespace ProjectMuseum.Services.MuseumTileService;
 
-public interface IMuseumService
+public interface IMuseumTileService
 {
     Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile);
     Task<MuseumTile?> GetMuseumTileById(string tileId);

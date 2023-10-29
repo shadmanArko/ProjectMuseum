@@ -23,7 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Museum>(exhibitDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Museum>(museumDataFolderPath));
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(museumTileDataFolderPath,exhibitDataFolderPath, saveDataFolderPath));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();

@@ -29,14 +29,14 @@ public class MuseumRepository : IMuseumRepository
         throw new NotImplementedException();
     }
 
-    public async Task<int> GetMuseumBalance(string id)
+    public async Task<float> GetMuseumBalance(string id)
     {
         var museums = await _museumDatabase.ReadDataAsync();
         var museum = museums!.FirstOrDefault(tile => tile.Id == id);
         return museum!.Money;
     }
 
-    public async Task<Museum> ReduceMuseumBalance(string id, int amount)
+    public async Task<Museum> ReduceMuseumBalance(string id, float amount)
     {
         var museums = await _museumDatabase.ReadDataAsync();
         var museum = museums!.FirstOrDefault(tile => tile.Id == id);
@@ -45,7 +45,7 @@ public class MuseumRepository : IMuseumRepository
         return museum;
     }
 
-    public async Task<Museum> AddToMuseumBalance(string id, int amount)
+    public async Task<Museum> AddToMuseumBalance(string id, float amount)
     {
         var museums = await _museumDatabase.ReadDataAsync();
         var museum = museums!.FirstOrDefault(tile => tile.Id == id);

@@ -25,6 +25,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     {
         item1 = (PackedScene)ResourceLoader.Load("res://item_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://item_2.tscn");
+        Item.OnItemPlaced += UpdateUiOnItemPlaced;
         museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
         if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
@@ -36,10 +37,15 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private void OnHttpRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
-        // var jsonString = JsonSerializer.Deserialize<List<ExhibitPlacementConditionData>>(jsonStr);
-        museumMoneyTextField.Text = jsonStr;
-        GD.Print($"from ui" + jsonStr);
+        var museumBalance = JsonSerializer.Deserialize<float>(jsonStr);
+        UpdateMuseumBalanceText(museumBalance.ToString("0.00"));
     }
+
+    private void UpdateMuseumBalanceText(string jsonStr)
+    {
+        museumMoneyTextField.Text = $"${jsonStr}";
+    }
+
     public void OnExhibit0Pressed()
     {
         var instance = (Node)item1.Instantiate();
@@ -72,5 +78,29 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         {
             GD.Print("Item script not found");
         }
+    }
+
+    void UpdateUiOnItemPlaced(float itemPrice)
+    {
+        GD.Print($"Item Placed of price {itemPrice}");
+        
+        HttpRequest http1 = GetNode<HttpRequest>("HTTPRequest");
+        http1.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
+        string url = $"http://localhost:5178/api/MuseumTile/ReduceMuseumBalance/museum0/{itemPrice}";
+        http1.Request(url);
+    }
+
+    private void OnHttpRequestCompletedForReducingBalance(long result, long responsecode, string[] headers, byte[] body)
+    {
+        string jsonStr = Encoding.UTF8.GetString(body);
+         var museum = JsonSerializer.Deserialize<ProjectMuseum.Models.Museum>(jsonStr);
+        UpdateMuseumBalanceText(museum.Money.ToString("0.00"));
+    }
+
+
+    public override void _ExitTree()
+    {
+        Item.OnItemPlaced -= UpdateUiOnItemPlaced;
+        base._ExitTree();
     }
 }

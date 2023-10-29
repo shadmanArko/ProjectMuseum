@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://f7mag5o4d6ps"]
+
+[ext_resource type="PackedScene" uid="uid://b36m03rmoip3m" path="res://Tests/Scenes/MainMenu Ui.tscn" id="1_yi0a2"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("1_yi0a2")]

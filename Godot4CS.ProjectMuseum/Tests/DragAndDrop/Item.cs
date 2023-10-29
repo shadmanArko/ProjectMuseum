@@ -9,10 +9,13 @@ using ProjectMuseum.Models;
 
 public partial class Item : Sprite2D
 {
+    public static Action<float> OnItemPlaced;
+
     public bool selectedItem = false;
     [Export]
     public string itemType = "small";
-
+    [Export]
+    public float ItemPrice = 45.33f;
     private List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -28,7 +31,7 @@ public partial class Item : Sprite2D
         _exhibitPlacementConditionDatas = JsonSerializer.Deserialize<List<ExhibitPlacementConditionData>>(jsonStr);
         // GD.Print(jsonStr);
     }
-    private void OnHttp1RequestRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    private void OnHttp1RequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         GD.Print("Http1 result " + jsonStr);
@@ -56,10 +59,11 @@ public partial class Item : Sprite2D
                 return;
             }
             HttpRequest http1 = GetNode<HttpRequest>("HTTPRequest");
-            http1.RequestCompleted += OnHttp1RequestRequestCompleted;
+            http1.RequestCompleted += OnHttp1RequestCompleted;
             string url = $"http://localhost:5178/api/MuseumTile/PlaceAnExhibit/{GetTileId(mouseTile)}/{itemType}";
             http1.Request(url);
             // http1.RequestCompleted -= OnHttp1RequestRequestCompleted;
+            OnItemPlaced?.Invoke(ItemPrice);
             selectedItem = false;
         }
         if (selectedItem && Input.IsActionPressed("ui_right_click"))

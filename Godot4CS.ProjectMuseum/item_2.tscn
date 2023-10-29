@@ -12,6 +12,7 @@ position = Vector2(-38, -123)
 texture = ExtResource("1_dn2gd")
 offset = Vector2(0, -12)
 script = ExtResource("2_e8wms")
+ItemPrice = 90.25
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -64)

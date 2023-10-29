@@ -11,17 +11,17 @@ public class MuseumService : IMuseumService
     {
         _museumRepository = museumRepository;
     }
-    public async Task<int> GetMuseumCurrentMoneyAmount(string id)
+    public async Task<float> GetMuseumCurrentMoneyAmount(string id)
     {
         return await _museumRepository.GetMuseumBalance(id);
     }
 
-    public async Task<Museum> AddToMuseumBalance(string id, int amount)
+    public async Task<Museum> AddToMuseumBalance(string id, float amount)
     {
         return await _museumRepository.AddToMuseumBalance(id, amount);
     }
 
-    public async Task<Museum> ReduceMuseumBalance(string id, int amount)
+    public async Task<Museum> ReduceMuseumBalance(string id, float amount)
     {
         return await _museumRepository.ReduceMuseumBalance(id, amount);
     }

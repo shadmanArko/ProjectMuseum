@@ -10,21 +10,24 @@ public class SaveDataJsonFileDatabase
     private readonly string _museumDataFolderPath;
 
     private readonly string _exhibitDataFolderPath;
+    private readonly string _playerInfoDataFolderPath;
 
     private readonly string _saveDataFolderPath;
 
-    public SaveDataJsonFileDatabase(string museumTileDataFolderPath, string exhibitDataFolderPath, string saveDataFolderPath, string museumDataFolderPath)
+    public SaveDataJsonFileDatabase(string museumTileDataFolderPath, string exhibitDataFolderPath, string saveDataFolderPath, string museumDataFolderPath, string playerInfoDataFolderPath)
     {
         _museumTileDataFolderPath = museumTileDataFolderPath;
         _exhibitDataFolderPath = exhibitDataFolderPath;
         _saveDataFolderPath = saveDataFolderPath;
         _museumDataFolderPath = museumDataFolderPath;
+        _playerInfoDataFolderPath = playerInfoDataFolderPath;
     }
 
     public async Task MergeJsonFiles()
     {
         var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(await File.ReadAllTextAsync(_museumTileDataFolderPath));
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(await File.ReadAllTextAsync(_exhibitDataFolderPath));
+        var playerInfos = JsonSerializer.Deserialize<List<PlayerInfo>>(await File.ReadAllTextAsync(_playerInfoDataFolderPath));
         var museums = JsonSerializer.Deserialize<List<Museum>>(await File.ReadAllTextAsync(_museumDataFolderPath));
 
 
@@ -32,6 +35,7 @@ public class SaveDataJsonFileDatabase
         {
             MuseumTiles = museumTiles,
             Exhibits = exhibits,
+            PlayerInfos = playerInfos,
             Museums = museums
         };
 
@@ -57,6 +61,10 @@ public class SaveDataJsonFileDatabase
         {
             WriteIndented = true
         }));
+        await File.WriteAllTextAsync(_playerInfoDataFolderPath, JsonSerializer.Serialize(mergedData?.PlayerInfos, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        }));
         
         await File.WriteAllTextAsync(_museumDataFolderPath, JsonSerializer.Serialize(mergedData?.Museums, new JsonSerializerOptions
         {
@@ -72,6 +80,8 @@ public class MergedData
     
     [JsonPropertyName("Exhibits")]
     public List<Exhibit>? Exhibits { get; set; }
+    [JsonPropertyName("PlayerInfo")]
+    public List<PlayerInfo>? PlayerInfos { get; set; }
     
     [JsonPropertyName("Museums")]
     public List<Museum>? Museums { get; set; }

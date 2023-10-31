@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c31pruxm8aupl"]
+
+[ext_resource type="Script" path="res://Scripts/Dependency Injection/DiInstaller.cs" id="1_u32xy"]
+[ext_resource type="Script" path="res://Scripts/Dependency Injection/DiTest4.cs" id="2_opy8o"]
+
+[node name="DiInstaller" type="Node"]
+script = ExtResource("1_u32xy")
+
+[node name="DiTest4" type="Node" parent="."]
+script = ExtResource("2_opy8o")

@@ -9,7 +9,7 @@ public class ApiService
     public async Task SendPostRequestAsync(string baseUrl, string endpoint, string requestData)
     {
         var httpRequest = new HttpRequest();
-        string[] headers = { "Content-Type: application/json"};
+        string[] headers = { "Content-ServiceType: application/json"};
 
         try
         {

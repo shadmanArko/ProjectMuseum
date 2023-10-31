@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqhoo8mw3fygq"]
+
+[ext_resource type="Script" path="res://DependencyRegistrationNode.cs" id="1_qnrwe"]
+
+[node name="DependencyRegistrationNode" type="Node3D"]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("1_qnrwe")

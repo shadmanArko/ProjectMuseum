@@ -1,8 +1,5 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmx0d4wen7mnc"]
-
-[ext_resource type="Script" path="res://Scripts/Dependency Injection/DIRegistrationNodes/MuseumSecneRegistrationNode.cs" id="1_jyy55"]
+[gd_scene format=3 uid="uid://cmx0d4wen7mnc"]
 
 [node name="DITesting" type="Node"]
-script = ExtResource("1_jyy55")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]

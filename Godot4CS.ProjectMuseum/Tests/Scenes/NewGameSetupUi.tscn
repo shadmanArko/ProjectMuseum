@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bubw1v2o1o04u"]
+[gd_scene load_steps=3 format=3 uid="uid://bubw1v2o1o04u"]
 
+[ext_resource type="Script" path="res://Tests/Scenes/NewGameSetupUi.cs" id="1_aeqpo"]
 [ext_resource type="Texture2D" uid="uid://cyj27cdfc6cf7" path="res://Sprites/Placeholder/male_and_female_mainj.png" id="1_jrv3g"]
 
 [node name="NewGameSetup" type="Control"]
@@ -10,40 +11,90 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." node_paths=PackedStringArray("StartButton")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_aeqpo")
+StartButton = NodePath("Start Button")
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="Player name" type="Label" parent="Panel"]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 94.0
-offset_right = 131.0
-offset_bottom = 120.0
-text = "Player Name:"
+offset_top = 92.0
+offset_right = 92.0
+offset_bottom = 118.0
+text = "Name:"
 
-[node name="Label2" type="Label" parent="Panel"]
+[node name="LineEdit" type="LineEdit" parent="Panel/Player name"]
 layout_mode = 0
-offset_left = 145.0
-offset_top = 94.0
-offset_right = 249.0
-offset_bottom = 120.0
-text = "Enter your name..."
+offset_left = 76.0
+offset_top = -2.0
+offset_right = 238.0
+offset_bottom = 29.0
+placeholder_text = "Enter Your Name..."
+
+[node name="Gender" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 140.0
+offset_right = 137.0
+offset_bottom = 166.0
+text = "Gender:"
+
+[node name="Turorial" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 602.0
+offset_right = 150.0
+offset_bottom = 628.0
+text = "Show Tutorial"
 
 [node name="OptionButton" type="OptionButton" parent="Panel"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 67.0
-offset_top = -9.0
-offset_right = 81.0
-offset_bottom = 11.0
+offset_left = 108.0
+offset_top = -179.0
+offset_right = 202.0
+offset_bottom = -159.0
 grow_vertical = 2
+item_count = 3
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Male"
+popup/item_0/id = 0
+popup/item_1/text = "Female"
+popup/item_1/id = 1
+popup/item_2/text = "Others"
+popup/item_2/id = 2
+
+[node name="CheckButton" type="CheckButton" parent="Panel"]
+layout_mode = 0
+offset_left = 177.0
+offset_top = 602.0
+offset_right = 221.0
+offset_bottom = 626.0
+button_pressed = true
+
+[node name="Start Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -156.0
+offset_top = -46.0
+offset_right = -32.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Start.."
 
 [node name="MaleAndFemaleMainj" type="Sprite2D" parent="."]
 position = Vector2(970, 274)

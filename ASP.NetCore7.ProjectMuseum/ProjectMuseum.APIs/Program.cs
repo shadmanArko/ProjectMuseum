@@ -4,6 +4,7 @@ using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Services;
+using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumTileService;
 
@@ -25,13 +26,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Museum>(museumDataFolderPath));
-builder.Services.AddSingleton(new SaveDataJsonFileDatabase(museumTileDataFolderPath,exhibitDataFolderPath, saveDataFolderPath, museumDataFolderPath));
+builder.Services.AddSingleton(new SaveDataJsonFileDatabase(museumTileDataFolderPath, exhibitDataFolderPath, saveDataFolderPath, museumDataFolderPath));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
 builder.Services.AddScoped<IExhibitRepository, ExhibitRepository>();
 builder.Services.AddScoped<IMuseumTileService, MuseumTileTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
+builder.Services.AddScoped<ILoadService, LoadService>();
+builder.Services.AddScoped<ISaveService, SaveService>();
+// builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));
+// builder.Services.AddScoped<ILoadService>(provider => new LoadService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

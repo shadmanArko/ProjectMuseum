@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
+using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumTileService;
 
@@ -12,11 +13,14 @@ public class MuseumTileController : ControllerBase
 {
     private readonly IMuseumTileService _museumTileService;
     private readonly IMuseumService _museumService;
-
-    public MuseumTileController(IMuseumTileService museumTileService, IMuseumService museumService)
+    private readonly ISaveService _saveService;
+    private readonly ILoadService _loadService;
+    public MuseumTileController(IMuseumTileService museumTileService, IMuseumService museumService, ILoadService loadService, ISaveService saveService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
+        _loadService = loadService;
+        _saveService = saveService;
     }
     
     [HttpGet("GetAllMuseumTiles")]
@@ -38,7 +42,18 @@ public class MuseumTileController : ControllerBase
         var museumTiles =await _museumTileService.GenerateMuseumTileForNewGame();
         return Ok(museumTiles);
     }
-
+    [HttpGet("SaveData")]
+    public async Task<IActionResult> SaveData()
+    {
+        await _saveService.SaveData();
+        return Ok();
+    }
+    [HttpGet("LoadData")]
+    public async Task<IActionResult> LoadData()
+    {
+        await _loadService.LoadData();
+        return Ok();
+    }
     // [HttpGet("{id}")]
     // public async Task<IActionResult> GetAllMuseumTileById(string id)
     // {

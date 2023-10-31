@@ -1,12 +1,19 @@
-[gd_scene format=3 uid="uid://b36m03rmoip3m"]
+[gd_scene load_steps=2 format=3 uid="uid://b36m03rmoip3m"]
 
-[node name="MainMenu" type="Control"]
+[ext_resource type="Script" path="res://Tests/Scenes/MainMenu.cs" id="1_quodl"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_quodl")
+ContinueButton = NodePath("MarginContainer/VBoxContainer/Continue")
+NewGameButton = NodePath("MarginContainer/VBoxContainer/New Game")
+OptionsButton = NodePath("MarginContainer/VBoxContainer/Options")
+ExitButton = NodePath("MarginContainer/VBoxContainer/Exit")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

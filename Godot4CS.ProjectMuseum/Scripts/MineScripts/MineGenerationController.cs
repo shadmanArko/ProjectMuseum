@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
@@ -7,20 +9,35 @@ namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
 public partial class MineGenerationController : Node2D
 {
 	[Export] public MineGenerationView _mineGenerationView;
+	[Export] private PlayerController _playerController;
 
 	private Cell[,] _grid;
 	[Export] private int _cellSize = 16;
 	[Export] private int _width = 35;
 	[Export] private int _length = 64;
-
-	[Export] private PlayerController _playerController;
     
 	public override void _Ready()
 	{
-		MineActions.OnPlayerAttackAction += AttackWall;
+		
+		//InitializeDiReferences();
+
+		// MineActions.OnPlayerAttackAction += AttackWall;
+		// GenerateGrid();
+		// var pos = _grid[_width / 2, 0].Pos + new Vector2(0,-15);
+		// _playerController.Position = pos;
+	}
+
+	private void InitializeDiReferences()
+	{
+		_playerController = ServiceRegistry.Resolve<PlayerController>();
+		_mineGenerationView = GetNode<MineGenerationView>("Mine");
+	}
+
+	public void GenerateMine()
+	{
+		InitializeDiReferences();
 		GenerateGrid();
-		var pos = _grid[_width / 2, 0].Pos + new Vector2(0,-15);
-		_playerController.Position = pos;
+		GD.Print($"mine generation view is null {_mineGenerationView is null}");
 	}
 
 	#region Mine Generator
@@ -145,5 +162,11 @@ public partial class MineGenerationController : Node2D
 			_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(4,0));
 	}
     
+	#endregion
+
+	#region Setters and Getters
+
+	public Cell[,] GetGrid() => _grid;
+
 	#endregion
 }

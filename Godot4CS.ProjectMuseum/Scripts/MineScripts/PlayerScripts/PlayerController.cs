@@ -8,16 +8,20 @@ public partial class PlayerController : CharacterBody2D
 	[Export] private MineGenerationController _mapGenerationController;
 	[Export] private AnimationController _animationController;
 
+	[Export] private string _playerScenePrefabPath = "res://Scenes/MineScenes/Player.tscn";
+	
 	#region Movement Variables
 
 	[Export] private int _maxSpeed = 100;
-	[Export] private int _acceleration = 20;
-	[Export] private int _friction = 100;
+	[Export] private int _acceleration = 100;
+	[Export] private int _friction = 200;
 	
-	[Export] private int _deceleration = 5;
+	[Export] private int _deceleration = 2;
 	[Export] private float _interpolationTime = 0.5f;
 
 	#endregion
+	
+	#region Gravity Variables
 
 	[Export] private float _gravity;
 	[Export] private const float InitialGravity = 800f;
@@ -26,6 +30,8 @@ public partial class PlayerController : CharacterBody2D
 
 	[Export] private bool _isHanging;
 
+	#endregion
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		PlayerMovement(delta);

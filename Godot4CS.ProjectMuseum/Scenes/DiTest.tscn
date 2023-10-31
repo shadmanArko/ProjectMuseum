@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c05kl1dahvgh3"]
 
 [ext_resource type="Script" path="res://Scenes/DiTest3.cs" id="1_5y0d0"]
-[ext_resource type="PackedScene" uid="uid://x6mq12a0rl51" path="res://Scenes/DependencyRegistrationNode.res" id="1_7vcqc"]
+[ext_resource type="PackedScene" path="res://Scenes/DependencyRegistrationNode.res" id="1_7vcqc"]
 [ext_resource type="Script" path="res://Scenes/Node3DTest.cs" id="2_v645i"]
 
 [node name="DiTest" type="Node"]

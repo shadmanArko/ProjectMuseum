@@ -10,7 +10,7 @@ public partial class MineSceneDiInstaller : Node
 	{
 		GD.Print("Museum DI Installer initialized");
 		ServiceRegistry.RegisterSingleton<MineGenerationController>();
-		ServiceRegistry.RegisterSingleton<PlayerController>();
+		ServiceRegistry.RegisterSingleton<PlayerControllerVariables>();
 		ServiceRegistry.Initialize();
 		GD.Print("Service Registry initialized");
 	}

@@ -12,6 +12,9 @@ public partial class MineSceneInitializer : Node
 	
 	private PlayerController _playerController;
 	private MineGenerationController _mineGenerationController;
+
+	[Export] private string _playerControllerScriptPath;
+	
 	public override void _Ready()
 	{
 		InitializeDiReferences();

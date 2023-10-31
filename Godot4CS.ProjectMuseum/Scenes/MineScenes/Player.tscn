@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=10 format=3 uid="uid://bcxa10qjiqp81"]
 
+[ext_resource type="Script" path="res://Scripts/MineScripts/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://bdh036gwvfpo4" path="res://Sprites/Player Animations/playerAnimations.png" id="2_5adrl"]
 [ext_resource type="Script" path="res://Scripts/MineScripts/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 
@@ -78,9 +79,11 @@ _data = {
 "run": SubResource("Animation_tq5uu")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
 texture_filter = 1
 disable_mode = 1
+script = ExtResource("1_bhvr3")
+_animationController = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)

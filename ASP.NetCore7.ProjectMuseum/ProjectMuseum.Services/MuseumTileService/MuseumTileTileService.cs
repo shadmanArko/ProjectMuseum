@@ -17,7 +17,7 @@ public class MuseumTileTileService : IMuseumTileService
     
     private readonly SaveDataJsonFileDatabase _saveDataJsonFileDatabase;
 
-    public MuseumTileTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IMuseumRepository museumRepository)
+    public MuseumTileTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase)
     {
         _museumTileRepository = museumTileRepository;
         _exhibitRepository = exhibitRepository;

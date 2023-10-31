@@ -14,5 +14,4 @@ public interface IMuseumTileService
     Task<MuseumTile?> DeleteMuseumTileById(string tileId);
     Task<List<MuseumTile>?> GenerateMuseumTileForNewGame();
 
-    Task<int> GetMuseumCurrentMoneyAmount(string id);
 }

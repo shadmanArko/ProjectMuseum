@@ -1,12 +1,1 @@
-[
-  {
-    "Id": "museum0",
-    "Name": "my Museum",
-    "Money": -622.1798
-  },
-  {
-    "Id": "museum1",
-    "Name": "my Museum",
-    "Money": 33
-  }
-]
+[{"Id":"museum0","Name":"my Museum","Money":4377.8203},{"Id":"museum1","Name":"my Museum","Money":33}]

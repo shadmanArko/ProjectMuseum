@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 
@@ -7,45 +6,38 @@ namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D
 {
-	[Export] private MineGenerationController _mapGenerationController;	//todo: has to be removed from here
 	[Export] private AnimationController _animationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
-	
-	// #region Movement Variables
-	//
-	// [Export] private int _maxSpeed = 100;
-	// [Export] private int _acceleration = 100;
-	// [Export] private int _friction = 200;
-	//
-	// [Export] private int _deceleration = 2;
-	// [Export] private float _interpolationTime = 0.5f;
-	//
-	// #endregion
-	//
-	// #region Gravity Variables
-	//
-	// [Export] private float _gravity;
-	// [Export] private const float InitialGravity = 800f;
-	// [Export] private const float MaxGravity = 800f;
-	// [Export] private bool _isGrounded;
-	//
-	// [Export] private bool _isHanging;
-	//
-	// #endregion
-    
+	private MineGenerationVariables _mineGenerationVariables;
 
 	public override void _Ready()
 	{
-		base._Ready();
+		InitializeDiReferences();
+		var pos = _mineGenerationVariables.Grid[_mineGenerationVariables.GridWidth / 2, 0].Pos + new Vector2(0,-15);
+		Position = pos;
+	}
+
+	private void InitializeDiReferences()
+	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		PlayerMovement(delta);
-		GD.Print($"acceleration {_playerControllerVariables.Acceleration}");
-		GD.Print($"max speed {_playerControllerVariables.MaxSpeed}");
+		if (Input.IsActionJustReleased("Test"))
+		{
+			GD.Print($"acceleration {_playerControllerVariables.Acceleration}");
+			GD.Print($"max speed {_playerControllerVariables.MaxSpeed}");
+			GD.Print($"friction {_playerControllerVariables.Friction}");
+			GD.Print($"gravity {_playerControllerVariables.Gravity}");
+			GD.Print($"initial gravity {_playerControllerVariables.InitialGravity}");
+			GD.Print($"max gravity {_playerControllerVariables.MaxGravity}");
+			GD.Print($"is grounded {_playerControllerVariables.IsGrounded}");
+			GD.Print($"is hanging {_playerControllerVariables.IsHanging}");
+		}
 	}
     
 	private void PlayerMovement(double delta)
@@ -63,16 +55,23 @@ public partial class PlayerController : CharacterBody2D
 			Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
 			Velocity = Velocity.LimitLength(_playerControllerVariables.MaxSpeed);
 		}
-
+        
+		ModifyPlayerVariables();
 		PlayerGrab();
 		_animationController.SetAnimation(Velocity, PlayerAttack());
-		ApplyGravity(delta);
 		DetectCollision();
+		ApplyGravity(delta);
+	}
+
+	private void ModifyPlayerVariables()
+	{
+		_playerControllerVariables.Position = Position;
+		_playerControllerVariables.Velocity = Velocity;
 	}
 
 	private void ApplyGravity(double delta)
 	{
-		if(_playerControllerVariables.IsGrounded) return;
+		if (_playerControllerVariables.IsGrounded) return;
 
 		var previousGravityY = Velocity.Y;
 		var newGravityY = Mathf.Round(Velocity.Y + _playerControllerVariables.Gravity * (float)delta);
@@ -86,28 +85,20 @@ public partial class PlayerController : CharacterBody2D
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
 		if (collision == null)
 		{
+			GD.Print("Collision is null");
 			_playerControllerVariables.IsGrounded = false;
 			return;
 		}
-		var tileMap = _mapGenerationController._mineGenerationView.TileMap;
-		if (collision.GetCollider() == tileMap)
-		{
-			var tilePos = _mapGenerationController._mineGenerationView.TileMap.LocalToMap(Position);
-			var playerPos = _mapGenerationController._mineGenerationView.TileMap.LocalToMap(Position);
-			tilePos -= (Vector2I) collision.GetNormal();
-
-			if (tilePos.Y > playerPos.Y)
-				_playerControllerVariables.IsGrounded = true;
-            
-			GD.Print($"tilepos: {tilePos.X}, {tilePos.Y} | PlayerPos: {playerPos.X}, {playerPos.Y}");
-		}
+		
+		GD.Print("Collision is NOT null");
+        MineActions.OnPlayerCollisionDetection?.Invoke(collision);
 	}
 
 	#region Input
 
 	private Vector2 GetInputKeyboard()
 	{
-		var motion = new Vector2();
+		Vector2 motion;
 		if (_playerControllerVariables.IsHanging)
 		{
 			motion = new Vector2
@@ -130,6 +121,7 @@ public partial class PlayerController : CharacterBody2D
 	private bool PlayerAttack()
 	{
 		var input = Input.IsActionJustReleased("ui_left_click");
+		_playerControllerVariables.IsAttacking = input;
 		if (input) MineActions.OnPlayerAttackAction?.Invoke();
 		return input;
 	}

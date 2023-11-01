@@ -1,16 +1,35 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 
 namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class AnimationController : AnimationPlayer
 {
+	private PlayerControllerVariables _playerControllerVariables;
+
+	[Export] private Sprite2D _sprite;
+	
 	public override void _Ready()
+	{
+		InitializeDiReferences();
+		SubscribeToActions();
+	}
+
+	private void InitializeDiReferences()
+	{
+		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+	}
+
+	public override void _Process(double delta)
+	{
+		SetAnimation(_playerControllerVariables.Velocity, _playerControllerVariables.IsAttacking);
+	}
+
+	private void SubscribeToActions()
 	{
 		MineActions.OnPlayerAttackAction += PlayAttackAnimation;
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 	}
-
-	[Export] private Sprite2D _sprite;
 	public void SetAnimation(Vector2 velocity, bool playerAttack)
 	{
 		var tempVelocity = velocity.Normalized();
@@ -21,11 +40,11 @@ public partial class AnimationController : AnimationPlayer
 			switch (tempVelocity.X)
 			{
 				case > 0:
-					_sprite.FlipH = false;
+					_sprite.FlipH = true;
 					PlayAnimation("run");
 					break;
 				case < 0:
-					_sprite.FlipH = true;
+					_sprite.FlipH = false;
 					PlayAnimation("run");
 					break;
 				default:
@@ -58,6 +77,6 @@ public partial class AnimationController : AnimationPlayer
 
 	private void SpriteFlipBasedOnMousePosition(double mousePos)
 	{
-		_sprite.FlipH = mousePos is >= 90 or < -90;
+		_sprite.FlipH = mousePos is < 90 and >= -90;
 	}
 }

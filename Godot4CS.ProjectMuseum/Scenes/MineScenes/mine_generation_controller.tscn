@@ -4,10 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dxu6uu8pb7s85" path="res://Scenes/MineScenes/Mine.tscn" id="2_ooqno"]
 [ext_resource type="Script" path="res://Scripts/MineScripts/MineGenerationView.cs" id="3_bsmgm"]
 
-[node name="MineGenerationController" type="Node2D" node_paths=PackedStringArray("_mineGenerationView")]
+[node name="MineGenerationController" type="Node2D"]
 script = ExtResource("1_2elrx")
-_mineGenerationView = NodePath("Mine")
-_width = 33
 
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("2_ooqno")]
 script = ExtResource("3_bsmgm")

@@ -11,4 +11,3 @@ script = ExtResource("2_sm814")
 _rootNode = NodePath("..")
 _playerScenePrefabPath = "res://Scenes/MineScenes/Player.tscn"
 _mineScenePrefabPath = "res://Scenes/MineScenes/mine_generation_controller.tscn"
-_playerControllerScriptPath = "res://Scripts/MineScripts/PlayerScripts/PlayerController.cs"

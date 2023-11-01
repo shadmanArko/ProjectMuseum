@@ -12,6 +12,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item1;
     private PackedScene item2;
     private RichTextLabel museumMoneyTextField;
+    [Export]public Node2D ItemsParent;
     [Inject]
     public List<ExhibitPlacementConditionData> ExhibitPlacementConditionDatas { get; set; }
     
@@ -49,7 +50,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     public void OnExhibit0Pressed()
     {
         var instance = (Node)item1.Instantiate();
-        GetTree().Root.AddChild(instance);
+        // GetTree().Root.AddChild(instance);
+        ItemsParent.AddChild(instance);
         var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
 
         if (scriptInstance != null)
@@ -66,7 +68,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     public void OnExhibit3Pressed()
     {
         var instance = (Node)item2.Instantiate();
-        GetTree().Root.AddChild(instance);
+        // GetTree().Root.AddChild(instance);
+        ItemsParent.AddChild(instance);
         var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
 
         if (scriptInstance != null)

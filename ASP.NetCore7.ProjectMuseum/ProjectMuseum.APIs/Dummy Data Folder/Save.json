@@ -5759,6 +5759,18 @@
       "WallId": "string",
       "ExhibitId": "string",
       "HangingLightId": "string"
+    },
+    {
+      "Id": "dc8af439-3c70-4c78-90e7-9d0fb5c3fe39",
+      "XPosition": 0,
+      "YPosition": 0,
+      "TileSetNumber": 0,
+      "TileAtlasCoOrdinateX": 0,
+      "TileAtlasCoOrdinateY": 0,
+      "Layer": 0,
+      "WallId": "string",
+      "ExhibitId": "string",
+      "HangingLightId": "string"
     }
   ],
   "Exhibits": [
@@ -6985,16 +6997,49 @@
       "IsWallExhibit": false
     }
   ],
+  "PlayerInfo": [
+    {
+      "Id": "f1c063ce-635c-4ec7-8561-01b4db399e71",
+      "Name": "",
+      "Gender": "Male",
+      "Tutorial": true
+    },
+    {
+      "Id": "58f6584f-d2b8-4207-a761-fed1fff249da",
+      "Name": "zdfsdf",
+      "Gender": "Male",
+      "Tutorial": true
+    },
+    {
+      "Id": "5f177fed-3359-427d-bcff-b6d4b7ae1c84",
+      "Name": "Life",
+      "Gender": "Male",
+      "Tutorial": false
+    },
+    {
+      "Id": "82ad3f15-df00-4826-87fd-1bc5553649f1",
+      "Name": "Life2",
+      "Gender": "Male",
+      "Tutorial": true
+    },
+    {
+      "Id": "782d6da2-4fa3-451e-bdce-e8537d61f023",
+      "Name": "Samiul ",
+      "Gender": "Male",
+      "Tutorial": false
+    },
+    {
+      "Id": "1b2ac1c7-0354-4283-8a99-5318c13ff492",
+      "Name": "afdsfadf",
+      "Gender": "Male",
+      "Tutorial": true
+    }
+  ],
   "Museums": [
     {
       "Id": "museum0",
       "Name": "my Museum",
-      "Money": -622.1798
-    },
-    {
-      "Id": "museum1",
-      "Name": "my Museum",
-      "Money": 33
+      "Money": 4377.8203
     }
   ]
 }

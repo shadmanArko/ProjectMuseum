@@ -20,6 +20,11 @@ public partial class Item : Sprite2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // var tileMap = GetTree().Root.GetNode<TileMap>("museum/TileMap");
+        // tileMap.AddChild(this);
+        // //
+        // // // GameManager.TileMap.GetNode()
+        // GD.Print("child count " +  tileMap.GetChildCount());
         HttpRequest http = GetNode<HttpRequest>("HTTPRequest");
         string url = "http://localhost:5178/api/MuseumTile/" + itemType;
         http.Request(url);
@@ -64,6 +69,7 @@ public partial class Item : Sprite2D
             http1.Request(url);
             // http1.RequestCompleted -= OnHttp1RequestRequestCompleted;
             OnItemPlaced?.Invoke(ItemPrice);
+            
             selectedItem = false;
         }
         if (selectedItem && Input.IsActionPressed("ui_right_click"))

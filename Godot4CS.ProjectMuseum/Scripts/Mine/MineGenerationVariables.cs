@@ -1,4 +1,6 @@
-namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts;
+
+namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public class MineGenerationVariables
 {

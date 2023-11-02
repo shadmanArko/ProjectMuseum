@@ -1,8 +1,10 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
-namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
+namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D
 {
@@ -59,7 +61,7 @@ public partial class PlayerController : CharacterBody2D
         
 		ModifyPlayerVariables();
 		PlayerGrab();
-		//_animationController.SetAnimation(PlayerAttack());
+		_animationController.SetAnimation(PlayerAttack());
 		DetectCollision();
 		ApplyGravity(delta);
 	}

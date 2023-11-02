@@ -1,6 +1,7 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
-namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
+namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineSceneInitializer : Node
 {

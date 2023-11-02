@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.LoadAndSaveService;
+using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
@@ -17,13 +18,15 @@ public class MuseumTileController : ControllerBase
     private readonly ISaveService _saveService;
     private readonly ILoadService _loadService;
     private readonly IPlayerInfoService _playerInfoService;
-    public MuseumTileController(IMuseumTileService museumTileService, IMuseumService museumService, ILoadService loadService, ISaveService saveService, IPlayerInfoService playerInfoService)
+    private readonly IMineService _mineService;
+    public MuseumTileController(IMuseumTileService museumTileService, IMuseumService museumService, ILoadService loadService, ISaveService saveService, IPlayerInfoService playerInfoService, IMineService mineService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
         _loadService = loadService;
         _saveService = saveService;
         _playerInfoService = playerInfoService;
+        _mineService = mineService;
     }
     
     [HttpGet("GetAllMuseumTiles")]
@@ -113,5 +116,12 @@ public class MuseumTileController : ControllerBase
     {
         var newPlayerInfo = await _playerInfoService.InsertPlayerInfo(playerInfo);
         return Ok(newPlayerInfo);
+    }
+
+    [HttpGet("GetMineData")]
+    public async Task<IActionResult> GetMineData()
+    {
+        var mine = await _mineService.GetMineData();
+        return Ok(mine);
     }
 }

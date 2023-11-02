@@ -1,7 +1,9 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts;
+using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
-namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
+namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public partial class AnimationController : AnimationPlayer
 {
@@ -18,11 +20,6 @@ public partial class AnimationController : AnimationPlayer
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
-		SetAnimation(_playerControllerVariables.IsAttacking);
 	}
 
 	private void SubscribeToActions()

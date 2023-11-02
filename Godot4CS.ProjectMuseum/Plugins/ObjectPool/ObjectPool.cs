@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class ObjectPool : Node
+public partial class ObjectPool : Node
 {
     [Export]
     public PackedScene PooledObject; // The object you want to pool

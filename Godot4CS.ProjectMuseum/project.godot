@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://Tests/DragAndDrop/game_manager.gd"
+GameManager="*res://Scripts/GameManager/game_manager.gd"
 MineActions="*res://Scripts/MineScripts/MineActions.cs"
 
 [dotnet]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bpare5kqece4c"]
 
-[ext_resource type="Script" path="res://Tests/MuseumUi.cs" id="1_mfgvl"]
+[ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="1_xl6pw"]
 [ext_resource type="Texture2D" uid="uid://cwrr0p0amuel2" path="res://Assets/2D/Sprites/Exhibits/Sprite-0007.png" id="2_p5phu"]
 [ext_resource type="Texture2D" uid="uid://ck4te6vpacd7e" path="res://Assets/2D/Sprites/Exhibits/Sprite-0008.png" id="3_71apm"]
@@ -15,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfgvl")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." node_paths=PackedStringArray("museumMoneyTextField")]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -24,6 +24,8 @@ anchor_bottom = 1.0
 offset_left = -214.0
 grow_horizontal = 0
 grow_vertical = 2
+script = ExtResource("1_mfgvl")
+museumMoneyTextField = NodePath("../Bottom Panel/MuseumMoney")
 
 [node name="Exhibit 0" type="Button" parent="Panel"]
 layout_mode = 1

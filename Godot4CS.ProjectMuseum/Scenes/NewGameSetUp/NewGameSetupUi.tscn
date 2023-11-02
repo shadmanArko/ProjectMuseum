@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bubw1v2o1o04u"]
 
-[ext_resource type="Script" path="res://Tests/Scenes/NewGameSetupUi.cs" id="1_aeqpo"]
+[ext_resource type="Script" path="res://Scripts/NewGameSetup/NewGameSetupUi.cs" id="1_aeqpo"]
 [ext_resource type="Texture2D" uid="uid://cyj27cdfc6cf7" path="res://Assets/2D/Sprites/Placeholder/male_and_female_mainj.png" id="1_jrv3g"]
 
 [node name="NewGameSetupUi" type="Control" node_paths=PackedStringArray("StartButton", "LineEdit", "OptionButton", "CheckButton")]

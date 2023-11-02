@@ -11,7 +11,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 {
     private PackedScene item1;
     private PackedScene item2;
-    private RichTextLabel museumMoneyTextField;
+    [Export] private RichTextLabel museumMoneyTextField;
     [Export]public Node2D ItemsParent;
     [Inject]
     public List<ExhibitPlacementConditionData> ExhibitPlacementConditionDatas { get; set; }
@@ -24,10 +24,10 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     }
     public override void _Ready()
     {
-        item1 = (PackedScene)ResourceLoader.Load("res://item_1.tscn");
-        item2 = (PackedScene)ResourceLoader.Load("res://item_2.tscn");
+        item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
+        item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
         Item.OnItemPlaced += UpdateUiOnItemPlaced;
-        museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
+        // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
         if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
         

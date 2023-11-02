@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/MineScripts/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
-[ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Sprites/Mine Sprites/Player Animations/mine_player_animations.png" id="2_eymdr"]
+[ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
 [ext_resource type="Script" path="res://Scripts/MineScripts/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 [ext_resource type="Script" path="res://Scripts/MineScripts/PlayerScripts/PlayerCollisionDetector.cs" id="4_voxt0"]
 

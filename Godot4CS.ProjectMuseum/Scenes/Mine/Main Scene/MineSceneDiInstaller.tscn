@@ -9,5 +9,5 @@ script = ExtResource("1_oilmi")
 [node name="MineSceneInitializer" type="Node" parent="." node_paths=PackedStringArray("_rootNode")]
 script = ExtResource("2_sm814")
 _rootNode = NodePath("..")
-_playerScenePrefabPath = "res://Scenes/MineScenes/Player.tscn"
-_mineScenePrefabPath = "res://Scenes/MineScenes/mine_generation_controller.tscn"
+_playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
+_mineScenePrefabPath = "res://Scenes/Mine/Sub Scenes/mine_generation_controller.tscn"

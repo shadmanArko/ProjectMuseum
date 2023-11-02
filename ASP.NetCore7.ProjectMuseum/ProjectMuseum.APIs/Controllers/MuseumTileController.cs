@@ -124,4 +124,11 @@ public class MuseumTileController : ControllerBase
         var mine = await _mineService.GetMineData();
         return Ok(mine);
     }
+    
+    [HttpPut("UpdateMineData")]
+    public async Task<IActionResult> UpdateMineData([FromBody] Mine mine)
+    {
+        var newMine = await _mineService.UpdateMine(mine);
+        return Ok(newMine);
+    }
 }

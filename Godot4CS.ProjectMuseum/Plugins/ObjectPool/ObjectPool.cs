@@ -1,6 +1,6 @@
 using Godot;
 using System.Collections.Generic;
-
+//todo make it generic
 public partial class ObjectPool : Node
 {
     [Export]
@@ -44,6 +44,7 @@ public partial class ObjectPool : Node
         {
             Node obj = PooledObject.Instantiate();
             obj.Name = PooledObject.Instantiate().Name + "_" + i;
+            //
             //obj.Visible = false; // Optionally hide the object
             pool.Add(obj);
         }

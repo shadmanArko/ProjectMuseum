@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://cmx0d4wen7mnc"]
-
-[node name="DITesting" type="Node"]
-
-[node name="HTTPRequest" type="HTTPRequest" parent="."]

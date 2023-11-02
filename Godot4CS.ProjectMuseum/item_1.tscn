@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cv15qeuxawq6p"]
 
-[ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Sprites/Exhibits/Sprite-0006.png" id="1_1juby"]
+[ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="1_1juby"]
 [ext_resource type="Script" path="res://Tests/DragAndDrop/Item.cs" id="2_vqulg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]

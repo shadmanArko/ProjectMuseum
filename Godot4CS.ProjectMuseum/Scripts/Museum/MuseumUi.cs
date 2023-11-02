@@ -22,6 +22,9 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         ExhibitPlacementConditionDatas = exhibitPlacementConditionDatas;
         GD.Print("inject being called");
     }
+
+    private HttpRequest _httpRequestForGettingBalance;
+    private HttpRequest _httpRequestForReducingBalance;
     public override void _Ready()
     {
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
@@ -30,14 +33,19 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
         if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
-        
-        HttpRequest http = GetNode<HttpRequest>("HTTPRequest");
+        _httpRequestForGettingBalance = new HttpRequest();
+        _httpRequestForReducingBalance = new HttpRequest();
+        AddChild(_httpRequestForGettingBalance);
+        AddChild(_httpRequestForReducingBalance);
         string url = "http://localhost:5178/api/MuseumTile/GetMuseumBalance/museum0";
-        http.Request(url);
+        _httpRequestForGettingBalance.Request(url);
+        _httpRequestForGettingBalance.RequestCompleted += OnHttpRequestForGettingBalanceCompleted;
+        _httpRequestForReducingBalance.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
     }
-    private void OnHttpRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    private void OnHttpRequestForGettingBalanceCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
+        GD.Print("getting balance " + jsonStr);
         var museumBalance = JsonSerializer.Deserialize<float>(jsonStr);
         UpdateMuseumBalanceText(museumBalance.ToString("0.00"));
     }
@@ -86,11 +94,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     void UpdateUiOnItemPlaced(float itemPrice)
     {
         GD.Print($"Item Placed of price {itemPrice}");
-        
-        HttpRequest http1 = GetNode<HttpRequest>("HTTPRequest");
-        http1.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
         string url = $"http://localhost:5178/api/MuseumTile/ReduceMuseumBalance/museum0/{itemPrice}";
-        http1.Request(url);
+        _httpRequestForReducingBalance.Request(url);
     }
 
     private void OnHttpRequestCompletedForReducingBalance(long result, long responsecode, string[] headers, byte[] body)

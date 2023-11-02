@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=9 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" path="res://Scenes/Museum/Sub Scenes/character_body_2d.tscn" id="5_y7gbs"]
 [ext_resource type="Script" path="res://Scripts/Museum/IsometricCharacter/CharacterBody2DIsometric.cs" id="6_oc2wa"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Sub Scenes/Museum ui.tscn" id="7_xsnwb"]
-[ext_resource type="PackedScene" uid="uid://dstn0yvcl70w0" path="res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn" id="8_q300t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bfckc"]
 size = Vector2(116.129, 116.129)
@@ -47,12 +46,5 @@ ItemsParent = NodePath("../../ItemParents")
 
 [node name="ItemParents" type="Node2D" parent="."]
 y_sort_enabled = true
-
-[node name="Item2" parent="." instance=ExtResource("8_q300t")]
-position = Vector2(-143, -194)
-offset = Vector2(63, 0)
-
-[node name="Item3" parent="." instance=ExtResource("8_q300t")]
-position = Vector2(-95, -139)
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

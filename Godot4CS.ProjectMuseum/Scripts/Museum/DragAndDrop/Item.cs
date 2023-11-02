@@ -17,6 +17,14 @@ public partial class Item : Sprite2D
     [Export]
     public float ItemPrice = 45.33f;
     private List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
+
+    private Color _eligibleColor = Colors.Green;
+    private Color _ineligibleColor = Colors.Red;
+
+    private Color _originalColor;
+
+    private HttpRequest _httpRequestForExhibitPlacementConditions;
+    private HttpRequest _httpRequestForExhibitPlacement;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -25,18 +33,25 @@ public partial class Item : Sprite2D
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
-        HttpRequest http = GetNode<HttpRequest>("HTTPRequest");
+        _httpRequestForExhibitPlacement = new HttpRequest();
+        _httpRequestForExhibitPlacementConditions = new HttpRequest();
+        AddChild(_httpRequestForExhibitPlacement);
+        AddChild(_httpRequestForExhibitPlacementConditions);
+        _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
+        _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;
         string url = "http://localhost:5178/api/MuseumTile/" + itemType;
-        http.Request(url);
+        _httpRequestForExhibitPlacementConditions.Request(url);
+
+        _originalColor = Modulate;
     }
 
-    private void OnHttpRequestRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    private void httpRequestForExhibitPlacementConditionsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         _exhibitPlacementConditionDatas = JsonSerializer.Deserialize<List<ExhibitPlacementConditionData>>(jsonStr);
         // GD.Print(jsonStr);
     }
-    private void OnHttp1RequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    private void httpRequestForExhibitPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         GD.Print("Http1 result " + jsonStr);
@@ -52,6 +67,7 @@ public partial class Item : Sprite2D
 
         // Check if the tile is eligible for this item placement
         var eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
+        Modulate = eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
         // GD.Print($"{eligibleForItemPlacementInTile}");
         // Apply effect based on eligibility
 
@@ -63,14 +79,13 @@ public partial class Item : Sprite2D
                 GD.Print("Not Eligible tile");
                 return;
             }
-            HttpRequest http1 = GetNode<HttpRequest>("HTTPRequest");
-            http1.RequestCompleted += OnHttp1RequestCompleted;
             string url = $"http://localhost:5178/api/MuseumTile/PlaceAnExhibit/{GetTileId(mouseTile)}/{itemType}";
-            http1.Request(url);
+            _httpRequestForExhibitPlacement.Request(url);
             // http1.RequestCompleted -= OnHttp1RequestRequestCompleted;
             OnItemPlaced?.Invoke(ItemPrice);
             
             selectedItem = false;
+            Modulate = _originalColor;
         }
         if (selectedItem && Input.IsActionPressed("ui_right_click"))
         {

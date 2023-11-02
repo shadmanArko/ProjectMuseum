@@ -26,13 +26,6 @@ public partial class PlayerCollisionDetector : Node
     
 	private void DetectCollision(KinematicCollision2D collision)
 	{
-		// if (collision == null)
-		// {
-		// 	_playerControllerVariables.IsGrounded = false;
-		// 	return;
-		// }
-		
-		GD.Print("PLAYER COLLISION DETECTOR CALLED");
 		var tileMap = _mineGenerationVariables.MineGenView.TileMap;
 		if (collision.GetCollider() == tileMap)
 		{

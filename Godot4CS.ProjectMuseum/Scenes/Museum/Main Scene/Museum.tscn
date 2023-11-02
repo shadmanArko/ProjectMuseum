@@ -52,4 +52,7 @@ y_sort_enabled = true
 position = Vector2(-143, -194)
 offset = Vector2(63, 0)
 
+[node name="Item3" parent="." instance=ExtResource("8_q300t")]
+position = Vector2(-95, -139)
+
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

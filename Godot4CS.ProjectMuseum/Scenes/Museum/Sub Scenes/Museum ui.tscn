@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ck4te6vpacd7e" path="res://Assets/2D/Sprites/Exhibits/Sprite-0008.png" id="3_71apm"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/Sprite-0009.png" id="4_co613"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("museumMoneyTextField")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,8 +14,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfgvl")
+museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 
-[node name="Panel" type="Panel" parent="." node_paths=PackedStringArray("museumMoneyTextField")]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -24,8 +25,6 @@ anchor_bottom = 1.0
 offset_left = -214.0
 grow_horizontal = 0
 grow_vertical = 2
-script = ExtResource("1_mfgvl")
-museumMoneyTextField = NodePath("../Bottom Panel/MuseumMoney")
 
 [node name="Exhibit 0" type="Button" parent="Panel"]
 layout_mode = 1

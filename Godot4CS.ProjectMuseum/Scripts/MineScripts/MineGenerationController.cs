@@ -16,14 +16,14 @@ public partial class MineGenerationController : Node2D
 	{
 		InitializeDiReferences();
 		SubscribeToActions();
+		_mineGenerationView = GetNode<MineGenerationView>("Mine");
+		_mineGenerationVariables.MineGenView = _mineGenerationView;
 	}
 
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
-		_mineGenerationView = GetNode<MineGenerationView>("Mine");
-		_mineGenerationVariables.MineGenView = _mineGenerationView;
 	}
 
 	private void SubscribeToActions()

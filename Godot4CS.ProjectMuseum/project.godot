@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Godot4CS.ProjectMuseum"
-run/main_scene="res://Scenes/MineScenes/MineSceneDiInstaller.tscn"
+run/main_scene="res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/2D/Sprites/icon.svg"
 
 [autoload]
 
 GameManager="*res://Scripts/GameManager/game_manager.gd"
-MineActions="*res://Scripts/MineScripts/MineActions.cs"
+MineActions="*res://Scripts/Mine/MineActions.cs"
 
 [dotnet]
 

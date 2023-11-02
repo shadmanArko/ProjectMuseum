@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://sgl77f0jk8fl"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/IsometricCharacter/character_body_2d.gd" id="1_ncgcw"]
+[ext_resource type="Texture2D" uid="uid://cqfrqomw1mp8o" path="res://Assets/2D/Sprites/icon.svg" id="2_uhwvp"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_ncgcw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_uhwvp")

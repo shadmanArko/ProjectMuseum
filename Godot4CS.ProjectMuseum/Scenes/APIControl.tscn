@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://sv21mctoni1v"]
+[gd_scene load_steps=2 format=3 uid="uid://bnkoas40y8sw4"]
 
-[ext_resource type="Script" path="res://Scenes/APIConnection.gd" id="1_67p01"]
+[ext_resource type="Script" path="res://Plugins/API Service/APIConnection.gd" id="1_67p01"]
 
 [node name="APIControl" type="Control"]
 layout_mode = 3

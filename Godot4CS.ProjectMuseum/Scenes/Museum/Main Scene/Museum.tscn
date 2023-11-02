@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
 [ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="4_kytf8"]
-[ext_resource type="PackedScene" uid="uid://sgl77f0jk8fl" path="res://character_body_2d.tscn" id="5_y7gbs"]
-[ext_resource type="Script" path="res://CharacterBody2DIsometric.cs" id="6_oc2wa"]
+[ext_resource type="PackedScene" uid="uid://sgl77f0jk8fl" path="res://Scenes/Museum/Sub Scenes/character_body_2d.tscn" id="5_y7gbs"]
+[ext_resource type="Script" path="res://Scripts/Museum/IsometricCharacter/CharacterBody2DIsometric.cs" id="6_oc2wa"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Sub Scenes/Museum ui.tscn" id="7_xsnwb"]
 [ext_resource type="PackedScene" uid="uid://dstn0yvcl70w0" path="res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn" id="8_q300t"]
 

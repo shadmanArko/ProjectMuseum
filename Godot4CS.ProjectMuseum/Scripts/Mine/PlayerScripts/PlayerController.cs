@@ -61,7 +61,7 @@ public partial class PlayerController : CharacterBody2D
         
 		ModifyPlayerVariables();
 		PlayerGrab();
-		_animationController.SetAnimation(PlayerAttack());
+		_animationController.SetAnimation();
 		DetectCollision();
 		ApplyGravity(delta);
 	}

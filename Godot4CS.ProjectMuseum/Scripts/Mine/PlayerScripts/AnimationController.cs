@@ -27,7 +27,7 @@ public partial class AnimationController : AnimationPlayer
 		MineActions.OnPlayerAttackAction += PlayAttackAnimation;
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 	}
-	public void SetAnimation(bool playerAttack)
+	public void SetAnimation()
 	{
 		var tempVelocity = _playerControllerVariables.Velocity.Normalized();
 		if(tempVelocity.X == 0 && !_playerControllerVariables.IsAttacking)

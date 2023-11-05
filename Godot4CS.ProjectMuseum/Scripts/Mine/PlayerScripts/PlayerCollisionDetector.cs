@@ -37,7 +37,7 @@ public partial class PlayerCollisionDetector : Node
 			if (tilePos.Y > playerPos.Y)
 				_playerControllerVariables.IsGrounded = true;
             
-			GD.Print($"tilePos: {tilePos.X}, {tilePos.Y} | PlayerPos: {playerPos.X}, {playerPos.Y}");
+			//GD.Print($"tilePos: {tilePos.X}, {tilePos.Y} | PlayerPos: {playerPos.X}, {playerPos.Y}");
 		}
 	}
 

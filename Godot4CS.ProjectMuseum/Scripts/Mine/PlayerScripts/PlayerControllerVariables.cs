@@ -20,6 +20,7 @@ public class PlayerControllerVariables
 	public bool IsGrounded = false;
 	public bool IsAttacking = false;
 	public bool IsHanging = false;
+	public bool IsFalling = false;
 
 	#endregion
 

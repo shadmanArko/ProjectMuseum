@@ -16,7 +16,9 @@ public partial class PlayerController : CharacterBody2D
 	public override void _Ready()
 	{
 		InitializeDiReferences();
-		var pos = _mineGenerationVariables.Grid[_mineGenerationVariables.GridWidth / 2, 0].Pos + new Vector2(0,-15);
+		var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
+			_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
+		var pos = vectorPos + new Vector2(0,-15);
 		Position = pos;
 	}
 
@@ -29,6 +31,9 @@ public partial class PlayerController : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		PlayerMovement(delta);
+
+		#region Testing Purposes
+
 		if (Input.IsActionJustReleased("Test"))
 		{
 			GD.Print($"acceleration {_playerControllerVariables.Acceleration}");
@@ -41,6 +46,8 @@ public partial class PlayerController : CharacterBody2D
 			GD.Print($"is attacking {_playerControllerVariables.IsAttacking}");
 			GD.Print($"is hanging {_playerControllerVariables.IsHanging}");
 		}
+
+		#endregion
 	}
     
 	private void PlayerMovement(double delta)
@@ -61,7 +68,7 @@ public partial class PlayerController : CharacterBody2D
         
 		ModifyPlayerVariables();
 		PlayerGrab();
-		_animationController.SetAnimation();
+		_animationController.SetAnimation(PlayerAttack());
 		DetectCollision();
 		ApplyGravity(delta);
 	}
@@ -88,12 +95,12 @@ public partial class PlayerController : CharacterBody2D
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
 		if (collision == null)
 		{
-			GD.Print("Collision is null");
+			//GD.Print("Collision is null");
 			_playerControllerVariables.IsGrounded = false;
 			return;
 		}
 		
-		GD.Print("Collision is NOT null");
+		//GD.Print("Collision is NOT null");
         MineActions.OnPlayerCollisionDetection?.Invoke(collision);
 	}
 

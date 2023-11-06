@@ -11,6 +11,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 {
     private PackedScene item1;
     private PackedScene item2;
+    private PackedScene item3;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export]public Node2D ItemsParent;
     [Inject]
@@ -29,6 +30,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     {
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
+        item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
         Item.OnItemPlaced += UpdateUiOnItemPlaced;
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
@@ -58,6 +60,23 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     public void OnExhibit0Pressed()
     {
         var instance = (Node)item1.Instantiate();
+        // GetTree().Root.AddChild(instance);
+        ItemsParent.AddChild(instance);
+        var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
+
+        if (scriptInstance != null)
+        {
+            // Now you can access properties or call methods on the script instance
+            scriptInstance.Set("selectedItem", true);
+        }
+        else
+        {
+            GD.Print("Item script not found");
+        }
+    }
+    public void OnExhibit1Pressed()
+    {
+        var instance = (Node)item3.Instantiate();
         // GetTree().Root.AddChild(instance);
         ItemsParent.AddChild(instance);
         var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);

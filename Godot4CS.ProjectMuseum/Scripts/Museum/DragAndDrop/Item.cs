@@ -58,6 +58,11 @@ public partial class Item : Sprite2D
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, -1));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, 0));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, -1));
+        }else if (numberOfTilesItTakes == 2)
+        {
+            listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, 0));
+            listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, -1));
+            
         }
     }
 

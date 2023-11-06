@@ -142,4 +142,5 @@ offset_bottom = 38.0
 layout_mode = 2
 
 [connection signal="pressed" from="Panel/Exhibit 0" to="." method="OnExhibit0Pressed"]
+[connection signal="pressed" from="Panel/Exhibit 1" to="." method="OnExhibit1Pressed"]
 [connection signal="pressed" from="Panel/Exhibit 3" to="." method="OnExhibit3Pressed"]

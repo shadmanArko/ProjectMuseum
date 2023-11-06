@@ -1,11 +1,9 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot.DependencyInjection.Attributes;
 using ProjectMuseum.Models;
-using Godot.DependencyInjection.Services.Input;
 
 public partial class MuseumUi : Control  // Replace with the appropriate node type for your UI
 {

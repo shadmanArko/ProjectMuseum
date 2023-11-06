@@ -341,8 +341,7 @@ texture_filter = 1
 disable_mode = 1
 script = ExtResource("1_bhvr3")
 _animationController = NodePath("AnimationPlayer")
-_maxVerticalVelocity = 10.0
-_initialGravity = 25.0
+_maxVerticalVelocity = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 1)
@@ -366,5 +365,5 @@ _sprite = NodePath("../Sprite2D")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 
-[node name="CollisionDetector" type="Node" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("4_voxt0")

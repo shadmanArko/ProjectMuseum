@@ -1,9 +1,7 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine;
-using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
-namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
+namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public partial class PlayerCollisionDetector : Node
 {

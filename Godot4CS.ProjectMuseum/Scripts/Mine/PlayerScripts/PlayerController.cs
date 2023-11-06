@@ -2,7 +2,6 @@ using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.MineScripts;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -15,9 +14,13 @@ public partial class PlayerController : CharacterBody2D
 
 	[Export] private float _maxVerticalVelocity;
 
-	public override void _Ready()
+	public override void _EnterTree()
 	{
 		InitializeDiReferences();
+	}
+
+	public override void _Ready()
+	{
 		var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
 			_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
 		var pos = vectorPos + new Vector2(0,-15);
@@ -69,10 +72,10 @@ public partial class PlayerController : CharacterBody2D
 		}
 
 		ApplyGravity();
-		ModifyPlayerVariables();
 		PlayerGrab();
 		_animationController.SetAnimation(PlayerAttack());
 		DetectCollision();
+		ModifyPlayerVariables();
 	}
 
 	private void ApplyGravity()
@@ -138,12 +141,9 @@ public partial class PlayerController : CharacterBody2D
 	private void PlayerGrab()
 	{
 		var grab = Input.IsActionJustReleased("toggle_grab");
-		if (grab)
-		{
-			_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
-			//_playerControllerVariables.Gravity = _playerControllerVariables.IsHanging ? 1 : _initialGravity;
-			_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? _playerControllerVariables.MaxSpeed / 2 : _playerControllerVariables.MaxSpeed;
-		}
+		if (!grab) return;
+		_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
+		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? _playerControllerVariables.MaxSpeed / 2 : _playerControllerVariables.MaxSpeed;
 	}
 	
 	public override void _Input(InputEvent @event)

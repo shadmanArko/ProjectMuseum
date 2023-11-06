@@ -1,7 +1,5 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 

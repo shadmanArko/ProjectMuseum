@@ -1,5 +1,6 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class ChangeVariableValues : Node

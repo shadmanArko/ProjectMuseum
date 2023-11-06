@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.MineScripts;
 using Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 using Newtonsoft.Json;

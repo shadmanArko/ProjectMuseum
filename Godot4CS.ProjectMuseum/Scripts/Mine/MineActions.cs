@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-namespace Godot4CS.ProjectMuseum.Scripts.Mine;
+namespace Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
 public partial class MineActions : Node
 {

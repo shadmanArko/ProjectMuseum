@@ -1,9 +1,8 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
-namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D
 {
@@ -12,18 +11,10 @@ public partial class PlayerController : CharacterBody2D
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 
-	[Export] private float _maxVerticalVelocity;
-
-	public override void _EnterTree()
-	{
-		InitializeDiReferences();
-	}
-
 	public override void _Ready()
 	{
-		var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
-			_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
-		var pos = vectorPos + new Vector2(0,-15);
+		InitializeDiReferences();
+		var pos = _mineGenerationVariables.Grid[_mineGenerationVariables.GridWidth / 2, 0].Pos + new Vector2(0,-15);
 		Position = pos;
 	}
 
@@ -36,23 +27,18 @@ public partial class PlayerController : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		PlayerMovement(delta);
-
-		#region Testing Purposes
-
 		if (Input.IsActionJustReleased("Test"))
 		{
 			GD.Print($"acceleration {_playerControllerVariables.Acceleration}");
 			GD.Print($"max speed {_playerControllerVariables.MaxSpeed}");
 			GD.Print($"friction {_playerControllerVariables.Friction}");
-			GD.Print($"Vertical Velocity {_playerControllerVariables.Velocity.Y}");
 			GD.Print($"gravity {_playerControllerVariables.Gravity}");
-			GD.Print($"max gravity {_maxVerticalVelocity}");
+			GD.Print($"initial gravity {_playerControllerVariables.InitialGravity}");
+			GD.Print($"max gravity {_playerControllerVariables.MaxGravity}");
 			GD.Print($"is grounded {_playerControllerVariables.IsGrounded}");
 			GD.Print($"is attacking {_playerControllerVariables.IsAttacking}");
 			GD.Print($"is hanging {_playerControllerVariables.IsHanging}");
 		}
-
-		#endregion
 	}
     
 	private void PlayerMovement(double delta)
@@ -70,22 +56,12 @@ public partial class PlayerController : CharacterBody2D
 			Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
 			Velocity = Velocity.LimitLength(_playerControllerVariables.MaxSpeed);
 		}
-
-		ApplyGravity();
-		PlayerGrab();
-		_animationController.SetAnimation(PlayerAttack());
-		DetectCollision();
+        
 		ModifyPlayerVariables();
-	}
-
-	private void ApplyGravity()
-	{
-		if(_playerControllerVariables.IsGrounded || _playerControllerVariables.IsHanging) return;
-
-		var previousVerticalVelocity = Velocity.Y;
-		var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
-
-		Velocity = new Vector2(Velocity.X, currentVerticalVelocity);
+		PlayerGrab();
+		//_animationController.SetAnimation(PlayerAttack());
+		DetectCollision();
+		ApplyGravity(delta);
 	}
 
 	private void ModifyPlayerVariables()
@@ -94,15 +70,28 @@ public partial class PlayerController : CharacterBody2D
 		_playerControllerVariables.Velocity = Velocity;
 	}
 
+	private void ApplyGravity(double delta)
+	{
+		if (_playerControllerVariables.IsGrounded) return;
+
+		var previousGravityY = Velocity.Y;
+		var newGravityY = Mathf.Round(Velocity.Y + _playerControllerVariables.Gravity * (float)delta);
+		newGravityY = Mathf.Clamp(newGravityY, -Mathf.Inf, _playerControllerVariables.MaxGravity);
+		var newVelocityY = (previousGravityY + newGravityY) * 0.5f;
+		Velocity = new Vector2(Velocity.X, newVelocityY);
+	}
+
 	private void DetectCollision()
 	{
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
 		if (collision == null)
 		{
+			GD.Print("Collision is null");
 			_playerControllerVariables.IsGrounded = false;
 			return;
 		}
-        
+		
+		GD.Print("Collision is NOT null");
         MineActions.OnPlayerCollisionDetection?.Invoke(collision);
 	}
 
@@ -141,9 +130,12 @@ public partial class PlayerController : CharacterBody2D
 	private void PlayerGrab()
 	{
 		var grab = Input.IsActionJustReleased("toggle_grab");
-		if (!grab) return;
-		_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
-		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? _playerControllerVariables.MaxSpeed / 2 : _playerControllerVariables.MaxSpeed;
+		if (grab)
+		{
+			_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
+			_playerControllerVariables.Gravity = _playerControllerVariables.IsHanging ? 1 : _playerControllerVariables.InitialGravity;
+			_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? _playerControllerVariables.MaxSpeed / 2 : _playerControllerVariables.MaxSpeed;
+		}
 	}
 	
 	public override void _Input(InputEvent @event)

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+namespace Godot4CS.ProjectMuseum.Scripts.MineScripts.PlayerScripts;
 
 public class PlayerControllerVariables
 {
@@ -14,12 +14,12 @@ public class PlayerControllerVariables
 	
 	#region Gravity Variables
 
-	public float Gravity = 25f;
-    
+	public float Gravity = 800f;
+	public float InitialGravity = 800f;
+	public float MaxGravity = 800f;
 	public bool IsGrounded = false;
 	public bool IsAttacking = false;
 	public bool IsHanging = false;
-	public bool IsFalling = false;
 
 	#endregion
 

@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class CharacterBody2DIsometric : CharacterBody2D
 {

@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=27 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionDetector.cs" id="4_voxt0"]
+[ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt8gk"]
 size = Vector2(8, 14)
@@ -367,3 +368,6 @@ zoom = Vector2(4, 4)
 
 [node name="CollisionDetector" type="Node2D" parent="."]
 script = ExtResource("4_voxt0")
+
+[node name="InputHandler" type="Node2D" parent="."]
+script = ExtResource("5_0x0fh")

@@ -83,13 +83,10 @@ public partial class MineGenerationController : Node2D
 	private List<Cell> Cells2DArrayToList()
 	{
 		var cellList = new List<Cell>();
-
-		for (var y = 0; y < _mineGenerationVariables.GridLength; y++)
+		for (var x = 0; x < _mineGenerationVariables.GridWidth; x++)
 		{
-			for (var x = 0; x < _mineGenerationVariables.GridWidth; x++)
-			{
+			for (var y = 0; y < _mineGenerationVariables.GridLength; y++)
 				cellList.Add(_mineGenerationVariables.Cells[x,y]);
-			}
 		}
 
 		return cellList;
@@ -122,14 +119,16 @@ public partial class MineGenerationController : Node2D
 		GenerateMineBasedOnRetrievedMineData(mine);
 	}
 
-	private Cell[,] CellsListTo2DArray(List<Cell> cells, int length, int width)
+	private static Cell[,] CellsListTo2DArray(List<Cell> cells, int length, int width)
 	{
 		var grid = new Cell[width, length];
-		for (int y = 0; y < length; y++)
+		var listIndex = 0;
+		for (var x = 0; x < width; x++)
 		{
-			for (int x = 0; x < width; x++)
+			for (var y = 0; y < length; y++)
 			{
-				grid[x, y] = cells[x*width + y];
+				grid[x, y] = cells[listIndex];
+				listIndex++;
 			}
 		}
 

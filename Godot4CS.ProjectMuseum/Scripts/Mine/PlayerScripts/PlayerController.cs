@@ -1,7 +1,6 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -152,6 +151,15 @@ public partial class PlayerController : CharacterBody2D
 		var mousePos = GetGlobalMousePosition();
 		var angle = GetAngleTo(mousePos);
 		var degree = angle * (180 / Math.PI);
+		
+		_playerControllerVariables.MouseDirection = degree switch
+		{
+			<= 45 and > -45 => Vector2I.Right,
+			<= -45 and > -135 => Vector2I.Up,
+			> 45 and <= 135 => Vector2I.Down,
+			_ => Vector2I.Left
+		};
+		
 		MineActions.OnMouseMotionAction?.Invoke(degree);
 	}
 

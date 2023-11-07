@@ -28,16 +28,6 @@ public partial class AnimationController : AnimationPlayer
 	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity.Normalized();
-		// if(tempVelocity.X == 0 && !isAttacking)
-		// 	PlayAnimation("idle");
-		// else
-		// {
-		// 	if(_playerControllerVariables.IsHanging) 
-		// 		PlayHangingAnimations(tempVelocity);
-		// 	else 
-		// 		PlayMovementAnimations(tempVelocity);
-		// }
-
 		if (tempVelocity.Y >= 10)
 			_playerControllerVariables.IsFalling = true;
 		

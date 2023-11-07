@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://0v3ikej83pig"]
+
+[ext_resource type="Texture2D" uid="uid://bc8isy1tr16vw" path="res://Assets/2D/Sprites/Wallpapers/leafy green wall paper 1.png" id="1_7qfxc"]
+
+[node name="LeafyGreenWallPaper1" type="Sprite2D"]
+position = Vector2(-360, -212)
+texture = ExtResource("1_7qfxc")

@@ -143,6 +143,8 @@ public partial class Item : Sprite2D
             }
         }
 
+        if (_listOfMatchingExhibitPlacementConditionDatas.Count < 1) return false;
+        
         foreach (var matchingData in _listOfMatchingExhibitPlacementConditionDatas)
         {
             if (!matchingData.IsEligible)
@@ -151,7 +153,6 @@ public partial class Item : Sprite2D
             }
             
         }
-        
         GD.Print($"{_listOfMatchingExhibitPlacementConditionDatas.Count} eligible tiles");
         return true;
     }

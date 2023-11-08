@@ -2,13 +2,17 @@ using Godot;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using Godot.Collections;
 using ProjectMuseum.Models;
 
 public partial class TileSpawner : TileMap
 {
 	[Export] private PackedScene _wallLeft;
 	[Export] private PackedScene _wallRight;
+	[Export] private PackedScene _dirtyWallLeft;
+	[Export] private PackedScene _dirtyWallRight;
 	[Export] private Node2D _wallsParent;
+	// [Export] private Array<int> _dirtyTilesIndex;
 	public override void _Ready()
 	{
 		HttpRequest httpRequest = GetNode<HttpRequest>("HTTPRequest");

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cv15qeuxawq6p"]
 
-[ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="1_ppxof"]
+[ext_resource type="Texture2D" uid="uid://2fhrgi2yxlca" path="res://Assets/2D/Sprites/Exhibits/bordered/1x1 wooden.png" id="1_m1lyp"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_vqulg"]
 [ext_resource type="Texture2D" uid="uid://dt00ojgpeqsvp" path="res://Assets/2D/Sprites/Exhibits/Glass/glass.png" id="3_c8hr5"]
 
@@ -12,7 +12,7 @@ z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(16, -119)
-texture = ExtResource("1_ppxof")
+texture = ExtResource("1_m1lyp")
 offset = Vector2(0, -3)
 script = ExtResource("2_vqulg")
 

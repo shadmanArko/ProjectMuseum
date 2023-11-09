@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dstn0yvcl70w0"]
 
-[ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/Sprite-0009.png" id="1_jdji2"]
+[ext_resource type="Texture2D" uid="uid://dcs68c1n4hnml" path="res://Assets/2D/Sprites/Exhibits/bordered/2x2 wooden.png" id="1_0t0ih"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_e8wms"]
 [ext_resource type="Texture2D" uid="uid://256je7wu6pgs" path="res://Assets/2D/Sprites/Exhibits/Glass/glass large.png" id="3_ispsm"]
 
@@ -12,7 +12,7 @@ z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-38, -109)
-texture = ExtResource("1_jdji2")
+texture = ExtResource("1_0t0ih")
 offset = Vector2(0, -11)
 script = ExtResource("2_e8wms")
 ItemPrice = 90.25

@@ -364,7 +364,7 @@ script = ExtResource("3_8nu7c")
 _sprite = NodePath("../Sprite2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(6, 6)
 
 [node name="CollisionDetector" type="Node2D" parent="."]
 script = ExtResource("4_voxt0")

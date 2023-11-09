@@ -69,9 +69,9 @@ public partial class MineGenerationController : Node2D
 	{
 		string[] headers = { "Content-Type: application/json"};
 		_mine.Cells = Cells2DArrayToList();
-		_mine.CellSize = 16;
-		_mine.GridLength = 64;
-		_mine.GridWidth = 35;
+		_mine.CellSize = _mineGenerationVariables.CellSize;
+		_mine.GridLength = _mineGenerationVariables.GridLength;
+		_mine.GridWidth = _mineGenerationVariables.GridWidth;
 		
 		var body = JsonConvert.SerializeObject(_mine);
 
@@ -94,7 +94,6 @@ public partial class MineGenerationController : Node2D
 	
 	private void OnSaveGeneratedMineHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
-		
 		GD.Print("ON SAVE GENERATED MINE HTTP REQUEST COMPLETE method called");
 		_savingCanvas.Visible = false;
 	}
@@ -114,27 +113,11 @@ public partial class MineGenerationController : Node2D
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-
+		
 		GD.Print("GET REQUEST COMPLETED");
 		GenerateMineBasedOnRetrievedMineData(mine);
 	}
-
-	private static Cell[,] CellsListTo2DArray(List<Cell> cells, int length, int width)
-	{
-		var grid = new Cell[width, length];
-		var listIndex = 0;
-		for (var x = 0; x < width; x++)
-		{
-			for (var y = 0; y < length; y++)
-			{
-				grid[x, y] = cells[listIndex];
-				listIndex++;
-			}
-		}
-
-		return grid;
-	}
-
+    
 	private void GenerateMineBasedOnRetrievedMineData(global::ProjectMuseum.Models.Mine mine)
 	{
 		GD.Print("GENERATING CELL LIST TO 2D ARRAY");
@@ -169,6 +152,22 @@ public partial class MineGenerationController : Node2D
 			}
 		}
 	}
+	
+	private static Cell[,] CellsListTo2DArray(List<Cell> cells, int length, int width)
+	{
+		var grid = new Cell[width, length];
+		var listIndex = 0;
+		for (var x = 0; x < width; x++)
+		{
+			for (var y = 0; y < length; y++)
+			{
+				grid[x, y] = cells[listIndex];
+				listIndex++;
+			}
+		}
+
+		return grid;
+	}
 
 	#endregion
 
@@ -184,7 +183,7 @@ public partial class MineGenerationController : Node2D
 			{
 				if (y == 0 || y == _mineGenerationVariables.GridLength -1)
 				{
-					if (y == 0 && x == 17)
+					if (y is 0 && x == _mineGenerationVariables.GridWidth / 2)
 					{
 						_mineGenerationVariables.Cells[x, y] = BlankCell(x, y);
 						continue;
@@ -199,8 +198,12 @@ public partial class MineGenerationController : Node2D
 					_mineGenerationVariables.Cells[x, y] = InstantiateUnbreakableCell(x, y);
 					continue;
 				}
+				
+				
 
 				_mineGenerationVariables.Cells[x, y] = InstantiateCell(x, y);
+				if (y is 1 && x == _mineGenerationVariables.GridWidth / 2)
+					_mineGenerationVariables.Cells[x, y].IsRevealed = true;
 			}
 		}
 	}

@@ -5,6 +5,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 public partial class AlternateTapMiniGame : CanvasLayer
 {
 	[Export] private double _timer;
+	[Export] private double _timeReduceInterval;
 
 	[Export] private Label _timerLabel;
 	[Export] private Label _pressButtonLabel;
@@ -17,10 +18,6 @@ public partial class AlternateTapMiniGame : CanvasLayer
 	[Export] private int _failPoints;
 	
 	[Export] private bool _isAlternateTapOption;
-	public override void _EnterTree()
-	{
-		
-	}
 
 	public override void _Ready()
 	{
@@ -31,6 +28,11 @@ public partial class AlternateTapMiniGame : CanvasLayer
 	{
 		if(_progressValue >= _finalValue)
 			_ExitTree();
+
+		if (_progressValue <= 0)
+			_progressValue = 0;
+		
+		CheckAlternateButtonsPressed();
 		
 		if (_timer > 0)
 		{
@@ -38,13 +40,14 @@ public partial class AlternateTapMiniGame : CanvasLayer
 		}
 		else
 		{
-			CheckAlternateButtonsPressed();
-			_timer = 2;
+			_progressValue -= _failPoints;
+			_timer = _timeReduceInterval;
 		}
 
-		_timerLabel.Text =Mathf.CeilToInt( _timer).ToString();
-		_pressButtonLabel.Text = _isAlternateTapOption ? "Press Q" : "Press E";
-		_progressLabel.Text = $"Progress: {Mathf.CeilToInt(_progressValue)}";
+		_timerLabel.Text = Mathf.CeilToInt( _timer).ToString();
+		_pressButtonLabel.Text = _isAlternateTapOption ? "Q" : "E";
+		_progressLabel.Text = $"Progress: {Mathf.Clamp(Mathf.CeilToInt(_progressValue), 0,_finalValue)}";
+		
 	}
 
 	private void CheckAlternateButtonsPressed()
@@ -58,22 +61,16 @@ public partial class AlternateTapMiniGame : CanvasLayer
 	private void CheckQPressed()
 	{
 		var isPressed = Input.IsActionJustReleased("PressQ");
-		if (isPressed) 
-			_progressValue += _successPoints;
-		else 
-			_progressValue -= _failPoints;
-		
+		if (!isPressed) return; 
+		_progressValue += _successPoints;
 		_isAlternateTapOption = !_isAlternateTapOption;
 	}
 
 	private void CheckEPressed()
 	{
 		var isPressed = Input.IsActionJustReleased("PressE");
-		if (isPressed) 
-			_progressValue += _successPoints;
-		else 
-			_progressValue -= _failPoints;
-		
+		if (!isPressed) return; 
+		_progressValue += _successPoints;
 		_isAlternateTapOption = !_isAlternateTapOption;
 	}
 

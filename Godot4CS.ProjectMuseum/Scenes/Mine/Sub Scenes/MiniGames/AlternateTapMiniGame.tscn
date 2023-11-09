@@ -4,10 +4,11 @@
 
 [node name="AlternateTapMiniGame" type="CanvasLayer" node_paths=PackedStringArray("_timerLabel", "_pressButtonLabel", "_progressLabel")]
 script = ExtResource("1_i0xcx")
+_timeReduceInterval = 0.25
 _timerLabel = NodePath("Panel/Timer Label")
 _pressButtonLabel = NodePath("Panel/Press Button Label")
 _progressLabel = NodePath("Panel/Progress label")
-_finalValue = 50
+_finalValue = 100
 _successPoints = 5
 _failPoints = 2
 

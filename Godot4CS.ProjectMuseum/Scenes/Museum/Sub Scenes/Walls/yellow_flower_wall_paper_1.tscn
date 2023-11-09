@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddq1yn1fawuwg"]
 
-[ext_resource type="Texture2D" uid="uid://vywrqhi5b1w3" path="res://Assets/2D/Sprites/Wallpapers/dirty2.png" id="1_edk3u"]
+[ext_resource type="Texture2D" uid="uid://hg8btuw4x0ot" path="res://Assets/2D/Sprites/Wallpapers/dirty 1 80px.png" id="1_l61v6"]
 
 [node name="YellowFlowerWallPaper1" type="Sprite2D"]
 position = Vector2(24, -396)
 scale = Vector2(-1, 1)
-texture = ExtResource("1_edk3u")
-offset = Vector2(-8, -51)
+texture = ExtResource("1_l61v6")
+offset = Vector2(-8, -43.5)

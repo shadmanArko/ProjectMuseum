@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
 [ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="4_kytf8"]
-[ext_resource type="PackedScene" path="res://Scenes/Museum/Sub Scenes/character_body_2d.tscn" id="5_y7gbs"]
+[ext_resource type="PackedScene" uid="uid://jp0ri3gsveav" path="res://Scenes/Museum/Sub Scenes/character_body_2d.tscn" id="5_y7gbs"]
 [ext_resource type="Script" path="res://Scripts/Museum/IsometricCharacter/CharacterBody2DIsometric.cs" id="6_oc2wa"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Sub Scenes/Museum ui.tscn" id="7_xsnwb"]
 [ext_resource type="PackedScene" uid="uid://0v3ikej83pig" path="res://Scenes/Museum/Sub Scenes/Walls/leafy_green_wall_paper_1.tscn" id="8_36sej"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ddq1yn1fawuwg" path="res://Scenes/Museum/Sub Scenes/Walls/yellow_flower_wall_paper_1.tscn" id="10_xt14w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bfckc"]
-size = Vector2(116.129, 116.129)
+size = Vector2(17, 42)
 
 [node name="museum" type="Node2D"]
 y_sort_enabled = true
@@ -34,15 +34,16 @@ position = Vector2(576, 324)
 script = ExtResource("4_kytf8")
 zoomSpd = 0.2
 Minzoom = 0.5
+Maxzoom = 4.0
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_y7gbs")]
 z_index = 1
 y_sort_enabled = true
 position = Vector2(611, 428)
-scale = Vector2(0.155, 0.155)
 script = ExtResource("6_oc2wa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-0.5, -1)
 shape = SubResource("RectangleShape2D_bfckc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

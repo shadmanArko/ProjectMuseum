@@ -143,7 +143,7 @@ public partial class Item : Sprite2D
             }
         }
 
-        if (_listOfMatchingExhibitPlacementConditionDatas.Count < 1) return false;
+        if (_listOfMatchingExhibitPlacementConditionDatas.Count < numberOfTilesItTakes) return false;
         
         foreach (var matchingData in _listOfMatchingExhibitPlacementConditionDatas)
         {

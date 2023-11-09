@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -24,7 +25,7 @@ public partial class PlayerCollisionDetector : Node2D
 	private void SubscribeToActions()
 	{
 		MineActions.OnPlayerCollisionDetection += DetectCollision;
-		MineActions.OnPlayerAttackAction += AttackWall;
+		MineActions.OnPlayerAttackActionPressed += AttackWall;
 	}
     
 	private void DetectCollision(KinematicCollision2D collision)
@@ -43,10 +44,11 @@ public partial class PlayerCollisionDetector : Node2D
 		}
 	}
 	
-		#region Wall Attack Detection
+	#region Wall Attack Detection
     
 	private void AttackWall()
 	{
+		if(_playerControllerVariables.CurrentEquippedItem != Equipables.PickAxe) return;
 		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
 		var newPos = _playerControllerVariables.MouseDirection;
 

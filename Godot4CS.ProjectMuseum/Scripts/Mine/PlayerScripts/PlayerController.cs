@@ -133,7 +133,7 @@ public partial class PlayerController : CharacterBody2D
 	{
 		var input = Input.IsActionJustReleased("ui_left_click");
 		_playerControllerVariables.IsAttacking = input;
-		if (input) MineActions.OnPlayerAttackAction?.Invoke();
+		if (input) MineActions.OnPlayerAttackActionPressed?.Invoke();
 		return input;
 	}
 
@@ -141,6 +141,7 @@ public partial class PlayerController : CharacterBody2D
 	{
 		var grab = Input.IsActionJustReleased("toggle_grab");
 		if (!grab) return;
+		//MineActions.OnPlayerGrabActionPressed?.Invoke();
 		_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
 		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? _playerControllerVariables.MaxSpeed / 2 : _playerControllerVariables.MaxSpeed;
 	}

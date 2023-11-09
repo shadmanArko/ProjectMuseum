@@ -1,5 +1,6 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -22,12 +23,13 @@ public partial class AnimationController : AnimationPlayer
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnPlayerAttackAction += PlayAttackAnimation;
+		MineActions.OnPlayerAttackActionPressed += PlayAttackAnimation;
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
+		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
 	}
 	public void SetAnimation(bool isAttacking)
 	{
-		var tempVelocity = _playerControllerVariables.Velocity.Normalized();
+		var tempVelocity = _playerControllerVariables.Velocity;
 		if (tempVelocity.Y >= 10)
 			_playerControllerVariables.IsFalling = true;
 		
@@ -62,37 +64,79 @@ public partial class AnimationController : AnimationPlayer
 		{
 			case > 0:
 				_sprite.FlipH = true;
-				PlayAnimation("run");
+				PlayAnimation("climb_horizontal");
 				break;
 			case < 0:
 				_sprite.FlipH = false;
-				PlayAnimation("run");
+				PlayAnimation("climb_horizontal");
 				break;
 			default:
 				_sprite.FlipH = _sprite.FlipH;
+				PlayAnimation("climb_idle");
 				break;
 		}
+		
+		PlayAnimation(velocity.Y is > 0 or < 0 ? "climb_vertical" : "climb_idle");
 	}
 
 	private void PlayAttackAnimation()
 	{
-		PlayAnimation("attack");
+		var mouseDirection = _playerControllerVariables.MouseDirection;
+		switch (_playerControllerVariables.CurrentEquippedItem)
+		{
+			case Equipables.Sword:
+				PlayAnimation("attack");
+				break;
+			case Equipables.PickAxe:
+				if (mouseDirection == Vector2I.Up)
+					PlayAnimation("mining_up");
+				else if (mouseDirection == Vector2I.Down)
+					PlayAnimation("mining_down");
+				else
+					PlayAnimation("mining_horizontal");
+				break;
+			case Equipables.Brush:
+				PlayAnimation("brush");
+				break;
+		}
 	}
 
 	private void PlayAnimation(string state)
 	{
-		if (state == "idle")
+		if (_playerControllerVariables.IsHanging)
 		{
-			if(CurrentAnimation == "")
+			if(state == "climb_idle")
+			{
+				if (CurrentAnimation == "")
+				{
+					Play(state);
+				}
+			}
+			else
+			{
 				Play(state);
-		}
-		else if (state == "run")
-		{
-			if(CurrentAnimation != "attack")
-				Play(state);
+			}
 		}
 		else
-			Play(state);
+		{
+			if (state == "idle")
+			{
+				if(CurrentAnimation == "")
+					Play(state);
+			}
+			else if (state == "run")
+			{
+				if(CurrentAnimation != "attack" && !CurrentAnimation.Contains("mining") && !CurrentAnimation.Contains("brush"))
+					Play(state);
+			}
+			else
+				Play(state);
+		}
+	}
+
+	private void ToggleHangOnWall()
+	{
+		PlayAnimation(_playerControllerVariables.IsHanging ? "idle_to_climb" : "climb_to_idle");
 	}
 
 	private void SpriteFlipBasedOnMousePosition(double mousePos)

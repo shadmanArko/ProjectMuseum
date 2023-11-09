@@ -3,7 +3,6 @@ using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -133,21 +132,21 @@ public partial class MineGenerationController : Node2D
 			var tilePos = _mineGenerationView.LocalToMap(pos);
 			
 			if(!cell.IsInstantiated)
-				_mineGenerationView.SetCell(0, tilePos, 1,new Vector2I(4, 0));
+				_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4, 0));
 			else
 			{
 				if(!cell.IsBreakable || !cell.IsRevealed)
-					_mineGenerationView.SetCell(0, tilePos, 1,new Vector2I(3, 0));
+					_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3, 0));
 				else
 				{
 					if(cell.BreakStrength == 3)
-						_mineGenerationView.SetCell(0, tilePos, 1,new Vector2I(0, 0));
+						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(0, 0));
 					else if(cell.BreakStrength == 2)
-						_mineGenerationView.SetCell(0, tilePos, 1,new Vector2I(1, 0));
+						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1, 0));
 					else if(cell.BreakStrength == 1)
-						_mineGenerationView.SetCell(0, tilePos, 1,new Vector2I(2, 0));
+						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2, 0));
 					else
-						_mineGenerationView.SetCell(0, tilePos, 1,new Vector2I(4, 0));
+						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4, 0));
 				}
 			}
 		}
@@ -198,9 +197,7 @@ public partial class MineGenerationController : Node2D
 					_mineGenerationVariables.Cells[x, y] = InstantiateUnbreakableCell(x, y);
 					continue;
 				}
-				
-				
-
+                
 				_mineGenerationVariables.Cells[x, y] = InstantiateCell(x, y);
 				if (y is 1 && x == _mineGenerationVariables.GridWidth / 2)
 					_mineGenerationVariables.Cells[x, y].IsRevealed = true;
@@ -221,7 +218,7 @@ public partial class MineGenerationController : Node2D
 		};
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(4,0));
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4,0));
 		return cell;
 	}
 
@@ -239,7 +236,7 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(3,0));
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
 		return cell;
 	}
 
@@ -258,7 +255,7 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,1,new Vector2I(3,0));
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
 
 		return cell;
 	}

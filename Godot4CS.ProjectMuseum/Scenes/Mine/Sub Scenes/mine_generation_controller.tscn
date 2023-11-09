@@ -10,7 +10,9 @@ script = ExtResource("1_2elrx")
 _savingCanvas = NodePath("UISaving")
 
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("2_ooqno")]
+cell_quadrant_size = 20
 script = ExtResource("3_bsmgm")
 TileMap = NodePath(".")
+TileSourceId = 4
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]

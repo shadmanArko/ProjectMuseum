@@ -1,28 +1,29 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://fp1turhp7v3g"]
 
-[ext_resource type="Texture2D" uid="uid://b5h3ux84vjm02" path="res://Assets/2D/Sprites/Mine Sprites/Tiles/tiles png.png" id="1_f7ebw"]
+[ext_resource type="Texture2D" uid="uid://1meq8inx3q2s" path="res://Assets/2D/Sprites/Mine Sprites/Tiles/tiles all.png" id="3_qvoa2"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ok8dh"]
-texture = ExtResource("1_f7ebw")
-margins = Vector2i(2, 2)
-separation = Vector2i(3, 0)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0degn"]
+texture = ExtResource("3_qvoa2")
+separation = Vector2i(2, 0)
+texture_region_size = Vector2i(20, 20)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 2:0/0 = 0
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_0/angular_velocity = 0.0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 3:0/0 = 0
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 
 [resource]
+tile_size = Vector2i(20, 20)
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_ok8dh")
+sources/4 = SubResource("TileSetAtlasSource_0degn")

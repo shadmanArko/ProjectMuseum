@@ -59,6 +59,7 @@ public partial class MuseumTileEditor : Control
                          y++)
                     {
                         GameManager.TileMap.SetCell(0, new Vector2I(x, y), 0, Vector2I.Zero);
+                        // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
                         
                     }
                 }

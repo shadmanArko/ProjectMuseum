@@ -17,21 +17,33 @@ public class PlayerControllerVariables
 
 	public float Gravity = 25f;
     
-	private bool _isGrounded = false;
-	private bool _isAttacking = false;
-	private bool _isHanging = false;
-	private bool _isFalling = false;
+	private bool _isGrounded;
+	private bool _isAttacking;
+	private bool _isHanging;
+	private bool _isFalling;
+
+	public bool CanMove { get; set; }
 
 	public bool IsGrounded
 	{
 		get => _isGrounded;
-		set => _isGrounded = value;
+		set
+		{
+			_isGrounded = value;
+			// if (!_isGrounded) return;
+			// IsHanging = false;
+			// IsFalling = false;
+		}
 	}
 
 	public bool IsAttacking
 	{
 		get => _isAttacking;
-		set => _isAttacking = value;
+		set
+		{
+			_isAttacking = value;
+			if(_isAttacking) MineActions.OnPlayerAttackActionPressed?.Invoke();
+		}
 	}
 
 	public bool IsHanging
@@ -43,6 +55,10 @@ public class PlayerControllerVariables
 			{
 				_isHanging = value;
 				MineActions.OnPlayerGrabActionPressed?.Invoke();
+
+				if (!_isHanging) return;
+				IsFalling = false;
+				IsGrounded = false;
 			}
 		}
 	}
@@ -50,7 +66,14 @@ public class PlayerControllerVariables
 	public bool IsFalling
 	{
 		get => _isFalling;
-		set => _isFalling = value;
+		set
+		{
+			_isFalling = value;
+
+			if (!_isFalling) return;
+			IsGrounded = false;
+			IsHanging = false;
+		}
 	}
 
 	public Equipables CurrentEquippedItem

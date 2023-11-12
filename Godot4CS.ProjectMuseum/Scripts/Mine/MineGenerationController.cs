@@ -48,6 +48,10 @@ public partial class MineGenerationController : Node2D
 	{
 		InitializeDiReferences();
 		GenerateGrid();
+
+		var offset = new Vector2(500, -100);
+		var centerCell = _mineGenerationVariables.Cells[0, _mineGenerationVariables.GridWidth / 2];
+		_mineBackGround.Position = new Vector2(482, -107);
 	}
 
 	public override void _Process(double delta)
@@ -261,4 +265,6 @@ public partial class MineGenerationController : Node2D
 	}
 
 	#endregion
+
+	[Export] private Node2D _mineBackGround;
 }

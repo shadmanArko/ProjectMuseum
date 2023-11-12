@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckxklef31mow4"]
+
+[ext_resource type="Texture2D" uid="uid://chw4qqe4sec08" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/sky.png" id="1_i68hl"]
+[ext_resource type="Texture2D" uid="uid://b4pra7n4eckaq" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/clouds.png" id="2_sxt3n"]
+[ext_resource type="Texture2D" uid="uid://calng3qatukqd" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/mountains.png" id="3_bmqhi"]
+[ext_resource type="Texture2D" uid="uid://dmvybcmnlotge" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/bg.png" id="4_568kj"]
+[ext_resource type="Texture2D" uid="uid://bk7r4ktr5boik" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/front row.png" id="5_v4xei"]
+[ext_resource type="Texture2D" uid="uid://dtm10ln4d1j3h" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/stones.png" id="6_erw7y"]
+
+[node name="MineBackground" type="Node2D"]
+texture_filter = 1
+position = Vector2(483, -105)
+
+[node name="Sky" type="Sprite2D" parent="."]
+texture = ExtResource("1_i68hl")
+
+[node name="Clouds" type="Sprite2D" parent="."]
+position = Vector2(0, -50)
+texture = ExtResource("2_sxt3n")
+
+[node name="Mountains" type="Sprite2D" parent="."]
+texture = ExtResource("3_bmqhi")
+
+[node name="Inner Mine Background" type="Sprite2D" parent="."]
+position = Vector2(0, 102)
+texture = ExtResource("4_568kj")
+
+[node name="Terrain" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(0, 78)
+texture = ExtResource("5_v4xei")
+
+[node name="Stones" type="Sprite2D" parent="."]
+z_index = 11
+position = Vector2(0, 60)
+texture = ExtResource("6_erw7y")

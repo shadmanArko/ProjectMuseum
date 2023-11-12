@@ -7,6 +7,7 @@ public partial class MineSceneInitializer : Node
 	[Export] private Node _rootNode;
 	[Export] private string _playerScenePrefabPath;
 	[Export] private string _mineScenePrefabPath;
+	[Export] private string _mineBackgroundScenePath;
     
 	public override void _Ready()
 	{

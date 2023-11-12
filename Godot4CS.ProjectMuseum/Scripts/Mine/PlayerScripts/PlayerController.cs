@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 
@@ -24,6 +25,7 @@ public partial class PlayerController : CharacterBody2D
 			_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
 		var pos = vectorPos + new Vector2(0,-15);
 		Position = pos;
+		_playerControllerVariables.CanMove = true;
 	}
 
 	private void InitializeDiReferences()
@@ -34,7 +36,8 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		PlayerMovement(delta);
+		if(_playerControllerVariables.CanMove)
+			PlayerMovement(delta);
 
 		#region Testing Purposes
 
@@ -133,15 +136,13 @@ public partial class PlayerController : CharacterBody2D
 	{
 		var input = Input.IsActionJustReleased("ui_left_click");
 		_playerControllerVariables.IsAttacking = input;
-		if (input) MineActions.OnPlayerAttackActionPressed?.Invoke();
 		return input;
 	}
 
-	private void PlayerGrab()
+	private async void PlayerGrab()
 	{
 		var grab = Input.IsActionJustReleased("toggle_grab");
 		if (!grab) return;
-		//MineActions.OnPlayerGrabActionPressed?.Invoke();
 		_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
 		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? _playerControllerVariables.MaxSpeed / 2 : _playerControllerVariables.MaxSpeed;
 	}

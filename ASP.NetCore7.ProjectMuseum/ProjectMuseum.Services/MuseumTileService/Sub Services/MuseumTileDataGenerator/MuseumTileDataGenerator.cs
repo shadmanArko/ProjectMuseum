@@ -8,8 +8,8 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
     private readonly IMuseumTileRepository _museumTileRepository;
     public int numberOfTilesInX = 20;
     public int numberOfTilesInY = 24;
-    public int originStartsX = 55;
-    public int originStartsY = 22;
+    public int originStartsX = 0;
+    public int originStartsY = 0;
 
     public MuseumTileDataGenerator(IMuseumTileRepository museumTileRepository)
     {

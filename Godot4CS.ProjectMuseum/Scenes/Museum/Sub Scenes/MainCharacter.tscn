@@ -46,7 +46,6 @@ size = Vector2(17, 40)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
 texture_filter = 1
-position = Vector2(163, 133)
 script = ExtResource("2_olhew")
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")

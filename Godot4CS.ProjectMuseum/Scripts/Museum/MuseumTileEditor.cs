@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Godot;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 
@@ -7,11 +8,12 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum;
 public partial class MuseumTileEditor : Control
 {
     private TileMap _tileMap;
-
+    private int _tileSize;
     public override void _Ready()
     {
         base._Ready();
         _tileMap = GameManager.TileMap;
+        
         GD.Print("museumTileEditor is ready");
     }
 
@@ -39,6 +41,7 @@ public partial class MuseumTileEditor : Control
             if (Input.IsActionJustPressed("ui_left_click"))
             {
                 // Left mouse button pressed
+                _tileSize = GameManager.TileMap.CellQuadrantSize;
                 _dragStartPosition = GetGlobalMousePosition();
                 _selectedTile = GameManager.TileMap.LocalToMap(_dragStartPosition);
             }
@@ -56,6 +59,7 @@ public partial class MuseumTileEditor : Control
                          y++)
                     {
                         GameManager.TileMap.SetCell(0, new Vector2I(x, y), 0, Vector2I.Zero);
+                        
                     }
                 }
             }
@@ -66,18 +70,37 @@ public partial class MuseumTileEditor : Control
             if (Input.IsActionPressed("ui_left_click"))
             {
                 Vector2 dragCurrentPosition = GetGlobalMousePosition();
+                Vector2I currentTileIso = WorldToIso(dragCurrentPosition);
                 Vector2I currentTile = GameManager.TileMap.LocalToMap(dragCurrentPosition);
-                Vector2 topLeft = new Vector2(_selectedTile.X, _selectedTile.Y);
-                Vector2 size = new Vector2(currentTile.X - _selectedTile.X, currentTile.Y - _selectedTile.Y);
+                Vector2 selectedTileLocalPosition = GameManager.TileMap.MapToLocal(_selectedTile);
+                Vector2 selectedTileWorldPosition = IsoToWorld(WorldToIso(_dragStartPosition));
+                Vector2 topLeft = new Vector2(selectedTileLocalPosition.X, selectedTileLocalPosition.Y);
+                Vector2 size = new Vector2(dragCurrentPosition.X - selectedTileLocalPosition.X, dragCurrentPosition.Y - selectedTileLocalPosition.Y);
                 _selectionRect = new Rect2(topLeft, size);
-                _Draw();
+                GD.Print("Drawing call");
+                QueueRedraw();
             }
         }
+    }
+    private Vector2I WorldToIso(Vector2 position)
+    {
+        // Convert screen coordinates to isometric coordinates
+        float x = position.X / _tileSize - position.Y / _tileSize;
+        float y = position.X / _tileSize + position.Y / _tileSize;
+        return new Vector2I((int)x, (int)y);
+    }
+
+    private Vector2 IsoToWorld(Vector2I isoPosition)
+    {
+        // Convert isometric coordinates to screen coordinates
+        float x = (isoPosition.X + isoPosition.Y) * _tileSize * 0.5f;
+        float y = (isoPosition.Y - isoPosition.X) * _tileSize* 0.5f;
+        return new Vector2(x, y);
     }
     public override void _Draw()
     {
         GD.Print("Printing rect");
         // Draw the selection rectangle
-        DrawRect(_selectionRect,  Colors.Green);
+        DrawRect(_selectionRect, Colors.Green);
     }
 }

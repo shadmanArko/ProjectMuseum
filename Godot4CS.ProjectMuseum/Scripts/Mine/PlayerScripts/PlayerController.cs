@@ -21,11 +21,12 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _Ready()
 	{
-		var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
-			_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
-		var pos = vectorPos + new Vector2(0,-15);
-		Position = pos;
-		_playerControllerVariables.CanMove = true;
+		// var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
+		// 	_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
+		// var pos = vectorPos + new Vector2(0,-15);
+		// Position = pos;
+		// _playerControllerVariables.CanMove = true;
+		
 	}
 
 	private void InitializeDiReferences()

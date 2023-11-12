@@ -25,12 +25,12 @@ texture = ExtResource("3_bmqhi")
 position = Vector2(0, 102)
 texture = ExtResource("4_568kj")
 
-[node name="Terrain" type="Sprite2D" parent="."]
-z_index = 10
-position = Vector2(0, 78)
-texture = ExtResource("5_v4xei")
-
 [node name="Stones" type="Sprite2D" parent="."]
 z_index = 11
 position = Vector2(0, 60)
 texture = ExtResource("6_erw7y")
+
+[node name="Terrain" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(0, 78)
+texture = ExtResource("5_v4xei")

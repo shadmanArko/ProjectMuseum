@@ -101,7 +101,7 @@ public partial class AnimationController : AnimationPlayer
 		}
 	}
 
-	private void PlayAnimation(string state)
+	public void PlayAnimation(string state)
 	{
 		if (_playerControllerVariables.IsHanging)
 		{

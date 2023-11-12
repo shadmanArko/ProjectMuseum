@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbhyjrygg0pbu"]
+
+[ext_resource type="PackedScene" uid="uid://wol6kotl3ews" path="res://Scenes/zzz_Testing/Player Movement/MovingCamera.tscn" id="1_mviuy"]
+[ext_resource type="PackedScene" uid="uid://bqavnho2xkptn" path="res://Scenes/zzz_Testing/Player Movement/CharecterMovement.tscn" id="2_3wjrb"]
+
+[node name="AI Movement" type="Node"]
+
+[node name="MovingCamera" parent="." instance=ExtResource("1_mviuy")]
+zoom = Vector2(0.1, 0.1)
+zoomSpd = 0.2
+Minzoom = 0.1
+Maxzoom = 1000.0
+
+[node name="CharecterMovement" parent="." instance=ExtResource("2_3wjrb")]

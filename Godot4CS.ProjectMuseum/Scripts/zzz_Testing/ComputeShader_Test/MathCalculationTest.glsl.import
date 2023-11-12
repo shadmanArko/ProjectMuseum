@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://b6ptaivlgqhey"
+path="res://.godot/imported/MathCalculationTest.glsl-809261450a283e66db5c98a768fdb907.res"
+
+[deps]
+
+source_file="res://Scripts/zzz_Testing/ComputeShader_Test/MathCalculationTest.glsl"
+dest_files=["res://.godot/imported/MathCalculationTest.glsl-809261450a283e66db5c98a768fdb907.res"]
+
+[params]
+

@@ -10,9 +10,12 @@ public partial class ObjectPool : Node
     public int PreloadAmount { get; set; }
     public int InitialPoolSize { get; set; }
 
+    private Node _node;
+
     public override void _Ready()
     {
         PreloadObjects(InitialPoolSize); // Preload objects when the game starts
+        
     }
 
     

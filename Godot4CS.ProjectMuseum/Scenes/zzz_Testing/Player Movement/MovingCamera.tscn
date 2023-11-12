@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wol6kotl3ews"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="1_qucn0"]
+
+[node name="MovingCamera" type="Camera2D"]
+script = ExtResource("1_qucn0")

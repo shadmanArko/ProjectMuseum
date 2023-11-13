@@ -37,8 +37,7 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(_playerControllerVariables.CanMove)
-			PlayerMovement(delta);
+        PlayerMovement(delta);
 
 		#region Testing Purposes
 
@@ -60,22 +59,25 @@ public partial class PlayerController : CharacterBody2D
     
 	private void PlayerMovement(double delta)
 	{
-		var input = GetInputKeyboard();
-		if (input == Vector2.Zero)
+		if (_playerControllerVariables.CanMove)
 		{
-			if (Velocity.Length() > _playerControllerVariables.Friction * delta)
-				Velocity -= Velocity.Normalized() * (_playerControllerVariables.Friction * (float)delta);
+			var input = GetInputKeyboard();
+			if (input == Vector2.Zero)
+			{
+				if (Velocity.Length() > _playerControllerVariables.Friction * delta)
+					Velocity -= Velocity.Normalized() * (_playerControllerVariables.Friction * (float)delta);
+				else
+					Velocity = Vector2.Zero;
+			}
 			else
-				Velocity = Vector2.Zero;
-		}
-		else
-		{
-			Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
-			Velocity = Velocity.LimitLength(_playerControllerVariables.MaxSpeed);
+			{
+				Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
+				Velocity = Velocity.LimitLength(_playerControllerVariables.MaxSpeed);
+			}
 		}
 
 		ApplyGravity();
-		PlayerGrab();
+		if(_playerControllerVariables.CanMove) PlayerGrab();
 		_animationController.SetAnimation(PlayerAttack());
 		DetectCollision();
 		ModifyPlayerVariables();

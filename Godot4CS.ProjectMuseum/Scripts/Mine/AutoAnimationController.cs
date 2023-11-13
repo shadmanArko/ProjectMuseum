@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -20,14 +21,17 @@ public partial class AutoAnimationController : Node
 	{
 		_playerController.Position = new Vector2(230, -60);
 		_playerControllerVariables.CanMove = false;
-		var targetCell = _mineGenerationVariables.Cells[0, _mineGenerationVariables.GridWidth];
-		var targetCellPos = new Vector2(targetCell.PositionX, targetCell.PositionY);
 		
-		var previousTargetCell = _mineGenerationVariables.Cells[0, _mineGenerationVariables.GridWidth - 3];
-		var previousTargetPos = new Vector2(previousTargetCell.PositionX, previousTargetCell.PositionY);
-
-		//_newPos = new Vector2(previousTargetPos.X, _playerController.Position.Y);
+		_playerControllerVariables.Gravity = 0;
 		SetProcess(true);
+	}
+
+	private void SetJumpVariables()
+	{
+		var pcv = _playerControllerVariables;
+		pcv.JumpVelocity = (2 * pcv.JumpHeight) / pcv.JumpTimeToPeak * -1;
+		pcv.JumpGravity = (-2 * pcv.JumpHeight) / (pcv.JumpTimeToPeak * pcv.JumpTimeToPeak) * -1;
+		pcv.FallGravity = (-2 * pcv.JumpHeight) / (pcv.JumpTimeToDescend * pcv.JumpTimeToDescend) * -1;
 	}
 
 	private Vector2 _newPos = new Vector2(420,-60);
@@ -46,12 +50,7 @@ public partial class AutoAnimationController : Node
 
 	#region Auto Animations
 
-	// private void AutoMoveIntoMine()
-	// {
-	// 	AutoMoveToPosition();
-	// }
-
-	private void AutoMoveToPosition()
+	private async void AutoMoveToPosition()
 	{
 		
 		if(_playerController.Position.X < _newPos.X)
@@ -64,9 +63,23 @@ public partial class AutoAnimationController : Node
 		else
 		{
 			GD.Print("Moved to position");
+			JumpIntoMine();
 			SetProcess(false);
 		}
-		
+	}
+
+	private async Task JumpIntoMine()
+	{
+		_playerController.MoveLocalY(-100);
+		await Task.Delay(1000);
+		//_playerControllerVariables.CanMove = true;
+		GD.Print("Added jump");
+	}
+
+	private float GetGravity()
+	{
+		return _playerController.Velocity.Y < 0 ? _playerControllerVariables.JumpGravity : _playerControllerVariables
+			.FallGravity;
 	}
 
 	#endregion

@@ -16,8 +16,6 @@ y_sort_enabled = true
 script = ExtResource("1_3ql1b")
 
 [node name="TileMap" parent="." node_paths=PackedStringArray("_wallsParent") instance=ExtResource("2_2v5tj")]
-y_sort_enabled = true
-layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array()
 script = ExtResource("3_txjx3")
 _wallLeft = ExtResource("10_xt14w")

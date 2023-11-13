@@ -1,4 +1,5 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 
 public partial class CharacterBody2DIsometric : CharacterBody2D
@@ -65,23 +66,12 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         Vector2 nextPosition = Position + motion;
 
         // Check if the next position is within the bounds of the TileMap
-        if (IsPositionInsideTileMap(nextPosition))
+        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap))
         {
             // Move only if the next position is within the TileMap bounds
             MoveAndCollide(motion);
         }
     }
 
-// Check if a given position is inside the bounds of the TileMap
-    private bool IsPositionInsideTileMap(Vector2 position)
-    {
-        // Assuming _tileMap is a reference to your Isometric TileMap node
-        Vector2 tilemapPos = GameManager.TileMap.LocalToMap(position);
     
-        // Assuming tileSize is the size of your isometric tile
-        Vector2 tileSize = new Vector2(-20, -24); // Replace with your actual tile size
-    
-        return tileSize.Y < tilemapPos.Y && tilemapPos.Y < 0 &&
-               tileSize.X < tilemapPos.X && tilemapPos.X < 0;
-    }
 }

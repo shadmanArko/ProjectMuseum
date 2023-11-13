@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum;
@@ -58,7 +59,10 @@ public partial class MuseumTileEditor : Control
                          y <= Math.Max(_selectedTile.Y, endTile.Y);
                          y++)
                     {
-                        GameManager.TileMap.SetCell(0, new Vector2I(x, y), 0, Vector2I.Zero);
+                        GameManager.TileMap.ClearLayer(1);
+                        var spawnTilePos = new Vector2I(x, y);
+                        if (!spawnTilePos.IsTilePositionInsideTileMap()) continue;
+                        GameManager.TileMap.SetCell(0, spawnTilePos, 0, Vector2I.Zero);
                         // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
                         
                     }
@@ -68,40 +72,23 @@ public partial class MuseumTileEditor : Control
         }else if (@event is InputEventMouseMotion mouseMotion)
         {
             // Update the selection rectangle during mouse motion
+            GameManager.TileMap.ClearLayer(1);
+            Vector2I endTile = GameManager.TileMap.LocalToMap(GetGlobalMousePosition());
             if (Input.IsActionPressed("ui_left_click"))
             {
-                Vector2 dragCurrentPosition = GetGlobalMousePosition();
-                Vector2I currentTileIso = WorldToIso(dragCurrentPosition);
-                Vector2I currentTile = GameManager.TileMap.LocalToMap(dragCurrentPosition);
-                Vector2 selectedTileLocalPosition = GameManager.TileMap.MapToLocal(_selectedTile);
-                Vector2 selectedTileWorldPosition = IsoToWorld(WorldToIso(_dragStartPosition));
-                Vector2 topLeft = new Vector2(selectedTileLocalPosition.X, selectedTileLocalPosition.Y);
-                Vector2 size = new Vector2(dragCurrentPosition.X - selectedTileLocalPosition.X, dragCurrentPosition.Y - selectedTileLocalPosition.Y);
-                _selectionRect = new Rect2(topLeft, size);
-                GD.Print("Drawing call");
-                QueueRedraw();
+                for (int x = Math.Min(_selectedTile.X, endTile.X); x <= Math.Max(_selectedTile.X, endTile.X); x++)
+                {
+                    for (int y = Math.Min(_selectedTile.Y, endTile.Y);
+                         y <= Math.Max(_selectedTile.Y, endTile.Y);
+                         y++)
+                    {
+                        GameManager.TileMap.SetCell(1, new Vector2I(x, y), 0, Vector2I.Zero);
+                        // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
+                        
+                    }
+                }
             }
         }
     }
-    private Vector2I WorldToIso(Vector2 position)
-    {
-        // Convert screen coordinates to isometric coordinates
-        float x = position.X / _tileSize - position.Y / _tileSize;
-        float y = position.X / _tileSize + position.Y / _tileSize;
-        return new Vector2I((int)x, (int)y);
-    }
-
-    private Vector2 IsoToWorld(Vector2I isoPosition)
-    {
-        // Convert isometric coordinates to screen coordinates
-        float x = (isoPosition.X + isoPosition.Y) * _tileSize * 0.5f;
-        float y = (isoPosition.Y - isoPosition.X) * _tileSize* 0.5f;
-        return new Vector2(x, y);
-    }
-    public override void _Draw()
-    {
-        GD.Print("Printing rect");
-        // Draw the selection rectangle
-        DrawRect(_selectionRect, Colors.Green);
-    }
+    
 }

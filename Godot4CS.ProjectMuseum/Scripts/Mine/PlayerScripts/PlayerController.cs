@@ -1,7 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.MineScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -21,10 +21,12 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _Ready()
 	{
-		var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
-			_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
-		var pos = vectorPos + new Vector2(0,-15);
-		Position = pos;
+		// var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
+		// 	_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
+		// var pos = vectorPos + new Vector2(0,-15);
+		// Position = pos;
+		// _playerControllerVariables.CanMove = true;
+		
 	}
 
 	private void InitializeDiReferences()
@@ -35,7 +37,8 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		PlayerMovement(delta);
+		if(_playerControllerVariables.CanMove)
+			PlayerMovement(delta);
 
 		#region Testing Purposes
 
@@ -134,11 +137,10 @@ public partial class PlayerController : CharacterBody2D
 	{
 		var input = Input.IsActionJustReleased("ui_left_click");
 		_playerControllerVariables.IsAttacking = input;
-		if (input) MineActions.OnPlayerAttackAction?.Invoke();
 		return input;
 	}
 
-	private void PlayerGrab()
+	private async void PlayerGrab()
 	{
 		var grab = Input.IsActionJustReleased("toggle_grab");
 		if (!grab) return;
@@ -152,6 +154,15 @@ public partial class PlayerController : CharacterBody2D
 		var mousePos = GetGlobalMousePosition();
 		var angle = GetAngleTo(mousePos);
 		var degree = angle * (180 / Math.PI);
+		
+		_playerControllerVariables.MouseDirection = degree switch
+		{
+			<= 45 and > -45 => Vector2I.Right,
+			<= -45 and > -135 => Vector2I.Up,
+			> 45 and <= 135 => Vector2I.Down,
+			_ => Vector2I.Left
+		};
+		
 		MineActions.OnMouseMotionAction?.Invoke(degree);
 	}
 

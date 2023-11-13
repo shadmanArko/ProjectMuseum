@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
-public partial class PlayerCollisionDetector : Node
+public partial class PlayerCollisionDetector : Node2D
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -22,6 +25,7 @@ public partial class PlayerCollisionDetector : Node
 	private void SubscribeToActions()
 	{
 		MineActions.OnPlayerCollisionDetection += DetectCollision;
+		MineActions.OnPlayerAttackActionPressed += AttackWall;
 	}
     
 	private void DetectCollision(KinematicCollision2D collision)
@@ -39,5 +43,72 @@ public partial class PlayerCollisionDetector : Node
 			//GD.Print($"tilePos: {tilePos.X}, {tilePos.Y} | PlayerPos: {playerPos.X}, {playerPos.Y}");
 		}
 	}
+	
+	#region Wall Attack Detection
+    
+	private void AttackWall()
+	{
+		if(_playerControllerVariables.CurrentEquippedItem != Equipables.PickAxe) return;
+		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
+		var newPos = _playerControllerVariables.MouseDirection;
+
+		tilePos += newPos;
+		GD.Print($"Breaking Cell{tilePos}");
+		GD.Print($"mouse direction: {_playerControllerVariables.MouseDirection}");
+		BreakCell(tilePos);
+	}
+	
+	private void BreakCell(Vector2I tilePos)
+	{
+		if (tilePos.X < 0 || tilePos.Y < 0)
+		{
+			GD.Print("Wrong cell index");
+			return;
+		}
+		var cell = _mineGenerationVariables.Cells[tilePos.X, tilePos.Y];
+		if (!cell.IsBreakable)
+		{
+			GD.Print("Is not breakable");
+			return;
+		}
+		
+		_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].BreakStrength--;
+		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].BreakStrength, 0, 100);
+		
+		if (cell.BreakStrength >= 2)
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1,0));
+		else if (cell.BreakStrength >= 1)
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2,0));
+		else
+		{
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4,0));
+			RevealAdjacentWalls(tilePos);
+		}
+	}
+
+	private void RevealAdjacentWalls(Vector2I tilePos)
+	{
+		var tilePositions = new List<Vector2I>
+		{
+			tilePos + Vector2I.Up,
+			tilePos + Vector2I.Down,
+			tilePos + Vector2I.Left,
+			tilePos + Vector2I.Right
+		};
+
+		foreach (var tilePosition in tilePositions)
+		{
+			var cell = _mineGenerationVariables.Cells[tilePosition.X, tilePosition.Y];
+
+			if (cell is null) continue;
+			if (cell.IsRevealed || !cell.IsInstantiated || !cell.IsBreakable || cell.BreakStrength <= 0) continue;
+			
+			cell.IsRevealed = true;
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePosition,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(0,0));
+		}
+	}
+    
+	#endregion
+
 
 }

@@ -40,12 +40,12 @@ public partial class SceneChanger : Node
 	private async Task ChangeSceneAsync(string scenePath)
 	{
 		// Load the new scene asynchronously.
-		PackedScene newScene = GD.Load<PackedScene>(scenePath);
+		//PackedScene newScene = GD.Load<PackedScene>(scenePath);
 		//ResourceLoader.LoadThreadedRequest(scenePath); //todo
 		// Instance the new scene.
-		Node newSceneInstance = newScene.Instantiate();
+		//Node newSceneInstance = newScene.Instantiate();
 		
 		// Replace the current scene with the new scene.
-		GetTree().CurrentScene.ReplaceBy(newSceneInstance);
+		var newScene = GetTree().ChangeSceneToFile(scenePath);
 	}
 }

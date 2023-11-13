@@ -10,6 +10,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
     [Export] private AnimationPlayer _animationPlayer;
 
     [Export] private Sprite2D _characterSprite;
+    private bool _playerFacingTheFront = true;
 
     // Converts any Vector2 coordinates or motion from the cartesian to the isometric system
     public override void _Ready()
@@ -40,25 +41,45 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         if (Input.IsActionPressed("move_up"))
         {
             direction += new Vector2(0, -1);
-            _characterSprite.Scale = new Vector2(1, 1);
+            _characterSprite.Scale = new Vector2(-1, 1);
+            _animationPlayer.Play("player_walk_backward");
+            _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_down"))
         {
             direction += new Vector2(0, 1);
             _characterSprite.Scale = new Vector2(-1, 1);
+            _animationPlayer.Play("player_walk_forward");
+            _playerFacingTheFront = true;
         }
 
         if (Input.IsActionPressed("move_left"))
         {
             direction += new Vector2(-1, 0);
-            _characterSprite.Scale = new Vector2(-1, 1);
+            _characterSprite.Scale = new Vector2(1, 1);
+            _animationPlayer.Play("player_walk_backward");
+            _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_right"))
         {
             direction += new Vector2(1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
+            _animationPlayer.Play("player_walk_forward");
+            _playerFacingTheFront = true;
         }
 
+        if (direction == Vector2.Zero)
+        {
+            if (_playerFacingTheFront)
+            {
+                _animationPlayer.Play("RESET");
+            }
+            else
+            {
+                _animationPlayer.Play("RESET_Backward");
+            }
+        }
+        
         motion = new Vector2(direction.X * (float)(_displacementSpeed * delta),
             direction.Y * (float)(_displacementSpeed * delta));
         // Isometric movement is movement like you're used to, converted to the isometric system
@@ -66,7 +87,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         Vector2 nextPosition = Position + motion;
 
         // Check if the next position is within the bounds of the TileMap
-        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap))
+        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap) && (direction.X == 0 || direction.Y == 0))
         {
             // Move only if the next position is within the TileMap bounds
             MoveAndCollide(motion);

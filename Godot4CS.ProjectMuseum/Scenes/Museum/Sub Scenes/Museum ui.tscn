@@ -1,12 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=9 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="1_xl6pw"]
 [ext_resource type="Texture2D" uid="uid://cwrr0p0amuel2" path="res://Assets/2D/Sprites/Exhibits/Sprite-0007.png" id="2_p5phu"]
 [ext_resource type="Texture2D" uid="uid://ck4te6vpacd7e" path="res://Assets/2D/Sprites/Exhibits/Sprite-0008.png" id="3_71apm"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/Sprite-0009.png" id="4_co613"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_u4d1t"]
+[ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
 
-[node name="Control" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[node name="Control" type="Control" node_paths=PackedStringArray("museumMoneyTextField")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,8 +19,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfgvl")
+museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
+metadata/_edit_vertical_guides_ = [-481.0]
 
-[node name="Panel" type="Panel" parent="." node_paths=PackedStringArray("museumMoneyTextField")]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -24,8 +31,6 @@ anchor_bottom = 1.0
 offset_left = -214.0
 grow_horizontal = 0
 grow_vertical = 2
-script = ExtResource("1_mfgvl")
-museumMoneyTextField = NodePath("../Bottom Panel/MuseumMoney")
 
 [node name="Exhibit 0" type="Button" parent="Panel"]
 layout_mode = 1
@@ -88,19 +93,17 @@ anchor_bottom = 1.0
 offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1es80")
 
 [node name="ColorRect" type="ColorRect" parent="Bottom Panel"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -117.0
-offset_top = -40.0
-offset_right = -77.0
-grow_horizontal = 0
+offset_top = -38.0
+offset_right = 127.0
 grow_vertical = 0
+color = Color(0.647059, 0.647059, 0.647059, 1)
 
 [node name="MuseumMoney" type="RichTextLabel" parent="Bottom Panel"]
 layout_mode = 1
@@ -109,17 +112,36 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -299.0
-offset_top = -38.0
-offset_right = -213.21
-offset_bottom = -0.360001
+offset_left = -295.0
+offset_top = -29.0
+offset_right = -209.0
+offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("6_u4d1t")
 text = "$1300.99"
 autowrap_mode = 1
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Bottom Panel"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 1.0
+offset_right = 357.479
+offset_bottom = 38.0
+texture = ExtResource("6_uevkq")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Bottom Panel"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 1.0
+offset_right = 576.0
+offset_bottom = 38.0
+
+[node name="Button" type="Button" parent="Bottom Panel/HBoxContainer"]
+layout_mode = 2
 
 [connection signal="pressed" from="Panel/Exhibit 0" to="." method="OnExhibit0Pressed"]
+[connection signal="pressed" from="Panel/Exhibit 1" to="." method="OnExhibit1Pressed"]
 [connection signal="pressed" from="Panel/Exhibit 3" to="." method="OnExhibit3Pressed"]
-[connection signal="request_completed" from="HTTPRequest" to="." method="OnHttpRequestCompleted"]

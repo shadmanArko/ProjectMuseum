@@ -1,7 +1,7 @@
 extends Control  # Replace with the appropriate node type for your UI
 
-var item1 = preload("res://item_1.tscn")
-var item2 = preload("res://item_2.tscn")
+var item1 = preload("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn")
+var item2 = preload("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn")
 
 
 

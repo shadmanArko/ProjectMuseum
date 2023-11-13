@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cv15qeuxawq6p"]
+[gd_scene load_steps=5 format=3 uid="uid://cv15qeuxawq6p"]
 
-[ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="1_ppxof"]
+[ext_resource type="Texture2D" uid="uid://2fhrgi2yxlca" path="res://Assets/2D/Sprites/Exhibits/bordered/1x1 wooden.png" id="1_m1lyp"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_vqulg"]
+[ext_resource type="Texture2D" uid="uid://dt00ojgpeqsvp" path="res://Assets/2D/Sprites/Exhibits/Glass/glass.png" id="3_c8hr5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(9.97071, 5.26112)
@@ -10,13 +11,13 @@ size = Vector2(9.97071, 5.26112)
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(21, -117)
-texture = ExtResource("1_ppxof")
-offset = Vector2(0, -4)
+position = Vector2(16, -119)
+texture = ExtResource("1_m1lyp")
+offset = Vector2(0, -3)
 script = ExtResource("2_vqulg")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(-17, -64)
+position = Vector2(-17, -52)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(17, 52)
@@ -25,6 +26,10 @@ shape = SubResource("RectangleShape2D_6rwst")
 one_way_collision_margin = 0.0
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[connection signal="request_completed" from="HTTPRequest" to="." method="OnHttpRequestRequestCompleted"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+z_index = 1
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(0, -21)
+texture = ExtResource("3_c8hr5")

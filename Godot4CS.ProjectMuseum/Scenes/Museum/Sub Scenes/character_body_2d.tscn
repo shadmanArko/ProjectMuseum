@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://sgl77f0jk8fl"]
+[gd_scene load_steps=3 format=3 uid="uid://jp0ri3gsveav"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/IsometricCharacter/character_body_2d.gd" id="1_ncgcw"]
-[ext_resource type="Texture2D" uid="uid://cqfrqomw1mp8o" path="res://Assets/2D/Sprites/icon.svg" id="2_uhwvp"]
+[ext_resource type="Texture2D" uid="uid://w6ifrgyotdn5" path="res://Assets/2D/Sprites/Characters/Male Main Character.png" id="2_781bl"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_ncgcw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_uhwvp")
+texture_filter = 1
+texture = ExtResource("2_781bl")

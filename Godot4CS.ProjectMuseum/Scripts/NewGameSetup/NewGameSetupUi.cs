@@ -1,12 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Godot4CS.ProjectMuseum.Tests;
-using ProjectMuseum.Models;
 
 public partial class NewGameSetupUi : Control
 {
@@ -24,7 +16,7 @@ public partial class NewGameSetupUi : Control
 		StartButton.Pressed += StartButtonOnPressed;
 		
 		
-		 _httpRequest = new HttpRequest();
+		_httpRequest = new HttpRequest();
 		AddChild(_httpRequest);
 		_httpRequest.RequestCompleted += OnNewGameSetupRequestComplete;
 	}
@@ -42,7 +34,6 @@ public partial class NewGameSetupUi : Control
 			
 
 		});
-		GD.Print(body);
 		string[] headers = { "Content-Type: application/json"};
 		Error error = _httpRequest.Request("http://localhost:5178/api/MuseumTile/PostPlayerInfo", headers,
 			HttpClient.Method.Post, body);
@@ -66,6 +57,6 @@ public partial class NewGameSetupUi : Control
 
 	void OnNewGameSetupRequestComplete(long result, long responsecode, string[] headers, byte[] body)
 	{
-		GetTree().ChangeSceneToFile("res://Tests/Scenes/museum_drag_and_drop.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
 	}
 }

@@ -1,31 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://dstn0yvcl70w0"]
+[gd_scene load_steps=5 format=3 uid="uid://dstn0yvcl70w0"]
 
-[ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/Sprite-0009.png" id="1_jdji2"]
+[ext_resource type="Texture2D" uid="uid://dcs68c1n4hnml" path="res://Assets/2D/Sprites/Exhibits/bordered/2x2 wooden.png" id="1_0t0ih"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_e8wms"]
+[ext_resource type="Texture2D" uid="uid://256je7wu6pgs" path="res://Assets/2D/Sprites/Exhibits/Glass/glass large.png" id="3_ispsm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
-size = Vector2(17.7603, 7.89167)
+size = Vector2(18.6951, 8.3301)
 
 [node name="Item2" type="Sprite2D"]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(-38, -125)
-texture = ExtResource("1_jdji2")
-offset = Vector2(0, -5)
+position = Vector2(-38, -109)
+texture = ExtResource("1_0t0ih")
+offset = Vector2(0, -11)
 script = ExtResource("2_e8wms")
 ItemPrice = 90.25
+numberOfTilesItTakes = 4
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(17.5, 48)
+position = Vector2(17, 64)
 scale = Vector2(3.2094, 4.56177)
 shape = SubResource("RectangleShape2D_6rwst")
 one_way_collision_margin = 0.0
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[connection signal="request_completed" from="HTTPRequest" to="." method="OnHttpRequestRequestCompleted"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, -29.5)
+texture = ExtResource("3_ispsm")

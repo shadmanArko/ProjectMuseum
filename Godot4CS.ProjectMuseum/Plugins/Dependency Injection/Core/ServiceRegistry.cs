@@ -1,4 +1,3 @@
-using Godot;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;

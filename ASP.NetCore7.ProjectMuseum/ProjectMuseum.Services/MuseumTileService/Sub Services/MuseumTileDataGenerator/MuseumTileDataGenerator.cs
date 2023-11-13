@@ -8,8 +8,8 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
     private readonly IMuseumTileRepository _museumTileRepository;
     public int numberOfTilesInX = 20;
     public int numberOfTilesInY = 24;
-    public int originStartsX = 55;
-    public int originStartsY = 22;
+    public int originStartsX = 0;
+    public int originStartsY = 0;
 
     public MuseumTileDataGenerator(IMuseumTileRepository museumTileRepository)
     {
@@ -19,11 +19,16 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
     public async Task<List<MuseumTile>?> GenerateMuseumTileDataForNewMuseum()
     {
         Random r = new Random();
+        int probabilityOfDamagedTile = 5; 
         for (int x = originStartsX; x > originStartsX - numberOfTilesInX; x--)
         {
             for (int y = originStartsY; y > originStartsY - numberOfTilesInY; y--)
             {
-                var tileSetId = r.Next(0, 2);
+                var tileSetId = 8;
+                if (r.Next(0, 100) <= probabilityOfDamagedTile)
+                {
+                    tileSetId = r.Next(9, 13);
+                }
                 var museumTile = new MuseumTile
                 {
                     Id = Guid.NewGuid().ToString(),

@@ -42,7 +42,7 @@ public class MuseumController : ControllerBase
         var newMuseumTile = await _museumTileService.InsertMuseumTile(museumTile);
         return Ok(newMuseumTile);
     }
-
+    //[HttpGet(Name = "GetWeatherForecast")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateMuseumTile(string id, [FromBody]MuseumTile museumTile)
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
 public partial class TileSpawner : TileMap
@@ -16,7 +17,7 @@ public partial class TileSpawner : TileMap
 	public override void _Ready()
 	{
 		HttpRequest httpRequest = GetNode<HttpRequest>("HTTPRequest");
-		httpRequest.Request("http://localhost:5178/api/MuseumTile/GetAllMuseumTiles");
+		httpRequest.Request($"{ApiAddress.UrlPrefix}Museum/GetAllMuseumTiles");
 	}
 	
 	private void OnRequestCompleted(long result, long responseCode, string[] headers, byte[] body)

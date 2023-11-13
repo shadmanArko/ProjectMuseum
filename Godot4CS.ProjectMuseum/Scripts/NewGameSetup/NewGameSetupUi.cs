@@ -1,4 +1,5 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 
 public partial class NewGameSetupUi : Control
 {
@@ -35,7 +36,7 @@ public partial class NewGameSetupUi : Control
 
 		});
 		string[] headers = { "Content-Type: application/json"};
-		Error error = _httpRequest.Request("http://localhost:5178/api/MuseumTile/PostPlayerInfo", headers,
+		Error error = _httpRequest.Request($"{ApiAddress.UrlPrefix}Player/PostPlayerInfo", headers,
 			HttpClient.Method.Post, body);
 		if (error != Error.Ok)
 		{

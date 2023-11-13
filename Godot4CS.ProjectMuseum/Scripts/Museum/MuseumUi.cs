@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot.DependencyInjection.Attributes;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
 public partial class MuseumUi : Control  // Replace with the appropriate node type for your UI
@@ -37,7 +38,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _httpRequestForReducingBalance = new HttpRequest();
         AddChild(_httpRequestForGettingBalance);
         AddChild(_httpRequestForReducingBalance);
-        string url = "http://localhost:5178/api/MuseumTile/GetMuseumBalance/museum0";
+        string url = $"{ApiAddress.UrlPrefix}Museum/GetMuseumBalance/museum0";
         _httpRequestForGettingBalance.Request(url);
         _httpRequestForGettingBalance.RequestCompleted += OnHttpRequestForGettingBalanceCompleted;
         _httpRequestForReducingBalance.RequestCompleted += OnHttpRequestCompletedForReducingBalance;

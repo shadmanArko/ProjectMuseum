@@ -3,6 +3,7 @@ using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -76,7 +77,7 @@ public partial class MineGenerationController : Node2D
 		
 		var body = JsonConvert.SerializeObject(_mine);
 
-		_saveGeneratedMineHttpRequest.Request("http://localhost:5178/api/MuseumTile/UpdateMineData", headers,
+		_saveGeneratedMineHttpRequest.Request($"{ApiAddress.UrlPrefix}Museum/UpdateMineData", headers,
 			HttpClient.Method.Put, body);
 		_savingCanvas.Visible = true;
 	}
@@ -106,7 +107,7 @@ public partial class MineGenerationController : Node2D
 	private void GetMineDataFromServer()
 	{
 		GD.Print("RETRIEVING CELL LIST");
-		var url = "http://localhost:5178/api/MuseumTile/GetMineData";
+		var url = $"{ApiAddress.UrlPrefix}MuseumTile/GetMineData";
 		_getGeneratedMineHttpRequest.Request(url);
 	}
     

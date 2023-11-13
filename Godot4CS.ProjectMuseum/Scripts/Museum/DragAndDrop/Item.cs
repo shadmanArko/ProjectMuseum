@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
 
@@ -45,7 +46,7 @@ public partial class Item : Sprite2D
         AddChild(_httpRequestForExhibitPlacementConditions);
         _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;
-        string url = "http://localhost:5178/api/MuseumTile/" + itemType;
+        string url = ApiAddress.MuseumApiPath + itemType;
         _httpRequestForExhibitPlacementConditions.Request(url);
 
         _originalColor = Modulate;

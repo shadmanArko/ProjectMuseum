@@ -141,6 +141,7 @@ public partial class AnimationController : AnimationPlayer
 
 	private void SpriteFlipBasedOnMousePosition(double mousePos)
 	{
+		if(!_playerControllerVariables.CanMove) return;
 		_sprite.FlipH = mousePos is < 90 and >= -90;
 	}
 }

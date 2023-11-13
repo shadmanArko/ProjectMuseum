@@ -12,6 +12,16 @@ public partial class AutoAnimationController : Node
 	
 	[Export] private PlayerController _playerController;
 	[Export] private AnimationController _animationController;
+
+	private bool _autoMoveToPos;
+	private bool _jumpIntoMine;
+
+	[Export] private Vector2 p0;
+	[Export] private Vector2 p1;
+	[Export] private Vector2 p2;
+
+	[Export] private double _time;
+	
 	public override void _EnterTree()
 	{
 		InitializeDiReferences();
@@ -26,15 +36,7 @@ public partial class AutoAnimationController : Node
 		SetProcess(true);
 	}
 
-	private void SetJumpVariables()
-	{
-		var pcv = _playerControllerVariables;
-		pcv.JumpVelocity = (2 * pcv.JumpHeight) / pcv.JumpTimeToPeak * -1;
-		pcv.JumpGravity = (-2 * pcv.JumpHeight) / (pcv.JumpTimeToPeak * pcv.JumpTimeToPeak) * -1;
-		pcv.FallGravity = (-2 * pcv.JumpHeight) / (pcv.JumpTimeToDescend * pcv.JumpTimeToDescend) * -1;
-	}
-
-	private Vector2 _newPos = new Vector2(420,-60);
+	private Vector2 _newPos = new(420,-60);
 	
 	private void InitializeDiReferences()
 	{
@@ -44,15 +46,42 @@ public partial class AutoAnimationController : Node
 
 	public override void _Process(double delta)
 	{
-		AutoMoveToPosition();
+		if(!_autoMoveToPos)
+			AutoMoveToPosition();
 	}
 
+	private Vector2 Bezier(float t)
+	{
+		var q0 = p0.Lerp(p1, t);
+		var q1 = p1.Lerp(p2, t);
+		var r = q0.Lerp(q1, t);
+		return r;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if(_autoMoveToPos && !_jumpIntoMine)
+		{
+			_playerController.Position = Bezier((float) _time);
+			_time += delta;
+
+			if (_time >= 1.2f)
+			{
+				_animationController.Play("idle");
+				SetProcess(false);
+				SetPhysicsProcess(false);
+				GD.Print("Added jump");
+				_playerControllerVariables.CanMove = true;
+				_playerControllerVariables.Gravity = 25f;
+			}
+		}
+		
+	}
 
 	#region Auto Animations
 
-	private async void AutoMoveToPosition()
+	private void AutoMoveToPosition()
 	{
-		
 		if(_playerController.Position.X < _newPos.X)
 		{
 			_playerController.Translate(new Vector2(0.5f,0));
@@ -63,23 +92,11 @@ public partial class AutoAnimationController : Node
 		else
 		{
 			GD.Print("Moved to position");
-			JumpIntoMine();
-			SetProcess(false);
+			p0 = _playerController.Position;
+			p2 = _playerController.Position + new Vector2(60, 0);
+			p1 = new Vector2((p0.X + p2.X) / 2, p0.Y - 75);
+			_autoMoveToPos = true;
 		}
-	}
-
-	private async Task JumpIntoMine()
-	{
-		_playerController.MoveLocalY(-100);
-		await Task.Delay(1000);
-		//_playerControllerVariables.CanMove = true;
-		GD.Print("Added jump");
-	}
-
-	private float GetGravity()
-	{
-		return _playerController.Velocity.Y < 0 ? _playerControllerVariables.JumpGravity : _playerControllerVariables
-			.FallGravity;
 	}
 
 	#endregion

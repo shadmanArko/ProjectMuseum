@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 
@@ -11,22 +10,14 @@ public partial class PlayerController : CharacterBody2D
 
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
+    
+	
 
 	[Export] private float _maxVerticalVelocity;
 
 	public override void _EnterTree()
 	{
 		InitializeDiReferences();
-	}
-
-	public override void _Ready()
-	{
-		// var vectorPos = new Vector2(_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionX,
-		// 	_mineGenerationVariables.Cells[_mineGenerationVariables.GridWidth / 2, 0].PositionY);
-		// var pos = vectorPos + new Vector2(0,-15);
-		// Position = pos;
-		// _playerControllerVariables.CanMove = true;
-		
 	}
 
 	private void InitializeDiReferences()
@@ -75,7 +66,7 @@ public partial class PlayerController : CharacterBody2D
 				Velocity = Velocity.LimitLength(_playerControllerVariables.MaxSpeed);
 			}
 		}
-
+        
 		ApplyGravity();
 		if(_playerControllerVariables.CanMove) PlayerGrab();
 		_animationController.SetAnimation(PlayerAttack());
@@ -142,7 +133,7 @@ public partial class PlayerController : CharacterBody2D
 		return input;
 	}
 
-	private async void PlayerGrab()
+	private void PlayerGrab()
 	{
 		var grab = Input.IsActionJustReleased("toggle_grab");
 		if (!grab) return;

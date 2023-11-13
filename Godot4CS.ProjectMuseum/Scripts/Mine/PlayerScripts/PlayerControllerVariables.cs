@@ -84,6 +84,18 @@ public class PlayerControllerVariables
 
 	#endregion
 
+	#region Jump Variables
+
+	public float JumpHeight = 100f;
+	public float JumpTimeToPeak = 0.5f;
+	public float JumpTimeToDescend = 0.4f;
+
+	public float JumpVelocity;
+	public float JumpGravity;
+	public float FallGravity;
+
+	#endregion
+
 	private Equipables _currentEquippedItem;
 
 	#region Other Variables

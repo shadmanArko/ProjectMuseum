@@ -77,7 +77,7 @@ public partial class MineGenerationController : Node2D
 		
 		var body = JsonConvert.SerializeObject(_mine);
 
-		_saveGeneratedMineHttpRequest.Request($"{ApiAddress.UrlPrefix}Museum/UpdateMineData", headers,
+		_saveGeneratedMineHttpRequest.Request(ApiAddress.MineApiPath+"UpdateMineData", headers,
 			HttpClient.Method.Put, body);
 		_savingCanvas.Visible = true;
 	}
@@ -107,7 +107,7 @@ public partial class MineGenerationController : Node2D
 	private void GetMineDataFromServer()
 	{
 		GD.Print("RETRIEVING CELL LIST");
-		var url = $"{ApiAddress.UrlPrefix}MuseumTile/GetMineData";
+		var url = ApiAddress.MineApiPath+"GetMineData";
 		_getGeneratedMineHttpRequest.Request(url);
 	}
     

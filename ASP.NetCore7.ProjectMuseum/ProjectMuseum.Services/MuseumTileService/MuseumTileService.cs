@@ -8,7 +8,7 @@ using ProjectMuseum.Repositories.MuseumTileRepository;
 
 namespace ProjectMuseum.Services.MuseumTileService;
 
-public class MuseumTileTileService : IMuseumTileService
+public class MuseumTileService : IMuseumTileService
 {
     private readonly IMuseumTileRepository _museumTileRepository;
     private  MuseumTileDataGenerator _museumTileDataGenerator;
@@ -17,7 +17,7 @@ public class MuseumTileTileService : IMuseumTileService
     
     private readonly SaveDataJsonFileDatabase _saveDataJsonFileDatabase;
 
-    public MuseumTileTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase)
+    public MuseumTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase)
     {
         _museumTileRepository = museumTileRepository;
         _exhibitRepository = exhibitRepository;
@@ -59,6 +59,12 @@ public class MuseumTileTileService : IMuseumTileService
     public async Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile)
     {
         var updatedMuseumTile = await _museumTileRepository.Update(tileId, museumTile);
+        return updatedMuseumTile;
+    }
+
+    public async Task<List<MuseumTile>?> UpdateMuseumTilesSourceId(List<string> museumTilesId, int sourceId)
+    {
+        var updatedMuseumTile = await _museumTileRepository.UpdateMuseumTilesSourceId(museumTilesId, sourceId);
         return updatedMuseumTile;
     }
 

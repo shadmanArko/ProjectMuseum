@@ -86,6 +86,7 @@ _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 scale = Vector2(-1, 1)
 texture = ExtResource("2_5w5f2")
 hframes = 8

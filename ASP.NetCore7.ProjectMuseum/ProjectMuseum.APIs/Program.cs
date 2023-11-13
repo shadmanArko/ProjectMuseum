@@ -43,7 +43,7 @@ builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
 builder.Services.AddScoped<IExhibitRepository, ExhibitRepository>();
 builder.Services.AddScoped<IPlayerInfoRepository, PlayerInfoRepository>();
 builder.Services.AddScoped<IMineService, MineService>();
-builder.Services.AddScoped<IMuseumTileService, MuseumTileTileService>();
+builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddScoped<ILoadService, LoadService>();
 builder.Services.AddScoped<ISaveService, SaveService>();

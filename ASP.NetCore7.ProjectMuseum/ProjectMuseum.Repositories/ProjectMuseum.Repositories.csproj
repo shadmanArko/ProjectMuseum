@@ -14,5 +14,10 @@
       <PackageReference Include="AutoMapper" Version="12.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ExhibitRepository\Sub Repositories" />
+      <Folder Include="PlayerRepository\Sub Repositories" />
+    </ItemGroup>
+
 
 </Project>

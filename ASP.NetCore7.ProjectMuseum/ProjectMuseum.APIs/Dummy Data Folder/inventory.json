@@ -1,0 +1,12 @@
+[
+  {
+    "Weapons": [
+      { "Id": "W001", "Name": "Sword of Valor", "Slot": 1 },
+      { "Id": "W002", "Name": "Bow of Precision", "Slot": 2 }
+    ],
+    "Artifacts": [
+      { "RawArtifactId": "A001", "Slot": 1 },
+      { "RawArtifactId": "A002", "Slot": 2 }
+    ]
+  }
+]

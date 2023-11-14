@@ -11,16 +11,18 @@ public class SaveDataJsonFileDatabase
 
     private readonly string _exhibitDataFolderPath;
     private readonly string _playerInfoDataFolderPath;
+    private readonly string _storySceneDataFolderPath;
 
     private readonly string _saveDataFolderPath;
 
-    public SaveDataJsonFileDatabase(string museumTileDataFolderPath, string exhibitDataFolderPath, string saveDataFolderPath, string museumDataFolderPath, string playerInfoDataFolderPath)
+    public SaveDataJsonFileDatabase(string museumTileDataFolderPath, string exhibitDataFolderPath, string saveDataFolderPath, string museumDataFolderPath, string playerInfoDataFolderPath, string storySceneDataFolderPath)
     {
         _museumTileDataFolderPath = museumTileDataFolderPath;
         _exhibitDataFolderPath = exhibitDataFolderPath;
         _saveDataFolderPath = saveDataFolderPath;
         _museumDataFolderPath = museumDataFolderPath;
         _playerInfoDataFolderPath = playerInfoDataFolderPath;
+        _storySceneDataFolderPath = storySceneDataFolderPath;
     }
 
     public async Task MergeJsonFiles()
@@ -29,6 +31,7 @@ public class SaveDataJsonFileDatabase
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(await File.ReadAllTextAsync(_exhibitDataFolderPath));
         var playerInfos = JsonSerializer.Deserialize<List<PlayerInfo>>(await File.ReadAllTextAsync(_playerInfoDataFolderPath));
         var museums = JsonSerializer.Deserialize<List<Museum>>(await File.ReadAllTextAsync(_museumDataFolderPath));
+        var storyScenes = JsonSerializer.Deserialize<List<StoryScene>>(await File.ReadAllTextAsync(_storySceneDataFolderPath));
 
 
         var mergedData = new MergedData
@@ -36,7 +39,8 @@ public class SaveDataJsonFileDatabase
             MuseumTiles = museumTiles,
             Exhibits = exhibits,
             PlayerInfos = playerInfos,
-            Museums = museums
+            Museums = museums,
+            StoryScenes = storyScenes
         };
 
         var mergedJson = JsonSerializer.Serialize(mergedData, new JsonSerializerOptions
@@ -70,6 +74,10 @@ public class SaveDataJsonFileDatabase
         {
             WriteIndented = true
         }));
+        await File.WriteAllTextAsync(_storySceneDataFolderPath, JsonSerializer.Serialize(mergedData?.StoryScenes, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        }));
     }
     
 }
@@ -85,4 +93,6 @@ public class MergedData
     
     [JsonPropertyName("Museums")]
     public List<Museum>? Museums { get; set; }
+    [JsonPropertyName("StoryScenes")]
+    public List<StoryScene>? StoryScenes { get; set; }
 }

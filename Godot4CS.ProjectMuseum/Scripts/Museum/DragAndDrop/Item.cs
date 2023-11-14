@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
@@ -31,7 +32,12 @@ public partial class Item : Sprite2D
 
     private HttpRequest _httpRequestForExhibitPlacementConditions;
     private HttpRequest _httpRequestForExhibitPlacement;
-    
+
+    public Item()
+    {
+        _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
+        GD.Print("Item Initialized" );
+    }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -118,7 +124,7 @@ public partial class Item : Sprite2D
         foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
         {
             string url =
-                $"http://localhost:5178/api/MuseumTile/PlaceAnExhibit/{GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition))}/{itemType}";
+                $"{ApiAddress.MuseumApiPath}PlaceAnExhibit/{GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition))}/{itemType}";
             _httpRequestForExhibitPlacement.Request(url);
             await Task.Delay(300);
         }

@@ -9,9 +9,6 @@ public partial class PlayerController : CharacterBody2D
 	[Export] private AnimationController _animationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
-	private MineGenerationVariables _mineGenerationVariables;
-    
-	
 
 	[Export] private float _maxVerticalVelocity;
 
@@ -23,29 +20,11 @@ public partial class PlayerController : CharacterBody2D
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
         PlayerMovement(delta);
-
-		#region Testing Purposes
-
-		if (Input.IsActionJustReleased("Test"))
-		{
-			GD.Print($"acceleration {_playerControllerVariables.Acceleration}");
-			GD.Print($"max speed {_playerControllerVariables.MaxSpeed}");
-			GD.Print($"friction {_playerControllerVariables.Friction}");
-			GD.Print($"Vertical Velocity {_playerControllerVariables.Velocity.Y}");
-			GD.Print($"gravity {_playerControllerVariables.Gravity}");
-			GD.Print($"max gravity {_maxVerticalVelocity}");
-			GD.Print($"is grounded {_playerControllerVariables.IsGrounded}");
-			GD.Print($"is attacking {_playerControllerVariables.IsAttacking}");
-			GD.Print($"is hanging {_playerControllerVariables.IsHanging}");
-		}
-
-		#endregion
 	}
     
 	private void PlayerMovement(double delta)
@@ -55,15 +34,15 @@ public partial class PlayerController : CharacterBody2D
 			var input = GetInputKeyboard();
 			if (input == Vector2.Zero)
 			{
-				if (Velocity.Length() > _playerControllerVariables.Friction * delta)
-					Velocity -= Velocity.Normalized() * (_playerControllerVariables.Friction * (float)delta);
+				if (Velocity.Length() > PlayerControllerVariables.Friction * delta)
+					Velocity -= Velocity.Normalized() * (PlayerControllerVariables.Friction * (float)delta);
 				else
 					Velocity = Vector2.Zero;
 			}
 			else
 			{
 				Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
-				Velocity = Velocity.LimitLength(_playerControllerVariables.MaxSpeed);
+				Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed);
 			}
 		}
         
@@ -138,7 +117,7 @@ public partial class PlayerController : CharacterBody2D
 		var grab = Input.IsActionJustReleased("toggle_grab");
 		if (!grab) return;
 		_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
-		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? _playerControllerVariables.MaxSpeed / 2 : _playerControllerVariables.MaxSpeed;
+		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
 	
 	public override void _Input(InputEvent @event)

@@ -11,5 +11,5 @@ public class Cell
 	public bool IsRevealed { get; set; }
 	public bool HasArtifact{ get; set; }
 	public bool IsInstantiated{ get; set; }
-	public int BreakStrength{ get; set; }
+	public int HitPoint{ get; set; }
 }

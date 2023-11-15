@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using ProjectMuseum.Models;
 
@@ -29,6 +29,9 @@ public partial class PlayerCollisionDetector : Node2D
 		MineActions.OnPlayerCollisionDetection += DetectCollision;
 		MineActions.OnPlayerDigActionPressed += AttackWall;
 		MineActions.OnPlayerBrushActionPressed += BrushWall;
+
+		MineActions.OnMiniGameWon += MiniGameWon;
+		MineActions.OnMiniGameLost += MiniGameLost;
 	}
     
 	private void DetectCollision(KinematicCollision2D collision)
@@ -54,9 +57,9 @@ public partial class PlayerCollisionDetector : Node2D
         
 		var cell = _mineGenerationVariables.Cells[targetTilePosition.X, targetTilePosition.Y];
 		if (cell.HasArtifact)
-			DigArtifactCell(cell, targetTilePosition);
+			DigArtifactCell(targetTilePosition);
 		else
-			DigOrdinaryCell(cell, targetTilePosition);
+			DigOrdinaryCell(targetTilePosition);
 	}
 
 	private void BrushWall()
@@ -68,22 +71,55 @@ public partial class PlayerCollisionDetector : Node2D
 	}
 
 	[Export] private string _alternateButtonPressMiniGameScenePath;
+	[Export] private bool _isMiniGameLoaded = false;
+	private Vector2I _artifactTilePos;
 	private void BrushOutArtifact(Cell cell, Vector2I tilePos)
 	{
 		if (!cell.HasArtifact || cell.HitPoint != 1) return;
 		_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(3,0));
 		//TODO: Pop up that says "Extracting Artifact"
 		_playerControllerVariables.CanMove = false;
+		_artifactTilePos = tilePos;
+		GD.Print("Loading mini game scene");
 		var scene = ResourceLoader.Load<PackedScene>(_alternateButtonPressMiniGameScenePath).Instantiate() as AlternateTapMiniGame;
 		if (scene is null)
-		{
+		{                                                                                                                    
 			GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
 			return;
 		}
 		AddChild(scene);
-		//TODO: Start a mini game
-		GD.Print("Extracted Artifact");
-		RevealAdjacentWalls(tilePos);
+	}
+
+	private void MiniGameWon()
+	{
+		GD.Print("Successfully Extracted Artifact");
+
+		ShowDiscoveredArtifact();
+		DigOrdinaryCell(_artifactTilePos);
+		RevealAdjacentWalls(_artifactTilePos);
+		_playerControllerVariables.CanMove = true;
+	}
+
+	[Export] private string _discoveredArtifactScenePath;
+	private async void ShowDiscoveredArtifact()
+	{
+		var scene = ResourceLoader.Load<PackedScene>(_discoveredArtifactScenePath).Instantiate() as DiscoveredArtifactVisualizer;
+		if (scene is null)
+		{                                                                                                                    
+			GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
+			return;
+		}
+		AddChild(scene);
+
+		await scene.ShowArtifact();
+	}
+
+	private void MiniGameLost()
+	{
+		GD.Print("Failed to Extract Artifact");
+		DigOrdinaryCell(_artifactTilePos);
+		RevealAdjacentWalls(_artifactTilePos);
+		_playerControllerVariables.CanMove = true;
 	}
 
 	private Vector2I FindPositionOfTargetCell()
@@ -112,9 +148,10 @@ public partial class PlayerCollisionDetector : Node2D
 		return true;
 	}
 
-	private void DigArtifactCell(Cell cell, Vector2I tilePos)
+	private void DigArtifactCell(Vector2I tilePos)
 	{
-		_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint--;
+		var cell = _mineGenerationVariables.Cells[tilePos.X, tilePos.Y];
+		cell.HitPoint--;
 		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
         
 		if (cell.HitPoint >= 2)
@@ -130,9 +167,10 @@ public partial class PlayerCollisionDetector : Node2D
 		}
 	}
 
-	private void DigOrdinaryCell(Cell cell, Vector2I tilePos)
+	private void DigOrdinaryCell(Vector2I tilePos)
 	{
-		_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint--;
+		var cell = _mineGenerationVariables.Cells[tilePos.X, tilePos.Y];
+		cell.HitPoint--;
 		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
 		
 		if (cell.HitPoint >= 2)

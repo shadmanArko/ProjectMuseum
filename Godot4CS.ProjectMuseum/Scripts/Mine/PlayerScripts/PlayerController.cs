@@ -122,6 +122,7 @@ public partial class PlayerController : CharacterBody2D
 	
 	public override void _Input(InputEvent @event)
 	{
+		if(!_playerControllerVariables.CanMove) return;
 		if(@event is not InputEventMouseMotion) return;
 		var mousePos = GetGlobalMousePosition();
 		var angle = GetAngleTo(mousePos);

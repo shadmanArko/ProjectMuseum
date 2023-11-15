@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://db037mwpqisj0"]
+
+[ext_resource type="Texture2D" uid="uid://wghq5xodtlc3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/sword.png" id="1_4uwx6"]
+[ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
+
+[node name="DiscoveredArtifactVisualizer" type="CanvasLayer" node_paths=PackedStringArray("_artifactSprite")]
+script = ExtResource("1_l5epx")
+_artifactSprite = NodePath("Panel/Sprite2D")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+position = Vector2(560, 300)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_4uwx6")

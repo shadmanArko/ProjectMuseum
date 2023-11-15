@@ -22,9 +22,13 @@ public partial class AlternateTapMiniGame : CanvasLayer
 	
 	[Export] private bool _isAlternateTapOption;
 
+	[Export] private bool _miniGameWon;
+
 	public override void _Ready()
 	{
 		_timer = 2;
+		_miniGameWon = false;
+		SetProcess(true);
 	}
     
 	public override void _Process(double delta)
@@ -38,11 +42,13 @@ public partial class AlternateTapMiniGame : CanvasLayer
 				_progressValue = _finalValue;
 				_progressLabel.Text = _progressValue.ToString();
 				_pressButtonLabel.Text = "Successfully Extracted Artifact";
+				_miniGameWon = true;
 			}
 			else
 			{
 				_progressLabel.Text = _progressValue.ToString();
 				_pressButtonLabel.Text = "Failed to Extract Artifact";
+				_miniGameWon = false;
 			}
 			_ExitTree();
 		}
@@ -50,9 +56,12 @@ public partial class AlternateTapMiniGame : CanvasLayer
 		{
 			_countDownTimer -= delta;
 		}
-		
-		if(_progressValue >= _finalValue)
+
+		if (_progressValue >= _finalValue)
+		{
+			_miniGameWon = true;
 			_ExitTree();
+		}
 
 		if (_progressValue <= 0)
 			_progressValue = 0;
@@ -102,6 +111,12 @@ public partial class AlternateTapMiniGame : CanvasLayer
 	public override void _ExitTree()
 	{
 		SetProcess(false);
+		Visible = false;
+		if(_miniGameWon)
+			MineActions.OnMiniGameWon?.Invoke();
+		else
+			MineActions.OnMiniGameLost?.Invoke();
+		
 		GD.Print("Process Stopped");
 	}
 }

@@ -19,6 +19,7 @@ config/icon="res://Assets/2D/Sprites/icon.svg"
 
 GameManager="*res://Scripts/GameManager/game_manager.gd"
 MineActions="*res://Scripts/Mine/MineActions.cs"
+SceneReferenceStore="*res://Scripts/Mine/SceneReferenceStore.cs"
 
 [dotnet]
 

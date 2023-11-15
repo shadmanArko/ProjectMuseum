@@ -9,8 +9,10 @@ public partial class MineActions : Node
 	public static Action OnPlayerBrushActionPressed;
 	public static Action OnPlayerMeleeAttackActionPressed;
     public static Action OnPlayerRangedAttackActionPressed;
-    
-	//public static Action OnPlayerMiningActionPressed;
+
+    public static Action<Node2D> OnMiniGameLoad;
+    public static Action OnMiniGameWon;
+    public static Action OnMiniGameLost;
 
 	public static Action<KinematicCollision2D> OnPlayerCollisionDetection;
 

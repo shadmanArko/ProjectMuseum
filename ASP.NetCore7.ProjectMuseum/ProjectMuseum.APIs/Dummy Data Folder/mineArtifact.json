@@ -1,1 +1,6 @@
-[{"Artifacts":[{"Id":"abc123","RawArtifactId":"raw456","Slot":1},{"Id":"def456","RawArtifactId":"raw321","Slot":3},{"Id":"ghi789","RawArtifactId":"raw654","Slot":4},{"Id":"jkl012","RawArtifactId":"raw789","Slot":5}]}]
+[
+  {"Artifacts":[
+      {"Id":"abc123","RawArtifactId":"raw456","Slot":1},{"Id":"def456","RawArtifactId":"raw321","Slot":3},{"Id":"ghi789","RawArtifactId":"raw654","Slot":4},{"Id":"jkl012","RawArtifactId":"raw789","Slot":5}
+    ]
+  }
+]

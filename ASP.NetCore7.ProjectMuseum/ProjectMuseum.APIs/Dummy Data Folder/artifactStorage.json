@@ -1,0 +1,19 @@
+[
+  {"Artifacts":[
+    {
+      "Id": "yz012",
+      "RawArtifactId": "raw234",
+      "Slot": 10
+    },
+    {
+      "Id": "lmn456",
+      "RawArtifactId": "raw567",
+      "Slot": 11
+    },
+    {
+      "Id": "opq789",
+      "RawArtifactId": "raw890",
+      "Slot": 12
+    }  ]
+  }
+]

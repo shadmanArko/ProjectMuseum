@@ -1,6 +1,9 @@
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.MuseumService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumTileService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -12,11 +15,15 @@ public class MuseumController : ControllerBase
 { 
     private readonly IMuseumTileService _museumTileService;
     private readonly IMuseumService _museumService;
+    private readonly IDisplayArtifactService _displayArtifactService;
+    private readonly IArtifactStorageService _artifactStorageService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
+        _displayArtifactService = displayArtifactService;
+        _artifactStorageService = artifactStorageService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -85,5 +92,19 @@ public class MuseumController : ControllerBase
         var reduceMuseumBalance = await _museumService.ReduceMuseumBalance(id, amount);
         return Ok(reduceMuseumBalance);
     }
-    
+
+    [HttpGet("GetAllDisplayArtifacts")]
+    public async Task<IActionResult> GetAllDisplayArtifacts()
+    {
+        var artifacts = await _displayArtifactService.GetAllArtifacts();
+        return Ok(artifacts);
+    }
+
+    [HttpGet("GetAllArtifactsInStorage")]
+    public async Task<IActionResult> GetAllArtifactsInStorage()
+    {
+        var artifacts = await _artifactStorageService.GetAllArtifactsOfStorage();
+        return Ok(artifacts);
+    }
+
 }

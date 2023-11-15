@@ -1,6 +1,6 @@
 namespace ProjectMuseum.Models;
 
-public class Storage
+public class ArtifactStorage
 {
     public List<Artifact> Artifacts { get; set; }
 }

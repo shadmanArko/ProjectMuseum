@@ -33,6 +33,7 @@ public class PlayerControllerVariables
 			_isAttacking = value;
 			if (_isAttacking)
 			{
+				if(!CanMove) return;
 				switch (_currentEquippedItem)
 				{
 					case Equipables.PickAxe:

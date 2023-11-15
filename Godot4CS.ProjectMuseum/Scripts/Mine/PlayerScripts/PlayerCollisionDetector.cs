@@ -32,6 +32,7 @@ public partial class PlayerCollisionDetector : Node2D
 
 		MineActions.OnMiniGameWon += MiniGameWon;
 		MineActions.OnMiniGameLost += MiniGameLost;
+		MineActions.OnArtifactDiscoveryOkayButtonPressed += TurnOffArtifactDiscoveryScene;
 	}
     
 	private void DetectCollision(KinematicCollision2D collision)
@@ -97,11 +98,10 @@ public partial class PlayerCollisionDetector : Node2D
 		ShowDiscoveredArtifact();
 		DigOrdinaryCell(_artifactTilePos);
 		RevealAdjacentWalls(_artifactTilePos);
-		_playerControllerVariables.CanMove = true;
 	}
 
 	[Export] private string _discoveredArtifactScenePath;
-	private async void ShowDiscoveredArtifact()
+	private void ShowDiscoveredArtifact()
 	{
 		var scene = ResourceLoader.Load<PackedScene>(_discoveredArtifactScenePath).Instantiate() as DiscoveredArtifactVisualizer;
 		if (scene is null)
@@ -110,8 +110,11 @@ public partial class PlayerCollisionDetector : Node2D
 			return;
 		}
 		AddChild(scene);
+	}
 
-		await scene.ShowArtifact();
+	private void TurnOffArtifactDiscoveryScene()
+	{
+		_playerControllerVariables.CanMove = true;
 	}
 
 	private void MiniGameLost()

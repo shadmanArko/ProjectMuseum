@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
@@ -45,7 +44,6 @@ public partial class MineGenerationController : Node2D
 
 	private void InitializeDiReferences()
 	{
-		ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 

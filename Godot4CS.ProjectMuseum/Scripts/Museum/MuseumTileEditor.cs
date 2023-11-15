@@ -12,7 +12,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum;
 
-public partial class MuseumTileEditor : Control
+public partial class MuseumTileEditor : Node2D
 {
     private TileMap _tileMap;
     private int _tileSize;

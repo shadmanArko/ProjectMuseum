@@ -115,8 +115,8 @@ public partial class DialogueSystem : Control
 
 	private void ShowNextStoryEntry()
 	{
-		LoadAndSetCharacterPortrait();
-		LoadAndSetCutsceneArt();
+		// LoadAndSetCharacterPortrait();
+		// LoadAndSetCutsceneArt();
 		_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
 	}
 

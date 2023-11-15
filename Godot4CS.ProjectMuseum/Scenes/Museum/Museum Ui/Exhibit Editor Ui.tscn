@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjy2gyknf1lwq"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
+
+[node name="Exhibit Editor Ui" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5j1h5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.182292
+anchor_top = 0.158333
+anchor_right = 0.821354
+anchor_bottom = 0.82963
+offset_bottom = 6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.247059, 0.247059, 0.247059, 1)
+metadata/_edit_use_anchors_ = true

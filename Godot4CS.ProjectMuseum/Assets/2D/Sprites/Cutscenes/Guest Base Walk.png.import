@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jafqo2jtpy1t"
-path="res://.godot/imported/Guest Base Walk.png-f777016c294c475044835f552ec86a3d.ctex"
+path="res://.godot/imported/Guest Base Walk.png-a6052228278039d7aa7fe7f9071ece64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Animations/Museum Character Animations/Guest Base Walk.png"
-dest_files=["res://.godot/imported/Guest Base Walk.png-f777016c294c475044835f552ec86a3d.ctex"]
+source_file="res://Assets/2D/Sprites/Cutscenes/Guest Base Walk.png"
+dest_files=["res://.godot/imported/Guest Base Walk.png-a6052228278039d7aa7fe7f9071ece64.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=13 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ddq1yn1fawuwg" path="res://Scenes/Museum/Sub Scenes/Walls/yellow_flower_wall_paper_1.tscn" id="10_xt14w"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumTileEditor.cs" id="11_uydor"]
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
+[ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="12_miro6"]
 
 [node name="museum" type="Node2D"]
 y_sort_enabled = true
@@ -37,7 +38,10 @@ Maxzoom = 4.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
+[node name="Dialogue Ui" parent="CanvasLayer" instance=ExtResource("12_miro6")]
+
+[node name="Musseum Ui" parent="CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
+visible = false
 ItemsParent = NodePath("../../ItemParents")
 
 [node name="ItemParents" type="Node2D" parent="."]

@@ -18,6 +18,8 @@ public partial class DialogueSystem : Control
 	[Export] private RichTextLabel _dialogueRichTextLabel;
 	[Export] private Button _nextDialogueButton;
 	[Export] private TextureRect _characterPortrait;
+	[Export] private TextureRect _cutsceneArt;
+	[Export] private AnimationPlayer _dialogueSystemAnimationPlayer;
 	private StoryScene _storyScene;
 	private int _storyEntryCount = 0;
 	
@@ -53,8 +55,11 @@ public partial class DialogueSystem : Control
 		if (_storyEntryCount < _storyScene.StorySceneEntries.Count -1)
 		{
 			_storyEntryCount++;
-			LoadAndSetCharacterPortrait();
-			_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
+			ShowNextStoryEntry();
+		}
+		else
+		{
+			_dialogueSystemAnimationPlayer.Play("Slide_Out");
 		}
 	}
 
@@ -104,12 +109,67 @@ public partial class DialogueSystem : Control
 		 GD.Print(jsonStr);
 		 _storyScene = JsonSerializer.Deserialize<StoryScene>(jsonStr);
 		 _storyEntryCount = 0;
-		 LoadAndSetCharacterPortrait();
-		 _dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
-		 
+		 _dialogueSystemAnimationPlayer.Play("Slide_In");
+		 ShowNextStoryEntry();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	private void ShowNextStoryEntry()
+	{
+		LoadAndSetCharacterPortrait();
+		LoadAndSetCutsceneArt();
+		_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
+	}
+
+	private void LoadAndSetCutsceneArt()
+	{
+		var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
+		if (!storySceneEntry.HasCutscene)
+		{
+			_cutsceneArt.Visible = false;
+			return;
+		}
+		else
+		{
+			_cutsceneArt.Visible = true;
+		}
+
+		if (!storySceneEntry.HasCutsceneArt)
+		{
+			_cutsceneArt.Texture = null;
+			return;
+		}
+		// Path to the folder containing your PNG file
+		string folderPath = "res://Assets/2D/Sprites/Cutscenes/";
+		
+		// Name of your PNG file
+		string fileName = $"{storySceneEntry.IllustrationName}.png";
+
+		// Combine the folder path and file name to create the full path
+		string fullPath = folderPath + fileName;
+
+		// Load the texture from the file
+		try
+		{
+			// Load the texture from the file
+			Texture2D texture = GD.Load<Texture2D>(fullPath);
+
+			if (texture != null)
+			{
+				// Set the loaded texture to the TextureRect
+				_cutsceneArt.Texture = texture;
+			}
+			else
+			{
+				_cutsceneArt.Texture = null;
+				GD.Print("Failed to load cutscene texture: " + fullPath);
+			}
+		}
+		catch (Exception e)
+		{
+			GD.Print("Error loading cutscene texture: " + e.Message);
+		}
+	}
+
 	
 	
 	async Task ShowDialogue(int entry, CancellationToken cancellationToken)

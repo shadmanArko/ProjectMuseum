@@ -11,7 +11,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("museumMoneyTextField")]
+[node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -26,4 +26,14 @@ public class InventoryRepository : IInventoryRepository
         var artifacts = inventory?.Artifacts;
         return artifacts;
     }
+
+    public async Task<Artifact> AddArtifact(Artifact artifact)
+    {
+        var listOfInventory = await _inventoryDatabase.ReadDataAsync();
+        var inventory = listOfInventory?[0];
+        var artifacts = inventory?.Artifacts;
+        artifacts?.Add(artifact);
+        if (listOfInventory != null) await _inventoryDatabase.WriteDataAsync(listOfInventory);
+        return artifact;
+    }
 }

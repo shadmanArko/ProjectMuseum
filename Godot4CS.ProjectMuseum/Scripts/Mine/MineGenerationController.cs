@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Godot;
+using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
@@ -229,7 +230,7 @@ public partial class MineGenerationController : Node2D
 		};
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4,0));
+		_mineGenerationView.SetCell(0,tilePos,5,new Vector2I(2,15));
 		return cell;
 	}
 
@@ -247,7 +248,7 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
+		_mineGenerationView.SetCell(0,tilePos,5,new Vector2I(1,15));
 		return cell;
 	}
 
@@ -266,8 +267,8 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
-
+		_mineGenerationView.SetCell(0,tilePos,5,new Vector2I(1,15));
+		//_mineGenerationVariables.MineGenView.SetCellsTerrainConnect(0,new Array<Vector2I>(new []{tilePos}),0,0);
 		return cell;
 	}
 	
@@ -287,8 +288,8 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
-
+		//_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
+		_mineGenerationVariables.MineGenView.SetCellsTerrainConnect(0,new Array<Vector2I>(new []{tilePos}),0,0);
 		return cell;
 	}
     

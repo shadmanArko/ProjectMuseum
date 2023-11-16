@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=14 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumTileEditor.cs" id="11_uydor"]
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
-[ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="12_miro6"]
 [ext_resource type="PackedScene" uid="uid://cv15qeuxawq6p" path="res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn" id="13_whphv"]
 
 [node name="museum" type="Node2D"]
@@ -44,9 +43,6 @@ Maxzoom = 4.0
 ItemsParent = NodePath("../../ItemParents")
 
 [node name="Exhibit Editor Ui" parent="CanvasLayer" instance=ExtResource("10_c21vt")]
-visible = false
-
-[node name="Dialogue Ui" parent="CanvasLayer" instance=ExtResource("12_miro6")]
 
 [node name="ItemParents" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -65,8 +61,9 @@ y_sort_enabled = true
 position = Vector2(54, -120)
 _displacementSpeed = 50.0
 
-[node name="ExhibitController" type="Node2D" parent="."]
+[node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi")]
 script = ExtResource("12_k33tk")
+_exhibitEditorUi = NodePath("../CanvasLayer/Exhibit Editor Ui")
 
 [node name="Item1" parent="." instance=ExtResource("13_whphv")]
 position = Vector2(192, -204)

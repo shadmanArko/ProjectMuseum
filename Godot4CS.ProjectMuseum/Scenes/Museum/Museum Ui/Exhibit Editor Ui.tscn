@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
 
-[node name="Exhibit Editor Ui" type="Control"]
+[node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -11,8 +11,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5j1h5")
+_exitButton = NodePath("Panel/ColorRect/Button")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.182292
@@ -24,3 +35,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.247059, 0.247059, 0.247059, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="Panel/ColorRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -41.9994
+offset_right = 0.000610352
+offset_bottom = 38.0
+grow_horizontal = 0
+text = "Exit"

@@ -4,6 +4,7 @@ using ProjectMuseum.Models;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -17,13 +18,15 @@ public class MuseumController : ControllerBase
     private readonly IMuseumService _museumService;
     private readonly IDisplayArtifactService _displayArtifactService;
     private readonly IArtifactStorageService _artifactStorageService;
+    private readonly ITradingArtifactsService _tradingArtifactsService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
         _displayArtifactService = displayArtifactService;
         _artifactStorageService = artifactStorageService;
+        _tradingArtifactsService = tradingArtifactsService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -105,6 +108,20 @@ public class MuseumController : ControllerBase
     {
         var artifacts = await _artifactStorageService.GetAllArtifactsOfStorage();
         return Ok(artifacts);
+    }
+
+    [HttpGet("GetAllTradingArtifacts")]
+    public async Task<IActionResult> GetAllTradingArtifacts()
+    {
+        var artifacts = await _tradingArtifactsService.GetAllArtifacts();
+        return Ok(artifacts);
+    }
+
+    [HttpPost("AddArtifactToTrading")]
+    public async Task<IActionResult> AddArtifactToTrading([FromBody]Artifact newArtifact)
+    {
+        var artifact = await _tradingArtifactsService.AddArtifact(newArtifact);
+        return Ok(artifact);
     }
 
 }

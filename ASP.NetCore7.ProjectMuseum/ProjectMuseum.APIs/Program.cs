@@ -6,6 +6,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRep
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifactRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifactRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
 using ProjectMuseum.Repositories.StorySceneRepository;
@@ -17,6 +18,7 @@ using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
 using ProjectMuseum.Services.StorySceneService;
@@ -33,6 +35,7 @@ string inventoryDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "
 string mineArtifactDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mineArtifact.json");
 string displayArtifactDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "displayArtifact.json");
 string artifactStorageDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "artifactStorage.json");
+string tradingArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tradingArtifacts.json");
 
 
 
@@ -56,6 +59,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<Inventory>(inventoryDataFolde
 builder.Services.AddSingleton(new JsonFileDatabase<MineArtifacts>(mineArtifactDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DisplayArtifacts>(displayArtifactDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactStorage>(artifactStorageDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(tradingArtifactsDataFolderPath));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMineRepository, MineRepository>();
@@ -67,6 +71,7 @@ builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IMineArtifactRepository, MineArtifactRepository>();
 builder.Services.AddScoped<IDisplayArtifactRepository, DisplayArtifactRepository>();
 builder.Services.AddScoped<IArtifactStorageRepository, ArtifactStorageRepository>();
+builder.Services.AddScoped<ITradingArtifactsRepository, TradingArtifactsRepository>();
 builder.Services.AddScoped<IMineService, MineService>();
 builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
@@ -78,6 +83,7 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IMineArtifactService, MineArtifactService>();
 builder.Services.AddScoped<IDisplayArtifactService, DisplayArtifactService>();
 builder.Services.AddScoped<IArtifactStorageService, ArtifactStorageService>();
+builder.Services.AddScoped<ITradingArtifactsService, TradingArtifactsService>();
 // builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));
 // builder.Services.AddScoped<ILoadService>(provider => new LoadService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));
 builder.Services.AddControllers()

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -8,10 +7,19 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 public partial class AutoAnimationController : Node
 {
 	private PlayerControllerVariables _playerControllerVariables;
-	private MineGenerationVariables _mineGenerationVariables;
-	
+
 	[Export] private PlayerController _playerController;
 	[Export] private AnimationController _animationController;
+
+	private bool _autoMoveToPos;
+	private bool _jumpIntoMine;
+
+	[Export] private Vector2 _p0;
+	[Export] private Vector2 _p1;
+	[Export] private Vector2 _p2;
+
+	[Export] private double _time;
+	
 	public override void _EnterTree()
 	{
 		InitializeDiReferences();
@@ -26,60 +34,61 @@ public partial class AutoAnimationController : Node
 		SetProcess(true);
 	}
 
-	private void SetJumpVariables()
-	{
-		var pcv = _playerControllerVariables;
-		pcv.JumpVelocity = (2 * pcv.JumpHeight) / pcv.JumpTimeToPeak * -1;
-		pcv.JumpGravity = (-2 * pcv.JumpHeight) / (pcv.JumpTimeToPeak * pcv.JumpTimeToPeak) * -1;
-		pcv.FallGravity = (-2 * pcv.JumpHeight) / (pcv.JumpTimeToDescend * pcv.JumpTimeToDescend) * -1;
-	}
-
-	private Vector2 _newPos = new Vector2(420,-60);
+	private Vector2 _newPos = new(420,-60);
 	
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
 	public override void _Process(double delta)
 	{
-		AutoMoveToPosition();
+		if(!_autoMoveToPos)
+			AutoMoveToPosition();
 	}
+	
+	public override void _PhysicsProcess(double delta)
+	{
+		if(_autoMoveToPos && !_jumpIntoMine)
+		{
+			_playerController.Position = AutoJumpIntoMine((float) _time);
+			_time += delta;
 
-
+			if (!(_time >= 1.2f)) return;
+			_animationController.Play("idle");
+			SetProcess(false);
+			SetPhysicsProcess(false);
+			_playerControllerVariables.CanMove = true;
+			_playerControllerVariables.Gravity = 25f;
+		}
+		
+	}
+    
 	#region Auto Animations
 
-	private async void AutoMoveToPosition()
+	private void AutoMoveToPosition()
 	{
-		
 		if(_playerController.Position.X < _newPos.X)
 		{
 			_playerController.Translate(new Vector2(0.5f,0));
 			_animationController.PlayAnimation("walk");
-			GD.Print("Player controller:"+_playerController.Position);
-			GD.Print("Target controller:"+_newPos);
 		}
 		else
 		{
-			GD.Print("Moved to position");
-			JumpIntoMine();
-			SetProcess(false);
+			_p0 = _playerController.Position;
+			_p2 = _playerController.Position + new Vector2(60, 0);
+			_p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
+			_autoMoveToPos = true;
 		}
 	}
-
-	private async Task JumpIntoMine()
+	
+	private Vector2 AutoJumpIntoMine(float t)
 	{
-		_playerController.MoveLocalY(-100);
-		await Task.Delay(1000);
-		//_playerControllerVariables.CanMove = true;
-		GD.Print("Added jump");
-	}
-
-	private float GetGravity()
-	{
-		return _playerController.Velocity.Y < 0 ? _playerControllerVariables.JumpGravity : _playerControllerVariables
-			.FallGravity;
+		var q0 = _p0.Lerp(_p1, t);
+		var q1 = _p1.Lerp(_p2, t);
+		var r = q0.Lerp(q1, t);
+		return r;
 	}
 
 	#endregion

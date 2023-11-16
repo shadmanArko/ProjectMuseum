@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
+using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -25,7 +27,8 @@ public partial class PlayerCollisionDetector : Node2D
 	private void SubscribeToActions()
 	{
 		MineActions.OnPlayerCollisionDetection += DetectCollision;
-		MineActions.OnPlayerAttackActionPressed += AttackWall;
+		MineActions.OnPlayerDigActionPressed += AttackWall;
+		MineActions.OnPlayerBrushActionPressed += BrushWall;
 	}
     
 	private void DetectCollision(KinematicCollision2D collision)
@@ -39,8 +42,6 @@ public partial class PlayerCollisionDetector : Node2D
 
 			if (tilePos.Y > playerPos.Y)
 				_playerControllerVariables.IsGrounded = true;
-            
-			//GD.Print($"tilePos: {tilePos.X}, {tilePos.Y} | PlayerPos: {playerPos.X}, {playerPos.Y}");
 		}
 	}
 	
@@ -48,36 +49,95 @@ public partial class PlayerCollisionDetector : Node2D
     
 	private void AttackWall()
 	{
-		if(_playerControllerVariables.CurrentEquippedItem != Equipables.PickAxe) return;
-		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
-		var newPos = _playerControllerVariables.MouseDirection;
-
-		tilePos += newPos;
-		GD.Print($"Breaking Cell{tilePos}");
-		GD.Print($"mouse direction: {_playerControllerVariables.MouseDirection}");
-		BreakCell(tilePos);
+		var targetTilePosition = FindPositionOfTargetCell();
+		if (!IsCellBreakValid(targetTilePosition)) return;
+        
+		var cell = _mineGenerationVariables.Cells[targetTilePosition.X, targetTilePosition.Y];
+		if (cell.HasArtifact)
+			DigArtifactCell(cell, targetTilePosition);
+		else
+			DigOrdinaryCell(cell, targetTilePosition);
 	}
-	
-	private void BreakCell(Vector2I tilePos)
+
+	private void BrushWall()
+	{
+		var targetTilePosition = FindPositionOfTargetCell();
+		if (!IsCellBreakValid(targetTilePosition)) return;
+		var cell = _mineGenerationVariables.Cells[targetTilePosition.X, targetTilePosition.Y];
+		BrushOutArtifact(cell, targetTilePosition);
+	}
+
+	[Export] private string _alternateButtonPressMiniGameScenePath;
+	private void BrushOutArtifact(Cell cell, Vector2I tilePos)
+	{
+		if (!cell.HasArtifact || cell.HitPoint != 1) return;
+		_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(3,0));
+		//TODO: Pop up that says "Extracting Artifact"
+		_playerControllerVariables.CanMove = false;
+		var scene = ResourceLoader.Load<PackedScene>(_alternateButtonPressMiniGameScenePath).Instantiate() as AlternateTapMiniGame;
+		if (scene is null)
+		{
+			GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
+			return;
+		}
+		AddChild(scene);
+		//TODO: Start a mini game
+		GD.Print("Extracted Artifact");
+		RevealAdjacentWalls(tilePos);
+	}
+
+	private Vector2I FindPositionOfTargetCell()
+	{
+		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
+		tilePos += _playerControllerVariables.MouseDirection;
+		GD.Print($"Breaking Cell{tilePos}");
+
+		return tilePos;
+	}
+
+	private bool IsCellBreakValid(Vector2I tilePos)
 	{
 		if (tilePos.X < 0 || tilePos.Y < 0)
 		{
 			GD.Print("Wrong cell index");
-			return;
+			return false;
 		}
 		var cell = _mineGenerationVariables.Cells[tilePos.X, tilePos.Y];
 		if (!cell.IsBreakable)
 		{
 			GD.Print("Is not breakable");
-			return;
+			return false;
 		}
+
+		return true;
+	}
+
+	private void DigArtifactCell(Cell cell, Vector2I tilePos)
+	{
+		_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint--;
+		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
+        
+		if (cell.HitPoint >= 2)
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(1,0));
+		else if (cell.HitPoint >= 1)
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(2,0));
+		else
+		{
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4,0));
+			//TODO: Pop up that says "Artifact Destroyed"
+			GD.Print("Artifact destroyed");
+			RevealAdjacentWalls(tilePos);
+		}
+	}
+
+	private void DigOrdinaryCell(Cell cell, Vector2I tilePos)
+	{
+		_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint--;
+		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
 		
-		_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].BreakStrength--;
-		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].BreakStrength, 0, 100);
-		
-		if (cell.BreakStrength >= 2)
+		if (cell.HitPoint >= 2)
 			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1,0));
-		else if (cell.BreakStrength >= 1)
+		else if (cell.HitPoint >= 1)
 			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2,0));
 		else
 		{
@@ -101,7 +161,7 @@ public partial class PlayerCollisionDetector : Node2D
 			var cell = _mineGenerationVariables.Cells[tilePosition.X, tilePosition.Y];
 
 			if (cell is null) continue;
-			if (cell.IsRevealed || !cell.IsInstantiated || !cell.IsBreakable || cell.BreakStrength <= 0) continue;
+			if (cell.IsRevealed || !cell.IsInstantiated || !cell.IsBreakable || cell.HitPoint <= 0) continue;
 			
 			cell.IsRevealed = true;
 			_mineGenerationVariables.MineGenView.SetCell(0,tilePosition,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(0,0));

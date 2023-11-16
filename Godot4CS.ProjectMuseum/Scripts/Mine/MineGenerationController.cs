@@ -25,6 +25,15 @@ public partial class MineGenerationController : Node2D
     
 	public override void _Ready()
 	{
+        CreateHttpRequests();
+		InitializeDiReferences();
+		_mineGenerationView = GetNode<MineGenerationView>("Mine");
+		_mineGenerationVariables.MineGenView = _mineGenerationView;
+		_savingCanvas.Visible = false;
+	}
+
+	private void CreateHttpRequests()
+	{
 		_saveGeneratedMineHttpRequest = new HttpRequest();
 		AddChild(_saveGeneratedMineHttpRequest);
 		_saveGeneratedMineHttpRequest.RequestCompleted += OnSaveGeneratedMineHttpRequestComplete;
@@ -32,11 +41,6 @@ public partial class MineGenerationController : Node2D
 		_getGeneratedMineHttpRequest = new HttpRequest();
 		AddChild(_getGeneratedMineHttpRequest);
 		_getGeneratedMineHttpRequest.RequestCompleted += OnGetMineDataRequestCompleted;
-		
-		InitializeDiReferences();
-		_mineGenerationView = GetNode<MineGenerationView>("Mine");
-		_mineGenerationVariables.MineGenView = _mineGenerationView;
-		_savingCanvas.Visible = false;
 	}
 
 	private void InitializeDiReferences()
@@ -142,11 +146,11 @@ public partial class MineGenerationController : Node2D
 					_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3, 0));
 				else
 				{
-					if(cell.BreakStrength == 3)
+					if(cell.HitPoint == 3)
 						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(0, 0));
-					else if(cell.BreakStrength == 2)
+					else if(cell.HitPoint == 2)
 						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1, 0));
-					else if(cell.BreakStrength == 1)
+					else if(cell.HitPoint == 1)
 						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2, 0));
 					else
 						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4, 0));
@@ -200,6 +204,12 @@ public partial class MineGenerationController : Node2D
 					_mineGenerationVariables.Cells[x, y] = InstantiateUnbreakableCell(x, y);
 					continue;
 				}
+
+				if (x == 24 && y == 5)
+				{
+					_mineGenerationVariables.Cells[x, y] = InstantiateArtifactCell(x, y);
+					continue;
+				}
                 
 				_mineGenerationVariables.Cells[x, y] = InstantiateCell(x, y);
 				if (y is 1 && x == _mineGenerationVariables.GridWidth / 2)
@@ -215,7 +225,7 @@ public partial class MineGenerationController : Node2D
 			Id = $"cell({width},{height})",
 			IsBreakable = false,
 			IsInstantiated = false,
-			BreakStrength = 1000,
+			HitPoint = 1000,
 			PositionX = width * _mineGenerationVariables.CellSize,
 			PositionY =  height * _mineGenerationVariables.CellSize,
 		};
@@ -232,7 +242,7 @@ public partial class MineGenerationController : Node2D
 			Id = $"cell({width},{height})",
 			IsBreakable = false,
 			IsInstantiated = true,
-			BreakStrength = 1000,
+			HitPoint = 1000,
 			PositionX = width * _mineGenerationVariables.CellSize,
 			PositionY =  height * _mineGenerationVariables.CellSize,
 		};
@@ -251,7 +261,7 @@ public partial class MineGenerationController : Node2D
 			IsBreakable = true,
 			IsInstantiated = true,
 			IsRevealed = false,
-			BreakStrength = 3,
+			HitPoint = 3,
 			PositionX = width * _mineGenerationVariables.CellSize,
 			PositionY =  height * _mineGenerationVariables.CellSize
 		};
@@ -262,7 +272,28 @@ public partial class MineGenerationController : Node2D
 
 		return cell;
 	}
+	
+	private Cell InstantiateArtifactCell(int width, int height)
+	{
+		var cell = new Cell
+		{
+			Id = $"cell({width},{height})",
+			IsBreakable = true,
+			IsInstantiated = true,
+			IsRevealed = false,
+			HasArtifact = true,
+			HitPoint = 3,
+			PositionX = width * _mineGenerationVariables.CellSize,
+			PositionY =  height * _mineGenerationVariables.CellSize
+		};
+        
+		var pos = new Vector2(cell.PositionX, cell.PositionY);
+		var tilePos = _mineGenerationView.LocalToMap(pos);
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
 
+		return cell;
+	}
+    
 	#endregion
 
 	[Export] private Node2D _mineBackGround;

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1meq8inx3q2s"
-path="res://.godot/imported/tiles all.png-d25537e21c7c3e8559d9c6d9a6c3258d.ctex"
+uid="uid://c0okb87a0sil4"
+path="res://.godot/imported/SilverArtifactTiles.png-eb70e3f45c63bb8b85ce1ec307248492.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/Tiles/tiles all.png"
-dest_files=["res://.godot/imported/tiles all.png-d25537e21c7c3e8559d9c6d9a6c3258d.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/Tiles/SilverArtifactTiles.png"
+dest_files=["res://.godot/imported/SilverArtifactTiles.png-eb70e3f45c63bb8b85ce1ec307248492.ctex"]
 
 [params]
 

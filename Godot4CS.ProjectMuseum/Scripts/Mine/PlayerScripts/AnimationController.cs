@@ -23,7 +23,10 @@ public partial class AnimationController : AnimationPlayer
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnPlayerAttackActionPressed += PlayAttackAnimation;
+		MineActions.OnPlayerDigActionPressed += PlayDigAnimation;
+		MineActions.OnPlayerMeleeAttackActionPressed += PlayMeleeAttackAnimation;
+		MineActions.OnPlayerBrushActionPressed += PlayBrushAnimation;
+        
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
 	}
@@ -79,6 +82,27 @@ public partial class AnimationController : AnimationPlayer
 		PlayAnimation(velocity.Y is > 0 or < 0 ? "climb_vertical" : "climb_idle");
 	}
 
+	private void PlayMeleeAttackAnimation()
+	{
+		PlayAnimation("attack");
+	}
+
+	private void PlayBrushAnimation()
+	{
+		PlayAnimation("brush");
+	}
+
+	private void PlayDigAnimation()
+	{
+		var mouseDirection = _playerControllerVariables.MouseDirection;
+		if (mouseDirection == Vector2I.Up)
+			PlayAnimation("mining_up");
+		else if (mouseDirection == Vector2I.Down)
+			PlayAnimation("mining_down");
+		else
+			PlayAnimation("mining_horizontal");
+	}
+	
 	private void PlayAttackAnimation()
 	{
 		var mouseDirection = _playerControllerVariables.MouseDirection;
@@ -141,6 +165,7 @@ public partial class AnimationController : AnimationPlayer
 
 	private void SpriteFlipBasedOnMousePosition(double mousePos)
 	{
+		if(!_playerControllerVariables.CanMove) return;
 		_sprite.FlipH = mousePos is < 90 and >= -90;
 	}
 }

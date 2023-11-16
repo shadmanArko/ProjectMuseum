@@ -17,6 +17,9 @@ _mineBackGround = NodePath("MineBackground")
 cell_quadrant_size = 20
 script = ExtResource("3_bsmgm")
 TileMap = NodePath(".")
-TileSourceId = 4
+TileSourceId = 1
+WoodArtifactSourceId = 2
+SilverArtifactSourceId = 3
+GoldArtifactSourceId = 4
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]

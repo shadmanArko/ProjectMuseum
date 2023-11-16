@@ -21,6 +21,11 @@ GameManager="*res://Scripts/GameManager/game_manager.gd"
 MineActions="*res://Scripts/Mine/MineActions.cs"
 SceneReferenceStore="*res://Scripts/Mine/SceneReferenceStore.cs"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [dotnet]
 
 project/assembly_name="Godot4CS.ProjectMuseum"

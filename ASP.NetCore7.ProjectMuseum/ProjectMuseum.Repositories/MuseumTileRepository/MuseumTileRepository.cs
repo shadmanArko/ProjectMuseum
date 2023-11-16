@@ -29,7 +29,25 @@ public class MuseumTileRepository : IMuseumTileRepository
         if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTile;
     }
-
+    public async Task<List<MuseumTile>?> UpdateMuseumTilesSourceId(List<string> ids, int sourceId)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        
+        foreach (var id in ids)
+        {
+            if (museumTiles != null)
+                foreach (var museumTile in museumTiles)
+                {
+                    if (museumTile.Id == id)
+                    {
+                        museumTile.TileSetNumber = sourceId;
+                    }
+                }
+        }
+        
+        if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTiles;
+    }
     public async Task<MuseumTile?> GetById(string id)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();

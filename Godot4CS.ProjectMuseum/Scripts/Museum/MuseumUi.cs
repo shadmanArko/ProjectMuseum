@@ -112,7 +112,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     void UpdateUiOnItemPlaced(float itemPrice)
     {
         GD.Print($"Item Placed of price {itemPrice}");
-        string url = $"http://localhost:5178/api/MuseumTile/ReduceMuseumBalance/museum0/{itemPrice}";
+        string url = $"{ApiAddress.MuseumApiPath}ReduceMuseumBalance/museum0/{itemPrice}";
         _httpRequestForReducingBalance.Request(url);
     }
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=12 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
+[ext_resource type="Script" path="res://Scenes/Museum/Main Scene/MuseumSceneDiInstaller.cs" id="2_yr8uh"]
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
 [ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="4_kytf8"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Sub Scenes/Museum ui.tscn" id="7_xsnwb"]
@@ -14,6 +15,9 @@
 [node name="museum" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_3ql1b")
+
+[node name="Museum Scene Di Installer" type="Node" parent="."]
+script = ExtResource("2_yr8uh")
 
 [node name="TileMap" parent="." node_paths=PackedStringArray("_wallsParent") instance=ExtResource("2_2v5tj")]
 layer_0/tile_data = PackedInt32Array()
@@ -65,7 +69,6 @@ texture = ExtResource("9_3fve7")
 visible = false
 
 [node name="Control" type="Control" parent="."]
-z_index = 1
 y_sort_enabled = true
 layout_mode = 3
 anchors_preset = 0

@@ -1,33 +1,127 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using ProjectMuseum.Models;
 
 public partial class DialogueSystem : Control
 {
 	[Export] private float _delayBetweenLetters;
 	[Export] private float _delayForFullStop;
 	[Export] private float _delayForComma;
-	[Export] private float _delayForPause;
+	[Export] private float _delayForPause; 
+	[Export] private int _storySceneNumber; 
 	[Export] private RichTextLabel _dialogueRichTextLabel;
-	public string fullDialogue = "Time at university was over. [PAUSE] Although unsure about what to do next, a gut feeling made clear that dropping by Professor Eucalyptus's office would yield something useful. ";
-	public string playerName = $"Life";
-	// Called when the node enters the scene tree for the first time.
+	[Export] private Button _nextDialogueButton;
+	[Export] private TextureRect _characterPortrait;
+	private StoryScene _storyScene;
+	private int _storyEntryCount = 0;
+	
+	private HttpRequest _httpRequestForGettingStory;
+	private Task _dialogueShowingTask;
+	private CancellationTokenSource _cancellationTokenSource;// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
 		// GD.Print(fullDialogue);
-		await ShowDialogue();
+		_cancellationTokenSource = new CancellationTokenSource();
+		_httpRequestForGettingStory = new HttpRequest();
+		AddChild(_httpRequestForGettingStory);
+		_httpRequestForGettingStory.RequestCompleted += HttpRequestForGettingStoryOnRequestCompleted;
+		LoadStoryScene();
+		_nextDialogueButton.Pressed += NextDialogueButtonOnPressed;
+	}
+
+	private async void NextDialogueButtonOnPressed()
+	{
+		_cancellationTokenSource.Cancel();
+		try
+		{
+			// Wait for the task to complete
+			await _dialogueShowingTask;
+		}
+		catch (TaskCanceledException)
+		{
+			GD.Print("Printing canceled.");
+		}
+
+		_cancellationTokenSource = new CancellationTokenSource();
+		if (_storyEntryCount < _storyScene.StorySceneEntries.Count -1)
+		{
+			_storyEntryCount++;
+			LoadAndSetCharacterPortrait();
+			_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
+		}
+	}
+
+	private void LoadAndSetCharacterPortrait()
+	{
+		// Path to the folder containing your PNG file
+		string folderPath = "res://Assets/2D/Sprites/Characters/";
+		var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
+		// Name of your PNG file
+		string fileName = $"{storySceneEntry.Speaker} {storySceneEntry.SpeakerEmotion}.png";
+
+		// Combine the folder path and file name to create the full path
+		string fullPath = folderPath + fileName;
+
+		// Load the texture from the file
+		try
+		{
+			// Load the texture from the file
+			Texture2D texture = GD.Load<Texture2D>(fullPath);
+
+			if (texture != null)
+			{
+				// Set the loaded texture to the TextureRect
+				_characterPortrait.Texture = texture;
+			}
+			else
+			{
+				_characterPortrait.Texture = null;
+				GD.Print("Failed to load texture: " + fullPath);
+			}
+		}
+		catch (Exception e)
+		{
+			GD.Print("Error loading texture: " + e.Message);
+		}
+	}
+
+	private void LoadStoryScene()
+	{
+		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{_storySceneNumber}";
+		_httpRequestForGettingStory.Request(url);
+	}
+
+	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		 string jsonStr = Encoding.UTF8.GetString(body);
+		 GD.Print(jsonStr);
+		 _storyScene = JsonSerializer.Deserialize<StoryScene>(jsonStr);
+		 _storyEntryCount = 0;
+		 LoadAndSetCharacterPortrait();
+		 _dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
+		 
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	
-	async Task ShowDialogue()
+	
+	async Task ShowDialogue(int entry, CancellationToken cancellationToken)
 	{
+		
 		bool skipIteration = false;
 		string tag = "";
+		string dialogue = _storyScene.StorySceneEntries[entry].Dialogue;
 		_dialogueRichTextLabel.Text = "";
-		foreach (var letter in fullDialogue.ToCharArray())
+		foreach (var letter in dialogue.ToCharArray())
 		{
+			cancellationToken.ThrowIfCancellationRequested();
 			float delayTime = _delayBetweenLetters;
 			if (letter == ',')
 			{
@@ -45,7 +139,7 @@ public partial class DialogueSystem : Control
 				skipIteration = false;
 				if (tag == "PAUSE")
 				{
-					await Task.Delay((int)(_delayForPause * 1000));
+					await Task.Delay((int)(_delayForPause * 1000), cancellationToken);
 				}
 				continue;
 			}
@@ -55,17 +149,9 @@ public partial class DialogueSystem : Control
 				continue;
 			}
 			_dialogueRichTextLabel.Text += letter;
-			await Task.Delay((int)(delayTime * 1000));
+			cancellationToken.ThrowIfCancellationRequested();
+			await Task.Delay((int)(delayTime * 1000), cancellationToken);
 		}
 	}
-
-	string PAUSE()
-	{
-		return "PAUSE!";
-	}
 	
-	string PLAYER_NAME()
-	{
-		return playerName;
-	}
 }

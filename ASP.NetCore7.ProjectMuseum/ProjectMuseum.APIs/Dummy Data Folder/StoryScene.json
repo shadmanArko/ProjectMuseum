@@ -1,0 +1,170 @@
+[
+  {
+    "Id": "",
+    "SceneNo": 1,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "1a",
+        "IllustrationName": "01",
+        "Dialogue": "Time at university was over. [PAUSE] Although unsure about what to do next, a gut feeling made clear that dropping by Professor Eucalyptus's office would yield something useful.",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Determined",
+        "HasCutscene": true,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 2,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "2a",
+        "IllustrationName": "02",
+        "Dialogue": "A job? In this economy? Archaeology degree.... Hmmmm.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "2b",
+        "IllustrationName": "02",
+        "Dialogue": "Hmmmm. [PAUSE] Hmmmmmmmmmmmm...",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "2c",
+        "IllustrationName": "02",
+        "Dialogue": "I know! [PAUSE] The old museum... Yes! I have a job for you. But it will require grit, dedication and a lot of digging!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "2d",
+        "IllustrationName": "02",
+        "Dialogue": "A museum?",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Confused",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "2e",
+        "IllustrationName": "02",
+        "Dialogue": "Yes! The old museum in my town, where I used to work during the summers! It is a rundown dingy place now a days. But the town is in need of some help, and few are willing to take on the task.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "2f",
+        "IllustrationName": "02",
+        "Dialogue": "Alright, professor, I don't have a better idea. I'll take on the museum.",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "2g",
+        "IllustrationName": "02",
+        "Dialogue": "Good, good. Ever since I laid eyes on you in my class that year, I knew you had something special about you. Meet me at the _______ Bus Stop. I'll explain the rest when you get there. Oh, and be sure to pack enough stuff to stay for a while.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 3,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "3a",
+        "IllustrationName": "03",
+        "Dialogue": "Alright. We're here.",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Determined",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "3b",
+        "IllustrationName": "03",
+        "Dialogue": "Wonderful! The bus arrived right on time. It's good to see you [PLAYERNAME].",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      },
+      {
+        "EntryNo": "3c",
+        "IllustrationName": "03",
+        "Dialogue": "Come! Grab your things. Let me show you your new home! It's quite literally right around the corner!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": true,
+        "HasCutsceneArt": true
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 4,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "4a",
+        "IllustrationName": "04",
+        "Dialogue": "..................",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Shocked",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "4b",
+        "IllustrationName": "04",
+        "Dialogue": "So, I'm not going to lie to you. [PAUSE]. But, you'll have a good bit of work to do here.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "4c",
+        "IllustrationName": "04",
+        "Dialogue": "..................",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Shocked",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "4d",
+        "IllustrationName": "04",
+        "Dialogue": "Before I let you unpack and all. Let me give you a basic tour of the place.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "4e",
+        "IllustrationName": "04",
+        "Dialogue": "[TRIGGERTUTORIAL]",
+        "Speaker": "",
+        "SpeakerEmotion": "",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  }
+]

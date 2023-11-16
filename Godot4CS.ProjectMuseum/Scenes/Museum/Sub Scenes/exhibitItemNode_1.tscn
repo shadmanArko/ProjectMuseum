@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(9.97071, 5.26112)
 
-[node name="Item1" type="Sprite2D"]
+[node name="Item1" type="Sprite2D" groups=["Exhibit"]]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1

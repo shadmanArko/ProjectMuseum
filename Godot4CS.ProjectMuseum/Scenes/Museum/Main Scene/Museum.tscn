@@ -1,16 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=14 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
 [ext_resource type="Script" path="res://Scenes/Museum/Main Scene/MuseumSceneDiInstaller.cs" id="2_yr8uh"]
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
 [ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="4_kytf8"]
-[ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Sub Scenes/Museum ui.tscn" id="7_xsnwb"]
+[ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Museum Ui/Museum ui.tscn" id="7_xsnwb"]
 [ext_resource type="PackedScene" uid="uid://0v3ikej83pig" path="res://Scenes/Museum/Sub Scenes/Walls/leafy_green_wall_paper_1.tscn" id="8_36sej"]
-[ext_resource type="Texture2D" uid="uid://bc8isy1tr16vw" path="res://Assets/2D/Sprites/Wallpapers/leafy green wall paper 1.png" id="9_3fve7"]
+[ext_resource type="PackedScene" uid="uid://bjy2gyknf1lwq" path="res://Scenes/Museum/Museum Ui/Exhibit Editor Ui.tscn" id="10_c21vt"]
 [ext_resource type="PackedScene" uid="uid://ddq1yn1fawuwg" path="res://Scenes/Museum/Sub Scenes/Walls/yellow_flower_wall_paper_1.tscn" id="10_xt14w"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumTileEditor.cs" id="11_uydor"]
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
+[ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
+[ext_resource type="PackedScene" uid="uid://cv15qeuxawq6p" path="res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn" id="13_whphv"]
 
 [node name="museum" type="Node2D"]
 y_sort_enabled = true
@@ -37,8 +39,10 @@ Maxzoom = 4.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
+[node name="Musseum Ui" parent="CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
 ItemsParent = NodePath("../../ItemParents")
+
+[node name="Exhibit Editor Ui" parent="CanvasLayer" instance=ExtResource("10_c21vt")]
 
 [node name="ItemParents" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -46,34 +50,9 @@ y_sort_enabled = true
 [node name="WallsParent" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="LeafyGreenWallPaper1" parent="." instance=ExtResource("8_36sej")]
-visible = false
-position = Vector2(-22, 5)
-
-[node name="LeafyGreenWallPaper2" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-344, -220)
-texture = ExtResource("9_3fve7")
-
-[node name="LeafyGreenWallPaper3" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-328, -228)
-texture = ExtResource("9_3fve7")
-
-[node name="LeafyGreenWallPaper4" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(8, -396)
-texture = ExtResource("9_3fve7")
-
-[node name="YellowFlowerWallPaper1" parent="." instance=ExtResource("10_xt14w")]
-visible = false
-
-[node name="Control" type="Control" parent="."]
+[node name="MuseumTileEditor" type="Node2D" parent="."]
+process_mode = 4
 y_sort_enabled = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 script = ExtResource("11_uydor")
 
 [node name="Player" parent="." instance=ExtResource("12_55fh7")]
@@ -81,5 +60,15 @@ z_index = 1
 y_sort_enabled = true
 position = Vector2(54, -120)
 _displacementSpeed = 50.0
+
+[node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi")]
+script = ExtResource("12_k33tk")
+_exhibitEditorUi = NodePath("../CanvasLayer/Exhibit Editor Ui")
+
+[node name="Item1" parent="." instance=ExtResource("13_whphv")]
+position = Vector2(192, -204)
+
+[node name="Item2" parent="." instance=ExtResource("13_whphv")]
+position = Vector2(268, -133)
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

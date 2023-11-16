@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
@@ -131,6 +132,17 @@ public partial class Item : Sprite2D
 
         
         
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (Input.IsActionJustReleased("ui_right_click"))
+        {
+            if (GetRect().HasPoint(GetLocalMousePosition()))
+            {
+                MuseumActions.OnClickItem?.Invoke(this);
+            }
+        }
     }
 
     private bool CheckIfTheTileIsEligible(Vector2I tilePosition)

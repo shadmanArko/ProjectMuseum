@@ -1,11 +1,99 @@
-[gd_scene load_steps=4 format=3 uid="uid://crl7j8x5ieqw"]
+[gd_scene load_steps=8 format=3 uid="uid://crl7j8x5ieqw"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Dialogue System/DialogueSystem.cs" id="1_60ayo"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_7vfjw"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_h686m"]
 
-[node name="Dialogue Ui" type="Control" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait")]
+[sub_resource type="Animation" id="Animation_ddbpt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 479.88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Character Potrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1000.16, 479.88)]
+}
+
+[sub_resource type="Animation" id="Animation_2gybc"]
+resource_name = "Slide_In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 725), Vector2(0, 479.88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Character Potrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1000.16, 725), Vector2(1000.16, 479.88)]
+}
+
+[sub_resource type="Animation" id="Animation_aeh0n"]
+resource_name = "Slide_Out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 479.88), Vector2(0, 725)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/Character Potrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1000.16, 479.88), Vector2(1000.16, 725)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jqq53"]
+_data = {
+"RESET": SubResource("Animation_ddbpt"),
+"Slide_In": SubResource("Animation_2gybc"),
+"Slide_Out": SubResource("Animation_aeh0n")
+}
+
+[node name="Dialogue Ui" type="Control" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -19,11 +107,27 @@ _delayForFullStop = 0.5
 _delayForComma = 0.3
 _delayForPause = 1.0
 _storySceneNumber = 2
-_dialogueRichTextLabel = NodePath("ColorRect/Dialogue")
-_nextDialogueButton = NodePath("ColorRect/Dialogue/Button")
-_characterPortrait = NodePath("Character Potrait/TextureRect")
+_dialogueRichTextLabel = NodePath("Panel/ColorRect/Dialogue")
+_nextDialogueButton = NodePath("Panel/ColorRect/Dialogue/Button")
+_characterPortrait = NodePath("Panel/Character Potrait/TextureRect")
+_cutsceneArt = NodePath("Panel/Illustration Image")
+_dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 
-[node name="Illustration Image" type="TextureRect" parent="."]
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 5.0
+offset_right = 1.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Illustration Image" type="TextureRect" parent="Panel"]
+visible = false
 modulate = Color(0.329412, 0.329412, 0.329412, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -33,18 +137,21 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_h686m")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="Panel"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.667
+anchor_right = 0.781
 anchor_bottom = 1.0
-offset_top = -360.0
-offset_right = 1500.0
+offset_top = 479.88
+offset_right = 3002.36
+offset_bottom = 1198.4
+grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("2_7vfjw")
 color = Color(0.85098, 0.85098, 0.85098, 1)
 
-[node name="Dialogue" type="RichTextLabel" parent="ColorRect"]
+[node name="Dialogue" type="RichTextLabel" parent="Panel/ColorRect"]
 modulate = Color(0.00784314, 0.00784314, 0.00784314, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -58,12 +165,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_7vfjw")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = ".........
+theme_override_font_sizes/normal_font_size = 32
+text = "Welcome To The Museum.
 
 
 "
 
-[node name="Button" type="Button" parent="ColorRect/Dialogue"]
+[node name="Button" type="Button" parent="Panel/ColorRect/Dialogue"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -75,23 +183,32 @@ theme = ExtResource("2_7vfjw")
 text = "
 "
 
-[node name="Character Potrait" type="ColorRect" parent="."]
+[node name="Character Potrait" type="ColorRect" parent="Panel"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = -1
+anchor_left = 0.781
+anchor_top = 0.667
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -420.0
-offset_top = -360.0
-grow_horizontal = 0
+offset_left = 1000.16
+offset_top = 479.88
+offset_right = 1839.8
+offset_bottom = 1200.4
+grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.603922, 0.603922, 0.603922, 1)
 
-[node name="TextureRect" type="TextureRect" parent="Character Potrait"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Character Potrait"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_jqq53")
+}

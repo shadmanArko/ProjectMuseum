@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwntmtbpv43ly"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/Draggable.cs" id="1_gr5ai"]
+
+[node name="Draggable" type="ColorRect"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_right = 59.5
+offset_bottom = 35.0
+grow_horizontal = 2
+script = ExtResource("1_gr5ai")

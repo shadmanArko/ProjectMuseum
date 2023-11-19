@@ -8,19 +8,23 @@ public partial class Draggable : ColorRect
 	private string label;
 	private bool droppedOnTarget = false;
 	private bool isDragging = false;
+	public bool canBeDragged = true;
+	public DropTarget parentDropTarget;
 	public override void _Ready()
 	{
 		AddToGroup("Draggable");
-		
+		parentDropTarget = GetParent<DropTarget>();
 	}
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (Input.IsActionPressed("ui_left_click"))
+			if (Input.IsActionJustPressed("ui_left_click"))
 			{
-
-				StartDrag();
+				if (GetRect().HasPoint(GetLocalMousePosition()))
+				{
+					StartDrag();
+				} 
 			}
 			else if (Input.IsActionJustReleased("ui_left_click"))
 			{
@@ -50,6 +54,7 @@ public partial class Draggable : ColorRect
 	}
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
+		
 		GD.Print($"get_drag_data has run");
 		if (!droppedOnTarget)
 		{

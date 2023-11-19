@@ -2,10 +2,10 @@ using Godot;
 using System;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
-public partial class DropTarget : ColorRect
+public partial class DropTarget : Control
 {
-    private bool hasEmptySlot = true;
-
+    public bool hasEmptySlot = true;
+    private PackedScene draggableScene = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn");
     // Store the original color for later restoration
     private Color originalColor;
 
@@ -36,7 +36,7 @@ public partial class DropTarget : ColorRect
     {
         var canDrop = ((Node)data).IsInGroup("Draggable");
         GD.Print($"Can drop data has run {Name}");
-        Highlight(canDrop && hasEmptySlot); // Highlight if conditions are met
+        // Highlight(canDrop && hasEmptySlot); // Highlight if conditions are met
         return canDrop && hasEmptySlot;
     }
 
@@ -44,6 +44,12 @@ public partial class DropTarget : ColorRect
     {
         GD.Print($"Drop data has run");
         hasEmptySlot = false;
+        Control draggableCopy = (Control)draggableScene.Instantiate();
+        // draggableCopy.GetNode<Draggable>(".").canBeDragged = false;
+        draggableCopy.GetNode<Draggable>(".").parentDropTarget = this;
+        ((Node)data).GetNode<Draggable>(".").parentDropTarget.hasEmptySlot = true;
+        ((Node)data).QueueFree();
+        GetNode<Control>(".").AddChild(draggableCopy);
         Highlight(false); // Reset highlight after dropping
     }
 

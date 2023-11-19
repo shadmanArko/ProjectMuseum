@@ -1,0 +1,32 @@
+[
+  {
+    "Id": "1",
+    "Era": "Bronze Age",
+    "Region": "Mesopotamia",
+    "Object": "Vase",
+    "Material": "Bronze",
+    "ObjectClass": "Decorative",
+    "ObjectSize": "Medium",
+    "ImageLocation": "/images/vase1.jpg"
+  },
+  {
+    "Id": "2",
+    "Era": "Iron Age",
+    "Region": "Egypt",
+    "Object": "Tablet",
+    "Material": "Stone",
+    "ObjectClass": "Inscription",
+    "ObjectSize": "Large",
+    "ImageLocation": "/images/tablet1.jpg"
+  },
+  {
+    "Id": "3",
+    "Era": "Classical Period",
+    "Region": "Greece",
+    "Object": "Figurine",
+    "Material": "Ceramic",
+    "ObjectClass": "Artistic",
+    "ObjectSize": "Small",
+    "ImageLocation": "/images/figurine1.jpg"
+  }
+]

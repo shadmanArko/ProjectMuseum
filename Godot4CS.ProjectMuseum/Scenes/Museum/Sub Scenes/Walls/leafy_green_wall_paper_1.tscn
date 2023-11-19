@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://0v3ikej83pig"]
-
-[ext_resource type="Texture2D" uid="uid://hg8btuw4x0ot" path="res://Assets/2D/Sprites/Wallpapers/dirty 1 80px.png" id="1_v5x7j"]
-
-[node name="LeafyGreenWallPaper1" type="Sprite2D"]
-position = Vector2(-360, -212)
-texture = ExtResource("1_v5x7j")
-offset = Vector2(-8, -43.5)

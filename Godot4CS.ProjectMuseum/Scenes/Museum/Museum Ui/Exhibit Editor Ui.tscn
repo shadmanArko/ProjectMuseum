@@ -136,3 +136,4 @@ offset_top = 155.0
 offset_right = 385.0
 offset_bottom = 206.0
 color = Color(0.541176, 0.541176, 0.541176, 1)
+script = ExtResource("4_mx4kr")

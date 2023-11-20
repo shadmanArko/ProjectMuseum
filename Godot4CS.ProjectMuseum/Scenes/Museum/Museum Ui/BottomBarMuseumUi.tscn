@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://t2qtjokgyph3"]
 
-[node name="BottomBar" type="Control"]
+[node name="BottomBarMuseumUi" type="Control"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 12

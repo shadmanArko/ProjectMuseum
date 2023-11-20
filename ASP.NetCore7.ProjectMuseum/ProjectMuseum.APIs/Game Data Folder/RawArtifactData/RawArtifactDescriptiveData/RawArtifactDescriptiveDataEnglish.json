@@ -1,17 +1,52 @@
 [
   {
-    "Id": "3",
-    "ArtifactName": "Ceramic Figurine",
-    "Description": ""
+    "Id": "AncientNativeAmericanClub",
+    "ArtifactName": "Ancient Native American Club",
+    "Description": "Few things are as reliable as fitting a sizeable rock on a stick."
   },
   {
-    "Id": "4",
-    "ArtifactName": "Steel Figurine",
-    "Description": ""
+    "Id": "ClassicalNativeAmericanWoodenSword",
+    "ArtifactName": "Classical Native American Wooden Sword",
+    "Description": "An ornate sword carved from wood."
   },
   {
-    "Id": "5",
-    "ArtifactName": "Iron Figurine",
-    "Description": ""
+    "Id": "ClassicalNativeAmericanTomahawk",
+    "ArtifactName": "Classical Native American Tomahawk",
+    "Description": "Evidence suggests that the earliest tomahawks were tied together with animal sinew."
+  },
+  {
+    "Id": "MedievalNativeAmericanTomahawk",
+    "ArtifactName": "Medieval Native American Tomahawk",
+    "Description": "Prior to Colombian Exchange, tomahawks used by the natives were made from both stone and bone."
+  },
+  {
+    "Id": "RenaissanceNativeAmericanTomahawk",
+    "ArtifactName": "Medieval Native American Tomahawk",
+    "Description": "After the arrival of European, tomahawks began to be tipped with iron and steel."
+  },
+  {
+    "Id": "RenaissanceAmericanCutlass",
+    "ArtifactName": "Renaissance American Cutlass",
+    "Description": "A descendent of the medieval falchion, the cutlass is synonymous with the Age of Exploration."
+  },
+  {
+    "Id": "IndustrialAmericanMusket",
+    "ArtifactName": "Industrial American Musket",
+    "Description": "By the Industrial Age, the musket had cemented itself as the choice weapon of war."
+  },
+  {
+    "Id": "ModernAmericanRifle",
+    "ArtifactName": "Modern American Rifle",
+    "Description": "Over a million M14 rifles were produced in the 60s and 70s."
+  },
+  {
+    "Id": "ClassicalNativeAmericanWarShield",
+    "ArtifactName": "Classical Native American War Shield",
+    "Description": "Native American made war shields and medicine shields - the latter to protect the spirit of the warrior."
+  },
+  {
+    "Id": "MedievalNativeAmericanWarShield",
+    "ArtifactName": "Medieval Native American War Shield",
+    "Description": "Plains Indians considered their shield as their most precious possession."
   }
 ]

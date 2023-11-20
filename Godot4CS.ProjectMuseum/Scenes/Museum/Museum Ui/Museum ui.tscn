@@ -23,6 +23,7 @@ museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 metadata/_edit_vertical_guides_ = [-481.0]
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0

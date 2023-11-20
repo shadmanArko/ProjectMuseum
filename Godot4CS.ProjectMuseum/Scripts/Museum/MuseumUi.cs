@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot.DependencyInjection.Attributes;
+using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
@@ -42,7 +44,27 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _httpRequestForGettingBalance.Request(url);
         _httpRequestForGettingBalance.RequestCompleted += OnHttpRequestForGettingBalanceCompleted;
         _httpRequestForReducingBalance.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
+        MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
     }
+
+    private void OnClickBuilderCard(BuilderCardType builderCardType, string cardName)
+    {
+        if ((builderCardType == BuilderCardType.Exhibit))
+        {
+            if (cardName == "Small Wooden Exhibit Basic")
+            {
+                OnExhibit0Pressed();
+            }else if (cardName =="Medium Wooden Exhibit Basic")
+            {
+                OnExhibit1Pressed();
+
+            }else if (cardName =="Large Wooden Exhibit Basic")
+            {
+                OnExhibit3Pressed();
+            }
+        }
+    }
+
     private void OnHttpRequestForGettingBalanceCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);

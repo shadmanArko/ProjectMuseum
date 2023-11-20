@@ -95,8 +95,9 @@ theme = ExtResource("2_kqmcg")
 script = ExtResource("4_mx4kr")
 
 [node name="Draggable" parent="Panel/ColorRect/Left Panel" instance=ExtResource("3_vjpch")]
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1
+offset_left = -72.0
+offset_right = 72.0
 
 [node name="Right Panel" type="Panel" parent="Panel/ColorRect"]
 modulate = Color(0.937255, 0.898039, 1, 1)

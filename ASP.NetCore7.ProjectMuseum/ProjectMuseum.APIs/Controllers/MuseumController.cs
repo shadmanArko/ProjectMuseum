@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
+using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
@@ -19,14 +20,16 @@ public class MuseumController : ControllerBase
     private readonly IDisplayArtifactService _displayArtifactService;
     private readonly IArtifactStorageService _artifactStorageService;
     private readonly ITradingArtifactsService _tradingArtifactsService;
+    private readonly IExhibitService _exhibitService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
         _displayArtifactService = displayArtifactService;
         _artifactStorageService = artifactStorageService;
         _tradingArtifactsService = tradingArtifactsService;
+        _exhibitService = exhibitService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -39,6 +42,12 @@ public class MuseumController : ControllerBase
     {
         var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTile(tileId, exhibitType);
         return Ok(exhibitPlacementResult);
+    }
+    [HttpGet("GetAllExhibitVariations")]
+    public async Task<IActionResult> GetAllExhibitVariations()
+    {
+        var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
+        return Ok(allExhibitVariations);
     }
     [HttpGet("GetAllMuseumTilesForNewGame")]
     public async Task<IActionResult> GetAllMuseumTilesForNewGame()

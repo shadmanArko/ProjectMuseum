@@ -53,9 +53,7 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
             ExhibitArtifactSlot2 = "string",
             ExhibitArtifactSlot3 = "string",
             ExhibitArtifactSlot4 = "string",
-            ExhibitArtifactSlot5 = "string",
-            IsHangingExhibit = false,
-            IsWallExhibit = false
+            ExhibitArtifactSlot5 = "string"
         };
         await _exhibitRepository.Insert(exhibit);
         await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);

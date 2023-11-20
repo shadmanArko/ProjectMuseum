@@ -4,8 +4,6 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class Draggable : ColorRect
 {
-	private int id;
-	private string label;
 	private bool droppedOnTarget = false;
 	private bool isDragging = false;
 	public bool canBeDragged = true;
@@ -23,7 +21,11 @@ public partial class Draggable : ColorRect
 			{
 				if (GetRect().HasPoint(GetLocalMousePosition()))
 				{
-					StartDrag();
+					// Check if the left mouse button is held down after a click
+					if (Input.IsActionPressed("ui_left_click"))
+					{
+						StartDrag();
+					}
 				} 
 			}
 			else if (Input.IsActionJustReleased("ui_left_click"))
@@ -66,6 +68,7 @@ public partial class Draggable : ColorRect
 		return this;
 	}
 	
+
 	private Control _GetPreviewControl()
 	{
 		/*

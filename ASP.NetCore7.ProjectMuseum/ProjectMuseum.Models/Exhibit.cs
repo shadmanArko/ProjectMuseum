@@ -11,6 +11,4 @@ public class Exhibit
     public string ExhibitArtifactSlot3 { get; set; }
     public string ExhibitArtifactSlot4 { get; set; }
     public string ExhibitArtifactSlot5 { get; set; }
-    public bool IsHangingExhibit { get; set; }
-    public bool IsWallExhibit { get; set; }
 }

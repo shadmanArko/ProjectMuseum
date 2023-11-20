@@ -10,12 +10,13 @@ public class SaveDataJsonFileDatabase
     private readonly string _museumDataFolderPath;
 
     private readonly string _exhibitDataFolderPath;
+    private readonly string _exhibitVariationDataFolderPath;
     private readonly string _playerInfoDataFolderPath;
     private readonly string _storySceneDataFolderPath;
 
     private readonly string _saveDataFolderPath;
 
-    public SaveDataJsonFileDatabase(string museumTileDataFolderPath, string exhibitDataFolderPath, string saveDataFolderPath, string museumDataFolderPath, string playerInfoDataFolderPath, string storySceneDataFolderPath)
+    public SaveDataJsonFileDatabase(string museumTileDataFolderPath, string exhibitDataFolderPath, string saveDataFolderPath, string museumDataFolderPath, string playerInfoDataFolderPath, string storySceneDataFolderPath, string exhibitVariationDataFolderPath)
     {
         _museumTileDataFolderPath = museumTileDataFolderPath;
         _exhibitDataFolderPath = exhibitDataFolderPath;
@@ -23,12 +24,14 @@ public class SaveDataJsonFileDatabase
         _museumDataFolderPath = museumDataFolderPath;
         _playerInfoDataFolderPath = playerInfoDataFolderPath;
         _storySceneDataFolderPath = storySceneDataFolderPath;
+        _exhibitVariationDataFolderPath = exhibitVariationDataFolderPath;
     }
 
     public async Task MergeJsonFiles()
     {
         var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(await File.ReadAllTextAsync(_museumTileDataFolderPath));
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(await File.ReadAllTextAsync(_exhibitDataFolderPath));
+        var exhibitVariations = JsonSerializer.Deserialize<List<ExhibitVariation>>(await File.ReadAllTextAsync(_exhibitVariationDataFolderPath));
         var playerInfos = JsonSerializer.Deserialize<List<PlayerInfo>>(await File.ReadAllTextAsync(_playerInfoDataFolderPath));
         var museums = JsonSerializer.Deserialize<List<Museum>>(await File.ReadAllTextAsync(_museumDataFolderPath));
         var storyScenes = JsonSerializer.Deserialize<List<StoryScene>>(await File.ReadAllTextAsync(_storySceneDataFolderPath));
@@ -38,6 +41,7 @@ public class SaveDataJsonFileDatabase
         {
             MuseumTiles = museumTiles,
             Exhibits = exhibits,
+            ExhibitVariations = exhibitVariations,
             PlayerInfos = playerInfos,
             Museums = museums,
             StoryScenes = storyScenes
@@ -65,6 +69,10 @@ public class SaveDataJsonFileDatabase
         {
             WriteIndented = true
         }));
+        await File.WriteAllTextAsync(_exhibitVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.ExhibitVariations, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        }));
         await File.WriteAllTextAsync(_playerInfoDataFolderPath, JsonSerializer.Serialize(mergedData?.PlayerInfos, new JsonSerializerOptions
         {
             WriteIndented = true
@@ -88,6 +96,8 @@ public class MergedData
     
     [JsonPropertyName("Exhibits")]
     public List<Exhibit>? Exhibits { get; set; }
+    [JsonPropertyName("ExhibitVariations")]
+    public List<ExhibitVariation>? ExhibitVariations { get; set; }
     [JsonPropertyName("PlayerInfo")]
     public List<PlayerInfo>? PlayerInfos { get; set; }
     

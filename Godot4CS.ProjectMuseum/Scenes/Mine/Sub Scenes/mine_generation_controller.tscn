@@ -21,8 +21,9 @@ TileSourceId = 1
 WoodArtifactSourceId = 2
 SilverArtifactSourceId = 3
 GoldArtifactSourceId = 4
+NewNewTilesSourceId = 0
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
+color = Color(0.478431, 0.478431, 0.478431, 1)

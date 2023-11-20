@@ -229,7 +229,7 @@ public partial class MineGenerationController : Node2D
 		};
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4,0));
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(5,2));
 		return cell;
 	}
 
@@ -247,7 +247,7 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(1,1));
 		return cell;
 	}
 
@@ -266,7 +266,7 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(2,3));
 
 		return cell;
 	}
@@ -287,7 +287,7 @@ public partial class MineGenerationController : Node2D
         
 		var pos = new Vector2(cell.PositionX, cell.PositionY);
 		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3,0));
+		_mineGenerationView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(3,0));
 
 		return cell;
 	}

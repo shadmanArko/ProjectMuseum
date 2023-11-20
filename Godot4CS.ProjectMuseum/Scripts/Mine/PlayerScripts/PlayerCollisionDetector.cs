@@ -163,7 +163,7 @@ public partial class PlayerCollisionDetector : Node2D
 			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(2,0));
 		else
 		{
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4,0));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,2));
 			//TODO: Pop up that says "Artifact Destroyed"
 			GD.Print("Artifact destroyed");
 			RevealAdjacentWalls(tilePos);
@@ -177,12 +177,12 @@ public partial class PlayerCollisionDetector : Node2D
 		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
 		
 		if (cell.HitPoint >= 2)
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1,0));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(1,0));
 		else if (cell.HitPoint >= 1)
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2,0));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(2,0));
 		else
 		{
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4,0));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(5,2));
 			RevealAdjacentWalls(tilePos);
 		}
 	}
@@ -205,7 +205,7 @@ public partial class PlayerCollisionDetector : Node2D
 			if (cell.IsRevealed || !cell.IsInstantiated || !cell.IsBreakable || cell.HitPoint <= 0) continue;
 			
 			cell.IsRevealed = true;
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePosition,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(0,0));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePosition,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(1,1));
 		}
 	}
     

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionDetector.cs" id="4_voxt0"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="6_71wdr"]
-[ext_resource type="Texture2D" uid="uid://di543djug5e1q" path="res://Assets/2D/Sprites/Mine Sprites/Light/light_mask.png" id="7_oncjn"]
+[ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="7_1web3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt8gk"]
 size = Vector2(8, 14)
@@ -391,11 +391,9 @@ _playerController = NodePath("..")
 _animationController = NodePath("../AnimationPlayer")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.890196, 0.678431, 0.647059, 1)
-energy = 1.2
+color = Color(0.792157, 0.662745, 0.160784, 1)
 shadow_enabled = true
-shadow_filter = 1
 shadow_filter_smooth = 1.0
 shadow_item_cull_mask = 2
-texture = ExtResource("7_oncjn")
-texture_scale = 2.0
+texture = ExtResource("7_1web3")
+texture_scale = 0.7

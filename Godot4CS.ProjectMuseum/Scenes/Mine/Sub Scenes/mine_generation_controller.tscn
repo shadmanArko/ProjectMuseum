@@ -23,3 +23,6 @@ SilverArtifactSourceId = 3
 GoldArtifactSourceId = 4
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false

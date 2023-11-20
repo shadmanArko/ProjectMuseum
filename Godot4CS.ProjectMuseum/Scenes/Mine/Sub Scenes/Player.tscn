@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=29 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionDetector.cs" id="4_voxt0"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="6_71wdr"]
+[ext_resource type="Texture2D" uid="uid://di543djug5e1q" path="res://Assets/2D/Sprites/Mine Sprites/Light/light_mask.png" id="7_oncjn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt8gk"]
 size = Vector2(8, 14)
@@ -344,6 +345,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
+light_mask = 0
+visibility_layer = 2
 z_index = 12
 texture_filter = 1
 disable_mode = 1
@@ -356,6 +359,7 @@ position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_jt8gk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
 texture_filter = 1
 texture = ExtResource("2_eymdr")
 flip_h = true
@@ -385,3 +389,13 @@ script = ExtResource("5_0x0fh")
 script = ExtResource("6_71wdr")
 _playerController = NodePath("..")
 _animationController = NodePath("../AnimationPlayer")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.890196, 0.678431, 0.647059, 1)
+energy = 1.2
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+shadow_item_cull_mask = 2
+texture = ExtResource("7_oncjn")
+texture_scale = 2.0

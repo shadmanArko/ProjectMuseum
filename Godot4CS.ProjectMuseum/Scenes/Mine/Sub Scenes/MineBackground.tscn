@@ -12,25 +12,31 @@ texture_filter = 1
 position = Vector2(483, -105)
 
 [node name="Sky" type="Sprite2D" parent="."]
+light_mask = 2
 texture = ExtResource("1_i68hl")
 
 [node name="Clouds" type="Sprite2D" parent="."]
+light_mask = 2
 position = Vector2(0, -50)
 texture = ExtResource("2_sxt3n")
 
 [node name="Mountains" type="Sprite2D" parent="."]
+light_mask = 2
 texture = ExtResource("3_bmqhi")
 
 [node name="Inner Mine Background" type="Sprite2D" parent="."]
+light_mask = 2
 position = Vector2(0, 102)
 texture = ExtResource("4_568kj")
 
 [node name="Stones" type="Sprite2D" parent="."]
+light_mask = 2
 z_index = 11
 position = Vector2(0, 60)
 texture = ExtResource("6_erw7y")
 
 [node name="Terrain" type="Sprite2D" parent="."]
+light_mask = 2
 z_index = 10
 position = Vector2(0, 78)
 texture = ExtResource("5_v4xei")

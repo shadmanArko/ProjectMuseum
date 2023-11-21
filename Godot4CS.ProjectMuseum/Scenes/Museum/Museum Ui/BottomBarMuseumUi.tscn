@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://t2qtjokgyph3"]
+[gd_scene format=3 uid="uid://cclhryntv3byw"]
 
 [node name="BottomBarMuseumUi" type="Control"]
 custom_minimum_size = Vector2(0, 50)
@@ -19,54 +19,55 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.968627, 0.858824, 0.913725, 1)
 
-[node name="Panels" type="HBoxContainer" parent="."]
+[node name="Left Panel" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_top = 0.04
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = -2.0
+offset_right = 963.0
+grow_vertical = 0
 
-[node name="Guest Count Holder Panel" type="PanelContainer" parent="Panels"]
+[node name="Guest Count Holder Panel" type="PanelContainer" parent="Left Panel"]
 layout_mode = 2
 
-[node name="Background" type="ColorRect" parent="Panels/Guest Count Holder Panel"]
+[node name="Background" type="ColorRect" parent="Left Panel/Guest Count Holder Panel"]
 visible = false
 layout_mode = 2
 color = Color(0.929412, 0.611765, 0.980392, 1)
 
-[node name="Guest Count Holder" type="HBoxContainer" parent="Panels/Guest Count Holder Panel"]
+[node name="Guest Count Holder" type="HBoxContainer" parent="Left Panel/Guest Count Holder Panel"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="Guest Icon and Text" type="HBoxContainer" parent="Panels/Guest Count Holder Panel/Guest Count Holder"]
+[node name="Guest Icon and Text" type="HBoxContainer" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="Panels/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+[node name="ColorRect" type="ColorRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Guest Icon" type="TextureRect" parent="Panels/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+[node name="Guest Icon" type="TextureRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
 visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 expand_mode = 4
 
-[node name="Guest Text" type="Label" parent="Panels/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+[node name="Guest Text" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "GUESTS"
 
-[node name="Guest Count" type="Label" parent="Panels/Guest Count Holder Panel/Guest Count Holder"]
+[node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1000"
 
-[node name="Star Rating Panel" type="Panel" parent="Panels"]
+[node name="Star Rating Panel" type="Panel" parent="Left Panel"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panels/Star Rating Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Left Panel/Star Rating Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -81,107 +82,120 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Star" type="ColorRect" parent="Panels/Star Rating Panel/HBoxContainer"]
+[node name="Star" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="Star2" type="ColorRect" parent="Panels/Star Rating Panel/HBoxContainer"]
+[node name="Star2" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="Star3" type="ColorRect" parent="Panels/Star Rating Panel/HBoxContainer"]
+[node name="Star3" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="Star4" type="ColorRect" parent="Panels/Star Rating Panel/HBoxContainer"]
+[node name="Star4" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="Star5" type="ColorRect" parent="Panels/Star Rating Panel/HBoxContainer"]
+[node name="Star5" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="Buttons Panel" type="PanelContainer" parent="Panels"]
+[node name="Buttons Panel" type="PanelContainer" parent="Left Panel"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
-[node name="Main Buttons Panel" type="HBoxContainer" parent="Panels/Buttons Panel"]
+[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel"]
 layout_mode = 2
 
-[node name="Administration Button" type="Button" parent="Panels/Buttons Panel/Main Buttons Panel"]
+[node name="Administration Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Administration"
 
-[node name="Exibits Button" type="Button" parent="Panels/Buttons Panel/Main Buttons Panel"]
+[node name="Exibits Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Exibits"
 
-[node name="Decorations Button" type="Button" parent="Panels/Buttons Panel/Main Buttons Panel"]
+[node name="Decorations Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Decorations"
 
-[node name="Rooms Button" type="Button" parent="Panels/Buttons Panel/Main Buttons Panel"]
+[node name="Rooms Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Rooms"
 
-[node name="Staff Button" type="Button" parent="Panels/Buttons Panel/Main Buttons Panel"]
+[node name="Staff Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Staff"
 
-[node name="Sub Buttons Panel" type="HBoxContainer" parent="Panels/Buttons Panel"]
+[node name="Sub Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel"]
 visible = false
 layout_mode = 2
 
-[node name="Administration Buttons" type="PanelContainer" parent="Panels/Buttons Panel/Sub Buttons Panel"]
+[node name="Administration Buttons" type="PanelContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
 
-[node name="Exibits Buttons" type="PanelContainer" parent="Panels/Buttons Panel/Sub Buttons Panel"]
+[node name="Exibits Buttons" type="PanelContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
 
-[node name="Decorations Buttons" type="PanelContainer" parent="Panels/Buttons Panel/Sub Buttons Panel"]
+[node name="Decorations Buttons" type="PanelContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
 
-[node name="Rooms Buttons" type="PanelContainer" parent="Panels/Buttons Panel/Sub Buttons Panel"]
+[node name="Rooms Buttons" type="PanelContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
 
-[node name="Staff Buttons" type="PanelContainer" parent="Panels/Buttons Panel/Sub Buttons Panel"]
+[node name="Staff Buttons" type="PanelContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
 
-[node name="Money Display Panel" type="PanelContainer" parent="Panels"]
+[node name="Right Panel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.04
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -317.0
+offset_top = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="Money Display Panel" type="PanelContainer" parent="Right Panel"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panels/Money Display Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Right Panel/Money Display Panel"]
 layout_mode = 2
 
-[node name="Money Icon" type="ColorRect" parent="Panels/Money Display Panel/HBoxContainer"]
+[node name="Money Icon" type="ColorRect" parent="Right Panel/Money Display Panel/HBoxContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Money Text Holder" type="Label" parent="Panels/Money Display Panel/HBoxContainer"]
+[node name="Money Text Holder" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer"]
 layout_mode = 2
 text = "1300.99"
 
-[node name="Misc Panel" type="PanelContainer" parent="Panels"]
+[node name="Misc Panel" type="PanelContainer" parent="Right Panel"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="Misc Buttons" type="HBoxContainer" parent="Panels/Misc Panel"]
+[node name="Misc Buttons" type="HBoxContainer" parent="Right Panel/Misc Panel"]
 layout_mode = 2
 
-[node name="Lenses Buttton" type="TextureButton" parent="Panels/Misc Panel/Misc Buttons"]
+[node name="Lenses Buttton" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Screenshot Button" type="TextureButton" parent="Panels/Misc Panel/Misc Buttons"]
+[node name="Screenshot Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Help Button" type="TextureButton" parent="Panels/Misc Panel/Misc Buttons"]
+[node name="Help Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2

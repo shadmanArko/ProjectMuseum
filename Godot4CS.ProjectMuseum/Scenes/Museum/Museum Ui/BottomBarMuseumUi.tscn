@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cclhryntv3byw"]
+[gd_scene load_steps=2 format=3 uid="uid://cclhryntv3byw"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 
 [node name="BottomBarMuseumUi" type="Control"]
 custom_minimum_size = Vector2(0, 50)
@@ -106,8 +108,11 @@ layout_mode = 2
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
-[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel"]
+[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel" node_paths=PackedStringArray("_buttons")]
 layout_mode = 2
+theme_override_constants/separation = 5
+script = ExtResource("1_8vmjs")
+_buttons = []
 
 [node name="Administration Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 custom_minimum_size = Vector2(100, 0)
@@ -199,3 +204,5 @@ layout_mode = 2
 [node name="Help Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+
+[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Administration Button" to="Left Panel/Buttons Panel/Main Buttons Panel" method="OnClickButton"]

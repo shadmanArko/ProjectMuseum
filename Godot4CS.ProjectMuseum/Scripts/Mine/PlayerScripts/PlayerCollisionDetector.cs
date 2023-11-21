@@ -176,13 +176,17 @@ public partial class PlayerCollisionDetector : Node2D
 		cell.HitPoint--;
 		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
 
-		if (cell.HitPoint >= 2)
+		if (cell.HitPoint >= 3)
 		{
 			SetCracksOnTiles(tilePos, new Vector2I(0,0));
 		}
-		else if (cell.HitPoint >= 1)
+		else if (cell.HitPoint >= 2)
 		{
 			SetCracksOnTiles(tilePos, new Vector2I(1,0));
+		}
+		else if (cell.HitPoint >= 1)
+		{
+			SetCracksOnTiles(tilePos, new Vector2I(2,0));
 		}
 		else
 		{

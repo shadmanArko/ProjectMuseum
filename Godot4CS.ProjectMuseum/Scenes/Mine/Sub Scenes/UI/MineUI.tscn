@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqltyu2fgvmyp"]
+[gd_scene load_steps=6 format=3 uid="uid://bqltyu2fgvmyp"]
 
-[ext_resource type="Script" path="res://Scripts/Mine/MineUiController.cs" id="1_hko3w"]
 [ext_resource type="Texture2D" uid="uid://dcnui83f70dfy" path="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Yellow_Frame.png" id="1_o0mln"]
 [ext_resource type="Texture2D" uid="uid://b5sntd03xtkat" path="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Blue_Frame.png" id="1_vjg1s"]
 [ext_resource type="Texture2D" uid="uid://bvfa2kfxjugp5" path="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Sword.png" id="2_mf3ia"]
@@ -8,9 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://do6qyo2ugma4j" path="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Brush.png" id="4_n6vvo"]
 
 [node name="MineUI" type="CanvasLayer"]
-script = ExtResource("1_hko3w")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Toolbar Panel" type="Panel" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -23,172 +21,172 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_vjg1s")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer/Sprite2D"]
 texture = ExtResource("2_mf3ia")
 
-[node name="PanelContainer2" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer2" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 48.0
 offset_right = 88.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer2"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer2"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer2/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer2/Sprite2D"]
 texture = ExtResource("3_f6pap")
 
-[node name="PanelContainer3" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer3" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 96.0
 offset_right = 136.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer3"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer3"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer3/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer3/Sprite2D"]
 texture = ExtResource("4_n6vvo")
 
-[node name="PanelContainer4" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer4" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 144.0
 offset_right = 184.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer4"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer4"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer4/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer4/Sprite2D"]
 
-[node name="PanelContainer5" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer5" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 192.0
 offset_right = 232.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer5"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer5"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer5/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer5/Sprite2D"]
 
-[node name="PanelContainer6" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer6" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 240.0
 offset_right = 280.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer6"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer6"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer6/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer6/Sprite2D"]
 
-[node name="PanelContainer7" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer7" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 288.0
 offset_right = 328.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer7"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer7"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer7/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer7/Sprite2D"]
 
-[node name="PanelContainer8" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer8" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 336.0
 offset_right = 376.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer8"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer8"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer8/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer8/Sprite2D"]
 
-[node name="PanelContainer9" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer9" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 384.0
 offset_right = 424.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer9"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer9"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer9/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer9/Sprite2D"]
 
-[node name="PanelContainer10" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer10" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 432.0
 offset_right = 472.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer10"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer10"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer10/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer10/Sprite2D"]
 
-[node name="PanelContainer11" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer11" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 480.0
 offset_right = 520.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer11"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer11"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer11/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer11/Sprite2D"]
 
-[node name="PanelContainer12" type="PanelContainer" parent="Panel"]
+[node name="PanelContainer12" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0
 offset_left = 528.0
 offset_right = 568.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer12"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer12"]
 texture_filter = 1
 position = Vector2(20, 20)
 scale = Vector2(1.81818, 1.81818)
 texture = ExtResource("1_o0mln")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer12/Sprite2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Toolbar Panel/PanelContainer12/Sprite2D"]

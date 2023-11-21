@@ -223,7 +223,7 @@ public partial class MineGenerationController : Node2D
 			Id = $"cell({width},{height})",
 			IsBreakable = false,
 			IsInstantiated = false,
-			HitPoint = 1000,
+			HitPoint = 10000,
 			PositionX = width * _mineGenerationVariables.CellSize,
 			PositionY =  height * _mineGenerationVariables.CellSize,
 		};
@@ -240,7 +240,7 @@ public partial class MineGenerationController : Node2D
 			Id = $"cell({width},{height})",
 			IsBreakable = false,
 			IsInstantiated = true,
-			HitPoint = 1000,
+			HitPoint = 10000,
 			PositionX = width * _mineGenerationVariables.CellSize,
 			PositionY =  height * _mineGenerationVariables.CellSize,
 		};
@@ -259,7 +259,7 @@ public partial class MineGenerationController : Node2D
 			IsBreakable = true,
 			IsInstantiated = true,
 			IsRevealed = false,
-			HitPoint = 3,
+			HitPoint = 4,
 			PositionX = width * _mineGenerationVariables.CellSize,
 			PositionY =  height * _mineGenerationVariables.CellSize
 		};
@@ -280,7 +280,7 @@ public partial class MineGenerationController : Node2D
 			IsInstantiated = true,
 			IsRevealed = false,
 			HasArtifact = true,
-			HitPoint = 3,
+			HitPoint = 4,
 			PositionX = width * _mineGenerationVariables.CellSize,
 			PositionY =  height * _mineGenerationVariables.CellSize
 		};

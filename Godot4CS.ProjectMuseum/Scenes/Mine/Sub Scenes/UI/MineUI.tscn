@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqltyu2fgvmyp"]
+[gd_scene load_steps=7 format=3 uid="uid://bqltyu2fgvmyp"]
 
+[ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSelector.cs" id="1_1qo2i"]
 [ext_resource type="Texture2D" uid="uid://dcnui83f70dfy" path="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Yellow_Frame.png" id="1_o0mln"]
 [ext_resource type="Texture2D" uid="uid://b5sntd03xtkat" path="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Blue_Frame.png" id="1_vjg1s"]
 [ext_resource type="Texture2D" uid="uid://bvfa2kfxjugp5" path="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Sword.png" id="2_mf3ia"]
@@ -20,6 +21,7 @@ offset_right = 284.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("1_1qo2i")
 
 [node name="PanelContainer" type="PanelContainer" parent="Toolbar Panel"]
 layout_mode = 0

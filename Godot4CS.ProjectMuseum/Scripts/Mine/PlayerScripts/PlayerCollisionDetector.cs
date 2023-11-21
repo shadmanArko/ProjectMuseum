@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
@@ -129,6 +128,7 @@ public partial class PlayerCollisionDetector : Node2D
 	{
 		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
 		tilePos += _playerControllerVariables.MouseDirection;
+		GD.Print($"Mouse position: {_playerControllerVariables.MouseDirection}");
 		GD.Print($"Breaking Cell{tilePos}");
 
 		return tilePos;
@@ -175,15 +175,40 @@ public partial class PlayerCollisionDetector : Node2D
 		var cell = _mineGenerationVariables.Cells[tilePos.X, tilePos.Y];
 		cell.HitPoint--;
 		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
-		
+
 		if (cell.HitPoint >= 2)
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(1,0));
+		{
+			SetCracksOnTiles(tilePos, new Vector2I(0,0));
+		}
 		else if (cell.HitPoint >= 1)
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(2,0));
+		{
+			SetCracksOnTiles(tilePos, new Vector2I(1,0));
+		}
 		else
 		{
+			_mineGenerationVariables.MineGenView.EraseCell(1,tilePos);
 			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(5,2));
 			RevealAdjacentWalls(tilePos);
+		}
+	}
+
+	private void SetCracksOnTiles(Vector2I tilePos, Vector2I coords)
+	{
+		var mouseDir = _playerControllerVariables.MouseDirection;
+		switch (mouseDir)
+		{
+			case Vector2I(1,0):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords,1);
+				break;
+			case Vector2I(-1,0):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords);
+				break;
+			case Vector2I(0,-1):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords,2);
+				break;
+			case Vector2I(0,1):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords,3);
+				break;
 		}
 	}
 

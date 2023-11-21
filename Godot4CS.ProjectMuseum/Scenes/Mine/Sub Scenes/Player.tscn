@@ -359,7 +359,8 @@ position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_jt8gk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-light_mask = 2
+self_modulate = Color(0.592157, 0.592157, 0.592157, 1)
+light_mask = 3
 texture_filter = 1
 texture = ExtResource("2_eymdr")
 flip_h = true
@@ -391,9 +392,10 @@ _playerController = NodePath("..")
 _animationController = NodePath("../AnimationPlayer")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.792157, 0.662745, 0.160784, 1)
+color = Color(0.858824, 0.721569, 0.192157, 1)
+energy = 2.0
 shadow_enabled = true
 shadow_filter_smooth = 1.0
 shadow_item_cull_mask = 2
 texture = ExtResource("7_1web3")
-texture_scale = 0.7
+texture_scale = 1.2

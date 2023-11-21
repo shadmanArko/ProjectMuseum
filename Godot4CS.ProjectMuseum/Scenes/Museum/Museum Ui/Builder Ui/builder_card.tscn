@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="3_47igo"]
 
 [node name="Builder Card" type="ColorRect" node_paths=PackedStringArray("textureButton")]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(50, 50)
 theme = ExtResource("1_ph488")
 color = Color(0.85098, 0.85098, 0.85098, 1)
 script = ExtResource("2_q04dx")
@@ -18,17 +18,12 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
-offset_top = -20.0
+offset_top = -15.0
 offset_right = -4.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.498039, 0.498039, 0.498039, 1)
-
-[node name="BoxContainer" type="BoxContainer" parent="ColorRect"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="Builder Button With Texture" type="Button" parent="."]
 texture_filter = 1
@@ -39,8 +34,9 @@ anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
 offset_right = -4.0
-offset_bottom = -22.0
+offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
 icon = ExtResource("3_47igo")
+icon_alignment = 1
 expand_icon = true

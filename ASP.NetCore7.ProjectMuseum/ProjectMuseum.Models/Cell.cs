@@ -4,7 +4,7 @@ namespace ProjectMuseum.Models;
 
 public class Cell
 {
-	public string Id { get; set; }
+	public string? Id { get; set; }
 	public int PositionX{ get; set; }
 	public int PositionY{ get; set; }
 	public bool IsBreakable{ get; set; }

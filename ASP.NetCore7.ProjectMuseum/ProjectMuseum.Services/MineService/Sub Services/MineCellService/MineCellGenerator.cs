@@ -3,7 +3,7 @@ using ProjectMuseum.Repositories.MineRepository;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 
-public class MineCellGenerator
+public class MineCellGenerator : IMineCellGenerator
 {
     public int XSize = 20;
     public int YSize = 20;
@@ -15,9 +15,10 @@ public class MineCellGenerator
         _mineRepository = mineRepository;
     }
 
-    public void GenerateMineCellData()
+    public async Task<Mine> GenerateMineCellData()
     {
         var mine = new Mine();
+        var cells = new List<Cell>();
         
         for (int i = 0; i < XSize; i++)
         {
@@ -29,10 +30,13 @@ public class MineCellGenerator
                     PositionX = i,
                     PositionY = j
                 };
+                cells.Add(cell);
             }
         }
 
-        _mineRepository.Update(mine);
+        mine.Cells = cells;
+
+        return await _mineRepository.Update(mine);
 
     }
 }

@@ -5,8 +5,8 @@ namespace ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 
 public class MineCellDestroyer : IMineCellDestroyer
 {
-    public int XSize = 20;
-    public int YSize = 20;
+    public int XSize = 49;
+    public int YSize = 64;
     public Mine Mine;
 
     private readonly IMineRepository _mineRepository;

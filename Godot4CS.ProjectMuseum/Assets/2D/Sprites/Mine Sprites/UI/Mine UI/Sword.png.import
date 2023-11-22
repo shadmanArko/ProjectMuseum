@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5sntd03xtkat"
-path="res://.godot/imported/Blue_Frame.png-dfeea51b2fc5f2dc8f516fd29f204618.ctex"
+uid="uid://bvfa2kfxjugp5"
+path="res://.godot/imported/Sword.png-26eed283d3f257ca18d47111f3d825e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Blue_Frame.png"
-dest_files=["res://.godot/imported/Blue_Frame.png-dfeea51b2fc5f2dc8f516fd29f204618.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
+dest_files=["res://.godot/imported/Sword.png-26eed283d3f257ca18d47111f3d825e7.ctex"]
 
 [params]
 

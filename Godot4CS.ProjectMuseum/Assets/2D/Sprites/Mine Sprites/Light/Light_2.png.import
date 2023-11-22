@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://15bptc8ns637"
-path="res://.godot/imported/Stamina _bar.png-b0130f37d4b9bf17f91b8881094b2992.ctex"
+uid="uid://bxpxsn7v2dth8"
+path="res://.godot/imported/Light_2.png-507f7de33a75fe0f910ba0a604a7964d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Stamina _bar.png"
-dest_files=["res://.godot/imported/Stamina _bar.png-b0130f37d4b9bf17f91b8881094b2992.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/Light/Light_2.png"
+dest_files=["res://.godot/imported/Light_2.png-507f7de33a75fe0f910ba0a604a7964d.ctex"]
 
 [params]
 

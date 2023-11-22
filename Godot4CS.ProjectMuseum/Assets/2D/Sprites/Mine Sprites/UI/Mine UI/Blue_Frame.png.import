@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blijvn5oyhdg1"
-path="res://.godot/imported/Adze.png-c9abb3219a394524eeedae76422eee86.ctex"
+uid="uid://b5sntd03xtkat"
+path="res://.godot/imported/Blue_Frame.png-910f3a7d8e7e7048fc000476aa325c2a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Main UI/Adze.png"
-dest_files=["res://.godot/imported/Adze.png-c9abb3219a394524eeedae76422eee86.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Blue_Frame.png"
+dest_files=["res://.godot/imported/Blue_Frame.png-910f3a7d8e7e7048fc000476aa325c2a.ctex"]
 
 [params]
 

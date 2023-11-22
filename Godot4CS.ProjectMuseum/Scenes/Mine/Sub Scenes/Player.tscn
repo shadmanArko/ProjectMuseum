@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=29 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionDetector.cs" id="4_voxt0"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="6_71wdr"]
+[ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="7_1web3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt8gk"]
 size = Vector2(8, 14)
@@ -191,6 +192,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_3xsuv"]
 resource_name = "idle"
+length = 1.7
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -198,10 +201,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [30, 30, 30, 31, 32, 33, 34, 30, 30]
+"values": [30, 30, 31, 32, 33, 34, 30]
 }
 
 [sub_resource type="Animation" id="Animation_slbms"]
@@ -344,6 +347,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
+light_mask = 0
+visibility_layer = 2
 z_index = 12
 texture_filter = 1
 disable_mode = 1
@@ -356,6 +361,8 @@ position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_jt8gk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.592157, 0.592157, 0.592157, 1)
+light_mask = 3
 texture_filter = 1
 texture = ExtResource("2_eymdr")
 flip_h = true
@@ -385,3 +392,12 @@ script = ExtResource("5_0x0fh")
 script = ExtResource("6_71wdr")
 _playerController = NodePath("..")
 _animationController = NodePath("../AnimationPlayer")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.858824, 0.721569, 0.192157, 1)
+energy = 2.0
+shadow_enabled = true
+shadow_filter_smooth = 1.0
+shadow_item_cull_mask = 2
+texture = ExtResource("7_1web3")
+texture_scale = 1.2

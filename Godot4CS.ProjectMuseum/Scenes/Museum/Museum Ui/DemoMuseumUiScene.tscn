@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://0or2lmm0psfy"]
+
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="1_xqyrw"]
+
+[node name="DemoMuseumUiScene" type="CanvasLayer"]
+
+[node name="Top Right Panel" type="Panel" parent="."]
+offset_right = 2048.0
+offset_bottom = 64.0
+
+[node name="Menu Button" type="Button" parent="Top Right Panel"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 40.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+
+[node name="ColorRect" type="ColorRect" parent="Top Right Panel"]
+custom_minimum_size = Vector2(300, 48)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 48.0
+grow_horizontal = 0
+
+[node name="Date Time Holder" type="Label" parent="Top Right Panel/ColorRect"]
+modulate = Color(0.976471, 0.419608, 0.435294, 1)
+self_modulate = Color(0.862745, 0.898039, 0.423529, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xqyrw")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Time"
+horizontal_alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 2.0
+stretch_mode = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/PanelContainer"]
+layout_mode = 2

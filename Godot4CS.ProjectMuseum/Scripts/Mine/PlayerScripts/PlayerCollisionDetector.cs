@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Godot;
-using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using ProjectMuseum.Models;
@@ -130,6 +128,7 @@ public partial class PlayerCollisionDetector : Node2D
 	{
 		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
 		tilePos += _playerControllerVariables.MouseDirection;
+		GD.Print($"Mouse position: {_playerControllerVariables.MouseDirection}");
 		GD.Print($"Breaking Cell{tilePos}");
 
 		return tilePos;
@@ -164,7 +163,7 @@ public partial class PlayerCollisionDetector : Node2D
 			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(2,0));
 		else
 		{
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,0));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,2));
 			//TODO: Pop up that says "Artifact Destroyed"
 			GD.Print("Artifact destroyed");
 			RevealAdjacentWalls(tilePos);
@@ -174,52 +173,57 @@ public partial class PlayerCollisionDetector : Node2D
 	private void DigOrdinaryCell(Vector2I tilePos)
 	{
 		var cell = _mineGenerationVariables.Cells[tilePos.X, tilePos.Y];
-		if(cell.IsBroken) return;
 		cell.HitPoint--;
 		Math.Clamp(-_mineGenerationVariables.Cells[tilePos.X, tilePos.Y].HitPoint, 0, 100);
 
-		if (cell.HitPoint >= 2)
+		if (cell.HitPoint >= 3)
 		{
-			
-			//_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1,0));
+			SetCracksOnTiles(tilePos, new Vector2I(0,0));
+		}
+		else if (cell.HitPoint >= 2)
+		{
+			SetCracksOnTiles(tilePos, new Vector2I(1,0));
 		}
 		else if (cell.HitPoint >= 1)
 		{
-			//_mineGenerationVariables.MineGenView.SetCellsTerrainConnect(0,new Array<Vector2I>(new[]{tilePos}),0,0);
-			//_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2,0));
+			SetCracksOnTiles(tilePos, new Vector2I(2,0));
 		}
 		else
 		{
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,0));
-			//_mineGenerationVariables.MineGenView.SetCellsTerrainConnect(0,new Array<Vector2I>(new []{tilePos}),1,0);
-			cell.IsBroken = true;
+			_mineGenerationVariables.MineGenView.EraseCell(1,tilePos);
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(5,2));
 			RevealAdjacentWalls(tilePos);
+		}
+	}
+
+	private void SetCracksOnTiles(Vector2I tilePos, Vector2I coords)
+	{
+		var mouseDir = _playerControllerVariables.MouseDirection;
+		switch (mouseDir)
+		{
+			case Vector2I(1,0):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords,1);
+				break;
+			case Vector2I(-1,0):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords);
+				break;
+			case Vector2I(0,-1):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords,2);
+				break;
+			case Vector2I(0,1):
+				_mineGenerationVariables.MineGenView.SetCell(1,tilePos,_mineGenerationVariables.MineGenView.TileCrackSourceId,coords,3);
+				break;
 		}
 	}
 
 	private void RevealAdjacentWalls(Vector2I tilePos)
 	{
-		var tileArray = new Array<Vector2I>();
-		// {
-		// 	tilePos + Vector2I.Up,
-		// 	tilePos + Vector2I.Down,
-		// 	tilePos + Vector2I.Left,
-		// 	tilePos + Vector2I.Right,
-		// 	tilePos + new Vector2I(1,1),
-		// 	tilePos + new Vector2I(-1,1),
-		// 	tilePos + new Vector2I(1,-1),
-		// 	tilePos + new Vector2I(-1,-1)
-		// };
 		var tilePositions = new List<Vector2I>
 		{
 			tilePos + Vector2I.Up,
 			tilePos + Vector2I.Down,
 			tilePos + Vector2I.Left,
-			tilePos + Vector2I.Right,
-			tilePos + new Vector2I(1,1),
-			tilePos + new Vector2I(-1,1),
-			tilePos + new Vector2I(1,-1),
-			tilePos + new Vector2I(-1,-1)
+			tilePos + Vector2I.Right
 		};
 
 		foreach (var tilePosition in tilePositions)
@@ -227,20 +231,11 @@ public partial class PlayerCollisionDetector : Node2D
 			var cell = _mineGenerationVariables.Cells[tilePosition.X, tilePosition.Y];
 
 			if (cell is null) continue;
-			if (!cell.IsInstantiated || !cell.IsBreakable || cell.HitPoint <= 0) continue;
-			// if (cell.IsRevealed)
-			// {
-			// 	_mineGenerationVariables.MineGenView.SetCellsTerrainConnect(0,new Array<Vector2I>(new[]{tilePosition}),0,0);
-			// 	continue;
-			// }
+			if (cell.IsRevealed || !cell.IsInstantiated || !cell.IsBreakable || cell.HitPoint <= 0) continue;
 			
 			cell.IsRevealed = true;
-			tileArray.Add(tilePosition);
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePosition,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(1,1));
 		}
-
-		_mineGenerationVariables.MineGenView.SetCellsTerrainConnect(0,tileArray,0,0);
-		// tileArray.Reverse();
-		// _mineGenerationVariables.MineGenView.SetCellsTerrainConnect(0,tileArray,0,0);
 	}
     
 	#endregion

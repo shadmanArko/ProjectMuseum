@@ -26,7 +26,7 @@ public class MineCellDestroyer : IMineCellDestroyer
         // For Top Neighbour
         if (cellToDestroy.PositionY != YSize-1)
         {
-            listOfMineIds.Add(ChangeBottomNeighbourTopBrokenSide(cellToDestroy.PositionX, cellToDestroy.PositionY)); 
+            listOfMineIds.Add(ChangeTopNeighbourBottomBrokenSide(cellToDestroy.PositionX, cellToDestroy.PositionY)); 
         }
 
         // For Right Neighbour
@@ -38,7 +38,7 @@ public class MineCellDestroyer : IMineCellDestroyer
         // For Bottom Neighbour
         if (cellToDestroy.PositionY != 0)
         {
-            listOfMineIds.Add(ChangeTopNeighbourBottomBrokenSide(cellToDestroy.PositionX, cellToDestroy.PositionY));
+            listOfMineIds.Add(ChangeBottomNeighbourTopBrokenSide(cellToDestroy.PositionX, cellToDestroy.PositionY));
         }
         
         // For Left Neighbour

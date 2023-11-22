@@ -15,6 +15,7 @@ using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
+using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
@@ -73,6 +74,7 @@ builder.Services.AddScoped<IDisplayArtifactRepository, DisplayArtifactRepository
 builder.Services.AddScoped<IArtifactStorageRepository, ArtifactStorageRepository>();
 builder.Services.AddScoped<ITradingArtifactsRepository, TradingArtifactsRepository>();
 builder.Services.AddScoped<IMineService, MineService>();
+builder.Services.AddScoped<IMineCellGenerator, MineCellGenerator>();
 builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddScoped<ILoadService, LoadService>();

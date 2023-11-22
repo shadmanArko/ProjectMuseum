@@ -37,11 +37,17 @@ public class MuseumController : ControllerBase
         var museumTiles =await _museumTileService.GetAllMuseumTiles();
         return Ok(museumTiles);
     }
-    [HttpGet("PlaceAnExhibit/{tileId}/{exhibitType}")]
-    public async Task<IActionResult> PlaceAnExhibit(string tileId, string exhibitType )
+    [HttpGet("PlaceAnExhibit/{tileId}/{exhibitVariationName}")]
+    public async Task<IActionResult> PlaceAnExhibit(string tileId, string exhibitVariationName )
     {
-        var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTile(tileId, exhibitType);
+        var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTile(tileId, exhibitVariationName);
         return Ok(exhibitPlacementResult);
+    }
+    [HttpGet("GetAllExhibits")]
+    public async Task<IActionResult> GetAllExhibits()
+    {
+        var allExhibits = await _exhibitService.GetAllExhibits();
+        return Ok(allExhibits);
     }
     [HttpGet("GetAllExhibitVariations")]
     public async Task<IActionResult> GetAllExhibitVariations()
@@ -80,10 +86,10 @@ public class MuseumController : ControllerBase
         var museumTile = await _museumTileService.DeleteMuseumTileById(id);
         return Ok(museumTile);
     }
-    [HttpGet("{exhibitType}")]
-    public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitType)
+    [HttpGet("{exhibitVariationName}")]
+    public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitVariationName)
     {
-        var exhibitEligibility = await _museumTileService.GetEligibilityOfPositioningExhibit( exhibitType);
+        var exhibitEligibility = await _museumTileService.GetEligibilityOfPositioningExhibit( exhibitVariationName);
         return Ok(exhibitEligibility);
     }
     [HttpGet("GetMuseumBalance/{id}")]

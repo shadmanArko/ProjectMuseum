@@ -27,7 +27,7 @@ public partial class Wall : Sprite2D
     // Function called when the mouse enters the object
     private void _on_Hover()
     {
-        GD.Print("Mouse entered!");
+        // GD.Print("Mouse entered!");
         _wallPreview.Texture = _wallPreviewSprite;
         _wallPreview.Visible = true;
         // Add your hover effect code here

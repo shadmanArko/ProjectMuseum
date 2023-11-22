@@ -49,6 +49,12 @@ public class ExhibitRepository : IExhibitRepository
         return exhibitVariations;
     }
 
+    public async Task<List<Exhibit>?> GetAllExhibits()
+    {
+        var exhibits = await _exhibitDatabase.ReadDataAsync();
+        return exhibits;
+    }
+
     public async Task<Exhibit?> Delete(string id)
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();

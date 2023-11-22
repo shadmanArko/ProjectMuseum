@@ -47,8 +47,10 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
     }
 
+    private string _cardName = "";
     private void OnClickBuilderCard(BuilderCardType builderCardType, string cardName)
     {
+        _cardName = cardName;
         if ((builderCardType == BuilderCardType.Exhibit))
         {
             if (cardName == "Small Wooden Exhibit Basic")
@@ -80,55 +82,32 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 
     public void OnExhibit0Pressed()
     {
-        var instance = (Node)item1.Instantiate();
-        // GetTree().Root.AddChild(instance);
-        ItemsParent.AddChild(instance);
-        var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
-
-        if (scriptInstance != null)
-        {
-            // Now you can access properties or call methods on the script instance
-            scriptInstance.Set("selectedItem", true);
-        }
-        else
-        {
-            GD.Print("Item script not found");
-        }
+        SetUpItem(item1);
     }
     public void OnExhibit1Pressed()
     {
-        var instance = (Node)item3.Instantiate();
-        // GetTree().Root.AddChild(instance);
-        ItemsParent.AddChild(instance);
-        var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
+        SetUpItem(item3);
+    }
 
+    private void SetUpItem(PackedScene packedScene)
+    {
+        var instance = (Node)packedScene.Instantiate();
+        ItemsParent.AddChild(instance);
+        var scriptInstance = instance.GetNode<Item>(".");
         if (scriptInstance != null)
         {
-            // Now you can access properties or call methods on the script instance
-            scriptInstance.Set("selectedItem", true);
+            scriptInstance.Initialize(_cardName);
         }
         else
         {
             GD.Print("Item script not found");
         }
     }
+    
 
     public void OnExhibit3Pressed()
     {
-        var instance = (Node)item2.Instantiate();
-        // GetTree().Root.AddChild(instance);
-        ItemsParent.AddChild(instance);
-        var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
-
-        if (scriptInstance != null)
-        {
-            // Now you can access properties or call methods on the script instance
-            scriptInstance.Set("selectedItem", true);
-        }
-        else
-        {
-            GD.Print("Item script not found");
-        }
+        SetUpItem(item2);
     }
 
     void UpdateUiOnItemPlaced(float itemPrice)

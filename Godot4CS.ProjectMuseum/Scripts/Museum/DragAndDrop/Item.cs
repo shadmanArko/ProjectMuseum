@@ -16,8 +16,8 @@ public partial class Item : Sprite2D
     public static Action<float> OnItemPlaced;
 
     public bool selectedItem = false;
-    [Export]
-    public string itemType = "small";
+    // [Export]
+    // public string itemType = "small";
     [Export]
     public float ItemPrice = 45.33f;
 
@@ -33,11 +33,10 @@ public partial class Item : Sprite2D
 
     private HttpRequest _httpRequestForExhibitPlacementConditions;
     private HttpRequest _httpRequestForExhibitPlacement;
-
+    public string ExhibitVariationName = "default";
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
-        GD.Print("Item Initialized" );
     }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -53,9 +52,8 @@ public partial class Item : Sprite2D
         AddChild(_httpRequestForExhibitPlacementConditions);
         _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;
-        string url = ApiAddress.MuseumApiPath + itemType;
+        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
         _httpRequestForExhibitPlacementConditions.Request(url);
-
         _originalColor = Modulate;
         if (numberOfTilesItTakes == 1)
         {
@@ -74,11 +72,19 @@ public partial class Item : Sprite2D
         }
     }
 
+    public void Initialize(string exhibitVariationName)
+    {
+        
+        ExhibitVariationName = exhibitVariationName;
+        selectedItem = true;
+        GD.Print("Item Initialized");
+    }
+
     private void httpRequestForExhibitPlacementConditionsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         _exhibitPlacementConditionDatas = JsonSerializer.Deserialize<List<ExhibitPlacementConditionData>>(jsonStr);
-        // GD.Print(jsonStr);
+        GD.Print("exhibit placement data"+ jsonStr);
     }
     private void httpRequestForExhibitPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
@@ -125,8 +131,10 @@ public partial class Item : Sprite2D
         foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
         {
             string url =
-                $"{ApiAddress.MuseumApiPath}PlaceAnExhibit/{GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition))}/{itemType}";
+                $"{ApiAddress.MuseumApiPath}PlaceAnExhibit/{GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition))}/{ExhibitVariationName.Replace(" ", "_")}";
             _httpRequestForExhibitPlacement.Request(url);
+            GD.Print("Handling exhibit placement");
+            break;
             await Task.Delay(300);
         }
 
@@ -147,7 +155,10 @@ public partial class Item : Sprite2D
 
     private bool CheckIfTheTileIsEligible(Vector2I tilePosition)
     {
-        if (_exhibitPlacementConditionDatas is not { Count: > 0 }) return false;
+        if (_exhibitPlacementConditionDatas is not { Count: > 0 })
+        {
+            return false;
+        }
         _listOfMatchingExhibitPlacementConditionDatas = new List<ExhibitPlacementConditionData>();
         foreach (var offsetCoordinate in listOfCoordinateOffsetsToCheck)
         {

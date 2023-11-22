@@ -13,5 +13,5 @@ _wallPreview = NodePath("Wall Preview")
 _wallPreviewSprite = ExtResource("1_4w31v")
 
 [node name="Wall Preview" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.780392)
+self_modulate = Color(1, 1, 1, 0.784314)
 offset = Vector2(-8, -43.5)

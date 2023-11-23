@@ -30,6 +30,10 @@ public class MineCellGenerator : IMineCellGenerator
                     PositionX = i,
                     PositionY = j
                 };
+                if (i!=0 || j!=YSize-1)
+                {
+                    cell.IsBreakable = true;
+                }
                 cells.Add(cell);
             }
         }

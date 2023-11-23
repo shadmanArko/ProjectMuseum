@@ -12,8 +12,23 @@ using Newtonsoft.Json;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-public partial class Item : Sprite2D
+public partial class Item : Sprite2D, IComparable<Item>
 {
+    
+    public  int CompareTo(Item item2)
+    {
+        // First, compare Y positions
+        int yComparison =  Position.Y.CompareTo(item2.Position.Y);
+
+        // If Y positions are the same, compare X positions
+        if (yComparison == 0)
+        {
+            return Position.X.CompareTo(item2.Position.X);
+        }
+
+        return yComparison;
+    }
+    
     public static Action<float> OnItemPlaced;
 
     public bool selectedItem = false;
@@ -48,6 +63,7 @@ public partial class Item : Sprite2D
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
+        AddToGroup("ManualSortGroup");
         _httpRequestForExhibitPlacement = new HttpRequest();
         _httpRequestForExhibitPlacementConditions = new HttpRequest();
         AddChild(_httpRequestForExhibitPlacement);
@@ -98,30 +114,37 @@ public partial class Item : Sprite2D
         string jsonStr = Encoding.UTF8.GetString(body);
         GD.Print("Http1 result " + jsonStr);
     }
+
+    private Vector2I _lastCheckedTile = new Vector2I();
+
+    private bool _eligibleForItemPlacementInTile = false;
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
         if (!selectedItem) return;
         Vector2I mouseTile = GameManager.TileMap.LocalToMap(GetGlobalMousePosition());
-
-        Vector2 localPos = GameManager.TileMap.MapToLocal(mouseTile);
-        Vector2 worldPos = GameManager.TileMap.ToGlobal(localPos);
-
+        
         // Check if the tile is eligible for this item placement
-        var eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
-        Modulate = eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
-        // GD.Print($"{eligibleForItemPlacementInTile}");
-        // Apply effect based on eligibility
-
-        GlobalPosition = worldPos;
+        if (_lastCheckedTile != mouseTile)
+        {
+            Vector2 localPos = GameManager.TileMap.MapToLocal(mouseTile);
+            Vector2 worldPos = GameManager.TileMap.ToGlobal(localPos);
+            _eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
+            Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+            // GD.Print($"{eligibleForItemPlacementInTile}");
+            // Apply effect based on eligibility
+            GlobalPosition = worldPos;
+            _lastCheckedTile = mouseTile;
+            MuseumActions.OnItemUpdated?.Invoke();
+        }
         if (selectedItem && Input.IsActionPressed("ui_left_click"))
         {
-            if (!eligibleForItemPlacementInTile)
+            if (!_eligibleForItemPlacementInTile)
             {
                 GD.Print("Not Eligible tile");
                 return;
             }
-           
+
             HandleExhibitPlacement();
             OnItemPlaced?.Invoke(ItemPrice);
             selectedItem = false;
@@ -146,7 +169,7 @@ public partial class Item : Sprite2D
             $"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}";
         _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
         GD.Print("Handling exhibit placement");
-        
+        MuseumActions.OnItemUpdated?.Invoke();
     }
 
     public override void _Input(InputEvent @event)
@@ -190,7 +213,7 @@ public partial class Item : Sprite2D
             }
             
         }
-        GD.Print($"{_listOfMatchingExhibitPlacementConditionDatas.Count} eligible tiles");
+        // GD.Print($"{_listOfMatchingExhibitPlacementConditionDatas.Count} eligible tiles");
         return true;
     }
     private string GetTileId(Vector2I tilePosition)
@@ -208,5 +231,6 @@ public partial class Item : Sprite2D
         return null;
     }
 
-   
+
+    
 }

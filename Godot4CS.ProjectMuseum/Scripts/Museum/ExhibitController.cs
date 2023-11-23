@@ -64,6 +64,7 @@ public partial class ExhibitController : Node2D
         _itemsParent.AddChild(instance);
         instance.GetNode<Node2D>(".").Position =
             GameManager.TileMap.MapToLocal(new Vector2I(exhibit.XPosition, exhibit.YPosition));
+        MuseumActions.OnItemUpdated?.Invoke();
     }
 
     private void OnClickItem(Item item)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=19 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
 [ext_resource type="PackedScene" uid="uid://bypida1m5guj5" path="res://Scenes/Museum/Museum Ui/Builder Ui/Builder Card.tscn" id="12_730rj"]
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
+[ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 
 [node name="museum" type="Node2D"]
 y_sort_enabled = true
@@ -75,5 +76,8 @@ _displacementSpeed = 50.0
 script = ExtResource("12_k33tk")
 _exhibitEditorUi = NodePath("../CanvasLayer/Exhibit Editor Ui")
 _itemsParent = NodePath("../ItemParents")
+
+[node name="ManualSorting" type="Node2D" parent="."]
+script = ExtResource("18_rds1y")
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

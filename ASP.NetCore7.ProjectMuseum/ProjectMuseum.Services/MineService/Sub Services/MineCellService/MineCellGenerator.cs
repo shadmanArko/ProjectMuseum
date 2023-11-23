@@ -7,6 +7,7 @@ public class MineCellGenerator : IMineCellGenerator
 {
     public int XSize = 49;
     public int YSize = 64;
+    public int cellSize = 20;
     private readonly IMineRepository _mineRepository;
 
 
@@ -17,9 +18,14 @@ public class MineCellGenerator : IMineCellGenerator
 
     public async Task<Mine> GenerateMineCellData()
     {
-        var mine = new Mine();
+        var mine = new Mine
+        {
+            CellSize = cellSize,
+            GridWidth = XSize,
+            GridLength = YSize
+        };
         var cells = new List<Cell>();
-        
+
         for (int x = 0; x < XSize; x++)
         {
             for (int y = 0; y < YSize; y++)
@@ -87,7 +93,7 @@ public class MineCellGenerator : IMineCellGenerator
         cell.IsBreakable = true;
         cell.IsInstantiated = true;
         cell.IsRevealed = false;
-        cell.HitPoint = 3;
+        cell.HitPoint = 4;
     }
 
     private void CreateArtifactCell(Cell cell)

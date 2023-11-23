@@ -87,29 +87,25 @@ public partial class MineGenerationController : Node2D
 	private void SaveMineDataIntoServer()
 	{
 		string[] headers = { "Content-Type: application/json"};
-		_mine.Cells = Cells2DArrayToList();
-		_mine.CellSize = _mineGenerationVariables.CellSize;
-		_mine.GridLength = _mineGenerationVariables.GridLength;
-		_mine.GridWidth = _mineGenerationVariables.GridWidth;
 		
-		var body = JsonConvert.SerializeObject(_mine);
+		var body = JsonConvert.SerializeObject(_mineGenerationVariables.Mine);
 
 		_saveGeneratedMineHttpRequest.Request(ApiAddress.MineApiPath+"UpdateMineData", headers,
 			HttpClient.Method.Put, body);
 		_savingCanvas.Visible = true;
 	}
 	
-	private List<Cell> Cells2DArrayToList()
-	{
-		var cellList = new List<Cell>();
-		for (var x = 0; x < _mineGenerationVariables.GridWidth; x++)
-		{
-			for (var y = 0; y < _mineGenerationVariables.GridLength; y++)
-				cellList.Add(_mineGenerationVariables.Cells[x,y]);
-		}
-
-		return cellList;
-	}
+	// private List<Cell> Cells2DArrayToList()
+	// {
+	// 	var cellList = new List<Cell>();
+	// 	for (var x = 0; x < _mineGenerationVariables.GridWidth; x++)
+	// 	{
+	// 		for (var y = 0; y < _mineGenerationVariables.GridLength; y++)
+	// 			cellList.Add(_mineGenerationVariables.GetCell(new ));
+	// 	}
+	//
+	// 	return cellList;
+	// }
 	
 	private void OnSaveGeneratedMineHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
@@ -139,37 +135,37 @@ public partial class MineGenerationController : Node2D
     
 	private void GenerateMineBasedOnRetrievedMineData(global::ProjectMuseum.Models.Mine mine)
 	{
-		GD.Print("GENERATING CELL LIST TO 2D ARRAY");
-		var grid = CellsListTo2DArray(mine.Cells, mine.GridLength, mine.GridWidth);
-		_mineGenerationVariables.Cells = grid;
-		_mineGenerationVariables.GridLength = mine.GridLength;
-		_mineGenerationVariables.GridWidth = mine.GridWidth;
-		_mineGenerationVariables.CellSize = mine.CellSize;
-
-		foreach (var cell in _mineGenerationVariables.Cells)
-		{
-			var pos = new Vector2(cell.PositionX, cell.PositionY);
-			var tilePos = _mineGenerationView.LocalToMap(pos);
-			
-			if(!cell.IsInstantiated)
-				_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4, 0));
-			else
-			{
-				if(!cell.IsBreakable || !cell.IsRevealed)
-					_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3, 0));
-				else
-				{
-					if(cell.HitPoint == 3)
-						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(0, 0));
-					else if(cell.HitPoint == 2)
-						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1, 0));
-					else if(cell.HitPoint == 1)
-						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2, 0));
-					else
-						_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4, 0));
-				}
-			}
-		}
+		// GD.Print("GENERATING CELL LIST TO 2D ARRAY");
+		// var grid = CellsListTo2DArray(mine.Cells, mine.GridLength, mine.GridWidth);
+		// _mineGenerationVariables.Cells = grid;
+		// _mineGenerationVariables.GridLength = mine.GridLength;
+		// _mineGenerationVariables.GridWidth = mine.GridWidth;
+		// _mineGenerationVariables.CellSize = mine.CellSize;
+		//
+		// foreach (var cell in _mineGenerationVariables.Cells)
+		// {
+		// 	var pos = new Vector2(cell.PositionX, cell.PositionY);
+		// 	var tilePos = _mineGenerationView.LocalToMap(pos);
+		// 	
+		// 	if(!cell.IsInstantiated)
+		// 		_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4, 0));
+		// 	else
+		// 	{
+		// 		if(!cell.IsBreakable || !cell.IsRevealed)
+		// 			_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3, 0));
+		// 		else
+		// 		{
+		// 			if(cell.HitPoint == 3)
+		// 				_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(0, 0));
+		// 			else if(cell.HitPoint == 2)
+		// 				_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1, 0));
+		// 			else if(cell.HitPoint == 1)
+		// 				_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(2, 0));
+		// 			else
+		// 				_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(4, 0));
+		// 		}
+		// 	}
+		// }
 	}
 	
 	private static Cell[,] CellsListTo2DArray(List<Cell> cells, int length, int width)
@@ -201,9 +197,11 @@ public partial class MineGenerationController : Node2D
 	
 	private void GenerateGrid(global::ProjectMuseum.Models.Mine mine)
 	{
-		var cells = mine.Cells;
+		_mineGenerationVariables.Mine = mine;
+		//var cells = mine.Cells;
+		//_mineGenerationVariables.Cells = CellsListTo2DArray(mine.Cells, mine.GridLength, mine.GridWidth);
 
-		foreach (var cell in cells)
+		foreach (var cell in mine.Cells)
 		{
 			var pos = new Vector2(cell.PositionX * 20, cell.PositionY * 20);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
@@ -211,7 +209,6 @@ public partial class MineGenerationController : Node2D
 			//_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3, 0));
 			MineSetCellConditions.SetTileMapCell(tilePos, cell, _mineGenerationView);
 		}
-
 	}
 
 	// private void GenerateGrid()

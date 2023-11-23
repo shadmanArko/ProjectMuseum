@@ -34,6 +34,8 @@ public class MineCellGenerator : IMineCellGenerator
                 {
                     cell.IsBreakable = true;
                 }
+
+                cell.IsInstantiated = true;
                 cells.Add(cell);
             }
         }

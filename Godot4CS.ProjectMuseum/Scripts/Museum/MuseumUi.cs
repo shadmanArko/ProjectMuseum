@@ -13,6 +13,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item1;
     private PackedScene item2;
     private PackedScene item3;
+    private PackedScene item4;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export]public Node2D ItemsParent;
     [Inject]
@@ -32,6 +33,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
         item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
+        item4 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_4.tscn");
         Item.OnItemPlaced += UpdateUiOnItemPlaced;
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
@@ -53,16 +55,19 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _cardName = cardName;
         if ((builderCardType == BuilderCardType.Exhibit))
         {
-            if (cardName == "Small Wooden Exhibit Basic")
+            if (cardName == "SmallWoodenExhibitBasic")
             {
                 OnExhibit0Pressed();
-            }else if (cardName =="Medium Wooden Exhibit Basic")
+            }else if (cardName =="MediumWoodenExhibitBasic")
             {
                 OnExhibit1Pressed();
 
-            }else if (cardName =="Large Wooden Exhibit Basic")
+            }else if (cardName =="LargeWoodenExhibitBasic")
             {
                 OnExhibit3Pressed();
+            }else if (cardName =="MediumWoodenExhibitBasic2")
+            {
+                OnExhibit4Pressed();
             }
         }
     }
@@ -108,6 +113,10 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     public void OnExhibit3Pressed()
     {
         SetUpItem(item2);
+    }
+    public void OnExhibit4Pressed()
+    {
+        SetUpItem(item4);
     }
 
     void UpdateUiOnItemPlaced(float itemPrice)

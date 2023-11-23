@@ -2,14 +2,15 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
+using Newtonsoft.Json;
 using ProjectMuseum.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 public partial class Item : Sprite2D
 {
@@ -22,6 +23,7 @@ public partial class Item : Sprite2D
     public float ItemPrice = 45.33f;
 
     [Export] public int numberOfTilesItTakes = 1;
+    [Export] public string TileExtentsInDirection = "Both";
     private List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
     private List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
@@ -64,10 +66,15 @@ public partial class Item : Sprite2D
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, -1));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, 0));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, -1));
-        }else if (numberOfTilesItTakes == 2)
+        }else if (numberOfTilesItTakes == 2 && TileExtentsInDirection == "Left")
         {
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, 0));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, -1));
+            
+        }else if (numberOfTilesItTakes == 2 && TileExtentsInDirection == "Right")
+        {
+            listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, 0));
+            listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, 0));
             
         }
     }
@@ -84,7 +91,7 @@ public partial class Item : Sprite2D
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         _exhibitPlacementConditionDatas = JsonSerializer.Deserialize<List<ExhibitPlacementConditionData>>(jsonStr);
-        GD.Print("exhibit placement data"+ jsonStr);
+        // GD.Print("exhibit placement data"+ jsonStr);
     }
     private void httpRequestForExhibitPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
@@ -128,17 +135,17 @@ public partial class Item : Sprite2D
 
     private async void HandleExhibitPlacement()
     {
+        List<string> tileIds = new List<string>();
         foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
         {
-            string url =
-                $"{ApiAddress.MuseumApiPath}PlaceAnExhibit/{GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition))}/{ExhibitVariationName.Replace(" ", "_")}";
-            _httpRequestForExhibitPlacement.Request(url);
-            GD.Print("Handling exhibit placement");
-            break;
-            await Task.Delay(300);
+            tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
         }
-
-        
+        string[] headers = { "Content-Type: application/json"};
+        var body = JsonConvert.SerializeObject(tileIds);
+        string url =
+            $"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}";
+        _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+        GD.Print("Handling exhibit placement");
         
     }
 

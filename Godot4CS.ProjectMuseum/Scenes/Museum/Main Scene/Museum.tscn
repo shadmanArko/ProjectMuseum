@@ -71,8 +71,9 @@ y_sort_enabled = true
 position = Vector2(54, -120)
 _displacementSpeed = 50.0
 
-[node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi")]
+[node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi", "_itemsParent")]
 script = ExtResource("12_k33tk")
 _exhibitEditorUi = NodePath("../CanvasLayer/Exhibit Editor Ui")
+_itemsParent = NodePath("../ItemParents")
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

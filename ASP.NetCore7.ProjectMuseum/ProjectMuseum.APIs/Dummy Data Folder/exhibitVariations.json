@@ -1,6 +1,6 @@
 [
     {
-    "VariationName": "Small Wooden Exhibit Basic",
+    "VariationName": "SmallWoodenExhibitBasic",
     "ExhibitDecoration": "Sprite-0006",
     "ExhibitSize": "small",
     "NumberOfTilesNeeded": 1,
@@ -9,7 +9,7 @@
     "IsWallExhibit": false
     },
     {
-    "VariationName": "Medium Wooden Exhibit Basic",
+    "VariationName": "MediumWoodenExhibitBasic",
     "ExhibitDecoration": "Sprite-0007",
     "ExhibitSize": "Medium",
     "NumberOfTilesNeeded": 2,
@@ -18,7 +18,7 @@
     "IsWallExhibit": false
     },
     {
-        "VariationName": "Medium Wooden Exhibit Basic 2",
+        "VariationName": "MediumWoodenExhibitBasic2",
         "ExhibitDecoration": "Sprite-0008",
         "ExhibitSize": "Medium",
         "NumberOfTilesNeeded": 2,
@@ -27,7 +27,7 @@
         "IsWallExhibit": false
     },
     {
-        "VariationName": "Large Wooden Exhibit Basic",
+        "VariationName": "LargeWoodenExhibitBasic",
         "ExhibitDecoration": "Sprite-0009",
         "ExhibitSize": "Large",
         "NumberOfTilesNeeded": 2,

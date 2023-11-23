@@ -25,11 +25,10 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("3_bsmgm")
 TileMap = NodePath(".")
-TileSourceId = 1
+TileSourceId = 0
 WoodArtifactSourceId = 2
 SilverArtifactSourceId = 3
 GoldArtifactSourceId = 4
-NewNewTilesSourceId = 0
 TileCrackSourceId = 5
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]

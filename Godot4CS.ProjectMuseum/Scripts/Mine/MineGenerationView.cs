@@ -9,6 +9,6 @@ public partial class MineGenerationView : TileMap
 	[Export] public int WoodArtifactSourceId;
 	[Export] public int SilverArtifactSourceId;
 	[Export] public int GoldArtifactSourceId;
-	[Export] public int NewNewTilesSourceId;
+	//[Export] public int NewNewTilesSourceId;
 	[Export] public int TileCrackSourceId;
 }

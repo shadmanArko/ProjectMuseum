@@ -208,7 +208,8 @@ public partial class MineGenerationController : Node2D
 			var pos = new Vector2(cell.PositionX * 20, cell.PositionY * 20);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
 			GD.Print($"{cell.PositionX}, {cell.PositionY}");
-			_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3, 0));
+			//_mineGenerationView.SetCell(0, tilePos, _mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(3, 0));
+			MineSetCellConditions.SetTileMapCell(tilePos, cell, _mineGenerationView);
 		}
 
 	}

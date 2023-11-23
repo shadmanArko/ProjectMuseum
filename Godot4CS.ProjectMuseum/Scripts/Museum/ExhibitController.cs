@@ -8,7 +8,7 @@ public partial class ExhibitController : Node2D
     [Export] private ExhibitEditorUi _exhibitEditorUi;
     public override void _Ready()
     {
-        MuseumActions.OnClickItem += OnClickItem;
+        //MuseumActions.OnClickItem += OnClickItem;
     }
 
     private void OnClickItem(Item item)

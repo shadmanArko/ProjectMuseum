@@ -20,23 +20,45 @@ public class MineCellGenerator : IMineCellGenerator
         var mine = new Mine();
         var cells = new List<Cell>();
         
-        for (int i = 0; i < XSize; i++)
+        for (int x = 0; x < XSize; x++)
         {
-            for (int j = 0; j < YSize; j++)
+            for (int y = 0; y < YSize; y++)
             {
                 var cell = new Cell
                 {
                     Id = Guid.NewGuid().ToString(),
-                    PositionX = i,
-                    PositionY = j
+                    PositionX = x,
+                    PositionY = y
                 };
-                if (i!=0 || j!=YSize-1)
+                if (y == 0 || y == YSize-1)
                 {
-                    cell.IsBreakable = true;
+                    if (y == 0 && x == XSize / 2)
+                    {
+                        CreateBlankCell(cell);
+                        cells.Add(cell);
+                        continue;
+                    }
+                    
+                    CreateUnbreakableCell(cell);
+                    cells.Add(cell);
                 }
-
-                cell.IsInstantiated = true;
-                cells.Add(cell);
+                else if (x == 0 || x == XSize -1)
+                {
+                    CreateUnbreakableCell(cell);
+                    cells.Add(cell);
+                }
+                else if (x == XSize / 2 && y == 5)
+                {
+                    CreateArtifactCell(cell);
+                    cells.Add(cell);
+                }
+                else
+                {
+                    CreateBreakableCell(cell);
+                    cells.Add(cell);
+                    if (y == 1 && x == XSize / 2)
+                        cell.IsRevealed = true;
+                }
             }
         }
 
@@ -44,5 +66,36 @@ public class MineCellGenerator : IMineCellGenerator
 
         return await _mineRepository.Update(mine);
 
+    }
+
+    private void CreateBlankCell(Cell cell)
+    {
+        cell.IsBreakable = false;
+        cell.IsInstantiated = false;
+        cell.HitPoint = 10000;
+    }
+
+    private void CreateUnbreakableCell(Cell cell)
+    {
+        cell.IsBreakable = false;
+        cell.IsInstantiated = true;
+        cell.HitPoint = 10000;
+    }
+
+    private void CreateBreakableCell(Cell cell)
+    {
+        cell.IsBreakable = true;
+        cell.IsInstantiated = true;
+        cell.IsRevealed = false;
+        cell.HitPoint = 3;
+    }
+
+    private void CreateArtifactCell(Cell cell)
+    {
+        cell.IsBreakable = true;
+        cell.IsInstantiated = true;
+        cell.IsRevealed = false;
+        cell.HasArtifact = true;
+        cell.HitPoint = 3;
     }
 }

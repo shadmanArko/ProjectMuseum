@@ -191,7 +191,7 @@ public partial class PlayerCollisionDetector : Node2D
 		else
 		{
 			_mineGenerationVariables.MineGenView.EraseCell(1,tilePos);
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(5,2));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,2));
 			RevealAdjacentWalls(tilePos);
 		}
 	}
@@ -234,7 +234,7 @@ public partial class PlayerCollisionDetector : Node2D
 			if (cell.IsRevealed || !cell.IsInstantiated || !cell.IsBreakable || cell.HitPoint <= 0) continue;
 			
 			cell.IsRevealed = true;
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePosition,_mineGenerationVariables.MineGenView.NewNewTilesSourceId,new Vector2I(1,1));
+			_mineGenerationVariables.MineGenView.SetCell(0,tilePosition,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(1,1));
 		}
 	}
     

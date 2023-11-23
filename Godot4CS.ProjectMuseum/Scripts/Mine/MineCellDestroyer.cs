@@ -24,7 +24,7 @@ public static class MineCellDestroyer
     private static Cell ChangeTopNeighbourBottomBrokenSide(int positionX, int positionY, global::ProjectMuseum.Models.Mine mine)
     {
         var cell = mine.Cells.FirstOrDefault(cell1 =>
-            cell1.PositionX == (positionX + 0) && cell1.PositionY == (positionY + 1));
+            cell1.PositionX == (positionX + 0) && cell1.PositionY == (positionY - 1));
         if (cell != null)
         {
             cell.BottomBrokenSide = true;
@@ -49,7 +49,7 @@ public static class MineCellDestroyer
     private static Cell ChangeBottomNeighbourTopBrokenSide(int positionX, int positionY, global::ProjectMuseum.Models.Mine mine)
     {
         var cell = mine.Cells.FirstOrDefault(cell1 =>
-            cell1.PositionX == (positionX + 0) && cell1.PositionY == (positionY - 1));
+            cell1.PositionX == (positionX + 0) && cell1.PositionY == (positionY + 1));
         if (cell != null)
         {
             cell.TopBrokenSide = true;

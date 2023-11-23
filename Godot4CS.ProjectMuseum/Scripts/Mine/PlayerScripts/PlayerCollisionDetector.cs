@@ -176,9 +176,9 @@ public partial class PlayerCollisionDetector : Node2D
 	{
 		var cell = _mineGenerationVariables.GetCell(tilePos);
 		cell.HitPoint--;
-		Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100);
+		Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
 
-		MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell,_mineGenerationVariables.MineGenView);
+		MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell ,_mineGenerationVariables.MineGenView);
 		if (cell.HitPoint <= 0)
 		{
 			var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);

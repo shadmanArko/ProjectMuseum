@@ -9,7 +9,7 @@ public static class MineSetCellConditions
     {
         //var tilePos = mineGenerationView.LocalToMap(pos);
 
-        if (!cell.IsInstantiated)
+        if (!cell.IsInstantiated || cell.IsBroken)
         {
             SetBlankCell(mineGenerationView, tilePos);
         }
@@ -74,9 +74,9 @@ public static class MineSetCellConditions
 
     #endregion
 
-    public static void SetCrackOnTiles(Vector2I pos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
+    public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
     {
-        var tilePos = mineGenerationView.LocalToMap(pos);
+        //var tilePos = mineGenerationView.LocalToMap(pos);
         if (cell.HitPoint >= 3)
         {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,0));
@@ -98,6 +98,7 @@ public static class MineSetCellConditions
     
     private static void SetCrackBasedOnDigDirection(MineGenerationView mineGenerationView,Vector2I mouseDir, Vector2I tilePos, Vector2I coords)
     {
+        GD.Print($"Set crack cell {tilePos}");
         switch (mouseDir)
         {
             case Vector2I(1,0):

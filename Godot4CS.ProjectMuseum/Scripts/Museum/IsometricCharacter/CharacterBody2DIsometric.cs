@@ -16,7 +16,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
     public override void _Ready()
     {
         base._Ready();
-        _animationPlayer.Play("player_walk_forward");
+        _animationPlayer.Play("idle_front_facing");
     }
 
     private Vector2 CartesianToIsometric(Vector2 cartesian)
@@ -42,14 +42,14 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         {
             direction += new Vector2(0, -1);
             _characterSprite.Scale = new Vector2(-1, 1);
-            _animationPlayer.Play("player_walk_backward");
+            _animationPlayer.Play("walk_backward");
             _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_down"))
         {
             direction += new Vector2(0, 1);
             _characterSprite.Scale = new Vector2(-1, 1);
-            _animationPlayer.Play("player_walk_forward");
+            _animationPlayer.Play("walk_forward");
             _playerFacingTheFront = true;
         }
 
@@ -57,14 +57,14 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         {
             direction += new Vector2(-1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
-            _animationPlayer.Play("player_walk_backward");
+            _animationPlayer.Play("walk_backward");
             _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_right"))
         {
             direction += new Vector2(1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
-            _animationPlayer.Play("player_walk_forward");
+            _animationPlayer.Play("walk_forward");
             _playerFacingTheFront = true;
         }
 
@@ -72,11 +72,11 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         {
             if (_playerFacingTheFront)
             {
-                _animationPlayer.Play("RESET");
+                _animationPlayer.Play("idle_front_facing");
             }
             else
             {
-                _animationPlayer.Play("RESET_Backward");
+                _animationPlayer.Play("idle_back_facing");
             }
         }
         

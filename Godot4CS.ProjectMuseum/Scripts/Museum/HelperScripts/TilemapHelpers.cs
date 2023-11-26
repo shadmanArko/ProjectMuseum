@@ -27,6 +27,6 @@ public static class TilemapHelpers
 
     private static Vector2 GetTileSize()
     {
-        return new Vector2(-20, -24);
+        return new Vector2(-18, -20);
     }
 }

@@ -15,11 +15,23 @@ _mineBackGround = NodePath("MineBackground")
 
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("2_ooqno")]
 cell_quadrant_size = 20
+layer_0/name = "Mine"
+layer_1/name = "Crack"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
 script = ExtResource("3_bsmgm")
 TileMap = NodePath(".")
-TileSourceId = 1
+TileSourceId = 0
 WoodArtifactSourceId = 2
 SilverArtifactSourceId = 3
 GoldArtifactSourceId = 4
+TileCrackSourceId = 5
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.478431, 0.478431, 0.478431, 1)

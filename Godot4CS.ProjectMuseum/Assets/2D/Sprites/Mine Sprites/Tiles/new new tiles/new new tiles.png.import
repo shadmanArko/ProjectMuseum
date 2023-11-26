@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b416byjitipg8"
-path="res://.godot/imported/royal blue.png-fd0b5c6ade2336624e8e7371d06a4edc.ctex"
+uid="uid://ba1tjq5haf74d"
+path="res://.godot/imported/new new tiles.png-7b6cca803e4787add91d496e4793e0ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine UI/royal blue.png"
-dest_files=["res://.godot/imported/royal blue.png-fd0b5c6ade2336624e8e7371d06a4edc.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/Tiles/new new tiles/new new tiles.png"
+dest_files=["res://.godot/imported/new new tiles.png-7b6cca803e4787add91d496e4793e0ca.ctex"]
 
 [params]
 

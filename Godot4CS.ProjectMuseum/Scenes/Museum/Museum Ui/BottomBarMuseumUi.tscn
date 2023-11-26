@@ -1,0 +1,341 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkoso5aa3k71i"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/ButtonPress.cs" id="2_1850m"]
+
+[node name="BottomBarMuseumUi" type="Control"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.968627, 0.858824, 0.913725, 1)
+
+[node name="Left Panel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.04
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_right = 963.0
+grow_vertical = 0
+
+[node name="Guest Count Holder Panel" type="PanelContainer" parent="Left Panel"]
+layout_mode = 2
+
+[node name="Background" type="ColorRect" parent="Left Panel/Guest Count Holder Panel"]
+visible = false
+layout_mode = 2
+color = Color(0.929412, 0.611765, 0.980392, 1)
+
+[node name="Guest Count Holder" type="HBoxContainer" parent="Left Panel/Guest Count Holder Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Guest Icon and Text" type="HBoxContainer" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Guest Icon" type="TextureRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+visible = false
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+expand_mode = 4
+
+[node name="Guest Text" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "GUESTS"
+
+[node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1000"
+
+[node name="Star Rating Panel" type="Panel" parent="Left Panel"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Left Panel/Star Rating Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -10.0
+offset_right = 58.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Star" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Star2" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Star3" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Star4" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Star5" type="ColorRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Buttons Panel" type="HBoxContainer" parent="Left Panel"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel" node_paths=PackedStringArray("_buttonNodes", "_subButtonContainer", "_adminContainer", "_exhibitsContainer", "_decorationContainer", "_roomContainer", "_staffContainer")]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 5
+script = ExtResource("1_8vmjs")
+_buttonNodes = [NodePath("Administration Button"), NodePath("Exhibit Button"), NodePath("Decoration Button"), NodePath("Room Button"), NodePath("Staff Button")]
+_subButtonContainer = NodePath("../Sub Buttons Panel")
+_adminContainer = NodePath("../Sub Buttons Panel/Administration Button Container")
+_exhibitsContainer = NodePath("../Sub Buttons Panel/Exhibit Button Container")
+_decorationContainer = NodePath("../Sub Buttons Panel/Decoration Button Container")
+_roomContainer = NodePath("../Sub Buttons Panel/Room Button Container")
+_staffContainer = NodePath("../Sub Buttons Panel/Staff Button Container")
+_toggleMode = true
+
+[node name="Administration Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Administration"
+script = ExtResource("2_1850m")
+_stringName = "Administration"
+
+[node name="Exhibit Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Exhibit"
+script = ExtResource("2_1850m")
+_stringName = "Exhibit"
+
+[node name="Decoration Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Decoration"
+script = ExtResource("2_1850m")
+_stringName = "Decoration"
+
+[node name="Room Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Room"
+script = ExtResource("2_1850m")
+_stringName = "Room"
+
+[node name="Staff Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Staff"
+script = ExtResource("2_1850m")
+_stringName = "Staff"
+
+[node name="Sub Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel"]
+visible = false
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="Administration Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Museum Overview Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Museum Overview"
+
+[node name="Marketing Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Marketing"
+
+[node name="Finances Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Finances"
+
+[node name="Exhibit Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="New Exhibit Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "New Exhibit"
+
+[node name="Edit Exhibit Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Edit Exhibit"
+
+[node name="Clear Exhibit Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Clear Exhibit"
+
+[node name="Decoration Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Education Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Education"
+
+[node name="Food and Drinks Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Food and Drinks"
+
+[node name="Souvenirs Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Souvenirs"
+
+[node name="Sanitation Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Sanitation"
+
+[node name="Play Areas Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Play Areas"
+
+[node name="Room Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Walls Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Walls"
+
+[node name="Flooring Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Flooring"
+
+[node name="Wallpaper Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Wallpaper"
+
+[node name="Lighting Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Lighting"
+
+[node name="Security Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Security"
+
+[node name="Staff Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Staff Overview Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Staff Overview"
+
+[node name="Staff Hiring Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Staff Hiring"
+
+[node name="Staff Facilities Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Staff Facilities"
+
+[node name="Staff Zoning Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Staff Zoning"
+
+[node name="Right Panel" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.04
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -317.0
+offset_top = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="Money Display Panel" type="PanelContainer" parent="Right Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Right Panel/Money Display Panel"]
+layout_mode = 2
+
+[node name="Money Icon" type="ColorRect" parent="Right Panel/Money Display Panel/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Money Text Holder" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer"]
+layout_mode = 2
+text = "1300.99"
+
+[node name="Misc Panel" type="PanelContainer" parent="Right Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Misc Buttons" type="HBoxContainer" parent="Right Panel/Misc Panel"]
+layout_mode = 2
+
+[node name="Lenses Buttton" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Screenshot Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Help Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Administration Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Administration Button" method="OnButtonPressed"]
+[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button" method="OnButtonPressed"]
+[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Decoration Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Decoration Button" method="OnButtonPressed"]
+[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Room Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Room Button" method="OnButtonPressed"]
+[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Staff Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Staff Button" method="OnButtonPressed"]

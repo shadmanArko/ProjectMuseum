@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=28 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -7,9 +7,6 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="6_71wdr"]
 [ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="7_1web3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jt8gk"]
-size = Vector2(8, 14)
 
 [sub_resource type="Animation" id="Animation_t7vn8"]
 length = 0.001
@@ -356,9 +353,10 @@ script = ExtResource("1_bhvr3")
 _animationController = NodePath("AnimationPlayer")
 _maxVerticalVelocity = 8.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_jt8gk")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0.0624995, -0.0144234)
+scale = Vector2(0.9375, 1.00962)
+polygon = PackedVector2Array(-3, -5, -3, 5, -1.13333, 7.9381, 3.13333, 7.9381, 5, 5, 5, -5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.592157, 0.592157, 0.592157, 1)

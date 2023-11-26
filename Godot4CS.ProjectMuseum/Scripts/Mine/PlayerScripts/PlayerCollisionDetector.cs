@@ -43,8 +43,8 @@ public partial class PlayerCollisionDetector : Node2D
 			var tilePos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
 			var playerPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
 			tilePos -= (Vector2I) collision.GetNormal();
-
-			if (tilePos.Y > playerPos.Y)
+			var cell = _mineGenerationVariables.GetCell(FindPositionOfTargetCell());
+			if (tilePos.Y > playerPos.Y && !cell.IsBroken)
 				_playerControllerVariables.IsGrounded = true;
 		}
 	}
@@ -183,32 +183,19 @@ public partial class PlayerCollisionDetector : Node2D
 		{
 			var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
 
+			GD.Print($"mouseDirection: {_playerControllerVariables.MouseDirection}");
+			if (_playerControllerVariables.MouseDirection == Vector2I.Down)
+			{
+				GD.Print("is grounded is made false");
+				_playerControllerVariables.IsGrounded = false;
+			}
+			
 			foreach (var tempCell in cells)
 			{
 				var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
 				MineSetCellConditions.SetTileMapCell(tempCellPos, tempCell, _mineGenerationVariables.MineGenView);
 			}
-			//RevealAdjacentWalls(tilePos);
 		}
-		// if (cell.HitPoint >= 3)
-		// {
-		// 	MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell,_mineGenerationVariables.MineGenView);
-		// 	//SetCracksOnTiles(tilePos, new Vector2I(0,0));
-		// }
-		// else if (cell.HitPoint >= 2)
-		// {
-		// 	SetCracksOnTiles(tilePos, new Vector2I(1,0));
-		// }
-		// else if (cell.HitPoint >= 1)
-		// {
-		// 	SetCracksOnTiles(tilePos, new Vector2I(2,0));
-		// }
-		// else
-		// {
-		// 	_mineGenerationVariables.MineGenView.EraseCell(1,tilePos);
-		// 	_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,2));
-		// 	RevealAdjacentWalls(tilePos);
-		// }
 	}
 
 	private void SetCracksOnTiles(Vector2I tilePos, Vector2I coords)

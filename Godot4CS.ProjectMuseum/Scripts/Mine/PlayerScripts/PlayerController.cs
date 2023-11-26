@@ -25,6 +25,12 @@ public partial class PlayerController : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
         PlayerMovement(delta);
+
+        if (Input.IsActionJustReleased("Test"))
+        {
+	        GD.Print($"isGrounded: {_playerControllerVariables.IsGrounded}");
+	        GD.Print($"isFalling: {_playerControllerVariables.IsFalling}");
+        }
 	}
     
 	private void PlayerMovement(double delta)

@@ -9,8 +9,11 @@ public partial class PlayerController : CharacterBody2D
 	[Export] private AnimationController _animationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
+	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private float _maxVerticalVelocity;
+
+	[Export] private string _lampScenePath;
 
 	public override void _EnterTree()
 	{
@@ -20,6 +23,7 @@ public partial class PlayerController : CharacterBody2D
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -30,6 +34,15 @@ public partial class PlayerController : CharacterBody2D
         {
 	        GD.Print($"isGrounded: {_playerControllerVariables.IsGrounded}");
 	        GD.Print($"isFalling: {_playerControllerVariables.IsFalling}");
+        }
+
+        if (Input.IsActionJustReleased("Lamp"))
+        {
+	        var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
+	        GD.Print($"lamp scene instantiated {scene is null}");
+	        _mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
+	        scene!.Set("position", Position);
+	        GD.Print("Lamp instantiated");
         }
 	}
     

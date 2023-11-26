@@ -344,7 +344,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
-light_mask = 0
+light_mask = 3
 visibility_layer = 2
 z_index = 12
 texture_filter = 1
@@ -352,6 +352,7 @@ disable_mode = 1
 script = ExtResource("1_bhvr3")
 _animationController = NodePath("AnimationPlayer")
 _maxVerticalVelocity = 8.0
+_lampScenePath = "res://Scenes/Mine/Sub Scenes/Torch.tscn"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(0.0624995, -0.0144234)
@@ -392,6 +393,7 @@ _playerController = NodePath("..")
 _animationController = NodePath("../AnimationPlayer")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 color = Color(0.858824, 0.721569, 0.192157, 1)
 energy = 2.0
 shadow_enabled = true

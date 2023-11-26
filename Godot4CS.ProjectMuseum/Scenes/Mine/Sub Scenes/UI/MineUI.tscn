@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bqnclq7a3ymjd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina Bar fill.png" id="6_o1ooj"]
 
 [node name="MineUI" type="CanvasLayer"]
+metadata/_edit_vertical_guides_ = [664.0]
 
 [node name="Toolbar Panel" type="HBoxContainer" parent="." node_paths=PackedStringArray("_toolbarSlots")]
 anchors_preset = 7
@@ -21,7 +22,7 @@ offset_right = 284.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 script = ExtResource("1_1qo2i")
 _toolbarSlots = []
 

@@ -129,8 +129,8 @@ public partial class PlayerCollisionDetector : Node2D
 	{
 		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
 		tilePos += _playerControllerVariables.MouseDirection;
-		GD.Print($"Mouse position: {_playerControllerVariables.MouseDirection}");
-		GD.Print($"Breaking Cell{tilePos}");
+		// GD.Print($"Mouse position: {_playerControllerVariables.MouseDirection}");
+		// GD.Print($"Breaking Cell{tilePos}");
 
 		return tilePos;
 	}

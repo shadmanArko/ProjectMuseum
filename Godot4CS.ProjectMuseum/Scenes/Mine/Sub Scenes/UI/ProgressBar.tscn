@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://i1r8pqu73i2h"]
+
+[ext_resource type="Texture2D" uid="uid://dnuwjetejw2bg" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health_bar.png" id="1_qyw8t"]
+
+[node name="ProgressBar" type="TextureProgressBar"]
+texture_filter = 1
+texture_under = ExtResource("1_qyw8t")

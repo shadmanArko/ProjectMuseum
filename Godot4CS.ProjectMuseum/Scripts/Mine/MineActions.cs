@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
@@ -9,6 +10,8 @@ public partial class MineActions : Node
 	public static Action OnPlayerBrushActionPressed;
 	public static Action OnPlayerMeleeAttackActionPressed;
     public static Action OnPlayerRangedAttackActionPressed;
+
+    public static Action<Equipables> OnToolbarSlotChanged;
 
     public static Action<Node2D> OnMiniGameLoad;
     public static Action OnMiniGameWon;

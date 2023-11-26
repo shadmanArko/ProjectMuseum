@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkoso5aa3k71i"]
+[gd_scene load_steps=3 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/ButtonPress.cs" id="2_1850m"]

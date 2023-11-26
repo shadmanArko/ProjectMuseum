@@ -86,7 +86,11 @@ public class PlayerControllerVariables
 	public Equipables CurrentEquippedItem
 	{
 		get => _currentEquippedItem;
-		set => _currentEquippedItem = value;
+		set
+		{
+			_currentEquippedItem = value;
+			//MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
+		}
 	}
 
 	#endregion

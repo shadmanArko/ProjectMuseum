@@ -5,10 +5,12 @@ namespace ProjectMuseum.Repositories.ExhibitRepository;
 public class ExhibitRepository : IExhibitRepository
 {
     private readonly JsonFileDatabase<Exhibit> _exhibitDatabase;
+    private readonly JsonFileDatabase<ExhibitVariation> _exhibitVariationDatabase;
 
-    public ExhibitRepository(JsonFileDatabase<Exhibit> exhibitDatabase)
+    public ExhibitRepository(JsonFileDatabase<Exhibit> exhibitDatabase, JsonFileDatabase<ExhibitVariation> exhibitVariationDatabase)
     {
         _exhibitDatabase = exhibitDatabase;
+        _exhibitVariationDatabase = exhibitVariationDatabase;
     }
  
     public async Task<Exhibit> Insert(Exhibit exhibit)
@@ -36,6 +38,18 @@ public class ExhibitRepository : IExhibitRepository
     }
 
     public async Task<List<Exhibit>?> GetAll()
+    {
+        var exhibits = await _exhibitDatabase.ReadDataAsync();
+        return exhibits;
+    }
+
+    public async Task<List<ExhibitVariation>?> GetAllExhibitVariations()
+    {
+        var exhibitVariations = await _exhibitVariationDatabase.ReadDataAsync();
+        return exhibitVariations;
+    }
+
+    public async Task<List<Exhibit>?> GetAllExhibits()
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();
         return exhibits;

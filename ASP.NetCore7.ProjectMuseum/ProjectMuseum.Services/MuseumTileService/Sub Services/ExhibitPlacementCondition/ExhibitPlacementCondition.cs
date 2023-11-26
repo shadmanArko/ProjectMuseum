@@ -15,30 +15,27 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
         _museumTileRepository = museumTileRepository;
     }
     
-    public async Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitType)
+    public async Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
     {
         var listOfExhibitPlacementConditionData = new List<ExhibitPlacementConditionData>();
         var museumTiles = await _museumTileRepository.GetAll();
-        switch (exhibitType)
-        {
-            case "small":
+        
 
-                foreach (var museumTile in museumTiles)
-                {
-                    var exhibitTilePlacementData = new ExhibitPlacementConditionData();
-                    exhibitTilePlacementData.Id = museumTile.Id;
-                    exhibitTilePlacementData.TileXPosition = museumTile.XPosition;
-                    exhibitTilePlacementData.TileYPosition = museumTile.YPosition;
-                    exhibitTilePlacementData.IsEligible = museumTile.ExhibitId == "string";
-                    listOfExhibitPlacementConditionData.Add(exhibitTilePlacementData);
-                }
-                break;
+        foreach (var museumTile in museumTiles)
+        {
+            var exhibitTilePlacementData = new ExhibitPlacementConditionData();
+            exhibitTilePlacementData.Id = museumTile.Id;
+            exhibitTilePlacementData.TileXPosition = museumTile.XPosition;
+            exhibitTilePlacementData.TileYPosition = museumTile.YPosition;
+            exhibitTilePlacementData.IsEligible = museumTile.ExhibitId == "string";
+            listOfExhibitPlacementConditionData.Add(exhibitTilePlacementData);
         }
+        
 
         return listOfExhibitPlacementConditionData;
     }
 
-    public async Task<bool> PlaceExhibitOnTile(string tileId, string exhibitType)
+    public async Task<bool> PlaceExhibitOnTile(string tileId, string exhibitVariationName)
     {
         var museumTile = await _museumTileRepository.GetById(tileId);
         if (museumTile != null && museumTile.ExhibitId != "string") return false;
@@ -46,6 +43,7 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
         var exhibit = new Exhibit
         {
             Id = Guid.NewGuid().ToString(),
+            ExhibitVariationName = exhibitVariationName,
             XPosition = museumTile.XPosition,
             YPosition = museumTile.YPosition,
             ExhibitDecoration = "string",
@@ -53,12 +51,44 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
             ExhibitArtifactSlot2 = "string",
             ExhibitArtifactSlot3 = "string",
             ExhibitArtifactSlot4 = "string",
-            ExhibitArtifactSlot5 = "string",
-            IsHangingExhibit = false,
-            IsWallExhibit = false
+            ExhibitArtifactSlot5 = "string"
         };
         await _exhibitRepository.Insert(exhibit);
         await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
+        return true;
+    }
+    public async Task<bool> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
+    {
+        Exhibit exhibit = new Exhibit();
+        foreach (var tileId in tileIds)
+        {
+            if (tileId == originTileId)
+            {
+                var museumTile = await _museumTileRepository.GetById(tileId);
+                if (museumTile != null && museumTile.ExhibitId != "string") return false;
+                if (museumTile == null) return false;
+                exhibit = new Exhibit
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ExhibitVariationName = exhibitVariationName,
+                    XPosition = museumTile.XPosition,
+                    YPosition = museumTile.YPosition,
+                    ExhibitDecoration = "string",
+                    ExhibitArtifactSlot1 = "string",
+                    ExhibitArtifactSlot2 = "string",
+                    ExhibitArtifactSlot3 = "string",
+                    ExhibitArtifactSlot4 = "string",
+                    ExhibitArtifactSlot5 = "string"
+                };
+                await _exhibitRepository.Insert(exhibit);
+                await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
+            }
+            else
+            {
+                await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
+            }
+            
+        }
         return true;
     }
 }

@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://bypida1m5guj5"]
+
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="1_gx8kk"]
+[ext_resource type="Script" path="res://Scripts/Museum/BuilderCardSlotsController.cs" id="1_ym6s0"]
+[ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="3_w1uyk"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="." node_paths=PackedStringArray("_builderCardContainer")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.749
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.280029
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.686275, 0.65098, 0.607843, 1)
+script = ExtResource("1_ym6s0")
+_builderCardScene = ExtResource("3_w1uyk")
+_builderCardContainer = NodePath("MarginContainer/GridContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect/MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme = ExtResource("1_gx8kk")
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 5
+
+[node name="Builder Card" parent="ColorRect/MarginContainer/GridContainer" instance=ExtResource("3_w1uyk")]
+visible = false
+layout_mode = 2

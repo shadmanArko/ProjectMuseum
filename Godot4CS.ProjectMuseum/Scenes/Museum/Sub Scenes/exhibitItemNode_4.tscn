@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu0deqyuh3wcm"]
+[gd_scene load_steps=4 format=3 uid="uid://upnnvm50r73i"]
 
-[ext_resource type="Texture2D" uid="uid://cwrr0p0amuel2" path="res://Assets/2D/Sprites/Exhibits/Sprite-0007.png" id="1_thkdx"]
-[ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_vokxc"]
+[ext_resource type="Texture2D" uid="uid://ck4te6vpacd7e" path="res://Assets/2D/Sprites/Exhibits/Sprite-0008.png" id="1_3wet2"]
+[ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_a3i2m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(14.3329, 6.79561)
@@ -11,18 +11,18 @@ z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-38, -109)
-texture = ExtResource("1_thkdx")
-offset = Vector2(7, -7)
-script = ExtResource("2_vokxc")
+texture = ExtResource("1_3wet2")
+offset = Vector2(-7, -7)
+script = ExtResource("2_a3i2m")
 ItemPrice = 90.25
 numberOfTilesItTakes = 2
-TileExtentsInDirection = "Left"
+TileExtentsInDirection = "Right"
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(24, 57)
+position = Vector2(10, 57)
 scale = Vector2(3.2094, 4.56177)
 shape = SubResource("RectangleShape2D_6rwst")
 one_way_collision_margin = 0.0

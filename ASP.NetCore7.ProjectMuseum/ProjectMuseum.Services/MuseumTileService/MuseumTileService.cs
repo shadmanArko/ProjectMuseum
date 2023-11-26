@@ -46,14 +46,24 @@ public class MuseumTileService : IMuseumTileService
         return museumTiles;
     }
 
-    public async Task<List<ExhibitPlacementConditionData>> GetEligibilityOfPositioningExhibit(string exhibitType)
+    public Task<List<Exhibit>?> GetAllExhibits()
     {
-        return await _exhibitPlacementCondition.CanExhibitBePlacedOnThisTile(exhibitType);
+        throw new NotImplementedException();
     }
 
-    public async Task<bool> PlaceExhibitOnTile(string tileId, string exhibitType)
+    public async Task<List<ExhibitPlacementConditionData>> GetEligibilityOfPositioningExhibit(string exhibitVariationName)
     {
-        return await _exhibitPlacementCondition.PlaceExhibitOnTile(tileId, exhibitType);
+        return await _exhibitPlacementCondition.CanExhibitBePlacedOnThisTile(exhibitVariationName);
+    }
+
+    public async Task<bool> PlaceExhibitOnTile(string tileId, string exhibitVariationName)
+    {
+        return await _exhibitPlacementCondition.PlaceExhibitOnTile(tileId, exhibitVariationName);
+    }
+
+    public async Task<bool> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
+    {
+        return await _exhibitPlacementCondition.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName);
     }
 
     public async Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile)

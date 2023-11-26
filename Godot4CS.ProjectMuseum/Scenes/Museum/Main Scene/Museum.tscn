@@ -1,18 +1,23 @@
-[gd_scene load_steps=14 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=19 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
 [ext_resource type="Script" path="res://Scenes/Museum/Main Scene/MuseumSceneDiInstaller.cs" id="2_yr8uh"]
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
 [ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="4_kytf8"]
+[ext_resource type="PackedScene" uid="uid://0v3ikej83pig" path="res://Scenes/Museum/Sub Scenes/Walls/left_wall.tscn" id="6_plrwf"]
+[ext_resource type="Texture2D" uid="uid://cuongtmbiiass" path="res://Assets/2D/Sprites/Wallpapers/1.png" id="7_5wxpw"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Museum Ui/Museum ui.tscn" id="7_xsnwb"]
-[ext_resource type="PackedScene" uid="uid://0v3ikej83pig" path="res://Scenes/Museum/Sub Scenes/Walls/leafy_green_wall_paper_1.tscn" id="8_36sej"]
+[ext_resource type="Texture2D" uid="uid://c5gblrdjxy4i3" path="res://Assets/2D/Sprites/Wallpapers/2.png" id="8_s5qaf"]
+[ext_resource type="Texture2D" uid="uid://bt8tovq0knruf" path="res://Assets/2D/Sprites/Wallpapers/4 .png" id="9_qrxw8"]
+[ext_resource type="Texture2D" uid="uid://ddxt3f2qki8xr" path="res://Assets/2D/Sprites/Wallpapers/5.png" id="10_02o80"]
 [ext_resource type="PackedScene" uid="uid://bjy2gyknf1lwq" path="res://Scenes/Museum/Museum Ui/Exhibit Editor Ui.tscn" id="10_c21vt"]
-[ext_resource type="PackedScene" uid="uid://ddq1yn1fawuwg" path="res://Scenes/Museum/Sub Scenes/Walls/yellow_flower_wall_paper_1.tscn" id="10_xt14w"]
+[ext_resource type="PackedScene" uid="uid://ddq1yn1fawuwg" path="res://Scenes/Museum/Sub Scenes/Walls/right_wall.tscn" id="10_xt14w"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumTileEditor.cs" id="11_uydor"]
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
+[ext_resource type="PackedScene" uid="uid://bypida1m5guj5" path="res://Scenes/Museum/Museum Ui/Builder Ui/Builder Card.tscn" id="12_730rj"]
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
-[ext_resource type="PackedScene" uid="uid://cv15qeuxawq6p" path="res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn" id="13_whphv"]
+[ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 
 [node name="museum" type="Node2D"]
 y_sort_enabled = true
@@ -24,8 +29,10 @@ script = ExtResource("2_yr8uh")
 [node name="TileMap" parent="." node_paths=PackedStringArray("_wallsParent") instance=ExtResource("2_2v5tj")]
 layer_0/tile_data = PackedInt32Array()
 script = ExtResource("3_txjx3")
-_wallLeft = ExtResource("10_xt14w")
-_wallRight = ExtResource("8_36sej")
+_wallRight = ExtResource("10_xt14w")
+_wallLeft = ExtResource("6_plrwf")
+_dirtyWallProbability = 50
+_dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
 _wallsParent = NodePath("../WallsParent")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="TileMap"]
@@ -43,6 +50,9 @@ Maxzoom = 4.0
 ItemsParent = NodePath("../../ItemParents")
 
 [node name="Exhibit Editor Ui" parent="CanvasLayer" instance=ExtResource("10_c21vt")]
+visible = false
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("12_730rj")]
 
 [node name="ItemParents" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -52,6 +62,7 @@ y_sort_enabled = true
 
 [node name="MuseumTileEditor" type="Node2D" parent="."]
 process_mode = 4
+visible = false
 y_sort_enabled = true
 script = ExtResource("11_uydor")
 
@@ -61,14 +72,12 @@ y_sort_enabled = true
 position = Vector2(54, -120)
 _displacementSpeed = 50.0
 
-[node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi")]
+[node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi", "_itemsParent")]
 script = ExtResource("12_k33tk")
 _exhibitEditorUi = NodePath("../CanvasLayer/Exhibit Editor Ui")
+_itemsParent = NodePath("../ItemParents")
 
-[node name="Item1" parent="." instance=ExtResource("13_whphv")]
-position = Vector2(192, -204)
-
-[node name="Item2" parent="." instance=ExtResource("13_whphv")]
-position = Vector2(268, -133)
+[node name="ManualSorting" type="Node2D" parent="."]
+script = ExtResource("18_rds1y")
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

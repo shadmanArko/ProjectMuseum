@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot.DependencyInjection.Attributes;
+using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
@@ -11,6 +13,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item1;
     private PackedScene item2;
     private PackedScene item3;
+    private PackedScene item4;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export]public Node2D ItemsParent;
     [Inject]
@@ -30,6 +33,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
         item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
+        item4 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_4.tscn");
         Item.OnItemPlaced += UpdateUiOnItemPlaced;
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
@@ -42,7 +46,32 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _httpRequestForGettingBalance.Request(url);
         _httpRequestForGettingBalance.RequestCompleted += OnHttpRequestForGettingBalanceCompleted;
         _httpRequestForReducingBalance.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
+        MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
     }
+
+    private string _cardName = "";
+    private void OnClickBuilderCard(BuilderCardType builderCardType, string cardName)
+    {
+        _cardName = cardName;
+        if ((builderCardType == BuilderCardType.Exhibit))
+        {
+            if (cardName == "SmallWoodenExhibitBasic")
+            {
+                OnExhibit0Pressed();
+            }else if (cardName =="MediumWoodenExhibitBasic")
+            {
+                OnExhibit1Pressed();
+
+            }else if (cardName =="LargeWoodenExhibitBasic")
+            {
+                OnExhibit3Pressed();
+            }else if (cardName =="MediumWoodenExhibitBasic2")
+            {
+                OnExhibit4Pressed();
+            }
+        }
+    }
+
     private void OnHttpRequestForGettingBalanceCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
@@ -58,55 +87,36 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 
     public void OnExhibit0Pressed()
     {
-        var instance = (Node)item1.Instantiate();
-        // GetTree().Root.AddChild(instance);
-        ItemsParent.AddChild(instance);
-        var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
-
-        if (scriptInstance != null)
-        {
-            // Now you can access properties or call methods on the script instance
-            scriptInstance.Set("selectedItem", true);
-        }
-        else
-        {
-            GD.Print("Item script not found");
-        }
+        SetUpItem(item1);
     }
     public void OnExhibit1Pressed()
     {
-        var instance = (Node)item3.Instantiate();
-        // GetTree().Root.AddChild(instance);
-        ItemsParent.AddChild(instance);
-        var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
+        SetUpItem(item3);
+    }
 
+    private void SetUpItem(PackedScene packedScene)
+    {
+        var instance = (Node)packedScene.Instantiate();
+        ItemsParent.AddChild(instance);
+        var scriptInstance = instance.GetNode<Item>(".");
         if (scriptInstance != null)
         {
-            // Now you can access properties or call methods on the script instance
-            scriptInstance.Set("selectedItem", true);
+            scriptInstance.Initialize(_cardName);
         }
         else
         {
             GD.Print("Item script not found");
         }
     }
+    
 
     public void OnExhibit3Pressed()
     {
-        var instance = (Node)item2.Instantiate();
-        // GetTree().Root.AddChild(instance);
-        ItemsParent.AddChild(instance);
-        var scriptInstance = instance.GetNode("." /* Replace with the actual path to the script node */);
-
-        if (scriptInstance != null)
-        {
-            // Now you can access properties or call methods on the script instance
-            scriptInstance.Set("selectedItem", true);
-        }
-        else
-        {
-            GD.Print("Item script not found");
-        }
+        SetUpItem(item2);
+    }
+    public void OnExhibit4Pressed()
+    {
+        SetUpItem(item4);
     }
 
     void UpdateUiOnItemPlaced(float itemPrice)

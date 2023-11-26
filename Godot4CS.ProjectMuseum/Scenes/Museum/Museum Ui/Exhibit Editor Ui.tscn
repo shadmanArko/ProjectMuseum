@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_kqmcg"]
-[ext_resource type="Script" path="res://Scripts/Museum/Draggable.cs" id="3_musxw"]
+[ext_resource type="PackedScene" uid="uid://bwntmtbpv43ly" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn" id="3_vjpch"]
 [ext_resource type="Script" path="res://Scripts/Museum/DropTarget.cs" id="4_mx4kr"]
 
 [node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton")]
@@ -92,17 +92,12 @@ offset_right = -0.207794
 offset_bottom = -0.333923
 grow_vertical = 2
 theme = ExtResource("2_kqmcg")
+script = ExtResource("4_mx4kr")
 
-[node name="Draggable" type="ColorRect" parent="Panel/ColorRect/Left Panel"]
+[node name="Draggable" parent="Panel/ColorRect/Left Panel" instance=ExtResource("3_vjpch")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -84.5
-offset_right = 59.5
-offset_bottom = 35.0
-grow_horizontal = 2
-script = ExtResource("3_musxw")
+offset_left = -72.0
+offset_right = 72.0
 
 [node name="Right Panel" type="Panel" parent="Panel/ColorRect"]
 modulate = Color(0.937255, 0.898039, 1, 1)
@@ -136,3 +131,4 @@ offset_top = 155.0
 offset_right = 385.0
 offset_bottom = 206.0
 color = Color(0.541176, 0.541176, 0.541176, 1)
+script = ExtResource("4_mx4kr")

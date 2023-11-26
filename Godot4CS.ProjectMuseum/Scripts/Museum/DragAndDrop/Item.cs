@@ -2,26 +2,43 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
+using Newtonsoft.Json;
 using ProjectMuseum.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
-public partial class Item : Sprite2D
+public partial class Item : Sprite2D, IComparable<Item>
 {
+    
+    public  int CompareTo(Item item2)
+    {
+        // First, compare Y positions
+        int yComparison =  Position.Y.CompareTo(item2.Position.Y);
+
+        // If Y positions are the same, compare X positions
+        if (yComparison == 0)
+        {
+            return Position.X.CompareTo(item2.Position.X);
+        }
+
+        return yComparison;
+    }
+    
     public static Action<float> OnItemPlaced;
 
     public bool selectedItem = false;
-    [Export]
-    public string itemType = "small";
+    // [Export]
+    // public string itemType = "small";
     [Export]
     public float ItemPrice = 45.33f;
 
     [Export] public int numberOfTilesItTakes = 1;
+    [Export] public string TileExtentsInDirection = "Both";
     private List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
     private List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
@@ -33,11 +50,10 @@ public partial class Item : Sprite2D
 
     private HttpRequest _httpRequestForExhibitPlacementConditions;
     private HttpRequest _httpRequestForExhibitPlacement;
-
+    public string ExhibitVariationName = "default";
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
-        GD.Print("Item Initialized" );
     }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -47,15 +63,15 @@ public partial class Item : Sprite2D
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
+        AddToGroup("ManualSortGroup");
         _httpRequestForExhibitPlacement = new HttpRequest();
         _httpRequestForExhibitPlacementConditions = new HttpRequest();
         AddChild(_httpRequestForExhibitPlacement);
         AddChild(_httpRequestForExhibitPlacementConditions);
         _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;
-        string url = ApiAddress.MuseumApiPath + itemType;
+        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
         _httpRequestForExhibitPlacementConditions.Request(url);
-
         _originalColor = Modulate;
         if (numberOfTilesItTakes == 1)
         {
@@ -66,49 +82,69 @@ public partial class Item : Sprite2D
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, -1));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, 0));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, -1));
-        }else if (numberOfTilesItTakes == 2)
+        }else if (numberOfTilesItTakes == 2 && TileExtentsInDirection == "Left")
         {
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, 0));
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, -1));
             
+        }else if (numberOfTilesItTakes == 2 && TileExtentsInDirection == "Right")
+        {
+            listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, 0));
+            listOfCoordinateOffsetsToCheck.Add(new Vector2I(-1, 0));
+            
         }
+    }
+
+    public void Initialize(string exhibitVariationName)
+    {
+        
+        ExhibitVariationName = exhibitVariationName;
+        selectedItem = true;
+        GD.Print("Item Initialized");
     }
 
     private void httpRequestForExhibitPlacementConditionsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         _exhibitPlacementConditionDatas = JsonSerializer.Deserialize<List<ExhibitPlacementConditionData>>(jsonStr);
-        // GD.Print(jsonStr);
+        // GD.Print("exhibit placement data"+ jsonStr);
     }
     private void httpRequestForExhibitPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         GD.Print("Http1 result " + jsonStr);
     }
+
+    private Vector2I _lastCheckedTile = new Vector2I();
+
+    private bool _eligibleForItemPlacementInTile = false;
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
         if (!selectedItem) return;
         Vector2I mouseTile = GameManager.TileMap.LocalToMap(GetGlobalMousePosition());
-
-        Vector2 localPos = GameManager.TileMap.MapToLocal(mouseTile);
-        Vector2 worldPos = GameManager.TileMap.ToGlobal(localPos);
-
+        
         // Check if the tile is eligible for this item placement
-        var eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
-        Modulate = eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
-        // GD.Print($"{eligibleForItemPlacementInTile}");
-        // Apply effect based on eligibility
-
-        GlobalPosition = worldPos;
+        if (_lastCheckedTile != mouseTile)
+        {
+            Vector2 localPos = GameManager.TileMap.MapToLocal(mouseTile);
+            Vector2 worldPos = GameManager.TileMap.ToGlobal(localPos);
+            _eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
+            Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+            // GD.Print($"{eligibleForItemPlacementInTile}");
+            // Apply effect based on eligibility
+            GlobalPosition = worldPos;
+            _lastCheckedTile = mouseTile;
+            MuseumActions.OnItemUpdated?.Invoke();
+        }
         if (selectedItem && Input.IsActionPressed("ui_left_click"))
         {
-            if (!eligibleForItemPlacementInTile)
+            if (!_eligibleForItemPlacementInTile)
             {
                 GD.Print("Not Eligible tile");
                 return;
             }
-           
+
             HandleExhibitPlacement();
             OnItemPlaced?.Invoke(ItemPrice);
             selectedItem = false;
@@ -122,16 +158,18 @@ public partial class Item : Sprite2D
 
     private async void HandleExhibitPlacement()
     {
+        List<string> tileIds = new List<string>();
         foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
         {
-            string url =
-                $"{ApiAddress.MuseumApiPath}PlaceAnExhibit/{GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition))}/{itemType}";
-            _httpRequestForExhibitPlacement.Request(url);
-            await Task.Delay(300);
+            tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
         }
-
-        
-        
+        string[] headers = { "Content-Type: application/json"};
+        var body = JsonConvert.SerializeObject(tileIds);
+        string url =
+            $"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}";
+        _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+        GD.Print("Handling exhibit placement");
+        MuseumActions.OnItemUpdated?.Invoke();
     }
 
     public override void _Input(InputEvent @event)
@@ -147,7 +185,10 @@ public partial class Item : Sprite2D
 
     private bool CheckIfTheTileIsEligible(Vector2I tilePosition)
     {
-        if (_exhibitPlacementConditionDatas is not { Count: > 0 }) return false;
+        if (_exhibitPlacementConditionDatas is not { Count: > 0 })
+        {
+            return false;
+        }
         _listOfMatchingExhibitPlacementConditionDatas = new List<ExhibitPlacementConditionData>();
         foreach (var offsetCoordinate in listOfCoordinateOffsetsToCheck)
         {
@@ -172,7 +213,7 @@ public partial class Item : Sprite2D
             }
             
         }
-        GD.Print($"{_listOfMatchingExhibitPlacementConditionDatas.Count} eligible tiles");
+        // GD.Print($"{_listOfMatchingExhibitPlacementConditionDatas.Count} eligible tiles");
         return true;
     }
     private string GetTileId(Vector2I tilePosition)
@@ -190,5 +231,6 @@ public partial class Item : Sprite2D
         return null;
     }
 
-   
+
+    
 }

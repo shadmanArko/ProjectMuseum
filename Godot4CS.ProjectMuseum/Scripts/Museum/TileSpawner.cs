@@ -8,10 +8,10 @@ using ProjectMuseum.Models;
 
 public partial class TileSpawner : TileMap
 {
-	[Export] private PackedScene _wallLeft;
 	[Export] private PackedScene _wallRight;
-	[Export] private PackedScene _dirtyWallLeft;
-	[Export] private PackedScene _dirtyWallRight;
+	[Export] private PackedScene _wallLeft;
+	[Export] private int _dirtyWallProbability = 10;
+	[Export] private Array<Texture2D> _dirtyWallTextures;
 	[Export] private Node2D _wallsParent;
 	// [Export] private Array<int> _dirtyTilesIndex;
 	public override void _Ready()
@@ -37,20 +37,31 @@ public partial class TileSpawner : TileMap
 		{
 			if (museumTile.XPosition == minCellIndexX)
 			{
-				var instance = (Node2D)_wallRight.Instantiate();
+				var instance = (Node2D)_wallLeft.Instantiate();
+				AddDirtyWallTexture(instance);
 				instance.Position = GetCellWorldPosition(museumTile.XPosition,  museumTile.YPosition);
 				_wallsParent.AddChild(instance);
 			}
 
 			if (museumTile.YPosition == minCellIndexY)
 			{
-				var instance = (Node2D)_wallLeft.Instantiate();
+				var instance = (Node2D)_wallRight.Instantiate();
+				AddDirtyWallTexture(instance);
 				instance.Position = GetCellWorldPosition(museumTile.XPosition, + museumTile.YPosition);
 				_wallsParent.AddChild(instance);
 			}
 		}
 		GD.Print($"Min x {minCellIndexX}, Min y {minCellIndexY}");
 	}
+
+	private void AddDirtyWallTexture(Node2D instance)
+	{
+		if (GD.RandRange(1, 100) < _dirtyWallProbability)
+		{
+			instance.GetNode<Sprite2D>(".").Texture = _dirtyWallTextures[GD.RandRange(0, _dirtyWallTextures.Count - 1)];
+		}
+	}
+
 	private Vector2 GetCellWorldPosition(int cellX, int cellY)
 	{
 		// The following line will return the world position of the center of the cell.

@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
+using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
@@ -19,14 +20,16 @@ public class MuseumController : ControllerBase
     private readonly IDisplayArtifactService _displayArtifactService;
     private readonly IArtifactStorageService _artifactStorageService;
     private readonly ITradingArtifactsService _tradingArtifactsService;
+    private readonly IExhibitService _exhibitService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
         _displayArtifactService = displayArtifactService;
         _artifactStorageService = artifactStorageService;
         _tradingArtifactsService = tradingArtifactsService;
+        _exhibitService = exhibitService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -34,11 +37,29 @@ public class MuseumController : ControllerBase
         var museumTiles =await _museumTileService.GetAllMuseumTiles();
         return Ok(museumTiles);
     }
-    [HttpGet("PlaceAnExhibit/{tileId}/{exhibitType}")]
-    public async Task<IActionResult> PlaceAnExhibit(string tileId, string exhibitType )
+    [HttpGet("PlaceAnExhibit/{tileId}/{exhibitVariationName}")]
+    public async Task<IActionResult> PlaceAnExhibit(string tileId, string exhibitVariationName )
     {
-        var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTile(tileId, exhibitType);
+        var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTile(tileId, exhibitVariationName);
         return Ok(exhibitPlacementResult);
+    }
+    [HttpGet("PlaceAnExhibitOnTiles/{originTileId}/{exhibitVariationName}")]
+    public async Task<IActionResult> PlaceAnExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName )
+    {
+        var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName);
+        return Ok(exhibitPlacementResult);
+    }
+    [HttpGet("GetAllExhibits")]
+    public async Task<IActionResult> GetAllExhibits()
+    {
+        var allExhibits = await _exhibitService.GetAllExhibits();
+        return Ok(allExhibits);
+    }
+    [HttpGet("GetAllExhibitVariations")]
+    public async Task<IActionResult> GetAllExhibitVariations()
+    {
+        var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
+        return Ok(allExhibitVariations);
     }
     [HttpGet("GetAllMuseumTilesForNewGame")]
     public async Task<IActionResult> GetAllMuseumTilesForNewGame()
@@ -71,10 +92,10 @@ public class MuseumController : ControllerBase
         var museumTile = await _museumTileService.DeleteMuseumTileById(id);
         return Ok(museumTile);
     }
-    [HttpGet("{exhibitType}")]
-    public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitType)
+    [HttpGet("{exhibitVariationName}")]
+    public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitVariationName)
     {
-        var exhibitEligibility = await _museumTileService.GetEligibilityOfPositioningExhibit( exhibitType);
+        var exhibitEligibility = await _museumTileService.GetEligibilityOfPositioningExhibit( exhibitVariationName);
         return Ok(exhibitEligibility);
     }
     [HttpGet("GetMuseumBalance/{id}")]

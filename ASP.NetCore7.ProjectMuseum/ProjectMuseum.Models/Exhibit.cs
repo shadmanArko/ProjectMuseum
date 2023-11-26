@@ -3,6 +3,7 @@ namespace ProjectMuseum.Models;
 public class Exhibit
 {
     public string Id { get; set; }
+    public string ExhibitVariationName { get; set; }
     public int XPosition { get; set; }
     public int YPosition { get; set; }
     public string ExhibitDecoration { get; set; }
@@ -11,6 +12,4 @@ public class Exhibit
     public string ExhibitArtifactSlot3 { get; set; }
     public string ExhibitArtifactSlot4 { get; set; }
     public string ExhibitArtifactSlot5 { get; set; }
-    public bool IsHangingExhibit { get; set; }
-    public bool IsWallExhibit { get; set; }
 }

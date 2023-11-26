@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 namespace Godot4CS.ProjectMuseum.Scripts.UI;
 

@@ -26,6 +26,7 @@ public partial class ManualSorting : Node2D
 		}
 		foreach (var item in itemsToSort)
 		{
+			item.Position = new Vector2(item.Position.X, Mathf.Round(item.Position.Y));
 			foreach (var item1 in itemsToSort)
 			{
 				if (item != item1 && Math.Abs(item.Position.Y - item1.Position.Y) < 0.1f)
@@ -36,11 +37,11 @@ public partial class ManualSorting : Node2D
 					{
 						if (itemTilePosition.X > item1TilePosition.X && item.numberOfTilesItTakes < 2)
 						{
-							item.Position = new Vector2(item.Position.X, item.Position.Y + 0.1f);
+							item.Position = new Vector2(item.Position.X, item1.Position.Y + 0.1f);
 						}
 						else
 						{
-							item.Position = new Vector2(item.Position.X, item.Position.Y - 0.1f);
+							item.Position = new Vector2(item.Position.X, item1.Position.Y - 0.1f);
 						}
 					}
 				}

@@ -12,4 +12,5 @@ public static class MuseumActions
     public static Action<float> OnMuseumBalanceReduced;
     public static Action<float> OnMuseumBalanceAdded;
     public static Action OnItemUpdated;
+    public static Action<string> OnBottomPanelButtonClicked;
 }

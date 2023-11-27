@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=23 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -18,9 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
 [ext_resource type="PackedScene" uid="uid://bypida1m5guj5" path="res://Scenes/Museum/Museum Ui/Builder Ui/Builder Card.tscn" id="12_730rj"]
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
-[ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="16_2uco0"]
 [ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
-[ext_resource type="PackedScene" uid="uid://70xubhgxm5i3" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.tscn" id="17_ua72y"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
@@ -59,10 +57,9 @@ ItemsParent = NodePath("../../ItemParents")
 visible = false
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("12_730rj")]
-
-[node name="DiggingAndPermitsMenu" parent="CanvasLayer" instance=ExtResource("16_2uco0")]
-
-[node name="BottomBarMuseumUi" parent="CanvasLayer" instance=ExtResource("17_ua72y")]
+process_mode = 4
+visible = false
+offset_bottom = -50.0
 
 [node name="ItemParents" type="Node2D" parent="."]
 y_sort_enabled = true

@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://70xubhgxm5i3"]
+[gd_scene load_steps=7 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
+[ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.cs" id="1_26dxj"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/ButtonPress.cs" id="2_1850m"]
+[ext_resource type="Script" path="res://Scripts/Museum/BuilderCardSlotsController.cs" id="4_egqqe"]
+[ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_hulbe"]
 
-[node name="BottomBarMuseumUi" type="Control"]
+[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_exhibitButton", "_builderCardPanel")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 12
@@ -12,6 +16,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("1_26dxj")
+_newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/New Exhibit Button")
+_exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button")
+_builderCardPanel = NodePath("Builder card panel")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -332,6 +340,43 @@ layout_mode = 2
 
 [node name="Help Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Builder card panel" type="ColorRect" parent="." node_paths=PackedStringArray("_builderCardContainer")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -3.86
+anchor_right = 1.0
+anchor_bottom = 0.04
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.686275, 0.65098, 0.607843, 1)
+script = ExtResource("4_egqqe")
+_builderCardScene = ExtResource("5_fc6vt")
+_builderCardContainer = NodePath("MarginContainer/GridContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="Builder card panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="Builder card panel/MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme = ExtResource("6_hulbe")
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 5
+
+[node name="Builder Card" parent="Builder card panel/MarginContainer/GridContainer" instance=ExtResource("5_fc6vt")]
+visible = false
 layout_mode = 2
 
 [connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Administration Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Administration Button" method="OnButtonPressed"]

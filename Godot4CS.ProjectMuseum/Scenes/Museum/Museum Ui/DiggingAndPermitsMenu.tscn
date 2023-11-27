@@ -7,6 +7,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(1080, 640)
@@ -25,3 +26,265 @@ grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="PanelContainer"]
 layout_mode = 2
+
+[node name="Container" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Top Panel" type="HBoxContainer" parent="PanelContainer/Container"]
+custom_minimum_size = Vector2(0, 30)
+layout_direction = 3
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/Container/Top Panel"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+
+[node name="Location Selector Panel" type="PanelContainer" parent="PanelContainer/Container"]
+custom_minimum_size = Vector2(1000, 580)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/Container/Location Selector Panel"]
+layout_mode = 2
+color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Container/Location Selector Panel"]
+layout_mode = 2
+
+[node name="Location Selector HBox" type="HBoxContainer" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_direction = 1
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Location Option Left Button" type="Button" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Location Selector HBox"]
+custom_minimum_size = Vector2(130, 0)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+text = "LEFT"
+
+[node name="Location Display Label" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Location Selector HBox"]
+custom_minimum_size = Vector2(700, 0)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Option Right Button" type="Button" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Location Selector HBox"]
+custom_minimum_size = Vector2(130, 0)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 8
+text = "RIGHT"
+
+[node name="Sublocation Panel" type="PanelContainer" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Background" type="ColorRect" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel"]
+layout_mode = 2
+color = Color(0.615686, 0.615686, 0.615686, 1)
+
+[node name="Sublocation Scroll Panel" type="ScrollContainer" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Sublocation Scroll Container" type="VBoxContainer" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel"]
+layout_mode = 2
+
+[node name="Location Display Label2" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label3" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label4" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label5" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label6" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label7" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label8" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label9" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label10" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label11" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label12" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label13" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label14" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label15" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label16" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label17" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Location Display Label18" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "NORTH AMERICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1

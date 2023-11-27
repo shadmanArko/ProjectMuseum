@@ -6,8 +6,8 @@ namespace ProjectMuseum.Services.MuseumTileService;
 public class MuseumTileDataGenerator : IMuseumTileDataGenerator
 {
     private readonly IMuseumTileRepository _museumTileRepository;
-    public int numberOfTilesInX = 20;
-    public int numberOfTilesInY = 24;
+    public int numberOfTilesInX = 18;
+    public int numberOfTilesInY = 20;
     public int originStartsX = 0;
     public int originStartsY = 0;
 

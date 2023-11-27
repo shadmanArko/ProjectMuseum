@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byectc7a7rtd5"
-path="res://.godot/imported/Guest_3.png-6f161b6b708db6efc711d4ece3d3123d.ctex"
+uid="uid://o5nw35prtghe"
+path="res://.godot/imported/Male Main Character (2).png-27d37832bf4a4a878382813c5c937f49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Characters/Guest_3.png"
-dest_files=["res://.godot/imported/Guest_3.png-6f161b6b708db6efc711d4ece3d3123d.ctex"]
+source_file="res://Assets/2D/Animations/Museum Character Animations/Male Main Character (2).png"
+dest_files=["res://.godot/imported/Male Main Character (2).png-27d37832bf4a4a878382813c5c937f49.ctex"]
 
 [params]
 

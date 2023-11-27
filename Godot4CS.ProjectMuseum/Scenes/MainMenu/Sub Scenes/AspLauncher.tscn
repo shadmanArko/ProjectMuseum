@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgo7cwsahkuip"]
+
+[ext_resource type="Script" path="res://Scripts/ASPLauncher/AspLauncher.cs" id="1_5y6vb"]
+
+[node name="AspLauncher" type="Node2D"]
+script = ExtResource("1_5y6vb")

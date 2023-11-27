@@ -15,6 +15,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item3;
     private PackedScene item4;
     [Export] private RichTextLabel museumMoneyTextField;
+    [Export] private Button _diggingPermitsButton;
+    [Export] private Control _diggingPermitsUi;
     [Export]public Node2D ItemsParent;
     [Inject]
     public List<ExhibitPlacementConditionData> ExhibitPlacementConditionDatas { get; set; }
@@ -46,7 +48,13 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _httpRequestForGettingBalance.Request(url);
         _httpRequestForGettingBalance.RequestCompleted += OnHttpRequestForGettingBalanceCompleted;
         _httpRequestForReducingBalance.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
+        _diggingPermitsButton.Pressed += DiggingPermitsButtonOnPressed;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+    }
+
+    private void DiggingPermitsButtonOnPressed()
+    {
+        _diggingPermitsUi.Visible = true;
     }
 
     private string _cardName = "";

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxystp6xmjk7p"]
+[gd_scene load_steps=3 format=3 uid="uid://dxystp6xmjk7p"]
 
+[ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.cs" id="1_ft8li"]
 [ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="1_hsa1v"]
 
-[node name="DiggingAndPermitsMenu" type="Control"]
+[node name="DiggingAndPermitsMenu" type="Control" node_paths=PackedStringArray("_closePanelButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +11,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+script = ExtResource("1_ft8li")
+_closePanelButton = NodePath("PanelContainer/Container/Top Panel/Button")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(1080, 640)

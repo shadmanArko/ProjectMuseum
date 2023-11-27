@@ -57,6 +57,9 @@ ItemsParent = NodePath("../../ItemParents")
 visible = false
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("12_730rj")]
+process_mode = 4
+visible = false
+offset_bottom = -50.0
 
 [node name="ItemParents" type="Node2D" parent="."]
 y_sort_enabled = true

@@ -1,18 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=11 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="1_xl6pw"]
+[ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="2_3c32r"]
 [ext_resource type="Texture2D" uid="uid://cwrr0p0amuel2" path="res://Assets/2D/Sprites/Exhibits/Sprite-0007.png" id="2_p5phu"]
 [ext_resource type="Texture2D" uid="uid://ck4te6vpacd7e" path="res://Assets/2D/Sprites/Exhibits/Sprite-0008.png" id="3_71apm"]
+[ext_resource type="PackedScene" uid="uid://70xubhgxm5i3" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.tscn" id="3_xtoc7"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/Sprite-0009.png" id="4_co613"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_u4d1t"]
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
-[ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="8_hsie3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
-[node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField")]
+[node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField", "_diggingPermitsButton", "_diggingPermitsUi")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +22,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfgvl")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
+_diggingPermitsButton = NodePath("Panel2/Digging and Permits Button")
+_diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 metadata/_edit_vertical_guides_ = [-481.0]
+
+[node name="DiggingAndPermitsMenu" parent="." instance=ExtResource("2_3c32r")]
+visible = false
+layout_mode = 1
+offset_right = 0.00012207
+
+[node name="BottomBarMuseumUi" parent="." instance=ExtResource("3_xtoc7")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.954
+offset_top = -0.320068
+offset_right = 0.00012207
 
 [node name="Panel" type="Panel" parent="."]
 visible = false
@@ -87,6 +102,7 @@ icon = ExtResource("4_co613")
 expand_icon = true
 
 [node name="Bottom Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -144,10 +160,6 @@ offset_bottom = 38.0
 [node name="Button" type="Button" parent="Bottom Panel/HBoxContainer"]
 layout_mode = 2
 
-[node name="SceneChanger" parent="." node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("8_hsie3")]
-_sceneChangerButton = NodePath("../Panel2/Button")
-_scenePath = "res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"
-
 [node name="Panel2" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -156,17 +168,17 @@ anchor_right = 1.0
 offset_bottom = 44.0
 grow_horizontal = 2
 
-[node name="Button" type="Button" parent="Panel2"]
+[node name="Digging and Permits Button" type="Button" parent="Panel2"]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -29.0
-offset_top = 14.0
-offset_right = 1.0
-offset_bottom = 40.0
+anchors_preset = -1
+anchor_left = 0.932
+anchor_top = 1.795
+anchor_right = 0.986
+anchor_bottom = 3.977
+offset_left = -0.440063
+offset_top = 0.0199966
+offset_right = -0.120117
+offset_bottom = 0.0119934
 grow_horizontal = 0
 grow_vertical = 2
 

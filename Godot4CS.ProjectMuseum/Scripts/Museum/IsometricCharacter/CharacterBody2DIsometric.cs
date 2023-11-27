@@ -16,7 +16,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
     public override void _Ready()
     {
         base._Ready();
-        AddToGroup("ManualSortGroup");
+        // AddToGroup("ManualSortGroup");
         _animationPlayer.Play("idle_front_facing");
     }
 

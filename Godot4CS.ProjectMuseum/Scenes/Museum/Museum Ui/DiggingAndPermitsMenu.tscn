@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dxystp6xmjk7p"]
+[gd_scene load_steps=2 format=3 uid="uid://dxystp6xmjk7p"]
+
+[ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="1_hsa1v"]
 
 [node name="DiggingAndPermitsMenu" type="Control"]
 layout_mode = 3
@@ -110,3 +112,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_filter = 1
 text = "Possible Battle Site"
+
+[node name="SceneChanger" parent="." node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("1_hsa1v")]
+_sceneChangerButton = NodePath("../PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
+_scenePath = "res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"

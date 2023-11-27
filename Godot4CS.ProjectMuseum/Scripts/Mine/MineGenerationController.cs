@@ -1,6 +1,7 @@
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
@@ -15,6 +16,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _generateMineHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
+	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationView _mineGenerationView;
 
 	[Export] private CanvasLayer _savingCanvas;
@@ -48,6 +50,7 @@ public partial class MineGenerationController : Node2D
 	private void InitializeDiReferences()
 	{
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 	}
 
 	public void GenerateMine()
@@ -129,7 +132,7 @@ public partial class MineGenerationController : Node2D
 		{
 			var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
-			MineSetCellConditions.SetTileMapCell(tilePos, cell, _mineGenerationView);
+			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, _mineGenerationView);
 		}
 	}
     

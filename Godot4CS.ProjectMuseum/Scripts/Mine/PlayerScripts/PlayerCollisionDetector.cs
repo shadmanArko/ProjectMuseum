@@ -193,7 +193,7 @@ public partial class PlayerCollisionDetector : Node2D
 			foreach (var tempCell in cells)
 			{
 				var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
-				MineSetCellConditions.SetTileMapCell(tempCellPos, tempCell, _mineGenerationVariables.MineGenView);
+				MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell, _mineGenerationVariables.MineGenView);
 			}
 		}
 	}

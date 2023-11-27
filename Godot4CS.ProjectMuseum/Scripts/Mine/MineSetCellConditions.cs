@@ -5,7 +5,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public static class MineSetCellConditions
 {
-    public static void SetTileMapCell(Vector2I tilePos, Cell cell, MineGenerationView mineGenerationView)
+    public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
     {
         //var tilePos = mineGenerationView.LocalToMap(pos);
 
@@ -23,7 +23,7 @@ public static class MineSetCellConditions
             {
                 if (cell.IsRevealed)
                 {
-                    SetBreakableCell(mineGenerationView, cell, tilePos);
+                    SetBreakableCell(mineGenerationView, cell, tilePos, mouseDir);
                 }
                 else
                 {
@@ -52,7 +52,7 @@ public static class MineSetCellConditions
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
     }
 
-    private static void SetBreakableCell(MineGenerationView mineGenerationView, Cell cell, Vector2I tilePos)
+    private static void SetBreakableCell(MineGenerationView mineGenerationView, Cell cell, Vector2I tilePos, Vector2I mouseDir)
     {
         var n = 0;
         if (cell.TopBrokenSide)
@@ -74,14 +74,16 @@ public static class MineSetCellConditions
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
         mineGenerationView.SetCell(1, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
+        SetCrackOnTiles(tilePos, mouseDir, cell, mineGenerationView);
     }
 
     #endregion
 
     public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
     {
-        
-        if (cell.HitPoint >= 3)
+        if(cell.HitPoint > 3)
+            return;
+        if (cell.HitPoint == 3)
         {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,0));
         }
@@ -93,7 +95,7 @@ public static class MineSetCellConditions
         {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(2,0));
         }
-        else
+        else if(cell.HitPoint <= 0)
         {
             EraseCellsOnAllLayers(mineGenerationView, tilePos);
             mineGenerationView.SetCell(1,tilePos,mineGenerationView.TileSourceId,new Vector2I(5,2));

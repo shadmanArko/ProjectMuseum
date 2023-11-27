@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=10 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="Texture2D" uid="uid://f0trk2421xsq" path="res://Assets/2D/Sprites/Exhibits/Sprite-0006.png" id="1_xl6pw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/Sprite-0009.png" id="4_co613"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_u4d1t"]
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
+[ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="8_hsie3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
@@ -142,6 +143,32 @@ offset_bottom = 38.0
 
 [node name="Button" type="Button" parent="Bottom Panel/HBoxContainer"]
 layout_mode = 2
+
+[node name="SceneChanger" parent="." node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("8_hsie3")]
+_sceneChangerButton = NodePath("../Panel2/Button")
+_scenePath = "res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"
+
+[node name="Panel2" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 44.0
+grow_horizontal = 2
+
+[node name="Button" type="Button" parent="Panel2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = 14.0
+offset_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [connection signal="pressed" from="Panel/Exhibit 0" to="." method="OnExhibit0Pressed"]
 [connection signal="pressed" from="Panel/Exhibit 1" to="." method="OnExhibit1Pressed"]

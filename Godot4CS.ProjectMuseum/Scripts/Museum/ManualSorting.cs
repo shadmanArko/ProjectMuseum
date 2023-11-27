@@ -11,13 +11,18 @@ public partial class ManualSorting : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		MuseumActions.OnItemUpdated += SortItemsManually;
+		// MuseumActions.OnItemUpdated += SortItemsManually;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		SortItemsManually();
 	}
 
 	public void SortItemsManually()
 	{
 		// Assuming you have an array of ItemScript instances to sort
-		GD.Print("Sorting Manually");
+		// GD.Print("Sorting Manually");
 		Array<Node> nodesInGroup = GetTree().GetNodesInGroup("ManualSortGroup");
 		Item[] itemsToSort = new Item[nodesInGroup.Count];
 		for (int i = 0; i < nodesInGroup.Count; i++)

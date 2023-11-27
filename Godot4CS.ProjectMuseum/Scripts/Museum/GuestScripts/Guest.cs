@@ -21,6 +21,7 @@ public partial class Guest : CharacterBody2D
     public override void _Ready()
     {
         base._Ready();
+        AddToGroup("ManualSortGroup");
         _animationPlayerInstance = _animationPlayer.Duplicate() as AnimationPlayer;
         AddChild(_animationPlayerInstance);
         

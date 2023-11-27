@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=23 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cuongtmbiiass" path="res://Assets/2D/Sprites/Wallpapers/1.png" id="7_5wxpw"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Museum Ui/Museum ui.tscn" id="7_xsnwb"]
 [ext_resource type="Texture2D" uid="uid://c5gblrdjxy4i3" path="res://Assets/2D/Sprites/Wallpapers/2.png" id="8_s5qaf"]
+[ext_resource type="Texture2D" uid="uid://cfnplqomkdo4p" path="res://Assets/2D/Sprites/Wallpapers/3.png" id="9_bhbr7"]
 [ext_resource type="Texture2D" uid="uid://bt8tovq0knruf" path="res://Assets/2D/Sprites/Wallpapers/4 .png" id="9_qrxw8"]
 [ext_resource type="Texture2D" uid="uid://ddxt3f2qki8xr" path="res://Assets/2D/Sprites/Wallpapers/5.png" id="10_02o80"]
 [ext_resource type="PackedScene" uid="uid://bjy2gyknf1lwq" path="res://Scenes/Museum/Museum Ui/Exhibit Editor Ui.tscn" id="10_c21vt"]
@@ -17,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
 [ext_resource type="PackedScene" uid="uid://bypida1m5guj5" path="res://Scenes/Museum/Museum Ui/Builder Ui/Builder Card.tscn" id="12_730rj"]
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
-[ext_resource type="PackedScene" uid="uid://dpwda1isuxnq7" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
+[ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
@@ -34,8 +35,8 @@ layer_0/tile_data = PackedInt32Array()
 script = ExtResource("3_txjx3")
 _wallRight = ExtResource("10_xt14w")
 _wallLeft = ExtResource("6_plrwf")
-_dirtyWallProbability = 50
-_dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
+_dirtyWallProbability = 40
+_dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_bhbr7"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
 _wallsParent = NodePath("../WallsParent")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="TileMap"]
@@ -60,6 +61,18 @@ visible = false
 [node name="ItemParents" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="Player" parent="ItemParents" instance=ExtResource("12_55fh7")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(54, -120)
+_displacementSpeed = 50.0
+
+[node name="GuestsController" type="Node2D" parent="ItemParents"]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("18_iea1i")
+_guestScene = ExtResource("17_4it67")
+
 [node name="WallsParent" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -69,29 +82,18 @@ visible = false
 y_sort_enabled = true
 script = ExtResource("11_uydor")
 
-[node name="Player" parent="." instance=ExtResource("12_55fh7")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(54, -120)
-_displacementSpeed = 50.0
-
 [node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi", "_itemsParent")]
 script = ExtResource("12_k33tk")
 _exhibitEditorUi = NodePath("../CanvasLayer/Exhibit Editor Ui")
 _itemsParent = NodePath("../ItemParents")
 
-[node name="GuestsController" type="Node2D" parent="."]
-z_index = 1
-y_sort_enabled = true
-script = ExtResource("18_iea1i")
-_guestScene = ExtResource("17_4it67")
-
 [node name="ManualSorting" type="Node2D" parent="."]
 script = ExtResource("18_rds1y")
 
 [node name="EntryGateOld" type="Sprite2D" parent="."]
+z_index = 1
 texture_filter = 1
-position = Vector2(134, 35)
+position = Vector2(80, -42)
 texture = ExtResource("21_6abge")
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

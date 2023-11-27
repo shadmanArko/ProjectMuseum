@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c25gv63c04sp4"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/IsometricCharacter/CharacterBody2DIsometric.cs" id="2_olhew"]
-[ext_resource type="Texture2D" path="res://Assets/2D/Animations/Museum Character Animations/Male Main Character (2).png" id="2_uht1t"]
+[ext_resource type="Texture2D" uid="uid://o5nw35prtghe" path="res://Assets/2D/Animations/Museum Character Animations/Male Main Character (2).png" id="2_uht1t"]
 
 [sub_resource type="Animation" id="Animation_x31cg"]
 length = 0.001

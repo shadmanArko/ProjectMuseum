@@ -15,7 +15,7 @@ public partial class MainMenu : Control
 
 	private void NewGameButtonOnPressed()
 	{
-		GetTree().ChangeSceneToFile("res://Tests/Scenes/NewGameSetupUi.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/NewGameSetUp/NewGameSetupUi.tscn");
 	}
 
 	private void ExitButtonOnPressed()

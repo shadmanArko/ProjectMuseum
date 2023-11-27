@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqltyu2fgvmyp"]
+[gd_scene load_steps=8 format=3 uid="uid://bqltyu2fgvmyp"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSelector.cs" id="1_1qo2i"]
 [ext_resource type="PackedScene" uid="uid://c605j4icx72b7" path="res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn" id="2_8hko1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://15bptc8ns637" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina _bar.png" id="4_oy7sv"]
 [ext_resource type="Texture2D" uid="uid://d3w37soodcxua" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Bar fill.png" id="4_qktgs"]
 [ext_resource type="Texture2D" uid="uid://bqnclq7a3ymjd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina Bar fill.png" id="6_o1ooj"]
+[ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="7_j8fmk"]
 
 [node name="MineUI" type="CanvasLayer"]
 metadata/_edit_vertical_guides_ = [664.0]
@@ -99,3 +100,19 @@ value = 50.0
 fill_mode = 3
 texture_over = ExtResource("4_oy7sv")
 texture_progress = ExtResource("6_o1ooj")
+
+[node name="Back To Museum Button" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 60)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -168.0
+offset_top = 24.0
+offset_right = -18.0
+offset_bottom = 74.0
+grow_horizontal = 0
+text = "Back To Museum"
+
+[node name="SceneChanger" parent="." node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("7_j8fmk")]
+_sceneChangerButton = NodePath("../Back To Museum Button")
+_scenePath = "res://Scenes/Museum/Main Scene/Museum.tscn"

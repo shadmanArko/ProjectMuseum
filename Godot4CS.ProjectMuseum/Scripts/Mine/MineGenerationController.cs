@@ -1,6 +1,7 @@
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
@@ -15,6 +16,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _generateMineHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
+	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationView _mineGenerationView;
 
 	[Export] private CanvasLayer _savingCanvas;
@@ -48,6 +50,7 @@ public partial class MineGenerationController : Node2D
 	private void InitializeDiReferences()
 	{
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 	}
 
 	public void GenerateMine()
@@ -112,6 +115,15 @@ public partial class MineGenerationController : Node2D
 		var url = ApiAddress.MineApiPath+"GenerateMine";
 		_generateMineHttpRequest.Request(url);
 	}
+	
+	private void OnGenerateMineDataHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
+		GD.Print(mine);
+		GenerateGridFromMineData(mine);
+	}
+	
 	private void GenerateGridFromMineData(global::ProjectMuseum.Models.Mine mine)
 	{
 		_mineGenerationVariables.Mine = mine;
@@ -120,34 +132,8 @@ public partial class MineGenerationController : Node2D
 		{
 			var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
-			MineSetCellConditions.SetTileMapCell(tilePos, cell, _mineGenerationView);
+			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, _mineGenerationView);
 		}
-	}
-	private void OnGenerateMineDataHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		GD.Print(mine);
-		GenerateGridFromMineData(mine);
-	}
-    
-
-	private Cell InstantiateUnbreakableCell(int width, int height)
-	{
-		var cell = new Cell
-		{
-			Id = $"cell({width},{height})",
-			IsBreakable = false,
-			IsInstantiated = true,
-			HitPoint = 1000,
-			PositionX = width * _mineGenerationVariables.CellSize,
-			PositionY =  height * _mineGenerationVariables.CellSize,
-		};
-        
-		var pos = new Vector2(cell.PositionX, cell.PositionY);
-		var tilePos = _mineGenerationView.LocalToMap(pos);
-		_mineGenerationView.SetCell(0,tilePos,5,new Vector2I(1,15));
-		return cell;
 	}
     
 	#endregion

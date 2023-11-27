@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="1_o2y3v"]
 
 [node name="Torch" type="PointLight2D"]
-color = Color(0.964706, 0.968627, 0.294118, 1)
+color = Color(0.866667, 0.756863, 0.454902, 1)
 energy = 2.0
 shadow_enabled = true
 texture = ExtResource("1_o2y3v")

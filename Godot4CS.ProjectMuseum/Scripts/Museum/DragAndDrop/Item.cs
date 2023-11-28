@@ -232,5 +232,9 @@ public partial class Item : Sprite2D, IComparable<Item>
     }
 
 
-    
+    public override void _ExitTree()
+    {
+        _httpRequestForExhibitPlacementConditions.RequestCompleted -= httpRequestForExhibitPlacementConditionsOnRequestCompleted;
+        _httpRequestForExhibitPlacement.RequestCompleted -= httpRequestForExhibitPlacementOnRequestCompleted;
+    }
 }

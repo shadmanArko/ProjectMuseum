@@ -145,6 +145,10 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     public override void _ExitTree()
     {
         Item.OnItemPlaced -= UpdateUiOnItemPlaced;
+        _httpRequestForGettingBalance.RequestCompleted -= OnHttpRequestForGettingBalanceCompleted;
+        _httpRequestForReducingBalance.RequestCompleted -= OnHttpRequestCompletedForReducingBalance;
+        _diggingPermitsButton.Pressed -= DiggingPermitsButtonOnPressed;
+        MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
         base._ExitTree();
     }
 }

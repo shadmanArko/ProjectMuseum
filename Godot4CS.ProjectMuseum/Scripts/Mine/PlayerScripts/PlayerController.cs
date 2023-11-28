@@ -103,13 +103,13 @@ public partial class PlayerController : CharacterBody2D
 		
 		if(Input.IsActionJustReleased("Test"))
 			GD.Print($"{collision.GetCollider()}");
-		if (collision == null)
-		{
-			if (_playerControllerVariables.State != MotionState.Hanging)
-				_playerControllerVariables.State = MotionState.Falling;
-			
-			return;
-		}
+		// if (collision == null)
+		// {
+		// 	if (_playerControllerVariables.State != MotionState.Hanging)
+		// 		_playerControllerVariables.State = MotionState.Falling;
+		// 	
+		// 	return;
+		// }
         
         MineActions.OnPlayerCollisionDetection?.Invoke(collision);
 	}

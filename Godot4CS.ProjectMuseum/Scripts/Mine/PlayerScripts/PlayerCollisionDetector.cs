@@ -39,6 +39,14 @@ public partial class PlayerCollisionDetector : Node2D
 	private void DetectCollision(KinematicCollision2D collision)
 	{
 		var tileMap = _mineGenerationVariables.MineGenView.TileMap;
+
+		if (collision == null)
+		{
+			if(_playerControllerVariables.State != MotionState.Hanging)
+				_playerControllerVariables.State = MotionState.Falling;
+			return;
+		}
+		
 		if (collision.GetCollider() == tileMap)
 		{
 			var tilePos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);

@@ -1,8 +1,9 @@
 using System;
+using Godot;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
-public static class MuseumActions
+public partial class MuseumActions : Node
 {
     public static Action<Item> OnClickItem;
     public static Action<Draggable> DragStarted;

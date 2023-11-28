@@ -85,15 +85,15 @@ public static class MineSetCellConditions
             return;
         if (cell.HitPoint == 3)
         {
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,0));
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,2));
         }
         else if (cell.HitPoint >= 2)
         {
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(1,0));
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(1,2));
         }
         else if (cell.HitPoint >= 1)
         {
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(2,0));
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(2,2));
         }
         else if(cell.HitPoint <= 0)
         {
@@ -108,16 +108,16 @@ public static class MineSetCellConditions
         switch (mouseDir)
         {
             case Vector2I(1,0):
-                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,1);
+                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords);//,1);
                 break;
             case Vector2I(-1,0):
                 mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords);
                 break;
             case Vector2I(0,-1):
-                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,2);
+                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords);//,2);
                 break;
             case Vector2I(0,1):
-                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,3);
+                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords);//,3);
                 break;
         }
     }

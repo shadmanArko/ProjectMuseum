@@ -24,7 +24,7 @@ TileSourceId = 0
 WoodArtifactSourceId = 2
 SilverArtifactSourceId = 3
 GoldArtifactSourceId = 4
-TileCrackSourceId = 5
+TileCrackSourceId = 6
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]
 

@@ -50,7 +50,9 @@ public partial class PlayerController : CharacterBody2D
 	        var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
 	        GD.Print($"lamp scene instantiated {scene is null}");
 	        _mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
-	        scene!.Set("position", Position);
+	        var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(Position);
+	        //var cell = _mineGenerationVariables.GetCell(cellPos);
+	        scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize);
 	        GD.Print("Lamp instantiated");
         }
 	}
@@ -84,7 +86,8 @@ public partial class PlayerController : CharacterBody2D
 	private void ApplyGravity()
 	{
 		if(_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging) return;
-
+		if (MoveAndCollide(Velocity, false, recoveryAsCollision: true) != null) return;
+		
 		var previousVerticalVelocity = Velocity.Y;
 		var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
 
@@ -100,17 +103,6 @@ public partial class PlayerController : CharacterBody2D
 	private void DetectCollision()
 	{
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
-		
-		if(Input.IsActionJustReleased("Test"))
-			GD.Print($"{collision.GetCollider()}");
-		// if (collision == null)
-		// {
-		// 	if (_playerControllerVariables.State != MotionState.Hanging)
-		// 		_playerControllerVariables.State = MotionState.Falling;
-		// 	
-		// 	return;
-		// }
-        
         MineActions.OnPlayerCollisionDetection?.Invoke(collision);
 	}
 
@@ -147,14 +139,9 @@ public partial class PlayerController : CharacterBody2D
 
 	private void PlayerGrab()
 	{
-		//GD.Print("Player Grab method called");
-		//var grab = Input.IsActionJustReleased("toggle_grab");
-		//if (!grab) return;
 		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
 			MotionState.Falling : MotionState.Hanging;
 		_animationController.PlayAnimation("idle_to_climb");
-		// await Task.Delay(500);
-		// Position += new Vector2(0, -10);
 		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
 			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
@@ -182,6 +169,7 @@ public partial class PlayerController : CharacterBody2D
 			_ => Vector2I.Left
 		};
 		
+		if(GetInputKeyboard().Normalized().X != 0) return;
 		MineActions.OnMouseMotionAction?.Invoke(degree);
 	}
 

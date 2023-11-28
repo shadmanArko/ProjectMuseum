@@ -2,7 +2,7 @@ using ProjectMuseum.Models;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 
-public interface IMineCellGenerator
+public interface IMineCellGeneratorService
 {
     Task<Mine> GenerateMineCellData();
 }

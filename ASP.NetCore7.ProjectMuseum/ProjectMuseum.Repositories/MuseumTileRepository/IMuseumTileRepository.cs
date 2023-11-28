@@ -13,4 +13,5 @@ public interface IMuseumTileRepository
     Task<List<MuseumTile>?> UpdateMuseumTilesSourceId(List<string> ids, int sourceId);
     Task<MuseumTile?> UpdateExhibitToMuseumTile(string tileId, string exhibitId);
     Task<MuseumTile?> Delete(string id);
+    Task<List<MuseumTile>?> DeleteAll();
 }

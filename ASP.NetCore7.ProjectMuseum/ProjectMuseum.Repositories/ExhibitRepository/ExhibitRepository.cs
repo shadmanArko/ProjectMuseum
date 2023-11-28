@@ -63,4 +63,11 @@ public class ExhibitRepository : IExhibitRepository
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
         return exhibit;
     }
+
+    public async Task<List<Exhibit>?> DeleteAllExhibits()
+    {
+        var exhibits = new List<Exhibit>();
+        await _exhibitDatabase.WriteDataAsync(exhibits);
+        return exhibits;
+    }
 }

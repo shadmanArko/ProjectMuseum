@@ -85,4 +85,10 @@ public class MuseumTileRepository : IMuseumTileRepository
         if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTile;
     }
+    public async Task<List<MuseumTile>?> DeleteAll()
+    {
+        var museumTiles = new List<MuseumTile>();
+        await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTiles;
+    }
 }

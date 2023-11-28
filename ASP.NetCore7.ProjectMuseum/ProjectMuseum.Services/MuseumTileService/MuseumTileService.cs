@@ -84,6 +84,12 @@ public class MuseumTileService : IMuseumTileService
         return museumTile;
     }
 
+    public async Task<List<MuseumTile>?> DeleteAllMuseumTiles()
+    {
+        var museumTiles = await _museumTileRepository.DeleteAll();
+        return museumTiles;
+    }
+
     public async Task<List<MuseumTile>?> GenerateMuseumTileForNewGame()
     {
        return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();

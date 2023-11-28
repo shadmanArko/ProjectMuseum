@@ -11,4 +11,5 @@ public interface IExhibitRepository
     Task<List<ExhibitVariation>?> GetAllExhibitVariations();
     Task<List<Exhibit>?> GetAllExhibits();
     Task<Exhibit?> Delete(string id);
+    Task<List<Exhibit>?> DeleteAllExhibits();
 }

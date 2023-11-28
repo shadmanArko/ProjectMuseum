@@ -92,6 +92,14 @@ public class MuseumController : ControllerBase
         var museumTile = await _museumTileService.DeleteMuseumTileById(id);
         return Ok(museumTile);
     }
+    [HttpGet("StartNewGame")]
+    public async Task<IActionResult> ClearPreviousDataAndStartNewGame()
+    {
+        var museumTiles = await _museumTileService.DeleteAllMuseumTiles();
+        var allExhibits = await _exhibitService.DeleteAllExhibits();
+        var newMuseumTiles = await _museumTileService.GenerateMuseumTileForNewGame();
+        return Ok("Cleared Data and set Up new tiles");
+    }
     [HttpGet("{exhibitVariationName}")]
     public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitVariationName)
     {

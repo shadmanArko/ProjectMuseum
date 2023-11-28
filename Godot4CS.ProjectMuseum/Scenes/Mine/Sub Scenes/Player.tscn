@@ -173,7 +173,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_o20ck"]
 resource_name = "fall"
 length = 0.35
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -349,6 +348,10 @@ visibility_layer = 2
 z_index = 12
 texture_filter = 1
 disable_mode = 1
+collision_layer = 2
+collision_mask = 13
+slide_on_ceiling = false
+floor_stop_on_slope = false
 script = ExtResource("1_bhvr3")
 _animationController = NodePath("AnimationPlayer")
 _maxVerticalVelocity = 8.0
@@ -360,7 +363,6 @@ scale = Vector2(0.9375, 1.00962)
 polygon = PackedVector2Array(-3, -5, -3, 5, -1.13333, 7.9381, 3.13333, 7.9381, 5, 5, 5, -5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.592157, 0.592157, 0.592157, 1)
 light_mask = 3
 texture_filter = 1
 texture = ExtResource("2_eymdr")

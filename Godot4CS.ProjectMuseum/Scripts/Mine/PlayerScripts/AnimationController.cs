@@ -33,10 +33,14 @@ public partial class AnimationController : AnimationPlayer
 	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
-		if (tempVelocity.Y >= 10)
-			_playerControllerVariables.IsFalling = true;
+		if (_playerControllerVariables.State == MotionState.Falling)
+		{
+			var velocity = _playerControllerVariables.Velocity;
+			GD.Print(velocity);
+			PlayAnimation("fall");
+		}
 		
-		if(_playerControllerVariables.IsHanging)
+		if(_playerControllerVariables.State == MotionState.Hanging)
 			PlayHangingAnimations(tempVelocity, isAttacking);
 		else
 			PlayMovementAnimations(tempVelocity, isAttacking);
@@ -127,7 +131,7 @@ public partial class AnimationController : AnimationPlayer
 
 	public void PlayAnimation(string state)
 	{
-		if (_playerControllerVariables.IsHanging)
+		if (_playerControllerVariables.State == MotionState.Hanging)
 		{
 			if(state == "climb_idle")
 			{
@@ -160,7 +164,7 @@ public partial class AnimationController : AnimationPlayer
 
 	private void ToggleHangOnWall()
 	{
-		PlayAnimation(_playerControllerVariables.IsHanging ? "idle_to_climb" : "climb_to_idle");
+		PlayAnimation(_playerControllerVariables.State == MotionState.Hanging ? "idle_to_climb" : "climb_to_idle");
 	}
 
 	private void SpriteFlipBasedOnMousePosition(double mousePos)

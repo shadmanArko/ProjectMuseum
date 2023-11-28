@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot4CS.ProjectMuseum"
-run/main_scene="res://Scenes/MainMenu/Main Scene/MainMenu.tscn"
+run/main_scene="res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://Assets/2D/Sprites/icon.svg"
 
@@ -24,9 +24,8 @@ MuseumActions="*res://Scripts/Museum/Museum Actions/MuseumActions.cs"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=4
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
@@ -151,3 +150,10 @@ Lamp={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[layer_names]
+
+2d_physics/layer_1="Walls"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Collectible"

@@ -18,12 +18,12 @@ public class PlayerControllerVariables
 	public float Gravity = 25f;
 
 	private bool _isAttacking;
-	private bool _isHanging;
-	private bool _isFalling;
+	// private bool _isHanging;
+	// private bool _isFalling;
 
 	public bool CanMove { get; set; }
 
-	public bool IsGrounded { get; set; }
+	// public bool IsGrounded { get; set; }
 
 	public bool IsAttacking
 	{
@@ -53,35 +53,35 @@ public class PlayerControllerVariables
 		}
 	}
 
-	public bool IsHanging
-	{
-		get => _isHanging;
-		set
-		{
-			if (_isHanging != value)
-			{
-				_isHanging = value;
-				MineActions.OnPlayerGrabActionPressed?.Invoke();
+	// public bool IsHanging
+	// {
+	// 	get => _isHanging;
+	// 	set
+	// 	{
+	// 		if (_isHanging != value)
+	// 		{
+	// 			_isHanging = value;
+	// 			MineActions.OnPlayerGrabActionPressed?.Invoke();
+	//
+	// 			if (!_isHanging) return;
+	// 			IsFalling = false;
+	// 			IsGrounded = false;
+	// 		}
+	// 	}
+	// }
 
-				if (!_isHanging) return;
-				IsFalling = false;
-				IsGrounded = false;
-			}
-		}
-	}
-
-	public bool IsFalling
-	{
-		get => _isFalling;
-		set
-		{
-			_isFalling = value;
-
-			if (!_isFalling) return;
-			IsGrounded = false;
-			IsHanging = false;
-		}
-	}
+	// public bool IsFalling
+	// {
+	// 	get => _isFalling;
+	// 	set
+	// 	{
+	// 		_isFalling = value;
+	//
+	// 		if (!_isFalling) return;
+	// 		IsGrounded = false;
+	// 		IsHanging = false;
+	// 	}
+	// }
 
 	public Equipables CurrentEquippedItem
 	{
@@ -92,6 +92,8 @@ public class PlayerControllerVariables
 			//MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
 		}
 	}
+
+	public MotionState State;
 
 	#endregion
 

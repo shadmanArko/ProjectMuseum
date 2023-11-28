@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using ProjectMuseum.Models;
 
@@ -41,11 +42,20 @@ public partial class PlayerCollisionDetector : Node2D
 		if (collision.GetCollider() == tileMap)
 		{
 			var tilePos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
-			var playerPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
-			tilePos -= (Vector2I) collision.GetNormal();
-			var cell = _mineGenerationVariables.GetCell(FindPositionOfTargetCell());
-			if (tilePos.Y > playerPos.Y && !cell.IsBroken)
-				_playerControllerVariables.IsGrounded = true;
+			//var playerPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
+			tilePos +=  Vector2I.Down;	//(Vector2I) collision.GetNormal();
+			var cell = _mineGenerationVariables.GetCell(tilePos);
+			//GD.Print($"tile under player {cell.PositionX}, {cell.PositionY}");
+			// if (tilePos.Y > playerPos.Y && !cell.IsBroken)
+			// 	_playerControllerVariables.State = MotionState.Grounded;
+			
+			if(!cell.IsBroken && _playerControllerVariables.State != MotionState.Hanging)
+				_playerControllerVariables.State = MotionState.Grounded;
+			else
+			{
+				if(_playerControllerVariables.State != MotionState.Hanging)
+					_playerControllerVariables.State = MotionState.Falling;
+			}
 		}
 	}
 	
@@ -187,7 +197,7 @@ public partial class PlayerCollisionDetector : Node2D
 			if (_playerControllerVariables.MouseDirection == Vector2I.Down)
 			{
 				GD.Print("is grounded is made false");
-				_playerControllerVariables.IsGrounded = false;
+				_playerControllerVariables.State = MotionState.Falling;
 			}
 			
 			foreach (var tempCell in cells)

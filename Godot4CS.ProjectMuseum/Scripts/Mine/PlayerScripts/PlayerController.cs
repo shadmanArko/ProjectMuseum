@@ -1,6 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -26,14 +28,21 @@ public partial class PlayerController : CharacterBody2D
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
+	public override void _Ready()
+	{
+		_playerControllerVariables.State = MotionState.Falling;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
         PlayerMovement(delta);
-
+        
+        GD.Print(_playerControllerVariables.State);
+        
         if (Input.IsActionJustReleased("Test"))
         {
-	        GD.Print($"isGrounded: {_playerControllerVariables.IsGrounded}");
-	        GD.Print($"isFalling: {_playerControllerVariables.IsFalling}");
+	        GD.Print($"State: {_playerControllerVariables.State}");
+	        //GD.Print($"isFalling: {_playerControllerVariables.IsFalling}");
         }
 
         if (Input.IsActionJustReleased("Lamp"))
@@ -66,7 +75,7 @@ public partial class PlayerController : CharacterBody2D
 		}
         
 		ApplyGravity();
-		if(_playerControllerVariables.CanMove) PlayerGrab();
+		//if(_playerControllerVariables.CanMove) PlayerGrab();
 		_animationController.SetAnimation(PlayerAttack());
 		DetectCollision();
 		ModifyPlayerVariables();
@@ -74,7 +83,7 @@ public partial class PlayerController : CharacterBody2D
 
 	private void ApplyGravity()
 	{
-		if(_playerControllerVariables.IsGrounded || _playerControllerVariables.IsHanging) return;
+		if(_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging) return;
 
 		var previousVerticalVelocity = Velocity.Y;
 		var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
@@ -91,9 +100,14 @@ public partial class PlayerController : CharacterBody2D
 	private void DetectCollision()
 	{
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
+		
+		if(Input.IsActionJustReleased("Test"))
+			GD.Print($"{collision.GetCollider()}");
 		if (collision == null)
 		{
-			_playerControllerVariables.IsGrounded = false;
+			if (_playerControllerVariables.State != MotionState.Hanging)
+				_playerControllerVariables.State = MotionState.Falling;
+			
 			return;
 		}
         
@@ -105,7 +119,7 @@ public partial class PlayerController : CharacterBody2D
 	private Vector2 GetInputKeyboard()
 	{
 		Vector2 motion;
-		if (_playerControllerVariables.IsHanging)
+		if (_playerControllerVariables.State == MotionState.Hanging)
 		{
 			motion = new Vector2
 			{
@@ -133,15 +147,28 @@ public partial class PlayerController : CharacterBody2D
 
 	private void PlayerGrab()
 	{
-		var grab = Input.IsActionJustReleased("toggle_grab");
-		if (!grab) return;
-		_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
-		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
+		//GD.Print("Player Grab method called");
+		//var grab = Input.IsActionJustReleased("toggle_grab");
+		//if (!grab) return;
+		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
+			MotionState.Falling : MotionState.Hanging;
+		_animationController.PlayAnimation("idle_to_climb");
+		// await Task.Delay(500);
+		// Position += new Vector2(0, -10);
+		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
+			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
 	
 	public override void _Input(InputEvent @event)
 	{
 		if(!_playerControllerVariables.CanMove) return;
+		MouseMotion(@event);
+		if(@event.IsActionReleased("toggle_grab"))
+			PlayerGrab();
+	}
+
+	private void MouseMotion(InputEvent @event)
+	{
 		if(@event is not InputEventMouseMotion) return;
 		var mousePos = GetGlobalMousePosition();
 		var angle = GetAngleTo(mousePos);

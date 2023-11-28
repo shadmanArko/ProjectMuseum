@@ -41,7 +41,7 @@ string artifactStorageDataFolderPath = Path.Combine(AppContext.BaseDirectory, "D
 string tradingArtifactsDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "tradingArtifacts.json");
 
 
-
+//string museumTileDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json");
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
 
 

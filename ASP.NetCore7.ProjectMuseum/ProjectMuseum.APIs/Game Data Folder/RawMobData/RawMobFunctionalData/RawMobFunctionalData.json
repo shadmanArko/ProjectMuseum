@@ -1,0 +1,41 @@
+[
+  {
+    "Id": "001",
+    "Class": "Skeleton",
+    "Health": 100,
+    "MovementSpeed": 5,
+    "DamagePerAttack": 20,
+    "AggroRange": 10,
+    "StatusEffectOnContact": false,
+    "StatusEffect": "",
+    "CanFly": false,
+    "CanDig": false,
+    "Region": "Graveyard"
+  },
+  {
+    "Id": "002",
+    "Class": "Goblin",
+    "Health": 80,
+    "MovementSpeed": 8,
+    "DamagePerAttack": 15,
+    "AggroRange": 12,
+    "StatusEffectOnContact": true,
+    "StatusEffect": "Poison",
+    "CanFly": false,
+    "CanDig": false,
+    "Region": "Forest"
+  },
+  {
+    "Id": "003",
+    "Class": "Dragon",
+    "Health": 200,
+    "MovementSpeed": 12,
+    "DamagePerAttack": 50,
+    "AggroRange": 20,
+    "StatusEffectOnContact": true,
+    "StatusEffect": "Fire",
+    "CanFly": true,
+    "CanDig": false,
+    "Region": "Mountains"
+  }
+]

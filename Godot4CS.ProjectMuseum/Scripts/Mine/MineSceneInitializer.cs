@@ -37,7 +37,6 @@ public partial class MineSceneInitializer : Node
 			return;
 		}
 		AddChild(scene);
-		scene.GenerateMine();
 	}
 	
 	private void InstantiatePlayer()

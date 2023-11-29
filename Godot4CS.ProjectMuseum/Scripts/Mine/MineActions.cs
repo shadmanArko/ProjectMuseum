@@ -11,6 +11,11 @@ public partial class MineActions : Node
 	public static Action OnPlayerMeleeAttackActionPressed;
     public static Action OnPlayerRangedAttackActionPressed;
 
+    public static Action OnSuccessfulDigActionCompleted;
+
+    public static Action OnPlayerHealthValueChanged;
+    public static Action OnPlayerEnergyValueChanged;
+
     public static Action<Equipables> OnToolbarSlotChanged;
 
     public static Action<Node2D> OnMiniGameLoad;

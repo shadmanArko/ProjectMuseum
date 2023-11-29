@@ -20,7 +20,12 @@ public partial class MineGenerationController : Node2D
 
 	[Export] private CanvasLayer _savingCanvas;
 	[Export] private Node2D _mineBackGround;
-    
+
+	public override void _EnterTree()
+	{
+		InitializeDiReferences();
+	}
+
 	public override void _Ready()
 	{
 		CreateHttpRequests();
@@ -28,7 +33,8 @@ public partial class MineGenerationController : Node2D
 		_mineGenerationView = GetNode<MineGenerationView>("Mine");
 		_mineGenerationVariables.MineGenView = _mineGenerationView;
 		_savingCanvas.Visible = false;
-		LoadMineDataFromServer();
+		GenerateMineData();
+		_mineBackGround.Position = new Vector2(482, -107);
 	}
 
 	private void CreateHttpRequests()
@@ -52,19 +58,11 @@ public partial class MineGenerationController : Node2D
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 	}
 
-	public void GenerateMine()
-	{
-		InitializeDiReferences();
-		
-		_mineBackGround.Position = new Vector2(482, -107);
-	}
-
 	#region Save Mine Data Into Server
 
 	private void SaveMineDataIntoServer()
 	{
 		string[] headers = { "Content-Type: application/json"};
-		
 		var body = JsonConvert.SerializeObject(_mineGenerationVariables.Mine);
 
 		_saveGeneratedMineHttpRequest.Request(ApiAddress.MineApiPath+"UpdateMineData", headers,

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqltyu2fgvmyp"]
+[gd_scene load_steps=9 format=3 uid="uid://bqltyu2fgvmyp"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSelector.cs" id="1_1qo2i"]
+[ext_resource type="Script" path="res://Scripts/Mine/MineUiController.cs" id="1_fgd35"]
 [ext_resource type="PackedScene" uid="uid://c605j4icx72b7" path="res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn" id="2_8hko1"]
 [ext_resource type="Texture2D" uid="uid://dnuwjetejw2bg" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health_bar.png" id="3_jkpro"]
 [ext_resource type="Texture2D" uid="uid://15bptc8ns637" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina _bar.png" id="4_oy7sv"]
@@ -8,7 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://bqnclq7a3ymjd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina Bar fill.png" id="6_o1ooj"]
 [ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="7_j8fmk"]
 
-[node name="MineUI" type="CanvasLayer"]
+[node name="MineUI" type="CanvasLayer" node_paths=PackedStringArray("_healthBar", "_energyBar")]
+script = ExtResource("1_fgd35")
+_healthBar = NodePath("Health Bar")
+_energyBar = NodePath("Energy Bar")
 metadata/_edit_vertical_guides_ = [664.0]
 
 [node name="Toolbar Panel" type="HBoxContainer" parent="." node_paths=PackedStringArray("_toolbarSlots")]
@@ -77,12 +81,14 @@ offset_bottom = -76.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(1.88001, 1.88001)
+max_value = 200.0
 value = 50.0
+rounded = true
 fill_mode = 3
 texture_over = ExtResource("3_jkpro")
 texture_progress = ExtResource("4_qktgs")
 
-[node name="Stamina Bar" type="TextureProgressBar" parent="."]
+[node name="Energy Bar" type="TextureProgressBar" parent="."]
 texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -96,7 +102,9 @@ offset_bottom = -76.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(1.88001, 1.88001)
+max_value = 200.0
 value = 50.0
+rounded = true
 fill_mode = 3
 texture_over = ExtResource("4_oy7sv")
 texture_progress = ExtResource("6_o1ooj")

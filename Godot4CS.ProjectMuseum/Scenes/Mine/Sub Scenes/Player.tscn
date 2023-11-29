@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=27 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -341,9 +341,6 @@ _data = {
 "walk": SubResource("Animation_tq5uu")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_22oug"]
-size = Vector2(8, 13)
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
 light_mask = 3
 visibility_layer = 2
@@ -399,8 +396,3 @@ script = ExtResource("5_0x0fh")
 script = ExtResource("6_71wdr")
 _playerController = NodePath("..")
 _animationController = NodePath("../AnimationPlayer")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(1, 1.5)
-shape = SubResource("RectangleShape2D_22oug")

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
@@ -30,9 +31,12 @@ public partial class AnimationController : AnimationPlayer
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
 	}
-	public void SetAnimation(bool isAttacking)
+	public async void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
+
+		// if (isAttacking)
+		// 	await Task.Delay((int)CurrentAnimationLength * 100);
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
 			PlayHangingAnimations(tempVelocity, isAttacking);

@@ -2,6 +2,7 @@ using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -21,6 +22,7 @@ public partial class PlayerController : CharacterBody2D
 	public override void _EnterTree()
 	{
 		InitializeDiReferences();
+		SubscribeToActions();
 	}
 
 	private void InitializeDiReferences()
@@ -29,9 +31,16 @@ public partial class PlayerController : CharacterBody2D
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
+	private void SubscribeToActions()
+	{
+		MineActions.OnSuccessfulDigActionCompleted += ReducePlayerEnergy;
+	}
+
 	public override void _Ready()
 	{
 		_playerControllerVariables.State = MotionState.Falling;
+		_playerControllerVariables.PlayerHealth = 200;
+		_playerControllerVariables.PlayerEnergy = 200;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -85,9 +94,7 @@ public partial class PlayerController : CharacterBody2D
 		if(_fallTime >= _fallTimeThreshold)
 			_animationController.PlayAnimation("fall");
 		else
-		{
 			_fallTime += (float) delta;
-		}
 	}
 
 	private void ModifyPlayerVariables()
@@ -107,6 +114,11 @@ public partial class PlayerController : CharacterBody2D
 		}
 		else
 			MineActions.OnPlayerCollisionDetection?.Invoke(collision);
+	}
+
+	private void ReducePlayerEnergy()
+	{
+		EnergySystem.ReduceEnergy(1, 200, _playerControllerVariables);
 	}
 
 	#region Input
@@ -135,7 +147,7 @@ public partial class PlayerController : CharacterBody2D
 	
 	private bool PlayerAttack()
 	{
-		var input = Input.IsActionJustReleased("ui_left_click");
+		var input = Input.IsActionJustReleased("ui_left_click") && _playerControllerVariables.PlayerEnergy > 0;
 		_playerControllerVariables.IsAttacking = input;
 		return input;
 	}

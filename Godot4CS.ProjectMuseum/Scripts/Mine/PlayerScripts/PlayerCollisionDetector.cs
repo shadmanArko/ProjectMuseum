@@ -64,6 +64,8 @@ public partial class PlayerCollisionDetector : Node2D
 			DigArtifactCell(targetTilePosition);
 		else
 			DigOrdinaryCell(targetTilePosition);
+		
+		MineActions.OnSuccessfulDigActionCompleted?.Invoke();
 	}
 
 	private void BrushWall()
@@ -146,6 +148,12 @@ public partial class PlayerCollisionDetector : Node2D
 		if (!cell.IsBreakable)
 		{
 			GD.Print("Is not breakable");
+			return false;
+		}
+
+		if (cell.IsBroken)
+		{
+			GD.Print("cell is already broken");
 			return false;
 		}
 

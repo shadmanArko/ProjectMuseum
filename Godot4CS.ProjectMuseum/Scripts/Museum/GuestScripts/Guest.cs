@@ -7,7 +7,7 @@ using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 
 public partial class Guest : CharacterBody2D
 {
-	[Export] private float _displacementSpeed = 100;
+	[Export] private float _displacementSpeed = 30;
     private Vector2 motion = Vector2.Zero;
 
     [Export] private AnimationPlayer _animationPlayer;
@@ -15,12 +15,15 @@ public partial class Guest : CharacterBody2D
     [Export] private Sprite2D _characterSprite;
     private bool _playerFacingTheFront = true;
     private double _timer = 0f;
-    private float _decisionChangingInterval = 5f;
+    private double _decisionChangingInterval = 5f;
+    private double _decisionChangingIntervalMin = 2f;
+    private double _decisionChangingIntervalMax = 5f;
     [Export] private Array<Texture2D> _guestTextures;
     // Converts any Vector2 coordinates or motion from the cartesian to the isometric system
     public override void _Ready()
     {
         base._Ready();
+        GetRandomInterval();
         // AddToGroup("ManualSortGroup");
         _animationPlayerInstance = _animationPlayer.Duplicate() as AnimationPlayer;
         AddChild(_animationPlayerInstance);
@@ -29,6 +32,15 @@ public partial class Guest : CharacterBody2D
         _animationPlayerInstance.Play("idle_front_facing");
     }
 
+    private void GetRandomInterval()
+    {
+        _decisionChangingInterval = GD.RandRange(_decisionChangingIntervalMin, _decisionChangingIntervalMax);
+    }
+
+    public void Initialize()
+    {
+        MoveLeft();
+    }
     private void LoadRandomCharacterSprite()
     {
         _characterSprite.Texture = _guestTextures[GD.RandRange(0, _guestTextures.Count -1)];
@@ -56,6 +68,7 @@ public partial class Guest : CharacterBody2D
         // Check if 5 seconds have passed
         if (_timer >= _decisionChangingInterval)
         {
+            GetRandomInterval();
             _direction = Vector2.Zero;
             int options = GD.RandRange(1, 5);
             switch (options)
@@ -119,6 +132,9 @@ public partial class Guest : CharacterBody2D
         {
             // Move only if the next position is within the TileMap bounds
             MoveAndCollide(motion);
+        }else if (!nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap))
+        {
+            _timer += _decisionChangingInterval;
         }
     }
 

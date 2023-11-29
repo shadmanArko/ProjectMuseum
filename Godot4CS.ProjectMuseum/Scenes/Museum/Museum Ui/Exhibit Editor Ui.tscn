@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bwntmtbpv43ly" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn" id="3_vjpch"]
 [ext_resource type="Script" path="res://Scripts/Museum/DropTarget.cs" id="4_mx4kr"]
 
-[node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton")]
+[node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton", "_draggablesParent")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +15,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5j1h5")
 _exitButton = NodePath("Panel/ColorRect/Top Panel/Button")
+_draggable = ExtResource("3_vjpch")
+_draggablesParent = NodePath("Panel/ColorRect/Left Panel/VBoxContainer")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -92,12 +94,21 @@ offset_right = -0.207794
 offset_bottom = -0.333923
 grow_vertical = 2
 theme = ExtResource("2_kqmcg")
-script = ExtResource("4_mx4kr")
 
-[node name="Draggable" parent="Panel/ColorRect/Left Panel" instance=ExtResource("3_vjpch")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ColorRect/Left Panel"]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
-offset_left = -72.0
-offset_right = 72.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+script = ExtResource("4_mx4kr")
+_parentTarget = true
+
+[node name="Draggable" parent="Panel/ColorRect/Left Panel/VBoxContainer" instance=ExtResource("3_vjpch")]
+layout_mode = 2
 
 [node name="Right Panel" type="Panel" parent="Panel/ColorRect"]
 modulate = Color(0.937255, 0.898039, 1, 1)
@@ -115,7 +126,7 @@ offset_bottom = -0.333923
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DropTarget" type="ColorRect" parent="Panel/ColorRect/Right Panel"]
+[node name="DropTarget 1" type="ColorRect" parent="Panel/ColorRect/Right Panel"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 49.0
@@ -124,7 +135,7 @@ offset_bottom = 100.0
 color = Color(0.541176, 0.541176, 0.541176, 1)
 script = ExtResource("4_mx4kr")
 
-[node name="ColorRect2" type="ColorRect" parent="Panel/ColorRect/Right Panel"]
+[node name="DropTarget 2" type="ColorRect" parent="Panel/ColorRect/Right Panel"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 155.0

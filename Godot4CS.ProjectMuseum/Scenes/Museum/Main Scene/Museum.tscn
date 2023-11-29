@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=24 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
+[ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
 
 [node name="museum" type="Node2D"]
 y_sort_enabled = true
@@ -61,29 +62,28 @@ process_mode = 4
 visible = false
 offset_bottom = -50.0
 
-[node name="ItemParents" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="Player" parent="ItemParents" instance=ExtResource("12_55fh7")]
+[node name="Player" parent="." instance=ExtResource("12_55fh7")]
 z_index = 1
-y_sort_enabled = true
 position = Vector2(54, -120)
 _displacementSpeed = 50.0
 
-[node name="GuestsController" type="Node2D" parent="ItemParents"]
+[node name="GuestsController" type="Node2D" parent="."]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("18_iea1i")
 _guestScene = ExtResource("17_4it67")
+_spawnAtTile = Vector2i(0, -2)
+
+[node name="ItemParents" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="WallsParent" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="MuseumTileEditor" type="Node2D" parent="."]
-process_mode = 4
-visible = false
 y_sort_enabled = true
 script = ExtResource("11_uydor")
+_tileSourceId = 5
 
 [node name="ExhibitController" type="Node2D" parent="." node_paths=PackedStringArray("_exhibitEditorUi", "_itemsParent")]
 script = ExtResource("12_k33tk")
@@ -96,7 +96,86 @@ script = ExtResource("18_rds1y")
 [node name="EntryGateOld" type="Sprite2D" parent="."]
 z_index = 1
 texture_filter = 1
-position = Vector2(80, -42)
+position = Vector2(54, 4)
 texture = ExtResource("21_6abge")
+offset = Vector2(0, -32.5)
+
+[node name="Background Foresnt" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="IsomatricForestChunk" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(358.285, -334.5)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk2" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(-243, -315.955)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk3" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(76, -478)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk8" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(127, -787)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk6" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(694, -503)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk7" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(414, -645.5)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk4" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(-532, -459.955)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk5" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(-206.715, -621.5)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk9" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(-161, -931.5)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk12" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(464, -955)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk13" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(1031, -671)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk14" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(751, -813.5)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk15" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(176, -1099.5)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk10" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(-820, -604.455)
+texture = ExtResource("23_38mdj")
+
+[node name="IsomatricForestChunk11" type="Sprite2D" parent="Background Foresnt"]
+texture_filter = 1
+position = Vector2(-494.715, -766)
+texture = ExtResource("23_38mdj")
 
 [connection signal="request_completed" from="TileMap/HTTPRequest" to="TileMap" method="OnRequestCompleted"]

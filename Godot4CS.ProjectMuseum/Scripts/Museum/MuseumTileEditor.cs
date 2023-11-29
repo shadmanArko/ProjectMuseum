@@ -14,6 +14,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum;
 
 public partial class MuseumTileEditor : Node2D
 {
+    [Export] private int _tileSourceId;
     private TileMap _tileMap;
     private int _tileSize;
     private HttpRequest _httpRequestForGettingTiles;
@@ -92,13 +93,13 @@ public partial class MuseumTileEditor : Node2D
                         var spawnTilePos = new Vector2I(x, y);
                         if (!spawnTilePos.IsTilePositionInsideTileMap()) continue;
                         tilePositions.Add(spawnTilePos);
-                        GameManager.TileMap.SetCell(0, spawnTilePos, 0, Vector2I.Zero);
+                        GameManager.TileMap.SetCell(0, spawnTilePos, _tileSourceId, Vector2I.Zero);
                         // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
                         
                     }
                 }
 
-                UpdateTileSourceIdToDatabase(tilePositions, 0);
+                UpdateTileSourceIdToDatabase(tilePositions, _tileSourceId);
             }
             
         }else if (@event is InputEventMouseMotion mouseMotion)
@@ -114,7 +115,7 @@ public partial class MuseumTileEditor : Node2D
                          y <= Math.Max(_selectedTile.Y, endTile.Y);
                          y++)
                     {
-                        GameManager.TileMap.SetCell(1, new Vector2I(x, y), 0, Vector2I.Zero);
+                        GameManager.TileMap.SetCell(1, new Vector2I(x, y), _tileSourceId, Vector2I.Zero);
                         // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
                         
                     }

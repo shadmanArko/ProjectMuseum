@@ -31,5 +31,6 @@ modulate = Color(1, 1, 1, 0.392157)
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(0, -21)
+position = Vector2(0, -1)
 texture = ExtResource("3_c8hr5")
+offset = Vector2(0, -21)

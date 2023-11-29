@@ -11,13 +11,13 @@ public partial class ManualSorting : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// MuseumActions.OnItemUpdated += SortItemsManually;
+		MuseumActions.OnItemUpdated += SortItemsManually;
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-		SortItemsManually();
-	}
+	// public override void _PhysicsProcess(double delta)
+	// {
+	// 	SortItemsManually();
+	// }
 
 	public void SortItemsManually()
 	{
@@ -60,5 +60,11 @@ public partial class ManualSorting : Node2D
 		// {
 		// 	itemsToSort[i].ZIndex = itemsToSort.Length - i;
 		// }
+	}
+
+	public override void _ExitTree()
+	{
+		MuseumActions.OnItemUpdated -= SortItemsManually;
+
 	}
 }

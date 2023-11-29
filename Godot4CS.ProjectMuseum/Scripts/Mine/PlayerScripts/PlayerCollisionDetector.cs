@@ -73,6 +73,7 @@ public partial class PlayerCollisionDetector : Node2D
 		if (!IsCellBreakValid(targetTilePosition)) return;
 
 		var cell = _mineGenerationVariables.GetCell(targetTilePosition);
+		GD.Print($"breaking cell: {targetTilePosition}");
 		if (cell.HasArtifact)
 			DigArtifactCell(targetTilePosition);
 		else
@@ -88,12 +89,13 @@ public partial class PlayerCollisionDetector : Node2D
 	}
 
 	[Export] private string _alternateButtonPressMiniGameScenePath;
-	[Export] private bool _isMiniGameLoaded = false;
+	[Export] private bool _isMiniGameLoaded;
 	private Vector2I _artifactTilePos;
 	private void BrushOutArtifact(Cell cell, Vector2I tilePos)
 	{
 		if (!cell.HasArtifact || cell.HitPoint != 1) return;
-		_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(3,0));
+		//_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(3,0));
+		MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell, _mineGenerationVariables.MineGenView);
 		//TODO: Pop up that says "Extracting Artifact"
 		_playerControllerVariables.CanMove = false;
 		_artifactTilePos = tilePos;
@@ -113,7 +115,15 @@ public partial class PlayerCollisionDetector : Node2D
 
 		ShowDiscoveredArtifact();
 		DigOrdinaryCell(_artifactTilePos);
-		RevealAdjacentWalls(_artifactTilePos);
+		//RevealAdjacentWalls(_artifactTilePos);
+	}
+	
+	private void MiniGameLost()
+	{
+		GD.Print("Failed to Extract Artifact");
+		DigOrdinaryCell(_artifactTilePos);
+		//RevealAdjacentWalls(_artifactTilePos);
+		_playerControllerVariables.CanMove = true;
 	}
 
 	[Export] private string _discoveredArtifactScenePath;
@@ -133,13 +143,7 @@ public partial class PlayerCollisionDetector : Node2D
 		_playerControllerVariables.CanMove = true;
 	}
 
-	private void MiniGameLost()
-	{
-		GD.Print("Failed to Extract Artifact");
-		DigOrdinaryCell(_artifactTilePos);
-		RevealAdjacentWalls(_artifactTilePos);
-		_playerControllerVariables.CanMove = true;
-	}
+	
 
 	private Vector2I FindPositionOfTargetCell()
 	{
@@ -171,21 +175,43 @@ public partial class PlayerCollisionDetector : Node2D
 
 	private void DigArtifactCell(Vector2I tilePos)
 	{
+		GD.Print("Inside artifact break method");
 		var cell = _mineGenerationVariables.GetCell(tilePos);
 		cell.HitPoint--;
-		Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100);
+		Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
         
-		if (cell.HitPoint >= 2)
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(1,0));
-		else if (cell.HitPoint >= 1)
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(2,0));
-		else
+		MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell ,_mineGenerationVariables.MineGenView);
+		
+		if (cell.HitPoint <= 0)
 		{
-			_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,2));
-			//TODO: Pop up that says "Artifact Destroyed"
-			GD.Print("Artifact destroyed");
-			RevealAdjacentWalls(tilePos);
+			var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
+
+			GD.Print($"mouseDirection: {_playerControllerVariables.MouseDirection}");
+			if (_playerControllerVariables.MouseDirection == Vector2I.Down)
+			{
+				GD.Print("is grounded is made false");
+				if(_playerControllerVariables.State != MotionState.Hanging)
+					_playerControllerVariables.State = MotionState.Falling;
+			}
+			
+			foreach (var tempCell in cells)
+			{
+				var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
+				MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell, _mineGenerationVariables.MineGenView);
+			}
 		}
+		
+		// if (cell.HitPoint >= 2)
+		// 	_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(1,0));
+		// else if (cell.HitPoint >= 1)
+		// 	_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.GoldArtifactSourceId,new Vector2I(2,0));
+		// else
+		// {
+		// 	_mineGenerationVariables.MineGenView.SetCell(0,tilePos,_mineGenerationVariables.MineGenView.TileSourceId,new Vector2I(5,2));
+		// 	//TODO: Pop up that says "Artifact Destroyed"
+		// 	GD.Print("Artifact destroyed");
+		// 	RevealAdjacentWalls(tilePos);
+		// }
 	}
 
 	private void DigOrdinaryCell(Vector2I tilePos)

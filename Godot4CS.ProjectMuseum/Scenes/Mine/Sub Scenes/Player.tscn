@@ -363,8 +363,8 @@ _lampScenePath = "res://Scenes/Mine/Sub Scenes/Torch.tscn"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 texture_filter = 1
-position = Vector2(0.0624995, -0.0144234)
-scale = Vector2(0.9375, 1.00962)
+position = Vector2(-0.108206, -0.0144234)
+scale = Vector2(0.908203, 1.00962)
 polygon = PackedVector2Array(-3, -5, -3.26667, 7.93806, 1, 7.93806, 5.26667, 7.93806, 5, -5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

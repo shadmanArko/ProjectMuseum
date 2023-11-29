@@ -55,19 +55,8 @@ public partial class MineGenerationController : Node2D
 	public void GenerateMine()
 	{
 		InitializeDiReferences();
-		_mineBackGround.Position = new Vector2(482, -107);
-	}
-
-	public override void _Process(double delta)
-	{
-		if(Input.IsActionJustReleased("generateGrid"))
-			GenerateMine();
 		
-		if(Input.IsActionJustReleased("saveGrid"))
-			SaveMineDataIntoServer();
-			
-		if(Input.IsActionJustReleased("loadGrid"))
-			LoadMineDataFromServer();
+		_mineBackGround.Position = new Vector2(482, -107);
 	}
 
 	#region Save Mine Data Into Server
@@ -136,4 +125,20 @@ public partial class MineGenerationController : Node2D
 	}
     
 	#endregion
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionReleased("generateGrid"))
+		{
+			var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 10));
+			cell.HasArtifact = true;
+			GD.Print("Generated artifact");
+		}
+		
+		if(@event.IsActionReleased("saveGrid"))
+			SaveMineDataIntoServer();
+			
+		if(@event.IsActionReleased("loadGrid"))
+			LoadMineDataFromServer();
+	}
 }

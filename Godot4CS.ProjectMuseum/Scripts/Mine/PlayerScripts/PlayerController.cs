@@ -37,7 +37,7 @@ public partial class PlayerController : CharacterBody2D
 	{
         PlayerMovement(delta);
         
-        GD.Print(_playerControllerVariables.State);
+        //GD.Print(_playerControllerVariables.State);
         
         if (Input.IsActionJustReleased("Test"))
         {

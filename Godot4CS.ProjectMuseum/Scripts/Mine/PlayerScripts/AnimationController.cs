@@ -36,7 +36,7 @@ public partial class AnimationController : AnimationPlayer
 		if (_playerControllerVariables.State == MotionState.Falling)
 		{
 			var velocity = _playerControllerVariables.Velocity;
-			GD.Print(velocity);
+			//GD.Print(velocity);
 			PlayAnimation("fall");
 		}
 		

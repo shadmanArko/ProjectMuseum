@@ -44,21 +44,14 @@ public static class MineSetCellConditions
     {
         var n = 0;
         if (cell.TopBrokenSide)
-        {
             n += 1;
-        }
         if (cell.RightBrokenSide)
-        {
             n += 2;
-        }
         if (cell.BottomBrokenSide)
-        {
             n += 4;
-        }
         if (cell.LeftBrokenSide)
-        {
             n += 8;
-        }
+        
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
         mineGenerationView.SetCell(1, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
@@ -76,20 +69,14 @@ public static class MineSetCellConditions
         //TODO: designate artifact type from artifact variable of cell
         var artifactType = 2;
         
-        if(cell.HitPoint > 3)
+        if(cell.HitPoint > 3) 
             return;
         if (cell.HitPoint == 3)
-        {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,artifactType));
-        }
         else if (cell.HitPoint >= 2)
-        {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(1,artifactType));
-        }
         else if (cell.HitPoint >= 1)
-        {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(2,artifactType));
-        }
         else if(cell.HitPoint <= 0)
         {
             EraseCellsOnAllLayers(mineGenerationView, tilePos);
@@ -99,20 +86,14 @@ public static class MineSetCellConditions
 
     public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
     {
-        if(cell.HitPoint > 3)
+        if(cell.HitPoint > 3) 
             return;
         if (cell.HitPoint == 3)
-        {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,0));
-        }
         else if (cell.HitPoint >= 2)
-        {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(1,0));
-        }
         else if (cell.HitPoint >= 1)
-        {
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(2,0));
-        }
         else if(cell.HitPoint <= 0)
         {
             EraseCellsOnAllLayers(mineGenerationView, tilePos);
@@ -125,16 +106,16 @@ public static class MineSetCellConditions
         GD.Print($"Set crack cell {tilePos}");
         switch (mouseDir)
         {
-            case Vector2I(1,0):
+            case (1,0):
                 mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,1);
                 break;
-            case Vector2I(-1,0):
+            case (-1,0):
                 mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords);
                 break;
-            case Vector2I(0,-1):
+            case (0,-1):
                 mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,2);
                 break;
-            case Vector2I(0,1):
+            case (0,1):
                 mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,3);
                 break;
         }

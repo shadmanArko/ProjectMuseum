@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
@@ -14,6 +13,8 @@ public partial class PlayerController : CharacterBody2D
 	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private float _maxVerticalVelocity;
+	[Export] private float _fallTime;
+	[Export] private float _fallTimeThreshold;
 
 	[Export] private string _lampScenePath;
 
@@ -36,25 +37,7 @@ public partial class PlayerController : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
         PlayerMovement(delta);
-        
-        //GD.Print(_playerControllerVariables.State);
-        
-        if (Input.IsActionJustReleased("Test"))
-        {
-	        GD.Print($"State: {_playerControllerVariables.State}");
-	        //GD.Print($"isFalling: {_playerControllerVariables.IsFalling}");
-        }
-
-        if (Input.IsActionJustReleased("Lamp"))
-        {
-	        var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
-	        GD.Print($"lamp scene instantiated {scene is null}");
-	        _mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
-	        var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(Position);
-	        //var cell = _mineGenerationVariables.GetCell(cellPos);
-	        scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize);
-	        GD.Print("Lamp instantiated");
-        }
+        GD.Print(_playerControllerVariables.State);
 	}
     
 	private void PlayerMovement(double delta)
@@ -77,21 +60,34 @@ public partial class PlayerController : CharacterBody2D
 		}
         
 		ApplyGravity();
-		//if(_playerControllerVariables.CanMove) PlayerGrab();
 		_animationController.SetAnimation(PlayerAttack());
+		CheckFallTime(delta);
 		DetectCollision();
 		ModifyPlayerVariables();
 	}
 
 	private void ApplyGravity()
 	{
-		if(_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging) return;
-		if (MoveAndCollide(Velocity, false, recoveryAsCollision: true) != null) return;
-		
+		if (_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging)
+		{
+			_fallTime = 0;
+			return;
+		}
+        
 		var previousVerticalVelocity = Velocity.Y;
 		var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
 
 		Velocity = new Vector2(Velocity.X, currentVerticalVelocity);
+	}
+
+	private void CheckFallTime(double delta)
+	{
+		if(_fallTime >= _fallTimeThreshold)
+			_animationController.PlayAnimation("fall");
+		else
+		{
+			_fallTime += (float) delta;
+		}
 	}
 
 	private void ModifyPlayerVariables()
@@ -103,7 +99,14 @@ public partial class PlayerController : CharacterBody2D
 	private void DetectCollision()
 	{
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
-        MineActions.OnPlayerCollisionDetection?.Invoke(collision);
+
+		if (collision == null)
+		{
+			if (_playerControllerVariables.State != MotionState.Hanging)
+				_playerControllerVariables.State = MotionState.Falling;
+		}
+		else
+			MineActions.OnPlayerCollisionDetection?.Invoke(collision);
 	}
 
 	#region Input
@@ -152,7 +155,31 @@ public partial class PlayerController : CharacterBody2D
 		MouseMotion(@event);
 		if(@event.IsActionReleased("toggle_grab"))
 			PlayerGrab();
+		if(@event.IsActionReleased("Lamp"))
+			Lamp();
+		if(@event.IsActionReleased("Test"))
+			Test();
 	}
+
+	#region For Testing Purposes
+
+	private void Test()
+	{
+		GD.Print($"State: {_playerControllerVariables.State}");
+	}
+
+	private void Lamp()
+	{
+		var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
+		GD.Print($"lamp scene instantiated {scene is null}");
+		_mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
+		var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(Position);
+		//var cell = _mineGenerationVariables.GetCell(cellPos);
+		scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize);
+		GD.Print("Lamp instantiated");
+	}
+
+	#endregion
 
 	private void MouseMotion(InputEvent @event)
 	{

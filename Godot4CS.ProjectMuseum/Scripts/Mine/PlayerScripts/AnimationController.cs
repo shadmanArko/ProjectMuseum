@@ -33,12 +33,6 @@ public partial class AnimationController : AnimationPlayer
 	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
-		if (_playerControllerVariables.State == MotionState.Falling)
-		{
-			var velocity = _playerControllerVariables.Velocity;
-			//GD.Print(velocity);
-			PlayAnimation("fall");
-		}
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
 			PlayHangingAnimations(tempVelocity, isAttacking);

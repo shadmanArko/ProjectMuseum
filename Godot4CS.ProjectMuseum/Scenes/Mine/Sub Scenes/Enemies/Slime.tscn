@@ -200,7 +200,7 @@ _data = {
 "move": SubResource("Animation_h4tdc")
 }
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_navigationAgent2D", "_timer")]
+[node name="Slime" type="CharacterBody2D"]
 light_mask = 3
 visibility_layer = 4
 z_index = 10
@@ -209,8 +209,6 @@ collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_pkl74")
-_navigationAgent2D = NodePath("NavigationAgent2D")
-_timer = NodePath("Timer")
 _moveSpeed = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -236,4 +234,4 @@ debug_enabled = true
 wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="GetShortestPath"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeOut"]

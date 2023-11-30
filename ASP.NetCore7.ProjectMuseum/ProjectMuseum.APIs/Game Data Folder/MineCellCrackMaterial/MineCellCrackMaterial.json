@@ -1,0 +1,112 @@
+{
+  "CellCrackMaterials": [
+    {
+      "MaterialType": "Normal",
+      "SmallCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 0,
+        "AtlasCoordY": 0
+      },
+      "MediumCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 1,
+        "AtlasCoordY": 0
+      },
+      "LargeCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 2,
+        "AtlasCoordY": 0
+      }
+    },
+    {
+      "MaterialType": "Bone",
+      "SmallCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 0,
+        "AtlasCoordY": 1
+      },
+      "MediumCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 1,
+        "AtlasCoordY": 1
+      },
+      "LargeCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 2,
+        "AtlasCoordY": 1
+      }
+    },
+    {
+      "MaterialType": "Stone",
+      "SmallCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 0,
+        "AtlasCoordY": 2
+      },
+      "MediumCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 1,
+        "AtlasCoordY": 2
+      },
+      "LargeCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 2,
+        "AtlasCoordY": 2
+      }
+    },
+    {
+      "MaterialType": "Wood",
+      "SmallCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 0,
+        "AtlasCoordY": 3
+      },
+      "MediumCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 1,
+        "AtlasCoordY": 3
+      },
+      "LargeCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 2,
+        "AtlasCoordY": 3
+      }
+    },
+    {
+      "MaterialType": "Leather",
+      "SmallCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 0,
+        "AtlasCoordY": 4
+      },
+      "MediumCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 1,
+        "AtlasCoordY": 4
+      },
+      "LargeCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 2,
+        "AtlasCoordY": 4
+      }
+    },
+    {
+      "MaterialType": "Iron",
+      "SmallCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 0,
+        "AtlasCoordY": 5
+      },
+      "MediumCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 1,
+        "AtlasCoordY": 5
+      },
+      "LargeCrack": {
+        "TileSourceId": 1,
+        "AtlasCoordX": 2,
+        "AtlasCoordY": 5
+      }
+    }
+  ]
+}

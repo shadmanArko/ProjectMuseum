@@ -13,6 +13,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _saveGeneratedMineHttpRequest;
 	private HttpRequest _loadGeneratedMineHttpRequest;
 	private HttpRequest _generateMineHttpRequest;
+	private HttpRequest _assignArtifactsToMineHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
 	private PlayerControllerVariables _playerControllerVariables;
@@ -50,8 +51,12 @@ public partial class MineGenerationController : Node2D
 		_generateMineHttpRequest = new HttpRequest();
 		AddChild(_generateMineHttpRequest);
 		_generateMineHttpRequest.RequestCompleted += OnGenerateMineDataHttpRequestCompleted;
+		
+		_assignArtifactsToMineHttpRequest = new HttpRequest();
+		AddChild(_assignArtifactsToMineHttpRequest);
+		_assignArtifactsToMineHttpRequest.RequestCompleted += OnAssignArtifactsToMineHttpRequestCompleted;
 	}
-    
+
 	private void InitializeDiReferences()
 	{
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
@@ -94,6 +99,24 @@ public partial class MineGenerationController : Node2D
     
 	#endregion
 
+	#region Assign Artifacts To Mine
+
+	private void AssignArtifactsToMine()
+	{
+		var url = ApiAddress.MineApiPath+"AssignArtifactsToMine";
+		_assignArtifactsToMineHttpRequest.Request(url);
+	}
+	
+	private void OnAssignArtifactsToMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
+		GD.Print(mine);
+		GenerateGridFromMineData(mine);
+	}
+
+	#endregion
+
 	#region Mine Generator
 
 	private void GenerateMineData()
@@ -104,10 +127,7 @@ public partial class MineGenerationController : Node2D
 	
 	private void OnGenerateMineDataHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		GD.Print(mine);
-		GenerateGridFromMineData(mine);
+		AssignArtifactsToMine();
 	}
 	
 	private void GenerateGridFromMineData(global::ProjectMuseum.Models.Mine mine)

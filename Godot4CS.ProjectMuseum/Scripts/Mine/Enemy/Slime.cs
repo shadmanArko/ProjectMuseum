@@ -38,12 +38,18 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     {
         NavAgent.TargetPosition = _playerControllerVariables.Position;
     }
-    
-    public void Move()
+
+    public override void _PhysicsProcess(double delta)
     {
         var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
         Velocity = direction * _moveSpeed * Vector2.Right;
         Velocity.MoveToward(direction, 0.2f);
+        MoveAndCollide(Velocity);
+    }
+
+    public void Move()
+    {
+        
     }
     
     public void Attack()

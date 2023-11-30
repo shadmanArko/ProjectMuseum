@@ -5,6 +5,8 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public class PlayerControllerVariables
 {
+    public PlayerController Player;
+    
     #region Movement Variables
 
     public const int MaxSpeed = 100;

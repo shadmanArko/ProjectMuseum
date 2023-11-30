@@ -38,6 +38,7 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _Ready()
 	{
+		_playerControllerVariables.Player = this;
 		_playerControllerVariables.State = MotionState.Falling;
 		_playerControllerVariables.PlayerHealth = 200;
 		_playerControllerVariables.PlayerEnergy = 200;
@@ -46,7 +47,7 @@ public partial class PlayerController : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
         PlayerMovement(delta);
-        GD.Print(_playerControllerVariables.State);
+        //GD.Print(_playerControllerVariables.State);
 	}
     
 	private void PlayerMovement(double delta)

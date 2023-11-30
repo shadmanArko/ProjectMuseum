@@ -31,12 +31,9 @@ public partial class AnimationController : AnimationPlayer
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
 	}
-	public async void SetAnimation(bool isAttacking)
+	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
-
-		// if (isAttacking)
-		// 	await Task.Delay((int)CurrentAnimationLength * 100);
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
 			PlayHangingAnimations(tempVelocity, isAttacking);

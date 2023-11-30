@@ -29,4 +29,6 @@ TileCrackSourceId = 6
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+light_mask = 2
+visibility_layer = 2
 color = Color(0.478431, 0.478431, 0.478431, 1)

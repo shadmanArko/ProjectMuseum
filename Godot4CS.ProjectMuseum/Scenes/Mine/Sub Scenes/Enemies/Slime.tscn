@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=16 format=3 uid="uid://b0ugdi15r3d7"]
 
+[ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0m43"]
@@ -199,9 +200,18 @@ _data = {
 "move": SubResource("Animation_h4tdc")
 }
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_navigationAgent2D", "_timer")]
+light_mask = 3
+visibility_layer = 4
+z_index = 10
 collision_layer = 4
 collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_pkl74")
+_navigationAgent2D = NodePath("NavigationAgent2D")
+_timer = NodePath("Timer")
+_moveSpeed = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4.5)
@@ -218,3 +228,12 @@ root_node = NodePath("../Sprite2D")
 libraries = {
 "": SubResource("AnimationLibrary_00t1y")
 }
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="GetShortestPath"]

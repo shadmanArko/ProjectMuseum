@@ -2,9 +2,11 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 
 public enum EnemyState
 {
+    DigIn,
+    DigOut,
     Idle,
     Move,
-    Falling,
+    Fall,
     Aggro,
     Attack,
     TakeDamage

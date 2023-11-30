@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bojefr3ulps6k"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/Enemy/EnemySpawner.cs" id="1_fkuwd"]
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_fkuwd")
+
+[node name="Enemy Spawn Timer" type="Timer" parent="."]
+wait_time = 5.0

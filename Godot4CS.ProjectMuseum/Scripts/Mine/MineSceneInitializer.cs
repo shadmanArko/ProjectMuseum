@@ -15,7 +15,7 @@ public partial class MineSceneInitializer : Node
 	{
 		GenerateMine();
 		InstantiatePlayer();
-		InstantiateSlime();
+		//InstantiateSlime();
 	}
 
 	// private void InstantiateMineUi()

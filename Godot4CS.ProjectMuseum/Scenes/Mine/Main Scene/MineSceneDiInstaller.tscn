@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvpmyuf8myb7g"]
+[gd_scene load_steps=5 format=3 uid="uid://bvpmyuf8myb7g"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_oilmi"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_sm814"]
 [ext_resource type="PackedScene" uid="uid://bqltyu2fgvmyp" path="res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn" id="3_dffe7"]
+[ext_resource type="PackedScene" uid="uid://bojefr3ulps6k" path="res://Scenes/Mine/Sub Scenes/Enemies/EnemySpawner.tscn" id="4_68kqo"]
 
 [node name="MineSceneDiInstaller" type="Node2D"]
 script = ExtResource("1_oilmi")
@@ -16,3 +17,7 @@ _mineScenePrefabPath = "res://Scenes/Mine/Sub Scenes/mine_generation_controller.
 _mineUiScenePath = "res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn"
 
 [node name="MineUI" parent="." instance=ExtResource("3_dffe7")]
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_68kqo")]
+_parentNode = NodePath("../MineSceneInitializer")
+_slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"

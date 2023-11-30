@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=17 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
+[ext_resource type="Script" path="res://Scripts/Mine/Enemy/EnemyAnimationController.cs" id="3_5dxjc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0m43"]
 size = Vector2(10, 7)
@@ -200,7 +201,7 @@ _data = {
 "move": SubResource("Animation_h4tdc")
 }
 
-[node name="Slime" type="CharacterBody2D"]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_enemyAnimationController", "_stateChangeTimer", "NavAgent", "TrackTimer")]
 light_mask = 3
 visibility_layer = 4
 z_index = 10
@@ -209,7 +210,11 @@ collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_pkl74")
+_enemyAnimationController = NodePath("AnimationPlayer")
+_stateChangeTimer = NodePath("State Change TImer")
 _moveSpeed = 0.5
+NavAgent = NodePath("NavigationAgent2D")
+TrackTimer = NodePath("Track Timer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4.5)
@@ -221,17 +226,24 @@ texture = ExtResource("1_whxi4")
 hframes = 9
 vframes = 10
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("Sprite")]
 root_node = NodePath("../Sprite2D")
 libraries = {
 "": SubResource("AnimationLibrary_00t1y")
 }
+script = ExtResource("3_5dxjc")
+Sprite = NodePath("../Sprite2D")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Track Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="OnTimerTimeOut"]
+[node name="State Change TImer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Track Timer" to="." method="OnTimerTimeOut"]
+[connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]

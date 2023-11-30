@@ -15,4 +15,6 @@ public partial class MuseumActions : Node
     public static Action<float> OnMuseumBalanceAdded;
     public static Action OnItemUpdated;
     public static Action<string> OnBottomPanelButtonClicked;
+    public static Action<Artifact, int> ArtifactDroppedOnSlot;
+    public static Action<Artifact, Item, int> ArtifactDroppedOnExhibitSlot;
 }

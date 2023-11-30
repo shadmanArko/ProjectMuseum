@@ -31,6 +31,8 @@ public partial class ExhibitController : Node2D
         MuseumActions.OnClickItem += OnClickItem;
     }
 
+   
+
     private void HttpRequestForGettingAllExhibitsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);

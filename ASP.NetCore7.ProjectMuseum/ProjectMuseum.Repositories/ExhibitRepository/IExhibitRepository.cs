@@ -12,4 +12,6 @@ public interface IExhibitRepository
     Task<List<Exhibit>?> GetAllExhibits();
     Task<Exhibit?> Delete(string id);
     Task<List<Exhibit>?> DeleteAllExhibits();
+    Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot);
+    Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot);
 }

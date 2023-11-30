@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using ProjectMuseum.Models;
 
 public partial class DropTarget : Control
 {
@@ -9,7 +10,7 @@ public partial class DropTarget : Control
     private PackedScene draggableScene = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn");
     // Store the original color for later restoration
     private Color originalColor;
-
+    private int _slotNumber = 0;
     public override void _Ready()
     {
         originalColor = Modulate; // Save the original color
@@ -17,6 +18,10 @@ public partial class DropTarget : Control
         MuseumActions.DragEnded += DragEnded;
     }
 
+    public void Initialize(int slotNumber)
+    {
+        _slotNumber = slotNumber;
+    }
     private void DragEnded(Draggable obj)
     {
         if (obj.IsInGroup("Draggable"))
@@ -52,6 +57,7 @@ public partial class DropTarget : Control
         ((Node)data).GetNode<Draggable>(".").parentDropTarget.hasEmptySlot = true;
         ((Node)data).QueueFree();
         GetNode<Control>(".").AddChild(draggableCopy);
+        MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, _slotNumber);
         if (_parentTarget)
         {
             draggableCopy.GetNode<Draggable>(".").ResetDraggableOnGettingBackToParent();

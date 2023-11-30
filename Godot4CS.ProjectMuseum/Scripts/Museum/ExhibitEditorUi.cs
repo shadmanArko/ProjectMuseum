@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
@@ -13,7 +14,7 @@ public partial class ExhibitEditorUi : Control
 	[Export] private PackedScene _dropTarget;
 	[Export] private Control _draggablesParent;
 	[Export] private Control _dropTargetsParent;
-
+	private Item _selectedItem;
 	private HttpRequest _httpRequestForGettingExhibitsInStore;
     // Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -21,18 +22,26 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInStore = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitsInStore);
 		_httpRequestForGettingExhibitsInStore.RequestCompleted += HttpRequestForGettingExhibitsInStoreOnRequestCompleted;
-
+		MuseumActions.ArtifactDroppedOnSlot += ArtifactDroppedOnSlot;
 		_exitButton.Pressed += ExitButtonOnPressed;
+	}
+
+	private void ArtifactDroppedOnSlot(Artifact artifact, int slotNumber)
+	{
+		MuseumActions.ArtifactDroppedOnExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber);
 	}
 
 	public void ReInitialize(Item item, Exhibit exhibit)
 	{
 		_httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		DeleteChild(_dropTargetsParent);
+		_selectedItem = item;
 		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 2;
 		for (int i = 0; i < numberOfSlots; i++)
 		{
-			_dropTargetsParent.AddChild(_dropTarget.Instantiate());
+			var instance = _dropTarget.Instantiate();
+			instance.GetNode<DropTarget>(".").Initialize(i+1);
+			_dropTargetsParent.AddChild(instance);
 		}
 		// if ()
 		// {

@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(9.97071, 5.26112)
 
-[node name="Item1" type="Sprite2D" groups=["Exhibit"]]
+[node name="Item1" type="Sprite2D" node_paths=PackedStringArray("_artifactSlots") groups=["Exhibit"]]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -15,6 +15,7 @@ position = Vector2(16, -119)
 texture = ExtResource("1_m1lyp")
 offset = Vector2(0, -3)
 script = ExtResource("2_vqulg")
+_artifactSlots = [NodePath("Artifact Slot 1")]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -55)
@@ -26,11 +27,16 @@ shape = SubResource("RectangleShape2D_6rwst")
 one_way_collision_margin = 0.0
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="glass" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.392157)
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, -1)
 texture = ExtResource("3_c8hr5")
 offset = Vector2(0, -21)
+
+[node name="Artifact Slot 1" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -3)
+offset = Vector2(0, -12.5)

@@ -44,7 +44,7 @@ public partial class Draggable : ColorRect
 
 	public void Initialize(Artifact artifact)
 	{
-		_nameOfDraggable.Text = artifact.Id;
+		_nameOfDraggable.Text = artifact.RawArtifactId;
 		Artifact = artifact;
 	}
 	private void StartDrag()

@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(18.6951, 8.3301)
 
-[node name="Item2" type="Sprite2D"]
+[node name="Item2" type="Sprite2D" node_paths=PackedStringArray("_artifactSlots")]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -17,6 +17,7 @@ offset = Vector2(0, -11)
 script = ExtResource("2_e8wms")
 ItemPrice = 90.25
 numberOfTilesItTakes = 4
+_artifactSlots = [NodePath("Artifact Slot 1"), NodePath("Artifact Slot 2")]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -64)
@@ -34,3 +35,13 @@ z_index = 1
 y_sort_enabled = true
 position = Vector2(0, -29.5)
 texture = ExtResource("3_ispsm")
+
+[node name="Artifact Slot 1" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-17, -10)
+offset = Vector2(0, -12.5)
+
+[node name="Artifact Slot 2" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(14, -10)
+offset = Vector2(0, -12.5)

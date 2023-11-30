@@ -138,7 +138,20 @@ public class MuseumController : ControllerBase
         var artifacts = await _artifactStorageService.GetAllArtifactsOfStorage();
         return Ok(artifacts);
     }
-
+    [HttpGet("AddArtifactToStorageFromExhibit")]
+    public async Task<IActionResult> AddArtifactToStorageFromExhibit(string artifactId, string exhibitId, int slot )
+    {
+        var artifacts = await _artifactStorageService.GetArtifactOutOfDisplayById(artifactId);
+        var exhibit = await _exhibitService.RemoveArtifactFromExhibit(exhibitId, artifactId, slot);
+        return Ok(artifacts);
+    }
+    [HttpGet("AddArtifactToExhibitSlotFromStore")]
+    public async Task<IActionResult> AddArtifactToExhibitSlotFromStore(string artifactId, string exhibitId, int slot)
+    {
+        var artifacts = await _artifactStorageService.SendArtifactToDisplayById(artifactId);
+        var exhibit = await _exhibitService.AddArtifactToExhibit(exhibitId, artifactId, slot);
+        return Ok(artifacts);
+    }
     [HttpGet("GetAllTradingArtifacts")]
     public async Task<IActionResult> GetAllTradingArtifacts()
     {

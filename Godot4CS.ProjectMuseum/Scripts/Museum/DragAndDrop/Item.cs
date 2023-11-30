@@ -39,6 +39,7 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     [Export] public int numberOfTilesItTakes = 1;
     [Export] public string TileExtentsInDirection = "Both";
+    [Export] private Array<Sprite2D> _artifactSlots;
     private List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
     private List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
@@ -64,6 +65,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
+        MuseumActions.ArtifactDroppedOnExhibitSlot += ArtifactDroppedOnExhibitSlot;
         AddToGroup("ManualSortGroup");
         _httpRequestForExhibitPlacement = new HttpRequest();
         _httpRequestForExhibitPlacementConditions = new HttpRequest();
@@ -95,6 +97,37 @@ public partial class Item : Sprite2D, IComparable<Item>
             
         }
     }
+
+    private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber)
+    {
+        if (givenItem == this)
+        {
+            if (slotNumber == 1)
+            {
+                _artifactSlots[0].Texture = LoadArtifactTexture(artifact);
+            }else if (slotNumber ==2)
+            {
+                _artifactSlots[1].Texture = LoadArtifactTexture(artifact);
+            }
+        }
+    }
+
+
+    private Texture2D LoadArtifactTexture(Artifact artifact)
+    {
+        string spritePath = $"res://Assets/2D/Sprites/Isometric View Artifacts/{artifact.RawArtifactId}.png"; // Change the extension if your sprites have a different format
+
+        // Use ResourceLoader.Load to load the texture
+        Texture2D texture = (Texture2D)ResourceLoader.Load(spritePath);
+
+        if (texture == null)
+        {
+            GD.Print($"Failed to load texture for artifact: {artifact.RawArtifactId}");
+        }
+
+        return texture;
+    }
+
 
     public void Initialize(string exhibitVariationName)
     {

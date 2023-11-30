@@ -6,4 +6,5 @@ public interface IMineArtifactService
 {
     Task<List<Artifact>?> GetAllArtifactsOfMine();
     Task<Artifact> SendArtifactToInventory(string artifactId);
+    Task<List<Artifact>> GenerateNewArtifacts(); 
 }

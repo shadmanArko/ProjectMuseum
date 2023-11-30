@@ -49,5 +49,11 @@ public class MineController : ControllerBase
         return Ok(mine);
     }
 
+    [HttpGet("AssignArtifactsToMine")]
+    public async Task<IActionResult> AssignArtifactsToMine()
+    {
+        var mine = await _mineService.AssignArtifactsToMine();
+        return Ok(mine);
+    }
 
 }

@@ -10,7 +10,9 @@ public partial class Draggable : ColorRect
 	public bool canBeDragged = true;
 	public DropTarget parentDropTarget;
 	private Vector2 _customMinimumSize;
+	public Artifact Artifact;
 	[Export] private RichTextLabel _nameOfDraggable;
+	[Export] private PackedScene _draggablePreview;
 	public override void _Ready()
 	{
 		AddToGroup("Draggable");
@@ -43,6 +45,7 @@ public partial class Draggable : ColorRect
 	public void Initialize(Artifact artifact)
 	{
 		_nameOfDraggable.Text = artifact.Id;
+		Artifact = artifact;
 	}
 	private void StartDrag()
 	{
@@ -72,7 +75,7 @@ public partial class Draggable : ColorRect
 		GD.Print($"get_drag_data has run");
 		if (!droppedOnTarget)
 		{
-			SetDragPreview((Control)Duplicate());
+			SetDragPreview((Control)_draggablePreview.Instantiate());
 			
 			return this;
 		}

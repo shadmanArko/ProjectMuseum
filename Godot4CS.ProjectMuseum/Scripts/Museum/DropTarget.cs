@@ -48,6 +48,7 @@ public partial class DropTarget : Control
         Control draggableCopy = (Control)draggableScene.Instantiate();
         // draggableCopy.GetNode<Draggable>(".").canBeDragged = false;
         draggableCopy.GetNode<Draggable>(".").parentDropTarget = this;
+        draggableCopy.GetNode<Draggable>(".").Initialize(((Node)data).GetNode<Draggable>(".").Artifact);
         ((Node)data).GetNode<Draggable>(".").parentDropTarget.hasEmptySlot = true;
         ((Node)data).QueueFree();
         GetNode<Control>(".").AddChild(draggableCopy);
@@ -62,5 +63,11 @@ public partial class DropTarget : Control
     {
         // Set the color to the original or a highlighted color based on the 'highlight' parameter
         Modulate = highlight ? Colors.Green : originalColor;
+    }
+
+    public override void _ExitTree()
+    {
+        MuseumActions.DragStarted -= DragStarted;
+        MuseumActions.DragEnded -= DragEnded;
     }
 }

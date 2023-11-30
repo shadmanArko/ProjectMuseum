@@ -57,7 +57,7 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
         await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
         return true;
     }
-    public async Task<bool> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
+    public async Task<Exhibit> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
     {
         Exhibit exhibit = new Exhibit();
         foreach (var tileId in tileIds)
@@ -65,8 +65,8 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
             if (tileId == originTileId)
             {
                 var museumTile = await _museumTileRepository.GetById(tileId);
-                if (museumTile != null && museumTile.ExhibitId != "string") return false;
-                if (museumTile == null) return false;
+                if (museumTile != null && museumTile.ExhibitId != "string") return exhibit;
+                if (museumTile == null) return exhibit;
                 exhibit = new Exhibit
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -89,6 +89,6 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
             }
             
         }
-        return true;
+        return exhibit;
     }
 }

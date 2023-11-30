@@ -51,6 +51,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     private HttpRequest _httpRequestForExhibitPlacementConditions;
     private HttpRequest _httpRequestForExhibitPlacement;
     public string ExhibitVariationName = "default";
+    public Exhibit ExhibitData;
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
@@ -112,6 +113,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     private void httpRequestForExhibitPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
+        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
         GD.Print("Http1 result " + jsonStr);
     }
 
@@ -178,7 +180,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         {
             if (GetRect().HasPoint(GetLocalMousePosition()))
             {
-                MuseumActions.OnClickItem?.Invoke(this);
+                MuseumActions.OnClickItem?.Invoke(this, ExhibitData);
             }
         }
     }

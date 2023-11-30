@@ -61,15 +61,17 @@ public partial class ExhibitController : Node2D
     private void SpawnExhibit(Exhibit exhibit, PackedScene packedScene)
     {
         var instance = (Node)packedScene.Instantiate();
+        instance.GetNode<Item>(".").ExhibitData = exhibit;
         _itemsParent.AddChild(instance);
         instance.GetNode<Node2D>(".").Position =
             GameManager.TileMap.MapToLocal(new Vector2I(exhibit.XPosition, exhibit.YPosition));
         MuseumActions.OnItemUpdated?.Invoke();
     }
 
-    private void OnClickItem(Item item)
+    private void OnClickItem(Item item, Exhibit exhibit)
     {
         GD.Print($"Clicked {item.ExhibitVariationName} {item.Name}");
         _exhibitEditorUi.Visible = true;
+        _exhibitEditorUi.ReInitialize(item, exhibit);
     }
 }

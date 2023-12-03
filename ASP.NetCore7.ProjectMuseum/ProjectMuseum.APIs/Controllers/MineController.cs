@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
+using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -13,12 +14,14 @@ public class MineController : ControllerBase
     private readonly IMineService _mineService;
     private readonly IMineArtifactService _mineArtifactService;
     private readonly IMineCellGeneratorService _mineCellGeneratorService;
+    private readonly IMineCellCrackMaterialService _mineCellCrackMaterialService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
         _mineCellGeneratorService = mineCellGeneratorService;
+        _mineCellCrackMaterialService = mineCellCrackMaterialService;
     }
 
     [HttpGet("GetMineData")]
@@ -54,6 +57,13 @@ public class MineController : ControllerBase
     {
         var mine = await _mineService.AssignArtifactsToMine();
         return Ok(mine);
+    }
+    
+    [HttpGet("GetMineCellCrackMaterial/{materialType}")]
+    public async Task<IActionResult> GetMineCellCrackMaterial(string materialType)
+    {
+        var cellCrackMaterial = await _mineCellCrackMaterialService.GetCellCrackMaterial(materialType);
+        return Ok(cellCrackMaterial);
     }
 
 }

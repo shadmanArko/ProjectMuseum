@@ -1,11 +1,19 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 
-public class MineCellCrackMaterialService
+public class MineCellCrackMaterialService : IMineCellCrackMaterialService
 {
-    public async Task<CellCrackMaterial> GetCellCrackMaterial(string materialType)
+    private readonly IMineCellCrackMaterialRepository _mineCellCrackMaterialRepository;
+
+    public MineCellCrackMaterialService(IMineCellCrackMaterialRepository mineCellCrackMaterialRepository)
     {
-        return new CellCrackMaterial();
+        _mineCellCrackMaterialRepository = mineCellCrackMaterialRepository;
+    }
+    public async Task<CellCrackMaterial?> GetCellCrackMaterial(string materialType)
+    {
+        var cellCrackMaterial = await _mineCellCrackMaterialRepository.GetCellCrackMaterial(materialType);
+        return cellCrackMaterial;
     }
 }

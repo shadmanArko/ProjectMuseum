@@ -16,5 +16,7 @@ public partial class MuseumActions : Node
     public static Action OnItemUpdated;
     public static Action<string> OnBottomPanelButtonClicked;
     public static Action<Artifact, int> ArtifactDroppedOnSlot;
+    public static Action<Artifact, int> ArtifactRemovedFromSlot;
     public static Action<Artifact, Item, int> ArtifactDroppedOnExhibitSlot;
+    public static Action<Artifact, Item, int> ArtifactRemovedFromExhibitSlot;
 }

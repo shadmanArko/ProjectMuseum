@@ -10,7 +10,7 @@ public partial class DropTarget : Control
     private PackedScene draggableScene = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn");
     // Store the original color for later restoration
     private Color originalColor;
-    private int _slotNumber = 0;
+    public int SlotNumber = 0;
     public override void _Ready()
     {
         originalColor = Modulate; // Save the original color
@@ -20,7 +20,7 @@ public partial class DropTarget : Control
 
     public void Initialize(int slotNumber)
     {
-        _slotNumber = slotNumber;
+        SlotNumber = slotNumber;
     }
     private void DragEnded(Draggable obj)
     {
@@ -55,14 +55,20 @@ public partial class DropTarget : Control
         draggableCopy.GetNode<Draggable>(".").parentDropTarget = this;
         draggableCopy.GetNode<Draggable>(".").Initialize(((Node)data).GetNode<Draggable>(".").Artifact);
         ((Node)data).GetNode<Draggable>(".").parentDropTarget.hasEmptySlot = true;
-        ((Node)data).QueueFree();
+        
         GetNode<Control>(".").AddChild(draggableCopy);
-        MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, _slotNumber);
+        
         if (_parentTarget)
         {
             draggableCopy.GetNode<Draggable>(".").ResetDraggableOnGettingBackToParent();
+            MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag);
         }
-        Highlight(false); // Reset highlight after dropping
+        else
+        {
+            MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, SlotNumber);
+        }
+        Highlight(false); 
+        ((Node)data).QueueFree();// Reset highlight after dropping
     }
 
     private void Highlight(bool highlight)

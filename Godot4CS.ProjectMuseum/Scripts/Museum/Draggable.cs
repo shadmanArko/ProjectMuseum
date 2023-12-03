@@ -10,6 +10,7 @@ public partial class Draggable : ColorRect
 	public bool canBeDragged = true;
 	public DropTarget parentDropTarget;
 	private Vector2 _customMinimumSize;
+	public int SlotAtTheStartOfDrag;
 	public Artifact Artifact;
 	[Export] private RichTextLabel _nameOfDraggable;
 	[Export] private PackedScene _draggablePreview;
@@ -18,6 +19,7 @@ public partial class Draggable : ColorRect
 		AddToGroup("Draggable");
 		_customMinimumSize = CustomMinimumSize;
 		parentDropTarget = GetParent<DropTarget>();
+		SlotAtTheStartOfDrag = parentDropTarget.SlotNumber;
 	}
 	public override void _Input(InputEvent @event)
 	{
@@ -44,6 +46,11 @@ public partial class Draggable : ColorRect
 
 	public void Initialize(Artifact artifact)
 	{
+		if (artifact == null)
+		{
+			GD.Print("No artifact");
+			return;
+		}
 		_nameOfDraggable.Text = artifact.RawArtifactId;
 		Artifact = artifact;
 	}

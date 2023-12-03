@@ -113,8 +113,13 @@ public partial class ExhibitEditorUi : Control
 		Visible = false;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _ExitTree()
 	{
+		base._ExitTree();
+		_httpRequestForGettingExhibitsInStore.RequestCompleted -= HttpRequestForGettingExhibitsInStoreOnRequestCompleted;
+		_httpRequestForGettingExhibitsInDisplay.RequestCompleted -= HttpRequestForGettingExhibitsInDisplayOnRequestCompleted;
+		MuseumActions.ArtifactDroppedOnSlot -= ArtifactDroppedOnSlot;
+		MuseumActions.ArtifactRemovedFromSlot -= ArtifactRemovedFromSlot;
+		_exitButton.Pressed -= ExitButtonOnPressed;
 	}
 }

@@ -36,7 +36,7 @@ layer_0/tile_data = PackedInt32Array()
 script = ExtResource("3_txjx3")
 _wallRight = ExtResource("10_xt14w")
 _wallLeft = ExtResource("6_plrwf")
-_dirtyWallProbability = 40
+_dirtyWallProbability = 0
 _dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_bhbr7"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
 _wallsParent = NodePath("../WallsParent")
 
@@ -63,7 +63,6 @@ visible = false
 offset_bottom = -50.0
 
 [node name="Player" parent="." instance=ExtResource("12_55fh7")]
-z_index = 1
 position = Vector2(54, -120)
 _displacementSpeed = 50.0
 

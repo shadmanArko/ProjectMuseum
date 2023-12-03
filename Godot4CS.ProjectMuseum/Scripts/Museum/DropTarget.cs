@@ -65,6 +65,8 @@ public partial class DropTarget : Control
         }
         else
         {
+            MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact,
+                ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag);
             MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, SlotNumber);
         }
         Highlight(false); 

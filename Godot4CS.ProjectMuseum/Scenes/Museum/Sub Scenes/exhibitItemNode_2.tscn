@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dstn0yvcl70w0"]
 
-[ext_resource type="Texture2D" uid="uid://dcs68c1n4hnml" path="res://Assets/2D/Sprites/Exhibits/bordered/2x2 wooden.png" id="1_0t0ih"]
+[ext_resource type="Texture2D" uid="uid://c6kgfp04i75o2" path="res://Assets/2D/Sprites/Exhibits/New Bordered/basic wooden exhibit 2X2.png" id="1_wvagq"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_e8wms"]
-[ext_resource type="Texture2D" uid="uid://256je7wu6pgs" path="res://Assets/2D/Sprites/Exhibits/Glass/glass large.png" id="3_ispsm"]
+[ext_resource type="Texture2D" uid="uid://oe4a6wlvfrj5" path="res://Assets/2D/Sprites/Exhibits/New Bordered/2x2 glass.png" id="3_calhw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(18.6951, 8.3301)
@@ -12,7 +12,7 @@ z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-38, -110)
-texture = ExtResource("1_0t0ih")
+texture = ExtResource("1_wvagq")
 offset = Vector2(0, -11)
 script = ExtResource("2_e8wms")
 ItemPrice = 90.25
@@ -34,7 +34,7 @@ modulate = Color(1, 1, 1, 0.392157)
 z_index = 1
 y_sort_enabled = true
 position = Vector2(0, -29.5)
-texture = ExtResource("3_ispsm")
+texture = ExtResource("3_calhw")
 
 [node name="Artifact Slot 1" type="Sprite2D" parent="."]
 z_index = 1

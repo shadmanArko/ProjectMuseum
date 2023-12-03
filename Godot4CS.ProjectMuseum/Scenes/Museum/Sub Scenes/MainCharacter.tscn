@@ -97,6 +97,7 @@ _data = {
 size = Vector2(17, 40)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
+z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("2_olhew")

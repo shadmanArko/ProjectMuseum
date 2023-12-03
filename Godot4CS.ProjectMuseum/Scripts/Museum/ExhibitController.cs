@@ -88,4 +88,10 @@ public partial class ExhibitController : Node2D
         _exhibitEditorUi.Visible = true;
         _exhibitEditorUi.ReInitialize(item, exhibit);
     }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        MuseumActions.OnClickItem -= OnClickItem;
+    }
 }

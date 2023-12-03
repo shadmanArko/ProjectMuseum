@@ -78,7 +78,7 @@ public partial class Draggable : ColorRect
 	}
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
-		
+		SlotAtTheStartOfDrag = parentDropTarget.SlotNumber;
 		GD.Print($"get_drag_data has run");
 		if (!droppedOnTarget)
 		{

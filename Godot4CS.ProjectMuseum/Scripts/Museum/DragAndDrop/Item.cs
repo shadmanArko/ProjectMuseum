@@ -112,6 +112,8 @@ public partial class Item : Sprite2D, IComparable<Item>
     {
         foreach (var artifact in displayArtifact)
         {
+            if (artifact == null ) continue;
+            
             if (artifact.Id == ExhibitData.ExhibitArtifactSlot1)
             {
                 AssignArtifactToSlot(artifact, 1);
@@ -342,7 +344,11 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     public override void _ExitTree()
     {
+        MuseumActions.ArtifactDroppedOnExhibitSlot -= ArtifactDroppedOnExhibitSlot;
+        MuseumActions.ArtifactRemovedFromExhibitSlot -= ArtifactRemovedFromExhibitSlot;
         _httpRequestForExhibitPlacementConditions.RequestCompleted -= httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted -= httpRequestForExhibitPlacementOnRequestCompleted;
+        _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
+        _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
     }
 }

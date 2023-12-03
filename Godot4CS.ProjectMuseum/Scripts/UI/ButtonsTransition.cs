@@ -141,5 +141,9 @@ public partial class ButtonsTransition : HBoxContainer
 		_adminContainer.GrowHorizontal = Control.GrowDirection.Begin;
 	}
 
-	
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		MuseumActions.OnBottomPanelButtonClicked -= OnClickButton;
+	}
 }

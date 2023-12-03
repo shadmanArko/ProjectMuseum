@@ -4,6 +4,8 @@ using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifactRepository;
@@ -19,6 +21,8 @@ using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
+using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
+using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
@@ -44,6 +48,8 @@ string tradingArtifactsDataFolderPath = Path.Combine(AppContext.BaseDirectory, "
 
 
 string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
+string rawArtifactFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
+string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
 
 
 
@@ -74,6 +80,8 @@ builder.Services.AddSingleton(new JsonFileDatabase<DisplayArtifacts>(displayArti
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactStorage>(artifactStorageDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(tradingArtifactsDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackMaterialDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -105,6 +113,8 @@ builder.Services.AddScoped<IDisplayArtifactRepository, DisplayArtifactRepository
 builder.Services.AddScoped<IArtifactStorageRepository, ArtifactStorageRepository>();
 builder.Services.AddScoped<ITradingArtifactsRepository, TradingArtifactsRepository>();
 builder.Services.AddScoped<IMineCellCrackMaterialRepository, MineCellCrackMaterialRepository>();
+builder.Services.AddScoped<IRawArtifactFunctionalRepository, RawArtifactFunctionalRepository>();
+builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescriptiveRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -122,6 +132,8 @@ builder.Services.AddScoped<IDisplayArtifactService, DisplayArtifactService>();
 builder.Services.AddScoped<IArtifactStorageService, ArtifactStorageService>();
 builder.Services.AddScoped<ITradingArtifactsService, TradingArtifactsService>();
 builder.Services.AddScoped<IMineCellCrackMaterialService, MineCellCrackMaterialService>();
+builder.Services.AddScoped<IRawArtifactFunctionalService, RawArtifactFunctionalService>();
+builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiveService>();
 
 
 // builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));

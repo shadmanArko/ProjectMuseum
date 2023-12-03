@@ -4,6 +4,8 @@ using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
+using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
+using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
 
@@ -15,13 +17,17 @@ public class MineController : ControllerBase
     private readonly IMineArtifactService _mineArtifactService;
     private readonly IMineCellGeneratorService _mineCellGeneratorService;
     private readonly IMineCellCrackMaterialService _mineCellCrackMaterialService;
+    private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
+    private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
         _mineCellGeneratorService = mineCellGeneratorService;
         _mineCellCrackMaterialService = mineCellCrackMaterialService;
+        _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
+        _rawArtifactFunctionalService = rawArtifactFunctionalService;
     }
 
     [HttpGet("GetMineData")]
@@ -64,6 +70,21 @@ public class MineController : ControllerBase
     {
         var cellCrackMaterial = await _mineCellCrackMaterialService.GetCellCrackMaterial(materialType);
         return Ok(cellCrackMaterial);
+    }
+
+    [HttpGet("GetAllRawArtifactFunctional")]
+    public async Task<IActionResult> GetAllRawArtifactFunctional()
+    {
+        var listOfRawArtifactFunctional = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
+        return Ok(listOfRawArtifactFunctional);
+    }
+    
+    
+    [HttpGet("GetAllRawArtifactDescriptive")]
+    public async Task<IActionResult> GetAllRawArtifactDescriptive()
+    {
+        var listOfRawArtifactDescriptive = await _rawArtifactDescriptiveService.GetAllRawArtifactDescriptive();
+        return Ok(listOfRawArtifactDescriptive);
     }
 
 }

@@ -12,13 +12,13 @@ public class MineController : ControllerBase
 {
     private readonly IMineService _mineService;
     private readonly IMineArtifactService _mineArtifactService;
-    private readonly IMineCellGenerator _mineCellGenerator;
+    private readonly IMineCellGeneratorService _mineCellGeneratorService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGenerator mineCellGenerator)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
-        _mineCellGenerator = mineCellGenerator;
+        _mineCellGeneratorService = mineCellGeneratorService;
     }
 
     [HttpGet("GetMineData")]
@@ -45,7 +45,7 @@ public class MineController : ControllerBase
     [HttpGet("GenerateMine")]
     public async Task<IActionResult> GenerateMine()
     {
-        var mine = await _mineCellGenerator.GenerateMineCellData();
+        var mine = await _mineCellGeneratorService.GenerateMineCellData();
         return Ok(mine);
     }
 

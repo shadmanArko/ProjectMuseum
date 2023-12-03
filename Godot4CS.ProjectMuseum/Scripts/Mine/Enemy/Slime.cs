@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -10,6 +11,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
 {
     private PlayerControllerVariables _playerControllerVariables;
+    private MineGenerationVariables _mineGenerationVariables;
     [Export] private EnemyAnimationController _enemyAnimationController;
     [Export] private Timer _stateChangeTimer;
     
@@ -19,6 +21,11 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     [Export] public NavigationAgent2D NavAgent { get; set; }
     [Export] public Timer TrackTimer { get; set; }
     public EnemyState State { get; set; }
+    public bool IsAffectedByGravity { get; set; }
+
+    [Export] private bool _isAggro;
+    private Vector2 _moveDirection;
+    [Export] private float _aggroRange = 140f;
     
     public override void _EnterTree()
     {
@@ -33,21 +40,27 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     private void InitializeDiReferences()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+        _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
     }
 
-    public void OnTimerTimeOut()
+    private void OnTrackTimerTimeOut()
     {
-        NavAgent.TargetPosition = _playerControllerVariables.Position;
+        NavAgent.TargetPosition = _isAggro ? _playerControllerVariables.Position : _moveDirection;
     }
 
     public void OnStateChangeTimeOut()
     {
+        _moveDirection = GetRandomDirection();
+        
         if (State == EnemyState.Idle)
-            State = EnemyState.Move;
-        else if (State == EnemyState.Move)
+            State = _isAggro ? EnemyState.Chase : EnemyState.Move;
+        else if (State is EnemyState.Move or EnemyState.Chase)
             State = EnemyState.DigIn;
         else if (State == EnemyState.DigIn)
+        {
             State = EnemyState.DigOut;
+            DigOut();
+        }
         else if (State == EnemyState.DigOut)
             State = EnemyState.Idle;
         GD.Print($"State changed to {State}");
@@ -55,134 +68,162 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
 
     public override void _PhysicsProcess(double delta)
     {
-        if(State == EnemyState.Move)
+        CheckPlayerAggro();
+        
+        if (State == EnemyState.Move)
             Move();
+        else if(State == EnemyState.Chase)
+            Chase();
         else if(State == EnemyState.Idle)
             Idle();
         else if (State == EnemyState.Attack)
             Attack();
         else if (State == EnemyState.DigIn)
-        {
-            if(_enemyAnimationController.CurrentAnimation == "digIn") return;
-            _enemyAnimationController.Play("digIn");
-        }
-        else if(State == EnemyState.DigOut)
-            DigOut();
+            DigIn();
         
-        PlayAnimation();
+        ApplyGravity((float) delta);
+    }
+
+
+    [Export] private float _gravity;
+    private void ApplyGravity(float delta)
+    {
+        var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
+        
+        if (collision == null)
+        {
+            var velocity = Velocity;
+            velocity.Y += _gravity * delta;
+            Velocity = velocity;
+        }
+    }
+
+    private void CheckPlayerAggro()
+    {
+        var currentPos = new System.Numerics.Vector2(Position.X, Position.Y);
+        var playerPos = new System.Numerics.Vector2(_playerControllerVariables.Position.X, _playerControllerVariables.Position.Y);
+        var distance = System.Numerics.Vector2.Distance(currentPos, playerPos);
+        if (distance > _aggroRange) return;
+
+        if (_isAggro) return;
+        _enemyAnimationController.Play("aggro");
+        _isAggro = true;
     }
 
     #region Slime Possible States
-
     
-    
-    public void Spawn()
+    private void Spawn()
     {
         State = EnemyState.DigOut;
-        Position = _playerControllerVariables.Position;
+        var tilePos = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
+        Position = new Vector2(tilePos.PositionX * 20, tilePos.PositionY);
         Visible = true;
         _enemyAnimationController.Play("digOut");
         SetPhysicsProcess(true);
     }
 
-    public void DigOut()
+    private void DigOut()
     {
-        if (!Visible)
+        SetPhysicsProcess(true);
+        var digOutPos =EnemyDigOutEmptyCellChecker.CheckForEmptyCellsAroundPlayer(_playerControllerVariables.Position, _mineGenerationVariables);
+        if (digOutPos != Vector2.Zero)
         {
-            _enemyAnimationController.Play("digOut");
-            Visible = true;
-            SetPhysicsProcess(true);
+            Position = digOutPos;
         }
         else
         {
-            if(_enemyAnimationController.CurrentAnimation == "digOut") return;
-            _stateChangeTimer.Paused = false;
-            State = EnemyState.Idle;
+            Position = Position;
         }
+        Visible = true;
+        _enemyAnimationController.Play("digOut");
     }
 
+    public void OnDigOutAnimationFinished(string animName)
+    {
+        if(animName != "digOut") return;
+        State = EnemyState.Idle;
+    }
+    
+    private void DigIn()
+    {
+        _enemyAnimationController.Play("digIn");
+    }
+    
     public void OnDigInAnimationFinished(string animName)
     {
         if(animName != "digIn") return;
-        DigIn();
-    }
-
-    public void DigIn()
-    {
+        
         NavAgent.TargetPosition = Position;
         Velocity = Vector2.Zero;
         SetPhysicsProcess(false);
-        _stateChangeTimer.Paused = true;
-        State = EnemyState.DigOut;
         Visible = false;
+    }
+    
+
+    public void Chase()
+    {
+        var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
+        var directionBool = NavAgent.TargetPosition.X > Position.X;
+        _enemyAnimationController.Play("move");
+        _enemyAnimationController.Sprite.FlipH = directionBool;
+        
+        Velocity = direction * _moveSpeed * Vector2.Right;
+        MoveAndCollide(Velocity);
+    }
+    
+    public void OnAggroAnimationFinished(string animName)
+    {
+        if(animName != "aggro") return;
+        State = EnemyState.Move;
     }
 
     public void Move()
     {
         var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
+        var directionBool = NavAgent.TargetPosition.X > Position.X;
+        _enemyAnimationController.Play("move");
+        _enemyAnimationController.Sprite.FlipH = directionBool;
+        
         Velocity = direction * _moveSpeed * Vector2.Right;
         Velocity.MoveToward(direction, 0.2f);
         MoveAndCollide(Velocity);
     }
 
-    public void Idle()
+    
+
+    private void Idle()
     {
-        //todo: do idle work
+        _enemyAnimationController.Play("idle");
     }
     
     public void Attack()
     {
+        State = EnemyState.Attack;
+        _enemyAnimationController.Play("attack");
+    }
+
+    public void OnAttackAnimationFinished(string animName)
+    {
+        if(animName != "attack") return;
+        State = EnemyState.Idle;
+    }
+    
+    public void OnTakeDamageAnimationFinished(string animName)
+    {
+        if(animName != "damage") return;
         
     }
 
     #endregion
 
-    private void PlayAnimation()
+    #region Utilities
+
+    private Vector2 GetRandomDirection()
     {
-        switch (State)
-        {
-            case EnemyState.Move:
-                _enemyAnimationController.Play("move");
-                var directionBool = NavAgent.TargetPosition.X <= Position.X;
-                _enemyAnimationController.Sprite.FlipH = directionBool;
-                break;
-            // case EnemyState.Attack:
-            //     _enemyAnimationController.Play("attack");
-            //     break;
-            // case EnemyState.TakeDamage:
-            //     _enemyAnimationController.Play("damage");
-            //     break;
-            case EnemyState.DigIn:
-                _enemyAnimationController.Play("digIn");
-                break;
-            case EnemyState.DigOut:
-                if(_enemyAnimationController.CurrentAnimation == "digOut") return;
-                if (_enemyAnimationController.CurrentAnimation == "")
-                    State = EnemyState.Idle;
-                break;
-            // case EnemyState.Fall:
-            //     _enemyAnimationController.Play("fall");
-            //     break;
-            // case EnemyState.Aggro:
-            //     _enemyAnimationController.Play("aggro");
-            //     break;
-            default:
-                _enemyAnimationController.Play("idle");
-                break;
-        }
+        var rand = new Random();
+        return new Vector2I(rand.Next() % 2 == 0 ? 1 : -1, (int) Position.Y);
     }
 
-    // #region For Testing
-    //
-    // public override void _Input(InputEvent @event)
-    // {
-    //     if (@event.IsActionReleased("Enemy"))
-    //     {
-    //         Position = _playerControllerVariables.Position;
-    //     }
-    // }
-    //
-    // #endregion
-
+    #endregion
     
 }

@@ -9,4 +9,5 @@ public interface IUnit
     public NavigationAgent2D NavAgent { get; set; }
     public Timer TrackTimer { get; set; }
     public EnemyState State { get; set; }
+    public bool IsAffectedByGravity { get; set; }
 }

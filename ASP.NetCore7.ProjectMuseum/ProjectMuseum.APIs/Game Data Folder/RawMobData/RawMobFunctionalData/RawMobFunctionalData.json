@@ -1,0 +1,15 @@
+[
+  {
+    "Id": "GreenSlime",
+    "Class": "Slime",
+    "Health": 25,
+    "MovementSpeed": 50,
+    "DamagePerAttack": 5,
+    "AggroRange": 3,
+    "StatusEffectOnContact": false,
+    "StatusEffect": "N/A",
+    "CanFly": false,
+    "CanDig": true,
+    "Region": "North America"
+  }
+]

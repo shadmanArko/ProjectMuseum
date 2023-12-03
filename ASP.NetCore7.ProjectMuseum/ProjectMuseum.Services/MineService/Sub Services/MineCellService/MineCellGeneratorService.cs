@@ -3,7 +3,7 @@ using ProjectMuseum.Repositories.MineRepository;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 
-public class MineCellGenerator : IMineCellGenerator
+public class MineCellGeneratorService : IMineCellGeneratorService
 {
     public int XSize = 49;
     public int YSize = 64;
@@ -11,7 +11,7 @@ public class MineCellGenerator : IMineCellGenerator
     private readonly IMineRepository _mineRepository;
 
 
-    public MineCellGenerator(IMineRepository mineRepository)
+    public MineCellGeneratorService(IMineRepository mineRepository)
     {
         _mineRepository = mineRepository;
     }

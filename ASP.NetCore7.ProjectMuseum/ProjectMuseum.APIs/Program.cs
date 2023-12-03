@@ -35,13 +35,13 @@ string mineDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data F
 string playerInfoDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "PlayerInfo.json");
 string saveDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "save.json");
 string inventoryDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "inventory.json");
-string mineArtifactDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "mineArtifact.json");
+string mineArtifactsDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "mineArtifact.json");
 string displayArtifactDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "displayArtifact.json");
 string artifactStorageDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "artifactStorage.json");
 string tradingArtifactsDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "tradingArtifacts.json");
 
 
-//string museumTileDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json");
+//string museumTileDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for dev
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
 
 
@@ -51,6 +51,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(exhibitVariationDataFolderPath));
@@ -58,13 +61,30 @@ builder.Services.AddSingleton(new JsonFileDatabase<StoryScene>(storySceneDataFol
 builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(playerInfoDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Museum>(museumDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Mine>(mineDataFolderPath));
-builder.Services.AddSingleton(new SaveDataJsonFileDatabase(museumTileDataFolderPath, exhibitDataFolderPath, saveDataFolderPath, museumDataFolderPath, playerInfoDataFolderPath, storySceneDataFolderPath, exhibitVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Inventory>(inventoryDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<MineArtifacts>(mineArtifactDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<MineArtifacts>(mineArtifactsDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DisplayArtifacts>(displayArtifactDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactStorage>(artifactStorageDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(tradingArtifactsDataFolderPath));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
+    artifactStorageDataFolderPath,
+    displayArtifactDataFolderPath,
+    exhibitDataFolderPath,
+    exhibitVariationDataFolderPath,
+    inventoryDataFolderPath,
+    mineDataFolderPath,
+    mineArtifactsDataFolderPath,
+    museumDataFolderPath,
+    museumTileDataFolderPath,
+    playerInfoDataFolderPath,
+    saveDataFolderPath,
+    storySceneDataFolderPath,
+    tradingArtifactsDataFolderPath
+    ));
+
+
 builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMineRepository, MineRepository>();
 builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
@@ -76,8 +96,10 @@ builder.Services.AddScoped<IMineArtifactRepository, MineArtifactRepository>();
 builder.Services.AddScoped<IDisplayArtifactRepository, DisplayArtifactRepository>();
 builder.Services.AddScoped<IArtifactStorageRepository, ArtifactStorageRepository>();
 builder.Services.AddScoped<ITradingArtifactsRepository, TradingArtifactsRepository>();
+
+
 builder.Services.AddScoped<IMineService, MineService>();
-builder.Services.AddScoped<IMineCellGenerator, MineCellGenerator>();
+builder.Services.AddScoped<IMineCellGeneratorService, MineCellGeneratorService>();
 builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddScoped<IExhibitService, ExhibitService>();
@@ -90,8 +112,12 @@ builder.Services.AddScoped<IMineArtifactService, MineArtifactService>();
 builder.Services.AddScoped<IDisplayArtifactService, DisplayArtifactService>();
 builder.Services.AddScoped<IArtifactStorageService, ArtifactStorageService>();
 builder.Services.AddScoped<ITradingArtifactsService, TradingArtifactsService>();
+
+
 // builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));
 // builder.Services.AddScoped<ILoadService>(provider => new LoadService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));
+
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

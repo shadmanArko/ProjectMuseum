@@ -108,9 +108,10 @@ _guestTextures = Array[Texture2D]([ExtResource("2_g2g73"), ExtResource("3_j378q"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 6)
 scale = Vector2(-1, 1)
 texture = ExtResource("2_g2g73")
-offset = Vector2(0, -18.5)
+offset = Vector2(0, -24.31)
 hframes = 8
 vframes = 4
 

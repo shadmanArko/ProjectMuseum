@@ -203,7 +203,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         return texture;
     }
 
-
+    
     public void Initialize(string exhibitVariationName)
     {
         
@@ -221,8 +221,9 @@ public partial class Item : Sprite2D, IComparable<Item>
     private void httpRequestForExhibitPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
-        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
         GD.Print("Http1 result " + jsonStr);
+        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+        
     }
 
     private Vector2I _lastCheckedTile = new Vector2I();

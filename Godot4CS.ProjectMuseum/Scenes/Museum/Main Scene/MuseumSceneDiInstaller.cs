@@ -6,10 +6,14 @@ using ProjectMuseum.Models;
 
 public partial class MuseumSceneDiInstaller : Node
 {
-	public MuseumSceneDiInstaller()
+	
+
+	public override void _Ready()
 	{
+		GD.Print($"museum scene di installer ready");
 		ServiceRegistry.RegisterSingleton<List<ExhibitPlacementConditionData>>();
-		
+		ServiceRegistry.RegisterSingleton<List<MuseumTile>>();
+		ServiceRegistry.RegisterSingleton<string>();
 		
 		ServiceRegistry.Initialize();
 	}

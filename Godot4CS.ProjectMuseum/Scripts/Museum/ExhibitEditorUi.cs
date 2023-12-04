@@ -44,6 +44,8 @@ public partial class ExhibitEditorUi : Control
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
 		foreach (var artifact in artifacts)
 		{
+			if (artifact == null) continue;
+			
 			if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot1)
 			{
 				var instance = _draggable.Instantiate();

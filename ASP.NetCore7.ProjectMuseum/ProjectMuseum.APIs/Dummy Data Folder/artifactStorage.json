@@ -2,17 +2,17 @@
   {"Artifacts":[
     {
       "Id": "yz012",
-      "RawArtifactId": "raw234",
+      "RawArtifactId": "AncientNativeAmericanClub",
       "Slot": 10
     },
     {
       "Id": "lmn456",
-      "RawArtifactId": "raw567",
+      "RawArtifactId": "ClassicalNativeAmericanTomahawk",
       "Slot": 11
     },
     {
       "Id": "opq789",
-      "RawArtifactId": "raw890",
+      "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
       "Slot": 12
     }  ]
   }

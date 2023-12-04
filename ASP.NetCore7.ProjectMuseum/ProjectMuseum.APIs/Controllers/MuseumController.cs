@@ -92,6 +92,14 @@ public class MuseumController : ControllerBase
         var museumTile = await _museumTileService.DeleteMuseumTileById(id);
         return Ok(museumTile);
     }
+    [HttpGet("StartNewGame")]
+    public async Task<IActionResult> ClearPreviousDataAndStartNewGame()
+    {
+        var museumTiles = await _museumTileService.DeleteAllMuseumTiles();
+        var allExhibits = await _exhibitService.DeleteAllExhibits();
+        var newMuseumTiles = await _museumTileService.GenerateMuseumTileForNewGame();
+        return Ok("Cleared Data and set Up new tiles");
+    }
     [HttpGet("{exhibitVariationName}")]
     public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitVariationName)
     {
@@ -130,7 +138,21 @@ public class MuseumController : ControllerBase
         var artifacts = await _artifactStorageService.GetAllArtifactsOfStorage();
         return Ok(artifacts);
     }
-
+    [HttpGet("AddArtifactToStorageFromExhibit/{artifactId}/{exhibitId}/{slot}")]
+    public async Task<IActionResult> AddArtifactToStorageFromExhibit(string artifactId, string exhibitId, int slot )
+    {
+        var exhibit = await _exhibitService.RemoveArtifactFromExhibit(exhibitId, artifactId, slot);
+        var artifacts = await _artifactStorageService.GetArtifactOutOfDisplayById(artifactId);
+        
+        return Ok(exhibit);
+    }
+    [HttpGet("AddArtifactToExhibitSlotFromStore/{artifactId}/{exhibitId}/{slot}")]
+    public async Task<IActionResult> AddArtifactToExhibitSlotFromStore(string artifactId, string exhibitId, int slot)
+    {
+        var artifacts = await _artifactStorageService.SendArtifactToDisplayById(artifactId);
+        var exhibit = await _exhibitService.AddArtifactToExhibit(exhibitId, artifactId, slot);
+        return Ok(exhibit);
+    }
     [HttpGet("GetAllTradingArtifacts")]
     public async Task<IActionResult> GetAllTradingArtifacts()
     {

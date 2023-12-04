@@ -27,6 +27,14 @@ public class ArtifactStorageService : IArtifactStorageService
         return await _displayArtifactService.AddArtifact(artifact);
     }
 
+    public async Task<Artifact?> GetArtifactOutOfDisplayById(string id)
+    {
+        var allArtifacts = await _displayArtifactService.GetAllArtifacts();
+        
+        var artifact = await _artifactStorageRepository.AddArtifact(allArtifacts.FirstOrDefault(artifact1 => artifact1.Id == id));
+        return await _displayArtifactService.RemoveArtifactById(id);
+    }
+
     public async Task<List<Artifact>?> AddListOfArtifacts(List<Artifact> artifacts)
     {
         return await _artifactStorageRepository.AddListOfArtifacts(artifacts);

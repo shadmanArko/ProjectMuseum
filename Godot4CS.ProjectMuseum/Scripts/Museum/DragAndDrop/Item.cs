@@ -39,6 +39,7 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     [Export] public int numberOfTilesItTakes = 1;
     [Export] public string TileExtentsInDirection = "Both";
+    [Export] private Array<Sprite2D> _artifactSlots;
     private List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
     private List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
@@ -50,7 +51,10 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     private HttpRequest _httpRequestForExhibitPlacementConditions;
     private HttpRequest _httpRequestForExhibitPlacement;
+    private HttpRequest _httpRequestForArtifactPlacement;
+    private HttpRequest _httpRequestForArtifactRemoval;
     public string ExhibitVariationName = "default";
+    public Exhibit ExhibitData;
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
@@ -63,16 +67,25 @@ public partial class Item : Sprite2D, IComparable<Item>
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
+        MuseumActions.ArtifactDroppedOnExhibitSlot += ArtifactDroppedOnExhibitSlot;
+        MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
         AddToGroup("ManualSortGroup");
         _httpRequestForExhibitPlacement = new HttpRequest();
         _httpRequestForExhibitPlacementConditions = new HttpRequest();
+        _httpRequestForArtifactPlacement = new HttpRequest();
+        _httpRequestForArtifactRemoval = new HttpRequest();
         AddChild(_httpRequestForExhibitPlacement);
+        AddChild(_httpRequestForArtifactPlacement);
+        AddChild(_httpRequestForArtifactRemoval);
         AddChild(_httpRequestForExhibitPlacementConditions);
         _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;
+        _httpRequestForArtifactPlacement.RequestCompleted += HttpRequestForArtifactPlacementOnRequestCompleted;
+        _httpRequestForArtifactRemoval.RequestCompleted += HttpRequestForArtifactRemovalOnRequestCompleted;
         string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
         _httpRequestForExhibitPlacementConditions.Request(url);
         _originalColor = Modulate;
+
         if (numberOfTilesItTakes == 1)
         {
             listOfCoordinateOffsetsToCheck.Add(new Vector2I(0, 0));
@@ -95,6 +108,102 @@ public partial class Item : Sprite2D, IComparable<Item>
         }
     }
 
+    public void SetUpArtifacts(List<Artifact> displayArtifact)
+    {
+        foreach (var artifact in displayArtifact)
+        {
+            if (artifact == null ) continue;
+            
+            if (artifact.Id == ExhibitData.ExhibitArtifactSlot1)
+            {
+                AssignArtifactToSlot(artifact, 1);
+            }else if (artifact.Id == ExhibitData.ExhibitArtifactSlot2)
+            {
+                AssignArtifactToSlot(artifact, 2);
+            }
+        }
+    }
+    
+
+    private void HttpRequestForArtifactRemovalOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+        string jsonStr = Encoding.UTF8.GetString(body);
+        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+        GD.Print("Removed Artifact");
+    }
+
+    private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber)
+    {
+        if (slotNumber == 0) return;
+        if (givenItem == this)
+        {
+            RemoveArtifactFromSlot(slotNumber);
+            _httpRequestForArtifactRemoval.Request(ApiAddress.MuseumApiPath +
+                                                   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}");
+        }
+    }
+
+    private void RemoveArtifactFromSlot(int slotNumber)
+    {
+        if (slotNumber == 1)
+        {
+            _artifactSlots[0].Texture = null;
+        }
+        else if (slotNumber == 2)
+        {
+            _artifactSlots[1].Texture = null;
+        }
+    }
+
+    private void HttpRequestForArtifactPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+        string jsonStr = Encoding.UTF8.GetString(body);
+        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+        GD.Print("Placed Artifact");
+    }
+
+    private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber)
+    {
+        if (slotNumber == 0) return;
+        
+        if (givenItem == this)
+        {
+            AssignArtifactToSlot(artifact, slotNumber);
+
+            _httpRequestForArtifactPlacement.Request(ApiAddress.MuseumApiPath +
+                                                     $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}");
+        }
+    }
+
+    private void AssignArtifactToSlot(Artifact artifact, int slotNumber)
+    {
+        if (slotNumber == 1)
+        {
+            _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+        }
+        else if (slotNumber == 2)
+        {
+            _artifactSlots[1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+        }
+    }
+
+
+    private Texture2D LoadArtifactTexture(string artifactIconName)
+    {
+        string spritePath = $"res://Assets/2D/Sprites/Isometric View Artifacts/{artifactIconName}.png"; // Change the extension if your sprites have a different format
+
+        // Use ResourceLoader.Load to load the texture
+        Texture2D texture = (Texture2D)ResourceLoader.Load(spritePath);
+
+        if (texture == null)
+        {
+            GD.Print($"Failed to load texture for artifact: {artifactIconName}");
+        }
+
+        return texture;
+    }
+
+    
     public void Initialize(string exhibitVariationName)
     {
         
@@ -113,6 +222,8 @@ public partial class Item : Sprite2D, IComparable<Item>
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         GD.Print("Http1 result " + jsonStr);
+        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+        
     }
 
     private Vector2I _lastCheckedTile = new Vector2I();
@@ -178,7 +289,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         {
             if (GetRect().HasPoint(GetLocalMousePosition()))
             {
-                MuseumActions.OnClickItem?.Invoke(this);
+                MuseumActions.OnClickItem?.Invoke(this, ExhibitData);
             }
         }
     }
@@ -234,7 +345,11 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     public override void _ExitTree()
     {
+        MuseumActions.ArtifactDroppedOnExhibitSlot -= ArtifactDroppedOnExhibitSlot;
+        MuseumActions.ArtifactRemovedFromExhibitSlot -= ArtifactRemovedFromExhibitSlot;
         _httpRequestForExhibitPlacementConditions.RequestCompleted -= httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted -= httpRequestForExhibitPlacementOnRequestCompleted;
+        _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
+        _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
     }
 }

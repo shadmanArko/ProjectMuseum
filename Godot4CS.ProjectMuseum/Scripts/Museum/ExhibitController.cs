@@ -14,10 +14,12 @@ public partial class ExhibitController : Node2D
     [Export] private ExhibitEditorUi _exhibitEditorUi;
     [Export] private Node2D _itemsParent;
     private HttpRequest _httpRequestForGettingAllExhibits;
+    private HttpRequest _httpRequestForGettingAllDisplayArtifacts;
     private PackedScene item1;
     private PackedScene item2;
     private PackedScene item3;
     private PackedScene item4;
+    private List<Artifact> _displayArtifacts;
     public override void _Ready()
     {
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
@@ -25,11 +27,22 @@ public partial class ExhibitController : Node2D
         item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
         item4 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_4.tscn");
         _httpRequestForGettingAllExhibits = new HttpRequest();
+        _httpRequestForGettingAllDisplayArtifacts = new HttpRequest();
         AddChild(_httpRequestForGettingAllExhibits);
+        AddChild(_httpRequestForGettingAllDisplayArtifacts);
         _httpRequestForGettingAllExhibits.RequestCompleted += HttpRequestForGettingAllExhibitsOnRequestCompleted;
-        _httpRequestForGettingAllExhibits.Request(ApiAddress.MuseumApiPath + "GetAllExhibits");
+        _httpRequestForGettingAllDisplayArtifacts.RequestCompleted += HttpRequestForGettingAllDisplayArtifactsOnRequestCompleted;
+        _httpRequestForGettingAllDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
         MuseumActions.OnClickItem += OnClickItem;
     }
+
+    private void HttpRequestForGettingAllDisplayArtifactsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+        string jsonStr = Encoding.UTF8.GetString(body);
+        _displayArtifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
+        _httpRequestForGettingAllExhibits.Request(ApiAddress.MuseumApiPath + "GetAllExhibits");
+    }
+
 
     private void HttpRequestForGettingAllExhibitsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
@@ -61,15 +74,25 @@ public partial class ExhibitController : Node2D
     private void SpawnExhibit(Exhibit exhibit, PackedScene packedScene)
     {
         var instance = (Node)packedScene.Instantiate();
+        instance.GetNode<Item>(".").ExhibitData = exhibit;
+        instance.GetNode<Item>(".").SetUpArtifacts(_displayArtifacts);
         _itemsParent.AddChild(instance);
         instance.GetNode<Node2D>(".").Position =
             GameManager.TileMap.MapToLocal(new Vector2I(exhibit.XPosition, exhibit.YPosition));
+        // instance.GetNode<Node2D>(".").Position += new Vector2(0, 9);
         MuseumActions.OnItemUpdated?.Invoke();
     }
 
-    private void OnClickItem(Item item)
+    private void OnClickItem(Item item, Exhibit exhibit)
     {
         GD.Print($"Clicked {item.ExhibitVariationName} {item.Name}");
         _exhibitEditorUi.Visible = true;
+        _exhibitEditorUi.ReInitialize(item, exhibit);
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        MuseumActions.OnClickItem -= OnClickItem;
     }
 }

@@ -96,20 +96,22 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p6y7"]
-size = Vector2(17, 40)
+size = Vector2(15, 38)
 
 [node name="Guest" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
+z_index = 1
 texture_filter = 1
 script = ExtResource("1_qipow")
-_displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 _guestTextures = Array[Texture2D]([ExtResource("2_g2g73"), ExtResource("3_j378q"), ExtResource("4_0mvca")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 6)
 scale = Vector2(-1, 1)
 texture = ExtResource("2_g2g73")
+offset = Vector2(0, -24.31)
 hframes = 8
 vframes = 4
 
@@ -119,6 +121,6 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(-1.5, -19)
 shape = SubResource("RectangleShape2D_4p6y7")
 disabled = true

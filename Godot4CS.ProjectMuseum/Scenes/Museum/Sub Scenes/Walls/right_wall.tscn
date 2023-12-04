@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddq1yn1fawuwg"]
 
-[ext_resource type="Texture2D" uid="uid://cfnplqomkdo4p" path="res://Assets/2D/Sprites/Wallpapers/3.png" id="1_kwd5i"]
+[ext_resource type="Texture2D" uid="uid://ryv2jtctbobm" path="res://Assets/2D/Sprites/Wallpapers/wallpaper side 2.png" id="1_m21m6"]
 [ext_resource type="Script" path="res://Scripts/Museum/Wall.cs" id="2_mg87w"]
 
 [node name="YellowFlowerWallPaper1" type="Sprite2D" node_paths=PackedStringArray("_wallPreview")]
@@ -8,11 +8,11 @@ modulate = Color(0.678431, 0.447059, 0.701961, 1)
 texture_filter = 1
 position = Vector2(24, -396)
 scale = Vector2(-1, 1)
-texture = ExtResource("1_kwd5i")
-offset = Vector2(-8, -43.5)
+texture = ExtResource("1_m21m6")
+offset = Vector2(-11, -47.5)
 script = ExtResource("2_mg87w")
 _wallPreview = NodePath("wall Preview")
-_wallPreviewSprite = ExtResource("1_kwd5i")
+_wallPreviewSprite = ExtResource("1_m21m6")
 
 [node name="wall Preview" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.784314)

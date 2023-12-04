@@ -102,14 +102,21 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         SetUpItem(item3);
     }
 
+    private Item _lastSelectedItem;
     private void SetUpItem(PackedScene packedScene)
     {
         var instance = (Node)packedScene.Instantiate();
         ItemsParent.AddChild(instance);
+        if (_lastSelectedItem != null && IsInstanceValid(_lastSelectedItem) && _lastSelectedItem.selectedItem)
+        {
+            _lastSelectedItem.QueueFree();
+        }
         var scriptInstance = instance.GetNode<Item>(".");
         if (scriptInstance != null)
         {
+            scriptInstance.Position = GetGlobalMousePosition();
             scriptInstance.Initialize(_cardName);
+            _lastSelectedItem = scriptInstance;
         }
         else
         {

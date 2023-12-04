@@ -9,21 +9,38 @@ public partial class NewGameSetupUi : Control
 	[Export] public OptionButton OptionButton;
 
 	[Export] public CheckButton CheckButton;
+	[Export] private Control _warningPanel;
 
-	private HttpRequest _httpRequest;
+	private HttpRequest _httpRequestForNewGameSetUpData;
+	private HttpRequest _httpRequestForClearingPreviousDataAndStartingNewGame;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		StartButton.Pressed += StartButtonOnPressed;
 		
 		
-		_httpRequest = new HttpRequest();
-		AddChild(_httpRequest);
-		_httpRequest.RequestCompleted += OnNewGameSetupRequestComplete;
+		_httpRequestForNewGameSetUpData = new HttpRequest();
+		_httpRequestForClearingPreviousDataAndStartingNewGame = new HttpRequest();
+		AddChild(_httpRequestForNewGameSetUpData);
+		AddChild(_httpRequestForClearingPreviousDataAndStartingNewGame);
+		_httpRequestForNewGameSetUpData.RequestCompleted += OnNewGameSetupRequestForNewGameSetUpDataComplete;
+		_httpRequestForClearingPreviousDataAndStartingNewGame.RequestCompleted += HttpRequestForClearingPreviousDataAndStartingNewGameOnRequestCompleted;
+	}
+
+	private void HttpRequestForClearingPreviousDataAndStartingNewGameOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		GD.Print("wil change scene now");
+		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
 	}
 
 	private void StartButtonOnPressed()
 	{
+		if (LineEdit.Text == "")
+		{
+			GD.Print("No Name");
+			_warningPanel.Visible = true;
+			return;
+		}
 		
 		GD.Print($"Name: {LineEdit.Text}, Gender: {OptionButton.Text}, Tutorial: { CheckButton.ButtonPressed}" );
 		string body = Json.Stringify(new Godot.Collections.Dictionary
@@ -36,7 +53,7 @@ public partial class NewGameSetupUi : Control
 
 		});
 		string[] headers = { "Content-Type: application/json"};
-		Error error = _httpRequest.Request($"{ApiAddress.UrlPrefix}Player/PostPlayerInfo", headers,
+		Error error = _httpRequestForNewGameSetUpData.Request($"{ApiAddress.UrlPrefix}Player/PostPlayerInfo", headers,
 			HttpClient.Method.Post, body);
 		if (error != Error.Ok)
 		{
@@ -56,8 +73,10 @@ public partial class NewGameSetupUi : Control
 	{
 	}
 
-	void OnNewGameSetupRequestComplete(long result, long responsecode, string[] headers, byte[] body)
+	void OnNewGameSetupRequestForNewGameSetUpDataComplete(long result, long responsecode, string[] headers, byte[] body)
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
+		_httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.MuseumApiPath +
+		                                                              "StartNewGame");
+		GD.Print("new game set Up request done");
 	}
 }

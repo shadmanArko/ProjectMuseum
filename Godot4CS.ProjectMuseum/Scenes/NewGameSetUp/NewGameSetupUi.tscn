@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bubw1v2o1o04u"]
+[gd_scene load_steps=5 format=3 uid="uid://bubw1v2o1o04u"]
 
 [ext_resource type="Script" path="res://Scripts/NewGameSetup/NewGameSetupUi.cs" id="1_aeqpo"]
 [ext_resource type="Texture2D" uid="uid://cyj27cdfc6cf7" path="res://Assets/2D/Sprites/Placeholder/male_and_female_mainj.png" id="1_jrv3g"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="3_hla8t"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/WarningUI.cs" id="3_hyewe"]
 
-[node name="NewGameSetupUi" type="Control" node_paths=PackedStringArray("StartButton", "LineEdit", "OptionButton", "CheckButton")]
+[node name="NewGameSetupUi" type="Control" node_paths=PackedStringArray("StartButton", "LineEdit", "OptionButton", "CheckButton", "_warningPanel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +17,7 @@ StartButton = NodePath("Panel/Start Button")
 LineEdit = NodePath("Panel/Player name/LineEdit")
 OptionButton = NodePath("Panel/Gender/OptionButton")
 CheckButton = NodePath("Panel/Turorial/CheckButton")
+_warningPanel = NodePath("Panel/Warning UI")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -102,7 +105,57 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Start.."
 
-[node name="MaleAndFemaleMainj" type="Sprite2D" parent="."]
+[node name="MaleAndFemaleMainj" type="Sprite2D" parent="Panel"]
 position = Vector2(970, 274)
 scale = Vector2(0.225, 0.225)
 texture = ExtResource("1_jrv3g")
+
+[node name="Warning UI" type="Panel" parent="Panel" node_paths=PackedStringArray("_okayButton")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.312
+anchor_top = 0.386
+anchor_right = 0.683
+anchor_bottom = 0.645
+offset_left = -0.0400391
+offset_top = 0.119995
+offset_right = -0.360107
+offset_bottom = 0.399963
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_hyewe")
+_okayButton = NodePath("Okay Button")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Warning UI"]
+layout_mode = 0
+offset_right = 712.0
+offset_bottom = 179.0
+theme = ExtResource("3_hla8t")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]
+
+
+Please Enter Your Name.
+
+
+[/center]"
+
+[node name="Okay Button" type="Button" parent="Panel/Warning UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -66.0
+offset_right = 63.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_hla8t")
+theme_override_font_sizes/font_size = 32
+text = "Okay"

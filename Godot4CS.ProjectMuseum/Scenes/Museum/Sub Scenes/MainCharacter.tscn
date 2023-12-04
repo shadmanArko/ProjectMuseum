@@ -97,6 +97,8 @@ _data = {
 size = Vector2(17, 40)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
+z_index = 1
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("2_olhew")
 _animationPlayer = NodePath("PlayerAnimation")
@@ -106,6 +108,7 @@ _characterSprite = NodePath("Sprite2D")
 texture_filter = 1
 scale = Vector2(-1, 1)
 texture = ExtResource("2_uht1t")
+offset = Vector2(0, -18.5)
 hframes = 8
 vframes = 4
 
@@ -115,5 +118,5 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_4p6y7")

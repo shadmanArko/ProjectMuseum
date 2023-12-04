@@ -63,4 +63,40 @@ public class ExhibitRepository : IExhibitRepository
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
         return exhibit;
     }
+
+    public async Task<List<Exhibit>?> DeleteAllExhibits()
+    {
+        var exhibits = new List<Exhibit>();
+        await _exhibitDatabase.WriteDataAsync(exhibits);
+        return exhibits;
+    }
+
+    public async Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot)
+    {
+        var exhibits = await _exhibitDatabase.ReadDataAsync();
+        var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
+        if (slot == 1)
+        {
+            exhibit.ExhibitArtifactSlot1 = artifactId;
+        }else if (slot == 2)
+        {
+            exhibit.ExhibitArtifactSlot2 = artifactId;
+        }
+        if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
+        return exhibit;
+    }
+    public async Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot)
+    {
+        var exhibits = await _exhibitDatabase.ReadDataAsync();
+        var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
+        if (slot == 1)
+        {
+            exhibit.ExhibitArtifactSlot1 = "";
+        }else if (slot == 2)
+        {
+            exhibit.ExhibitArtifactSlot2 = "";
+        }
+        if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
+        return exhibit;
+    }
 }

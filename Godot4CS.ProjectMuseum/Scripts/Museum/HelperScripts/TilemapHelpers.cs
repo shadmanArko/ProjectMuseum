@@ -13,8 +13,8 @@ public static class TilemapHelpers
         // Assuming tileSize is the size of your isometric tile
         Vector2 tileSize = GetTileSize(); // Replace with your actual tile size
     
-        return tileSize.Y < tilemapPos.Y && tilemapPos.Y < 0 &&
-               tileSize.X < tilemapPos.X && tilemapPos.X < 0;
+        return tileSize.Y < tilemapPos.Y && tilemapPos.Y <= 0 &&
+               tileSize.X < tilemapPos.X && tilemapPos.X <= 0;
     }
     public static bool IsTilePositionInsideTileMap(this Vector2I position)
     {

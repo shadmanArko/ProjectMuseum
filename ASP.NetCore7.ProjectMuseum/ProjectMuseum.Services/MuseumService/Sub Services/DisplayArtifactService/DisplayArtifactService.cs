@@ -27,4 +27,8 @@ public class DisplayArtifactService : IDisplayArtifactService
     {
        return await _displayArtifactRepository.AddArtifact(artifact);
     }
+    public async Task<Artifact?> RemoveArtifactById(string id)
+    {
+        return await _displayArtifactRepository.RemoveArtifactById(id);
+    }
 }

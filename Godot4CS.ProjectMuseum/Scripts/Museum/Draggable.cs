@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using ProjectMuseum.Models;
 
 public partial class Draggable : ColorRect
 {
@@ -8,10 +9,17 @@ public partial class Draggable : ColorRect
 	private bool isDragging = false;
 	public bool canBeDragged = true;
 	public DropTarget parentDropTarget;
+	private Vector2 _customMinimumSize;
+	public int SlotAtTheStartOfDrag;
+	public Artifact Artifact;
+	[Export] private RichTextLabel _nameOfDraggable;
+	[Export] private PackedScene _draggablePreview;
 	public override void _Ready()
 	{
 		AddToGroup("Draggable");
+		_customMinimumSize = CustomMinimumSize;
 		parentDropTarget = GetParent<DropTarget>();
+		SlotAtTheStartOfDrag = parentDropTarget.SlotNumber;
 	}
 	public override void _Input(InputEvent @event)
 	{
@@ -36,6 +44,16 @@ public partial class Draggable : ColorRect
 		}
 	}
 
+	public void Initialize(Artifact artifact)
+	{
+		if (artifact == null)
+		{
+			GD.Print("No artifact");
+			return;
+		}
+		_nameOfDraggable.Text = artifact.RawArtifactId;
+		Artifact = artifact;
+	}
 	private void StartDrag()
 	{
 		isDragging = true;
@@ -44,6 +62,10 @@ public partial class Draggable : ColorRect
 		// Additional logic to initialize drag, if needed
 	}
 
+	public void ResetDraggableOnGettingBackToParent()
+	{
+		CustomMinimumSize = new Vector2(200, 50);
+	}
 	private void EndDrag()
 	{
 		if (isDragging)
@@ -56,11 +78,11 @@ public partial class Draggable : ColorRect
 	}
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
-		
+		SlotAtTheStartOfDrag = parentDropTarget.SlotNumber;
 		GD.Print($"get_drag_data has run");
 		if (!droppedOnTarget)
 		{
-			SetDragPreview(_GetPreviewControl());
+			SetDragPreview((Control)_draggablePreview.Instantiate());
 			
 			return this;
 		}
@@ -77,7 +99,7 @@ public partial class Draggable : ColorRect
 		It will be deleted automatically after the drag has ended.
 		*/
 		var preview = new ColorRect();
-		preview.Size = Size;
+		preview.Size = _customMinimumSize;
 		var previewColor = Modulate;
 		previewColor.A = 0.5f;
 		preview.Modulate = previewColor;

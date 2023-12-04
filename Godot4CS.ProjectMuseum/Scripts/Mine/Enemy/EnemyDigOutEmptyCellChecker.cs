@@ -19,22 +19,24 @@ public class EnemyDigOutEmptyCellChecker
             if(cell == null) continue;
             if (cell.IsBroken)
             {
-                var bottomAdjacentCellPos = tilePos + Vector2I.Down;
-                var bottomCell = mineGenerationVariables.GetCell(bottomAdjacentCellPos);
-                if(bottomCell == null) continue;
-                if(bottomCell.IsBroken) continue;
                 var cellSize = mineGenerationVariables.Mine.CellSize;
-                return new Vector2(bottomCell.PositionX * cellSize, bottomCell.PositionY * cellSize);
+                return new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
+                // var bottomAdjacentCellPos = tilePos + Vector2I.Down;
+                // var bottomCell = mineGenerationVariables.GetCell(bottomAdjacentCellPos);
+                // if(bottomCell == null) continue;
+                // if(bottomCell.IsBroken) continue;
+                // var cellSize = mineGenerationVariables.Mine.CellSize;
+                // return new Vector2(bottomCell.PositionX * cellSize, bottomCell.PositionY * cellSize);
             }
-            else
-            {
-                var topAdjacentCellPos = tilePos + Vector2I.Up;
-                var topCell = mineGenerationVariables.GetCell(topAdjacentCellPos);
-                if(topCell == null) continue;
-                if(topCell.IsBroken) continue;
-                var cellSize = mineGenerationVariables.Mine.CellSize;
-                return new Vector2(topCell.PositionX * cellSize, topCell.PositionY * cellSize);
-            }
+            // else
+            // {
+            //     var topAdjacentCellPos = tilePos + Vector2I.Up;
+            //     var topCell = mineGenerationVariables.GetCell(topAdjacentCellPos);
+            //     if(topCell == null) continue;
+            //     if(topCell.IsBroken) continue;
+            //     var cellSize = mineGenerationVariables.Mine.CellSize;
+            //     return new Vector2(topCell.PositionX * cellSize, topCell.PositionY * cellSize);
+            // }
         }
 
         return Vector2.Zero;

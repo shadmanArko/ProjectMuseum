@@ -32,6 +32,9 @@ public class PlayerControllerVariables
         get => _isAttacking;
         set
         {
+            if(_isAttacking != value && _isAttacking == false && CurrentEquippedItem == Equipables.Sword)
+                MineActions.OnPlayerMeleeAttackActionEnded?.Invoke();
+            
             _isAttacking = value;
             if (_isAttacking)
             {
@@ -45,10 +48,10 @@ public class PlayerControllerVariables
                         MineActions.OnPlayerBrushActionPressed?.Invoke();
                         break;
                     case Equipables.Sword:
-                        MineActions.OnPlayerMeleeAttackActionPressed?.Invoke();
+                        MineActions.OnPlayerMeleeAttackActionStarted?.Invoke();
                         break;
                     default:
-                        MineActions.OnPlayerMeleeAttackActionPressed?.Invoke();
+                        MineActions.OnPlayerMeleeAttackActionStarted?.Invoke();
                         break;
                 }
             }

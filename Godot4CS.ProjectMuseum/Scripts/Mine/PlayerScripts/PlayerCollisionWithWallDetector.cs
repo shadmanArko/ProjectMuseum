@@ -7,12 +7,11 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
-using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
-public partial class PlayerCollisionDetector : Node2D
+public partial class PlayerCollisionWithWallDetector : Node2D
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -28,7 +27,9 @@ public partial class PlayerCollisionDetector : Node2D
 		InitializeDiReferences();
 		SubscribeToActions();
 	}
-    
+
+
+	#region Initializers
 
 	private void InitializeDiReferences()
 	{
@@ -49,6 +50,8 @@ public partial class PlayerCollisionDetector : Node2D
 		MineActions.OnMiniGameLost += MiniGameLost;
 		MineActions.OnArtifactDiscoveryOkayButtonPressed += TurnOffArtifactDiscoveryScene;
 	}
+
+	#endregion
 
 	#region Http Requests
 
@@ -89,6 +92,7 @@ public partial class PlayerCollisionDetector : Node2D
 			if (state != MotionState.Hanging)
 				_playerControllerVariables.State = MotionState.Grounded;
 		}
+        
 	}
 	
 	#region Wall Attack Detection
@@ -140,6 +144,8 @@ public partial class PlayerCollisionDetector : Node2D
 		AddChild(scene);
 	}
 
+	#region Mini Game 
+
 	private void MiniGameWon()
 	{
 		GD.Print("Successfully Extracted Artifact");
@@ -171,7 +177,10 @@ public partial class PlayerCollisionDetector : Node2D
 	{
 		_playerControllerVariables.CanMove = true;
 	}
-    
+	
+
+	#endregion
+	
 	private Vector2I FindPositionOfTargetCell()
 	{
 		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
@@ -246,8 +255,6 @@ public partial class PlayerCollisionDetector : Node2D
 		 var normalCellCrackMaterial =
 		 	_mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
 				cellCrackMat.MaterialType == "Normal");
-        GD.Print("normal crack mat is null: "+(normalCellCrackMaterial == null));
-		GD.Print(normalCellCrackMaterial.MaterialType);
 		MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell, normalCellCrackMaterial ,_mineGenerationVariables.MineGenView);
 		if (cell.HitPoint <= 0)
 		{

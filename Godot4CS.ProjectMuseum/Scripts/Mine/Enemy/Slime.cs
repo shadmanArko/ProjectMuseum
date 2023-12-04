@@ -5,10 +5,11 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces.Movement;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
-public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
+public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamagable
 {
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
@@ -26,6 +27,22 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     [Export] private bool _isAggro;
     private Vector2 _moveDirection;
     [Export] private float _aggroRange = 140f;
+
+    private int _health;
+    public int Health
+    {
+        get => _health;
+        set
+        {
+            _health = value;
+            _healthBar.Value = _health;
+            
+            if(_health <= 0)
+                Die();
+        }
+    }
+
+    [Export] private TextureProgressBar _healthBar;
     
     public override void _EnterTree()
     {
@@ -35,6 +52,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     public override void _Ready()
     {
        Spawn();
+       Health = 100;
     }
 
     private void InitializeDiReferences()
@@ -69,28 +87,28 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     public override void _PhysicsProcess(double delta)
     {
         CheckPlayerAggro();
+        //ApplyGravity((float) delta);
         
         if (State == EnemyState.Move)
             Move();
-        else if(State == EnemyState.Chase)
-            Chase();
-        else if(State == EnemyState.Idle)
-            Idle();
-        else if (State == EnemyState.Attack)
-            Attack();
+        // else if(State == EnemyState.Chase)
+        //     Chase();
+        // else if(State == EnemyState.Idle)
+        //     Idle();
+        // else if (State == EnemyState.Attack)
+        //     Attack();
         else if (State == EnemyState.DigIn)
             DigIn();
-        
-        ApplyGravity((float) delta);
+
+        var collisionBool = MoveAndSlide();
+        ApplyGravity(collisionBool, (float) delta);
     }
 
 
     [Export] private float _gravity;
-    private void ApplyGravity(float delta)
+    private void ApplyGravity(bool collisionBool, float delta)
     {
-        var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
-        
-        if (collision == null)
+        if (!collisionBool)
         {
             var velocity = Velocity;
             velocity.Y += _gravity * delta;
@@ -103,6 +121,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
         var currentPos = new System.Numerics.Vector2(Position.X, Position.Y);
         var playerPos = new System.Numerics.Vector2(_playerControllerVariables.Position.X, _playerControllerVariables.Position.Y);
         var distance = System.Numerics.Vector2.Distance(currentPos, playerPos);
+        //GD.Print($"distance is :{distance}");
         if (distance > _aggroRange) return;
 
         if (_isAggro) return;
@@ -125,7 +144,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     private void DigOut()
     {
         SetPhysicsProcess(true);
-        var digOutPos =EnemyDigOutEmptyCellChecker.CheckForEmptyCellsAroundPlayer(_playerControllerVariables.Position, _mineGenerationVariables);
+        var digOutPos = EnemyDigOutEmptyCellChecker.CheckForEmptyCellsAroundPlayer(_playerControllerVariables.Position, _mineGenerationVariables);
         if (digOutPos != Vector2.Zero)
         {
             Position = digOutPos;
@@ -153,8 +172,8 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     {
         if(animName != "digIn") return;
         
-        NavAgent.TargetPosition = Position;
         Velocity = Vector2.Zero;
+        NavAgent.TargetPosition = Position;
         SetPhysicsProcess(false);
         Visible = false;
     }
@@ -167,8 +186,8 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
         _enemyAnimationController.Play("move");
         _enemyAnimationController.Sprite.FlipH = directionBool;
         
-        Velocity = direction * _moveSpeed * Vector2.Right;
-        MoveAndCollide(Velocity);
+        var velocityX = direction.X * _moveSpeed;
+        Velocity = new Vector2(velocityX , Velocity.Y);
     }
     
     public void OnAggroAnimationFinished(string animName)
@@ -184,21 +203,23 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
         _enemyAnimationController.Play("move");
         _enemyAnimationController.Sprite.FlipH = directionBool;
         
-        Velocity = direction * _moveSpeed * Vector2.Right;
-        Velocity.MoveToward(direction, 0.2f);
-        MoveAndCollide(Velocity);
+        var velocityX = direction.X * _moveSpeed;
+        Velocity = new Vector2(velocityX , Velocity.Y);
+        //MoveAndSlide();
     }
 
     
 
     private void Idle()
     {
+        Velocity = Vector2.Zero;
         _enemyAnimationController.Play("idle");
     }
     
     public void Attack()
     {
         State = EnemyState.Attack;
+        Velocity = Vector2.Zero;
         _enemyAnimationController.Play("attack");
     }
 
@@ -225,5 +246,24 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack
     }
 
     #endregion
-    
+
+    public void TakeDamage()
+    {
+        GD.Print("Enemy taking damage");
+        _enemyAnimationController.Play("damage");
+        HealthSystem.ReduceEnemyHealth(10, 100, this);
+    }
+
+    public void Die()
+    {
+        _enemyAnimationController.Play("death");
+        SetPhysicsProcess(false);
+        _ExitTree();
+    }
+
+    public void OnDeathAnimationFinished(string animeName)
+    {
+        if(animeName != "death") return;
+        QueueFree();
+    }
 }

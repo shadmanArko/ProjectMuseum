@@ -8,8 +8,15 @@ public partial class MineActions : Node
 {
 	public static Action OnPlayerDigActionPressed;
 	public static Action OnPlayerBrushActionPressed;
-	public static Action OnPlayerMeleeAttackActionPressed;
+	
+	public static Action OnPlayerMeleeAttackActionStarted;
+	public static Action OnPlayerMeleeAttackActionEnded;
+	
     public static Action OnPlayerRangedAttackActionPressed;
+
+    //for starting the enemy damage at the right moment
+    // public static Action OnPlayerAttackAnimationStarted; 
+    // public static Action OnPlayerAttackAnimationEnded; 
 
     public static Action OnSuccessfulDigActionCompleted;
 

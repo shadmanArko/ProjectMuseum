@@ -25,7 +25,7 @@ public partial class AnimationController : AnimationPlayer
 	private void SubscribeToActions()
 	{
 		MineActions.OnPlayerDigActionPressed += PlayDigAnimation;
-		MineActions.OnPlayerMeleeAttackActionPressed += PlayMeleeAttackAnimation;
+		MineActions.OnPlayerMeleeAttackActionStarted += PlayMeleeAttackAnimation;
 		MineActions.OnPlayerBrushActionPressed += PlayBrushAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
@@ -34,6 +34,12 @@ public partial class AnimationController : AnimationPlayer
 	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
+
+		// if (CurrentAnimation == "attack" && _sprite.Frame >= 212)
+		// {
+		// 	GD.Print(_sprite.Frame);
+		// 	MineActions.OnPlayerAttackAnimationStarted?.Invoke();
+		// }
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
 			PlayHangingAnimations(tempVelocity, isAttacking);

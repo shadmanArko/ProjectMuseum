@@ -65,11 +65,32 @@ public class MineController : ControllerBase
         return Ok(mine);
     }
     
+    [HttpGet("GetAllMineArtifacts")]
+    public async Task<IActionResult> GetAllMineArtifacts()
+    {
+        var artifacts = await _mineArtifactService.GetAllArtifactsOfMine();
+        return Ok(artifacts);
+    }
+    
+    [HttpGet("GetMineArtifactById/{id}")]
+    public async Task<IActionResult> GetMineArtifactById(string id)
+    {
+        var artifact = await _mineArtifactService.GetArtifactById(id);
+        return Ok(artifact);
+    }
+    
     [HttpGet("GetMineCellCrackMaterial/{materialType}")]
     public async Task<IActionResult> GetMineCellCrackMaterial(string materialType)
     {
         var cellCrackMaterial = await _mineCellCrackMaterialService.GetCellCrackMaterial(materialType);
         return Ok(cellCrackMaterial);
+    }
+
+    [HttpGet("GetAllMineCellCrackMaterials")]
+    public async Task<IActionResult> GetAllCellCrackMaterials()
+    {
+        var cellCrackMaterials = await _mineCellCrackMaterialService.GetAllCellCrackMaterials();
+        return Ok(cellCrackMaterials);
     }
 
     [HttpGet("GetAllRawArtifactFunctional")]
@@ -78,7 +99,6 @@ public class MineController : ControllerBase
         var listOfRawArtifactFunctional = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
         return Ok(listOfRawArtifactFunctional);
     }
-    
     
     [HttpGet("GetAllRawArtifactDescriptive")]
     public async Task<IActionResult> GetAllRawArtifactDescriptive()

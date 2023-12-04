@@ -18,6 +18,6 @@ public class Cell
 	public bool RightBrokenSide { get; set; }
 	public bool BottomBrokenSide { get; set; }
 	public bool LeftBrokenSide { get; set; }
-
 	public string ArtifactId { get; set; }
+	public string ArtifactMaterial { get; set; }
 }

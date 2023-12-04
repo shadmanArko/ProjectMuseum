@@ -5,7 +5,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public static class MineSetCellConditions
 {
-    public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
+    public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
     {
         if (!cell.IsInstantiated || cell.IsBroken)
             SetBlankCell(mineGenerationView, tilePos);
@@ -15,7 +15,7 @@ public static class MineSetCellConditions
                 SetUnbreakableCell(mineGenerationView, tilePos);
             else
             {
-                if (cell.IsRevealed) SetBreakableCell(mineGenerationView, cell, tilePos, mouseDir);
+                if (cell.IsRevealed) SetBreakableCell(mineGenerationView, cell, cellCrackMaterial, tilePos, mouseDir);
                 else SetUnrevealedCell(mineGenerationView, tilePos);
             }
         }
@@ -40,7 +40,7 @@ public static class MineSetCellConditions
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
     }
 
-    private static void SetBreakableCell(MineGenerationView mineGenerationView, Cell cell, Vector2I tilePos, Vector2I mouseDir)
+    private static void SetBreakableCell(MineGenerationView mineGenerationView, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I tilePos, Vector2I mouseDir)
     {
         var n = 0;
         if (cell.TopBrokenSide)
@@ -55,28 +55,37 @@ public static class MineSetCellConditions
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
         mineGenerationView.SetCell(1, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
-        
-        if(cell.HasArtifact)
-            SetArtifactCrackOnTiles(tilePos, mouseDir, cell, mineGenerationView);
+
+        if (cell.HasArtifact)
+            SetArtifactCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
         else
-            SetCrackOnTiles(tilePos, mouseDir, cell, mineGenerationView);
+            SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
     }
 
     #endregion
 
-    public static void SetArtifactCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
+    public static void SetArtifactCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
     {
-        //TODO: designate artifact type from artifact variable of cell
-        var artifactType = 2;
-        
         if(cell.HitPoint > 3) 
             return;
         if (cell.HitPoint == 3)
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,artifactType));
+        {
+            var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
+                cellCrackMaterial.SmallCrack.AtlasCoordY);
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.SmallCrack.TileSourceId, tilePos, coords);
+        }
         else if (cell.HitPoint >= 2)
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(1,artifactType));
+        {
+            var coords = new Vector2I(cellCrackMaterial.MediumCrack.AtlasCoordX,
+                cellCrackMaterial.MediumCrack.AtlasCoordY);
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.MediumCrack.TileSourceId, tilePos, coords);
+        }
         else if (cell.HitPoint >= 1)
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(2,artifactType));
+        {
+            var coords = new Vector2I(cellCrackMaterial.LargeCrack.AtlasCoordX,
+                cellCrackMaterial.LargeCrack.AtlasCoordY);
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.LargeCrack.TileSourceId, tilePos, coords);
+        }
         else if(cell.HitPoint <= 0)
         {
             EraseCellsOnAllLayers(mineGenerationView, tilePos);
@@ -84,16 +93,28 @@ public static class MineSetCellConditions
         }
     }
 
-    public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, MineGenerationView mineGenerationView)
+    public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell,CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
     {
         if(cell.HitPoint > 3) 
             return;
         if (cell.HitPoint == 3)
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(0,0));
+        {
+            var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
+                cellCrackMaterial.SmallCrack.AtlasCoordY);
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir ,cellCrackMaterial.SmallCrack.TileSourceId, tilePos, coords);
+        }
         else if (cell.HitPoint >= 2)
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(1,0));
+        {
+            var coords = new Vector2I(cellCrackMaterial.MediumCrack.AtlasCoordX,
+                cellCrackMaterial.MediumCrack.AtlasCoordY);
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.MediumCrack.TileSourceId,tilePos, coords);
+        }
         else if (cell.HitPoint >= 1)
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, tilePos, new Vector2I(2,0));
+        {
+            var coords = new Vector2I(cellCrackMaterial.LargeCrack.AtlasCoordX,
+                cellCrackMaterial.LargeCrack.AtlasCoordY);
+            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.LargeCrack.TileSourceId, tilePos, coords);
+        }
         else if(cell.HitPoint <= 0)
         {
             EraseCellsOnAllLayers(mineGenerationView, tilePos);
@@ -101,22 +122,22 @@ public static class MineSetCellConditions
         }
     }
     
-    private static void SetCrackBasedOnDigDirection(MineGenerationView mineGenerationView,Vector2I mouseDir, Vector2I tilePos, Vector2I coords)
+    private static void SetCrackBasedOnDigDirection(MineGenerationView mineGenerationView,Vector2I mouseDir, int tileSourceId, Vector2I tilePos, Vector2I coords)
     {
         GD.Print($"Set crack cell {tilePos}");
         switch (mouseDir)
         {
             case (1,0):
-                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,1);
+                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords,1);
                 break;
             case (-1,0):
-                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords);
+                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords);
                 break;
             case (0,-1):
-                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,2);
+                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords,2);
                 break;
             case (0,1):
-                mineGenerationView.SetCell(2,tilePos,mineGenerationView.TileCrackSourceId,coords,3);
+                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords,3);
                 break;
         }
     }

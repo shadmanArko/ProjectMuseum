@@ -18,4 +18,9 @@ public class MineCellCrackMaterialRepository : IMineCellCrackMaterialRepository
 
         return cellCrackMaterial;
     }
+
+    public async Task<List<CellCrackMaterial>?> GetAllCellCrackMaterials()
+    {
+        return await _cellCrackMaterialDatabase.ReadDataAsync();
+    }
 }

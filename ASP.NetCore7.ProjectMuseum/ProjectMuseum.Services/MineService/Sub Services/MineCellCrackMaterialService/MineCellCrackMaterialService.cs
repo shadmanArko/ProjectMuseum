@@ -16,4 +16,9 @@ public class MineCellCrackMaterialService : IMineCellCrackMaterialService
         var cellCrackMaterial = await _mineCellCrackMaterialRepository.GetCellCrackMaterial(materialType);
         return cellCrackMaterial;
     }
+
+    public async Task<List<CellCrackMaterial>?> GetAllCellCrackMaterials()
+    {
+        return await _mineCellCrackMaterialRepository.GetAllCellCrackMaterials();
+    }
 }

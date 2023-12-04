@@ -1,8 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -11,16 +16,27 @@ public partial class PlayerCollisionDetector : Node2D
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
+	private MineCellCrackMaterial _mineCellCrackMaterial;
+	private List<RawArtifactDescriptive> _rawArtifactDescriptive;
+	private List<RawArtifactFunctional> _rawArtifactFunctional;
+
+	private HttpRequest _getMineArtifactHttpRequest;
+
 	public override void _Ready()
 	{
+		CreateHttpRequests();
 		InitializeDiReferences();
 		SubscribeToActions();
 	}
+    
 
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
+		_rawArtifactDescriptive = ServiceRegistry.Resolve<List<RawArtifactDescriptive>>();
+		_rawArtifactFunctional = ServiceRegistry.Resolve<List<RawArtifactFunctional>>();
 	}
 
 	private void SubscribeToActions()
@@ -33,6 +49,30 @@ public partial class PlayerCollisionDetector : Node2D
 		MineActions.OnMiniGameLost += MiniGameLost;
 		MineActions.OnArtifactDiscoveryOkayButtonPressed += TurnOffArtifactDiscoveryScene;
 	}
+
+	#region Http Requests
+
+	private void CreateHttpRequests()
+	{
+		_getMineArtifactHttpRequest = new HttpRequest();
+		AddChild(_getMineArtifactHttpRequest);
+		_getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
+	}
+
+	private void OnGetMineArtifactHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
+		var rawArtifact = _rawArtifactFunctional.FirstOrDefault(raw => raw.Id == artifact.RawArtifactId);
+
+		var rand = new RandomNumberGenerator();
+		var randomMat = rawArtifact!.Materials[rand.RandiRange(0, rawArtifact!.Materials.Count)];
+		var cellCrackMaterial =
+			_mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(mat => mat.MaterialType == randomMat);
+		
+	}
+
+	#endregion
     
 	private void DetectCollision(KinematicCollision2D collision)
 	{
@@ -82,7 +122,11 @@ public partial class PlayerCollisionDetector : Node2D
 	private void BrushOutArtifact(Cell cell, Vector2I tilePos)
 	{
 		if (!cell.HasArtifact || cell.HitPoint != 1) return;
-		MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell, _mineGenerationVariables.MineGenView);
+		
+		var cellCrackMaterial =
+			_mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>tempCell.MaterialType == cell.ArtifactMaterial);
+		
+		MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationVariables.MineGenView);
 		
 		_playerControllerVariables.CanMove = false;
 		_artifactTilePos = tilePos;
@@ -166,8 +210,12 @@ public partial class PlayerCollisionDetector : Node2D
 		var cell = _mineGenerationVariables.GetCell(tilePos);
 		cell.HitPoint--;
 		Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
-        
-		MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell ,_mineGenerationVariables.MineGenView);
+
+		var cellCrackMaterial =
+			_mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
+				tempCell.MaterialType == cell.ArtifactMaterial);
+		
+		MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell, cellCrackMaterial ,_mineGenerationVariables.MineGenView);
 		
 		if (cell.HitPoint <= 0)
 		{
@@ -184,7 +232,7 @@ public partial class PlayerCollisionDetector : Node2D
 			foreach (var tempCell in cells)
 			{
 				var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
-				MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell, _mineGenerationVariables.MineGenView);
+				MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell, cellCrackMaterial, _mineGenerationVariables.MineGenView);
 			}
 		}
 	}
@@ -194,8 +242,13 @@ public partial class PlayerCollisionDetector : Node2D
 		var cell = _mineGenerationVariables.GetCell(tilePos);
 		cell.HitPoint--;
 		Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
-
-		MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell ,_mineGenerationVariables.MineGenView);
+        
+		 var normalCellCrackMaterial =
+		 	_mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
+				cellCrackMat.MaterialType == "Normal");
+        GD.Print("normal crack mat is null: "+(normalCellCrackMaterial == null));
+		GD.Print(normalCellCrackMaterial.MaterialType);
+		MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell, normalCellCrackMaterial ,_mineGenerationVariables.MineGenView);
 		if (cell.HitPoint <= 0)
 		{
 			var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
@@ -211,7 +264,10 @@ public partial class PlayerCollisionDetector : Node2D
 			foreach (var tempCell in cells)
 			{
 				var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
-				MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell, _mineGenerationVariables.MineGenView);
+				var cellCrackMaterial =
+					_mineCellCrackMaterial.CellCrackMaterials[0];//.FirstOrDefault(cellCrackMat =>
+						// cellCrackMat.MaterialType == "Normal");
+				MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell, cellCrackMaterial, _mineGenerationVariables.MineGenView);
 			}
 		}
 	}

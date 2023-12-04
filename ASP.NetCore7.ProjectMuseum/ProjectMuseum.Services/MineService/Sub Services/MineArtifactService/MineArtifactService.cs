@@ -32,5 +32,9 @@ public class MineArtifactService : IMineArtifactService
         var listOfArtifacts = new List<Artifact>();
         return listOfArtifacts;
     }
-    
+
+    public async Task<Artifact?> GetArtifactById(string id)
+    {
+        return await _mineArtifactRepository.GetArtifactById(id);
+    }
 }

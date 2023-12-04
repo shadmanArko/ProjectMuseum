@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
+using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
@@ -14,9 +17,15 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _loadGeneratedMineHttpRequest;
 	private HttpRequest _generateMineHttpRequest;
 	private HttpRequest _assignArtifactsToMineHttpRequest;
+	private HttpRequest _mineCrackCellMaterialHttpRequest;
+	private HttpRequest _rawArtifactDescriptiveHttpRequest;
+	private HttpRequest _rawArtifactFunctionalHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
 	private PlayerControllerVariables _playerControllerVariables;
+	private MineCellCrackMaterial _mineCellCrackMaterial;
+	private List<RawArtifactDescriptive> _rawArtifactDescriptive;
+	private List<RawArtifactFunctional> _rawArtifactFunctional;
 	private MineGenerationView _mineGenerationView;
 
 	[Export] private CanvasLayer _savingCanvas;
@@ -24,19 +33,23 @@ public partial class MineGenerationController : Node2D
 
 	public override void _EnterTree()
 	{
+		CreateHttpRequests();
 		InitializeDiReferences();
 	}
 
 	public override void _Ready()
 	{
-		CreateHttpRequests();
-		InitializeDiReferences();
 		_mineGenerationView = GetNode<MineGenerationView>("Mine");
 		_mineGenerationVariables.MineGenView = _mineGenerationView;
 		_savingCanvas.Visible = false;
+		GetMineCrackMaterialData();
+		GetAllRawArtifactDescriptiveData();
+		GetAllRawArtifactFunctionalData();
 		GenerateMineData();
 		_mineBackGround.Position = new Vector2(482, -107);
 	}
+
+	#region Http Requests
 
 	private void CreateHttpRequests()
 	{
@@ -55,13 +68,82 @@ public partial class MineGenerationController : Node2D
 		_assignArtifactsToMineHttpRequest = new HttpRequest();
 		AddChild(_assignArtifactsToMineHttpRequest);
 		_assignArtifactsToMineHttpRequest.RequestCompleted += OnAssignArtifactsToMineHttpRequestCompleted;
+		
+		_mineCrackCellMaterialHttpRequest = new HttpRequest();
+		AddChild(_mineCrackCellMaterialHttpRequest);
+		_mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
+		
+		_rawArtifactDescriptiveHttpRequest = new HttpRequest();
+		AddChild(_rawArtifactDescriptiveHttpRequest);
+		_rawArtifactDescriptiveHttpRequest.RequestCompleted += OnGetRawArtifactDescriptiveHttpRequestCompleted;
+		
+		_rawArtifactFunctionalHttpRequest = new HttpRequest();
+		AddChild(_rawArtifactFunctionalHttpRequest);
+		_rawArtifactFunctionalHttpRequest.RequestCompleted += OnGetRawArtifactFunctionalHttpRequestCompleted;
+	}
+
+	#endregion
+
+	private void OnGetRawArtifactFunctionalHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
+		_rawArtifactFunctional = rawArtifactFunctionalList;
+	}
+
+	private void OnGetRawArtifactDescriptiveHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var rawArtifactDescriptiveList = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(jsonStr);
+		_rawArtifactDescriptive = rawArtifactDescriptiveList;
+	}
+
+	private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
+		_mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
 	}
 
 	private void InitializeDiReferences()
 	{
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+		_mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
+        _rawArtifactDescriptive = ServiceRegistry.Resolve<List<RawArtifactDescriptive>>();
+		_rawArtifactFunctional = ServiceRegistry.Resolve<List<RawArtifactFunctional>>();
 	}
+
+	#region Get Mine Crack Material From Server
+
+	private void GetMineCrackMaterialData()
+	{
+		var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
+		_mineCrackCellMaterialHttpRequest.Request(url);
+	}
+
+	#endregion
+	
+	#region Get Raw Artifact Descriptive Data From Server
+
+	private void GetAllRawArtifactDescriptiveData()
+	{
+		var url = ApiAddress.MineApiPath+"GetAllRawArtifactDescriptive";
+		_rawArtifactDescriptiveHttpRequest.Request(url);
+	}
+
+	#endregion
+    
+	#region Get Raw Artifact Functional Data From Server
+
+	private void GetAllRawArtifactFunctionalData()
+	{
+		var url = ApiAddress.MineApiPath+"GetAllRawArtifactFunctional";
+		_rawArtifactFunctionalHttpRequest.Request(url);
+	}
+
+	#endregion
+
 
 	#region Save Mine Data Into Server
 
@@ -138,7 +220,10 @@ public partial class MineGenerationController : Node2D
 		{
 			var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
-			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, _mineGenerationView);
+			var cellCrackMaterial = new CellCrackMaterial();
+				// _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
+				// 	tempCell.MaterialType == cell.ArtifactMaterial);
+			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationView);
 		}
 	}
     

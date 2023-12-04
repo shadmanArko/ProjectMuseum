@@ -4,7 +4,7 @@
     "Era": "Ancient",
     "Region": "American",
     "Object": "Club",
-    "Material": ["Wood", "Stone"],
+    "Materials": ["Wood", "Stone"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"
@@ -14,7 +14,7 @@
     "Era": "Classical",
     "Region": "American",
     "Object": "Sword",
-    "Material": ["Wood"],
+    "Materials": ["Wood"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"
@@ -24,7 +24,7 @@
     "Era": "Classical",
     "Region": "American",
     "Object": "Axe",
-    "Material": ["Wood", "Bone"],
+    "Materials": ["Wood", "Bone"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"
@@ -34,7 +34,7 @@
     "Era": "Medieval",
     "Region": "American",
     "Object": "Axe",
-    "Material": ["Wood", "Stone"],
+    "Materials": ["Wood", "Stone"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"
@@ -44,7 +44,7 @@
     "Era": "Renaissance",
     "Region": "American",
     "Object": "Axe",
-    "Material": ["Wood", "Iron"],
+    "Materials": ["Wood", "Iron"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"
@@ -54,7 +54,7 @@
     "Era": "Renaissance",
     "Region": "American",
     "Object": "Sword",
-    "Material": ["Iron"],
+    "Materials": ["Iron"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"
@@ -64,7 +64,7 @@
     "Era": "Industrial",
     "Region": "American",
     "Object": "Musket",
-    "Material": ["Iron", "Wood"],
+    "Materials": ["Iron", "Wood"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Large",
     "ImageLocation": "TBD"
@@ -74,7 +74,7 @@
     "Era": "Modern",
     "Region": "American",
     "Object": "Rifle",
-    "Material": ["Iron", "Wood"],
+    "Materials": ["Iron", "Wood"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Large",
     "ImageLocation": "TBD"
@@ -84,7 +84,7 @@
     "Era": "Classical",
     "Region": "American",
     "Object": "Shield",
-    "Material": ["Leather", "Wood"],
+    "Materials": ["Leather", "Wood"],
     "ObjectClass": "Armor",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"
@@ -94,7 +94,7 @@
     "Era": "Medieval",
     "Region": "American",
     "Object": "Shield",
-    "Material": ["Leather", "Wood"],
+    "Materials": ["Leather", "Wood"],
     "ObjectClass": "Armor",
     "ObjectSize": "Medium",
     "ImageLocation": "TBD"

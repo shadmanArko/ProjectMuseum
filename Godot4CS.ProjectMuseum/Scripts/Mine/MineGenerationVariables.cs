@@ -8,9 +8,9 @@ public class MineGenerationVariables
 {
     public global::ProjectMuseum.Models.Mine Mine;
     //public Cell[,] Cells;
-    public int CellSize = 20;
-    public int GridWidth = 49;
-    public int GridLength = 64;
+    // public int CellSize = 20;
+    // public int GridWidth = 49;
+    // public int GridLength = 64;
 
     public MineGenerationView MineGenView;
 

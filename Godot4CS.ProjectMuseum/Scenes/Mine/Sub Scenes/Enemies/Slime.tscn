@@ -277,10 +277,10 @@ texture_under = ExtResource("4_xjuh4")
 texture_progress = ExtResource("5_5ggxd")
 
 [connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="AttackPlayer"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
 [connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]

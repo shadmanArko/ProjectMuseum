@@ -5,106 +5,111 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public class PlayerControllerVariables
 {
-	#region Movement Variables
+    public PlayerController Player;
+    
+    #region Movement Variables
 
-	public const int MaxSpeed = 100;
-	public int Acceleration = 100;
-	public const int Friction = 200;
+    public const int MaxSpeed = 100;
+    public int Acceleration = 100;
+    public const int Friction = 200;
 
-	#endregion
-	
-	#region Gravity Variables
+    #endregion
 
-	public float Gravity = 25f;
+    #region Gravity Variables
 
-	private bool _isAttacking;
-	private bool _isHanging;
-	private bool _isFalling;
+    public float Gravity = 25f;
+    
+    #endregion
 
-	public bool CanMove { get; set; }
+    #region Action Variables
+    
+    public MotionState State;
+    public bool CanMove { get; set; }
 
-	public bool IsGrounded { get; set; }
+    private bool _isAttacking;
+    public bool IsAttacking
+    {
+        get => _isAttacking;
+        set
+        {
+            if(_isAttacking != value && _isAttacking == false && CurrentEquippedItem == Equipables.Sword)
+                MineActions.OnPlayerMeleeAttackActionEnded?.Invoke();
+            
+            _isAttacking = value;
+            if (_isAttacking)
+            {
+                if (!CanMove) return;
+                switch (_currentEquippedItem)
+                {
+                    case Equipables.PickAxe:
+                        MineActions.OnPlayerDigActionPressed?.Invoke();
+                        break;
+                    case Equipables.Brush:
+                        MineActions.OnPlayerBrushActionPressed?.Invoke();
+                        break;
+                    case Equipables.Sword:
+                        MineActions.OnPlayerMeleeAttackActionStarted?.Invoke();
+                        break;
+                    default:
+                        MineActions.OnPlayerMeleeAttackActionStarted?.Invoke();
+                        break;
+                }
+            }
+        }
+    }
+    
+    #endregion
 
-	public bool IsAttacking
-	{
-		get => _isAttacking;
-		set
-		{
-			_isAttacking = value;
-			if (_isAttacking)
-			{
-				if(!CanMove) return;
-				switch (_currentEquippedItem)
-				{
-					case Equipables.PickAxe:
-						MineActions.OnPlayerDigActionPressed?.Invoke();
-						break;
-					case Equipables.Brush:
-						MineActions.OnPlayerBrushActionPressed?.Invoke();
-						break;
-					case Equipables.Sword:
-						MineActions.OnPlayerMeleeAttackActionPressed?.Invoke();
-						break;
-					default:
-						MineActions.OnPlayerMeleeAttackActionPressed?.Invoke();
-						break;
-				}
-			}
-		}
-	}
+    #region Health Bar Variables
 
-	public bool IsHanging
-	{
-		get => _isHanging;
-		set
-		{
-			if (_isHanging != value)
-			{
-				_isHanging = value;
-				MineActions.OnPlayerGrabActionPressed?.Invoke();
+    private int _playerHealth;
 
-				if (!_isHanging) return;
-				IsFalling = false;
-				IsGrounded = false;
-			}
-		}
-	}
+    public int PlayerHealth
+    {
+        get => _playerHealth;
+        set
+        {
+            _playerHealth = value;
+            MineActions.OnPlayerHealthValueChanged?.Invoke();
+        }
+    }
 
-	public bool IsFalling
-	{
-		get => _isFalling;
-		set
-		{
-			_isFalling = value;
+    #endregion
 
-			if (!_isFalling) return;
-			IsGrounded = false;
-			IsHanging = false;
-		}
-	}
+    #region Energy Bar Variables
 
-	public Equipables CurrentEquippedItem
-	{
-		get => _currentEquippedItem;
-		set
-		{
-			_currentEquippedItem = value;
-			//MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
-		}
-	}
+    private int _playerEnergy;
 
-	#endregion
+    public int PlayerEnergy
+    {
+        get => _playerEnergy;
+        set
+        {
+            _playerEnergy = value;
+            MineActions.OnPlayerEnergyValueChanged?.Invoke();
+        }
+    }
 
-	
+    #endregion
 
-	private Equipables _currentEquippedItem;
+    #region Other Variables
 
-	#region Other Variables
+    private Equipables _currentEquippedItem;
 
-	public Vector2 Position;
-	public Vector2 Velocity;
+    public Equipables CurrentEquippedItem
+    {
+        get => _currentEquippedItem;
+        set
+        {
+            _currentEquippedItem = value;
+            //MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
+        }
+    }
 
-	public Vector2I MouseDirection;
+    public Vector2 Position;
+    public Vector2 Velocity;
 
-	#endregion
+    public Vector2I MouseDirection;
+
+    #endregion
 }

@@ -1,6 +1,8 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -12,12 +14,15 @@ public partial class PlayerController : CharacterBody2D
 	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private float _maxVerticalVelocity;
+	[Export] private float _fallTime;
+	[Export] private float _fallTimeThreshold;
 
 	[Export] private string _lampScenePath;
 
 	public override void _EnterTree()
 	{
 		InitializeDiReferences();
+		SubscribeToActions();
 	}
 
 	private void InitializeDiReferences()
@@ -26,24 +31,23 @@ public partial class PlayerController : CharacterBody2D
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
+	private void SubscribeToActions()
+	{
+		MineActions.OnSuccessfulDigActionCompleted += ReducePlayerEnergy;
+	}
+
+	public override void _Ready()
+	{
+		_playerControllerVariables.Player = this;
+		_playerControllerVariables.State = MotionState.Falling;
+		_playerControllerVariables.PlayerHealth = 200;
+		_playerControllerVariables.PlayerEnergy = 200;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
         PlayerMovement(delta);
-
-        if (Input.IsActionJustReleased("Test"))
-        {
-	        GD.Print($"isGrounded: {_playerControllerVariables.IsGrounded}");
-	        GD.Print($"isFalling: {_playerControllerVariables.IsFalling}");
-        }
-
-        if (Input.IsActionJustReleased("Lamp"))
-        {
-	        var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
-	        GD.Print($"lamp scene instantiated {scene is null}");
-	        _mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
-	        scene!.Set("position", Position);
-	        GD.Print("Lamp instantiated");
-        }
+        //GD.Print(_playerControllerVariables.State);
 	}
     
 	private void PlayerMovement(double delta)
@@ -66,20 +70,32 @@ public partial class PlayerController : CharacterBody2D
 		}
         
 		ApplyGravity();
-		if(_playerControllerVariables.CanMove) PlayerGrab();
 		_animationController.SetAnimation(PlayerAttack());
+		CheckFallTime(delta);
 		DetectCollision();
 		ModifyPlayerVariables();
 	}
 
 	private void ApplyGravity()
 	{
-		if(_playerControllerVariables.IsGrounded || _playerControllerVariables.IsHanging) return;
-
+		if (_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging)
+		{
+			_fallTime = 0;
+			return;
+		}
+        
 		var previousVerticalVelocity = Velocity.Y;
 		var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
 
 		Velocity = new Vector2(Velocity.X, currentVerticalVelocity);
+	}
+
+	private void CheckFallTime(double delta)
+	{
+		if(_fallTime >= _fallTimeThreshold)
+			_animationController.PlayAnimation("fall");
+		else
+			_fallTime += (float) delta;
 	}
 
 	private void ModifyPlayerVariables()
@@ -91,13 +107,19 @@ public partial class PlayerController : CharacterBody2D
 	private void DetectCollision()
 	{
 		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
+
 		if (collision == null)
 		{
-			_playerControllerVariables.IsGrounded = false;
-			return;
+			if (_playerControllerVariables.State != MotionState.Hanging)
+				_playerControllerVariables.State = MotionState.Falling;
 		}
-        
-        MineActions.OnPlayerCollisionDetection?.Invoke(collision);
+		else
+			MineActions.OnPlayerCollisionDetection?.Invoke(collision);
+	}
+
+	private void ReducePlayerEnergy()
+	{
+		EnergySystem.ReduceEnergy(1, 200, _playerControllerVariables);
 	}
 
 	#region Input
@@ -105,7 +127,7 @@ public partial class PlayerController : CharacterBody2D
 	private Vector2 GetInputKeyboard()
 	{
 		Vector2 motion;
-		if (_playerControllerVariables.IsHanging)
+		if (_playerControllerVariables.State == MotionState.Hanging)
 		{
 			motion = new Vector2
 			{
@@ -126,22 +148,54 @@ public partial class PlayerController : CharacterBody2D
 	
 	private bool PlayerAttack()
 	{
-		var input = Input.IsActionJustReleased("ui_left_click");
+		var input = Input.IsActionJustReleased("ui_left_click") && _playerControllerVariables.PlayerEnergy > 0;
 		_playerControllerVariables.IsAttacking = input;
 		return input;
 	}
 
 	private void PlayerGrab()
 	{
-		var grab = Input.IsActionJustReleased("toggle_grab");
-		if (!grab) return;
-		_playerControllerVariables.IsHanging = !_playerControllerVariables.IsHanging;
-		_playerControllerVariables.Acceleration = _playerControllerVariables.IsHanging ? PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
+		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
+			MotionState.Falling : MotionState.Hanging;
+		_animationController.PlayAnimation("idle_to_climb");
+		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
+			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
 	
 	public override void _Input(InputEvent @event)
 	{
 		if(!_playerControllerVariables.CanMove) return;
+		MouseMotion(@event);
+		if(@event.IsActionReleased("toggle_grab"))
+			PlayerGrab();
+		if(@event.IsActionReleased("Lamp"))
+			Lamp();
+		if(@event.IsActionReleased("Test"))
+			Test();
+	}
+
+	#region For Testing Purposes
+
+	private void Test()
+	{
+		GD.Print($"State: {_playerControllerVariables.State}");
+	}
+
+	private void Lamp()
+	{
+		var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
+		GD.Print($"lamp scene instantiated {scene is null}");
+		_mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
+		var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(Position);
+		//var cell = _mineGenerationVariables.GetCell(cellPos);
+		scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize);
+		GD.Print("Lamp instantiated");
+	}
+
+	#endregion
+
+	private void MouseMotion(InputEvent @event)
+	{
 		if(@event is not InputEventMouseMotion) return;
 		var mousePos = GetGlobalMousePosition();
 		var angle = GetAngleTo(mousePos);
@@ -155,6 +209,7 @@ public partial class PlayerController : CharacterBody2D
 			_ => Vector2I.Left
 		};
 		
+		if(GetInputKeyboard().Normalized().X != 0) return;
 		MineActions.OnMouseMotionAction?.Invoke(degree);
 	}
 

@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
+using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
+using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
+using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
 
@@ -13,12 +16,18 @@ public class MineController : ControllerBase
     private readonly IMineService _mineService;
     private readonly IMineArtifactService _mineArtifactService;
     private readonly IMineCellGeneratorService _mineCellGeneratorService;
+    private readonly IMineCellCrackMaterialService _mineCellCrackMaterialService;
+    private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
+    private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
         _mineCellGeneratorService = mineCellGeneratorService;
+        _mineCellCrackMaterialService = mineCellCrackMaterialService;
+        _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
+        _rawArtifactFunctionalService = rawArtifactFunctionalService;
     }
 
     [HttpGet("GetMineData")]
@@ -49,5 +58,53 @@ public class MineController : ControllerBase
         return Ok(mine);
     }
 
+    [HttpGet("AssignArtifactsToMine")]
+    public async Task<IActionResult> AssignArtifactsToMine()
+    {
+        var mine = await _mineService.AssignArtifactsToMine();
+        return Ok(mine);
+    }
+    
+    [HttpGet("GetAllMineArtifacts")]
+    public async Task<IActionResult> GetAllMineArtifacts()
+    {
+        var artifacts = await _mineArtifactService.GetAllArtifactsOfMine();
+        return Ok(artifacts);
+    }
+    
+    [HttpGet("GetMineArtifactById/{id}")]
+    public async Task<IActionResult> GetMineArtifactById(string id)
+    {
+        var artifact = await _mineArtifactService.GetArtifactById(id);
+        return Ok(artifact);
+    }
+    
+    [HttpGet("GetMineCellCrackMaterial/{materialType}")]
+    public async Task<IActionResult> GetMineCellCrackMaterial(string materialType)
+    {
+        var cellCrackMaterial = await _mineCellCrackMaterialService.GetCellCrackMaterial(materialType);
+        return Ok(cellCrackMaterial);
+    }
+
+    [HttpGet("GetAllMineCellCrackMaterials")]
+    public async Task<IActionResult> GetAllCellCrackMaterials()
+    {
+        var cellCrackMaterials = await _mineCellCrackMaterialService.GetAllCellCrackMaterials();
+        return Ok(cellCrackMaterials);
+    }
+
+    [HttpGet("GetAllRawArtifactFunctional")]
+    public async Task<IActionResult> GetAllRawArtifactFunctional()
+    {
+        var listOfRawArtifactFunctional = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
+        return Ok(listOfRawArtifactFunctional);
+    }
+    
+    [HttpGet("GetAllRawArtifactDescriptive")]
+    public async Task<IActionResult> GetAllRawArtifactDescriptive()
+    {
+        var listOfRawArtifactDescriptive = await _rawArtifactDescriptiveService.GetAllRawArtifactDescriptive();
+        return Ok(listOfRawArtifactDescriptive);
+    }
 
 }

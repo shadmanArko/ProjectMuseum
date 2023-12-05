@@ -16,6 +16,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item4;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export] private Button _diggingPermitsButton;
+    [Export] private CheckButton _museumGateCheckButton;
     [Export] private Control _diggingPermitsUi;
     [Export]public Node2D ItemsParent;
     [Inject]
@@ -49,7 +50,13 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _httpRequestForGettingBalance.RequestCompleted += OnHttpRequestForGettingBalanceCompleted;
         _httpRequestForReducingBalance.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
         _diggingPermitsButton.Pressed += DiggingPermitsButtonOnPressed;
+        _museumGateCheckButton.Pressed += MuseumGateCheckButtonOnPressed;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+    }
+
+    private void MuseumGateCheckButtonOnPressed()
+    {
+        MuseumActions.OnClickMuseumGateToggle.Invoke(_museumGateCheckButton.ButtonPressed);  
     }
 
     private void DiggingPermitsButtonOnPressed()
@@ -85,6 +92,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         string jsonStr = Encoding.UTF8.GetString(body);
         GD.Print("getting balance " + jsonStr);
         var museumBalance = JsonSerializer.Deserialize<float>(jsonStr);
+        MuseumActions.OnMuseumBalanceUpdated?.Invoke(museumBalance);
         UpdateMuseumBalanceText(museumBalance.ToString("0.00"));
     }
 
@@ -145,6 +153,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     {
         string jsonStr = Encoding.UTF8.GetString(body);
          var museum = JsonSerializer.Deserialize<ProjectMuseum.Models.Museum>(jsonStr);
+         MuseumActions.OnMuseumBalanceUpdated?.Invoke(museum.Money);
         UpdateMuseumBalanceText(museum.Money.ToString("0.00"));
     }
 
@@ -156,6 +165,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _httpRequestForReducingBalance.RequestCompleted -= OnHttpRequestCompletedForReducingBalance;
         _diggingPermitsButton.Pressed -= DiggingPermitsButtonOnPressed;
         MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
+        _museumGateCheckButton.Pressed -= MuseumGateCheckButtonOnPressed;
         base._ExitTree();
     }
 }

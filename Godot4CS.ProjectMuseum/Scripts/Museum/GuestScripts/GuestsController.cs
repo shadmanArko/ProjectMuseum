@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
@@ -17,6 +18,7 @@ public partial class GuestsController : Node2D
 	private string _testString;
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 
+	private bool _isMuseumGateOpen = false;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
@@ -27,14 +29,24 @@ public partial class GuestsController : Node2D
 		AddChild(_httpRequestForGettingMuseumTiles);
 		_httpRequestForGettingMuseumTiles.RequestCompleted += HttpRequestForGettingMuseumTilesOnRequestCompleted;
 		_httpRequestForGettingMuseumTiles.Request(ApiAddress.MuseumApiPath + "GetAllMuseumTiles");
+		MuseumActions.OnClickMuseumGateToggle += OnClickMuseumGateToggle;
 		await Task.Delay(500);
-		await SpawnGuests(10, 5);
 	}
 
-	private async Task SpawnGuests(int numberOfGuests , float delayBetweenSpawningGuests)
+	private void OnClickMuseumGateToggle(bool gateOpen)
+	{
+		_isMuseumGateOpen = gateOpen;
+		if (gateOpen)
+		{
+			SpawnGuests(10, 5);
+		}
+	}
+
+	private async void SpawnGuests(int numberOfGuests , float delayBetweenSpawningGuests)
 	{
 		for (int i = 0; i < numberOfGuests; i++)
 		{
+			if (!_isMuseumGateOpen) return;
 			var guest = _guestScene.Instantiate();
 			guest.GetNode<Guest>(".").Position = GameManager.TileMap.MapToLocal(_spawnAtTile);
 			AddChild(guest);

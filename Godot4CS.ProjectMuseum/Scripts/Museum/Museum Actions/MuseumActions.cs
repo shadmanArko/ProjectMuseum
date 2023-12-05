@@ -19,5 +19,6 @@ public partial class MuseumActions : Node
     public static Action<Artifact, int> ArtifactRemovedFromSlot;
     public static Action<Artifact, Item, int> ArtifactDroppedOnExhibitSlot;
     public static Action<Artifact, Item, int> ArtifactRemovedFromExhibitSlot;
-    
+
+    public static Action<bool> OnClickMuseumGateToggle;
 }

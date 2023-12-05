@@ -2,57 +2,58 @@ using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces.Movement;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
-public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamagable
+public partial class Slime : Enemy
 {
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     [Export] private EnemyAnimationController _enemyAnimationController;
     [Export] private Timer _stateChangeTimer;
     
-    [Export] private float _moveSpeed = 20;
+    // [Export] private float _moveSpeed = 20;
     
-    public string Id { get; set; }
-    [Export] public NavigationAgent2D NavAgent { get; set; }
-    [Export] public Timer TrackTimer { get; set; }
-    public EnemyState State { get; set; }
-    public bool IsAffectedByGravity { get; set; }
+    // public string Id { get; set; }
+    // [Export] public NavigationAgent2D NavAgent { get; set; }
+    // [Export] public Timer TrackTimer { get; set; }
+    // public EnemyState State { get; set; }
+    // public bool IsAffectedByGravity { get; set; }
 
-    [Export] private bool _isAggro;
+    // [Export] private bool _isAggro;
     private Vector2 _moveDirection;
-    [Export] private float _aggroRange = 140f;
+    // [Export] private float _aggroRange = 140f;
 
-    private int _health;
-    public int Health
-    {
-        get => _health;
-        set
-        {
-            _health = value;
-            _healthBar.Value = _health;
-            
-            if(_health <= 0)
-                Die();
-        }
-    }
+    // private int _health;
+    // public int Health
+    // {
+    //     get => _health;
+    //     set
+    //     {
+    //         _health = value;
+    //         _healthBar.Value = _health;
+    //         
+    //         if(_health <= 0)
+    //             Die();
+    //     }
+    // }
 
-    [Export] private TextureProgressBar _healthBar;
+    //[Export] private TextureProgressBar _healthBar;
     
     public override void _EnterTree()
     {
         InitializeDiReferences();
+        TrackTimer = GetNode<Timer>("Track Timer");
+        NavAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
     }
 
     public override void _Ready()
     {
-       Spawn();
-       Health = 100;
+        
+        Spawn();
+        Health = 100;
     }
 
     private void InitializeDiReferences()
@@ -63,7 +64,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
 
     private void OnTrackTimerTimeOut()
     {
-        NavAgent.TargetPosition = _isAggro ? _playerControllerVariables.Position : _moveDirection;
+        NavAgent.TargetPosition = IsAggro ? _playerControllerVariables.Position : _moveDirection;
     }
 
     public void OnStateChangeTimeOut()
@@ -71,7 +72,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
         _moveDirection = GetRandomDirection();
         
         if (State == EnemyState.Idle)
-            State = _isAggro ? EnemyState.Chase : EnemyState.Move;
+            State = IsAggro ? EnemyState.Chase : EnemyState.Move;
         else if (State is EnemyState.Move or EnemyState.Chase)
             State = EnemyState.DigIn;
         else if (State == EnemyState.DigIn)
@@ -101,7 +102,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
             DigIn();
 
         var collisionBool = MoveAndSlide();
-        ApplyGravity(collisionBool, (float) delta);
+        if(IsAffectedByGravity) ApplyGravity(collisionBool, (float) delta);
     }
 
 
@@ -122,11 +123,11 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
         var playerPos = new System.Numerics.Vector2(_playerControllerVariables.Position.X, _playerControllerVariables.Position.Y);
         var distance = System.Numerics.Vector2.Distance(currentPos, playerPos);
         //GD.Print($"distance is :{distance}");
-        if (distance > _aggroRange) return;
+        if (distance > AggroRange) return;
 
-        if (_isAggro) return;
-        _enemyAnimationController.Play("aggro");
-        _isAggro = true;
+        if (IsAggro) return;
+        //_enemyAnimationController.Play("aggro");
+        IsAggro = true;
     }
 
     #region Slime Possible States
@@ -179,14 +180,15 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     }
     
 
-    public void Chase()
+    public override void Chase()
     {
+        GD.Print("chase method called");
         var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
         var directionBool = NavAgent.TargetPosition.X > Position.X;
         _enemyAnimationController.Play("move");
         _enemyAnimationController.Sprite.FlipH = directionBool;
         
-        var velocityX = direction.X * _moveSpeed;
+        var velocityX = direction.X * MoveSpeed;
         Velocity = new Vector2(velocityX , Velocity.Y);
     }
     
@@ -203,7 +205,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
         _enemyAnimationController.Play("move");
         _enemyAnimationController.Sprite.FlipH = directionBool;
         
-        var velocityX = direction.X * _moveSpeed;
+        var velocityX = direction.X * MoveSpeed;
         Velocity = new Vector2(velocityX , Velocity.Y);
         //MoveAndSlide();
     }
@@ -216,7 +218,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
         _enemyAnimationController.Play("idle");
     }
     
-    public void Attack()
+    public override void Attack()
     {
         State = EnemyState.Attack;
         Velocity = Vector2.Zero;
@@ -247,7 +249,7 @@ public partial class Slime : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
 
     #endregion
 
-    public void TakeDamage()
+    public override void TakeDamage()
     {
         GD.Print("Enemy taking damage");
         _enemyAnimationController.Play("damage");

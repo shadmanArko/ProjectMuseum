@@ -26,4 +26,15 @@ public class MineArtifactService : IMineArtifactService
         await _inventoryRepository.AddArtifact(artifact);
         return artifact;
     }
+
+    public async Task<List<Artifact>> GenerateNewArtifacts()
+    {
+        var listOfArtifacts = new List<Artifact>();
+        return listOfArtifacts;
+    }
+
+    public async Task<Artifact?> GetArtifactById(string id)
+    {
+        return await _mineArtifactRepository.GetArtifactById(id);
+    }
 }

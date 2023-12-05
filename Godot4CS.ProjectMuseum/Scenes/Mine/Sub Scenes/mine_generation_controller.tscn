@@ -21,12 +21,11 @@ layer_1/tile_data = PackedInt32Array()
 script = ExtResource("3_bsmgm")
 TileMap = NodePath(".")
 TileSourceId = 0
-WoodArtifactSourceId = 2
-SilverArtifactSourceId = 3
-GoldArtifactSourceId = 4
-TileCrackSourceId = 5
+TileCrackSourceId = 1
 
 [node name="UISaving" parent="." instance=ExtResource("4_k5tn5")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+light_mask = 2
+visibility_layer = 2
 color = Color(0.478431, 0.478431, 0.478431, 1)

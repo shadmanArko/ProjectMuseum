@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
@@ -24,7 +25,7 @@ public partial class AnimationController : AnimationPlayer
 	private void SubscribeToActions()
 	{
 		MineActions.OnPlayerDigActionPressed += PlayDigAnimation;
-		MineActions.OnPlayerMeleeAttackActionPressed += PlayMeleeAttackAnimation;
+		MineActions.OnPlayerMeleeAttackActionStarted += PlayMeleeAttackAnimation;
 		MineActions.OnPlayerBrushActionPressed += PlayBrushAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
@@ -33,10 +34,14 @@ public partial class AnimationController : AnimationPlayer
 	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
-		if (tempVelocity.Y >= 10)
-			_playerControllerVariables.IsFalling = true;
+
+		// if (CurrentAnimation == "attack" && _sprite.Frame >= 212)
+		// {
+		// 	GD.Print(_sprite.Frame);
+		// 	MineActions.OnPlayerAttackAnimationStarted?.Invoke();
+		// }
 		
-		if(_playerControllerVariables.IsHanging)
+		if(_playerControllerVariables.State == MotionState.Hanging)
 			PlayHangingAnimations(tempVelocity, isAttacking);
 		else
 			PlayMovementAnimations(tempVelocity, isAttacking);
@@ -127,7 +132,7 @@ public partial class AnimationController : AnimationPlayer
 
 	public void PlayAnimation(string state)
 	{
-		if (_playerControllerVariables.IsHanging)
+		if (_playerControllerVariables.State == MotionState.Hanging)
 		{
 			if(state == "climb_idle")
 			{
@@ -160,12 +165,13 @@ public partial class AnimationController : AnimationPlayer
 
 	private void ToggleHangOnWall()
 	{
-		PlayAnimation(_playerControllerVariables.IsHanging ? "idle_to_climb" : "climb_to_idle");
+		PlayAnimation(_playerControllerVariables.State == MotionState.Hanging ? "idle_to_climb" : "climb_to_idle");
 	}
 
 	private void SpriteFlipBasedOnMousePosition(double mousePos)
 	{
 		if(!_playerControllerVariables.CanMove) return;
+		
 		_sprite.FlipH = mousePos is < 90 and >= -90;
 	}
 }

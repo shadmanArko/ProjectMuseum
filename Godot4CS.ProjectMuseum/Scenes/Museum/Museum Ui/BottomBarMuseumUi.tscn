@@ -75,7 +75,8 @@ text = "GUESTS"
 [node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "1000"
+text = "0
+"
 
 [node name="Star Rating Panel" type="Panel" parent="Left Panel"]
 custom_minimum_size = Vector2(200, 0)

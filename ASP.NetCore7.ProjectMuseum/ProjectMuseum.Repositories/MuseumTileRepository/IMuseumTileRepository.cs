@@ -12,6 +12,8 @@ public interface IMuseumTileRepository
     Task<List<MuseumTile>?> GetAll();
     Task<List<MuseumTile>?> UpdateMuseumTilesSourceId(List<string> ids, int sourceId);
     Task<MuseumTile?> UpdateExhibitToMuseumTile(string tileId, string exhibitId);
+    Task<List<MuseumTile>?> UpdateExhibitToMuseumTiles(List<string> tileIds, string exhibitId);
     Task<MuseumTile?> Delete(string id);
-    Task<List<MuseumTile>?> DeleteAll();
+    Task<List<MuseumTile>
+        ?> DeleteAll();
 }

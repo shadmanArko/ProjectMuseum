@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://0v3ikej83pig"]
+[gd_scene load_steps=3 format=3 uid="uid://0v3ikej83pig"]
 
-[ext_resource type="Texture2D" uid="uid://bohw5jxucq52y" path="res://Assets/2D/Sprites/Wallpapers/wallpaper side 1.png" id="1_pu1e6"]
 [ext_resource type="Texture2D" uid="uid://ryv2jtctbobm" path="res://Assets/2D/Sprites/Wallpapers/wallpaper side 2.png" id="1_puab5"]
 [ext_resource type="Script" path="res://Scripts/Museum/Wall.cs" id="2_ltd76"]
 
@@ -8,11 +7,11 @@
 texture_filter = 1
 position = Vector2(-360, -212)
 texture = ExtResource("1_puab5")
-offset = Vector2(-11, -47.5)
+offset = Vector2(-11, -46)
 script = ExtResource("2_ltd76")
 _wallPreview = NodePath("Wall Preview")
-_wallPreviewSprite = ExtResource("1_pu1e6")
+_wallPreviewSprite = ExtResource("1_puab5")
 
 [node name="Wall Preview" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.784314)
-offset = Vector2(-8, -43.5)
+offset = Vector2(-1, -43.5)

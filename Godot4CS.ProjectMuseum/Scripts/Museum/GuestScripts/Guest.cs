@@ -138,7 +138,7 @@ public partial class Guest : CharacterBody2D
             else
             {
                 TakeNextMovementDecision();
-                GD.Print(Name + "Not suitable tile");
+                // GD.Print(Name + "Not suitable tile");
             }
             // Move only if the next position is within the TileMap bounds
         }else if (!nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap))

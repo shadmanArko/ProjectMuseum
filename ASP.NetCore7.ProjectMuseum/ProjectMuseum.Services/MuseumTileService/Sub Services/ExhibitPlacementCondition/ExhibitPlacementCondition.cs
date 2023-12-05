@@ -81,14 +81,10 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
                     ExhibitArtifactSlot5 = "string"
                 };
                 await _exhibitRepository.Insert(exhibit);
-                await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
+                
             }
-            else
-            {
-                await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
-            }
-            
         }
+        await _museumTileRepository.UpdateExhibitToMuseumTiles(tileIds, exhibit.Id);
         return exhibit;
     }
 }

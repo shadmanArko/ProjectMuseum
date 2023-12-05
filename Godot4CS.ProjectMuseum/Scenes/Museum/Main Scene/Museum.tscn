@@ -79,6 +79,7 @@ y_sort_enabled = true
 y_sort_enabled = true
 
 [node name="MuseumTileEditor" type="Node2D" parent="museum"]
+process_mode = 4
 y_sort_enabled = true
 script = ExtResource("11_uydor")
 _tileSourceId = 5

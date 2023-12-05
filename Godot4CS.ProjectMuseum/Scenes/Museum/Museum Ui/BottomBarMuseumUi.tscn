@@ -7,19 +7,21 @@
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_hulbe"]
 
-[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_exhibitButton", "_museumMoneyTextField", "_builderCardPanel")]
+[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_exhibitButton", "_museumMoneyTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_26dxj")
 _newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/New Exhibit Button")
 _exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button")
 _museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/Money Text Holder")
+_museumGuestNumberTextField = NodePath("Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Count")
 _builderCardPanel = NodePath("Builder card panel")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -349,18 +351,36 @@ anchors_preset = -1
 anchor_top = -3.86
 anchor_right = 1.0
 anchor_bottom = 0.04
+offset_top = 33.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.686275, 0.65098, 0.607843, 1)
 script = ExtResource("4_egqqe")
 _builderCardScene = ExtResource("5_fc6vt")
-_builderCardContainer = NodePath("MarginContainer/GridContainer")
+_builderCardContainer = NodePath("Objects Panel/MarginContainer/GridContainer")
 
-[node name="MarginContainer" type="MarginContainer" parent="Builder card panel"]
+[node name="Objects Panel" type="Panel" parent="Builder card panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.107
+anchor_top = 0.137
+anchor_right = 0.781
+anchor_bottom = 0.962
+offset_left = 0.559982
+offset_top = 0.079998
+offset_right = 0.47998
+offset_bottom = 0.0799866
+
+[node name="MarginContainer" type="MarginContainer" parent="Builder card panel/Objects Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 2.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 10
@@ -368,7 +388,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GridContainer" type="GridContainer" parent="Builder card panel/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Builder card panel/Objects Panel/MarginContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme = ExtResource("6_hulbe")
@@ -376,9 +396,81 @@ theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 5
 
-[node name="Builder Card" parent="Builder card panel/MarginContainer/GridContainer" instance=ExtResource("5_fc6vt")]
+[node name="Builder Card" parent="Builder card panel/Objects Panel/MarginContainer/GridContainer" instance=ExtResource("5_fc6vt")]
 visible = false
 layout_mode = 2
+
+[node name="Top Bar" type="Panel" parent="Builder card panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = 16.0
+grow_horizontal = 2
+
+[node name="LineEdit" type="LineEdit" parent="Builder card panel/Top Bar"]
+layout_mode = 0
+offset_left = 1395.0
+offset_right = 1597.0
+offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 16
+alignment = 3
+clear_button_enabled = true
+
+[node name="Button" type="Button" parent="Builder card panel/Top Bar"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Filters Panel" type="Panel" parent="Builder card panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 0.112
+anchor_right = 0.106
+anchor_bottom = 0.987
+offset_left = -0.84
+offset_top = 0.0799999
+offset_right = -0.52002
+offset_bottom = 0.0799866
+
+[node name="Label" type="Label" parent="Builder card panel/Filters Panel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 45.0
+offset_bottom = 28.0
+text = "Filters:"
+
+[node name="Builder Info Panel" type="Panel" parent="Builder card panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 0.112
+anchor_right = 0.106
+anchor_bottom = 0.987
+offset_left = 1514.16
+offset_top = 0.0799999
+offset_right = 1714.48
+offset_bottom = 0.0799866
+
+[node name="Label" type="Label" parent="Builder card panel/Builder Info Panel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 65.0
+offset_bottom = 31.0
+text = "Details:"
 
 [connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Administration Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Administration Button" method="OnButtonPressed"]
 [connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button" method="OnButtonPressed"]

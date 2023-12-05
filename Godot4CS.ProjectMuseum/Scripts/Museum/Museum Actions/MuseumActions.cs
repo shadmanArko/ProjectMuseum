@@ -21,4 +21,5 @@ public partial class MuseumActions : Node
     public static Action<Artifact, Item, int> ArtifactRemovedFromExhibitSlot;
 
     public static Action<bool> OnClickMuseumGateToggle;
+    public static Action<int> TotalGuestsUpdated;
 }

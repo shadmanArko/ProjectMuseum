@@ -7,6 +7,7 @@ public partial class BottomBarMuseumUi : Control
 	[Export] private Button _newExhibitButton;
 	[Export] private Button _exhibitButton;
 	[Export] private Label _museumMoneyTextField;
+	[Export] private Label _museumGuestNumberTextField;
 	[Export] private Control _builderCardPanel;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -14,6 +15,12 @@ public partial class BottomBarMuseumUi : Control
 		_newExhibitButton.Pressed += EnableBuilderCard;
 		_exhibitButton.Pressed += DisableBuilderCard;
 		MuseumActions.OnMuseumBalanceUpdated += OnMuseumBalanceUpdated;
+		MuseumActions.TotalGuestsUpdated += TotalGuestsUpdated;
+	}
+
+	private void TotalGuestsUpdated(int totalNumber)
+	{
+		_museumGuestNumberTextField.Text = totalNumber.ToString();
 	}
 
 	private void OnMuseumBalanceUpdated(float amount)

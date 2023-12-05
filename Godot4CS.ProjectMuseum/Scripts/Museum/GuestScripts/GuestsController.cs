@@ -17,7 +17,8 @@ public partial class GuestsController : Node2D
 	private List<MuseumTile> _listOfMuseumTile;
 	private string _testString;
 	private HttpRequest _httpRequestForGettingMuseumTiles;
-
+	[Export] private int _maxNumberGuests = 10;
+	private int _numberOfGuestsInMusuem;
 	private bool _isMuseumGateOpen = false;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
@@ -46,11 +47,13 @@ public partial class GuestsController : Node2D
 	{
 		for (int i = 0; i < numberOfGuests; i++)
 		{
-			if (!_isMuseumGateOpen) return;
+			if (!_isMuseumGateOpen || _numberOfGuestsInMusuem >= _maxNumberGuests) return;
 			var guest = _guestScene.Instantiate();
 			guest.GetNode<Guest>(".").Position = GameManager.TileMap.MapToLocal(_spawnAtTile);
 			AddChild(guest);
 			guest.GetNode<Guest>(".").Initialize(_listOfMuseumTile);
+			_numberOfGuestsInMusuem++;
+			MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMusuem);
 			await Task.Delay( (int)(1000 * delayBetweenSpawningGuests));
 		}
 	}

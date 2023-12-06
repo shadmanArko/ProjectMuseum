@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=31 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
@@ -207,6 +207,42 @@ _data = {
 "move": SubResource("Animation_h4tdc")
 }
 
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_t0oa4"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_upqla"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_575ss"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_3ba4d"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1x3e6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_10b1q"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_usnes"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nha1h"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ptxiv"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k6wic"]
+states/End/position = Vector2(755, 173)
+states/Start/position = Vector2(128, 74)
+states/attack/node = SubResource("AnimationNodeBlendSpace2D_t0oa4")
+states/attack/position = Vector2(543, 74)
+states/die/node = SubResource("AnimationNodeBlendSpace2D_upqla")
+states/die/position = Vector2(536, 173)
+states/idle/node = SubResource("AnimationNodeBlendSpace2D_575ss")
+states/idle/position = Vector2(342, 74)
+states/move/node = SubResource("AnimationNodeBlendSpace2D_3ba4d")
+states/move/position = Vector2(342, 173)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1x3e6"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_10b1q"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_usnes"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_nha1h"), "die", "End", SubResource("AnimationNodeStateMachineTransition_ptxiv")]
+
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_enemyAnimationController", "_stateChangeTimer", "TrackTimer", "_healthBar", "_animationController")]
 light_mask = 3
 visibility_layer = 4
@@ -279,6 +315,14 @@ value = 100.0
 rounded = true
 texture_under = ExtResource("4_xjuh4")
 texture_progress = ExtResource("5_5ggxd")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_k6wic")
+anim_player = NodePath("../AnimationPlayer")
+parameters/attack/blend_position = Vector2(0, 0)
+parameters/die/blend_position = Vector2(0, 0)
+parameters/idle/blend_position = Vector2(0, 0)
+parameters/move/blend_position = Vector2(0, 0)
 
 [connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="OnCollideWithWallEntered"]
 [connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="AttackPlayer"]

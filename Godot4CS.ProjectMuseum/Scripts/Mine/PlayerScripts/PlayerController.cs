@@ -48,7 +48,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	public override void _PhysicsProcess(double delta)
 	{
         PlayerMovement(delta);
-        //GD.Print(_playerControllerVariables.State);
 	}
     
 	private void PlayerMovement(double delta)

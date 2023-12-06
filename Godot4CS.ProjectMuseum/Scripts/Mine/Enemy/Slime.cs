@@ -33,6 +33,11 @@ public partial class Slime : Enemy
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
     }
 
+    private void SubscribeToActions()
+    {
+        _healthBar.Changed += Die;
+    }
+
     private void OnTrackTimerTimeOut()
     {
         NavAgent.TargetPosition = IsAggro ? _playerControllerVariables.Position : MoveDirection;
@@ -96,7 +101,7 @@ public partial class Slime : Enemy
         if (distance > AggroRange) return;
 
         if (IsAggro) return;
-        _enemyAnimationController.Play("aggro");
+        _enemyAnimationController.PlayAnimation("aggro");
         IsAggro = true;
     }
 
@@ -108,7 +113,7 @@ public partial class Slime : Enemy
         var tilePos = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
         Position = new Vector2(tilePos.PositionX * 20, tilePos.PositionY);
         Visible = true;
-        _enemyAnimationController.Play("digOut");
+        _enemyAnimationController.PlayAnimation("digOut");
         SetPhysicsProcess(true);
     }
 
@@ -125,7 +130,7 @@ public partial class Slime : Enemy
             Position = Position;
         }
         Visible = true;
-        _enemyAnimationController.Play("digOut");
+        _enemyAnimationController.PlayAnimation("digOut");
     }
 
     public void OnDigOutAnimationFinished(string animName)
@@ -136,7 +141,7 @@ public partial class Slime : Enemy
     
     private void DigIn()
     {
-        _enemyAnimationController.Play("digIn");
+        _enemyAnimationController.PlayAnimation("digIn");
     }
     
     public void OnDigInAnimationFinished(string animName)
@@ -161,7 +166,7 @@ public partial class Slime : Enemy
             GD.Print("chase method called");
             var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
             var directionBool = NavAgent.TargetPosition.X > Position.X;
-            _enemyAnimationController.Play("move");
+            _enemyAnimationController.PlayAnimation("move");
             _enemyAnimationController.Sprite.FlipH = directionBool;
         
             var velocityX = direction.X * MoveSpeed;
@@ -180,7 +185,7 @@ public partial class Slime : Enemy
         NavAgent.TargetPosition = MoveDirection;
         var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
         var directionBool = NavAgent.TargetPosition.X > Position.X;
-        _enemyAnimationController.Play("move");
+        _enemyAnimationController.PlayAnimation("move");
         _enemyAnimationController.Sprite.FlipH = directionBool;
         var velocityX = direction.X * MoveSpeed;
         Velocity = new Vector2(velocityX , Velocity.Y);
@@ -189,14 +194,14 @@ public partial class Slime : Enemy
     private void Idle()
     {
         Velocity = Vector2.Zero;
-        _enemyAnimationController.Play("idle");
+        _enemyAnimationController.PlayAnimation("idle");
     }
     
     public override void Attack()
     {
         Velocity = Vector2.Zero;
         if(_enemyAnimationController.CurrentAnimation == "attack") return;
-        _enemyAnimationController.Play("attack");
+        _enemyAnimationController.PlayAnimation("attack");
         _playerControllerVariables.Player.TakeDamage();
     }
 
@@ -209,7 +214,8 @@ public partial class Slime : Enemy
     public void OnTakeDamageAnimationFinished(string animName)
     {
         if(animName != "damage") return;
-        
+        State = EnemyState.Move;
+
     }
 
     #endregion
@@ -227,13 +233,14 @@ public partial class Slime : Enemy
     public override void TakeDamage()
     {
         GD.Print("Enemy taking damage");
-        _enemyAnimationController.Play("damage");
+        _enemyAnimationController.PlayAnimation("damage");
         HealthSystem.ReduceEnemyHealth(10, 100, this);
     }
 
-    public void Die()
+    private void Die()
     {
-        _enemyAnimationController.Play("death");
+        if(Health > 0) return;
+        _enemyAnimationController.PlayAnimation("death");
         SetPhysicsProcess(false);
         _ExitTree();
     }

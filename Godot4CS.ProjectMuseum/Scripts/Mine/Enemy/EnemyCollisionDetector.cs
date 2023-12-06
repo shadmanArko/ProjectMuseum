@@ -23,7 +23,7 @@ public partial class EnemyCollisionDetector : Area2D
     {
         var player = body as PlayerController;
         if(player == null) return;
-        if(!_playerControllerVariables.IsAttacking) return;
+        //if(!_playerControllerVariables.IsAttacking) return;
         
 
         if (_character!.State != EnemyState.DigIn)

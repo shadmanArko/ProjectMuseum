@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -77,7 +78,8 @@ public partial class EnemySpawner : Node2D
         SetProcess(false);
         SetPhysicsProcess(false);
         _newEnemy.IsAffectedByGravity = true;
-		
+        _newEnemy.State = EnemyState.Move;
+        _newEnemy = null;
     }
     
     #region Auto Animations
@@ -87,7 +89,7 @@ public partial class EnemySpawner : Node2D
         if(enemy == null) return;
         if(enemy.Position.X > _newPos.X)
         {
-            enemy.Translate(new Vector2(-0.01f,0));
+            enemy.Translate(new Vector2(-0.03f,0));
             enemy._animationController.Play("move");
         }
         else

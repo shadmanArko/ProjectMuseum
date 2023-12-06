@@ -2,11 +2,12 @@ using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
-public partial class PlayerController : CharacterBody2D
+public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 {
 	[Export] private AnimationController _animationController;
 
@@ -214,4 +215,18 @@ public partial class PlayerController : CharacterBody2D
 	}
 
 	#endregion
+
+	public void TakeDamage()
+	{
+		var velocity = Velocity;
+		velocity.X = 0;
+		Velocity = velocity;
+		_animationController.Play("damage1");
+		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
+	}
+
+	public void Attack()
+	{
+		
+	}
 }

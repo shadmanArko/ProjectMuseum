@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bsn0ka4exkaib" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarUnder.png" id="4_xjuh4"]
 [ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="5_5ggxd"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_14ny2"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x33fy"]
+size = Vector2(16, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0m43"]
 size = Vector2(10, 7)
@@ -54,7 +54,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.6, 0.7),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [63, 64, 65, 66, 67, 68]
@@ -226,16 +226,17 @@ TrackTimer = NodePath("Track Timer")
 _healthBar = NodePath("Health Bar")
 _animationController = NodePath("AnimationPlayer")
 
-[node name="PlayerCollision" type="Area2D" parent="." node_paths=PackedStringArray("_characterBody2D")]
+[node name="PlayerCollision" type="Area2D" parent="." node_paths=PackedStringArray("_character")]
 position = Vector2(0, 3)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_4f4sl")
-_characterBody2D = NodePath("..")
+_character = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollision"]
 texture_filter = 1
-shape = SubResource("CircleShape2D_14ny2")
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_x33fy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4.5)
@@ -256,6 +257,7 @@ script = ExtResource("3_5dxjc")
 Sprite = NodePath("../Sprite2D")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 10.0
 debug_enabled = true
 
 [node name="Track Timer" type="Timer" parent="."]
@@ -278,12 +280,13 @@ rounded = true
 texture_under = ExtResource("4_xjuh4")
 texture_progress = ExtResource("5_5ggxd")
 
+[connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="OnCollideWithWallEntered"]
 [connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="AttackPlayer"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
 [connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]

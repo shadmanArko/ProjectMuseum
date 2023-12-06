@@ -18,6 +18,8 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     [Export] public float AggroRange = 140f;
     [Export] public bool IsAggro;
     
+    public Vector2 MoveDirection;
+    
     [Export] public TextureProgressBar _healthBar;
     [Export] public EnemyAnimationController _animationController;
         

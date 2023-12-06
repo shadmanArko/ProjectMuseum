@@ -71,8 +71,8 @@ public partial class AutoAnimationController : Node
 	{
 		if(_playerController.Position.X < _newPos.X)
 		{
-			_playerController.Translate(new Vector2(0.5f,0));
-			_animationController.PlayAnimation("walk");
+			_playerController.Translate(new Vector2(0.02f,0));
+			_animationController.Play("walk");
 		}
 		else
 		{

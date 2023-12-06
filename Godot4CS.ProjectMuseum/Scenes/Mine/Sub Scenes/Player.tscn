@@ -373,7 +373,8 @@ scale = Vector2(0.908203, 1.00962)
 polygon = PackedVector2Array(-3, -5, -3.26667, 7.93806, 1, 7.93806, 5.26667, 7.93806, 5.12281, 0.958241, 5, -5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-light_mask = 3
+light_mask = 2
+visibility_layer = 2
 texture_filter = 1
 texture = ExtResource("2_eymdr")
 flip_h = true

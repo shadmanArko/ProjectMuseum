@@ -207,7 +207,7 @@ _data = {
 "move": SubResource("Animation_h4tdc")
 }
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_enemyAnimationController", "_stateChangeTimer", "NavAgent", "TrackTimer", "_healthBar")]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_enemyAnimationController", "_stateChangeTimer", "TrackTimer", "_healthBar", "_animationController")]
 light_mask = 3
 visibility_layer = 4
 z_index = 10
@@ -221,12 +221,10 @@ floor_snap_length = 0.0
 script = ExtResource("1_pkl74")
 _enemyAnimationController = NodePath("AnimationPlayer")
 _stateChangeTimer = NodePath("State Change TImer")
-_moveSpeed = 10.0
-NavAgent = NodePath("NavigationAgent2D")
-TrackTimer = NodePath("Track Timer")
-_aggroRange = 20.0
-_healthBar = NodePath("Health Bar")
 _gravity = 1500.0
+TrackTimer = NodePath("Track Timer")
+_healthBar = NodePath("Health Bar")
+_animationController = NodePath("AnimationPlayer")
 
 [node name="PlayerCollision" type="Area2D" parent="." node_paths=PackedStringArray("_characterBody2D")]
 position = Vector2(0, 3)
@@ -281,11 +279,11 @@ texture_under = ExtResource("4_xjuh4")
 texture_progress = ExtResource("5_5ggxd")
 
 [connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="AttackPlayer"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
 [connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]

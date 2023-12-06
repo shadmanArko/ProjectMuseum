@@ -14,7 +14,7 @@ public partial class GuestsController : Node2D
 {
 	[Export] private PackedScene _guestScene;
 	[Export] private Vector2I _spawnAtTile;
-	private List<MuseumTile> _listOfMuseumTile;
+	private MuseumTileContainer _museumTileContainer;
 	private string _testString;
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 	[Export] private int _maxNumberGuests = 10;
@@ -24,7 +24,7 @@ public partial class GuestsController : Node2D
 	public override async void _Ready()
 	{
 		await Task.Delay(500);
-		_listOfMuseumTile = ServiceRegistry.Resolve<List<MuseumTile>>();
+		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 		
 		_httpRequestForGettingMuseumTiles = new HttpRequest();
 		AddChild(_httpRequestForGettingMuseumTiles);
@@ -51,7 +51,7 @@ public partial class GuestsController : Node2D
 			var guest = _guestScene.Instantiate();
 			guest.GetNode<Guest>(".").Position = GameManager.TileMap.MapToLocal(_spawnAtTile);
 			AddChild(guest);
-			guest.GetNode<Guest>(".").Initialize(_listOfMuseumTile);
+			guest.GetNode<Guest>(".").Initialize();
 			_numberOfGuestsInMusuem++;
 			MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMusuem);
 			await Task.Delay( (int)(1000 * delayBetweenSpawningGuests));
@@ -60,10 +60,10 @@ public partial class GuestsController : Node2D
 	private void HttpRequestForGettingMuseumTilesOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		_listOfMuseumTile = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-		if (_listOfMuseumTile.Count > 0)
+		_museumTileContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		if (_museumTileContainer.MuseumTiles.Count > 0)
 		{
-			GD.Print($"found museum tiles {_listOfMuseumTile.Count}");
+			GD.Print($"found museum tiles {_museumTileContainer.MuseumTiles.Count}");
 		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -26,22 +26,22 @@ public partial class Guest : CharacterBody2D
     private double _decisionChangingIntervalMin = 2f;
     private double _decisionChangingIntervalMax = 5f;
     [Export] private Array<Texture2D> _guestTextures;
-    private List<MuseumTile> _listOfMuseumTile;
     private string _testString;
-
+    private MuseumTileContainer _museumTileContainer;
     private bool _canMove = false;
 
     public Guest()
     {
-        
+        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
     }
     // Converts any Vector2 coordinates or motion from the cartesian to the isometric system
     public override void _Ready()
     {
         base._Ready();
         GetRandomInterval();
-        _listOfMuseumTile = ServiceRegistry.Resolve<List<MuseumTile>>();
-        GD.Print($"{Name} got {_listOfMuseumTile.Count} tiles");
+        
+        // _listOfMuseumTile = ServiceRegistry.Resolve<List<MuseumTile>>();
+        GD.Print($"{Name} got {_museumTileContainer.MuseumTiles.Count} tiles");
         // AddToGroup("ManualSortGroup");
         _animationPlayerInstance = _animationPlayer.Duplicate() as AnimationPlayer;
         AddChild(_animationPlayerInstance);
@@ -57,9 +57,8 @@ public partial class Guest : CharacterBody2D
         _decisionChangingInterval = GD.RandRange(_decisionChangingIntervalMin, _decisionChangingIntervalMax);
     }
 
-    public void Initialize(List<MuseumTile> museumTiles)
+    public void Initialize()
     {
-        _listOfMuseumTile = museumTiles;
         _canMove = true;
         MoveLeft();
     }
@@ -163,7 +162,7 @@ public partial class Guest : CharacterBody2D
         }
 
         _lastCheckedPosition = tilePosition;
-        foreach (var museumTile in _listOfMuseumTile)
+        foreach (var museumTile in _museumTileContainer.MuseumTiles)
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {

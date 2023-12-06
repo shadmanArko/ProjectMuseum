@@ -9,6 +9,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using Newtonsoft.Json;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -55,6 +56,8 @@ public partial class Item : Sprite2D, IComparable<Item>
     private HttpRequest _httpRequestForArtifactRemoval;
     public string ExhibitVariationName = "default";
     public Exhibit ExhibitData;
+    private MuseumTileContainer _museumTileContainer;
+
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
@@ -67,6 +70,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
+        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         MuseumActions.ArtifactDroppedOnExhibitSlot += ArtifactDroppedOnExhibitSlot;
         MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
         AddToGroup("ManualSortGroup");
@@ -221,9 +225,11 @@ public partial class Item : Sprite2D, IComparable<Item>
     private void httpRequestForExhibitPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
-        GD.Print("Http1 result " + jsonStr);
-        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
-        
+        // GD.Print("Http1 result " + jsonStr);
+        TilesWithExhibitDto tilesWithExhibitDto = JsonSerializer.Deserialize<TilesWithExhibitDto>(jsonStr);
+        ExhibitData = tilesWithExhibitDto.Exhibit;
+        _museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
+        GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
     }
 
     private Vector2I _lastCheckedTile = new Vector2I();

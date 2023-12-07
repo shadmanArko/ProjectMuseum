@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=38 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
@@ -207,43 +207,81 @@ _data = {
 "move": SubResource("Animation_h4tdc")
 }
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_t0oa4"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jyft4"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5athy"]
+animation = &"damage"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_upqla"]
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_575ss"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y2krj"]
+animation = &"idle"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_3ba4d"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ij2ta"]
+animation = &"move"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1x3e6"]
-advance_mode = 2
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hw18s"]
+animation = &"move"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_10b1q"]
-advance_mode = 2
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rwpus"]
+animation = &"fall"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_usnes"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nha1h"]
-advance_mode = 2
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_4o61f"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_y2krj")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ij2ta")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_hw18s")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_rwpus")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ptxiv"]
+switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k6wic"]
-states/End/position = Vector2(755, 173)
-states/Start/position = Vector2(128, 74)
-states/attack/node = SubResource("AnimationNodeBlendSpace2D_t0oa4")
-states/attack/position = Vector2(543, 74)
-states/die/node = SubResource("AnimationNodeBlendSpace2D_upqla")
-states/die/position = Vector2(536, 173)
-states/idle/node = SubResource("AnimationNodeBlendSpace2D_575ss")
-states/idle/position = Vector2(342, 74)
-states/move/node = SubResource("AnimationNodeBlendSpace2D_3ba4d")
-states/move/position = Vector2(342, 173)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1x3e6"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_10b1q"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_usnes"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_nha1h"), "die", "End", SubResource("AnimationNodeStateMachineTransition_ptxiv")]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ups56"]
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_enemyAnimationController", "_stateChangeTimer", "TrackTimer", "_healthBar", "_animationController")]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sj8mw"]
+priority = 0
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_atu1o"]
+priority = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3ju6y"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_780lb"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ognbc"]
+switch_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_345db"]
+priority = 0
+switch_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k6wic"]
+states/End/position = Vector2(677, 188)
+states/Start/position = Vector2(110, 188)
+states/attack/node = SubResource("AnimationNodeAnimation_jyft4")
+states/attack/position = Vector2(271, 69)
+states/damage/node = SubResource("AnimationNodeAnimation_5athy")
+states/damage/position = Vector2(271, 358)
+states/die/node = SubResource("AnimationNodeBlendSpace2D_upqla")
+states/die/position = Vector2(468, 188)
+states/move/node = SubResource("AnimationNodeBlendSpace2D_4o61f")
+states/move/position = Vector2(271, 188)
+transitions = ["die", "End", SubResource("AnimationNodeStateMachineTransition_ptxiv"), "Start", "move", SubResource("AnimationNodeStateMachineTransition_ups56"), "move", "die", SubResource("AnimationNodeStateMachineTransition_sj8mw"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_atu1o"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_3ju6y"), "move", "damage", SubResource("AnimationNodeStateMachineTransition_780lb"), "damage", "move", SubResource("AnimationNodeStateMachineTransition_ognbc"), "damage", "die", SubResource("AnimationNodeStateMachineTransition_345db")]
+
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_animationTree", "_stateChangeTimer", "NavAgent", "TrackTimer", "HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
 z_index = 10
@@ -255,12 +293,13 @@ floor_block_on_wall = false
 floor_max_angle = 3.14159
 floor_snap_length = 0.0
 script = ExtResource("1_pkl74")
-_enemyAnimationController = NodePath("AnimationPlayer")
+_animationTree = NodePath("AnimationTree")
 _stateChangeTimer = NodePath("State Change TImer")
 _gravity = 1500.0
+NavAgent = NodePath("NavigationAgent2D")
 TrackTimer = NodePath("Track Timer")
-_healthBar = NodePath("Health Bar")
-_animationController = NodePath("AnimationPlayer")
+HealthBar = NodePath("Health Bar")
+AnimationController = NodePath("AnimationPlayer")
 
 [node name="PlayerCollision" type="Area2D" parent="." node_paths=PackedStringArray("_character")]
 position = Vector2(0, 3)
@@ -294,6 +333,7 @@ Sprite = NodePath("../Sprite2D")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 10.0
+path_postprocessing = 1
 debug_enabled = true
 
 [node name="Track Timer" type="Timer" parent="."]
@@ -319,18 +359,21 @@ texture_progress = ExtResource("5_5ggxd")
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_k6wic")
 anim_player = NodePath("../AnimationPlayer")
-parameters/attack/blend_position = Vector2(0, 0)
+active = true
+parameters/conditions/is_attacking = true
+parameters/conditions/is_dead = false
+parameters/conditions/is_moving = false
 parameters/die/blend_position = Vector2(0, 0)
-parameters/idle/blend_position = Vector2(0, 0)
-parameters/move/blend_position = Vector2(0, 0)
+parameters/move/blend_position = Vector2(0.00318813, -0.0102041)
 
-[connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="OnCollideWithWallEntered"]
 [connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="AttackPlayer"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
+[connection signal="body_entered" from="PlayerCollision" to="PlayerCollision" method="OnCollideWithWallEntered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
 [connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnAttackAnimationFinished"]

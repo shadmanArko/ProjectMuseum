@@ -44,10 +44,10 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
 
     private void OnBodyEnter(Node2D body)
     {
-        var enemy = body as IDamagable;
-        GD.Print($"body entered is null {enemy == null}");
-        if(enemy is null) return;
-        enemy.TakeDamage();
+        // var enemy = body as IDamagable;
+        // GD.Print($"body entered is null {enemy == null}");
+        // if(enemy is null) return;
+        // enemy.TakeDamage();
     }
 
     private void OnBodyExit(Node2D body)

@@ -6,7 +6,7 @@
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vwjl6"]
 polygon = PackedVector2Array(-10, -10, -8.75, -8.75, 8.75, -8.75, 10, -10, 8.75, -8.75, 8.75, 8.75, 10, 10, 8.75, 8.75, -8.75, 8.75, -10, 10, -8.75, 8.75, -8.75, -8.75)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7ffjj"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_esl8g"]
 vertices = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)])
@@ -39,7 +39,7 @@ texture_region_size = Vector2i(20, 20)
 5:2/0 = 0
 5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:2/0/physics_layer_0/angular_velocity = 0.0
-5:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7ffjj")
+5:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_esl8g")
 2:3/0 = 0
 2:3/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_vwjl6")
 2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)

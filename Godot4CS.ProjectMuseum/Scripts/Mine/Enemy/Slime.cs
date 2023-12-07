@@ -11,7 +11,11 @@ public partial class Slime : Enemy
 {
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
-    [Export] private EnemyAnimationController _enemyAnimationController;
+    //[Export] private EnemyAnimationController _enemyAnimationController;
+    
+    [Export] private AnimationTree _animationTree;
+    private AnimationNodeStateMachinePlayback _stateMachine;
+    
     [Export] private Timer _stateChangeTimer;
 
     public override void _EnterTree()
@@ -19,12 +23,14 @@ public partial class Slime : Enemy
         InitializeDiReferences();
         TrackTimer = GetNode<Timer>("Track Timer");
         NavAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
+        
     }
 
     public override void _Ready()
     {
         Spawn();
         Health = 100;
+        _stateMachine = _animationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
     }
 
     private void InitializeDiReferences()
@@ -35,7 +41,7 @@ public partial class Slime : Enemy
 
     private void SubscribeToActions()
     {
-        _healthBar.Changed += Die;
+        HealthBar.Changed += Die;
     }
 
     private void OnTrackTimerTimeOut()
@@ -75,6 +81,7 @@ public partial class Slime : Enemy
             case EnemyState.Attack:
                 Attack();
                 break;
+            
         }
 
         var collisionBool = MoveAndSlide();
@@ -101,7 +108,7 @@ public partial class Slime : Enemy
         if (distance > AggroRange) return;
 
         if (IsAggro) return;
-        _enemyAnimationController.PlayAnimation("aggro");
+        AnimationController.PlayAnimation("aggro");
         IsAggro = true;
     }
 
@@ -113,7 +120,7 @@ public partial class Slime : Enemy
         var tilePos = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
         Position = new Vector2(tilePos.PositionX * 20, tilePos.PositionY);
         Visible = true;
-        _enemyAnimationController.PlayAnimation("digOut");
+        AnimationController.PlayAnimation("digOut");
         SetPhysicsProcess(true);
     }
 
@@ -130,7 +137,7 @@ public partial class Slime : Enemy
             Position = Position;
         }
         Visible = true;
-        _enemyAnimationController.PlayAnimation("digOut");
+        AnimationController.PlayAnimation("digOut");
     }
 
     public void OnDigOutAnimationFinished(string animName)
@@ -141,7 +148,7 @@ public partial class Slime : Enemy
     
     private void DigIn()
     {
-        _enemyAnimationController.PlayAnimation("digIn");
+        AnimationController.PlayAnimation("digIn");
     }
     
     public void OnDigInAnimationFinished(string animName)
@@ -166,11 +173,14 @@ public partial class Slime : Enemy
             GD.Print("chase method called");
             var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
             var directionBool = NavAgent.TargetPosition.X > Position.X;
-            _enemyAnimationController.PlayAnimation("move");
-            _enemyAnimationController.Sprite.FlipH = directionBool;
+            //_enemyAnimationController.PlayAnimation("move");
+            GD.Print($"chase velocity: {Velocity}");
+            AnimationController.Sprite.FlipH = directionBool;
         
             var velocityX = direction.X * MoveSpeed;
             Velocity = new Vector2(velocityX , Velocity.Y);
+            _animationTree.Set("parameters/move/blend_position", Velocity);
+            _stateMachine.Travel("move");
         }
     }
     
@@ -185,29 +195,47 @@ public partial class Slime : Enemy
         NavAgent.TargetPosition = MoveDirection;
         var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
         var directionBool = NavAgent.TargetPosition.X > Position.X;
-        _enemyAnimationController.PlayAnimation("move");
-        _enemyAnimationController.Sprite.FlipH = directionBool;
+        // _enemyAnimationController.PlayAnimation("move");
+        AnimationController.Sprite.FlipH = directionBool;
         var velocityX = direction.X * MoveSpeed;
         Velocity = new Vector2(velocityX , Velocity.Y);
+        _animationTree.Set("parameters/move/blend_position", Velocity);
+        GD.Print($"_stateMachine is null: {_stateMachine == null}");
+        _stateMachine!.Travel("move");
     }
     
     private void Idle()
     {
-        Velocity = Vector2.Zero;
-        _enemyAnimationController.PlayAnimation("idle");
+        Velocity = new Vector2(0, Velocity.Y);
+        GD.Print($"idle velocity {Velocity}");
+        _animationTree.Set("parameters/move/blend_position", Velocity);
+        _stateMachine.Travel("move");
     }
     
     public override void Attack()
     {
-        Velocity = Vector2.Zero;
-        if(_enemyAnimationController.CurrentAnimation == "attack") return;
-        _enemyAnimationController.PlayAnimation("attack");
+        var velX = Velocity.X;
+        Velocity = new Vector2(velX, Velocity.Y);
+        GD.Print("ENEMY ATTACKING");
+        if (_stateMachine.GetCurrentNode() == "attack")
+        {
+            GD.Print("Current animation is ATTACK");
+            return;
+        }
+        
+        
+        _animationTree.Set("parameters/conditions/is_moving",false);
+        _animationTree.Set("parameters/conditions/is_attacking",true);
+        _stateMachine.Travel("attack");
+        GD.Print($"current animation: {AnimationController.CurrentAnimation}");
         _playerControllerVariables.Player.TakeDamage();
     }
 
     public void OnAttackAnimationFinished(string animName)
     {
         if(animName != "attack") return;
+        _animationTree.Set("parameters/conditions/is_attacking",false);
+        _animationTree.Set("parameters/conditions/is_moving",true);
         State = EnemyState.Idle;
     }
     
@@ -233,14 +261,14 @@ public partial class Slime : Enemy
     public override void TakeDamage()
     {
         GD.Print("Enemy taking damage");
-        _enemyAnimationController.PlayAnimation("damage");
+        AnimationController.PlayAnimation("damage");
         HealthSystem.ReduceEnemyHealth(10, 100, this);
     }
 
     private void Die()
     {
         if(Health > 0) return;
-        _enemyAnimationController.PlayAnimation("death");
+        AnimationController.PlayAnimation("death");
         SetPhysicsProcess(false);
         _ExitTree();
     }

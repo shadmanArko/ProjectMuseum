@@ -72,9 +72,9 @@ public partial class EnemySpawner : Node2D
         _time += delta;
         
         if(_newEnemy.Velocity.Y > 0)
-            _newEnemy._animationController.Play("fall");
+            _newEnemy.AnimationController.Play("fall");
         if (!(_time >= 1.2f)) return;
-        _newEnemy._animationController.Play("idle");
+        _newEnemy.AnimationController.Play("idle");
         SetProcess(false);
         SetPhysicsProcess(false);
         _newEnemy.IsAffectedByGravity = true;
@@ -90,7 +90,7 @@ public partial class EnemySpawner : Node2D
         if(enemy.Position.X > _newPos.X)
         {
             enemy.Translate(new Vector2(-0.03f,0));
-            enemy._animationController.Play("move");
+            enemy.AnimationController.Play("move");
         }
         else
         {

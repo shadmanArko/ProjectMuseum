@@ -20,8 +20,8 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     
     public Vector2 MoveDirection;
     
-    [Export] public TextureProgressBar _healthBar;
-    [Export] public EnemyAnimationController _animationController;
+    [Export] public TextureProgressBar HealthBar;
+    [Export] public EnemyAnimationController AnimationController;
         
         
     private int _health;
@@ -31,7 +31,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
         set
         {
             _health = value;
-            _healthBar.Value = _health;
+            HealthBar.Value = _health;
             
             // if(_health <= 0)
             //     Die();

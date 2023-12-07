@@ -42,7 +42,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 		_playerControllerVariables.Player = this;
 		_playerControllerVariables.State = MotionState.Falling;
 		_playerControllerVariables.PlayerHealth = 200;
-		_playerControllerVariables.PlayerEnergy = 200;
+		_playerControllerVariables.PlayerEnergy = 2000;
 	}
 
 	public override void _PhysicsProcess(double delta)

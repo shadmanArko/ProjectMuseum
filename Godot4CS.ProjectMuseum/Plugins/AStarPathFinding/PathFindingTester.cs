@@ -11,21 +11,24 @@ public partial class PathFindingTester : Godot.Node
 {
 	private AStarPathfinding _aStarPathfinding;
 	private MuseumTileContainer _museumTileContainer;
+
+	[Export] private Vector2I _startCoordinate;
+	[Export] private Vector2I _targetCoordinate;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
 		await Task.Delay(5000);
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-		_aStarPathfinding = new AStarPathfinding(5, 5);
-		AStarNode[,] grid =
-			new AStarNode[5, 5];
-		PopulateGrid(grid);
+
 		foreach (var aStarNode in _museumTileContainer.AStarNodes)
 		{
 			GD.Print($"Node  {aStarNode.TileCoordinateX}, {aStarNode.TileCoordinateY} is {aStarNode.IsWalkable}");
 		}
-		List<Vector2I> path = _aStarPathfinding.FindPath(new Vector2I(0, 0), new Vector2I(0, -4), _museumTileContainer.AStarNodes);
-		foreach (var pathCoordinate in path)
+		
+		_aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1));
+		List<Vector2I> path = _aStarPathfinding.FindPath(_startCoordinate, _targetCoordinate, _museumTileContainer.AStarNodes);
+		if(path == null) GD.Print("Path not found");
+        foreach (var pathCoordinate in path)
 		{
 			GD.Print( $"path coordinate is {pathCoordinate}");
 		}

@@ -50,39 +50,39 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             _openSet = new List<AStarNode>();
             _closedSet = new HashSet<AStarNode>();
 
-            AStarNode startAStarNode = grid[startTileCoordinates.X, startTileCoordinates.Y];
-            AStarNode goalAStarNode = grid[goalTileCoordinates.X, goalTileCoordinates.Y];
+            AStarNode startNode = grid[startTileCoordinates.X, startTileCoordinates.Y];
+            AStarNode goalNode = grid[goalTileCoordinates.X, goalTileCoordinates.Y];
             
-            startAStarNode.GCost = 0; // Set GCost of the start node to zero
-            startAStarNode.HCost = GetDistance(startAStarNode, goalAStarNode); // Set HCost using the heuristic
+            startNode.GCost = 0; // Set GCost of the start node to zero
+            startNode.HCost = GetDistance(startNode, goalNode); // Set HCost using the heuristic
             
-            _openSet.Add(startAStarNode);
+            _openSet.Add(startNode);
 
             while (_openSet.Count > 0)
             {
-                AStarNode currentAStarNode = GetLowestFCostNode(_openSet);
+                AStarNode currentNode = GetLowestFCostNode(_openSet);
 
-                if (currentAStarNode == goalAStarNode)
+                if (currentNode == goalNode)
                 {
                     // Path found
-                    return RetracePath(startAStarNode, goalAStarNode);
+                    return RetracePath(startNode, goalNode);
                 }
 
-                _openSet.Remove(currentAStarNode);
-                _closedSet.Add(currentAStarNode);
+                _openSet.Remove(currentNode);
+                _closedSet.Add(currentNode);
 
-                foreach (AStarNode neighbor in GetNeighbors(currentAStarNode, grid))
+                foreach (AStarNode neighbor in GetNeighbors(currentNode, grid))
                 {
                     if (!neighbor.IsWalkable || _closedSet.Contains(neighbor))
                         continue;
 
-                    float newGCost = currentAStarNode.GCost + GetDistance(currentAStarNode, neighbor);
+                    float newGCost = currentNode.GCost + GetDistance(currentNode, neighbor);
 
                     if (newGCost < neighbor.GCost || !_openSet.Contains(neighbor))
                     {
                         neighbor.GCost = newGCost;
-                        neighbor.HCost = GetDistance(neighbor, goalAStarNode);
-                        neighbor.Parent = currentAStarNode;
+                        neighbor.HCost = GetDistance(neighbor, goalNode);
+                        neighbor.Parent = currentNode;
 
                         if (!_openSet.Contains(neighbor))
                             _openSet.Add(neighbor);
@@ -160,22 +160,22 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             int distanceY = Math.Abs(aStarNodeA.TileCoordinateY - aStarNodeB.TileCoordinateY);
 
             // Adjust the cost of diagonal movement as desired (e.g., multiply by 1.4 for 45-degree movement)
-            float diagonalCost = 3; // Cost of diagonal movement (approximately 1.4 times straight cost)
-            float straightCost = 2; // Cost of straight movement
+            int diagonalCost = 14; // Cost of diagonal movement (approximately 1.4 times straight cost)
+            int straightCost = 10; // Cost of straight movement
 
             int diagonalSteps = Math.Min(distanceX, distanceY);
             int straightSteps = Math.Abs(distanceX - distanceY);
 
-            if (diagonalSteps != 0)
-            {
-                aStarNodeB.MovecostFromPreviousTile = 3;
-            }
-            else
-            {
-                aStarNodeB.MovecostFromPreviousTile = 2;
-            }
+            // if (diagonalSteps != 0)
+            // {
+            //     aStarNodeB.MovecostFromPreviousTile = 3;
+            // }
+            // else
+            // {
+            //     aStarNodeB.MovecostFromPreviousTile = 2;
+            // }
 
-            return (int)((diagonalCost * diagonalSteps) + (straightCost * straightSteps));
+            return  ((diagonalCost * diagonalSteps) + (straightCost * straightSteps));
         }
 
 

@@ -180,5 +180,6 @@ texture = ExtResource("23_38mdj")
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("24_u833t")
+_targetCoordinate = Vector2i(-17, -19)
 
 [connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]

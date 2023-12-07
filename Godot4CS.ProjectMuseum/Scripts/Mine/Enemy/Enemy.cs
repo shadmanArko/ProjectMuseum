@@ -10,15 +10,19 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     public string Id { get; set; }
     [Export] public NavigationAgent2D NavAgent { get; set; }
     [Export] public Timer TrackTimer { get; set; }
+    [Export] protected AnimationTree AnimTree;
+    
     public EnemyState State { get; set; }
     public bool IsAffectedByGravity { get; set; }
     
+    protected AnimationNodeStateMachinePlayback StateMachine;
+    protected Vector2 MoveDirection;
     
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;
     [Export] public bool IsAggro;
+
     
-    public Vector2 MoveDirection;
     
     [Export] public TextureProgressBar HealthBar;
     [Export] public EnemyAnimationController AnimationController;

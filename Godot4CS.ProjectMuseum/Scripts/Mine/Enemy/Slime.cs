@@ -13,8 +13,7 @@ public partial class Slime : Enemy
     private MineGenerationVariables _mineGenerationVariables;
     //[Export] private EnemyAnimationController _enemyAnimationController;
     
-    [Export] private AnimationTree _animationTree;
-    private AnimationNodeStateMachinePlayback _stateMachine;
+    
     
     [Export] private Timer _stateChangeTimer;
 
@@ -30,7 +29,7 @@ public partial class Slime : Enemy
     {
         Spawn();
         Health = 100;
-        _stateMachine = _animationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
+        StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
     }
 
     private void InitializeDiReferences()
@@ -179,8 +178,8 @@ public partial class Slime : Enemy
         
             var velocityX = direction.X * MoveSpeed;
             Velocity = new Vector2(velocityX , Velocity.Y);
-            _animationTree.Set("parameters/move/blend_position", Velocity);
-            _stateMachine.Travel("move");
+            AnimTree.Set("parameters/move/blend_position", Velocity);
+            StateMachine.Travel("move");
         }
     }
     
@@ -199,34 +198,28 @@ public partial class Slime : Enemy
         AnimationController.Sprite.FlipH = directionBool;
         var velocityX = direction.X * MoveSpeed;
         Velocity = new Vector2(velocityX , Velocity.Y);
-        _animationTree.Set("parameters/move/blend_position", Velocity);
-        GD.Print($"_stateMachine is null: {_stateMachine == null}");
-        _stateMachine!.Travel("move");
+        AnimTree.Set("parameters/move/blend_position", Velocity);
+        GD.Print($"_stateMachine is null: {StateMachine == null}");
+        StateMachine!.Travel("move");
     }
     
     private void Idle()
     {
         Velocity = new Vector2(0, Velocity.Y);
         GD.Print($"idle velocity {Velocity}");
-        _animationTree.Set("parameters/move/blend_position", Velocity);
-        _stateMachine.Travel("move");
+        AnimTree.Set("parameters/move/blend_position", Velocity);
+        StateMachine.Travel("move");
     }
     
     public override void Attack()
     {
         var velX = Velocity.X;
         Velocity = new Vector2(velX, Velocity.Y);
-        GD.Print("ENEMY ATTACKING");
-        if (_stateMachine.GetCurrentNode() == "attack")
-        {
-            GD.Print("Current animation is ATTACK");
-            return;
-        }
         
-        
-        _animationTree.Set("parameters/conditions/is_moving",false);
-        _animationTree.Set("parameters/conditions/is_attacking",true);
-        _stateMachine.Travel("attack");
+        if (StateMachine.GetCurrentNode() == "attack") return;
+        AnimTree.Set("parameters/conditions/is_moving",false);
+        AnimTree.Set("parameters/conditions/is_attacking",true);
+        StateMachine.Travel("attack");
         GD.Print($"current animation: {AnimationController.CurrentAnimation}");
         _playerControllerVariables.Player.TakeDamage();
     }
@@ -234,8 +227,8 @@ public partial class Slime : Enemy
     public void OnAttackAnimationFinished(string animName)
     {
         if(animName != "attack") return;
-        _animationTree.Set("parameters/conditions/is_attacking",false);
-        _animationTree.Set("parameters/conditions/is_moving",true);
+        AnimTree.Set("parameters/conditions/is_attacking",false);
+        AnimTree.Set("parameters/conditions/is_moving",true);
         State = EnemyState.Idle;
     }
     
@@ -243,7 +236,6 @@ public partial class Slime : Enemy
     {
         if(animName != "damage") return;
         State = EnemyState.Move;
-
     }
 
     #endregion

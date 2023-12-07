@@ -25,7 +25,7 @@ public partial class PathFindingTester : Godot.Node
 			GD.Print($"Node  {aStarNode.TileCoordinateX}, {aStarNode.TileCoordinateY} is {aStarNode.IsWalkable}");
 		}
 		
-		_aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1));
+		_aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
 		List<Vector2I> path = _aStarPathfinding.FindPath(_startCoordinate, _targetCoordinate, _museumTileContainer.AStarNodes);
 		if(path == null) GD.Print("Path not found");
         foreach (var pathCoordinate in path)

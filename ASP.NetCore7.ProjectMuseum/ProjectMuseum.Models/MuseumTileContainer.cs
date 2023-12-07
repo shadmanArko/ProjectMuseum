@@ -3,7 +3,7 @@ namespace ProjectMuseum.Models;
 public class MuseumTileContainer
 {
     private List<MuseumTile> museumTiles; // Use a private field to store the list
-
+    public List<Exhibit> Exhibits { get; set; }
     public List<MuseumTile> MuseumTiles
     {
         get => museumTiles;

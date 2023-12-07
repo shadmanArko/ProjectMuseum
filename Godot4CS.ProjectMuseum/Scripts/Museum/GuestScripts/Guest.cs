@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Plugins.AStarPathFinding;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -14,7 +16,7 @@ using ProjectMuseum.Models;
 public partial class Guest : CharacterBody2D
 {
 	[Export] private float _displacementSpeed = 30;
-	[Export] private float _lookAheadDistance = 20;
+	[Export] private float _lookAheadDistance = 2;
     private Vector2 motion = Vector2.Zero;
 
     [Export] private AnimationPlayer _animationPlayer;
@@ -29,7 +31,13 @@ public partial class Guest : CharacterBody2D
     private string _testString;
     private MuseumTileContainer _museumTileContainer;
     private bool _canMove = false;
-
+    private List<Vector2I> _path; // New variable to store the path
+    [Export] private int _currentPathIndex = 0;
+    [Export] private Vector2I _currentTargetNode;
+    [Export] private Vector2I _currentNode;
+    [Export] private Vector2I _startTileCoordinate;
+    [Export] private Vector2I _targetTileCoordinate;
+    [Export] private int _currentExhibitIndex = 0;
     public Guest()
     {
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
@@ -59,8 +67,8 @@ public partial class Guest : CharacterBody2D
 
     public void Initialize()
     {
-        _canMove = true;
-        MoveLeft();
+        SetPath();
+        // MoveLeft();
     }
     private void LoadRandomCharacterSprite()
     {
@@ -81,35 +89,109 @@ public partial class Guest : CharacterBody2D
         cartPos.Y = -iso.X + cartPos.X;
         return cartPos;
     }
+    public void SetPath()
+    {
+        _startTileCoordinate = GameManager.TileMap.LocalToMap(Position);
+        // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
+        _targetTileCoordinate =  GetTargetExhibitViewingLocation();
+        if (_targetTileCoordinate != new Vector2I(1000, 1000))
+        {
+            var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
+            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
+            if (path == null)
+            {
+                GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
+            }
+            _path = path;
+            _currentPathIndex = 0; // Start from the beginning of the path
+            _canMove = true;
+            MoveToNextPathNode();
+        }
+        else
+        {
+            GD.Print($"Exhibits finished for {Name}");
+        }
+        
+    }
+
+    private Vector2I GetTargetExhibitViewingLocation()
+    {
+        if (_currentExhibitIndex < _museumTileContainer.Exhibits.Count)
+        {
+            var exhibit = _museumTileContainer.Exhibits[_currentExhibitIndex];
+            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToExhibit(exhibit);
+            GD.Print($"Found closest coordinate {coordinate}");
+            _currentExhibitIndex++;
+            return coordinate;
+        }
+        else
+        {
+            return new Vector2I(1000, 1000);
+        }
+    }
+
+    private async void MoveToNextPathNode()
+    {
+        if (_currentPathIndex < _path.Count )
+        {
+            _currentTargetNode = _path[_currentPathIndex];
+            Vector2 nextPosition = GameManager.TileMap.MapToLocal(_currentTargetNode);
+            _direction = _currentTargetNode - GameManager.TileMap.LocalToMap(Position);
+            _currentPathIndex++;
+            ControlAnimation();
+        }
+        else
+        {
+            _canMove = false; // Stop moving when the path is completed
+            ControlAnimation();
+            await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
+            SetPath();
+        }
+    }
     Vector2 _direction = Vector2.Zero;
+    private Vector2 _offset = new( -0.5f, -0.5f);
     public override void _PhysicsProcess(double delta)
     {
-        if (!_canMove) return;
-        _timer += delta;
-
-        // Check if 5 seconds have passed
-        if (_timer >= _decisionChangingInterval)
+        if (_canMove)
         {
-            GetRandomInterval();
-            _direction = Vector2.Zero;
-            int options = GD.RandRange(1, 5);
-            switch (options)
+            motion = new Vector2(_direction.X * (float)(_displacementSpeed * delta),
+                _direction.Y * (float)(_displacementSpeed * delta));
+            // Isometric movement is movement like you're used to, converted to the isometric system
+            motion = CartesianToIsometric(motion);
+            MoveAndCollide(motion);
+            // Check if the character has reached the current path node
+            Vector2 currentTargetPosition = GameManager.TileMap.MapToLocal(_currentTargetNode);
+            _currentNode = GameManager.TileMap.LocalToMap(Position);
+            if (Position.DistanceTo(currentTargetPosition) < 1f || _currentNode == _currentTargetNode)
             {
-                case 1 : MoveRight();
-                    break;
-                case 2 : MoveLeft();
-                    break;
-                case 3: MoveUp();
-                    break;
-                case 4: MoveDown();
-                    break;
-                case 5: _direction = Vector2.Zero;
-                    break;
+                MoveToNextPathNode();
+            }
+        
+            // Check if the character has reached the last node in the path
+        }
+        
+    }
+
+    private void ControlAnimation()
+    {
+        if (_canMove)
+        {
+            if (_direction == new Vector2(1, 0))
+            {
+                MoveRight();
+            }else if (_direction == new Vector2(-1, 0))
+            {
+                MoveLeft();
+            }else if (_direction == new Vector2(0, 1))
+            {
+                MoveDown();
+            }else if (_direction == new Vector2(0, -1))
+            {
+                MoveUp();
             }
             
-            _timer = 0f;
         }
-        if (_direction.IsEqualApprox(Vector2.Zero))
+        else
         {
             if (_playerFacingTheFront)
             {
@@ -119,30 +201,6 @@ public partial class Guest : CharacterBody2D
             {
                 _animationPlayerInstance.Play("idle_back_facing");
             }
-        }
-        
-        motion = new Vector2(_direction.X * (float)(_displacementSpeed * delta),
-            _direction.Y * (float)(_displacementSpeed * delta));
-        // Isometric movement is movement like you're used to, converted to the isometric system
-        motion = CartesianToIsometric(motion);
-        Vector2 nextPosition = Position + motion;
-
-        // Check if the next position is within the bounds of the TileMap
-        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap) && (_direction.X == 0 || _direction.Y == 0))
-        {
-            if ( CheckIfNextPositionIsEmpty(nextPosition + (motion * _lookAheadDistance)))
-            {
-                MoveAndCollide(motion);
-            }
-            else
-            {
-                TakeNextMovementDecision();
-                // GD.Print(Name + "Not suitable tile");
-            }
-            // Move only if the next position is within the TileMap bounds
-        }else if (!nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap))
-        {
-            TakeNextMovementDecision();
         }
     }
 
@@ -181,7 +239,7 @@ public partial class Guest : CharacterBody2D
 
     private void MoveRight()
     {
-        _direction += new Vector2(1, 0);
+        
         _characterSprite.Scale = new Vector2(1, 1);
         _animationPlayerInstance.Play("walk_forward");
         _playerFacingTheFront = true;
@@ -189,7 +247,7 @@ public partial class Guest : CharacterBody2D
 
     private void MoveLeft()
     {
-        _direction += new Vector2(-1, 0);
+        
         _characterSprite.Scale = new Vector2(1, 1);
         _animationPlayerInstance.Play("walk_backward");
         _playerFacingTheFront = false;
@@ -197,7 +255,7 @@ public partial class Guest : CharacterBody2D
 
     private void MoveDown()
     {
-        _direction += new Vector2(0, 1);
+        
         _characterSprite.Scale = new Vector2(-1, 1);
         _animationPlayerInstance.Play("walk_forward");
         _playerFacingTheFront = true;
@@ -205,7 +263,7 @@ public partial class Guest : CharacterBody2D
 
     private void MoveUp()
     {
-        _direction += new Vector2(0, -1);
+        
         _characterSprite.Scale = new Vector2(-1, 1);
         _animationPlayerInstance.Play("walk_backward");
         _playerFacingTheFront = false;

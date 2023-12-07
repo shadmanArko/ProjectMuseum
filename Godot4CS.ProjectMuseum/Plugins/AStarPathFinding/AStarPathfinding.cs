@@ -18,12 +18,15 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
 
         private readonly int _gridSizeX;
         private readonly int _gridSizeY;
+
+        private readonly bool _canMoveDiagonally;
         //private readonly Node[,] _grid;
 
-        public AStarPathfinding(int gridSizeX, int gridSizeY /*, Node[,] grid*/)
+        public AStarPathfinding(int gridSizeX, int gridSizeY , bool canMoveDiagonally/*, Node[,] grid*/)
         {
             _gridSizeX = gridSizeX;
             _gridSizeY = gridSizeY;
+            _canMoveDiagonally = canMoveDiagonally;
             //_grid = grid;
         }
 
@@ -117,8 +120,13 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             {
                 foreach (int yOffset in neighborOffsets)
                 {
-                    // Skip the center (current) node and include diagonal neighbors
-                    if (xOffset != 0 || yOffset != 0)
+                    // include diagonal neighbors
+                     if (!_canMoveDiagonally &&  !(xOffset ==0 || yOffset ==0) )
+                    {
+                        continue;
+                    }
+                    // Skip the center (current) node 
+                    if (xOffset != 0 || yOffset != 0  )
                     {
                         int neighborX = aStarNode.TileCoordinateX + xOffset;
                         int neighborY = aStarNode.TileCoordinateY + yOffset;
@@ -166,16 +174,16 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             int diagonalSteps = Math.Min(distanceX, distanceY);
             int straightSteps = Math.Abs(distanceX - distanceY);
 
-            // if (diagonalSteps != 0)
-            // {
-            //     aStarNodeB.MovecostFromPreviousTile = 3;
-            // }
-            // else
-            // {
-            //     aStarNodeB.MovecostFromPreviousTile = 2;
-            // }
+            if (!_canMoveDiagonally && diagonalSteps != 0)
+            {
+                return int.MaxValue;
+            }
+            else
+            {
+                return  ((diagonalCost * diagonalSteps) + (straightCost * straightSteps));
+            }
 
-            return  ((diagonalCost * diagonalSteps) + (straightCost * straightSteps));
+            
         }
 
 

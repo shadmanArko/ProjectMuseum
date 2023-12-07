@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -20,8 +21,10 @@ public partial class ExhibitController : Node2D
     private PackedScene item3;
     private PackedScene item4;
     private List<Artifact> _displayArtifacts;
+    private MuseumTileContainer _museumTileContainer;
     public override void _Ready()
     {
+        
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
         item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
@@ -48,6 +51,8 @@ public partial class ExhibitController : Node2D
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(jsonStr);
+        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        _museumTileContainer.Exhibits = exhibits;
         foreach (var exhibit in exhibits)
         {
             if (exhibit.ExhibitVariationName == "SmallWoodenExhibitBasic")

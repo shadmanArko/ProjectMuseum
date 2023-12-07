@@ -1,5 +1,6 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -14,6 +15,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     
     public override void _Ready()
     {
+        InitializeDiReferences();
         SubscribeToActions();
     }
     
@@ -44,10 +46,12 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
 
     private void OnBodyEnter(Node2D body)
     {
-        // var enemy = body as IDamagable;
-        // GD.Print($"body entered is null {enemy == null}");
-        // if(enemy is null) return;
-        // enemy.TakeDamage();
+        var enemy = body as IDamagable;
+        GD.Print($"body entered is null {enemy == null}");
+        if(enemy is null) return;
+        if(!_playerControllerVariables.IsAttacking) return;
+        if(_playerControllerVariables.CurrentEquippedItem != Equipables.Sword) return;
+        enemy.TakeDamage();
     }
 
     private void OnBodyExit(Node2D body)

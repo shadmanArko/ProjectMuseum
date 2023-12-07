@@ -281,7 +281,7 @@ states/move/node = SubResource("AnimationNodeBlendSpace2D_4o61f")
 states/move/position = Vector2(271, 188)
 transitions = ["die", "End", SubResource("AnimationNodeStateMachineTransition_ptxiv"), "Start", "move", SubResource("AnimationNodeStateMachineTransition_ups56"), "move", "die", SubResource("AnimationNodeStateMachineTransition_sj8mw"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_atu1o"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_3ju6y"), "move", "damage", SubResource("AnimationNodeStateMachineTransition_780lb"), "damage", "move", SubResource("AnimationNodeStateMachineTransition_ognbc"), "damage", "die", SubResource("AnimationNodeStateMachineTransition_345db")]
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_animationTree", "_stateChangeTimer", "NavAgent", "TrackTimer", "HealthBar", "AnimationController")]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_stateChangeTimer", "NavAgent", "TrackTimer", "AnimTree", "HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
 z_index = 10
@@ -293,11 +293,11 @@ floor_block_on_wall = false
 floor_max_angle = 3.14159
 floor_snap_length = 0.0
 script = ExtResource("1_pkl74")
-_animationTree = NodePath("AnimationTree")
 _stateChangeTimer = NodePath("State Change TImer")
 _gravity = 1500.0
 NavAgent = NodePath("NavigationAgent2D")
 TrackTimer = NodePath("Track Timer")
+AnimTree = NodePath("AnimationTree")
 HealthBar = NodePath("Health Bar")
 AnimationController = NodePath("AnimationPlayer")
 
@@ -334,6 +334,7 @@ Sprite = NodePath("../Sprite2D")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 10.0
 path_postprocessing = 1
+avoidance_enabled = true
 debug_enabled = true
 
 [node name="Track Timer" type="Timer" parent="."]

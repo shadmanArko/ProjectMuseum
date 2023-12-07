@@ -194,19 +194,16 @@ public partial class Slime : Enemy
         NavAgent.TargetPosition = MoveDirection;
         var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
         var directionBool = NavAgent.TargetPosition.X > Position.X;
-        // _enemyAnimationController.PlayAnimation("move");
         AnimationController.Sprite.FlipH = directionBool;
         var velocityX = direction.X * MoveSpeed;
         Velocity = new Vector2(velocityX , Velocity.Y);
         AnimTree.Set("parameters/move/blend_position", Velocity);
-        GD.Print($"_stateMachine is null: {StateMachine == null}");
         StateMachine!.Travel("move");
     }
     
     private void Idle()
     {
         Velocity = new Vector2(0, Velocity.Y);
-        GD.Print($"idle velocity {Velocity}");
         AnimTree.Set("parameters/move/blend_position", Velocity);
         StateMachine.Travel("move");
     }
@@ -254,6 +251,8 @@ public partial class Slime : Enemy
     {
         GD.Print("Enemy taking damage");
         AnimationController.PlayAnimation("damage");
+        
+        Velocity = new Vector2(0, Velocity.Y);
         HealthSystem.ReduceEnemyHealth(10, 100, this);
     }
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -31,16 +32,12 @@ public partial class AnimationController : AnimationPlayer
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
+
+		_sprite.FrameChanged += OnDigAnimationStrikeStarted;
 	}
 	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
-
-		// if (CurrentAnimation == "attack" && _sprite.Frame >= 212)
-		// {
-		// 	GD.Print(_sprite.Frame);
-		// 	MineActions.OnPlayerAttackAnimationStarted?.Invoke();
-		// }
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
 			PlayHangingAnimations(tempVelocity, isAttacking);
@@ -93,10 +90,30 @@ public partial class AnimationController : AnimationPlayer
 		PlayAnimation("attack");
 	}
 
+	#region Brush Animation
+
 	private void PlayBrushAnimation()
 	{
 		PlayAnimation("brush");
 	}
+
+	private void OnBrushAnimationStarted(string animName)
+	{
+		if(!animName.Contains("brush")) return;
+		
+		
+	}
+
+	private void OnBrushAnimationEnded(string animName)
+	{
+		if(!animName.Contains("brush")) return;
+		
+		
+	}
+
+	#endregion
+
+	#region Dig Animation
 
 	private void PlayDigAnimation()
 	{
@@ -108,12 +125,16 @@ public partial class AnimationController : AnimationPlayer
 		else
 			PlayAnimation("mining_horizontal");
 	}
+	
+	
 
-	private void OnDigAnimationStarted(string animName)
+	private void OnDigAnimationStrikeStarted()
 	{
-		if(!animName.Contains("mining")) return;
+		if (_sprite.Frame == 92 || _sprite.Frame == 77 || _sprite.Frame == 107)
+		{
+			MineActions.OnDigActionStarted?.Invoke();	
+		}
 		
-		MineActions.OnDigActionStarted?.Invoke();
 	}
 
 	private void OnDigAnimationEnded(string animName)
@@ -122,6 +143,8 @@ public partial class AnimationController : AnimationPlayer
 		
 		MineActions.OnDigActionEnded?.Invoke();
 	}
+
+	#endregion
 	
 	private void PlayAttackAnimation()
 	{

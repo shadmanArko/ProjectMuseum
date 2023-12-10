@@ -221,7 +221,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ch0ub"]
 resource_name = "mining_down"
-length = 0.4
+length = 0.3
 step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -230,7 +230,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32),
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.2, 0.26),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [105, 106, 107, 108, 109]
@@ -238,7 +238,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2ulx2"]
 resource_name = "mining_horizontal"
-length = 0.4
+length = 0.3
 step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -247,7 +247,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32),
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.2, 0.26),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [75, 76, 77, 78, 79]
@@ -255,7 +255,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_v3b30"]
 resource_name = "mining_up"
-length = 0.4
+length = 0.3
 step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -264,7 +264,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32),
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.2, 0.26),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [90, 91, 92, 93, 94]

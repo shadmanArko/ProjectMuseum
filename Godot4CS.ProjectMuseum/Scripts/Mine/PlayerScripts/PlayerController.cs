@@ -41,8 +41,8 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	public override void _Ready()
 	{
 		_playerControllerVariables.Player = this;
-		_playerControllerVariables.PlayerHealth = 200;
-		_playerControllerVariables.PlayerEnergy = 2000;
+		_playerControllerVariables.PlayerHealth = 5000;
+		_playerControllerVariables.PlayerEnergy = 2000000;
 	}
 
 	public override void _PhysicsProcess(double delta)

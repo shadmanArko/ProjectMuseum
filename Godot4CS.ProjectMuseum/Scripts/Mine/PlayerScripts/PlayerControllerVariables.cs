@@ -1,5 +1,6 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -33,7 +34,7 @@ public class PlayerControllerVariables
         set
         {
             if(_isAttacking != value && _isAttacking == false && CurrentEquippedItem == Equipables.Sword)
-                MineActions.OnPlayerMeleeAttackActionEnded?.Invoke();
+                MineActions.OnMeleeAttackActionEnded?.Invoke();
             
             _isAttacking = value;
             if (_isAttacking)
@@ -42,16 +43,16 @@ public class PlayerControllerVariables
                 switch (_currentEquippedItem)
                 {
                     case Equipables.PickAxe:
-                        MineActions.OnPlayerDigActionPressed?.Invoke();
+                        MineActions.OnDigActionStarted?.Invoke();
                         break;
                     case Equipables.Brush:
-                        MineActions.OnPlayerBrushActionPressed?.Invoke();
+                        MineActions.OnBrushActionStarted?.Invoke();
                         break;
                     case Equipables.Sword:
-                        MineActions.OnPlayerMeleeAttackActionStarted?.Invoke();
+                        MineActions.OnMeleeAttackActionStarted?.Invoke();
                         break;
                     default:
-                        MineActions.OnPlayerMeleeAttackActionStarted?.Invoke();
+                        MineActions.OnMeleeAttackActionStarted?.Invoke();
                         break;
                 }
             }

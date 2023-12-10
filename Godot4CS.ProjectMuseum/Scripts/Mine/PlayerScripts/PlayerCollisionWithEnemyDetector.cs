@@ -26,8 +26,8 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
 
     private void SubscribeToActions()
     {
-        MineActions.OnPlayerMeleeAttackActionStarted += TurnOnAttackCollider;
-        MineActions.OnPlayerMeleeAttackActionEnded += TurnOffAttackCollider;
+        MineActions.OnMeleeAttackActionStarted += TurnOnAttackCollider;
+        MineActions.OnMeleeAttackActionEnded += TurnOffAttackCollider;
     }
 
     private void TurnOffAttackCollider()

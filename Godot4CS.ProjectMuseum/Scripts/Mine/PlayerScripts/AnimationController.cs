@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -24,9 +25,9 @@ public partial class AnimationController : AnimationPlayer
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnPlayerDigActionPressed += PlayDigAnimation;
-		MineActions.OnPlayerMeleeAttackActionStarted += PlayMeleeAttackAnimation;
-		MineActions.OnPlayerBrushActionPressed += PlayBrushAnimation;
+		MineActions.OnDigActionStarted += PlayDigAnimation;
+		MineActions.OnMeleeAttackActionStarted += PlayMeleeAttackAnimation;
+		MineActions.OnBrushActionStarted += PlayBrushAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
@@ -106,6 +107,20 @@ public partial class AnimationController : AnimationPlayer
 			PlayAnimation("mining_down");
 		else
 			PlayAnimation("mining_horizontal");
+	}
+
+	private void OnDigAnimationStarted(string animName)
+	{
+		if(!animName.Contains("mining")) return;
+		
+		MineActions.OnDigActionStarted?.Invoke();
+	}
+
+	private void OnDigAnimationEnded(string animName)
+	{
+		if(!animName.Contains("mining")) return;
+		
+		MineActions.OnDigActionEnded?.Invoke();
 	}
 	
 	private void PlayAttackAnimation()

@@ -2,6 +2,7 @@ using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
@@ -40,7 +41,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	public override void _Ready()
 	{
 		_playerControllerVariables.Player = this;
-		//_playerControllerVariables.State = MotionState.Falling;
 		_playerControllerVariables.PlayerHealth = 200;
 		_playerControllerVariables.PlayerEnergy = 2000;
 	}

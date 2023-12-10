@@ -6,13 +6,17 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineActions : Node
 {
-	public static Action OnPlayerDigActionPressed;
-	public static Action OnPlayerBrushActionPressed;
+	public static Action OnDigActionStarted;
+	public static Action OnDigActionEnded;
 	
-	public static Action OnPlayerMeleeAttackActionStarted;
-	public static Action OnPlayerMeleeAttackActionEnded;
+	public static Action OnBrushActionStarted;
+	public static Action OnBrushActionEnded;
 	
-    public static Action OnPlayerRangedAttackActionPressed;
+	public static Action OnMeleeAttackActionStarted;
+	public static Action OnMeleeAttackActionEnded;
+	
+    public static Action OnRangedAttackActionStarted;
+    public static Action OnRangedAttackActionEnded;
 
     //for starting the enemy damage at the right moment
     // public static Action OnPlayerAttackAnimationStarted; 

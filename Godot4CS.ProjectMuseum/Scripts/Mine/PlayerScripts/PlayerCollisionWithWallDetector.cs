@@ -6,6 +6,7 @@ using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using ProjectMuseum.Models;
 
@@ -28,7 +29,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 		SubscribeToActions();
 	}
 
-
 	#region Initializers
 
 	private void InitializeDiReferences()
@@ -43,8 +43,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 	private void SubscribeToActions()
 	{
 		MineActions.OnPlayerCollisionDetection += DetectCollision;
-		MineActions.OnPlayerDigActionPressed += AttackWall;
-		MineActions.OnPlayerBrushActionPressed += BrushWall;
+		MineActions.OnDigActionEnded += AttackWall;
+		MineActions.OnBrushActionStarted += BrushWall;
 
 		MineActions.OnMiniGameWon += MiniGameWon;
 		MineActions.OnMiniGameLost += MiniGameLost;

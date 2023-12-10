@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj8qx4brvh4vo"]
+
+[ext_resource type="Script" path="res://Plugins/Time System/MineTimeSystem/Scripts/MineTimeSystem.cs" id="1_28m6a"]
+
+[node name="MineTimeSystem" type="Node"]
+script = ExtResource("1_28m6a")

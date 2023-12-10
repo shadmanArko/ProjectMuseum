@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class TimeSystem : Node
+public partial class MuseumTimeSystem : Node
 {
 	private double _secondsIn10Minutes = 5;
 	private int _minutesInHour = 60;
@@ -46,14 +46,52 @@ public partial class TimeSystem : Node
 		{
 			_minutes = 0;
 			_hours++;
+			
+			// TODO Invoke Hourly Events
+			
+			// <example>
+			// This example demonstrates how to use the Add method.
+			// <code>
+			// if (_hours == 8)
+			// {
+			// 	Action1.Invoke();
+			// }
+			// </code>
+			// </example>
+			
 			if (_hours >= _hoursInDay)
 			{
 				_hours = 0;
 				_days++;
+				
+				//TODO Invoke Daily Events
+				
+				// <example>
+				// This example demonstrates how to use the Add method.
+				// <code>
+				// if (_days == 15)
+				// {
+				// 	Action1.Invoke();
+				// }
+				// </code>
+				// </example>
+				
 				if (_days >= _daysInMonth)
 				{
-					_days = 0;
+					_days = 1;
 					_months = (_months % _monthsInYear) + 1;
+					
+					//TODO Invoke Monthly Events
+					
+					// <example>
+					// This example demonstrates how to use the Add method.
+					// <code>
+					// if (_months == 2)
+					// {
+					// 	Action1.Invoke();
+					// }
+					// </code>
+					// </example>
 				}
 			}
 		}

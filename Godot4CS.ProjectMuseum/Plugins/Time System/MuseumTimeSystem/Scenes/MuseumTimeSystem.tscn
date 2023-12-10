@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://86uwheopqc0d"]
+
+[ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="1_alwmn"]
+
+[node name="TimeSystem" type="Node"]
+script = ExtResource("1_alwmn")

@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Godot.DependencyInjection.Attributes;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -119,7 +120,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         {
             _lastSelectedItem.QueueFree();
         }
-        var scriptInstance = instance.GetNode<Item>(".");
+        var scriptInstance = instance.GetNode<ExhibitItem>(".");
         if (scriptInstance != null)
         {
             scriptInstance.Position = GetGlobalMousePosition();

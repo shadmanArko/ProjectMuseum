@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -79,8 +80,7 @@ public partial class ExhibitController : Node2D
     private void SpawnExhibit(Exhibit exhibit, PackedScene packedScene)
     {
         var instance = (Node)packedScene.Instantiate();
-        instance.GetNode<Item>(".").ExhibitData = exhibit;
-        instance.GetNode<Item>(".").SetUpArtifacts(_displayArtifacts);
+        instance.GetNode<ExhibitItem>(".").SpawnFromDatabase(exhibit, _displayArtifacts);
         _itemsParent.AddChild(instance);
         instance.GetNode<Node2D>(".").Position =
             GameManager.TileMap.MapToLocal(new Vector2I(exhibit.XPosition, exhibit.YPosition));

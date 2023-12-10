@@ -1,5 +1,6 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
@@ -31,7 +32,9 @@ public partial class AutoAnimationController : Node
 		_playerControllerVariables.CanMove = false;
 		
 		_playerControllerVariables.Gravity = 0;
+		_playerControllerVariables.State = MotionState.Grounded;
 		SetProcess(true);
+		SetPhysicsProcess(false);
 	}
 
 	private Vector2 _newPos = new(420,-60);
@@ -44,24 +47,19 @@ public partial class AutoAnimationController : Node
 
 	public override void _Process(double delta)
 	{
-		if(!_autoMoveToPos)
-			AutoMoveToPosition();
+		AutoMoveToPosition();
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if(_autoMoveToPos && !_jumpIntoMine)
-		{
-			_playerController.Position = AutoJumpIntoMine((float) _time);
-			_time += delta;
+		_playerController.Position = AutoJumpIntoMine((float) _time);
+		_time += delta;
 
-			if (!(_time >= 1.2f)) return;
-			_animationController.Play("idle");
-			SetProcess(false);
-			SetPhysicsProcess(false);
-			_playerControllerVariables.CanMove = true;
-			_playerControllerVariables.Gravity = 25f;
-		}
+		if (!(_time >= 1.2f)) return;
+		SetProcess(false);
+		SetPhysicsProcess(false);
+		_playerControllerVariables.CanMove = true;
+		_playerControllerVariables.Gravity = 25f;
 		
 	}
     
@@ -69,17 +67,19 @@ public partial class AutoAnimationController : Node
 
 	private void AutoMoveToPosition()
 	{
-		if(_playerController.Position.X < _newPos.X)
+		if(_playerController.Position.X <= _newPos.X)
 		{
-			_playerController.Translate(new Vector2(0.1f,0));
-			_animationController.Play("walk");
+			_animationController.Play("run");
+			_playerController.Translate(new Vector2(0.02f,0));
 		}
 		else
 		{
 			_p0 = _playerController.Position;
 			_p2 = _playerController.Position + new Vector2(60, 0);
 			_p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
-			_autoMoveToPos = true;
+
+			SetProcess(false);
+			SetPhysicsProcess(true);
 		}
 	}
 	

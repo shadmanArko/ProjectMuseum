@@ -40,14 +40,15 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	public override void _Ready()
 	{
 		_playerControllerVariables.Player = this;
-		_playerControllerVariables.State = MotionState.Falling;
+		//_playerControllerVariables.State = MotionState.Falling;
 		_playerControllerVariables.PlayerHealth = 200;
 		_playerControllerVariables.PlayerEnergy = 2000;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-        PlayerMovement(delta);
+        if(_playerControllerVariables.CanMove)
+	        PlayerMovement(delta);
 	}
     
 	private void PlayerMovement(double delta)

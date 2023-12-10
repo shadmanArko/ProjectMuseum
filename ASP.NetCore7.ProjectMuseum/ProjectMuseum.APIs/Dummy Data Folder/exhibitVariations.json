@@ -1,21 +1,21 @@
 [
     {
-    "VariationName": "SmallWoodenExhibitBasic",
-    "ExhibitDecoration": "Sprite-0006",
-    "ExhibitSize": "small",
-    "NumberOfTilesNeeded": 1,
-    "TilesExtendInDirection": "Both",
-    "IsHangingExhibit": false,
-    "IsWallExhibit": false
+        "VariationName": "SmallWoodenExhibitBasic",
+        "ExhibitDecoration": "Sprite-0006",
+        "ExhibitSize": "small",
+        "NumberOfTilesNeeded": 1,
+        "TilesExtendInDirection": "Both",
+        "IsHangingExhibit": false,
+        "IsWallExhibit": false
     },
     {
-    "VariationName": "MediumWoodenExhibitBasic",
-    "ExhibitDecoration": "Sprite-0007",
-    "ExhibitSize": "Medium",
-    "NumberOfTilesNeeded": 2,
-    "TilesExtendInDirection": "Left",
-    "IsHangingExhibit": false,
-    "IsWallExhibit": false
+        "VariationName": "MediumWoodenExhibitBasic",
+        "ExhibitDecoration": "Sprite-0007",
+        "ExhibitSize": "Medium",
+        "NumberOfTilesNeeded": 2,
+        "TilesExtendInDirection": "Left",
+        "IsHangingExhibit": false,
+        "IsWallExhibit": false
     },
     {
         "VariationName": "MediumWoodenExhibitBasic2",

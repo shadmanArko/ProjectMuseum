@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cu0deqyuh3wcm"]
 
-[ext_resource type="Texture2D" uid="uid://cwrr0p0amuel2" path="res://Assets/2D/Sprites/Exhibits/Sprite-0007.png" id="1_thkdx"]
+[ext_resource type="Texture2D" uid="uid://cwrr0p0amuel2" path="res://Assets/2D/Sprites/Exhibits/MediumWoodenExhibitBasic.png" id="1_thkdx"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/Item.cs" id="2_vokxc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]

@@ -189,7 +189,7 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     public override void _Input(InputEvent @event)
     {
-        if (Input.IsActionJustReleased("ui_left_click"))
+        if (Input.IsActionJustReleased("ui_right_click"))
         {
             if (GetRect().HasPoint(GetLocalMousePosition()))
             {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=24 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -23,8 +23,6 @@
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
-[ext_resource type="Script" path="res://Plugins/AStarPathFinding/PathFindingTester.cs" id="24_u833t"]
-[ext_resource type="PackedScene" uid="uid://d3g6we5d6r048" path="res://Scenes/Museum/Decorations/decorationItem.tscn" id="25_bj60w"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
@@ -178,12 +176,5 @@ texture = ExtResource("23_38mdj")
 texture_filter = 1
 position = Vector2(-494.715, -766)
 texture = ExtResource("23_38mdj")
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("24_u833t")
-_targetCoordinate = Vector2i(-17, -19)
-
-[node name="Decoration Item" parent="." instance=ExtResource("25_bj60w")]
-position = Vector2(144, -108)
 
 [connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]

@@ -12,21 +12,28 @@ public partial class Slime : Enemy
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     //[Export] private EnemyAnimationController _enemyAnimationController;
-    
-    
+
+    #region Animation Parameter Conditions
+
+    private const string AttackCondition = "parameters/conditions/is_attacking";
+    private const string MovingCondition = "parameters/conditions/is_moving";
+    private const string TakingDamageCondition = "parameters/conditions/is_taking_damage";
+    private const string DeathCondition = "parameters/conditions/is_dead";
+
+    #endregion
     
     [Export] private Timer _stateChangeTimer;
 
     public override void _EnterTree()
     {
-        InitializeDiReferences();
         TrackTimer = GetNode<Timer>("Track Timer");
         NavAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
-        
     }
 
     public override void _Ready()
     {
+        InitializeDiReferences();
+        SubscribeToActions();
         Spawn();
         Health = 100;
         StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
@@ -40,7 +47,7 @@ public partial class Slime : Enemy
 
     private void SubscribeToActions()
     {
-        HealthBar.Changed += Die;
+        
     }
 
     private void OnTrackTimerTimeOut()
@@ -48,7 +55,7 @@ public partial class Slime : Enemy
         NavAgent.TargetPosition = IsAggro ? _playerControllerVariables.Position : MoveDirection;
     }
 
-    public void OnStateChangeTimeOut()
+    private void OnStateChangeTimeOut()
     {
         MoveDirection = GetRandomDirection();
 
@@ -214,9 +221,14 @@ public partial class Slime : Enemy
         Velocity = new Vector2(velX, Velocity.Y);
         
         if (StateMachine.GetCurrentNode() == "attack") return;
-        AnimTree.Set("parameters/conditions/is_moving",false);
-        AnimTree.Set("parameters/conditions/is_attacking",true);
+        
+        AnimTree.Set(AttackCondition,true);
+        AnimTree.Set(TakingDamageCondition,false);
+        AnimTree.Set(DeathCondition,false);
+        AnimTree.Set(MovingCondition,false);
+        
         StateMachine.Travel("attack");
+        
         GD.Print($"current animation: {AnimationController.CurrentAnimation}");
         _playerControllerVariables.Player.TakeDamage();
     }
@@ -224,19 +236,71 @@ public partial class Slime : Enemy
     public void OnAttackAnimationFinished(string animName)
     {
         if(animName != "attack") return;
-        AnimTree.Set("parameters/conditions/is_attacking",false);
-        AnimTree.Set("parameters/conditions/is_moving",true);
+        
+        AnimTree.Set(AttackCondition,false);
+        AnimTree.Set(MovingCondition,true);
+        AnimTree.Set(TakingDamageCondition,false);
+        AnimTree.Set(DeathCondition,false);
+        
+        StateMachine.Travel("move");
+        
         State = EnemyState.Idle;
-    }
-    
-    public void OnTakeDamageAnimationFinished(string animName)
-    {
-        if(animName != "damage") return;
-        State = EnemyState.Move;
     }
 
     #endregion
+    
+    public override void TakeDamage()
+    {
+        if (StateMachine.GetCurrentNode() == "damage") return;
+        
+        AnimTree.Set(AttackCondition,false);
+        AnimTree.Set(MovingCondition,false);
+        AnimTree.Set(TakingDamageCondition,true);
+        
+        StateMachine.Travel("damage");
+        GD.Print("Enemy taking damage");
+        
+        Velocity = new Vector2(0, Velocity.Y);
+        HealthSystem.ReduceEnemyHealth(10, 100, this);
+    }
+    
+    private void OnTakeDamageAnimationFinished(string animName)
+    {
+        if(animName != "damage") return;
+        
+        AnimTree.Set(TakingDamageCondition,false);
+        AnimTree.Set(AttackCondition,false);
+        
+        if (Health <= 0)
+        {
+            AnimTree.Set(DeathCondition,true);
+            StateMachine.Travel("death");
+            State = EnemyState.Death;
+        }
+        else
+        {
+            AnimTree.Set(MovingCondition,true);
+            StateMachine.Travel("move");
+            State = EnemyState.Move;
+        }
+    }
 
+    public override void Death()
+    {
+        if(Health > 0) return;
+        AnimTree.Set(DeathCondition,true);
+        StateMachine.Travel("death");
+        GD.Print("Slime Death Called");
+        _ExitTree();
+    }
+
+    private void OnDeathAnimationFinished(string animeName)
+    {
+        if(animeName != "death") return;
+        SetPhysicsProcess(false);
+        QueueFree();
+    }
+    
     #region Utilities
 
     private Vector2 GetRandomDirection()
@@ -246,27 +310,4 @@ public partial class Slime : Enemy
     }
 
     #endregion
-
-    public override void TakeDamage()
-    {
-        GD.Print("Enemy taking damage");
-        AnimationController.PlayAnimation("damage");
-        
-        Velocity = new Vector2(0, Velocity.Y);
-        HealthSystem.ReduceEnemyHealth(10, 100, this);
-    }
-
-    private void Die()
-    {
-        if(Health > 0) return;
-        AnimationController.PlayAnimation("death");
-        SetPhysicsProcess(false);
-        _ExitTree();
-    }
-
-    public void OnDeathAnimationFinished(string animeName)
-    {
-        if(animeName != "death") return;
-        QueueFree();
-    }
 }

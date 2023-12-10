@@ -1,14 +1,13 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
-public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
+public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, IDeath
 {
 	[Export] private AnimationController _animationController;
 
@@ -36,12 +35,13 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	private void SubscribeToActions()
 	{
 		MineActions.OnSuccessfulDigActionCompleted += ReducePlayerEnergy;
+		MineActions.OnPlayerHealthValueChanged += Death;
 	}
 
 	public override void _Ready()
 	{
 		_playerControllerVariables.Player = this;
-		_playerControllerVariables.PlayerHealth = 5000;
+		_playerControllerVariables.PlayerHealth = 200;
 		_playerControllerVariables.PlayerEnergy = 2000000;
 	}
 
@@ -49,6 +49,15 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	{
         if(_playerControllerVariables.CanMove)
 	        PlayerMovement(delta);
+
+        if (_playerControllerVariables.IsAffectedByGravity)
+        {
+	        ApplyGravity();
+	        CheckFallTime(delta);
+	        DetectCollision();
+        }
+        
+        ModifyPlayerVariables();
 	}
     
 	private void PlayerMovement(double delta)
@@ -70,11 +79,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 			}
 		}
         
-		ApplyGravity();
 		_animationController.SetAnimation(PlayerAttack());
-		CheckFallTime(delta);
-		DetectCollision();
-		ModifyPlayerVariables();
 	}
 
 	private void ApplyGravity()
@@ -185,10 +190,8 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	private void Lamp()
 	{
 		var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
-		GD.Print($"lamp scene instantiated {scene is null}");
 		_mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
 		var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(Position);
-		//var cell = _mineGenerationVariables.GetCell(cellPos);
 		scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize);
 		GD.Print("Lamp instantiated");
 	}
@@ -228,5 +231,26 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack
 	public void Attack()
 	{
 		
+	}
+
+	public void Death()
+	{
+		if(_playerControllerVariables.PlayerHealth > 0) return;
+		if(_playerControllerVariables.IsDead) return;
+		GD.Print("Death animation");
+		var velocity = Velocity;
+		velocity.X = 0;
+		Velocity = velocity;
+		_animationController.Play("death");
+		_playerControllerVariables.CanMove = false;
+	}
+
+	private void OnDeathAnimationFinished(string animName)
+	{
+		if(animName != "death") return;
+		_playerControllerVariables.IsDead = true;
+		SetPhysicsProcess(false);
+		_ExitTree();
+		QueueFree();
 	}
 }

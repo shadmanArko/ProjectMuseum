@@ -60,6 +60,7 @@ public partial class AutoAnimationController : Node
 		SetProcess(false);
 		SetPhysicsProcess(false);
 		_playerControllerVariables.CanMove = true;
+		_playerControllerVariables.IsAffectedByGravity = true;
 		_playerControllerVariables.Gravity = 25f;
 		
 	}

@@ -26,6 +26,9 @@ public class PlayerControllerVariables
     
     public MotionState State;
     public bool CanMove { get; set; }
+    public bool IsAffectedByGravity { get; set; }
+    
+    public bool IsDead { get; set; }
 
     private bool _isAttacking;
     public bool IsAttacking

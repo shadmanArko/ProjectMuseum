@@ -9,5 +9,6 @@ public enum EnemyState
     Idle,
     Fall,
     Attack,
-    TakeDamage
+    TakeDamage,
+    Death
 }

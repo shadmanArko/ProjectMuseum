@@ -154,22 +154,6 @@ tracks/0/keys = {
 "values": [180, 181, 182, 183, 184, 185, 186, 187, 188]
 }
 
-[sub_resource type="Animation" id="Animation_c7xh3"]
-resource_name = "dead"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [255, 256, 257, 258]
-}
-
 [sub_resource type="Animation" id="Animation_o20ck"]
 resource_name = "fall"
 length = 0.35
@@ -318,6 +302,22 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 0]
 }
 
+[sub_resource type="Animation" id="Animation_c7xh3"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [255, 256, 257, 258]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2kevo"]
 _data = {
 "RESET": SubResource("Animation_t7vn8"),
@@ -329,7 +329,7 @@ _data = {
 "climb_vertical": SubResource("Animation_0ebn7"),
 "damage1": SubResource("Animation_iqr1x"),
 "damage2": SubResource("Animation_2dg71"),
-"dead": SubResource("Animation_c7xh3"),
+"death": SubResource("Animation_c7xh3"),
 "fall": SubResource("Animation_o20ck"),
 "idle": SubResource("Animation_3xsuv"),
 "idle_to_climb": SubResource("Animation_slbms"),
@@ -419,6 +419,7 @@ position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3lnct")
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="body_entered" from="Attack Detector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
 [connection signal="body_exited" from="Attack Detector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]

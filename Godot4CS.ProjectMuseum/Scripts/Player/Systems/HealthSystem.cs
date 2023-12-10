@@ -24,7 +24,7 @@ public class HealthSystem
 	{
 		var health = playerControllerVariables.PlayerHealth;
 		health -= reduceValue;
-		health = Math.Clamp(health, 0, maxValue);
+		health = health <= 0 ? 0 : Math.Clamp(health, 0, maxValue);
 		playerControllerVariables.PlayerHealth = health;
 	}
 

@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
@@ -125,16 +123,11 @@ public partial class AnimationController : AnimationPlayer
 		else
 			PlayAnimation("mining_horizontal");
 	}
-	
-	
-
+    
 	private void OnDigAnimationStrikeStarted()
 	{
-		if (_sprite.Frame == 92 || _sprite.Frame == 77 || _sprite.Frame == 107)
-		{
-			MineActions.OnDigActionStarted?.Invoke();	
-		}
-		
+		if (_sprite.Frame is not (92 or 77 or 107)) return;
+		MineActions.OnDigActionStarted?.Invoke();
 	}
 
 	private void OnDigAnimationEnded(string animName)
@@ -145,7 +138,9 @@ public partial class AnimationController : AnimationPlayer
 	}
 
 	#endregion
-	
+
+	#region Melee Attack Animation
+
 	private void PlayAttackAnimation()
 	{
 		var mouseDirection = _playerControllerVariables.MouseDirection;
@@ -167,6 +162,18 @@ public partial class AnimationController : AnimationPlayer
 				break;
 		}
 	}
+
+	private void OnMeleeAttackAnimationStarted(string animName)
+	{
+		
+	}
+	
+	private void OnMeleeAttackAnimationEnded(string animName)
+	{
+		
+	}
+
+	#endregion
 
 	public void PlayAnimation(string state)
 	{

@@ -5,7 +5,7 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces.Movement;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
-public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamagable
+public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamagable, IDeath
 {
     public string Id { get; set; }
     [Export] public NavigationAgent2D NavAgent { get; set; }
@@ -37,8 +37,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
             _health = value;
             HealthBar.Value = _health;
             
-            // if(_health <= 0)
-            //     Die();
+            if(_health <= 0)Death();
         }
     }
     
@@ -56,5 +55,10 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     public virtual void TakeDamage()
     {
         
+    }
+
+    public virtual void Death()
+    {
+        GD.Print("Enemy Death Called");
     }
 }

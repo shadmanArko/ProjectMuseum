@@ -6,8 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\ProjectMuseum.DTOs\ProjectMuseum.DTOs.csproj" />
-    </ItemGroup>
-
 </Project>

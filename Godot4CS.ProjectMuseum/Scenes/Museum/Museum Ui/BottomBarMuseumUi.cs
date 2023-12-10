@@ -46,6 +46,7 @@ public partial class BottomBarMuseumUi : Control
 	{
 		_newExhibitButton.Pressed -= EnableBuilderCard;
 		_exhibitButton.Pressed -= DisableBuilderCard;
+		MuseumActions.TotalGuestsUpdated -= TotalGuestsUpdated;
 		MuseumActions.OnMuseumBalanceUpdated -= OnMuseumBalanceUpdated;
 	}
 }

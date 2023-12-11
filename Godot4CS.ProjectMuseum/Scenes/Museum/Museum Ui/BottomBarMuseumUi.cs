@@ -1,10 +1,12 @@
 using Godot;
 using System;
+using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class BottomBarMuseumUi : Control
 {
 	[Export] private Button _newExhibitButton;
+	[Export] private Button _decorationsButton;
 	[Export] private Button _exhibitButton;
 	[Export] private Label _museumMoneyTextField;
 	[Export] private Label _museumGuestNumberTextField;
@@ -12,10 +14,23 @@ public partial class BottomBarMuseumUi : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_newExhibitButton.Pressed += EnableBuilderCard;
+		_newExhibitButton.Pressed += NewExhibitButtonOnPressed;
+		_decorationsButton.Pressed += DecorationsButtonOnPressed;
 		_exhibitButton.Pressed += DisableBuilderCard;
 		MuseumActions.OnMuseumBalanceUpdated += OnMuseumBalanceUpdated;
 		MuseumActions.TotalGuestsUpdated += TotalGuestsUpdated;
+	}
+
+	private void NewExhibitButtonOnPressed()
+	{
+		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.Exhibit);
+		EnableBuilderCard();
+	}
+
+	private void DecorationsButtonOnPressed()
+	{
+		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.Decoration);
+		EnableBuilderCard();
 	}
 
 	private void TotalGuestsUpdated(int totalNumber)
@@ -30,6 +45,7 @@ public partial class BottomBarMuseumUi : Control
 
 	private void EnableBuilderCard()
 	{
+		
 		_builderCardPanel.Visible = true;
 	}
 	private void DisableBuilderCard()
@@ -46,6 +62,7 @@ public partial class BottomBarMuseumUi : Control
 	{
 		_newExhibitButton.Pressed -= EnableBuilderCard;
 		_exhibitButton.Pressed -= DisableBuilderCard;
+		MuseumActions.TotalGuestsUpdated -= TotalGuestsUpdated;
 		MuseumActions.OnMuseumBalanceUpdated -= OnMuseumBalanceUpdated;
 	}
 }

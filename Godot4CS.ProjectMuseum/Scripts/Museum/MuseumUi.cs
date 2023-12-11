@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Godot.DependencyInjection.Attributes;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -14,6 +15,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item2;
     private PackedScene item3;
     private PackedScene item4;
+    private PackedScene _decorationItem;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export] private Button _diggingPermitsButton;
     [Export] private CheckButton _museumGateCheckButton;
@@ -37,6 +39,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
         item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
         item4 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_4.tscn");
+        _decorationItem = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Decorations/decorationItem.tscn");
         Item.OnItemPlaced += UpdateUiOnItemPlaced;
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
@@ -68,22 +71,58 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private void OnClickBuilderCard(BuilderCardType builderCardType, string cardName)
     {
         _cardName = cardName;
+        
         if ((builderCardType == BuilderCardType.Exhibit))
         {
-            if (cardName == "SmallWoodenExhibitBasic")
-            {
-                OnExhibit0Pressed();
-            }else if (cardName =="MediumWoodenExhibitBasic")
-            {
-                OnExhibit1Pressed();
+            HandleExhibitItemPlacement(cardName);
+        }else if (builderCardType == BuilderCardType.Decoration)
+        {
+            HandleDecorationCardPlacement(builderCardType, cardName, _decorationItem);
+        }
+    }
 
-            }else if (cardName =="LargeWoodenExhibitBasic")
-            {
-                OnExhibit3Pressed();
-            }else if (cardName =="MediumWoodenExhibitBasic2")
-            {
-                OnExhibit4Pressed();
-            }
+    private void HandleDecorationCardPlacement(BuilderCardType builderCardType, string cardName, PackedScene decorationPackedScene)
+    {
+        GD.Print("Handling decoration placement");
+        var instance = (Node)decorationPackedScene.Instantiate();
+        Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/{builderCardType}s/{cardName}.png");
+        var sprite = instance.GetNode<Sprite2D>(".") ;
+        sprite.Texture = texture2D;
+        ItemsParent.AddChild(instance);
+        if (_lastSelectedItem != null && IsInstanceValid(_lastSelectedItem) && _lastSelectedItem.selectedItem)
+        {
+            _lastSelectedItem.QueueFree();
+        }
+        var scriptInstance = instance.GetNode<DecorationItem>(".");
+        if (scriptInstance != null)
+        {
+            scriptInstance.Position = GetGlobalMousePosition();
+            scriptInstance.Initialize(_cardName);
+            _lastSelectedItem = scriptInstance;
+        }
+        else
+        {
+            GD.Print("Item script not found");
+        }
+    }
+
+    private void HandleExhibitItemPlacement(string cardName)
+    {
+        if (cardName == "SmallWoodenExhibitBasic")
+        {
+            OnExhibit0Pressed();
+        }
+        else if (cardName == "MediumWoodenExhibitBasic")
+        {
+            OnExhibit1Pressed();
+        }
+        else if (cardName == "LargeWoodenExhibitBasic")
+        {
+            OnExhibit3Pressed();
+        }
+        else if (cardName == "MediumWoodenExhibitBasic2")
+        {
+            OnExhibit4Pressed();
         }
     }
 
@@ -119,7 +158,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         {
             _lastSelectedItem.QueueFree();
         }
-        var scriptInstance = instance.GetNode<Item>(".");
+        var scriptInstance = instance.GetNode<ExhibitItem>(".");
         if (scriptInstance != null)
         {
             scriptInstance.Position = GetGlobalMousePosition();

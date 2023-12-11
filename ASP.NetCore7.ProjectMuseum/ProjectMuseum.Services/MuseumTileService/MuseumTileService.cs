@@ -61,7 +61,7 @@ public class MuseumTileService : IMuseumTileService
         return await _exhibitPlacementCondition.PlaceExhibitOnTile(tileId, exhibitVariationName);
     }
 
-    public async Task<Exhibit> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
+    public async Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
     {
         return await _exhibitPlacementCondition.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName);
     }

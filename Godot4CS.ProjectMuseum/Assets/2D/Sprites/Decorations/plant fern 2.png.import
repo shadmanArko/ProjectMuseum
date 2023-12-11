@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eb3pcvrr7hnc"
-path="res://.godot/imported/Sprite-0009.png-124f1c8c238feb47fdf9b79c4438f90e.ctex"
+uid="uid://cfovwcr27lir6"
+path="res://.godot/imported/plant fern 2.png-e05c14da6848406a8dabfb4c5ab1214e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Exhibits/Sprite-0009.png"
-dest_files=["res://.godot/imported/Sprite-0009.png-124f1c8c238feb47fdf9b79c4438f90e.ctex"]
+source_file="res://Assets/2D/Sprites/Decorations/plant fern 2.png"
+dest_files=["res://.godot/imported/plant fern 2.png-e05c14da6848406a8dabfb4c5ab1214e.ctex"]
 
 [params]
 

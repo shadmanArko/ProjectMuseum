@@ -32,19 +32,19 @@ using ProjectMuseum.Services.PlayerInfoService;
 using ProjectMuseum.Services.StorySceneService;
 
 var builder = WebApplication.CreateBuilder(args);
-string museumTileDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json");
-string museumDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museum.json");
-string exhibitDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "exhibit.json");
-string exhibitVariationDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "exhibitVariations.json");
-string storySceneDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "StoryScene.json");
-string mineDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "mine.json");
-string playerInfoDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "PlayerInfo.json");
-string saveDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "save.json");
-string inventoryDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "inventory.json");
-string mineArtifactsDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "mineArtifact.json");
-string displayArtifactDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "displayArtifact.json");
-string artifactStorageDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "artifactStorage.json");
-string tradingArtifactsDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "tradingArtifacts.json");
+string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json");
+string museumDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museum.json");
+string exhibitDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibit.json");
+string exhibitVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibitVariations.json");
+string storySceneDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "StoryScene.json");
+string mineDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mine.json");
+string playerInfoDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "PlayerInfo.json");
+string saveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "save.json");
+string inventoryDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "inventory.json");
+string mineArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mineArtifact.json");
+string displayArtifactDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "displayArtifact.json");
+string artifactStorageDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "artifactStorage.json");
+string tradingArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tradingArtifacts.json");
 
 
 string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
@@ -54,7 +54,7 @@ string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentD
 
 
 
-//string museumTileDataFolderPath = Path.Combine(Stone, "Dummy Data Folder", "museumTile.json"); //todo for dev
+//string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
 
 

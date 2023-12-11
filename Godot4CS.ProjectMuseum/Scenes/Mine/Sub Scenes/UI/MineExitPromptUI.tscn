@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://j1vhsoq6fi20"]
+
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_ifxad"]
+[ext_resource type="Script" path="res://Scripts/Mine/UI/MineToCamp.cs" id="2_bhsbl"]
+[ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="3_pfeot"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n65nu"]
+
+[node name="MineExitPromptUI" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -125.0
+offset_bottom = 125.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n65nu")
+
+[node name="Control" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button Container" type="VBoxContainer" parent="Panel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Return To Camp" type="Button" parent="Panel/Control/Button Container"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("1_ifxad")
+text = "GO BACK TO CAMP"
+script = ExtResource("2_bhsbl")
+
+[node name="Return To Museum" type="Button" parent="Panel/Control/Button Container"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("1_ifxad")
+text = "GO BACK TO MUSEUM"
+
+[node name="SceneChanger" parent="Panel" node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("3_pfeot")]
+_sceneChangerButton = NodePath("../Control/Button Container/Return To Museum")
+_scenePath = "res://Scenes/Museum/Main Scene/Museum.tscn"
+
+[connection signal="button_up" from="Panel/Control/Button Container/Return To Camp" to="Panel/Control/Button Container/Return To Camp" method="TransitionMineToCampScene"]

@@ -29,7 +29,7 @@ public partial class AutoAnimationController : Node
 	
 	public override void _Ready()
 	{
-		_playerController.Position = new Vector2(230, -60);
+		_playerController.Position = new Vector2(250, -60);
 		_playerControllerVariables.CanMove = false;
 		
 		_playerControllerVariables.Gravity = 0;

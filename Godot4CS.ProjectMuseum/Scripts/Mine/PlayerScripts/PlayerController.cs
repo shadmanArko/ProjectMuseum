@@ -57,6 +57,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	        DetectCollision();
         }
         
+        _animationController.SetAnimation(PlayerAttack());
         ModifyPlayerVariables();
 	}
     
@@ -78,8 +79,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 				Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed);
 			}
 		}
-        
-		_animationController.SetAnimation(PlayerAttack());
 	}
 
 	private void ApplyGravity()

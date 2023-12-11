@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot4CS.ProjectMuseum"
-run/main_scene="res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"
+run/main_scene="res://Scenes/Mine/Main Scene/MineScene.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://Assets/2D/Sprites/icon.svg"
 
@@ -158,7 +158,15 @@ pointing/emulate_touch_from_mouse=true
 
 [layer_names]
 
+2d_render/layer_1="Background"
+2d_render/layer_2="Mine"
+2d_render/layer_3="Walls"
+2d_render/layer_4="Cracks"
+2d_render/layer_5="Mobs"
+2d_render/layer_6="Player"
+2d_render/layer_7="Collectibles"
 2d_physics/layer_1="Walls"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Collectible"
+2d_physics/layer_5="Blocker"

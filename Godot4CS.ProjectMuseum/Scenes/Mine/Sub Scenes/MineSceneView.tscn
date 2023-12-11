@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://ixsqn5hwwnac"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/MineGenerationController.cs" id="1_e57ja"]
+[ext_resource type="PackedScene" uid="uid://ckxklef31mow4" path="res://Scenes/Mine/Sub Scenes/MineBackground.tscn" id="2_xr05r"]
+[ext_resource type="PackedScene" uid="uid://dxu6uu8pb7s85" path="res://Scenes/Mine/Sub Scenes/MineTileMap.tscn" id="3_01lxc"]
+[ext_resource type="Script" path="res://Scripts/Mine/MineGenerationView.cs" id="4_lljfn"]
+[ext_resource type="PackedScene" uid="uid://7b6fxueisjuh" path="res://Scenes/Mine/Sub Scenes/UISaving.tscn" id="5_ip856"]
+[ext_resource type="Script" path="res://Scripts/Mine/MineEntranceController.cs" id="6_arrba"]
+[ext_resource type="Script" path="res://Scripts/Mine/MineEntranceBlocker.cs" id="6_bkqej"]
+[ext_resource type="PackedScene" uid="uid://j1vhsoq6fi20" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_xl4nt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjoij"]
+size = Vector2(32, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edtq2"]
+size = Vector2(32, 1.5)
+
+[node name="MineSceneView" type="Node2D" node_paths=PackedStringArray("_savingCanvas", "_mineBackGround")]
+script = ExtResource("1_e57ja")
+_savingCanvas = NodePath("UISaving")
+_mineBackGround = NodePath("MineBackground")
+
+[node name="MineBackground" parent="." instance=ExtResource("2_xr05r")]
+
+[node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("3_01lxc")]
+cell_quadrant_size = 20
+layer_0/name = "Mine"
+layer_1/name = "Crack"
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("4_lljfn")
+TileMap = NodePath(".")
+TileSourceId = 0
+TileCrackSourceId = 1
+
+[node name="UISaving" parent="." instance=ExtResource("5_ip856")]
+
+[node name="Mine Entrance" type="Node2D" parent="." node_paths=PackedStringArray("_mineExitPromptUi", "_entranceBlockerCollisionShape")]
+position = Vector2(491, -4)
+script = ExtResource("6_arrba")
+_mineExitPromptUi = NodePath("MineExitPromptUI")
+_entranceBlockerCollisionShape = NodePath("Entrance Blocker/CollisionShape2D")
+
+[node name="Entrance Blocker" type="RigidBody2D" parent="Mine Entrance"]
+position = Vector2(0, -3)
+collision_layer = 16
+collision_mask = 2
+mass = 0.01
+gravity_scale = 0.0
+script = ExtResource("6_bkqej")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mine Entrance/Entrance Blocker"]
+position = Vector2(0, 2)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_rjoij")
+one_way_collision = true
+
+[node name="Entrance Trigger" type="Area2D" parent="Mine Entrance"]
+position = Vector2(0, 9)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mine Entrance/Entrance Trigger"]
+position = Vector2(0, -1.75)
+shape = SubResource("RectangleShape2D_edtq2")
+
+[node name="MineExitPromptUI" parent="Mine Entrance" instance=ExtResource("8_xl4nt")]
+visible = false
+
+[connection signal="body_entered" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerEnterTrigger"]
+[connection signal="body_exited" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerExitTrigger"]

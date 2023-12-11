@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvpmyuf8myb7g"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
+[ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
+[ext_resource type="PackedScene" uid="uid://bqltyu2fgvmyp" path="res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn" id="3_ambmn"]
+[ext_resource type="PackedScene" uid="uid://bojefr3ulps6k" path="res://Scenes/Mine/Sub Scenes/Enemies/EnemySpawner.tscn" id="4_xj3qh"]
+[ext_resource type="Script" path="res://Scripts/Mine/ReferenceStorage.cs" id="5_yk3pc"]
+[ext_resource type="PackedScene" uid="uid://drgm5sicrh0mh" path="res://Scenes/Mine/Sub Scenes/UI/SceneTransition.tscn" id="6_1bas2"]
+
+[node name="MineScene" type="Node2D"]
+script = ExtResource("1_rq1hl")
+
+[node name="MineSceneInitializer" type="Node" parent="." node_paths=PackedStringArray("_rootNode")]
+script = ExtResource("2_t7o23")
+_rootNode = NodePath("..")
+_playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
+_mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_xj3qh")]
+_parentNode = NodePath("../MineSceneInitializer")
+_slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
+
+[node name="ReferenceStorage" type="Node2D" parent="." node_paths=PackedStringArray("sceneTransition", "enemySpawner")]
+script = ExtResource("5_yk3pc")
+sceneTransition = NodePath("../SceneTransition")
+enemySpawner = NodePath("../EnemySpawner")
+
+[node name="MineUI" parent="." instance=ExtResource("3_ambmn")]
+
+[node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
+visible = false

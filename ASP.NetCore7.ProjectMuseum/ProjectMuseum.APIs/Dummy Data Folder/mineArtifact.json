@@ -1,96 +1,96 @@
 [
-  {"Artifacts":[
-    {
-      "Id": "1",
-      "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
-      "PositionX": 4,
-      "PositionY": 3
-    },
-    {
-      "Id": "2",
-      "RawArtifactId": "RenaissanceAmericanCutlass",
-      "PositionX": 18,
-      "PositionY": 3
-    },
-    {
-      "Id": "3",
-      "RawArtifactId": "MedievalNativeAmericanTomahawk",
-      "PositionX": 9,
-      "PositionY": 5
-    },
-    {
-      "Id": "4",
-      "RawArtifactId": "ClassicalNativeAmericanTomahawk",
-      "PositionX": 22,
-      "PositionY": 6
-    },
-    {
-      "Id": "5",
-      "RawArtifactId": "AncientNativeAmericanClub",
-      "PositionX": 6,
-      "PositionY": 14
-    },
-    {
-      "Id": "6",
-      "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
-      "PositionX": 17,
-      "PositionY": 13
-    },
-    {
-      "Id": "7",
-      "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
-      "PositionX": 2,
-      "PositionY": 22
-    },
-    {
-      "Id": "8",
-      "RawArtifactId": "RenaissanceAmericanCutlass",
-      "PositionX": 21,
-      "PositionY": 29
-    },
-    {
-      "Id": "9",
-      "RawArtifactId": "IndustrialAmericanMusket",
-      "PositionX": 11,
-      "PositionY": 30
-    },
-    {
-      "Id": "10",
-      "RawArtifactId": "ModernAmericanRifle",
-      "PositionX": 5,
-      "PositionY": 36
-    },
-    {
-      "Id": "11",
-      "RawArtifactId": "ClassicalNativeAmericanWarShield",
-      "PositionX": 18,
-      "PositionY": 43
-    },
-    {
-      "Id": "12",
-      "RawArtifactId": "IndustrialAmericanMusket",
-      "PositionX": 23,
-      "PositionY": 46
-    },
-    {
-      "Id": "13",
-      "RawArtifactId": "ModernAmericanRifle",
-      "PositionX": 1,
-      "PositionY": 49
-    },
-    {
-      "Id": "14",
-      "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
-      "PositionX": 14,
-      "PositionY": 52
-    },
-    {
-      "Id": "15",
-      "RawArtifactId": "MedievalNativeAmericanWarShield",
-      "PositionX": 8,
-      "PositionY": 56
-    }
-  ]
-
+  {
+    "Artifacts": [
+      {
+        "Id": "1",
+        "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
+        "PositionX": 4,
+        "PositionY": 3
+      },
+      {
+        "Id": "2",
+        "RawArtifactId": "RenaissanceAmericanCutlass",
+        "PositionX": 18,
+        "PositionY": 3
+      },
+      {
+        "Id": "3",
+        "RawArtifactId": "MedievalNativeAmericanTomahawk",
+        "PositionX": 9,
+        "PositionY": 5
+      },
+      {
+        "Id": "4",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 22,
+        "PositionY": 6
+      },
+      {
+        "Id": "5",
+        "RawArtifactId": "AncientNativeAmericanClub",
+        "PositionX": 6,
+        "PositionY": 14
+      },
+      {
+        "Id": "6",
+        "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
+        "PositionX": 17,
+        "PositionY": 13
+      },
+      {
+        "Id": "7",
+        "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
+        "PositionX": 2,
+        "PositionY": 22
+      },
+      {
+        "Id": "8",
+        "RawArtifactId": "RenaissanceAmericanCutlass",
+        "PositionX": 21,
+        "PositionY": 29
+      },
+      {
+        "Id": "9",
+        "RawArtifactId": "IndustrialAmericanMusket",
+        "PositionX": 11,
+        "PositionY": 30
+      },
+      {
+        "Id": "10",
+        "RawArtifactId": "ModernAmericanRifle",
+        "PositionX": 5,
+        "PositionY": 36
+      },
+      {
+        "Id": "11",
+        "RawArtifactId": "ClassicalNativeAmericanWarShield",
+        "PositionX": 18,
+        "PositionY": 43
+      },
+      {
+        "Id": "12",
+        "RawArtifactId": "IndustrialAmericanMusket",
+        "PositionX": 23,
+        "PositionY": 46
+      },
+      {
+        "Id": "13",
+        "RawArtifactId": "ModernAmericanRifle",
+        "PositionX": 1,
+        "PositionY": 49
+      },
+      {
+        "Id": "14",
+        "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
+        "PositionX": 14,
+        "PositionY": 52
+      },
+      {
+        "Id": "15",
+        "RawArtifactId": "MedievalNativeAmericanWarShield",
+        "PositionX": 8,
+        "PositionY": 56
+      }
+    ]
   }
 ]

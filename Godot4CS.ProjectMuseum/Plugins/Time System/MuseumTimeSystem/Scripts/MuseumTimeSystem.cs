@@ -20,6 +20,7 @@ public partial class MuseumTimeSystem : Node
     
 	public override void _Ready()
 	{
+		
 	}
 
 	

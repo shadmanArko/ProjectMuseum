@@ -6,7 +6,7 @@
       {
         "EntryNo": "1a",
         "IllustrationName": "01",
-        "Dialogue": "Time at university was over. [PAUSE] Although unsure about what to do next, a gut feeling made clear that dropping by Professor Eucalyptus's office would yield something useful.",
+        "Dialogue": "Time at university was over. [PAUSE] Although unsure about what to do next, a gut feeling made clear that dropping by Professor Eucalyptus\u0027s office would yield something useful.",
         "Speaker": "Player",
         "SpeakerEmotion": "Determined",
         "HasCutscene": true,
@@ -66,7 +66,7 @@
       {
         "EntryNo": "2f",
         "IllustrationName": "02",
-        "Dialogue": "Alright, professor, I don't have a better idea. I'll take on the museum.",
+        "Dialogue": "Alright, professor, I don\u0027t have a better idea. I\u0027ll take on the museum.",
         "Speaker": "Player",
         "SpeakerEmotion": "Thoughtful",
         "HasCutscene": true,
@@ -75,7 +75,7 @@
       {
         "EntryNo": "2g",
         "IllustrationName": "02",
-        "Dialogue": "Good, good. Ever since I laid eyes on you in my class that year, I knew you had something special about you. Meet me at the _______ Bus Stop. I'll explain the rest when you get there. Oh, and be sure to pack enough stuff to stay for a while.",
+        "Dialogue": "Good, good. Ever since I laid eyes on you in my class that year, I knew you had something special about you. Meet me at the _______ Bus Stop. I\u0027ll explain the rest when you get there. Oh, and be sure to pack enough stuff to stay for a while.",
         "Speaker": "Professor Eucalyptus",
         "SpeakerEmotion": "Pleased",
         "HasCutscene": true,
@@ -90,7 +90,7 @@
       {
         "EntryNo": "3a",
         "IllustrationName": "03",
-        "Dialogue": "Alright. We're here.",
+        "Dialogue": "Alright. We\u0027re here.",
         "Speaker": "Player",
         "SpeakerEmotion": "Determined",
         "HasCutscene": true,
@@ -99,7 +99,7 @@
       {
         "EntryNo": "3b",
         "IllustrationName": "03",
-        "Dialogue": "Wonderful! The bus arrived right on time. It's good to see you [PLAYERNAME].",
+        "Dialogue": "Wonderful! The bus arrived right on time. It\u0027s good to see you [PLAYERNAME].",
         "Speaker": "Professor Eucalyptus",
         "SpeakerEmotion": "Pleased",
         "HasCutscene": true,
@@ -108,7 +108,7 @@
       {
         "EntryNo": "3c",
         "IllustrationName": "03",
-        "Dialogue": "Come! Grab your things. Let me show you your new home! It's quite literally right around the corner!",
+        "Dialogue": "Come! Grab your things. Let me show you your new home! It\u0027s quite literally right around the corner!",
         "Speaker": "Professor Eucalyptus",
         "SpeakerEmotion": "Excited",
         "HasCutscene": true,
@@ -132,7 +132,7 @@
       {
         "EntryNo": "4b",
         "IllustrationName": "04",
-        "Dialogue": "So, I'm not going to lie to you. [PAUSE]. But, you'll have a good bit of work to do here.",
+        "Dialogue": "So, I\u0027m not going to lie to you. [PAUSE]. But, you\u0027ll have a good bit of work to do here.",
         "Speaker": "Professor Eucalyptus",
         "SpeakerEmotion": "Thoughtful",
         "HasCutscene": false,

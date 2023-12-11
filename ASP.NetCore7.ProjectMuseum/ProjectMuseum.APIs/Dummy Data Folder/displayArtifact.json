@@ -1,20 +1,36 @@
 [
-  {"Artifacts":[
-    {
-      "Id": "pqr678",
-      "RawArtifactId": "raw345",
-      "Slot": 7
-    },
-    {
-      "Id": "stu901",
-      "RawArtifactId": "raw678",
-      "Slot": 8
-    },
-    {
-      "Id": "vwx234",
-      "RawArtifactId": "raw901",
-      "Slot": 9
-    }
-  ]
+  {
+    "Artifacts": [
+      {
+        "Id": "pqr678",
+        "RawArtifactId": "raw345",
+        "PositionX": 0,
+        "PositionY": 0
+      },
+      {
+        "Id": "stu901",
+        "RawArtifactId": "raw678",
+        "PositionX": 0,
+        "PositionY": 0
+      },
+      {
+        "Id": "vwx234",
+        "RawArtifactId": "raw901",
+        "PositionX": 0,
+        "PositionY": 0
+      },
+      {
+        "Id": "yz012",
+        "RawArtifactId": "AncientNativeAmericanClub",
+        "PositionX": 0,
+        "PositionY": 0
+      },
+      {
+        "Id": "opq789",
+        "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
+        "PositionX": 0,
+        "PositionY": 0
+      }
+    ]
   }
 ]

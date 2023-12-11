@@ -1,38 +1,38 @@
 [
-    {
-        "VariationName": "SmallWoodenExhibitBasic",
-        "ExhibitDecoration": "Sprite-0006",
-        "ExhibitSize": "small",
-        "NumberOfTilesNeeded": 1,
-        "TilesExtendInDirection": "Both",
-        "IsHangingExhibit": false,
-        "IsWallExhibit": false
-    },
-    {
-        "VariationName": "MediumWoodenExhibitBasic",
-        "ExhibitDecoration": "Sprite-0007",
-        "ExhibitSize": "Medium",
-        "NumberOfTilesNeeded": 2,
-        "TilesExtendInDirection": "Left",
-        "IsHangingExhibit": false,
-        "IsWallExhibit": false
-    },
-    {
-        "VariationName": "MediumWoodenExhibitBasic2",
-        "ExhibitDecoration": "Sprite-0008",
-        "ExhibitSize": "Medium",
-        "NumberOfTilesNeeded": 2,
-        "TilesExtendInDirection": "Right",
-        "IsHangingExhibit": false,
-        "IsWallExhibit": false
-    },
-    {
-        "VariationName": "LargeWoodenExhibitBasic",
-        "ExhibitDecoration": "Sprite-0009",
-        "ExhibitSize": "Large",
-        "NumberOfTilesNeeded": 2,
-        "TilesExtendInDirection": "Right",
-        "IsHangingExhibit": false,
-        "IsWallExhibit": false
-    }
+  {
+    "VariationName": "SmallWoodenExhibitBasic",
+    "ExhibitDecoration": "Sprite-0006",
+    "ExhibitSize": "small",
+    "NumberOfTilesNeeded": 1,
+    "TilesExtendInDirection": "Both",
+    "IsHangingExhibit": false,
+    "IsWallExhibit": false
+  },
+  {
+    "VariationName": "MediumWoodenExhibitBasic",
+    "ExhibitDecoration": "Sprite-0007",
+    "ExhibitSize": "Medium",
+    "NumberOfTilesNeeded": 2,
+    "TilesExtendInDirection": "Left",
+    "IsHangingExhibit": false,
+    "IsWallExhibit": false
+  },
+  {
+    "VariationName": "MediumWoodenExhibitBasic2",
+    "ExhibitDecoration": "Sprite-0008",
+    "ExhibitSize": "Medium",
+    "NumberOfTilesNeeded": 2,
+    "TilesExtendInDirection": "Right",
+    "IsHangingExhibit": false,
+    "IsWallExhibit": false
+  },
+  {
+    "VariationName": "LargeWoodenExhibitBasic",
+    "ExhibitDecoration": "Sprite-0009",
+    "ExhibitSize": "Large",
+    "NumberOfTilesNeeded": 2,
+    "TilesExtendInDirection": "Right",
+    "IsHangingExhibit": false,
+    "IsWallExhibit": false
+  }
 ]

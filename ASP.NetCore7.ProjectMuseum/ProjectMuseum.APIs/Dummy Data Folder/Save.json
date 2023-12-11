@@ -323,6 +323,18 @@
       "ExhibitArtifactSlot3": "string",
       "ExhibitArtifactSlot4": "string",
       "ExhibitArtifactSlot5": "string"
+    },
+    {
+      "Id": "94d942ba-bd18-4373-b5ec-f84770cfa774",
+      "ExhibitVariationName": "SmallWoodenExhibitBasic",
+      "XPosition": 0,
+      "YPosition": -17,
+      "ExhibitDecoration": "string",
+      "ExhibitArtifactSlot1": "string",
+      "ExhibitArtifactSlot2": "string",
+      "ExhibitArtifactSlot3": "string",
+      "ExhibitArtifactSlot4": "string",
+      "ExhibitArtifactSlot5": "string"
     }
   ],
   "ExhibitVariations": [
@@ -53820,7 +53832,7 @@
     {
       "Id": "museum0",
       "Name": "my Museum",
-      "Money": -22560.56
+      "Money": -22605.89
     }
   ],
   "MuseumTiles": [
@@ -54037,7 +54049,7 @@
       "TileAtlasCoOrdinateY": 0,
       "Layer": 0,
       "WallId": "string",
-      "ExhibitId": "string",
+      "ExhibitId": "94d942ba-bd18-4373-b5ec-f84770cfa774",
       "HangingLightId": "string"
     },
     {

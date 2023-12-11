@@ -22,8 +22,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfgvl")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
-_diggingPermitsButton = NodePath("Panel2/Digging and Permits Button")
-_museumGateCheckButton = NodePath("Panel2/CheckButton")
+_diggingPermitsButton = NodePath("Top Panel/Digging and Permits Button")
+_museumGateCheckButton = NodePath("Top Panel/CheckButton")
 _diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 metadata/_edit_vertical_guides_ = [-481.0]
 
@@ -161,7 +161,7 @@ offset_bottom = 38.0
 [node name="Button" type="Button" parent="Bottom Panel/HBoxContainer"]
 layout_mode = 2
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Top Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 10
@@ -169,7 +169,7 @@ anchor_right = 1.0
 offset_bottom = 44.0
 grow_horizontal = 2
 
-[node name="Digging and Permits Button" type="Button" parent="Panel2"]
+[node name="Digging and Permits Button" type="Button" parent="Top Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.932
@@ -183,7 +183,7 @@ offset_bottom = 0.0119934
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="CheckButton" type="CheckButton" parent="Panel2"]
+[node name="CheckButton" type="CheckButton" parent="Top Panel"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

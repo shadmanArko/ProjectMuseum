@@ -1,1 +1,36 @@
-[{"Weapons":[{"Id":"W001","Name":"Sword of Valor","Slot":1},{"Id":"W002","Name":"Bow of Precision","Slot":2}],"Artifacts":[{"Id":null,"RawArtifactId":"A001","Slot":1},{"Id":null,"RawArtifactId":"A002","Slot":2},{"Id":"xyz789","RawArtifactId":"raw987","Slot":2}]}]
+[
+  {
+    "Weapons": [
+      {
+        "Id": "W001",
+        "Name": "Sword of Valor",
+        "Slot": 1
+      },
+      {
+        "Id": "W002",
+        "Name": "Bow of Precision",
+        "Slot": 2
+      }
+    ],
+    "Artifacts": [
+      {
+        "Id": null,
+        "RawArtifactId": "A001",
+        "PositionX": 0,
+        "PositionY": 0
+      },
+      {
+        "Id": null,
+        "RawArtifactId": "A002",
+        "PositionX": 0,
+        "PositionY": 0
+      },
+      {
+        "Id": "xyz789",
+        "RawArtifactId": "raw987",
+        "PositionX": 0,
+        "PositionY": 0
+      }
+    ]
+  }
+]

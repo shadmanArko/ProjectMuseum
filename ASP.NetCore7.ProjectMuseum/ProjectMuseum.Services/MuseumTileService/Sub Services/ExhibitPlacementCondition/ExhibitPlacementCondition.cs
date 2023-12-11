@@ -1,3 +1,4 @@
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
@@ -57,16 +58,20 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
         await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
         return true;
     }
-    public async Task<Exhibit> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
+    public async Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
     {
+        TilesWithExhibitDto tilesWithExhibitDto = new TilesWithExhibitDto();
         Exhibit exhibit = new Exhibit();
+        var museumTiles = await _museumTileRepository.GetAll();
+        tilesWithExhibitDto.Exhibit = exhibit;
+        tilesWithExhibitDto.MuseumTiles = museumTiles;
         foreach (var tileId in tileIds)
         {
             if (tileId == originTileId)
             {
                 var museumTile = await _museumTileRepository.GetById(tileId);
-                if (museumTile != null && museumTile.ExhibitId != "string") return exhibit;
-                if (museumTile == null) return exhibit;
+                if (museumTile != null && museumTile.ExhibitId != "string") return tilesWithExhibitDto;
+                if (museumTile == null) return tilesWithExhibitDto;
                 exhibit = new Exhibit
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -85,6 +90,7 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
             }
         }
         await _museumTileRepository.UpdateExhibitToMuseumTiles(tileIds, exhibit.Id);
-        return exhibit;
+        tilesWithExhibitDto.Exhibit = exhibit;
+        return tilesWithExhibitDto;
     }
 }

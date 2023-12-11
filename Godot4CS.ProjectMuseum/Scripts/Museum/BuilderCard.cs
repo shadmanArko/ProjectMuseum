@@ -7,7 +7,7 @@ using ProjectMuseum.Models;
 public partial class BuilderCard : Control
 {
 	[Export] public Button textureButton;
-	private ExhibitVariation _exhibitVariation;
+	private string _cardName;
 	private BuilderCardType _builderCardType;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,7 +17,7 @@ public partial class BuilderCard : Control
 
 	private void TextureButtonOnPressed()
 	{
-		MuseumActions.OnClickBuilderCard.Invoke(_builderCardType, _exhibitVariation.VariationName);
+		MuseumActions.OnClickBuilderCard.Invoke(_builderCardType, _cardName);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,11 +26,11 @@ public partial class BuilderCard : Control
 		
 	}
 
-	public void SetUpBuilderCard(ExhibitVariation exhibitVariation)
+	public void SetUpBuilderCard(BuilderCardType builderCardType, string cardName)
 	{
-		Texture2D texture = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Exhibits/{exhibitVariation.ExhibitDecoration}.png");
+		Texture2D texture = GD.Load<Texture2D>($"res://Assets/2D/Sprites/{builderCardType}s/{cardName}.png");
 		textureButton.Icon = texture;
-		_builderCardType = BuilderCardType.Exhibit;
-		_exhibitVariation = exhibitVariation;
+		_builderCardType = builderCardType;
+		_cardName = cardName;
 	}
 }

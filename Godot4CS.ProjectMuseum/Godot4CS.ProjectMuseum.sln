@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Godot4CS.ProjectMuseum", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMuseum.Models", "..\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\ProjectMuseum.Models.csproj", "{EB7DAA24-41CC-484D-9383-CEDF93E70094}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMuseum.DTOs", "..\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\ProjectMuseum.DTOs.csproj", "{5096BD7E-FF62-4CC7-ADC0-96EE50B0D210}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -23,5 +25,11 @@ Global
 		{EB7DAA24-41CC-484D-9383-CEDF93E70094}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
 		{EB7DAA24-41CC-484D-9383-CEDF93E70094}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB7DAA24-41CC-484D-9383-CEDF93E70094}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{5096BD7E-FF62-4CC7-ADC0-96EE50B0D210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5096BD7E-FF62-4CC7-ADC0-96EE50B0D210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5096BD7E-FF62-4CC7-ADC0-96EE50B0D210}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5096BD7E-FF62-4CC7-ADC0-96EE50B0D210}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{5096BD7E-FF62-4CC7-ADC0-96EE50B0D210}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{5096BD7E-FF62-4CC7-ADC0-96EE50B0D210}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

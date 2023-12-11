@@ -12,8 +12,7 @@ public partial class MuseumSceneDiInstaller : Node
 	{
 		GD.Print($"museum scene di installer ready");
 		ServiceRegistry.RegisterSingleton<List<ExhibitPlacementConditionData>>();
-		ServiceRegistry.RegisterSingleton<List<MuseumTile>>();
-		ServiceRegistry.RegisterSingleton<string>();
+		ServiceRegistry.RegisterSingleton<MuseumTileContainer>();
 		
 		ServiceRegistry.Initialize();
 	}

@@ -20,8 +20,8 @@ public partial class ToolbarSelector : Node
 	private void SelectItem(Equipables equipable)
 	{
 		GD.Print($"eqipable: {(int) equipable}");
-		// DeselectAllItems();
-		// _toolbarSlots[(int) equipable].SetItemAsSelected();
+		DeselectAllItems();
+		_toolbarSlots[(int) equipable].SetItemAsSelected();
 	}
 
 

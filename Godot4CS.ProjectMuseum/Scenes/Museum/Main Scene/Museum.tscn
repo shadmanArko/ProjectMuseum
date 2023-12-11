@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=27 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
+[ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
@@ -184,5 +185,8 @@ script = ExtResource("24_wpojy")
 
 [node name="SaveGame" type="Node2D" parent="."]
 script = ExtResource("25_nktge")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("26_vw67d")
 
 [connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]

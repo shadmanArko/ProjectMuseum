@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class MuseumTimeSystem : Node
 {
@@ -14,13 +15,17 @@ public partial class MuseumTimeSystem : Node
 	private int _hours = 0;
 	private int _days = 1;
 	private int _months = 1;
+	private int _years = 1;
 	
     private bool _isPaused = false;
-    
-    
+
+    private double _originalClockUnitSpeed;
 	public override void _Ready()
 	{
-		
+		_originalClockUnitSpeed = _secondsIn10Minutes;
+		MuseumActions.OnTimeUpdated?.Invoke(_minutes, _hours, _days, _months, _years);
+		MuseumActions.OnClickTimeSpeedButton += SetClockSpeed;
+		MuseumActions.OnClickPausePlayButton += TogglePause;
 	}
 
 	
@@ -41,7 +46,6 @@ public partial class MuseumTimeSystem : Node
 	private void UpdateTime()
 	{
 		GD.Print($"Season: {_months}, Day: {_days}, Time: {_hours:D2}:{_minutes:D2}");
-		
 		_minutes+=10;
 		if (_minutes >= _minutesInHour)
 		{
@@ -80,10 +84,11 @@ public partial class MuseumTimeSystem : Node
 				if (_days >= _daysInMonth)
 				{
 					_days = 1;
-					_months = (_months % _monthsInYear) + 1;
-					
+					_months++;
+					// _months = (_months % _monthsInYear) + 1;
+
 					//TODO Invoke Monthly Events
-					
+
 					// <example>
 					// This example demonstrates how to use the Add method.
 					// <code>
@@ -93,9 +98,15 @@ public partial class MuseumTimeSystem : Node
 					// }
 					// </code>
 					// </example>
+					if (_months >_monthsInYear)
+					{
+						_months = 1;
+						_years++;
+					}
 				}
 			}
 		}
+		MuseumActions.OnTimeUpdated?.Invoke(_minutes, _hours, _days, _months, _years);
 	}
 	
 
@@ -103,5 +114,16 @@ public partial class MuseumTimeSystem : Node
 	{
 		_isPaused = !_isPaused;
 		GD.Print(_isPaused ? "Game Paused" : "Game Resumed");
+	}
+	public void SetClockSpeed(int speed)
+	{
+		_secondsIn10Minutes = _originalClockUnitSpeed / speed;
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		MuseumActions.OnClickTimeSpeedButton -= SetClockSpeed;
+		MuseumActions.OnClickPausePlayButton -= TogglePause;
 	}
 }

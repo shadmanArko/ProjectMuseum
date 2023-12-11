@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=12 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="2_3c32r"]
@@ -9,6 +9,7 @@
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_u4d1t"]
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/LargeWoodenExhibitBasic.png" id="7_lgtob"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/DateTimeUi.cs" id="10_6y0pe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
@@ -22,8 +23,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfgvl")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
-_diggingPermitsButton = NodePath("Top Panel/Digging and Permits Button")
-_museumGateCheckButton = NodePath("Top Panel/CheckButton")
+_diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
+_museumGateCheckButton = NodePath("Right Panel/CheckButton")
 _diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 metadata/_edit_vertical_guides_ = [-481.0]
 
@@ -166,36 +167,130 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 44.0
+offset_bottom = 48.0
 grow_horizontal = 2
 
-[node name="Digging and Permits Button" type="Button" parent="Top Panel"]
+[node name="MenuButton" type="Button" parent="Top Panel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.932
-anchor_top = 1.795
-anchor_right = 0.986
-anchor_bottom = 3.977
-offset_left = -0.440063
-offset_top = 0.0199966
-offset_right = -0.120117
-offset_bottom = 0.0119934
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -24.0
+offset_bottom = 24.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="CheckButton" type="CheckButton" parent="Top Panel"]
+[node name="ColorRect" type="ColorRect" parent="Top Panel" node_paths=PackedStringArray("_dateTime", "_pausePlayButton", "_timeSpeed1X", "_timeSpeed2X", "_timeSpeed4X", "_timeSpeed8X")]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 6
 anchor_left = 1.0
-anchor_top = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -363.0
+offset_top = -24.0
+offset_right = -48.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("10_6y0pe")
+_dateTime = NodePath("Label")
+_pausePlayButton = NodePath("HBoxContainer/Pause_Play")
+_timeSpeed1X = NodePath("HBoxContainer/1x")
+_timeSpeed2X = NodePath("HBoxContainer/2x")
+_timeSpeed4X = NodePath("HBoxContainer/4x")
+_timeSpeed8X = NodePath("HBoxContainer/8x")
+
+[node name="Label" type="Label" parent="Top Panel/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -118.0
-offset_top = 136.0
-offset_right = -33.0
-offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_u4d1t")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "00:00 Thursday 02/ 02/ Year 01"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top Panel/ColorRect"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_top = 48.0
+offset_right = 180.0
+offset_bottom = 80.0
+theme_override_constants/separation = 5
+
+[node name="Pause_Play" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="1x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme = ExtResource("6_u4d1t")
+text = "1x"
+
+[node name="2x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme = ExtResource("6_u4d1t")
+text = "2x"
+
+[node name="4x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme = ExtResource("6_u4d1t")
+text = "4x"
+
+[node name="8x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme = ExtResource("6_u4d1t")
+text = "8x"
+
+[node name="Right Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = 79.0
 grow_horizontal = 0
-grow_vertical = 0
+grow_vertical = 2
+
+[node name="Digging and Permits Button" type="Button" parent="Right Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -111.0
+offset_top = 53.0
+offset_right = -11.0
+offset_bottom = 153.0
+grow_horizontal = 0
+
+[node name="CheckButton" type="CheckButton" parent="Right Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -328.5
+offset_right = -19.0
+offset_bottom = -297.5
+grow_horizontal = 0
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Gate"
 

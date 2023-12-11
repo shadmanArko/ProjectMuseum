@@ -23,4 +23,12 @@ public partial class MuseumActions : Node
 
     public static Action<bool> OnClickMuseumGateToggle;
     public static Action<int> TotalGuestsUpdated;
+
+    #region TimeActions
+
+    public static Action<int, int, int, int, int> OnTimeUpdated;
+    public static Action OnClickPausePlayButton;
+    public static Action<int> OnClickTimeSpeedButton;
+
+    #endregion
 }

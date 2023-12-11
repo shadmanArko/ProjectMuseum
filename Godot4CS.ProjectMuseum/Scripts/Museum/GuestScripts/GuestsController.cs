@@ -20,6 +20,8 @@ public partial class GuestsController : Node2D
 	[Export] private int _maxNumberGuests = 10;
 	private int _numberOfGuestsInMusuem;
 	private bool _isMuseumGateOpen = false;
+	private float _ticketPrice = 15;
+    
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
@@ -53,6 +55,7 @@ public partial class GuestsController : Node2D
 			AddChild(guest);
 			guest.GetNode<Guest>(".").Initialize();
 			_numberOfGuestsInMusuem++;
+			MuseumActions.OnMuseumBalanceAdded?.Invoke(_ticketPrice);
 			MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMusuem);
 			await Task.Delay( (int)(1000 * delayBetweenSpawningGuests));
 		}

@@ -109,20 +109,20 @@ public class MuseumController : ControllerBase
     [HttpGet("GetMuseumBalance/{id}")]
     public async Task<IActionResult> GetMuseumBalance(string id)
     {
-        var exhibitEligibility = await _museumService.GetMuseumCurrentMoneyAmount(id);
-        return Ok(exhibitEligibility);
+        var museumCurrentMoneyAmount = await _museumService.GetMuseumCurrentMoneyAmount(id);
+        return Ok(museumCurrentMoneyAmount);
     }
     [HttpGet("AddToMuseumBalance/{id}/{amount}")]
     public async Task<IActionResult> AddToMuseumBalance(string id, float amount)
     {
         var addToMuseumBalance = await _museumService.AddToMuseumBalance(id, amount);
-        return Ok(addToMuseumBalance);
+        return Ok(addToMuseumBalance.Money);
     }
     [HttpGet("ReduceMuseumBalance/{id}/{amount}")]
     public async Task<IActionResult> ReduceMuseumBalance(string id, float amount)
     {
         var reduceMuseumBalance = await _museumService.ReduceMuseumBalance(id, amount);
-        return Ok(reduceMuseumBalance);
+        return Ok(reduceMuseumBalance.Money);
     }
 
     [HttpGet("GetAllDisplayArtifacts")]

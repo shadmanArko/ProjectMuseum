@@ -30,9 +30,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         ExhibitPlacementConditionDatas = exhibitPlacementConditionDatas;
         GD.Print("inject being called");
     }
-
-    private HttpRequest _httpRequestForGettingBalance;
-    private HttpRequest _httpRequestForReducingBalance;
+    
     public override void _Ready()
     {
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
@@ -44,14 +42,9 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
         if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
-        _httpRequestForGettingBalance = new HttpRequest();
-        _httpRequestForReducingBalance = new HttpRequest();
-        AddChild(_httpRequestForGettingBalance);
-        AddChild(_httpRequestForReducingBalance);
-        string url = $"{ApiAddress.UrlPrefix}Museum/GetMuseumBalance/museum0";
-        _httpRequestForGettingBalance.Request(url);
-        _httpRequestForGettingBalance.RequestCompleted += OnHttpRequestForGettingBalanceCompleted;
-        _httpRequestForReducingBalance.RequestCompleted += OnHttpRequestCompletedForReducingBalance;
+        
+       
+        
         _diggingPermitsButton.Pressed += DiggingPermitsButtonOnPressed;
         _museumGateCheckButton.Pressed += MuseumGateCheckButtonOnPressed;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
@@ -126,14 +119,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         }
     }
 
-    private void OnHttpRequestForGettingBalanceCompleted(long result, long responsecode, string[] headers, byte[] body)
-    {
-        string jsonStr = Encoding.UTF8.GetString(body);
-        GD.Print("getting balance " + jsonStr);
-        var museumBalance = JsonSerializer.Deserialize<float>(jsonStr);
-        MuseumActions.OnMuseumBalanceUpdated?.Invoke(museumBalance);
-        UpdateMuseumBalanceText(museumBalance.ToString("0.00"));
-    }
+    
 
     private void UpdateMuseumBalanceText(string jsonStr)
     {
@@ -183,25 +169,15 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 
     void UpdateUiOnItemPlaced(float itemPrice)
     {
-        GD.Print($"Item Placed of price {itemPrice}");
-        string url = $"{ApiAddress.MuseumApiPath}ReduceMuseumBalance/museum0/{itemPrice}";
-        _httpRequestForReducingBalance.Request(url);
+        // GD.Print($"Item Placed of price {itemPrice}");
+        // string url = $"{ApiAddress.MuseumApiPath}ReduceMuseumBalance/museum0/{itemPrice}";
+        // _httpRequestForReducingBalance.Request(url);
     }
-
-    private void OnHttpRequestCompletedForReducingBalance(long result, long responsecode, string[] headers, byte[] body)
-    {
-        string jsonStr = Encoding.UTF8.GetString(body);
-         var museum = JsonSerializer.Deserialize<ProjectMuseum.Models.Museum>(jsonStr);
-         MuseumActions.OnMuseumBalanceUpdated?.Invoke(museum.Money);
-        UpdateMuseumBalanceText(museum.Money.ToString("0.00"));
-    }
-
+    
 
     public override void _ExitTree()
     {
         Item.OnItemPlaced -= UpdateUiOnItemPlaced;
-        _httpRequestForGettingBalance.RequestCompleted -= OnHttpRequestForGettingBalanceCompleted;
-        _httpRequestForReducingBalance.RequestCompleted -= OnHttpRequestCompletedForReducingBalance;
         _diggingPermitsButton.Pressed -= DiggingPermitsButtonOnPressed;
         MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
         _museumGateCheckButton.Pressed -= MuseumGateCheckButtonOnPressed;

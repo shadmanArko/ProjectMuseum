@@ -35,7 +35,7 @@ public partial class DecorationItem : Item
 			}
 
 			HandleItemPlacement();
-			OnItemPlaced?.Invoke(ItemPrice);
+			// OnItemPlaced?.Invoke(ItemPrice);
 			selectedItem = false;
 			Modulate = _originalColor;
 		}
@@ -63,6 +63,7 @@ public partial class DecorationItem : Item
 		// 	$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}";
 		// _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
 		// GD.Print("Handling exhibit placement");
+		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 	}
 }

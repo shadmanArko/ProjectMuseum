@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://p4pp1nmkb44s"]
+[gd_scene load_steps=5 format=3 uid="uid://p4pp1nmkb44s"]
 
+[ext_resource type="Script" path="res://Scripts/Mine/UI/MineExitPromptUi.cs" id="1_ib847"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_ifxad"]
-[ext_resource type="Script" path="res://Scripts/Mine/UI/MineToCamp.cs" id="2_bhsbl"]
+[ext_resource type="Script" path="res://Scripts/Mine/UI/MineToCampTransition.cs" id="3_amuk3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n65nu"]
 
-[node name="MineExitPromptUI" type="CanvasLayer"]
+[node name="MineExitPromptUI" type="CanvasLayer" node_paths=PackedStringArray("ReturnToCampButton")]
+script = ExtResource("1_ib847")
+ReturnToCampButton = NodePath("Panel/Control/Button Container/Return To Camp")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 6
@@ -44,6 +47,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("1_ifxad")
 text = "GO BACK TO CAMP?"
-script = ExtResource("2_bhsbl")
+script = ExtResource("3_amuk3")
 
 [connection signal="button_up" from="Panel/Control/Button Container/Return To Camp" to="Panel/Control/Button Container/Return To Camp" method="MineToCampScene"]

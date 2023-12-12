@@ -10,7 +10,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, IDeath
 {
-	[Export] private AnimationController _animationController;
+	[Export] public AnimationController animationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -35,6 +35,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_playerControllerVariables.Player = this;
 	}
 
 	private void SubscribeToActions()
@@ -60,7 +61,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	        DetectCollision();
         }
         
-        _animationController.SetAnimation(PlayerAttack());
+        animationController.SetAnimation(PlayerAttack());
         ModifyPlayerVariables();
 	}
     
@@ -101,7 +102,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	private void CheckFallTime(double delta)
 	{
 		if(_fallTime >= _fallTimeThreshold)
-			_animationController.PlayAnimation("fall");
+			animationController.PlayAnimation("fall");
 		else
 			_fallTime += (float) delta;
 	}
@@ -165,7 +166,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
 			MotionState.Falling : MotionState.Hanging;
-		_animationController.PlayAnimation("idle_to_climb");
+		animationController.PlayAnimation("idle_to_climb");
 		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
 			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
@@ -226,7 +227,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		_animationController.Play("damage1");
+		animationController.Play("damage1");
 		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
 	}
 
@@ -243,7 +244,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		_animationController.Play("death");
+		animationController.Play("death");
 		_playerControllerVariables.CanMove = false;
 	}
 

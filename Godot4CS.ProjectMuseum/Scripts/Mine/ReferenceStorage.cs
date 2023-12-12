@@ -16,4 +16,8 @@ public partial class ReferenceStorage : Node2D
     [Export] public SceneTransition sceneTransition;
     [Export] public AutoAnimationController autoAnimationController;
     [Export] public EnemySpawner enemySpawner;
+    
+    //UI//
+    [Export] public MineExitPromptUi mineExitPromptUi;
+    [Export] public CampExitPromptUi campExitPromptUi;
 }

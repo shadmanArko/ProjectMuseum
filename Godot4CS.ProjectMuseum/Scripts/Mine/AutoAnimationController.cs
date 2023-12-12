@@ -1,12 +1,11 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
-public partial class AutoAnimationController : Node
+public partial class AutoAnimationController : Node2D
 {
 	private PlayerControllerVariables _playerControllerVariables;
 
@@ -29,13 +28,17 @@ public partial class AutoAnimationController : Node
 	
 	public override void _Ready()
 	{
-		_playerController.Position = new Vector2(250, -60);
+		_animationController = _playerControllerVariables.Player.animationController;
+		_playerController = _playerControllerVariables.Player;
+		_playerControllerVariables.Player.Position = new Vector2(250, -60);
 		_playerControllerVariables.CanMove = false;
+		_playerControllerVariables.IsAffectedByGravity = false;
 		
 		_playerControllerVariables.Gravity = 0;
 		_playerControllerVariables.State = MotionState.Grounded;
 		SetProcess(true);
 		SetPhysicsProcess(false);
+		GD.Print("inside here");
 	}
 
 	private Vector2 _newPos = new(420,-60);
@@ -53,7 +56,7 @@ public partial class AutoAnimationController : Node
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		_playerController.Position = AutoJumpIntoMine((float) _time);
+		_playerControllerVariables.Player.Position = AutoJumpIntoMine((float) _time);
 		_time += delta;
 
 		if (!(_time >= 1.2f)) return;
@@ -69,15 +72,15 @@ public partial class AutoAnimationController : Node
 
 	private void AutoMoveToPosition()
 	{
-		if(_playerController.Position.X <= _newPos.X)
+		if(_playerControllerVariables.Player.Position.X <= _newPos.X)
 		{
 			_animationController.Play("run");
-			_playerController.Translate(new Vector2(0.02f,0));
+			_playerControllerVariables.Player.Translate(new Vector2(0.02f,0));
 		}
 		else
 		{
-			_p0 = _playerController.Position;
-			_p2 = _playerController.Position + new Vector2(60, 0);
+			_p0 = _playerControllerVariables.Player.Position;
+			_p2 = _playerControllerVariables.Player.Position + new Vector2(60, 0);
 			_p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
 
 			SetProcess(false);

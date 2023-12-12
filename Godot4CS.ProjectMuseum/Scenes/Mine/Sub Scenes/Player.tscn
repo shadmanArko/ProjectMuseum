@@ -1,11 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=28 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithWallDetector.cs" id="4_rq7pk"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
-[ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="6_71wdr"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithEnemyDetector.cs" id="7_3m1a8"]
 
 [sub_resource type="Animation" id="Animation_t7vn8"]
@@ -345,7 +344,7 @@ _data = {
 radius = 7.0
 height = 25.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animationController")]
 light_mask = 4
 visibility_layer = 4
 z_index = 10
@@ -360,7 +359,7 @@ floor_block_on_wall = false
 floor_max_angle = 0.0
 safe_margin = 0.001
 script = ExtResource("1_bhvr3")
-_animationController = NodePath("AnimationPlayer")
+animationController = NodePath("AnimationPlayer")
 _maxVerticalVelocity = 3.0
 _fallTimeThreshold = 0.5
 _lampScenePath = "res://Scenes/Mine/Sub Scenes/Torch.tscn"
@@ -406,10 +405,7 @@ _discoveredArtifactScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/Discovere
 [node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource("5_0x0fh")
 
-[node name="AutoAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("_playerController", "_animationController")]
-script = ExtResource("6_71wdr")
-_playerController = NodePath("..")
-_animationController = NodePath("../AnimationPlayer")
+[node name="AutoAnimationController" type="Node2D" parent="."]
 
 [node name="PlayerEnemyCollisionDetector" type="Node2D" parent="." node_paths=PackedStringArray("_attackDetectorArea2D", "_collisionShape2D", "_animationPlayer")]
 script = ExtResource("7_3m1a8")

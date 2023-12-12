@@ -1,12 +1,19 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineEntranceController : Node2D
 {
-    [Export] private CanvasLayer _mineExitPromptUi;
+    [Export] private MineExitPromptUi _mineExitPromptUi;
     [Export] private CollisionShape2D _entranceBlockerCollisionShape;
+
+    public override void _Ready()
+    {
+        _mineExitPromptUi = ReferenceStorage.Instance.mineExitPromptUi;
+    }
+
     private void OnPlayerEnterTrigger(Node body)
     {
         if(body is not PlayerController player) return;

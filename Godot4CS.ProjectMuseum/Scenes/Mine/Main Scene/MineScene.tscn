@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvpmyuf8myb7g"]
+[gd_scene load_steps=8 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
 [ext_resource type="PackedScene" uid="uid://bqltyu2fgvmyp" path="res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn" id="3_ambmn"]
 [ext_resource type="PackedScene" uid="uid://bojefr3ulps6k" path="res://Scenes/Mine/Sub Scenes/Enemies/EnemySpawner.tscn" id="4_xj3qh"]
 [ext_resource type="Script" path="res://Scripts/Mine/ReferenceStorage.cs" id="5_yk3pc"]
-[ext_resource type="PackedScene" uid="uid://drgm5sicrh0mh" path="res://Scenes/Mine/Sub Scenes/UI/SceneTransition.tscn" id="6_1bas2"]
+[ext_resource type="PackedScene" uid="uid://veekhqh7bm57" path="res://Scenes/Mine/Sub Scenes/UI/SceneTransition.tscn" id="6_1bas2"]
+[ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="7_5sphp"]
 
 [node name="MineScene" type="Node2D"]
 script = ExtResource("1_rq1hl")
@@ -29,3 +30,6 @@ enemySpawner = NodePath("../EnemySpawner")
 
 [node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
 visible = false
+
+[node name="Auto Animation Controller" type="Node2D" parent="."]
+script = ExtResource("7_5sphp")

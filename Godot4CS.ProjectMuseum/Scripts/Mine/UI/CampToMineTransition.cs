@@ -6,22 +6,21 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
-public partial class MineToCamp : Node
+public partial class CampToMineTransition : Node
 {
-
     private PlayerControllerVariables _playerControllerVariables;
 
     public override void _Ready()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
     }
-
-    private void MineToCampScene()
+    
+    private void TransitFromCampToMine()
     {
-        MakeTransition();
+        CampToMine();
     }
 
-    private async void MakeTransition()
+    private async void CampToMine()
     {
         var sceneTransition = ReferenceStorage.Instance.sceneTransition;
         await sceneTransition.FadeIn();
@@ -32,4 +31,5 @@ public partial class MineToCamp : Node
         _playerControllerVariables.Player.Position = new Vector2(250,-60);
         await sceneTransition.FadeOut();
     }
+    
 }

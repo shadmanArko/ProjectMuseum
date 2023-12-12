@@ -25,6 +25,10 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		InitializeDiReferences();
 		SubscribeToActions();
+		_playerControllerVariables.Player = this;
+		_playerControllerVariables.PlayerHealth = 200;
+		_playerControllerVariables.PlayerEnergy = 2000000;
+		_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
 	}
 
 	private void InitializeDiReferences()
@@ -41,10 +45,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 
 	public override void _Ready()
 	{
-		_playerControllerVariables.Player = this;
-		_playerControllerVariables.PlayerHealth = 200;
-		_playerControllerVariables.PlayerEnergy = 2000000;
-		_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
+		GD.Print($"player is null: {_playerControllerVariables.Player is null}");
 	}
 
 	public override void _PhysicsProcess(double delta)

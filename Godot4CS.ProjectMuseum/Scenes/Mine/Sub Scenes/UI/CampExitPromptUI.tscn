@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://p4pp1nmkb44s"]
+[gd_scene load_steps=4 format=3 uid="uid://dmc4qwwsl3lwg"]
 
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_ifxad"]
-[ext_resource type="Script" path="res://Scripts/Mine/UI/MineToCamp.cs" id="2_bhsbl"]
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_w1mvd"]
+[ext_resource type="Script" path="res://Scripts/Mine/UI/MineToCamp.cs" id="2_wa4om"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n65nu"]
 
-[node name="MineExitPromptUI" type="CanvasLayer"]
+[node name="CampExitPromptUI" type="CanvasLayer"]
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 6
@@ -37,13 +37,20 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Return To Camp" type="Button" parent="Panel/Control/Button Container"]
+[node name="Sleep For The Night" type="Button" parent="Panel/Control/Button Container"]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("1_ifxad")
-text = "GO BACK TO CAMP?"
-script = ExtResource("2_bhsbl")
+theme_override_fonts/font = ExtResource("1_w1mvd")
+text = "SLEEP FOR THE NIGHT?"
+script = ExtResource("2_wa4om")
 
-[connection signal="button_up" from="Panel/Control/Button Container/Return To Camp" to="Panel/Control/Button Container/Return To Camp" method="MineToCampScene"]
+[node name="Return Home" type="Button" parent="Panel/Control/Button Container"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("1_w1mvd")
+text = "RETURN HOME?"
+script = ExtResource("2_wa4om")

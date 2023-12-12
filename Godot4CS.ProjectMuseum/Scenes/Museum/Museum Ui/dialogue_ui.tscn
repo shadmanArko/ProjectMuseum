@@ -10,87 +10,51 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/ColorRect:position")
+tracks/0/path = NodePath("Panel/Dialogue and Potrait Panel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 479.88)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/Character Potrait:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1000.16, 479.88)]
+"values": [Vector2(0, 1080)]
 }
 
-[sub_resource type="Animation" id="Animation_2gybc"]
-resource_name = "Slide_In"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/ColorRect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 725), Vector2(0, 479.88)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/Character Potrait:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1000.16, 725), Vector2(1000.16, 479.88)]
-}
-
-[sub_resource type="Animation" id="Animation_aeh0n"]
+[sub_resource type="Animation" id="Animation_100re"]
 resource_name = "Slide_Out"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/ColorRect:position")
+tracks/0/path = NodePath("Panel/Dialogue and Potrait Panel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 479.88), Vector2(0, 725)]
+"values": [Vector2(0, 720), Vector2(0, 1080)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/Character Potrait:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
+
+[sub_resource type="Animation" id="Animation_be3ok"]
+resource_name = "Slide_In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/Dialogue and Potrait Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1000.16, 479.88), Vector2(1000.16, 725)]
+"values": [Vector2(0, 1080), Vector2(0, 720)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jqq53"]
 _data = {
 "RESET": SubResource("Animation_ddbpt"),
-"Slide_In": SubResource("Animation_2gybc"),
-"Slide_Out": SubResource("Animation_aeh0n")
+"Slide_In": SubResource("Animation_be3ok"),
+"Slide_Out": SubResource("Animation_100re")
 }
 
 [node name="Dialogue Ui" type="Control" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer")]
@@ -107,9 +71,9 @@ _delayForFullStop = 0.5
 _delayForComma = 0.3
 _delayForPause = 1.0
 _storySceneNumber = 2
-_dialogueRichTextLabel = NodePath("Panel/ColorRect/Dialogue")
-_nextDialogueButton = NodePath("Panel/ColorRect/Dialogue/Button")
-_characterPortrait = NodePath("Panel/Character Potrait/TextureRect")
+_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue")
+_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue/Button")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/TextureRect")
 _cutsceneArt = NodePath("Panel/Illustration Image")
 _dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 
@@ -137,32 +101,49 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_h686m")
 
-[node name="ColorRect" type="ColorRect" parent="Panel"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_jqq53")
+}
+
+[node name="Dialogue and Potrait Panel" type="Panel" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.667
-anchor_right = 0.781
+anchor_top = 0.694
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 479.88
-offset_right = 13499.0
-offset_bottom = 3715.88
+offset_top = 330.48
+offset_bottom = 359.998
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("2_7vfjw")
-color = Color(0.85098, 0.85098, 0.85098, 1)
 
-[node name="Dialogue" type="RichTextLabel" parent="Panel/ColorRect"]
-modulate = Color(0.00784314, 0.00784314, 0.00784314, 1)
+[node name="ColorRect" type="ColorRect" parent="Panel/Dialogue and Potrait Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = 16.0
-offset_right = -13.0
-offset_bottom = -17.0
+offset_right = -420.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_7vfjw")
+color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Dialogue and Potrait Panel/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Dialogue" type="RichTextLabel" parent="Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer"]
+modulate = Color(0.00784314, 0.00784314, 0.00784314, 1)
+layout_mode = 2
 theme = ExtResource("2_7vfjw")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 32
@@ -171,7 +152,7 @@ text = "Welcome To The Museum.
 
 "
 
-[node name="Button" type="Button" parent="Panel/ColorRect/Dialogue"]
+[node name="Button" type="Button" parent="Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -183,32 +164,21 @@ theme = ExtResource("2_7vfjw")
 text = "
 "
 
-[node name="Character Potrait" type="ColorRect" parent="Panel"]
+[node name="Character Potrait" type="ColorRect" parent="Panel/Dialogue and Potrait Panel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.781
-anchor_top = 0.667
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1000.16
-offset_top = 479.88
-offset_right = 4783.16
-offset_bottom = 3717.88
-grow_horizontal = 2
-grow_vertical = 0
+offset_left = -420.0
+grow_horizontal = 0
+grow_vertical = 2
 color = Color(0.603922, 0.603922, 0.603922, 1)
 
-[node name="TextureRect" type="TextureRect" parent="Panel/Character Potrait"]
+[node name="TextureRect" type="TextureRect" parent="Panel/Dialogue and Potrait Panel/Character Potrait"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_jqq53")
-}

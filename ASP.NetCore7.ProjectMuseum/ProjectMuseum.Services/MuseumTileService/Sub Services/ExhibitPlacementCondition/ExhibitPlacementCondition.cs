@@ -58,7 +58,7 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
         await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
         return true;
     }
-    public async Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName)
+    public async Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName, int rotationFrame)
     {
         TilesWithExhibitDto tilesWithExhibitDto = new TilesWithExhibitDto();
         Exhibit exhibit = new Exhibit();
@@ -78,6 +78,7 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
                     ExhibitVariationName = exhibitVariationName,
                     XPosition = museumTile.XPosition,
                     YPosition = museumTile.YPosition,
+                    RotationFrame = rotationFrame,
                     ExhibitDecoration = "string",
                     ExhibitArtifactSlot1 = "string",
                     ExhibitArtifactSlot2 = "string",

@@ -57,6 +57,8 @@ public partial class Item : Sprite2D, IComparable<Item>
     public Exhibit ExhibitData;
     protected MuseumTileContainer _museumTileContainer;
     protected ItemTypes _itemType;
+    protected int _currentFrame;
+    protected int _maxFrame = 4;
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
@@ -196,6 +198,17 @@ public partial class Item : Sprite2D, IComparable<Item>
             {
                 MuseumActions.OnClickItem?.Invoke(this, ExhibitData);
             }
+        }
+        if (Input.IsActionJustPressed("PressQ") && selectedItem)
+        {
+            
+            Frame = (_currentFrame+=1) % _maxFrame;
+            
+        }else if (Input.IsActionJustPressed("PressE") && selectedItem)
+        {
+            if (_currentFrame == 0) _currentFrame = _maxFrame;
+            Frame = (_currentFrame-=1) % _maxFrame;
+            
         }
     }
 

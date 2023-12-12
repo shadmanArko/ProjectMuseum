@@ -1,6 +1,9 @@
+using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
+using ProjectMuseum.Models;
 
 public partial class CharacterBody2DIsometric : CharacterBody2D
 {
@@ -12,12 +15,15 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
     [Export] private Sprite2D _characterSprite;
     private bool _playerFacingTheFront = true;
 
+    private MuseumTileContainer _museumTileContainer;
     // Converts any Vector2 coordinates or motion from the cartesian to the isometric system
-    public override void _Ready()
+    public override async void _Ready()
     {
         base._Ready();
         // AddToGroup("ManualSortGroup");
         _animationPlayer.Play("idle_front_facing");
+        await Task.Delay(1000);
+        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
     }
 
     private Vector2 CartesianToIsometric(Vector2 cartesian)
@@ -79,6 +85,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
             {
                 _animationPlayer.Play("idle_back_facing");
             }
+            return;
         }
         
         motion = new Vector2(direction.X * (float)(_displacementSpeed * delta),
@@ -88,12 +95,12 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         Vector2 nextPosition = Position + motion;
 
         // Check if the next position is within the bounds of the TileMap
-        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap) && (direction.X == 0 || direction.Y == 0))
+        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap) && _museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
         {
             // Move only if the next position is within the TileMap bounds
             MoveAndCollide(motion);
         }
     }
-
+    
     
 }

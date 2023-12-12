@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cv15qeuxawq6p"]
 
-[ext_resource type="Texture2D" uid="uid://cwgydlypjwo6i" path="res://Assets/2D/Sprites/Exhibits/New Bordered/basic wooden exhibit 1X1.png" id="1_dcjei"]
+[ext_resource type="Texture2D" uid="uid://u6qef034ll7k" path="res://Assets/2D/Sprites/Exhibits/Basic Exhibit 1x1 .png" id="1_ck8nk"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/ExhibitItem.cs" id="2_82a57"]
 [ext_resource type="Texture2D" uid="uid://dl72tmg6v8fet" path="res://Assets/2D/Sprites/Exhibits/New Bordered/1x1 glass.png" id="3_cq21m"]
 
@@ -11,8 +11,9 @@ size = Vector2(9.97071, 5.26112)
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-texture = ExtResource("1_dcjei")
+texture = ExtResource("1_ck8nk")
 offset = Vector2(0, -3)
+hframes = 4
 script = ExtResource("2_82a57")
 _artifactSlots = [NodePath("Artifact Slot 1")]
 

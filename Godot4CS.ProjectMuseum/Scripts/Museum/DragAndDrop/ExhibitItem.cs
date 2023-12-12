@@ -33,6 +33,7 @@ public partial class ExhibitItem : Item
 	{
 		ExhibitData = exhibit;
 		SetUpArtifacts(displayArtifacts);
+		Frame = exhibit.RotationFrame;
 		_itemType = ItemTypes.Exhibit;
 	}
 	public override void _PhysicsProcess(double delta)
@@ -82,7 +83,7 @@ public partial class ExhibitItem : Item
 		string[] headers = { "Content-Type: application/json"};
 		var body = JsonConvert.SerializeObject(tileIds);
 		string url =
-			$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}";
+			$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}/{Frame}";
 		_httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
 		GD.Print("Handling exhibit placement");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);

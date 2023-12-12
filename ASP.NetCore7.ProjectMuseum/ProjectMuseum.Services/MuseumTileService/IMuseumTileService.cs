@@ -11,7 +11,7 @@ public interface IMuseumTileService
     Task<List<ExhibitPlacementConditionData>> GetEligibilityOfPositioningExhibit(string exhibitType);
     Task<bool> PlaceExhibitOnTile(string tileId, string exhibitVariationName);
     Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds,
-        string exhibitVariationName);
+        string exhibitVariationName, int rotationFrame);
 
     Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile);
     Task<List<MuseumTile>?> UpdateMuseumTilesSourceId(List<string> museumTilesId, int sourceId);

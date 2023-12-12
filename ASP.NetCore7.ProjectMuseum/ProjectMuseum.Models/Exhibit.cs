@@ -6,6 +6,7 @@ public class Exhibit
     public string ExhibitVariationName { get; set; }
     public int XPosition { get; set; }
     public int YPosition { get; set; }
+    public int RotationFrame { get; set; }
     public string ExhibitDecoration { get; set; }
     public string ExhibitArtifactSlot1 { get; set; }
     public string ExhibitArtifactSlot2 { get; set; }

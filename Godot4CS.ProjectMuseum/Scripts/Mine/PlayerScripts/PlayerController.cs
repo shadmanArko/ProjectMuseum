@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
@@ -43,6 +44,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		_playerControllerVariables.Player = this;
 		_playerControllerVariables.PlayerHealth = 200;
 		_playerControllerVariables.PlayerEnergy = 2000000;
+		_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
 	}
 
 	public override void _PhysicsProcess(double delta)

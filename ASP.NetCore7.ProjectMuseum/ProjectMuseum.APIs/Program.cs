@@ -13,7 +13,6 @@ using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifa
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
 using ProjectMuseum.Repositories.StorySceneRepository;
-using ProjectMuseum.Services;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
@@ -45,8 +44,11 @@ string mineArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(
 string displayArtifactDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "displayArtifact.json");
 string artifactStorageDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "artifactStorage.json");
 string tradingArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tradingArtifacts.json");
+string timeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "time.json");
 
 
+
+//NO Need to change these paths
 string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
 string rawArtifactFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
 string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
@@ -97,7 +99,8 @@ builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
     playerInfoDataFolderPath,
     saveDataFolderPath,
     storySceneDataFolderPath,
-    tradingArtifactsDataFolderPath
+    tradingArtifactsDataFolderPath,
+    timeDataFolderPath
     ));
 
 

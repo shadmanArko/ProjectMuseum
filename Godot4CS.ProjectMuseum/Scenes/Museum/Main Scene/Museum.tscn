@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=31 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://c25gv63c04sp4" path="res://Scenes/Museum/Sub Scenes/MainCharacter.tscn" id="12_55fh7"]
 [ext_resource type="PackedScene" uid="uid://bypida1m5guj5" path="res://Scenes/Museum/Museum Ui/Builder Ui/Builder Card.tscn" id="12_730rj"]
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
+[ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="13_bch1s"]
+[ext_resource type="PackedScene" uid="uid://bwlwmmvr5vtvc" path="res://Scenes/Museum/Museum Ui/pop_up_ui.tscn" id="13_k824c"]
 [ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
@@ -26,6 +28,8 @@
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
@@ -54,6 +58,8 @@ Maxzoom = 4.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
 
+[node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
+
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
 ItemsParent = NodePath("../../ItemParents")
 
@@ -64,6 +70,9 @@ visible = false
 process_mode = 4
 visible = false
 offset_bottom = -50.0
+
+[node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
+visible = false
 
 [node name="Player" parent="museum" instance=ExtResource("12_55fh7")]
 position = Vector2(54, -120)
@@ -98,7 +107,7 @@ script = ExtResource("18_rds1y")
 [node name="EntryGateOld" type="Sprite2D" parent="museum"]
 z_index = 1
 texture_filter = 1
-position = Vector2(54, 4)
+position = Vector2(58, 1)
 texture = ExtResource("21_6abge")
 offset = Vector2(0, -32.5)
 
@@ -186,7 +195,14 @@ script = ExtResource("24_wpojy")
 [node name="SaveGame" type="Node2D" parent="."]
 script = ExtResource("25_nktge")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Musuem Balance Controller" type="Node2D" parent="."]
 script = ExtResource("26_vw67d")
+
+[node name="DayEndController" type="Node2D" parent="."]
+script = ExtResource("27_mm5mn")
+_dayEndTileCoord = Vector2i(0, -1)
+
+[node name="StoryController" type="Node2D" parent="."]
+script = ExtResource("29_6vdgp")
 
 [connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]

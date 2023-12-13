@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
 
@@ -40,6 +41,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         return cartPos;
     }
 
+    private Vector2I _lastPlayerTile = new Vector2I(1000, 1000);
     public override void _PhysicsProcess(double delta)
     {
         // Everything works like you're used to in a top-down game
@@ -93,11 +95,17 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         // Isometric movement is movement like you're used to, converted to the isometric system
         motion = CartesianToIsometric(motion);
         Vector2 nextPosition = Position + motion;
-
+        
         // Check if the next position is within the bounds of the TileMap
         if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap) && _museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
         {
             // Move only if the next position is within the TileMap bounds
+            var newTile = GameManager.TileMap.LocalToMap(Position);
+            if ( newTile != _lastPlayerTile)
+            {
+                _lastPlayerTile = newTile;
+                MuseumActions.PlayerEnteredNewTile?.Invoke(newTile);
+            }
             MoveAndCollide(motion);
         }
     }

@@ -65,46 +65,42 @@ public partial class DialogueSystem : Control
 
 	private void LoadAndSetCharacterPortrait()
 	{
-		// Path to the folder containing your PNG files
+		// Path to the folder containing your PNG file
 		string folderPath = "res://Assets/2D/Sprites/Characters/";
+		var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
 
-		// Get all files in the folder
-		string[] files = System.IO.Directory.GetFiles(folderPath);
+		// Name of your PNG file
+		string fileName = $"{storySceneEntry.Speaker} {storySceneEntry.SpeakerEmotion}.png";
 
-		// Iterate through each file
-		foreach (string filePath in files)
+		// Combine the folder path and file name to create the full path
+		string fullPath = folderPath + fileName;
+
+		// Print the full path to help with debugging
+		GD.Print("Attempting to load texture from path: " + fullPath);
+
+		// Load the texture from the file
+		try
 		{
-			// Load the resource from the file
-			Resource resource = ResourceLoader.Load(filePath);
+			// Load the texture from the file
+			Texture2D texture = GD.Load<Texture2D>(fullPath);
 
-			// Check if the loaded resource is a Texture2D
-			if (resource is Texture2D texture)
+			if (texture != null)
 			{
-				// Assume the file name is in the format "Speaker Emotion.png"
-				string fileName = System.IO.Path.GetFileNameWithoutExtension(filePath);
-				string[] nameParts = fileName.Split(' ');
-
-				if (nameParts.Length == 2)
-				{
-					string speaker = nameParts[0];
-					string emotion = nameParts[1];
-
-					var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
-
-					if (storySceneEntry.Speaker == speaker && storySceneEntry.SpeakerEmotion == emotion)
-					{
-						// Set the loaded texture to the TextureRect
-						_characterPortrait.Texture = texture;
-						return; // Exit the loop since we found the matching texture
-					}
-				}
+				// Set the loaded texture to the TextureRect
+				_characterPortrait.Texture = texture;
+			}
+			else
+			{
+				_characterPortrait.Texture = null;
+				GD.Print("Failed to load texture: " + fullPath);
 			}
 		}
-
-		// If no matching texture is found
-		_characterPortrait.Texture = null;
-		GD.Print("Matching texture not found in folder: " + folderPath);
+		catch (Exception e)
+		{
+			GD.Print("Error loading texture: " + e.Message);
+		}
 	}
+
 
 
 	private void LoadStoryScene()

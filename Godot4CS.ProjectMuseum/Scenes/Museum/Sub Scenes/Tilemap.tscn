@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dxtfargoq8wot"]
+[gd_scene load_steps=30 format=3 uid="uid://dxtfargoq8wot"]
 
 [ext_resource type="Texture2D" uid="uid://b5k41sttbq2j5" path="res://Assets/2D/Sprites/Floorings/Ceramic 1.png" id="1_1fvqq"]
 [ext_resource type="Texture2D" uid="uid://hgfj3tv0o21c" path="res://Assets/2D/Sprites/Floorings/Ceramic 2.png" id="2_vr1x6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dc5gsl48cru5a" path="res://Assets/2D/Sprites/Floorings/Ceramic 4.png" id="4_voya5"]
 [ext_resource type="Texture2D" uid="uid://bw72ukfi57av0" path="res://Assets/2D/Sprites/Floorings/Damaged Tiles/5.png" id="5_hpnos"]
 [ext_resource type="Texture2D" uid="uid://ch62gf86yp25j" path="res://Assets/2D/Sprites/Floorings/Wood 1.png" id="5_v3wv8"]
+[ext_resource type="Texture2D" uid="uid://d0uw0amq2qifi" path="res://Assets/2D/Sprites/Floorings/SaveSpot.png" id="6_2m3pq"]
 [ext_resource type="Texture2D" uid="uid://3xeyh5luiswl" path="res://Assets/2D/Sprites/Floorings/Wood 2.png" id="6_h4mlw"]
 [ext_resource type="Texture2D" uid="uid://15bn24arw6td" path="res://Assets/2D/Sprites/Floorings/Wood 3.png" id="7_hxakk"]
 [ext_resource type="Texture2D" uid="uid://dpxd7xi744vwq" path="res://Assets/2D/Sprites/Floorings/Wood 4.png" id="8_xbist"]
@@ -36,6 +37,11 @@ texture_region_size = Vector2i(32, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3nexj"]
 texture = ExtResource("5_hpnos")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a7est"]
+texture = ExtResource("6_2m3pq")
 texture_region_size = Vector2i(32, 16)
 0:0/0 = 0
 
@@ -96,6 +102,7 @@ sources/9 = SubResource("TileSetAtlasSource_tpgdw")
 sources/10 = SubResource("TileSetAtlasSource_h0xx1")
 sources/11 = SubResource("TileSetAtlasSource_fomti")
 sources/12 = SubResource("TileSetAtlasSource_3nexj")
+sources/13 = SubResource("TileSetAtlasSource_a7est")
 
 [node name="TileMap" type="TileMap"]
 y_sort_enabled = true

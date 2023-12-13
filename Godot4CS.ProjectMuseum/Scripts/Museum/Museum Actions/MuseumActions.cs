@@ -31,4 +31,16 @@ public partial class MuseumActions : Node
     public static Action<int> OnClickTimeSpeedButton;
 
     #endregion
+    #region PlayerActions
+
+    public static Action<Vector2I> PlayerEnteredNewTile;
+
+    #endregion
+    #region PopUpUi
+
+    public static Action OnClickYesOfPopUpUi;
+    public static Action OnClickNoOfPopUpUi;
+    public static Action<string> OnNeedOfPopUpUi;
+
+    #endregion
 }

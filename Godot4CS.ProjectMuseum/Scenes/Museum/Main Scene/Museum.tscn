@@ -70,6 +70,7 @@ visible = false
 offset_bottom = -50.0
 
 [node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
+mouse_filter = 2
 
 [node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
 visible = false

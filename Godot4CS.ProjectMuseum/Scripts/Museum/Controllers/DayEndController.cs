@@ -22,7 +22,7 @@ public partial class DayEndController : Node2D
 		if (playerEnteredTile == _dayEndTileCoord)
 		{
 			GD.Print("Player Entered Day End Tile");
-			MuseumActions.OnNeedOfPopUpUi?.Invoke("Are you sure you want to save and the day?");
+			MuseumActions.OnNeedOfPopUpUi?.Invoke("Are you sure you want to save and end the day?");
 		}
 	}
 

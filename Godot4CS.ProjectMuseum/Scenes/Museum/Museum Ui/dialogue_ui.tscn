@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Museum/Dialogue System/DialogueSystem.cs" id="1_60ayo"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_7vfjw"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_h686m"]
+[ext_resource type="Texture2D" uid="uid://b7h8h52nhfaw1" path="res://Assets/2D/Sprites/Illustrations/01.png" id="2_wt1gy"]
 
 [sub_resource type="Animation" id="Animation_ddbpt"]
 length = 0.001
@@ -101,6 +100,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_60ayo")
 _delayBetweenLetters = 0.05
 _delayForFullStop = 0.5
@@ -118,15 +118,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 5.0
-offset_right = 1.0
-offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Illustration Image" type="TextureRect" parent="Panel"]
-visible = false
 modulate = Color(0.329412, 0.329412, 0.329412, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -134,7 +130,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CanvasTexture_h686m")
+texture = ExtResource("2_wt1gy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
 root_node = NodePath("../..")
@@ -148,11 +144,11 @@ anchors_preset = -1
 anchor_top = 0.694
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1080.0
-offset_right = 1920.0
-offset_bottom = 1440.0
+offset_top = 330.48
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 
 [node name="ColorRect" type="ColorRect" parent="Panel/Dialogue and Potrait Panel"]
 layout_mode = 1

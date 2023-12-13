@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class StoryController : Node2D
@@ -12,10 +13,11 @@ public partial class StoryController : Node2D
 		MuseumActions.StorySceneEnded += StorySceneEnded;
 	}
 
-	private void StorySceneEnded(int sceneNumber)
+	private async void StorySceneEnded(int sceneNumber)
 	{
-		if (sceneNumber < 4)
+		if (sceneNumber < 1)
 		{
+			await Task.Delay(1000);
 			MuseumActions.PlayStoryScene(++sceneNumber);
 		}
 

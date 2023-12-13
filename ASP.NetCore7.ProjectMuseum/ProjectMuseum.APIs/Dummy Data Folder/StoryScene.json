@@ -10,7 +10,7 @@
         "Speaker": "Player",
         "SpeakerEmotion": "Determined",
         "HasCutscene": true,
-        "HasCutsceneArt": false
+        "HasCutsceneArt": true
       }
     ]
   },

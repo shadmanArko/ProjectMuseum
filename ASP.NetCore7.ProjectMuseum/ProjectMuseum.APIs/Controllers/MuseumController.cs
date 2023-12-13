@@ -146,6 +146,14 @@ public class MuseumController : ControllerBase
         
         return Ok(exhibit);
     }
+
+    [HttpPost("AddArtifactToArtifactStorage")]
+    public async Task<IActionResult> AddArtifactToArtifactStorage([FromBody] Artifact newArtifact)
+    {
+        var artifact = await _artifactStorageService.AddArtifact(newArtifact);
+        return Ok(artifact);
+    }
+    
     [HttpGet("AddArtifactToExhibitSlotFromStore/{artifactId}/{exhibitId}/{slot}")]
     public async Task<IActionResult> AddArtifactToExhibitSlotFromStore(string artifactId, string exhibitId, int slot)
     {

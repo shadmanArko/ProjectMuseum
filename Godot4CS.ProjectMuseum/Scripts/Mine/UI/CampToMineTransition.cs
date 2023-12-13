@@ -49,7 +49,7 @@ public partial class CampToMineTransition : Button
         await sceneTransition.FadeIn();
         _playerControllerVariables.CanMove = false;
         await Task.Delay(2000);
-        await sceneTransition.FadeOut();
+        // await sceneTransition.FadeOut();
     }
 
     #region Process

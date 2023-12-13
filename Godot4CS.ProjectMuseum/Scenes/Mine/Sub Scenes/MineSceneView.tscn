@@ -24,17 +24,19 @@ _mineBackGround = NodePath("MineBackground")
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("3_01lxc")]
 cell_quadrant_size = 20
 layer_0/name = "Mine"
-layer_1/name = "Crack"
+layer_0/modulate = Color(0.835294, 0.835294, 0.835294, 1)
+layer_1/name = "Walls"
+layer_1/modulate = Color(0.772549, 0.772549, 0.772549, 1)
 layer_1/tile_data = PackedInt32Array()
+layer_2/modulate = Color(0.847059, 0.847059, 0.847059, 1)
 script = ExtResource("4_lljfn")
 TileMap = NodePath(".")
 TileSourceId = 0
 TileCrackSourceId = 1
 
-[node name="Mine Entrance" type="Node2D" parent="." node_paths=PackedStringArray("_mineExitPromptUi", "_entranceBlockerCollisionShape")]
+[node name="Mine Entrance" type="Node2D" parent="." node_paths=PackedStringArray("_entranceBlockerCollisionShape")]
 position = Vector2(491, -4)
 script = ExtResource("6_arrba")
-_mineExitPromptUi = NodePath("")
 _entranceBlockerCollisionShape = NodePath("Entrance Blocker/CollisionShape2D")
 
 [node name="Entrance Blocker" type="RigidBody2D" parent="Mine Entrance"]
@@ -61,6 +63,12 @@ position = Vector2(0, -1.75)
 shape = SubResource("RectangleShape2D_edtq2")
 
 [node name="UISaving" parent="." instance=ExtResource("5_ip856")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
+color = Color(0.576471, 0.576471, 0.576471, 1)
 
 [connection signal="body_entered" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerEnterTrigger"]
 [connection signal="body_exited" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerExitTrigger"]

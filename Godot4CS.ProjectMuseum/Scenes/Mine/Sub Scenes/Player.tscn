@@ -366,8 +366,7 @@ _lampScenePath = "res://Scenes/Mine/Sub Scenes/Torch.tscn"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 texture_filter = 1
-position = Vector2(-0.108206, -0.0144234)
-scale = Vector2(0.908203, 1.00962)
+position = Vector2(-0.173327, -2.11858)
 polygon = PackedVector2Array(-3, -5, -3.26667, 7.93806, 1, 7.93806, 5.26667, 7.93806, 5.12281, 0.958241, 5, -5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -376,8 +375,8 @@ visibility_layer = 2
 texture_filter = 1
 texture = ExtResource("2_eymdr")
 flip_h = true
-hframes = 15
-vframes = 19
+hframes = 10
+vframes = 27
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("_sprite")]
 root_node = NodePath("../Sprite2D")
@@ -414,6 +413,7 @@ _collisionShape2D = NodePath("../Attack Detector/Attack Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
 [node name="Attack Detector" type="Area2D" parent="."]
+position = Vector2(-0.173327, -2.11858)
 collision_layer = 2
 collision_mask = 4
 

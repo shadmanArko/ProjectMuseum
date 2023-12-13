@@ -26,7 +26,7 @@ public partial class MineGenerationController : Node2D
 	private MineCellCrackMaterial _mineCellCrackMaterial;
 	private List<RawArtifactDescriptive> _rawArtifactDescriptive;
 	private List<RawArtifactFunctional> _rawArtifactFunctional;
-	private MineGenerationView _mineGenerationView;
+	[Export] private MineGenerationView _mineGenerationView;
 
 	[Export] private CanvasLayer _savingCanvas;
 	[Export] private Node2D _mineBackGround;

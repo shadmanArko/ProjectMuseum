@@ -75,7 +75,7 @@ public partial class AutoAnimationController : Node2D
 		if(_playerControllerVariables.Player.Position.X <= _newPos.X)
 		{
 			_animationController.Play("run");
-			_playerControllerVariables.Player.Translate(new Vector2(0.02f,0));
+			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0));
 		}
 		else
 		{

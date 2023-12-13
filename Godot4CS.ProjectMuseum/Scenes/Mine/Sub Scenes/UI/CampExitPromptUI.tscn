@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmc4qwwsl3lwg"]
+[gd_scene load_steps=6 format=3 uid="uid://dmc4qwwsl3lwg"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/CampExitPromptUi.cs" id="1_jpjbt"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_w1mvd"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/CampToMineTransition.cs" id="2_nhs7x"]
+[ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="4_oc4fq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n65nu"]
 
@@ -56,7 +57,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("1_w1mvd")
-text = "RETURN To Museum?"
+text = "RETURN TO MUSEUM?"
 script = ExtResource("2_nhs7x")
 
-[connection signal="button_up" from="Panel/Control/Button Container/Sleep For The Night" to="Panel/Control/Button Container/Sleep For The Night" method="TransitFromCampToMine"]
+[node name="SceneChanger" parent="Panel/Control" node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("4_oc4fq")]
+_sceneChangerButton = NodePath("../Button Container/Return To Museum")
+_scenePath = "res://Scenes/Museum/Main Scene/Museum.tscn"

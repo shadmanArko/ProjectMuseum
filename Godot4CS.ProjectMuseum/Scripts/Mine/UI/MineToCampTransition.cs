@@ -17,17 +17,17 @@ public partial class MineToCampTransition : Button
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineExitPromptUi = ReferenceStorage.Instance.mineExitPromptUi;
         _campExitPromptUi = ReferenceStorage.Instance.campExitPromptUi;
-        _mineExitPromptUi.ReturnToCampButton.ButtonUp += MineToCampScene;
-        _mineExitPromptUi.ReturnToCampButton.ButtonUp += DeactivateMineExitPromptUi;
+        _mineExitPromptUi.ReturnToCampButton.ButtonUp += TransitFromMineToCamp;
     }
 
-    private void MineToCampScene()
+    private void TransitFromMineToCamp()
     {
-        MakeTransition();
+        MineToCamp();
     }
 
-    private async void MakeTransition()
+    private async void MineToCamp()
     {
+        DeactivateMineExitPromptUi();
         var sceneTransition = ReferenceStorage.Instance.sceneTransition;
         await sceneTransition.FadeIn();
         _playerControllerVariables.CanMove = false;
@@ -36,7 +36,8 @@ public partial class MineToCampTransition : Button
         _playerControllerVariables.IsAffectedByGravity = false;
         _playerControllerVariables.Player.Position = new Vector2(250,-60);
         await sceneTransition.FadeOut();
-        ActivateMineExitPromptUi();
+        
+        ActivateCampExitPromptUi();
     }
     
     private void ActivateMineExitPromptUi()

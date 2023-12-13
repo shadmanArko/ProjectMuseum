@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -41,9 +42,14 @@ public partial class CampToMineTransition : Button
         SetPhysicsProcess(false);
     }
 
-    private void TransitFromCampToMuseum()
+    private async void TransitFromCampToMuseum()
     {
-        
+        DeactivateCampExitPromptUi();
+        var sceneTransition = ReferenceStorage.Instance.sceneTransition;
+        await sceneTransition.FadeIn();
+        _playerControllerVariables.CanMove = false;
+        await Task.Delay(2000);
+        await sceneTransition.FadeOut();
     }
 
     #region Process

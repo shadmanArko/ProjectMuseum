@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
@@ -14,7 +15,7 @@ public partial class DialogueSystem : Control
 	[Export] private float _delayForFullStop;
 	[Export] private float _delayForComma;
 	[Export] private float _delayForPause; 
-	[Export] private int _storySceneNumber; 
+	[Export] private int _currentStorySceneNumber; 
 	[Export] private RichTextLabel _dialogueRichTextLabel;
 	[Export] private Button _nextDialogueButton;
 	[Export] private TextureRect _characterPortrait;
@@ -34,7 +35,7 @@ public partial class DialogueSystem : Control
 		_httpRequestForGettingStory = new HttpRequest();
 		AddChild(_httpRequestForGettingStory);
 		_httpRequestForGettingStory.RequestCompleted += HttpRequestForGettingStoryOnRequestCompleted;
-		LoadStoryScene();
+		MuseumActions.PlayStoryScene += LoadStoryScene;
 		_nextDialogueButton.Pressed += NextDialogueButtonOnPressed;
 	}
 
@@ -60,6 +61,7 @@ public partial class DialogueSystem : Control
 		else
 		{
 			_dialogueSystemAnimationPlayer.Play("Slide_Out");
+			MuseumActions.StorySceneEnded?.Invoke(_currentStorySceneNumber);
 		}
 	}
 
@@ -103,9 +105,10 @@ public partial class DialogueSystem : Control
 
 
 
-	private void LoadStoryScene()
+	private void LoadStoryScene(int storySceneNumber )
 	{
-		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{_storySceneNumber}";
+		_currentStorySceneNumber = storySceneNumber;
+		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{storySceneNumber}";
 		_httpRequestForGettingStory.Request(url);
 	}
 
@@ -219,5 +222,12 @@ public partial class DialogueSystem : Control
 			await Task.Delay((int)(delayTime * 1000), cancellationToken);
 		}
 	}
-	
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		_nextDialogueButton.Pressed -= NextDialogueButtonOnPressed;		
+		MuseumActions.PlayStoryScene -= LoadStoryScene;
+		_httpRequestForGettingStory.RequestCompleted -= HttpRequestForGettingStoryOnRequestCompleted;
+	}
 }

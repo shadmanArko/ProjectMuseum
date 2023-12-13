@@ -58,8 +58,6 @@ Maxzoom = 4.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
 
-[node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
-
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
 ItemsParent = NodePath("../../ItemParents")
 
@@ -70,6 +68,8 @@ visible = false
 process_mode = 4
 visible = false
 offset_bottom = -50.0
+
+[node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
 
 [node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
 visible = false

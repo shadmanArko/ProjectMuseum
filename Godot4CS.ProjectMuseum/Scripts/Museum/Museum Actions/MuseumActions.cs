@@ -43,4 +43,10 @@ public partial class MuseumActions : Node
     public static Action<string> OnNeedOfPopUpUi;
 
     #endregion
+    #region Story
+
+    public static Action<int> PlayStoryScene;
+    public static Action<int> StorySceneEnded;
+
+    #endregion
 }

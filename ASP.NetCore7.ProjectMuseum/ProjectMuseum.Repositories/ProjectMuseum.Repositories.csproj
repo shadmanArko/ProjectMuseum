@@ -16,7 +16,6 @@
 
     <ItemGroup>
       <Folder Include="ExhibitRepository\Sub Repositories" />
-      <Folder Include="PlayerRepository\Sub Repositories" />
     </ItemGroup>
 
 

@@ -12,8 +12,8 @@ using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifa
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifactRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
+using ProjectMuseum.Repositories.PlayerRepository.Sub_Repositories.TimeRepository;
 using ProjectMuseum.Repositories.StorySceneRepository;
-using ProjectMuseum.Services;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
@@ -29,6 +29,7 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
+using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
 using ProjectMuseum.Services.StorySceneService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,8 +46,11 @@ string mineArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(
 string displayArtifactDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "displayArtifact.json");
 string artifactStorageDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "artifactStorage.json");
 string tradingArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tradingArtifacts.json");
+string timeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "time.json");
 
 
+
+//NO Need to change these paths
 string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
 string rawArtifactFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
 string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
@@ -82,6 +86,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(tradingArti
 builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackMaterialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Time>(timeDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -97,7 +102,8 @@ builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
     playerInfoDataFolderPath,
     saveDataFolderPath,
     storySceneDataFolderPath,
-    tradingArtifactsDataFolderPath
+    tradingArtifactsDataFolderPath,
+    timeDataFolderPath
     ));
 
 
@@ -115,6 +121,7 @@ builder.Services.AddScoped<ITradingArtifactsRepository, TradingArtifactsReposito
 builder.Services.AddScoped<IMineCellCrackMaterialRepository, MineCellCrackMaterialRepository>();
 builder.Services.AddScoped<IRawArtifactFunctionalRepository, RawArtifactFunctionalRepository>();
 builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescriptiveRepository>();
+builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -134,6 +141,7 @@ builder.Services.AddScoped<ITradingArtifactsService, TradingArtifactsService>();
 builder.Services.AddScoped<IMineCellCrackMaterialService, MineCellCrackMaterialService>();
 builder.Services.AddScoped<IRawArtifactFunctionalService, RawArtifactFunctionalService>();
 builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiveService>();
+builder.Services.AddScoped<ITimeService, TimeService>();
 
 
 // builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using Time = ProjectMuseum.Models.Time;
 
 public partial class MuseumTimeSystem : Node
 {
@@ -10,20 +11,15 @@ public partial class MuseumTimeSystem : Node
 	private int _daysInMonth = 30;
 	private int _monthsInYear = 4;
 
-	private double _seconds = 0;
-	private int _minutes = 0;
-	private int _hours = 0;
-	private int _days = 1;
-	private int _months = 1;
-	private int _years = 1;
-	
-    private bool _isPaused = false;
+	private bool _isPaused = false;
 
     private double _originalClockUnitSpeed;
-	public override void _Ready()
+    private readonly Time _time = new Time();
+
+    public override void _Ready()
 	{
 		_originalClockUnitSpeed = _secondsIn10Minutes;
-		MuseumActions.OnTimeUpdated?.Invoke(_minutes, _hours, _days, _months, _years);
+		MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 		MuseumActions.OnClickTimeSpeedButton += SetClockSpeed;
 		MuseumActions.OnClickPausePlayButton += TogglePause;
 	}
@@ -33,11 +29,11 @@ public partial class MuseumTimeSystem : Node
 	{ 
 			if (!_isPaused)
             {
-                _seconds += delta;
+	            _time.Seconds += delta;
     
-                if (_seconds >= _secondsIn10Minutes)
+                if (_time.Seconds >= _secondsIn10Minutes)
                 {
-                    _seconds = 0f;
+	                _time.Seconds = 0f;
                     UpdateTime();
                 }
             }
@@ -45,12 +41,12 @@ public partial class MuseumTimeSystem : Node
 	
 	private void UpdateTime()
 	{
-		GD.Print($"Season: {_months}, Day: {_days}, Time: {_hours:D2}:{_minutes:D2}");
-		_minutes+=10;
-		if (_minutes >= _minutesInHour)
+		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
+		_time.Minutes+=10;
+		if (_time.Minutes >= _minutesInHour)
 		{
-			_minutes = 0;
-			_hours++;
+			_time.Minutes = 0;
+			_time.Hours++;
 			
 			// TODO Invoke Hourly Events
 			
@@ -64,10 +60,10 @@ public partial class MuseumTimeSystem : Node
 			// </code>
 			// </example>
 			
-			if (_hours >= _hoursInDay)
+			if (_time.Hours >= _hoursInDay)
 			{
-				_hours = 0;
-				_days++;
+				_time.Hours = 0;
+				_time.Days++;
 				
 				//TODO Invoke Daily Events
 				
@@ -81,10 +77,10 @@ public partial class MuseumTimeSystem : Node
 				// </code>
 				// </example>
 				
-				if (_days >= _daysInMonth)
+				if (_time.Days >= _daysInMonth)
 				{
-					_days = 1;
-					_months++;
+					_time.Days = 1;
+					_time.Months++;
 					// _months = (_months % _monthsInYear) + 1;
 
 					//TODO Invoke Monthly Events
@@ -98,15 +94,15 @@ public partial class MuseumTimeSystem : Node
 					// }
 					// </code>
 					// </example>
-					if (_months >_monthsInYear)
+					if (_time.Months >_monthsInYear)
 					{
-						_months = 1;
-						_years++;
+						_time.Months = 1;
+						_time.Years++;
 					}
 				}
 			}
 		}
-		MuseumActions.OnTimeUpdated?.Invoke(_minutes, _hours, _days, _months, _years);
+		MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 	}
 	
 

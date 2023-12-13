@@ -19,6 +19,7 @@ public class SaveDataJsonFileDatabase
     private readonly string _saveDataFolderPath;
     private readonly string _storySceneDataFolderPath;
     private readonly string _tradingArtifactsDataFolderPath;
+    private readonly string _timeDataFolderPath;
 
 
     public SaveDataJsonFileDatabase(
@@ -34,8 +35,8 @@ public class SaveDataJsonFileDatabase
         string playerInfoDataFolderPath,
         string saveDataFolderPath,
         string storySceneDataFolderPath,
-        string tradingArtifactsDataFolderPath
-        )
+        string tradingArtifactsDataFolderPath, 
+        string timeDataFolderPath)
     {
         _artifactStorageDataFolderPath = artifactStorageDataFolderPath;
         _displayArtifactDataFolderPath = displayArtifactDataFolderPath;
@@ -50,6 +51,7 @@ public class SaveDataJsonFileDatabase
         _saveDataFolderPath = saveDataFolderPath;
         _storySceneDataFolderPath = storySceneDataFolderPath;
         _tradingArtifactsDataFolderPath = tradingArtifactsDataFolderPath;
+        _timeDataFolderPath = timeDataFolderPath;
     }
 
     public async Task MergeJsonFiles()
@@ -66,6 +68,7 @@ public class SaveDataJsonFileDatabase
         var playerInfos = JsonSerializer.Deserialize<List<PlayerInfo>>(await File.ReadAllTextAsync(_playerInfoDataFolderPath));
         var storyScenes = JsonSerializer.Deserialize<List<StoryScene>>(await File.ReadAllTextAsync(_storySceneDataFolderPath));
         var tradingArtifacts = JsonSerializer.Deserialize<List<TradingArtifacts>>(await File.ReadAllTextAsync(_tradingArtifactsDataFolderPath));
+        var times = JsonSerializer.Deserialize<List<Time>>(await File.ReadAllTextAsync(_timeDataFolderPath));
 
 
         var mergedData = new MergedData
@@ -81,7 +84,8 @@ public class SaveDataJsonFileDatabase
             MuseumTiles = museumTiles,
             PlayerInfos = playerInfos,
             StoryScenes = storyScenes,
-            TradingArtifacts = tradingArtifacts
+            TradingArtifacts = tradingArtifacts,
+            Times = times
         };
 
         var mergedJson = JsonSerializer.Serialize(mergedData, new JsonSerializerOptions{ WriteIndented = true });
@@ -106,6 +110,7 @@ public class SaveDataJsonFileDatabase
         await File.WriteAllTextAsync(_playerInfoDataFolderPath, JsonSerializer.Serialize(mergedData?.PlayerInfos, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_storySceneDataFolderPath, JsonSerializer.Serialize(mergedData?.StoryScenes, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_tradingArtifactsDataFolderPath, JsonSerializer.Serialize(mergedData?.TradingArtifacts, new JsonSerializerOptions{ WriteIndented = true }));
+        await File.WriteAllTextAsync(_timeDataFolderPath, JsonSerializer.Serialize(mergedData?.Times, new JsonSerializerOptions{ WriteIndented = true }));
     }
     
 }
@@ -123,4 +128,5 @@ public class MergedData
     [JsonPropertyName("PlayerInfo")] public List<PlayerInfo>? PlayerInfos { get; set; }
     [JsonPropertyName("StoryScenes")] public List<StoryScene>? StoryScenes { get; set; }
     [JsonPropertyName("TradingArtifacts")] public List<TradingArtifacts>? TradingArtifacts { get; set; }
+    [JsonPropertyName("Time")] public List<Time>? Times { get; set; }
 }

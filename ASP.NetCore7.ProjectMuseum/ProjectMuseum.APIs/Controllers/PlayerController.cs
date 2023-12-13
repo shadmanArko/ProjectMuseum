@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.PlayerRepository.Sub_Repositories.TimeRepository;
 using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.PlayerInfoService;
+using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
 
@@ -15,13 +17,15 @@ public class PlayerController : ControllerBase
     private readonly ILoadService _loadService;
     private readonly IPlayerInfoService _playerInfoService;
     private readonly IInventoryService _inventoryService;
+    private readonly ITimeService _timeService;
 
-    public PlayerController(ISaveService saveService, ILoadService loadService, IPlayerInfoService playerInfoService, IInventoryService inventoryService)
+    public PlayerController(ISaveService saveService, ILoadService loadService, IPlayerInfoService playerInfoService, IInventoryService inventoryService, ITimeService timeService)
     {
         _saveService = saveService;
         _loadService = loadService;
         _playerInfoService = playerInfoService;
         _inventoryService = inventoryService;
+        _timeService = timeService;
     }
     [HttpPost("PostPlayerInfo")]
     public async Task<IActionResult> CreatePlayerInfo([FromBody] PlayerInfo playerInfo)
@@ -54,5 +58,19 @@ public class PlayerController : ControllerBase
     {
         var artifacts = await _inventoryService.GetAllArtifacts();
         return Ok(artifacts);
+    }
+
+    [HttpGet("GetTime")]
+    public async Task<IActionResult> GetTime()
+    {
+        var time = await _timeService.GetTime();
+        return Ok(time);
+    }
+
+    [HttpPost("SaveTime")]
+    public async Task<IActionResult> SaveTime([FromBody]Time time)
+    {
+        var t = await _timeService.SaveTime(time);
+        return Ok(t);
     }
 }

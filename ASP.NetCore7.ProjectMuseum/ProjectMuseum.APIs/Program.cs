@@ -12,6 +12,7 @@ using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifa
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifactRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
+using ProjectMuseum.Repositories.PlayerRepository.Sub_Repositories.TimeRepository;
 using ProjectMuseum.Repositories.StorySceneRepository;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.InventorySevice;
@@ -28,6 +29,7 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
+using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
 using ProjectMuseum.Services.StorySceneService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -84,6 +86,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(tradingArti
 builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackMaterialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Time>(timeDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -118,6 +121,7 @@ builder.Services.AddScoped<ITradingArtifactsRepository, TradingArtifactsReposito
 builder.Services.AddScoped<IMineCellCrackMaterialRepository, MineCellCrackMaterialRepository>();
 builder.Services.AddScoped<IRawArtifactFunctionalRepository, RawArtifactFunctionalRepository>();
 builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescriptiveRepository>();
+builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -137,6 +141,7 @@ builder.Services.AddScoped<ITradingArtifactsService, TradingArtifactsService>();
 builder.Services.AddScoped<IMineCellCrackMaterialService, MineCellCrackMaterialService>();
 builder.Services.AddScoped<IRawArtifactFunctionalService, RawArtifactFunctionalService>();
 builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiveService>();
+builder.Services.AddScoped<ITimeService, TimeService>();
 
 
 // builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));

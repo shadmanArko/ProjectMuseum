@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <Folder Include="MineService\Sub Services\" />
-      <Folder Include="PlayerService\Sub Services" />
     </ItemGroup>
 
 </Project>

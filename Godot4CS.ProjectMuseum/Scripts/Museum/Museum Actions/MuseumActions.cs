@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
@@ -34,6 +35,8 @@ public partial class MuseumActions : Node
     #region PlayerActions
 
     public static Action<Vector2I> PlayerEnteredNewTile;
+    public static Action OnPlayerSavedGame;
+    public static Action<PathNavigatorCharacter> PathEnded;
 
     #endregion
     #region PopUpUi

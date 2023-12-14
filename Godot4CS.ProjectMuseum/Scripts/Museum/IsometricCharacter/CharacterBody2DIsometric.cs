@@ -3,15 +3,14 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
 
-public partial class CharacterBody2DIsometric : CharacterBody2D
+public partial class CharacterBody2DIsometric : PathNavigatorCharacter
 {
-    [Export] private float _displacementSpeed = 100;
     private Vector2 motion = Vector2.Zero;
 
-    [Export] private AnimationPlayer _animationPlayer;
 
     [Export] private Sprite2D _characterSprite;
     private bool _playerFacingTheFront = true;

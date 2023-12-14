@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=33 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -23,6 +23,8 @@
 [ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
+[ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
+[ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
@@ -70,14 +72,27 @@ visible = false
 offset_bottom = -50.0
 
 [node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
+visible = false
 mouse_filter = 2
 
 [node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
 visible = false
 
 [node name="Player" parent="museum" instance=ExtResource("12_55fh7")]
-position = Vector2(54, -120)
+visible = false
+position = Vector2(55, -11)
 _displacementSpeed = 50.0
+
+[node name="Player_Uncontrolled" parent="museum" instance=ExtResource("19_1kq7h")]
+position = Vector2(50, -6)
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -4)])
+_animationNameAfterInitialMovement = "idle_back_facing"
+
+[node name="Professor" parent="museum" instance=ExtResource("19_yibo3")]
+position = Vector2(51, -11)
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
+_animationNameAfterInitialMovement = "idle_front_facing"
+_lookAheadDistance = 1.0
 
 [node name="GuestsController" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -204,6 +219,7 @@ script = ExtResource("27_mm5mn")
 _dayEndTileCoord = Vector2i(0, -1)
 
 [node name="StoryController" type="Node2D" parent="."]
+process_mode = 4
 script = ExtResource("29_6vdgp")
 
 [connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]

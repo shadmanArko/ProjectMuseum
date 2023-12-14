@@ -5,19 +5,17 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class StoryController : Node2D
 {
-	[Export] private DialogueSystem _dialogueSystem;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		MuseumActions.PlayStoryScene?.Invoke(1);
+		// MuseumActions.PlayStoryScene?.Invoke(1);
 		MuseumActions.StorySceneEnded += StorySceneEnded;
 	}
 
 	private async void StorySceneEnded(int sceneNumber)
 	{
-		if (sceneNumber < 1)
+		if (sceneNumber < 4)
 		{
-			await Task.Delay(1000);
 			MuseumActions.PlayStoryScene(++sceneNumber);
 		}
 

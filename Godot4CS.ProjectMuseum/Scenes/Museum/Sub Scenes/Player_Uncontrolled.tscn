@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c25gv63c04sp4"]
+[gd_scene load_steps=10 format=3 uid="uid://b5hoveiehnseh"]
 
-[ext_resource type="Script" path="res://Scripts/Museum/IsometricCharacter/CharacterBody2DIsometric.cs" id="2_olhew"]
-[ext_resource type="Texture2D" uid="uid://o5nw35prtghe" path="res://Assets/2D/Animations/Museum Character Animations/Male Main Character (2).png" id="2_uht1t"]
+[ext_resource type="Script" path="res://Scripts/Museum/ProfessorScripts/UncontrolledCharacter.cs" id="1_n414f"]
+[ext_resource type="Texture2D" uid="uid://o5nw35prtghe" path="res://Assets/2D/Animations/Museum Character Animations/Male Main Character (2).png" id="2_r17fk"]
 
 [sub_resource type="Animation" id="Animation_x31cg"]
 length = 0.001
@@ -94,22 +94,23 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p6y7"]
-size = Vector2(15, 5)
+size = Vector2(15, 38)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite")]
+[node name="Player_Uncontrolled" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
 z_index = 1
-y_sort_enabled = true
 texture_filter = 1
-script = ExtResource("2_olhew")
-_characterSprite = NodePath("Sprite2D")
+script = ExtResource("1_n414f")
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3)])
+_lookAheadDistance = 1.0
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 6)
 scale = Vector2(-1, 1)
-texture = ExtResource("2_uht1t")
-offset = Vector2(0, -16.455)
+texture = ExtResource("2_r17fk")
+offset = Vector2(0, -24.38)
 hframes = 8
 vframes = 4
 
@@ -119,5 +120,6 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, -3.5)
+position = Vector2(-1.5, -19)
 shape = SubResource("RectangleShape2D_4p6y7")
+disabled = true

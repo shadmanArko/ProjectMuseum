@@ -72,6 +72,7 @@ public partial class DialogueSystem : Control
 		_dialogueSystemAnimationPlayer.Play("Slide_Out");
 		await Task.Delay(1000);
 		_cutsceneArt.Visible = false;
+		Visible = false;
 		MuseumActions.StorySceneEnded?.Invoke(_currentStorySceneNumber);
 	}
 
@@ -134,6 +135,7 @@ public partial class DialogueSystem : Control
 
 	private void ShowNextStoryEntry()
 	{
+		Visible = true;
 		LoadAndSetCharacterPortrait();
 		LoadAndSetCutsceneArt();
 		_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);

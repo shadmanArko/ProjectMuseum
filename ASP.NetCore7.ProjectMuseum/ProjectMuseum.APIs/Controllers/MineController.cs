@@ -44,7 +44,7 @@ public class MineController : ControllerBase
         return Ok(newMine);
     }
     
-    [HttpPut("SendArtifactToInventory")]
+    [HttpGet("SendArtifactToInventory/{id}")]
     public async Task<IActionResult> SendArtifactFromMineToInventory(string id)
     {
         var artifact = await _mineArtifactService.SendArtifactToInventory(id);

@@ -117,10 +117,10 @@ public partial class EnemySpawner : Node2D
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionReleased("Enemy"))
-        {
-            OnTimeEndSpawnEnemy();
-        }
+        // if (@event.IsActionReleased("Enemy"))
+        // {
+        //     OnTimeEndSpawnEnemy();
+        // }
     }
 
     #endregion

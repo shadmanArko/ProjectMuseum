@@ -23,6 +23,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 	private List<RawArtifactFunctional> _rawArtifactFunctional;
 
 	private HttpRequest _getMineArtifactHttpRequest;
+	private HttpRequest _sendArtifactToInventoryHttpRequest;
 	
 
 	public override void _Ready()
@@ -63,7 +64,13 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 		_getMineArtifactHttpRequest = new HttpRequest();
 		AddChild(_getMineArtifactHttpRequest);
 		_getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
+		
+		_sendArtifactToInventoryHttpRequest = new HttpRequest();
+		AddChild(_sendArtifactToInventoryHttpRequest);
+		_sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
 	}
+    
+	#region Get Mine Artifact Request
 
 	private void GetMineArtifact(string artifactId)
 	{
@@ -85,6 +92,28 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
 		GD.Print($"HTTP REQUEST COMPLETED (2)");
 	}
+
+	#endregion
+
+	#region Send Artifact To Inventory
+
+	private void SendArtifactToInventory(string artifactId)
+	{
+		var url = $"{ApiAddress.MineApiPath}SendArtifactToInventory/{artifactId}";
+		_sendArtifactToInventoryHttpRequest.Request(url);
+		
+		GD.Print($"HTTP REQUEST FOR SENDING ARTIFACT TO INVENTORY (1)");
+	}
+	
+	private void OnSendArtifactToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		GD.Print("Successfully sent artifact to inventory");
+		var jsonStr = Encoding.UTF8.GetString(body);
+		//var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
+		GD.Print("body "+jsonStr);
+	}
+
+	#endregion
 
 	#endregion
     
@@ -162,7 +191,11 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 		GD.Print("Successfully Extracted Artifact");
 
 		ShowDiscoveredArtifact();
+		var cell = _mineGenerationVariables.GetCell(_artifactTilePos);
 		DigOrdinaryCell(_artifactTilePos);
+		GD.Print("Sending artifact to inventory");
+		GD.Print($"cell artifact id: {cell.ArtifactId}");
+		SendArtifactToInventory(cell.ArtifactId);
 	}
 	
 	private void MiniGameLost()
@@ -235,7 +268,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 		var cellCrackMaterial =
 			_mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
 				tempCell.MaterialType == cell.ArtifactMaterial);
-		
+		GD.Print($"artifact id: {cell.ArtifactId}");
 		MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection,cell, cellCrackMaterial ,_mineGenerationVariables.MineGenView);
 		
 		if (cell.HitPoint <= 0)

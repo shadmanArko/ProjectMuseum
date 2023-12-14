@@ -202,6 +202,23 @@ tracks/0/keys = {
 "values": [20, 21, 22, 24]
 }
 
+[sub_resource type="Animation" id="Animation_2cibm"]
+resource_name = "idle1"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4, 1.5, 1.6, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [30, 31, 32, 33, 34]
+}
+
 [sub_resource type="Animation" id="Animation_slbms"]
 resource_name = "idle_to_climb"
 length = 0.35
@@ -237,7 +254,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2ulx2"]
 resource_name = "mining_horizontal"
-length = 0.3
+length = 0.35
 step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -246,10 +263,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06, 0.14, 0.2, 0.26),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.06, 0.12, 0.18, 0.24, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [75, 76, 77, 78, 79]
+"values": [49, 50, 51, 52, 53, 54]
 }
 
 [sub_resource type="Animation" id="Animation_v3b30"]
@@ -271,7 +288,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_1wyhk"]
 resource_name = "roll"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -282,7 +298,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [60, 61, 63, 65, 67, 69, 71, 72, 73, 74]
+"values": [40, 41, 42, 43, 44, 45, 46, 47, 48, 40]
 }
 
 [sub_resource type="Animation" id="Animation_m5pbq"]
@@ -317,9 +333,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
-
-[sub_resource type="Animation" id="Animation_2cibm"]
-resource_name = "idle1"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2kevo"]
 _data = {

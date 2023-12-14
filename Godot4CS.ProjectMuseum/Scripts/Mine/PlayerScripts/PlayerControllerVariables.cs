@@ -106,7 +106,7 @@ public class PlayerControllerVariables
         set
         {
             _currentEquippedItem = value;
-            //MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
+            MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
         }
     }
 

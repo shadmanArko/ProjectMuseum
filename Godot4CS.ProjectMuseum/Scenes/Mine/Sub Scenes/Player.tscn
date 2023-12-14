@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithWallDetector.cs" id="4_rq7pk"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
-[ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="6_71wdr"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithEnemyDetector.cs" id="7_3m1a8"]
 
 [sub_resource type="Animation" id="Animation_t7vn8"]
@@ -154,6 +153,22 @@ tracks/0/keys = {
 "values": [180, 181, 182, 183, 184, 185, 186, 187, 188]
 }
 
+[sub_resource type="Animation" id="Animation_c7xh3"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [255, 256, 257, 258]
+}
+
 [sub_resource type="Animation" id="Animation_o20ck"]
 resource_name = "fall"
 length = 0.35
@@ -172,7 +187,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_3xsuv"]
 resource_name = "idle"
-length = 1.7
+length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -181,10 +196,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.9, 1.1, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [30, 30, 31, 32, 33, 34, 30]
+"values": [20, 21, 22, 24]
 }
 
 [sub_resource type="Animation" id="Animation_slbms"]
@@ -272,7 +287,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_m5pbq"]
 resource_name = "run"
-length = 0.42
+length = 0.35
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -283,12 +299,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [15, 16, 17, 18]
+"values": [10, 11, 12, 13]
 }
 
 [sub_resource type="Animation" id="Animation_tq5uu"]
 resource_name = "walk"
-length = 0.7
+length = 0.55
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -296,27 +312,14 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 0]
+"values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_c7xh3"]
-resource_name = "death"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [255, 256, 257, 258]
-}
+[sub_resource type="Animation" id="Animation_2cibm"]
+resource_name = "idle1"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2kevo"]
 _data = {
@@ -332,6 +335,7 @@ _data = {
 "death": SubResource("Animation_c7xh3"),
 "fall": SubResource("Animation_o20ck"),
 "idle": SubResource("Animation_3xsuv"),
+"idle1": SubResource("Animation_2cibm"),
 "idle_to_climb": SubResource("Animation_slbms"),
 "mining_down": SubResource("Animation_ch0ub"),
 "mining_horizontal": SubResource("Animation_2ulx2"),
@@ -345,13 +349,13 @@ _data = {
 radius = 7.0
 height = 25.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationController")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animationController")]
 light_mask = 4
 visibility_layer = 4
 z_index = 10
 texture_filter = 1
 collision_layer = 2
-collision_mask = 9
+collision_mask = 25
 motion_mode = 1
 slide_on_ceiling = false
 wall_min_slide_angle = 0.0
@@ -360,15 +364,14 @@ floor_block_on_wall = false
 floor_max_angle = 0.0
 safe_margin = 0.001
 script = ExtResource("1_bhvr3")
-_animationController = NodePath("AnimationPlayer")
+animationController = NodePath("AnimationPlayer")
 _maxVerticalVelocity = 3.0
 _fallTimeThreshold = 0.5
 _lampScenePath = "res://Scenes/Mine/Sub Scenes/Torch.tscn"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 texture_filter = 1
-position = Vector2(-0.108206, -0.0144234)
-scale = Vector2(0.908203, 1.00962)
+position = Vector2(-0.173327, -2.11858)
 polygon = PackedVector2Array(-3, -5, -3.26667, 7.93806, 1, 7.93806, 5.26667, 7.93806, 5.12281, 0.958241, 5, -5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -377,8 +380,8 @@ visibility_layer = 2
 texture_filter = 1
 texture = ExtResource("2_eymdr")
 flip_h = true
-hframes = 15
-vframes = 19
+hframes = 10
+vframes = 27
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("_sprite")]
 root_node = NodePath("../Sprite2D")
@@ -390,6 +393,13 @@ _sprite = NodePath("../Sprite2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(6, 6)
+limit_left = 0
+limit_top = -200
+limit_right = 980
+limit_bottom = 1280
+limit_smoothed = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
 
 [node name="CollisionDetector" type="Node2D" parent="."]
 script = ExtResource("4_rq7pk")
@@ -399,10 +409,7 @@ _discoveredArtifactScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/Discovere
 [node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource("5_0x0fh")
 
-[node name="AutoAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("_playerController", "_animationController")]
-script = ExtResource("6_71wdr")
-_playerController = NodePath("..")
-_animationController = NodePath("../AnimationPlayer")
+[node name="AutoAnimationController" type="Node2D" parent="."]
 
 [node name="PlayerEnemyCollisionDetector" type="Node2D" parent="." node_paths=PackedStringArray("_attackDetectorArea2D", "_collisionShape2D", "_animationPlayer")]
 script = ExtResource("7_3m1a8")
@@ -411,6 +418,7 @@ _collisionShape2D = NodePath("../Attack Detector/Attack Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
 [node name="Attack Detector" type="Area2D" parent="."]
+position = Vector2(-0.173327, -2.11858)
 collision_layer = 2
 collision_mask = 4
 

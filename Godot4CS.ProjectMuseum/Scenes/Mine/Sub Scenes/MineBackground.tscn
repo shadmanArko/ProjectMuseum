@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckxklef31mow4"]
+[gd_scene load_steps=8 format=3 uid="uid://ckxklef31mow4"]
 
 [ext_resource type="Texture2D" uid="uid://chw4qqe4sec08" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/sky.png" id="1_i68hl"]
 [ext_resource type="Texture2D" uid="uid://b4pra7n4eckaq" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/clouds.png" id="2_sxt3n"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dmvybcmnlotge" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/bg.png" id="4_568kj"]
 [ext_resource type="Texture2D" uid="uid://bk7r4ktr5boik" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/front row.png" id="5_v4xei"]
 [ext_resource type="Texture2D" uid="uid://dtm10ln4d1j3h" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/stones.png" id="6_erw7y"]
+[ext_resource type="Texture2D" uid="uid://dafi3wbnlcsrv" path="res://Assets/2D/Sprites/Mine Sprites/Props/Tent.png" id="7_pbljn"]
 
 [node name="MineBackground" type="Node2D"]
 z_index = -1
@@ -47,3 +48,8 @@ z_index = 10
 texture_filter = 1
 position = Vector2(0, 78)
 texture = ExtResource("5_v4xei")
+
+[node name="Tent" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(-282, 40)
+texture = ExtResource("7_pbljn")

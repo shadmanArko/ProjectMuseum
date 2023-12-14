@@ -39,4 +39,9 @@ public class ArtifactStorageService : IArtifactStorageService
     {
         return await _artifactStorageRepository.AddListOfArtifacts(artifacts);
     }
+
+    public async Task<Artifact?> AddArtifact(Artifact artifact)
+    {
+        return await _artifactStorageRepository.AddArtifact(artifact);
+    }
 }

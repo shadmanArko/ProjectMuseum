@@ -9,6 +9,12 @@ public partial class ToolbarSlot : Node
 
 	[Export] private Texture2D _selectedHighlighter;
 	[Export] private Texture2D _defaultHighlighter;
+	[Export] private Texture2D _itemSprite;
+
+	public override void _Ready()
+	{
+		_itemSlot.Texture = _itemSprite;
+	}
 
 	public void SetItemAsSelected()
 	{

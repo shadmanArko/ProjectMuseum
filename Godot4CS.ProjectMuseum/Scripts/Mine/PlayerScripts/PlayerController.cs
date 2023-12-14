@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
@@ -9,7 +10,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, IDeath
 {
-	[Export] private AnimationController _animationController;
+	[Export] public AnimationController animationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -24,12 +25,17 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		InitializeDiReferences();
 		SubscribeToActions();
+		_playerControllerVariables.Player = this;
+		_playerControllerVariables.PlayerHealth = 200;
+		_playerControllerVariables.PlayerEnergy = 2000000;
+		_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
 	}
 
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_playerControllerVariables.Player = this;
 	}
 
 	private void SubscribeToActions()
@@ -40,9 +46,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 
 	public override void _Ready()
 	{
-		_playerControllerVariables.Player = this;
-		_playerControllerVariables.PlayerHealth = 200;
-		_playerControllerVariables.PlayerEnergy = 2000000;
+		GD.Print($"player is null: {_playerControllerVariables.Player is null}");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -57,6 +61,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	        DetectCollision();
         }
         
+        animationController.SetAnimation(PlayerAttack());
         ModifyPlayerVariables();
 	}
     
@@ -78,8 +83,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 				Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed);
 			}
 		}
-        
-		_animationController.SetAnimation(PlayerAttack());
 	}
 
 	private void ApplyGravity()
@@ -99,7 +102,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	private void CheckFallTime(double delta)
 	{
 		if(_fallTime >= _fallTimeThreshold)
-			_animationController.PlayAnimation("fall");
+			animationController.PlayAnimation("fall");
 		else
 			_fallTime += (float) delta;
 	}
@@ -163,7 +166,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
 			MotionState.Falling : MotionState.Hanging;
-		_animationController.PlayAnimation("idle_to_climb");
+		animationController.PlayAnimation("idle_to_climb");
 		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
 			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
@@ -224,7 +227,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		_animationController.Play("damage1");
+		animationController.Play("damage1");
 		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
 	}
 
@@ -241,7 +244,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		_animationController.Play("death");
+		animationController.Play("death");
 		_playerControllerVariables.CanMove = false;
 	}
 

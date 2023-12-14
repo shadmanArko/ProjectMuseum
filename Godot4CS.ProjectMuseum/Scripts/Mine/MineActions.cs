@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
@@ -33,6 +34,7 @@ public partial class MineActions : Node
     public static Action OnMiniGameWon;
     public static Action OnMiniGameLost;
     public static Action OnArtifactDiscoveryOkayButtonPressed;
+    public static Action<Artifact> OnArtifactSuccessfullyRetrieved;
 
 	public static Action<KinematicCollision2D> OnPlayerCollisionDetection;
 

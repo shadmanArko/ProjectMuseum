@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://p4pp1nmkb44s"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/UI/MineExitPromptUi.cs" id="1_ib847"]
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_ifxad"]
+[ext_resource type="Script" path="res://Scripts/Mine/UI/MineToCampTransition.cs" id="3_amuk3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n65nu"]
+
+[node name="MineExitPromptUI" type="CanvasLayer" node_paths=PackedStringArray("ReturnToCampButton")]
+script = ExtResource("1_ib847")
+ReturnToCampButton = NodePath("Panel/Control/Button Container/Return To Camp")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -125.0
+offset_bottom = 125.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n65nu")
+
+[node name="Control" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button Container" type="VBoxContainer" parent="Panel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Return To Camp" type="Button" parent="Panel/Control/Button Container"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("1_ifxad")
+text = "RETURN TO CAMP?"
+script = ExtResource("3_amuk3")

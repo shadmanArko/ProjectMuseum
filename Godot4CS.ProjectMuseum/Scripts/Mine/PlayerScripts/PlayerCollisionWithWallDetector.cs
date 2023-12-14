@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Newtonsoft.Json;
 using ProjectMuseum.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -21,6 +23,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 	private List<RawArtifactFunctional> _rawArtifactFunctional;
 
 	private HttpRequest _getMineArtifactHttpRequest;
+	
 
 	public override void _Ready()
 	{
@@ -62,6 +65,13 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 		_getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
 	}
 
+	private void GetMineArtifact(string artifactId)
+	{
+		var url = ApiAddress.MineApiPath+"GetMineArtifactById/"+artifactId;
+		_getMineArtifactHttpRequest.Request(url);
+		GD.Print($"HTTP REQUEST FOR GETTING ARTIFACT BY ID FROM DATABASE (1)");
+	}
+
 	private void OnGetMineArtifactHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
@@ -70,9 +80,10 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
 		var rand = new RandomNumberGenerator();
 		var randomMat = rawArtifact!.Materials[rand.RandiRange(0, rawArtifact!.Materials.Count)];
-		var cellCrackMaterial =
-			_mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(mat => mat.MaterialType == randomMat);
-		
+		// var cellCrackMaterial =
+		// 	_mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(mat => mat.MaterialType == randomMat);
+		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
+		GD.Print($"HTTP REQUEST COMPLETED (2)");
 	}
 
 	#endregion
@@ -176,6 +187,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 	private void TurnOffArtifactDiscoveryScene()
 	{
 		_playerControllerVariables.CanMove = true;
+		
 	}
 	
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdh036gwvfpo4"
-path="res://.godot/imported/playerAnimations.png-a3e2ec96dc4b4fba811534333a497ba0.ctex"
+uid="uid://dafi3wbnlcsrv"
+path="res://.godot/imported/Tent.png-e23244e3c6d3f9f4671d50dc9037e2c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Player Animations/playerAnimations.png"
-dest_files=["res://.godot/imported/playerAnimations.png-a3e2ec96dc4b4fba811534333a497ba0.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/Props/Tent.png"
+dest_files=["res://.godot/imported/Tent.png-e23244e3c6d3f9f4671d50dc9037e2c6.ctex"]
 
 [params]
 

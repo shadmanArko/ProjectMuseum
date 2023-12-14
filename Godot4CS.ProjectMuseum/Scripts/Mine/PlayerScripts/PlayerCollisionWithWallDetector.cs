@@ -132,7 +132,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 			if (state != MotionState.Hanging)
 				_playerControllerVariables.State = MotionState.Grounded;
 		}
-        
 	}
 	
 	#region Wall Attack Detection

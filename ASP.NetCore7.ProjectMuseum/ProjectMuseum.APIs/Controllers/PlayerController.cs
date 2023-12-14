@@ -60,6 +60,13 @@ public class PlayerController : ControllerBase
         return Ok(artifacts);
     }
 
+    [HttpGet("SendAllArtifactsFromInventoryToArtifactStorage")]
+    public async Task<IActionResult> SendAllArtifactsFromInventoryToArtifactStorage()
+    {
+        await _inventoryService.SendAllArtifactsToArtifactStorage();
+        return Ok();
+    }
+
     [HttpGet("GetTime")]
     public async Task<IActionResult> GetTime()
     {

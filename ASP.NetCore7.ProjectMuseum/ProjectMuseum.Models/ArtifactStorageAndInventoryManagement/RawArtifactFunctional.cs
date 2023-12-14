@@ -9,5 +9,6 @@ public class RawArtifactFunctional
     public List<string> Materials { get; set; }
     public string ObjectClass { get; set; }
     public string ObjectSize { get; set; }
-    public string ImageLocation { get; set; }
+    public string LargeImageLocation { get; set; }
+    public string SmallImageLocation { get; set; }
 }

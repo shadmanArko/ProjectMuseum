@@ -17,6 +17,7 @@ public class SaveDataJsonFileDatabase
     private readonly string _museumTileDataFolderPath;
     private readonly string _playerInfoDataFolderPath;
     private readonly string _saveDataFolderPath;
+    private readonly string _tutorialDataFolderPath;
     private readonly string _storySceneDataFolderPath;
     private readonly string _tradingArtifactsDataFolderPath;
     private readonly string _timeDataFolderPath;
@@ -36,7 +37,8 @@ public class SaveDataJsonFileDatabase
         string saveDataFolderPath,
         string storySceneDataFolderPath,
         string tradingArtifactsDataFolderPath, 
-        string timeDataFolderPath)
+        string timeDataFolderPath,
+        string tutorialDataFolderPath)
     {
         _artifactStorageDataFolderPath = artifactStorageDataFolderPath;
         _displayArtifactDataFolderPath = displayArtifactDataFolderPath;
@@ -52,6 +54,7 @@ public class SaveDataJsonFileDatabase
         _storySceneDataFolderPath = storySceneDataFolderPath;
         _tradingArtifactsDataFolderPath = tradingArtifactsDataFolderPath;
         _timeDataFolderPath = timeDataFolderPath;
+        _tutorialDataFolderPath = tutorialDataFolderPath;
     }
 
     public async Task MergeJsonFiles()
@@ -67,6 +70,7 @@ public class SaveDataJsonFileDatabase
         var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(await File.ReadAllTextAsync(_museumTileDataFolderPath));
         var playerInfos = JsonSerializer.Deserialize<List<PlayerInfo>>(await File.ReadAllTextAsync(_playerInfoDataFolderPath));
         var storyScenes = JsonSerializer.Deserialize<List<StoryScene>>(await File.ReadAllTextAsync(_storySceneDataFolderPath));
+        var tutorials = JsonSerializer.Deserialize<List<StoryScene>>(await File.ReadAllTextAsync(_tutorialDataFolderPath));
         var tradingArtifacts = JsonSerializer.Deserialize<List<TradingArtifacts>>(await File.ReadAllTextAsync(_tradingArtifactsDataFolderPath));
         var times = JsonSerializer.Deserialize<List<Time>>(await File.ReadAllTextAsync(_timeDataFolderPath));
 
@@ -84,6 +88,7 @@ public class SaveDataJsonFileDatabase
             MuseumTiles = museumTiles,
             PlayerInfos = playerInfos,
             StoryScenes = storyScenes,
+            Tutorials = tutorials,
             TradingArtifacts = tradingArtifacts,
             Times = times
         };
@@ -109,6 +114,7 @@ public class SaveDataJsonFileDatabase
         await File.WriteAllTextAsync(_museumTileDataFolderPath, JsonSerializer.Serialize(mergedData?.MuseumTiles, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_playerInfoDataFolderPath, JsonSerializer.Serialize(mergedData?.PlayerInfos, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_storySceneDataFolderPath, JsonSerializer.Serialize(mergedData?.StoryScenes, new JsonSerializerOptions{ WriteIndented = true }));
+        await File.WriteAllTextAsync(_tutorialDataFolderPath, JsonSerializer.Serialize(mergedData?.Tutorials, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_tradingArtifactsDataFolderPath, JsonSerializer.Serialize(mergedData?.TradingArtifacts, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_timeDataFolderPath, JsonSerializer.Serialize(mergedData?.Times, new JsonSerializerOptions{ WriteIndented = true }));
     }
@@ -127,6 +133,7 @@ public class MergedData
     [JsonPropertyName("MuseumTiles")] public List<MuseumTile>? MuseumTiles { get; set; }
     [JsonPropertyName("PlayerInfo")] public List<PlayerInfo>? PlayerInfos { get; set; }
     [JsonPropertyName("StoryScenes")] public List<StoryScene>? StoryScenes { get; set; }
+    [JsonPropertyName("Tutorials")] public List<StoryScene>? Tutorials { get; set; }
     [JsonPropertyName("TradingArtifacts")] public List<TradingArtifacts>? TradingArtifacts { get; set; }
     [JsonPropertyName("Time")] public List<Time>? Times { get; set; }
 }

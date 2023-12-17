@@ -16,4 +16,10 @@ public class StorySceneService: IStorySceneService
         var storyScene = await _storySceneRepository.GetByScene(sceneNo);
         return storyScene;
     }
+
+    public async Task<Tutorial?> GetTutorialByNumber(int sceneNo)
+    {
+        var tutorial = await _storySceneRepository.GetTutorialByNumber(sceneNo);
+        return tutorial;
+    }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=34 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -32,6 +32,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
+[ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
@@ -221,5 +222,8 @@ _dayEndTileCoord = Vector2i(0, -1)
 [node name="StoryController" type="Node2D" parent="."]
 process_mode = 4
 script = ExtResource("29_6vdgp")
+
+[node name="TutorialSystem" type="Node2D" parent="."]
+script = ExtResource("33_vs3ci")
 
 [connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]

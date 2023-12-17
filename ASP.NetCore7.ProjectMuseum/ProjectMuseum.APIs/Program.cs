@@ -38,6 +38,7 @@ string museumDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dum
 string exhibitDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibit.json");
 string exhibitVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibitVariations.json");
 string storySceneDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "StoryScene.json");
+string tutorialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "Tutorials.json");
 string mineDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mine.json");
 string playerInfoDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "PlayerInfo.json");
 string saveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "save.json");
@@ -75,6 +76,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFol
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(exhibitVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<StoryScene>(storySceneDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Tutorial>(tutorialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(playerInfoDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Museum>(museumDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Mine>(mineDataFolderPath));
@@ -103,7 +105,8 @@ builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
     saveDataFolderPath,
     storySceneDataFolderPath,
     tradingArtifactsDataFolderPath,
-    timeDataFolderPath
+    timeDataFolderPath,
+    tutorialDataFolderPath
     ));
 
 

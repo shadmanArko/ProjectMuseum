@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=13 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="2_3c32r"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/LargeWoodenExhibitBasic.png" id="7_lgtob"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/DateTimeUi.cs" id="10_6y0pe"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/TutorialController.cs" id="11_0y8jq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
@@ -293,6 +294,72 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Gate"
+
+[node name="Tutorial" type="ColorRect" parent="." node_paths=PackedStringArray("_tutorialBody")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.096
+anchor_right = 0.213
+anchor_bottom = 0.425
+offset_left = 5.0
+offset_top = 0.32
+offset_right = 0.039978
+grow_vertical = 2
+color = Color(0.647059, 0.647059, 0.647059, 1)
+script = ExtResource("11_0y8jq")
+_tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
+
+[node name="TutorialHeader" type="ColorRect" parent="Tutorial"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Tutorial/TutorialHeader"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_u4d1t")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Tutorial:"
+vertical_alignment = 1
+
+[node name="Tutorial Body" type="ColorRect" parent="Tutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 51.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Tutorial/Tutorial Body"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Tutorial/Tutorial Body/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("6_u4d1t")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 16
+text = "sdfasdfasdf"
 
 [connection signal="pressed" from="Panel/Exhibit 0" to="." method="OnExhibit0Pressed"]
 [connection signal="pressed" from="Panel/Exhibit 1" to="." method="OnExhibit1Pressed"]

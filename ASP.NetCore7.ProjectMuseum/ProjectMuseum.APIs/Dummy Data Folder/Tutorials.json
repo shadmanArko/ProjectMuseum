@@ -1,0 +1,37 @@
+[
+  {
+    "Id": "Tut1",
+    "SceneNo": 1,
+    "TutorialSceneEntries": [
+      {
+        "EntryNo": "Tut1a",
+        "TutorialText": "Use {W}, {A}, {S}, {D} to move around the museum.",
+        "KeyBindsNeedsToPerform": ["move_left", "move_right", "move_up", "move_down"],
+        "ActionsNeedsToPerform": []
+      },
+      {
+        "EntryNo": "Tut1b",
+        "TutorialText": "Use {Scroll Wheel} to zoom in and out.",
+        "KeyBindsNeedsToPerform": ["ui_wheel_up", "ui_wheel_down"],
+        "ActionsNeedsToPerform": []
+      }
+    ]
+  },{
+  "Id": "Tut2",
+  "SceneNo": 2,
+  "TutorialSceneEntries": [
+    {
+      "EntryNo": "Tut2a",
+      "TutorialText": "Use {Left Click} to select the exhibit.",
+      "KeyBindsNeedsToPerform": [],
+      "ActionsNeedsToPerform": ["SelectItem"]
+    },
+    {
+      "EntryNo": "Tut2b",
+      "TutorialText": "{Left Click} and Drag the artifact from the storage area on the left to the display slot on the right.",
+      "KeyBindsNeedsToPerform": [],
+      "ActionsNeedsToPerform": ["PlaceArtifactOnDisplaySlot"]
+    }
+  ]
+}
+]

@@ -50,6 +50,9 @@ public partial class MuseumActions : Node
 
     public static Action<int> PlayStoryScene;
     public static Action<int> StorySceneEnded;
+    public static Action<string> OnTutorialUpdated;
+    public static Action OnTutorialEnded;
+    public static Action<string> OnPlayerPerformedTutorialRequiringAction;
 
     #endregion
 }

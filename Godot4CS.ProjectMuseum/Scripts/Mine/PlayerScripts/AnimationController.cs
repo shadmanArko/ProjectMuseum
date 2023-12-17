@@ -38,12 +38,12 @@ public partial class AnimationController : AnimationPlayer
 		var tempVelocity = _playerControllerVariables.Velocity;
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
-			PlayHangingAnimations(tempVelocity);
+			PlayHangingAnimations(tempVelocity, isAttacking);
 		else
-			PlayMovementAnimations(tempVelocity);
+			PlayMovementAnimations(tempVelocity, isAttacking);
 	}
 
-	private void PlayMovementAnimations(Vector2 velocity)
+	private void PlayMovementAnimations(Vector2 velocity, bool isAttacking)
 	{
 		switch (velocity.X)
 		{
@@ -62,7 +62,7 @@ public partial class AnimationController : AnimationPlayer
 		}
 	}
 
-	private void PlayHangingAnimations(Vector2 velocity)
+	private void PlayHangingAnimations(Vector2 velocity, bool isAttacking)
 	{
 		switch (velocity.X)
 		{

@@ -80,7 +80,7 @@ public partial class CampToMineTransition : Button
     {
         if(_playerControllerVariables.Player.Position.X <= _newPos.X)
         {
-            //_playerControllerVariables.Player.animationController.Play("run");
+            _playerControllerVariables.Player.animationController.Play("run");
             _playerControllerVariables.Player.Translate(new Vector2(0.02f,0));
         }
         else

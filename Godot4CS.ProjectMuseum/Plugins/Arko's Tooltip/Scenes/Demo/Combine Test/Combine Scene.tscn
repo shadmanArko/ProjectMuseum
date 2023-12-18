@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://xruw3003nd0r"]
+
+[ext_resource type="PackedScene" uid="uid://d2igll2u72jvt" path="res://Plugins/Arko's Tooltip/Scenes/Tooltip4.tscn" id="1_cpt2a"]
+[ext_resource type="PackedScene" uid="uid://dl72pvaxmdk0m" path="res://Plugins/Arko's Tooltip/Scenes/Demo/For Sprite2d 02/Sprite2DTest02.tscn" id="2_f8qss"]
+
+[node name="Combine Scene" type="Node2D"]
+
+[node name="Sprite2DTest02" parent="." instance=ExtResource("2_f8qss")]
+
+[node name="Tooltip4" parent="." instance=ExtResource("1_cpt2a")]

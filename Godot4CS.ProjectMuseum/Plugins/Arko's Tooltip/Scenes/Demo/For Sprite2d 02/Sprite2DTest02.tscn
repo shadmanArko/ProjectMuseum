@@ -7,7 +7,7 @@
 size = Vector2(133, 132)
 
 [node name="Sprite2DTest02" type="Sprite2D"]
-position = Vector2(188, 122)
+position = Vector2(635, 373)
 texture = ExtResource("1_4xclg")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -19,3 +19,4 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_2jct7")
 
 [connection signal="mouse_entered" from="StaticBody2D" to="StaticBody2D" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="StaticBody2D" method="OnMouseExited"]

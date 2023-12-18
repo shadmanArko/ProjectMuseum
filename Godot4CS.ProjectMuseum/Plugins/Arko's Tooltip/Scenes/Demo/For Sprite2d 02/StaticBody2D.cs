@@ -3,9 +3,11 @@ using System;
 
 public partial class StaticBody2D : Godot.StaticBody2D
 {
+	private Tooltip4 _tooltip4;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_tooltip4 = GetNode<Tooltip4>("../../Tooltip4");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,6 +17,11 @@ public partial class StaticBody2D : Godot.StaticBody2D
 	
 	private void OnMouseEntered()
 	{
-		GD.Print("Mouse is entered into static body");
+		_tooltip4.Show();
+	}
+
+	private void OnMouseExited()
+	{
+		_tooltip4.Hide();
 	}
 }

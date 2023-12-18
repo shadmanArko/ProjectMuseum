@@ -11,8 +11,6 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, IDeath
 {
 	[Export] public AnimationController animationController;
-	[Export] public AnimationTreeController animationTreeController;
-	
 
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -49,8 +47,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	public override void _Ready()
 	{
 		GD.Print($"player is null: {_playerControllerVariables.Player is null}");
-		animationTreeController = GetNode<AnimationTreeController>("AnimationTreeController");
-		//GD.Print($"Animation tree controller is null: {animationController is null}");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -65,8 +61,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	        DetectCollision();
         }
         
-        //animationTreeController.SetAnimation();
-        //animationController.SetAnimation(PlayerAttack());
+        animationController.SetAnimation(PlayerAttack());
         ModifyPlayerVariables();
 	}
     
@@ -106,10 +101,8 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 
 	private void CheckFallTime(double delta)
 	{
-		if (_fallTime >= _fallTimeThreshold)
-		{
-			//animationController.PlayAnimation("fall");
-		}
+		if(_fallTime >= _fallTimeThreshold)
+			animationController.PlayAnimation("fall");
 		else
 			_fallTime += (float) delta;
 	}
@@ -173,7 +166,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
 			MotionState.Falling : MotionState.Hanging;
-		//animationController.PlayAnimation("idle_to_climb");
+		animationController.PlayAnimation("idle_to_climb");
 		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
 			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
@@ -234,7 +227,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		//animationController.Play("damage1");
+		animationController.Play("damage1");
 		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
 	}
 
@@ -251,7 +244,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		//animationController.Play("death");
+		animationController.Play("death");
 		_playerControllerVariables.CanMove = false;
 	}
 

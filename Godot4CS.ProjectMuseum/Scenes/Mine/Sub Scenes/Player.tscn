@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=84 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithWallDetector.cs" id="4_rq7pk"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithEnemyDetector.cs" id="7_3m1a8"]
-[ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/AnimationTreeController.cs" id="7_t15il"]
 
 [sub_resource type="Animation" id="Animation_t7vn8"]
 length = 0.001
@@ -526,29 +525,13 @@ _data = {
 "walk": SubResource("Animation_tq5uu")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lnct"]
+radius = 7.0
+height = 25.0
+
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_emviv"]
-blend_mode = 1
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_tyyqv"]
-blend_mode = 1
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1nkye"]
-blend_mode = 1
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_usxgp"]
-blend_mode = 1
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1rygs"]
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ai3ob"]
-animation = &"climb_to_idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ndkl"]
-animation = &"damage1"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8v50e"]
-animation = &"death"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nusrb"]
 animation = &"climb_idle"
@@ -576,13 +559,26 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_u7tda")
 blend_point_3/pos = Vector2(0, -1)
 blend_point_4/node = SubResource("AnimationNodeAnimation_mghwo")
 blend_point_4/pos = Vector2(0, 1)
-blend_mode = 1
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1nkye"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_usxgp"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1rygs"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ai3ob"]
+animation = &"climb_to_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ndkl"]
+animation = &"damage1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8v50e"]
+animation = &"death"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7yqpn"]
 animation = &"idle_to_climb"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_hp7g1"]
-blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wlhp2"]
 animation = &"idle1"
@@ -691,6 +687,8 @@ states/attack/node = SubResource("AnimationNodeBlendSpace2D_emviv")
 states/attack/position = Vector2(219.402, 220.051)
 states/brush/node = SubResource("AnimationNodeBlendSpace2D_tyyqv")
 states/brush/position = Vector2(569.402, 220.051)
+states/climb/node = SubResource("AnimationNodeBlendSpace2D_00wg8")
+states/climb/position = Vector2(405, -69)
 states/climb_attack/node = SubResource("AnimationNodeBlendSpace2D_1nkye")
 states/climb_attack/position = Vector2(206.402, -188.383)
 states/climb_brush/node = SubResource("AnimationNodeBlendSpace2D_usxgp")
@@ -703,22 +701,16 @@ states/damage1/node = SubResource("AnimationNodeAnimation_0ndkl")
 states/damage1/position = Vector2(619.402, 29.2141)
 states/death/node = SubResource("AnimationNodeAnimation_8v50e")
 states/death/position = Vector2(798.402, 29.2141)
-states/hang/node = SubResource("AnimationNodeBlendSpace2D_00wg8")
-states/hang/position = Vector2(405, -69)
 states/idle_to_climb/node = SubResource("AnimationNodeAnimation_7yqpn")
 states/idle_to_climb/position = Vector2(173.402, 29.2141)
 states/mine/node = SubResource("AnimationNodeBlendSpace2D_hp7g1")
 states/mine/position = Vector2(405, 220.051)
 states/move/node = SubResource("AnimationNodeBlendSpace2D_ptxdl")
 states/move/position = Vector2(405, 131)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_dhcu5"), "move", "idle_to_climb", SubResource("AnimationNodeStateMachineTransition_gvwln"), "idle_to_climb", "hang", SubResource("AnimationNodeStateMachineTransition_lcipa"), "hang", "climb_to_idle", SubResource("AnimationNodeStateMachineTransition_ahrr5"), "climb_to_idle", "move", SubResource("AnimationNodeStateMachineTransition_pfuuh"), "hang", "climb_attack", SubResource("AnimationNodeStateMachineTransition_plagm"), "climb_attack", "hang", SubResource("AnimationNodeStateMachineTransition_4ldlm"), "hang", "climb_mine", SubResource("AnimationNodeStateMachineTransition_tkgmg"), "climb_mine", "hang", SubResource("AnimationNodeStateMachineTransition_cfylh"), "hang", "climb_brush", SubResource("AnimationNodeStateMachineTransition_xa48e"), "climb_brush", "hang", SubResource("AnimationNodeStateMachineTransition_tilbs"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_mv8iv"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_g8scs"), "move", "mine", SubResource("AnimationNodeStateMachineTransition_060qo"), "mine", "move", SubResource("AnimationNodeStateMachineTransition_kwbgo"), "move", "brush", SubResource("AnimationNodeStateMachineTransition_2tuv6"), "brush", "move", SubResource("AnimationNodeStateMachineTransition_dwvjq"), "hang", "damage1", SubResource("AnimationNodeStateMachineTransition_mju5e"), "move", "damage1", SubResource("AnimationNodeStateMachineTransition_cxef8"), "damage1", "death", SubResource("AnimationNodeStateMachineTransition_ayjpv"), "death", "End", SubResource("AnimationNodeStateMachineTransition_jbvgd"), "damage1", "move", SubResource("AnimationNodeStateMachineTransition_71soo")]
-graph_offset = Vector2(-8.71425, -44.4741)
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_dhcu5"), "move", "idle_to_climb", SubResource("AnimationNodeStateMachineTransition_gvwln"), "idle_to_climb", "climb", SubResource("AnimationNodeStateMachineTransition_lcipa"), "climb", "climb_to_idle", SubResource("AnimationNodeStateMachineTransition_ahrr5"), "climb_to_idle", "move", SubResource("AnimationNodeStateMachineTransition_pfuuh"), "climb", "climb_attack", SubResource("AnimationNodeStateMachineTransition_plagm"), "climb_attack", "climb", SubResource("AnimationNodeStateMachineTransition_4ldlm"), "climb", "climb_mine", SubResource("AnimationNodeStateMachineTransition_tkgmg"), "climb_mine", "climb", SubResource("AnimationNodeStateMachineTransition_cfylh"), "climb", "climb_brush", SubResource("AnimationNodeStateMachineTransition_xa48e"), "climb_brush", "climb", SubResource("AnimationNodeStateMachineTransition_tilbs"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_mv8iv"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_g8scs"), "move", "mine", SubResource("AnimationNodeStateMachineTransition_060qo"), "mine", "move", SubResource("AnimationNodeStateMachineTransition_kwbgo"), "move", "brush", SubResource("AnimationNodeStateMachineTransition_2tuv6"), "brush", "move", SubResource("AnimationNodeStateMachineTransition_dwvjq"), "climb", "damage1", SubResource("AnimationNodeStateMachineTransition_mju5e"), "move", "damage1", SubResource("AnimationNodeStateMachineTransition_cxef8"), "damage1", "death", SubResource("AnimationNodeStateMachineTransition_ayjpv"), "death", "End", SubResource("AnimationNodeStateMachineTransition_jbvgd"), "damage1", "move", SubResource("AnimationNodeStateMachineTransition_71soo")]
+graph_offset = Vector2(-8.71425, -207.002)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lnct"]
-radius = 7.0
-height = 25.0
-
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animationController", "animationTreeController")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animationController")]
 light_mask = 4
 visibility_layer = 4
 z_index = 10
@@ -734,7 +726,6 @@ floor_max_angle = 0.0
 safe_margin = 0.001
 script = ExtResource("1_bhvr3")
 animationController = NodePath("AnimationPlayer")
-animationTreeController = NodePath("AnimationTreeController")
 _maxVerticalVelocity = 3.0
 _fallTimeThreshold = 0.5
 _lampScenePath = "res://Scenes/Mine/Sub Scenes/Torch.tscn"
@@ -760,36 +751,6 @@ libraries = {
 }
 script = ExtResource("3_8nu7c")
 _sprite = NodePath("../Sprite2D")
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_bp87q")
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/conditions/is_attacking = false
-parameters/conditions/is_brushing = false
-parameters/conditions/is_dead = false
-parameters/conditions/is_hanging = false
-parameters/conditions/is_mining = false
-parameters/conditions/is_moving = true
-parameters/conditions/is_taking_damage = false
-parameters/attack/blend_position = Vector2(0, 0)
-parameters/brush/blend_position = Vector2(0, 0)
-parameters/climb_attack/blend_position = Vector2(0, 0)
-parameters/climb_brush/blend_position = Vector2(0, 0)
-parameters/climb_mine/blend_position = Vector2(0, 0)
-parameters/hang/blend_position = Vector2(0, 0)
-parameters/mine/blend_position = Vector2(0, 0)
-parameters/move/blend_position = Vector2(0.00435734, -0.00436676)
-
-[node name="Attack Detector" type="Area2D" parent="."]
-position = Vector2(-0.173327, -2.11858)
-collision_layer = 2
-collision_mask = 4
-
-[node name="Attack Collider" type="CollisionShape2D" parent="Attack Detector"]
-position = Vector2(0, 1)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_3lnct")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(6, 6)
@@ -817,9 +778,34 @@ _attackDetectorArea2D = NodePath("../Attack Detector")
 _collisionShape2D = NodePath("../Attack Detector/Attack Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
-[node name="AnimationTreeController" type="Node" parent="." node_paths=PackedStringArray("_animationTree")]
-script = ExtResource("7_t15il")
-_animationTree = NodePath("../AnimationTree")
+[node name="Attack Detector" type="Area2D" parent="."]
+position = Vector2(-0.173327, -2.11858)
+collision_layer = 2
+collision_mask = 4
+
+[node name="Attack Collider" type="CollisionShape2D" parent="Attack Detector"]
+position = Vector2(0, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3lnct")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_bp87q")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_attacking = false
+parameters/conditions/is_brushing = false
+parameters/conditions/is_dead = false
+parameters/conditions/is_hanging = false
+parameters/conditions/is_mining = false
+parameters/conditions/is_moving = false
+parameters/conditions/is_taking_damage = false
+parameters/attack/blend_position = Vector2(0, 0)
+parameters/brush/blend_position = Vector2(0, 0)
+parameters/climb/blend_position = Vector2(0, 0)
+parameters/climb_attack/blend_position = Vector2(0, 0)
+parameters/climb_brush/blend_position = Vector2(0, 0)
+parameters/climb_mine/blend_position = Vector2(0, 0)
+parameters/mine/blend_position = Vector2(0, 0)
+parameters/move/blend_position = Vector2(-0.213508, -0.0655022)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]

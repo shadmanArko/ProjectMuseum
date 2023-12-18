@@ -38,12 +38,12 @@ public partial class AnimationController : AnimationPlayer
 		var tempVelocity = _playerControllerVariables.Velocity;
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
-			PlayHangingAnimations(tempVelocity);
+			PlayHangingAnimations(tempVelocity, isAttacking);
 		else
-			PlayMovementAnimations(tempVelocity);
+			PlayMovementAnimations(tempVelocity, isAttacking);
 	}
 
-	private void PlayMovementAnimations(Vector2 velocity)
+	private void PlayMovementAnimations(Vector2 velocity, bool isAttacking)
 	{
 		switch (velocity.X)
 		{
@@ -62,7 +62,7 @@ public partial class AnimationController : AnimationPlayer
 		}
 	}
 
-	private void PlayHangingAnimations(Vector2 velocity)
+	private void PlayHangingAnimations(Vector2 velocity, bool isAttacking)
 	{
 		switch (velocity.X)
 		{
@@ -92,21 +92,29 @@ public partial class AnimationController : AnimationPlayer
 
 	private void PlayBrushAnimation()
 	{
-		PlayAnimation("brush");
+		if (_playerControllerVariables.State == MotionState.Hanging)
+		{
+			var mouseDirection = _playerControllerVariables.MouseDirection;
+			PlayAnimation(mouseDirection == Vector2I.Up ? "climb_brush_up" : "climb_brush_horizontal");
+		}
+		else
+		{
+			PlayAnimation("brush");
+		}
 	}
 
 	private void OnBrushAnimationStarted(string animName)
 	{
 		if(!animName.Contains("brush")) return;
 		
-		
+		MineActions.OnBrushActionStarted?.Invoke();
 	}
 
 	private void OnBrushAnimationEnded(string animName)
 	{
 		if(!animName.Contains("brush")) return;
 		
-		
+		MineActions.OnBrushActionEnded?.Invoke();
 	}
 
 	#endregion
@@ -116,23 +124,24 @@ public partial class AnimationController : AnimationPlayer
 	private void PlayDigAnimation()
 	{
 		var mouseDirection = _playerControllerVariables.MouseDirection;
+		var isHanging = _playerControllerVariables.State == MotionState.Hanging;
 		if (mouseDirection == Vector2I.Up)
-			PlayAnimation("mining_up");
+			PlayAnimation(isHanging ? "climb_mine_up" : "mining_up");
 		else if (mouseDirection == Vector2I.Down)
-			PlayAnimation("mining_down");
+			PlayAnimation(isHanging ? "climb_mine_down" : "mining_down");
 		else
-			PlayAnimation("mining_horizontal");
+			PlayAnimation(isHanging ? "climb_mine_horizontal" : "mining_horizontal");
 	}
     
 	private void OnDigAnimationStrikeStarted()
 	{
-		if (_sprite.Frame is not (92 or 77 or 107)) return;
+		if (_sprite.Frame is not (52 or 92 or 77 or 107 or 222 or 232)) return;
 		MineActions.OnDigActionStarted?.Invoke();
 	}
 
 	private void OnDigAnimationEnded(string animName)
 	{
-		if(!animName.Contains("mining")) return;
+		if(!animName.Contains("mining") && !animName.Contains("climb_mine")) return;
 		
 		MineActions.OnDigActionEnded?.Invoke();
 	}
@@ -171,6 +180,29 @@ public partial class AnimationController : AnimationPlayer
 	private void OnMeleeAttackAnimationEnded(string animName)
 	{
 		
+	}
+
+	#endregion
+
+	#region Roll Animation
+
+	private void PlayRollAnimation()
+	{
+		Play("roll");
+	}
+
+	private void OnRollAnimationStarted(string animName)
+	{
+		if(animName != "roll") return;
+		
+		MineActions.OnRollStarted?.Invoke();
+	}
+
+	private void OnRollAnimationEnded(string animName)
+	{
+		if(animName != "roll") return;
+		
+		MineActions.OnRollEnded?.Invoke();
 	}
 
 	#endregion

@@ -19,6 +19,9 @@ public partial class MineActions : Node
     public static Action OnRangedAttackActionStarted;
     public static Action OnRangedAttackActionEnded;
 
+    public static Action OnRollStarted;
+    public static Action OnRollEnded;
+
     //for starting the enemy damage at the right moment
     // public static Action OnPlayerAttackAnimationStarted; 
     // public static Action OnPlayerAttackAnimationEnded; 

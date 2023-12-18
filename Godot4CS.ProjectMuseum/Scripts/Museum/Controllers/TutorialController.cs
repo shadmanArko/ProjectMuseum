@@ -28,5 +28,6 @@ public partial class TutorialController : ColorRect
 	public override void _ExitTree()
 	{
 		MuseumActions.OnTutorialUpdated -= OnTutorialUpdated;
+		MuseumActions.OnTutorialEnded -= OnTutorialEnded;
 	}
 }

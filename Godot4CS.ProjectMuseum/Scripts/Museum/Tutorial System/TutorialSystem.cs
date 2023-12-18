@@ -11,23 +11,37 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
 public partial class TutorialSystem : Node
 {
     private HttpRequest _httpRequestForGettingTutorial;
+    private HttpRequest _httpRequestForGettingPlayerInfo;
 
     private int _currentTutorialNumber;
     private int _currentTutorialSceneNumber;
 
+    private PlayerInfo _playerInfo; 
     private Tutorial _currentTutorial;
     private TutorialSceneEntry _currentTutorialSceneEntry;
-
+    private bool _currentTutorialCompleted = true;
     private List<string> _performedKeyBinds = new List<string>();
     private List<string> _performedActions = new List<string>();
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         _httpRequestForGettingTutorial = new HttpRequest();
+        _httpRequestForGettingPlayerInfo = new HttpRequest();
         AddChild(_httpRequestForGettingTutorial);
+        AddChild(_httpRequestForGettingPlayerInfo);
         _httpRequestForGettingTutorial.RequestCompleted += HttpRequestForGettingTutorialOnRequestCompleted;
+        _httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
         MuseumActions.OnPlayerPerformedTutorialRequiringAction += OnPlayerPerformedTutorialRequiringAction;
-        ShowTutorial(2);
+        _httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+        
+        MuseumActions.PlayTutorial += LoadTutorial;
+    }
+
+    private void HttpRequestForGettingPlayerInfoOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+        string jsonStr = Encoding.UTF8.GetString(body);
+        GD.Print( "Player info " +jsonStr);
+        _playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
     }
 
     private void OnPlayerPerformedTutorialRequiringAction(string obj)
@@ -36,8 +50,9 @@ public partial class TutorialSystem : Node
         CheckForTutorialCompletion();
     }
 
-    void ShowTutorial(int number)
+    void LoadTutorial(int number)
     {
+        
         GD.Print("Show tutorial called");
         
         _httpRequestForGettingTutorial.Request(ApiAddress.StoryApiPath + $"GetTutorialScene/{number}");
@@ -47,13 +62,22 @@ public partial class TutorialSystem : Node
         string jsonStr = Encoding.UTF8.GetString(body);
         GD.Print(jsonStr);
         _currentTutorial = JsonSerializer.Deserialize<Tutorial>(jsonStr);
-        GD.Print("Show tutorial invoked");
-        _currentTutorialSceneNumber = 0;
-        ShowTutorialScene();
+        if (_playerInfo.Tutorial)
+        {
+            GD.Print("Show tutorial invoked");
+            _currentTutorialSceneNumber = 0;
+            _currentTutorialCompleted = false;
+            ShowNextTutorialScene();    
+        }
+        else
+        {
+            MuseumActions.PlayStoryScene?.Invoke(_currentTutorial.StoryNumber);
+        }
+        
         
     }
 
-    private void ShowTutorialScene()
+    private void ShowNextTutorialScene()
     {
         if (_currentTutorialSceneNumber< _currentTutorial.TutorialSceneEntries.Count)
         {
@@ -65,7 +89,12 @@ public partial class TutorialSystem : Node
         }
         else
         {
+            _currentTutorialCompleted = true;
             MuseumActions.OnTutorialEnded?.Invoke();
+            if (_currentTutorial.ContinuesStory)
+            {
+                MuseumActions.PlayStoryScene?.Invoke(_currentTutorial.StoryNumber);
+            }
         }
         
     }
@@ -78,7 +107,7 @@ public partial class TutorialSystem : Node
     public override void _Input(InputEvent @event)
     {
         base._Input(@event);
-        if (_currentTutorialSceneEntry== null || _currentTutorialSceneEntry.KeyBindsNeedsToPerform.Count<1)
+        if (_currentTutorialSceneEntry== null || _currentTutorialSceneEntry.KeyBindsNeedsToPerform.Count<1 ||  _currentTutorialCompleted)
         {
             return;
         }
@@ -110,7 +139,7 @@ public partial class TutorialSystem : Node
                 return;
             }
         }
-        ShowTutorialScene();
+        ShowNextTutorialScene();
     }
 
     public override void _ExitTree()
@@ -118,5 +147,7 @@ public partial class TutorialSystem : Node
         base._ExitTree();
         _httpRequestForGettingTutorial.RequestCompleted -= HttpRequestForGettingTutorialOnRequestCompleted;
         MuseumActions.OnPlayerPerformedTutorialRequiringAction -= OnPlayerPerformedTutorialRequiringAction;
+        MuseumActions.PlayTutorial -= LoadTutorial;
+
     }
 }

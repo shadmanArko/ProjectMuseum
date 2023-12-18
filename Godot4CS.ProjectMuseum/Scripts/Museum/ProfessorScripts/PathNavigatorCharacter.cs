@@ -116,8 +116,8 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         else
         {
             _canMove = false; // Stop moving when the path is completed
-            MuseumActions.PathEnded?.Invoke(this);
             ControlAnimation();
+            MuseumActions.PathEnded?.Invoke(this);
         }
     }
     Vector2 _direction = Vector2.Zero;

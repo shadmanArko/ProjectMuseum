@@ -21,7 +21,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
     {
         base._Ready();
         // AddToGroup("ManualSortGroup");
-        _animationPlayer.Play("idle_front_facing");
+        _animationPlayerInstance.Play("idle_front_facing");
         await Task.Delay(1000);
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
     }
@@ -50,14 +50,14 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         {
             direction += new Vector2(0, -1);
             _characterSprite.Scale = new Vector2(-1, 1);
-            _animationPlayer.Play("walk_backward");
+            _animationPlayerInstance.Play("walk_backward");
             _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_down"))
         {
             direction += new Vector2(0, 1);
             _characterSprite.Scale = new Vector2(-1, 1);
-            _animationPlayer.Play("walk_forward");
+            _animationPlayerInstance.Play("walk_forward");
             _playerFacingTheFront = true;
         }
 
@@ -65,14 +65,14 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         {
             direction += new Vector2(-1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
-            _animationPlayer.Play("walk_backward");
+            _animationPlayerInstance.Play("walk_backward");
             _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_right"))
         {
             direction += new Vector2(1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
-            _animationPlayer.Play("walk_forward");
+            _animationPlayerInstance.Play("walk_forward");
             _playerFacingTheFront = true;
         }
 
@@ -80,11 +80,11 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         {
             if (_playerFacingTheFront)
             {
-                _animationPlayer.Play("idle_front_facing");
+                _animationPlayerInstance.Play("idle_front_facing");
             }
             else
             {
-                _animationPlayer.Play("idle_back_facing");
+                _animationPlayerInstance.Play("idle_back_facing");
             }
             return;
         }

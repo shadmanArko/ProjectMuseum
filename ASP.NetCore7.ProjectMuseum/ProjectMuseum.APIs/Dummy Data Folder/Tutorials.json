@@ -2,6 +2,8 @@
   {
     "Id": "Tut1",
     "SceneNo": 1,
+    "ContinuesStory": true,
+    "StoryNumber": 5,
     "TutorialSceneEntries": [
       {
         "EntryNo": "Tut1a",
@@ -19,6 +21,8 @@
   },{
   "Id": "Tut2",
   "SceneNo": 2,
+  "ContinuesStory": true,
+  "StoryNumber": 6,
   "TutorialSceneEntries": [
     {
       "EntryNo": "Tut2a",

@@ -56,6 +56,8 @@ public partial class DialogueSystem : Control
 		}
 
 		_cancellationTokenSource = new CancellationTokenSource();
+		var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
+		MuseumActions.StorySceneEntryEnded?.Invoke(storySceneEntry.EntryNo);
 		if (_storyEntryCount < _storyScene.StorySceneEntries.Count -1)
 		{
 			_storyEntryCount++;
@@ -73,7 +75,14 @@ public partial class DialogueSystem : Control
 		await Task.Delay(1000);
 		_cutsceneArt.Visible = false;
 		Visible = false;
-		MuseumActions.StorySceneEnded?.Invoke(_currentStorySceneNumber);
+		if (_storyScene.HasTutorial)
+		{
+			MuseumActions.PlayTutorial?.Invoke(_storyScene.TutorialNumber);
+		}
+		else
+		{
+			MuseumActions.StorySceneEnded?.Invoke(_currentStorySceneNumber);
+		}
 	}
 
 	private void LoadAndSetCharacterPortrait()

@@ -16,11 +16,15 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
     public override async void _Ready()
     {
         base._Ready();
-        await Task.Delay(5000);
+        await Task.Delay(1000);
    
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-        FollowDirections();
         MuseumActions.PathEnded += PathEnded;
+    }
+
+    public void StartFollowingDirection()
+    {
+        FollowDirections();
     }
 
     private void PathEnded(PathNavigatorCharacter obj)

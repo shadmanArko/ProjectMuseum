@@ -27,6 +27,7 @@ public partial class AnimationController : AnimationPlayer
 		MineActions.OnDigActionStarted += PlayDigAnimation;
 		MineActions.OnMeleeAttackActionStarted += PlayMeleeAttackAnimation;
 		MineActions.OnBrushActionStarted += PlayBrushAnimation;
+		MineActions.OnRollStarted += PlayRollAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
 		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
@@ -195,7 +196,6 @@ public partial class AnimationController : AnimationPlayer
 	{
 		if(animName != "roll") return;
 		
-		MineActions.OnRollStarted?.Invoke();
 	}
 
 	private void OnRollAnimationEnded(string animName)

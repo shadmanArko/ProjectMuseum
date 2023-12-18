@@ -20,4 +20,7 @@ public partial class ReferenceStorage : Node2D
     //UI//
     [Export] public MineExitPromptUi mineExitPromptUi;
     [Export] public CampExitPromptUi campExitPromptUi;
+    
+    //Particle Effects//
+    [Export] public string DepletedParticleExplosion;
 }

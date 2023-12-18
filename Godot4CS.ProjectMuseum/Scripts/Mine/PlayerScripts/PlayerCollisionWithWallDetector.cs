@@ -7,6 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
+using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
@@ -48,6 +49,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 	{
 		MineActions.OnPlayerCollisionDetection += DetectCollision;
 		MineActions.OnDigActionEnded += AttackWall;
+		MineActions.OnDigActionEnded += MakeMineWallDepletedParticleEffect;
 		MineActions.OnBrushActionStarted += BrushWall;
 
 		MineActions.OnMiniGameWon += MiniGameWon;
@@ -322,6 +324,25 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 			}
 		}
 	}
+
+	#region Wall Particle Effects
+
+	private void MakeMineWallDepletedParticleEffect()
+	{
+		var particleEffectPath = ReferenceStorage.Instance.DepletedParticleExplosion;
+		var particle = ResourceLoader.Load<PackedScene>(particleEffectPath).Instantiate() as DepletedParticleExplosion;
+		if(particle == null) return;
+		
+		var position = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
+		position += _playerControllerVariables.MouseDirection;
+		particle.Position = position;
+		_mineGenerationVariables.MineGenView.AddChild(particle);
+		GD.Print("Emitting particles");
+		var direction = _playerControllerVariables.MouseDirection * -1;
+		particle.EmitParticle(direction);
+	}
+
+	#endregion
     
 	#endregion
     

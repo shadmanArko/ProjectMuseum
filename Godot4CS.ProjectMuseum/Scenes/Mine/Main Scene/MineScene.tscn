@@ -26,12 +26,14 @@ _parentNode = NodePath("../MineSceneInitializer")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
 [node name="ReferenceStorage" type="Node2D" parent="." node_paths=PackedStringArray("sceneTransition", "autoAnimationController", "enemySpawner", "mineExitPromptUi", "campExitPromptUi")]
+z_index = 11
 script = ExtResource("5_yk3pc")
 sceneTransition = NodePath("../SceneTransition")
 autoAnimationController = NodePath("../Auto Animation Controller")
 enemySpawner = NodePath("../EnemySpawner")
 mineExitPromptUi = NodePath("../MineExitPromptUI")
 campExitPromptUi = NodePath("../CampExitPromptUI")
+DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
 
 [node name="Auto Animation Controller" type="Node2D" parent="."]
 script = ExtResource("7_5sphp")

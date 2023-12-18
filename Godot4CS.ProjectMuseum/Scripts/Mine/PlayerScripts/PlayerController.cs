@@ -162,6 +162,14 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		return input;
 	}
 
+	private void PlayerRoll()
+	{
+		if(_playerControllerVariables.State != MotionState.Grounded) return;
+		MineActions.OnRollStarted?.Invoke();
+		
+		
+	}
+
 	private void PlayerGrab()
 	{
 		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 

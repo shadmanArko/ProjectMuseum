@@ -5,10 +5,10 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gx0nw"]
 texture = ExtResource("1_pi5cv")
 texture_margin_left = 13.1659
-texture_margin_top = 13.1659
+texture_margin_top = 13.4167
 texture_margin_right = 13.487
 texture_margin_bottom = 13.6476
-region_rect = Rect2(2, 34, 44, 44)
+region_rect = Rect2(81, 97, 30, 30)
 
 [resource]
 Panel/styles/panel = SubResource("StyleBoxTexture_gx0nw")

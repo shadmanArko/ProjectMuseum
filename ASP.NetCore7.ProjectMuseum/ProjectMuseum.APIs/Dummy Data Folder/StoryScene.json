@@ -140,7 +140,7 @@
       {
         "EntryNo": "4b",
         "IllustrationName": "04",
-        "Dialogue": "So, I'm not going to lie to you. [PAUSE]. But, you'll have a good bit of work to do here.",
+        "Dialogue": "So, I\u0027m not going to lie to you. [PAUSE]. But, you\u0027ll have a good bit of work to do here.",
         "Speaker": "Professor Eucalyptus",
         "SpeakerEmotion": "Thoughtful",
         "HasCutscene": false,
@@ -165,109 +165,111 @@
         "HasCutsceneArt": false
       }
     ]
-  },{
-  "Id": "",
-  "SceneNo": 5,
-  "HasTutorial": true,
-  "TutorialNumber": 2,
-  "StorySceneEntries": [
-    {
-      "EntryNo": "5a",
-      "IllustrationName": "05",
-      "Dialogue": "The place is quite small, but I think there is room for expansion. The entire strip of trees in the back there is owned by the museum! Which in turn is owned by the city council.",
-      "Speaker": "Professor Eucalyptus",
-      "SpeakerEmotion": "Thoughtful",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "5b",
-      "IllustrationName": "05",
-      "Dialogue": "But, here. Let me get you started. Here's an old tomahawk my family has passed down for generations. It's said it was given to my great, great grandpa by a local Native American chief.",
-      "Speaker": "Professor Eucalyptus",
-      "SpeakerEmotion": "Pleased",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "5c",
-      "IllustrationName": "05",
-      "Dialogue": "Now, let me see you put this in that old exhibit over there.",
-      "Speaker": "Professor Eucalyptus",
-      "SpeakerEmotion": "Excited",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "5d",
-      "IllustrationName": "05",
-      "Dialogue": "[TRIGGERTUTORIAL]",
-      "Speaker": "",
-      "SpeakerEmotion": "",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    }
-  ]
-},{
-  "Id": "",
-  "SceneNo": 6,
-  "HasTutorial": false,
-  "TutorialNumber": 0,
-  "StorySceneEntries": [
-    {
-      "EntryNo": "6a",
-      "IllustrationName": "06",
-      "Dialogue": "Good job!",
-      "Speaker": "Professor Eucalyptus",
-      "SpeakerEmotion": "Pleased",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "6b",
-      "IllustrationName": "06",
-      "Dialogue": "There's a lot of cleaning, remodelling and of course, artifact-hunting to be done before this museum returns to its glory days.",
-      "Speaker": "Professor Eucalyptus",
-      "SpeakerEmotion": "Thoughtful",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "6c",
-      "IllustrationName": "06",
-      "Dialogue": "Speaking of artifacts, a possible ancient battle site has been identified around these parts. And I've managed to secure a permit for you and the museum to go excavating there.",
-      "Speaker": "Professor Eucalyptus",
-      "SpeakerEmotion": "Pleased",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "6d",
-      "IllustrationName": "06",
-      "Dialogue": "That's awesome! I can finally be a real archaeologist!",
-      "Speaker": "Player",
-      "SpeakerEmotion": "Smug",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "6e",
-      "IllustrationName": "06",
-      "Dialogue": "Hold your horses! You still need a digging assistant, and I, for one, am too busy with the university. See if someone in town is willing to help you out. Meanwhile, I'll get some dinner.",
-      "Speaker": "Professor Eucalyptus",
-      "SpeakerEmotion": "Thoughtful",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    },
-    {
-      "EntryNo": "6f",
-      "IllustrationName": "06",
-      "Dialogue": "[TRIGGERTUTORIAL]",
-      "Speaker": "",
-      "SpeakerEmotion": "",
-      "HasCutscene": false,
-      "HasCutsceneArt": false
-    }
-  ]
-}
+  },
+  {
+    "Id": "",
+    "SceneNo": 5,
+    "HasTutorial": true,
+    "TutorialNumber": 2,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "5a",
+        "IllustrationName": "05",
+        "Dialogue": "The place is quite small, but I think there is room for expansion. The entire strip of trees in the back there is owned by the museum! Which in turn is owned by the city council.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "5b",
+        "IllustrationName": "05",
+        "Dialogue": "But, here. Let me get you started. Here\u0027s an old tomahawk my family has passed down for generations. It\u0027s said it was given to my great, great grandpa by a local Native American chief.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "5c",
+        "IllustrationName": "05",
+        "Dialogue": "Now, let me see you put this in that old exhibit over there.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "5d",
+        "IllustrationName": "05",
+        "Dialogue": "[TRIGGERTUTORIAL]",
+        "Speaker": "",
+        "SpeakerEmotion": "",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 6,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "6a",
+        "IllustrationName": "06",
+        "Dialogue": "Good job!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "6b",
+        "IllustrationName": "06",
+        "Dialogue": "There\u0027s a lot of cleaning, remodelling and of course, artifact-hunting to be done before this museum returns to its glory days.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "6c",
+        "IllustrationName": "06",
+        "Dialogue": "Speaking of artifacts, a possible ancient battle site has been identified around these parts. And I\u0027ve managed to secure a permit for you and the museum to go excavating there.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "6d",
+        "IllustrationName": "06",
+        "Dialogue": "That\u0027s awesome! I can finally be a real archaeologist!",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Smug",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "6e",
+        "IllustrationName": "06",
+        "Dialogue": "Hold your horses! You still need a digging assistant, and I, for one, am too busy with the university. See if someone in town is willing to help you out. Meanwhile, I\u0027ll get some dinner.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "6f",
+        "IllustrationName": "06",
+        "Dialogue": "[TRIGGERTUTORIAL]",
+        "Speaker": "",
+        "SpeakerEmotion": "",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  }
 ]

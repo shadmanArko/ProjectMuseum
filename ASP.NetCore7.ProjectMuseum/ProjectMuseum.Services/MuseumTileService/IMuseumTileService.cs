@@ -18,5 +18,6 @@ public interface IMuseumTileService
     Task<MuseumTile?> DeleteMuseumTileById(string tileId);
     Task<List<MuseumTile>?> DeleteAllMuseumTiles();
     Task<List<MuseumTile>?> GenerateMuseumTileForNewGame();
+    Task<List<MuseumTile>?> ExpandMuseumTiles(int originPositionX, int originPositionY);
 
 }

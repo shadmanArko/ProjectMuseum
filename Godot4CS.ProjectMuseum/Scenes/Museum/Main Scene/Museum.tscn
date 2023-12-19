@@ -51,8 +51,6 @@ _dirtyWallProbability = 0
 _dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_bhbr7"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
 _wallsParent = NodePath("../WallsParent")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="museum/TileMap"]
-
 [node name="Camera2D" type="Camera2D" parent="museum"]
 position = Vector2(50, -210)
 script = ExtResource("4_kytf8")
@@ -131,6 +129,7 @@ texture = ExtResource("21_6abge")
 offset = Vector2(0, -32.5)
 
 [node name="Background Foresnt" type="Node2D" parent="museum"]
+z_index = -1
 y_sort_enabled = true
 
 [node name="IsomatricForestChunk" type="Sprite2D" parent="museum/Background Foresnt"]
@@ -233,5 +232,3 @@ script = ExtResource("34_r65mj")
 _storyPlayer = NodePath("../museum/Player_Uncontrolled")
 _storyProfessor = NodePath("../museum/Professor")
 _gameCharacter = NodePath("../museum/Player")
-
-[connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]

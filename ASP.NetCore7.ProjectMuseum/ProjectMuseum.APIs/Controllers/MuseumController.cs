@@ -67,6 +67,12 @@ public class MuseumController : ControllerBase
         var museumTiles =await _museumTileService.GenerateMuseumTileForNewGame();
         return Ok(museumTiles);
     }
+    [HttpGet("ExpandMuseum/{originPositionX}/{originPositionY}")]
+    public async Task<IActionResult> ExpandMuseum(int originPositionX, int originPositionY)
+    {
+        var museumTiles =await _museumTileService.ExpandMuseumTiles(originPositionX, originPositionY);
+        return Ok(museumTiles);
+    }
     [HttpPost]
     public async Task<IActionResult> CreateMuseumTile([FromBody] MuseumTile museumTile)
     {

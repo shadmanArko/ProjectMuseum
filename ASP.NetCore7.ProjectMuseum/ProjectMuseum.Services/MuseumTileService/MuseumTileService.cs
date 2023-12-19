@@ -94,6 +94,9 @@ public class MuseumTileService : IMuseumTileService
     {
        return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();
     }
-
+    public async Task<List<MuseumTile>?> ExpandMuseumTiles(int originPositionX, int originPositionY)
+    {
+        return await _museumTileDataGenerator.ExpandMuseumTiles(originPositionX, originPositionY);
+    }
     
 }

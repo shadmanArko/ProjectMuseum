@@ -1,1 +1,7 @@
-[{"Id":"museum0","Name":"my Museum","Money":-22838.201}]
+[
+  {
+    "Id": "museum0",
+    "Name": "my Museum",
+    "Money": -22838.201
+  }
+]

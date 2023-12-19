@@ -136,7 +136,7 @@ public partial class AnimationController : AnimationPlayer
     
 	private void OnDigAnimationStrikeStarted()
 	{
-		if (_sprite.Frame is not (52 or 92 or 77 or 107 or 222 or 232)) return;
+		if (_sprite.Frame is not (52 or 62 or 72 or 92 or 222 or 232)) return;
 		MineActions.OnDigActionStarted?.Invoke();
 	}
 

@@ -25,4 +25,9 @@ public partial class ToolbarSlot : Node
 	{
 		_highlighter.Texture = _defaultHighlighter;
 	}
+
+	public void SetItemTexture(string pngPath)
+	{
+		_itemSprite = GD.Load<Texture2D>(pngPath);
+	}
 }

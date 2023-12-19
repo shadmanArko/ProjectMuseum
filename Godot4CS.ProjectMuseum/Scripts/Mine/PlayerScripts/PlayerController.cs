@@ -95,7 +95,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
         
 		var previousVerticalVelocity = Velocity.Y;
 		var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
-
 		Velocity = new Vector2(Velocity.X, currentVerticalVelocity);
 	}
 
@@ -115,15 +114,14 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 
 	private void DetectCollision()
 	{
-		var collision = MoveAndCollide(Velocity, recoveryAsCollision: true);
-
-		if (collision == null)
+		MoveAndSlide();
+		if (GetSlideCollisionCount() <= 0)
 		{
 			if (_playerControllerVariables.State != MotionState.Hanging)
 				_playerControllerVariables.State = MotionState.Falling;
 		}
 		else
-			MineActions.OnPlayerCollisionDetection?.Invoke(collision);
+			MineActions.OnPlayerCollisionDetection?.Invoke(GetSlideCollision(0));
 	}
 
 	private void ReducePlayerEnergy()

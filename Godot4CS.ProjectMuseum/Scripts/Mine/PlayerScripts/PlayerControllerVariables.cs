@@ -10,15 +10,15 @@ public class PlayerControllerVariables
     
     #region Movement Variables
 
-    public const int MaxSpeed = 100;
-    public int Acceleration = 100;
-    public const int Friction = 200;
+    public const int MaxSpeed = 2500;
+    public int Acceleration = 2500;
+    public const int Friction = 500;
 
     #endregion
 
     #region Gravity Variables
 
-    public float Gravity = 25f;
+    public float Gravity = 30f;
     
     #endregion
 

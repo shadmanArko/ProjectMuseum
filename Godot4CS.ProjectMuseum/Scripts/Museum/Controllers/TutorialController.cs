@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
@@ -6,6 +7,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Controllers;
 public partial class TutorialController : ColorRect
 {
 	[Export] private RichTextLabel _tutorialBody;
+	[Export] private AnimationPlayer _animationPlayer;
 
 	public override void _Ready()
 	{
@@ -14,13 +16,16 @@ public partial class TutorialController : ColorRect
 		MuseumActions.OnTutorialEnded += OnTutorialEnded;
 	}
 
-	private void OnTutorialEnded()
+	private async void OnTutorialEnded()
 	{
-		Visible = false;
+		_animationPlayer.Play("Slide_Out");
+		// Visible = false;
 	}
 
-	private void OnTutorialUpdated(string tutorialBodyText)
+	private async void OnTutorialUpdated(string tutorialBodyText)
 	{
+		await Task.Delay(1000);
+		_animationPlayer.Play("Slide_In");
 		Visible = true;
 		_tutorialBody.Text = tutorialBodyText;
 	}

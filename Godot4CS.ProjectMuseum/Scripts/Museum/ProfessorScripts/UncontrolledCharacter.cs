@@ -11,8 +11,10 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 public partial class UncontrolledCharacter : PathNavigatorCharacter
 {
     [Export] private Array<Vector2I> _professorEnteringCoordinates;
+    [Export] private Vector2I _museumExitingCoordinate;
     private int _currentDirectionIndex = 0;
     [Export] private string _animationNameAfterInitialMovement;
+    private bool _exitingMuseum = false;
     public override async void _Ready()
     {
         base._Ready();
@@ -29,9 +31,15 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
 
     private void PathEnded(PathNavigatorCharacter obj)
     {
+        
         GD.Print("Path ended call prom professor");
         if (obj == this)
         {
+            if (_exitingMuseum)
+            {
+                Visible = false;
+                return;
+            }
             FollowDirections();
         }
     }
@@ -48,6 +56,11 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
             GD.Print("manual animation");
             _animationPlayerInstance.Play(_animationNameAfterInitialMovement);
         }
+    }
+    public void ExitMuseum()
+    {
+        _exitingMuseum = true;
+        SetPath(_museumExitingCoordinate);
     }
 
     public override void _ExitTree()

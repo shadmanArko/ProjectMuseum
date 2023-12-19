@@ -29,6 +29,10 @@ public partial class StoryCharacterController : Node2D
 			_storyPlayer.QueueFree();
 			_gameCharacter.Visible = true;
 		}
+		if (obj == "6e")
+		{
+			_storyProfessor.ExitMuseum();
+		}
 	}
 
 	private void StorySceneEnded(int obj)

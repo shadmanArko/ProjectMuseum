@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=17 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="2_3c32r"]
@@ -14,6 +14,94 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[sub_resource type="Animation" id="Animation_1ovfu"]
+resource_name = "Slide_Out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tutorial:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, 104), Vector2(-415, 104)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tutorial:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(404, 355), Vector2(404, 355)]
+}
+
+[sub_resource type="Animation" id="Animation_l27bw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tutorial:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(404, 355)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tutorial:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 104)]
+}
+
+[sub_resource type="Animation" id="Animation_1461y"]
+resource_name = "Slide_In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tutorial:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-415, 104), Vector2(5, 104)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tutorial:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(404, 355), Vector2(404, 355)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xcxto"]
+_data = {
+"RESET": SubResource("Animation_l27bw"),
+"Slide_In": SubResource("Animation_1461y"),
+"Slide_Out": SubResource("Animation_1ovfu")
+}
 
 [node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField", "_diggingPermitsButton", "_museumGateCheckButton", "_diggingPermitsUi")]
 layout_mode = 3
@@ -295,7 +383,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Gate"
 
-[node name="Tutorial" type="ColorRect" parent="." node_paths=PackedStringArray("_tutorialBody")]
+[node name="Tutorial" type="ColorRect" parent="." node_paths=PackedStringArray("_tutorialBody", "_animationPlayer")]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -303,12 +391,14 @@ anchor_top = 0.096
 anchor_right = 0.213
 anchor_bottom = 0.425
 offset_left = 5.0
-offset_top = 0.32
-offset_right = 0.039978
+offset_top = 104.0
+offset_right = 409.0
+offset_bottom = 459.0
 grow_vertical = 2
 color = Color(0.647059, 0.647059, 0.647059, 1)
 script = ExtResource("11_0y8jq")
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
+_animationPlayer = NodePath("../Tutorial panel Animation Player")
 
 [node name="TutorialHeader" type="ColorRect" parent="Tutorial"]
 layout_mode = 1
@@ -360,6 +450,11 @@ theme = ExtResource("6_u4d1t")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 16
 text = "sdfasdfasdf"
+
+[node name="Tutorial panel Animation Player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xcxto")
+}
 
 [connection signal="pressed" from="Panel/Exhibit 0" to="." method="OnExhibit0Pressed"]
 [connection signal="pressed" from="Panel/Exhibit 1" to="." method="OnExhibit1Pressed"]

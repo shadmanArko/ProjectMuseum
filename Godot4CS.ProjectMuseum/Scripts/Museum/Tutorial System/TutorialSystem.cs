@@ -47,7 +47,7 @@ public partial class TutorialSystem : Node
     private void OnPlayerPerformedTutorialRequiringAction(string obj)
     {
         _performedActions.Add(obj);
-        CheckForTutorialCompletion();
+        if(!_currentTutorialCompleted) CheckForTutorialCompletion();
     }
 
     void LoadTutorial(int number)
@@ -119,7 +119,7 @@ public partial class TutorialSystem : Node
             }
         }
 
-        CheckForTutorialCompletion();
+        if(!_currentTutorialCompleted) CheckForTutorialCompletion();
     }
 
     private void CheckForTutorialCompletion()

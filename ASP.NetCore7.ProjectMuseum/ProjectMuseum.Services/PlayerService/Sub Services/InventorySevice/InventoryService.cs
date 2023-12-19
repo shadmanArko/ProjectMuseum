@@ -15,10 +15,10 @@ public class InventoryService : IInventoryService
         _artifactStorageRepository = artifactStorageRepository;
     }
 
-    public async Task<List<Weapon>?> GetAllWeapons()
+    public async Task<List<Equipable>?> GetAllEquipables()
     {
-        var weapons = await _inventoryRepository.GetAllWeapons();
-        return weapons;
+        var equipables = await _inventoryRepository.GetAllEquipables();
+        return equipables;
     }
 
     public async Task<List<Artifact>?> GetAllArtifacts()
@@ -32,5 +32,11 @@ public class InventoryService : IInventoryService
         var artifacts = await _inventoryRepository.GetAllArtifacts();
         await _artifactStorageRepository.AddListOfArtifacts(artifacts!);
         await _inventoryRepository.RemoveAllArtifacts();
-    } 
+    }
+
+    public async Task<Inventory?> GetInventory()
+    {
+        var inventory = await _inventoryRepository.GetInventory();
+        return inventory;
+    }
 }

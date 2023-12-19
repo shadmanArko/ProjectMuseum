@@ -6,6 +6,7 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -24,8 +25,7 @@ public partial class MineGenerationController : Node2D
 	private MineGenerationVariables _mineGenerationVariables;
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineCellCrackMaterial _mineCellCrackMaterial;
-	private List<RawArtifactDescriptive> _rawArtifactDescriptive;
-	private List<RawArtifactFunctional> _rawArtifactFunctional;
+	private RawArtifactDTO _rawArtifactDto;
 	[Export] private MineGenerationView _mineGenerationView;
 
 	[Export] private CanvasLayer _savingCanvas;
@@ -88,14 +88,16 @@ public partial class MineGenerationController : Node2D
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
-		_rawArtifactFunctional = rawArtifactFunctionalList;
+		_rawArtifactDto.RawArtifactFunctionals = rawArtifactFunctionalList;
+		GD.Print("Raw artifact functional API called");
+		GD.Print($"raw artifact functional: {_rawArtifactDto.RawArtifactFunctionals.Count}");
 	}
 
 	private void OnGetRawArtifactDescriptiveHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var rawArtifactDescriptiveList = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(jsonStr);
-		_rawArtifactDescriptive = rawArtifactDescriptiveList;
+		_rawArtifactDto.RawArtifactDescriptives = rawArtifactDescriptiveList;
 	}
 
 	private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
@@ -110,8 +112,8 @@ public partial class MineGenerationController : Node2D
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
-        _rawArtifactDescriptive = ServiceRegistry.Resolve<List<RawArtifactDescriptive>>();
-		_rawArtifactFunctional = ServiceRegistry.Resolve<List<RawArtifactFunctional>>();
+		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
+		GD.Print("Raw artifact functional resolved from Mine Generation Script");
 	}
 
 	#region Get Mine Crack Material From Server

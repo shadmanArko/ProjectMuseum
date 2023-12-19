@@ -6,6 +6,7 @@ public class Artifact
     public string RawArtifactId { get; set; }
     public int PositionX { get; set; }
     public int PositionY { get; set; }
+    public int Slot { get; set; }
     
     //todo rest of the field will be coded here
 }

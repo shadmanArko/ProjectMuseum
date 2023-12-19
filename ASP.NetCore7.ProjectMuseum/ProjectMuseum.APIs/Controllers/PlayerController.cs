@@ -49,7 +49,7 @@ public class PlayerController : ControllerBase
     [HttpGet("GetAllWeaponsInInventory")]
     public async Task<IActionResult> GetAllWeaponsInInventory()
     {
-        var weapons = await _inventoryService.GetAllWeapons();
+        var weapons = await _inventoryService.GetAllEquipables();
         return Ok(weapons);
     }
     
@@ -79,5 +79,12 @@ public class PlayerController : ControllerBase
     {
         var t = await _timeService.SaveTime(time);
         return Ok(t);
+    }
+
+    [HttpGet("GetInventory")]
+    public async Task<IActionResult> GetInventory()
+    {
+        var inventory = await _inventoryService.GetInventory();
+        return Ok(inventory);
     }
 }

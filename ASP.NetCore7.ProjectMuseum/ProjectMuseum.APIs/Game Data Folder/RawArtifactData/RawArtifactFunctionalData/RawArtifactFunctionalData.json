@@ -8,7 +8,7 @@
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "ClassicalNativeAmericanWoodenSword",
@@ -19,7 +19,7 @@
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "ClassicalNativeAmericanTomahawk",
@@ -29,8 +29,8 @@
     "Materials": ["Wood", "Bone"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
-    "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "MedievalNativeAmericanTomahawk",
@@ -41,7 +41,7 @@
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "RenaissanceNativeAmericanTomahawk",
@@ -51,8 +51,8 @@
     "Materials": ["Wood", "Iron"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
-    "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Renaissance Native American Tomahawk.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "RenaissanceAmericanCutlass",
@@ -63,7 +63,7 @@
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
     "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "IndustrialAmericanMusket",
@@ -73,8 +73,8 @@
     "Materials": ["Iron", "Wood"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Large",
-    "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Industrial American Musket.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "ModernAmericanRifle",
@@ -84,8 +84,8 @@
     "Materials": ["Iron", "Wood"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Large",
-    "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Modern American Rifle.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "ClassicalNativeAmericanWarShield",
@@ -96,7 +96,7 @@
     "ObjectClass": "Armor",
     "ObjectSize": "Medium",
     "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
     "Id": "MedievalNativeAmericanWarShield",
@@ -107,6 +107,6 @@
     "ObjectClass": "Armor",
     "ObjectSize": "Medium",
     "LargeImageLocation": "TBD",
-    "SmallImageLocation": "TBD"
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   }
 ]

@@ -1,1 +1,60 @@
-[{"Weapons":[{"Id":"W001","Name":"Sword of Valor","Slot":1},{"Id":"W002","Name":"Bow of Precision","Slot":2}],"Artifacts":[]}]
+[
+  {
+    "Equipables": [
+      {
+        "Id": "eqp1",
+        "Name": "Sword of Valor",
+        "Slot": 0,
+        "Type": "Weapon",
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
+      },
+      {
+        "Id": "eqp2",
+        "Name": "Iron Shield",
+        "Slot": 1,
+        "Type": "Shield",
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
+      },
+      {
+        "Id": "eqp3",
+        "Name": "Leather Boots",
+        "Slot": 2,
+        "Type": "Armor",
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Brush.png"
+      }
+    ],
+    "Artifacts": [
+      {
+        "Id": "art1",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 10,
+        "PositionY": 20,
+        "Slot": 4
+      },
+      {
+        "Id": "art2",
+        "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
+        "PositionX": 15,
+        "PositionY": 25,
+        "Slot": 5
+      },
+      {
+        "Id": "art3",
+        "RawArtifactId": "RenaissanceAmericanCutlass",
+        "PositionX": 30,
+        "PositionY": 40,
+        "Slot": 6
+      },
+      {
+        "Id": "art4",
+        "RawArtifactId": "IndustrialAmericanMusket",
+        "PositionX": 5,
+        "PositionY": 15,
+        "Slot": 7
+      }
+    ]
+  ,
+    "EmptySlots": [],
+    "SlotsUnlocked": 12
+  }
+]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqltyu2fgvmyp"]
+[gd_scene load_steps=10 format=3 uid="uid://bqltyu2fgvmyp"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSelector.cs" id="1_1qo2i"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineUiController.cs" id="1_fgd35"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bvfa2kfxjugp5" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png" id="4_6kwes"]
 [ext_resource type="Texture2D" uid="uid://15bptc8ns637" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina _bar.png" id="4_oy7sv"]
 [ext_resource type="Texture2D" uid="uid://d3w37soodcxua" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Bar fill.png" id="4_qktgs"]
-[ext_resource type="Texture2D" uid="uid://blijvn5oyhdg1" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png" id="5_kntte"]
 [ext_resource type="Texture2D" uid="uid://bqnclq7a3ymjd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina Bar fill.png" id="6_o1ooj"]
 [ext_resource type="Texture2D" uid="uid://do6qyo2ugma4j" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Brush.png" id="6_r88xk"]
 
@@ -17,7 +16,7 @@ _healthBar = NodePath("Health Bar")
 _energyBar = NodePath("Energy Bar")
 metadata/_edit_vertical_guides_ = [664.0]
 
-[node name="Toolbar Panel" type="HBoxContainer" parent="." node_paths=PackedStringArray("_toolbarSlots")]
+[node name="Toolbar Panel" type="HBoxContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -31,45 +30,56 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 6
 script = ExtResource("1_1qo2i")
-_toolbarSlots = [NodePath("ToolbarSlot1"), NodePath("ToolbarSlot2"), NodePath("ToolbarSlot3"), NodePath("ToolbarSlot4"), NodePath("ToolbarSlot5"), NodePath("ToolbarSlot6"), NodePath("ToolbarSlot7"), NodePath("ToolbarSlot8"), NodePath("ToolbarSlot9"), NodePath("ToolbarSlot10"), NodePath("ToolbarSlot11"), NodePath("ToolbarSlot12")]
+_toolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn"
 
 [node name="ToolbarSlot1" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 _itemSprite = ExtResource("4_6kwes")
 
 [node name="ToolbarSlot2" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
-_itemSprite = ExtResource("5_kntte")
 
 [node name="ToolbarSlot3" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 _itemSprite = ExtResource("6_r88xk")
 
 [node name="ToolbarSlot4" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot5" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot6" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot7" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot8" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot9" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot10" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot11" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="ToolbarSlot12" parent="Toolbar Panel" instance=ExtResource("2_8hko1")]
+visible = false
 layout_mode = 2
 
 [node name="Health Bar" type="TextureProgressBar" parent="."]

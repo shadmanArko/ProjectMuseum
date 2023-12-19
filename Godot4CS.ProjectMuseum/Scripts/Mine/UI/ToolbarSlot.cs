@@ -28,6 +28,6 @@ public partial class ToolbarSlot : Node
 
 	public void SetItemTexture(string pngPath)
 	{
-		_itemSprite = GD.Load<Texture2D>(pngPath);
+		_itemSlot.Texture = GD.Load<Texture2D>(pngPath);
 	}
 }

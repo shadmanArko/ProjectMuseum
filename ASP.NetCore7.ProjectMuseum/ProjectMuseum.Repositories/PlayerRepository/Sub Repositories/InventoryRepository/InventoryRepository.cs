@@ -11,12 +11,12 @@ public class InventoryRepository : IInventoryRepository
         _inventoryDatabase = inventoryDatabase;
     }
     
-    public async Task<List<Weapon>?> GetAllWeapons()
+    public async Task<List<Equipable>?> GetAllEquipables()
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
-        var weapons = inventory?.Weapons;
-        return weapons;
+        var equipables = inventory?.Equipables;
+        return equipables;
     }
 
     public async Task<List<Artifact>?> GetAllArtifacts()
@@ -34,6 +34,13 @@ public class InventoryRepository : IInventoryRepository
         var artifacts = inventory?.Artifacts;
         artifacts?.Clear();
         if (listOfInventory != null) await _inventoryDatabase.WriteDataAsync(listOfInventory);
+    }
+
+    public async Task<Inventory?> GetInventory()
+    {
+        var listOfInventory = await _inventoryDatabase.ReadDataAsync();
+        var inventory = listOfInventory?[0];
+        return inventory;
     }
 
     public async Task<Artifact> AddArtifact(Artifact artifact)

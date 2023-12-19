@@ -2,6 +2,7 @@ using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using ProjectMuseum.Models;
+using Equipables = Godot4CS.ProjectMuseum.Scripts.Mine.Enum.Equipables;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 

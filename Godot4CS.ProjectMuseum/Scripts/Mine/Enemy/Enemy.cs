@@ -21,11 +21,18 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;
     [Export] public bool IsAggro;
-
-    
     
     [Export] public TextureProgressBar HealthBar;
     [Export] public EnemyAnimationController AnimationController;
+
+    #region Stats
+
+    public bool IsDead {
+        get;
+        set;
+    }
+
+    #endregion
         
         
     private int _health;

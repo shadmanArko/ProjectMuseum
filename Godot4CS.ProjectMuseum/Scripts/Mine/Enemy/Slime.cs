@@ -35,6 +35,7 @@ public partial class Slime : Enemy
         InitializeDiReferences();
         SubscribeToActions();
         Spawn();
+        IsDead = false;
         Health = 100;
         StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
     }
@@ -297,6 +298,7 @@ public partial class Slime : Enemy
     private void OnDeathAnimationFinished(string animeName)
     {
         if(animeName != "death") return;
+        IsDead = true;
         SetPhysicsProcess(false);
         QueueFree();
     }

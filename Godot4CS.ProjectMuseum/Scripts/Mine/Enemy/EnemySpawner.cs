@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -7,6 +8,8 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
 public partial class EnemySpawner : Node2D
 {
+    private List<Enemy> _enemies;
+    
     [Export] private Node _parentNode;
     [Export] private string _slimePrefabPath;
 
@@ -26,19 +29,26 @@ public partial class EnemySpawner : Node2D
 
     public override void _EnterTree()
     {
-        _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-        _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+        InitializeDiInstallers();
     }
 
     public override void _Ready()
     {
+        _enemies = new List<Enemy>();
         SetProcess(false);
         SetPhysicsProcess(false);
     }
 
-    public void OnTimeEndSpawnEnemy()
+    private void InitializeDiInstallers()
+    {
+        _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+        _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+    }
+
+    private void OnTimeEndSpawnEnemy()
     {
         GD.Print("Spawning new enemy");
+        if(_enemies.Count >= 3) return;
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
         GD.Print($"Slime Scene is null {scene is null}");
         _parentNode.AddChild(scene);
@@ -75,6 +85,8 @@ public partial class EnemySpawner : Node2D
         _newEnemy.AnimationController.Play("idle");
         SetProcess(false);
         SetPhysicsProcess(false);
+        if(!_enemies.Contains(_newEnemy))
+            _enemies.Add(_newEnemy);
         _newEnemy.IsAffectedByGravity = true;
         _newEnemy.State = EnemyState.Move;
         _newEnemy = null;

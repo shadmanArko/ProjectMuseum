@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuiv1oiwajgel"]
+
+[ext_resource type="Script" path="res://Plugins/Arko's Tooltip/Scenes/Demo/ForUI/ColorRect.cs" id="1_fon2e"]
+
+[node name="ForUITooltip" type="Container"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+script = ExtResource("1_fon2e")
+
+[connection signal="mouse_entered" from="ColorRect" to="ColorRect" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="ColorRect" to="ColorRect" method="OnMouseExited"]

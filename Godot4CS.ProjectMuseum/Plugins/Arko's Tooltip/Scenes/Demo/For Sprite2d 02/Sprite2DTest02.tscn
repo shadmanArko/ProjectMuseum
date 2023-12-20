@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl72pvaxmdk0m"]
+
+[ext_resource type="Texture2D" uid="uid://cqfrqomw1mp8o" path="res://Assets/2D/Sprites/icon.svg" id="1_4xclg"]
+[ext_resource type="Script" path="res://Plugins/Arko's Tooltip/Scenes/Demo/For Sprite2d 02/StaticBody2D.cs" id="2_xxot5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jct7"]
+size = Vector2(133, 132)
+
+[node name="Sprite2DTest02" type="Sprite2D"]
+position = Vector2(635, 373)
+texture = ExtResource("1_4xclg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+script = ExtResource("2_xxot5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_2jct7")
+
+[connection signal="mouse_entered" from="StaticBody2D" to="StaticBody2D" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="StaticBody2D" method="OnMouseExited"]

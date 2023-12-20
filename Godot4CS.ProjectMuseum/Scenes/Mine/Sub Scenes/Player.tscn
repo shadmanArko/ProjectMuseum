@@ -772,8 +772,6 @@ _discoveredArtifactScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/Discovere
 [node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource("5_0x0fh")
 
-[node name="AutoAnimationController" type="Node2D" parent="."]
-
 [node name="PlayerEnemyCollisionDetector" type="Node2D" parent="." node_paths=PackedStringArray("_attackDetectorArea2D", "_collisionShape2D", "_animationPlayer")]
 script = ExtResource("7_3m1a8")
 _attackDetectorArea2D = NodePath("../Attack Detector")

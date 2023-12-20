@@ -11,6 +11,8 @@ public partial class CampToMineTransition : Button
     private PlayerControllerVariables _playerControllerVariables;
     private CampExitPromptUi _campExitPromptUi;
 
+    private AutoAnimationController _autoAnimationController;
+
     [Export] private Vector2 _p0;
     [Export] private Vector2 _p1;
     [Export] private Vector2 _p2;
@@ -21,6 +23,7 @@ public partial class CampToMineTransition : Button
     public override void _Ready()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+        _autoAnimationController = ReferenceStorage.Instance.autoAnimationController;
         _campExitPromptUi = ReferenceStorage.Instance.campExitPromptUi;
         _campExitPromptUi.SleepForTheNightButton.ButtonUp += TransitFromCampToMine;
         _campExitPromptUi.SleepForTheNightButton.ButtonUp += DeactivateCampExitPromptUi;
@@ -38,8 +41,9 @@ public partial class CampToMineTransition : Button
 		
         _playerControllerVariables.Gravity = 0;
         _playerControllerVariables.State = MotionState.Grounded;
-        SetProcess(true);
-        SetPhysicsProcess(false);
+        // SetProcess(true);
+        // SetPhysicsProcess(false);
+        _autoAnimationController._Ready();
     }
 
     private async void TransitFromCampToMuseum()
@@ -52,27 +56,27 @@ public partial class CampToMineTransition : Button
         // await sceneTransition.FadeOut();
     }
 
-    #region Process
-
-    public override void _Process(double delta)
-    {
-        AutoMoveToPosition();
-    }
-    
-    public override void _PhysicsProcess(double delta)
-    {
-        _playerControllerVariables.Player.Position = AutoJumpIntoMine((float) _time);
-        _time += delta;
-
-        if (!(_time >= 1.2f)) return;
-        SetProcess(false);
-        SetPhysicsProcess(false);
-        _playerControllerVariables.CanMove = true;
-        _playerControllerVariables.IsAffectedByGravity = true;
-        _playerControllerVariables.Gravity = 25f;
-    }
-
-    #endregion
+    // #region Process
+    //
+    // public override void _Process(double delta)
+    // {
+    //     AutoMoveToPosition();
+    // }
+    //
+    // public override void _PhysicsProcess(double delta)
+    // {
+    //     _playerControllerVariables.Player.Position = AutoJumpIntoMine((float) _time);
+    //     _time += delta;
+    //
+    //     if (!(_time >= 1.2f)) return;
+    //     SetProcess(false);
+    //     SetPhysicsProcess(false);
+    //     _playerControllerVariables.CanMove = true;
+    //     _playerControllerVariables.IsAffectedByGravity = true;
+    //     _playerControllerVariables.Gravity = 25f;
+    // }
+    //
+    // #endregion
     
     #region Auto Animations
 

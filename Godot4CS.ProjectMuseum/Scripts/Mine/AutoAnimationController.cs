@@ -8,6 +8,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 public partial class AutoAnimationController : Node2D
 {
 	private PlayerControllerVariables _playerControllerVariables;
+	private MineGenerationVariables mineGenerationVariables;
 
 	[Export] private PlayerController _playerController;
 	[Export] private AnimationController _animationController;
@@ -30,10 +31,10 @@ public partial class AutoAnimationController : Node2D
 	{
 		_animationController = _playerControllerVariables.Player.animationController;
 		_playerController = _playerControllerVariables.Player;
-		_playerControllerVariables.Player.Position = new Vector2(250, -60);
+		_playerControllerVariables.Player.Position = new Vector2(250, -58);
 		_playerControllerVariables.CanMove = false;
 		_playerControllerVariables.IsAffectedByGravity = false;
-		
+		_time = 0;
 		_playerControllerVariables.Gravity = 0;
 		_playerControllerVariables.State = MotionState.Grounded;
 		SetProcess(true);
@@ -41,12 +42,12 @@ public partial class AutoAnimationController : Node2D
 		GD.Print("inside here");
 	}
 
-	private Vector2 _newPos = new(420,-60);
+	private Vector2 _newPos = new(420,-58);
 	
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-		ServiceRegistry.Resolve<MineGenerationVariables>();
+		mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
 	public override void _Process(double delta)
@@ -59,7 +60,8 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.Player.Position = AutoJumpIntoMine((float) _time);
 		_time += delta;
 
-		if (!(_time >= 1.2f)) return;
+		// if (!(_time >= 1.1f)) return;
+		if(_playerControllerVariables.Position.Y < _p2.Y+10) return;
 		SetProcess(false);
 		SetPhysicsProcess(false);
 		_playerControllerVariables.CanMove = true;
@@ -75,12 +77,14 @@ public partial class AutoAnimationController : Node2D
 		if(_playerControllerVariables.Player.Position.X <= _newPos.X)
 		{
 			_animationController.Play("run");
-			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0));
+			_playerControllerVariables.Player.Translate(new Vector2(0.03f,0));
 		}
 		else
 		{
+			var cell = mineGenerationVariables.GetCell(new Vector2I(24, 0));
+			var cellSize = mineGenerationVariables.Mine.CellSize;
 			_p0 = _playerControllerVariables.Player.Position;
-			_p2 = _playerControllerVariables.Player.Position + new Vector2(60, 0);
+			_p2 = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);	//_playerControllerVariables.Player.Position + new Vector2(60, 0);
 			_p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
 
 			SetProcess(false);

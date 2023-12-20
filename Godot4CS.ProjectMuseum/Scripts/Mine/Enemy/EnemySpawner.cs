@@ -54,7 +54,7 @@ public partial class EnemySpawner : Node2D
         _newEnemy = enemy;
         _autoMoveToPos = false;
         _jumpIntoMine = true;
-        enemy.Position = new Vector2(730, -60);
+        enemy.Position = new Vector2(730, -58);
         
         SetProcess(true);
     }
@@ -89,7 +89,7 @@ public partial class EnemySpawner : Node2D
         if(enemy == null) return;
         if(enemy.Position.X > _newPos.X)
         {
-            enemy.Translate(new Vector2(-0.03f,0));
+            enemy.Translate(new Vector2(-0.02f,0));
             enemy.AnimationController.Play("move");
         }
         else

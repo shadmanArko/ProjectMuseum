@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=13 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
 [ext_resource type="PackedScene" uid="uid://dmbaqgvetw2w" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromInventoryToMuseum.tscn" id="11_si3nu"]
+[ext_resource type="PackedScene" uid="uid://d2igll2u72jvt" path="res://Plugins/Arko's Tooltip/Scenes/Tooltip4.tscn" id="12_1cu8i"]
 
 [node name="MineScene" type="Node2D"]
 script = ExtResource("1_rq1hl")
@@ -25,7 +26,7 @@ _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 _parentNode = NodePath("../MineSceneInitializer")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
-[node name="ReferenceStorage" type="Node2D" parent="." node_paths=PackedStringArray("sceneTransition", "autoAnimationController", "enemySpawner", "mineExitPromptUi", "campExitPromptUi")]
+[node name="ReferenceStorage" type="Node2D" parent="." node_paths=PackedStringArray("sceneTransition", "autoAnimationController", "enemySpawner", "mineExitPromptUi", "campExitPromptUi", "Tooltip")]
 z_index = 11
 script = ExtResource("5_yk3pc")
 sceneTransition = NodePath("../SceneTransition")
@@ -34,11 +35,14 @@ enemySpawner = NodePath("../EnemySpawner")
 mineExitPromptUi = NodePath("../MineExitPromptUI")
 campExitPromptUi = NodePath("../CampExitPromptUI")
 DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
+Tooltip = NodePath("../MineUI/Tooltip4")
 
 [node name="Auto Animation Controller" type="Node2D" parent="."]
 script = ExtResource("7_5sphp")
 
 [node name="MineUI" parent="." instance=ExtResource("3_ambmn")]
+
+[node name="Tooltip4" parent="MineUI" instance=ExtResource("12_1cu8i")]
 
 [node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
 visible = false

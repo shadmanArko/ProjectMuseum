@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
 using Godot;
 
+
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
 public partial class SceneTransition : CanvasLayer
 {
-    [Export] private ColorRect _colorRect;
+    [Export] private Godot.ColorRect _colorRect;
 
     public async Task FadeIn()
     {

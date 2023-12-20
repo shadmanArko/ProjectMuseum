@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -100,6 +99,7 @@ public partial class ToolbarSelector : Node
 				continue;
 			}
 			_toolbarSlots[artifact.Slot].SetItemTexture(rawArtifactFunctional.SmallImageLocation);
+			_toolbarSlots[artifact.Slot].SetItemData(rawArtifactFunctional.Id, true);
 		}
 	}
 

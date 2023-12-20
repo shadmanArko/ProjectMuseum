@@ -1,14 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2igll2u72jvt"]
+[gd_scene load_steps=7 format=3 uid="uid://d2igll2u72jvt"]
 
 [ext_resource type="Script" path="res://Plugins/Arko's Tooltip/Scripts/Tooltip4.cs" id="1_p5x5t"]
-[ext_resource type="Theme" uid="uid://bofale76mjolp" path="res://Plugins/Arko's Tooltip/Scenes/Test2.tres" id="2_ggi7a"]
-[ext_resource type="Theme" uid="uid://byeqsaoond3ts" path="res://Plugins/Arko's Tooltip/Scenes/TestTheme.tres" id="3_pa4uc"]
+[ext_resource type="Theme" uid="uid://bty1kdie3hqyi" path="res://Plugins/Arko's Tooltip/Scenes/Test2.tres" id="2_ggi7a"]
+[ext_resource type="Texture2D" uid="uid://pis0xchdpo7" path="res://Plugins/Arko's Tooltip/Scenes/GUI.png" id="3_mpoi1"]
+[ext_resource type="FontFile" uid="uid://bwsjyoc8ldclp" path="res://Assets/Fonts/PixelOperator.ttf" id="4_c4thh"]
 
-[node name="Tooltip4" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_44dsh"]
+texture = ExtResource("3_mpoi1")
+texture_margin_left = 13.3265
+texture_margin_top = 13.6563
+texture_margin_right = 13.6476
+texture_margin_bottom = 13.8081
+region_rect = Rect2(2, 34, 44, 44)
+
+[sub_resource type="Theme" id="Theme_0xa5c"]
+VBoxContainer/constants/separation = 4
+VBoxContainer/styles/Stylebox = SubResource("StyleBoxTexture_44dsh")
+
+[node name="Tooltip4" type="Control" node_paths=PackedStringArray("_label", "_vBoxContainer", "_marginContainer", "_panel")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
 script = ExtResource("1_p5x5t")
+_label = NodePath("MarginContainer/VBoxContainer/Label")
+_vBoxContainer = NodePath("MarginContainer/VBoxContainer")
+_marginContainer = NodePath("MarginContainer")
+_panel = NodePath("Panel")
 metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
@@ -29,15 +46,20 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-theme = ExtResource("3_pa4uc")
+theme = SubResource("Theme_0xa5c")
 metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
+theme_override_constants/table_v_separation = 5
+theme_override_fonts/normal_font = ExtResource("4_c4thh")
+theme_override_fonts/bold_font = ExtResource("4_c4thh")
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 28
 bbcode_enabled = true
 text = "HelloHelloHelloHelloHelloHelloHelloHello
 HelloHelloHelloHelloHelloHelloHelloHello
@@ -57,4 +79,3 @@ HelloHelloHelloHelloHelloHelloHelloHello
 "
 fit_content = true
 scroll_active = false
-autowrap_mode = 0

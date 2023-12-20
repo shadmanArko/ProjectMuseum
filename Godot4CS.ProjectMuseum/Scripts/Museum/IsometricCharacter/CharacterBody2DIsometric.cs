@@ -96,7 +96,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         Vector2 nextPosition = Position + motion;
         
         // Check if the next position is within the bounds of the TileMap
-        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap) && _museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
+        if (_museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
         {
             // Move only if the next position is within the TileMap bounds
             var newTile = GameManager.TileMap.LocalToMap(Position);

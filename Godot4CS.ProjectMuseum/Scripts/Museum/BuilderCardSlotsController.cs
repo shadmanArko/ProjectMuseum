@@ -14,20 +14,31 @@ public partial class BuilderCardSlotsController : ColorRect
 	[Export] private GridContainer _builderCardContainer;
 
 	private List<ExhibitVariation> _exhibitVariations = new List<ExhibitVariation>();
+	private List<TileVariation> _tileVariations = new List<TileVariation>();
 	private HttpRequest _httpRequestForGettingExhibitVariations;
+	private HttpRequest _httpRequestForGettingTileVariations;
 	// Called when the node enters the scene tree for the first time.
 	private BuilderCardType _builderCardType;
 	public override void _Ready()
 	{
 		_httpRequestForGettingExhibitVariations = new HttpRequest();
+		_httpRequestForGettingTileVariations = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitVariations);
+		AddChild(_httpRequestForGettingTileVariations);
 		_httpRequestForGettingExhibitVariations.RequestCompleted += HttpRequestForGettingExhibitVariationsOnRequestCompleted;
+		_httpRequestForGettingTileVariations.RequestCompleted += HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
+		_httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
 
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked += ReInitialize;
 	}
 
-	
+	private void HttpRequestForGettingTileVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		_tileVariations = JsonSerializer.Deserialize<List<TileVariation>>(jsonStr);
+	}
+
 
 	private void ReInitialize(BuilderCardType builderCardType)
 	{
@@ -41,10 +52,25 @@ public partial class BuilderCardSlotsController : ColorRect
 			case BuilderCardType.Decoration:
 				ShowDecorationCards();
 				break;
+			case BuilderCardType.Flooring:
+				ShowFlooringCards();
+				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(builderCardType), builderCardType, null);
 		}
 		
+	}
+
+	private void ShowFlooringCards()
+	{
+		if (_tileVariations.Count <= 0) return;
+		
+		foreach (var tileVariation in _tileVariations)
+		{
+			var card = _builderCardScene.Instantiate();
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, tileVariation.VariationName);
+			_builderCardContainer.AddChild(card);
+		}
 	}
 
 	private void ClearCardsContainer()
@@ -86,5 +112,12 @@ public partial class BuilderCardSlotsController : ColorRect
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		MuseumActions.OnBottomPanelBuilderCardToggleClicked -= ReInitialize;
+
 	}
 }

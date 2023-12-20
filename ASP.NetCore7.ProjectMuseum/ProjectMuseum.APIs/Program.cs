@@ -1,5 +1,6 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
+using ProjectMuseum.Repositories.BuilderCardsRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
@@ -14,6 +15,7 @@ using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
 using ProjectMuseum.Repositories.PlayerRepository.Sub_Repositories.TimeRepository;
 using ProjectMuseum.Repositories.StorySceneRepository;
+using ProjectMuseum.Services.BuilderCardService;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
@@ -37,6 +39,8 @@ string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), 
 string museumDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museum.json");
 string exhibitDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibit.json");
 string exhibitVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibitVariations.json");
+string wallVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallVariations.json");
+string tileVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tileVariations.json");
 string storySceneDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "StoryScene.json");
 string tutorialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "Tutorials.json");
 string mineDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mine.json");
@@ -75,6 +79,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(exhibitVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<TileVariation>(tileVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<WallVariation>(wallVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<StoryScene>(storySceneDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Tutorial>(tutorialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(playerInfoDataFolderPath));
@@ -106,7 +112,9 @@ builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
     storySceneDataFolderPath,
     tradingArtifactsDataFolderPath,
     timeDataFolderPath,
-    tutorialDataFolderPath
+    tutorialDataFolderPath,
+    wallVariationDataFolderPath,
+    tileVariationDataFolderPath
     ));
 
 
@@ -114,6 +122,7 @@ builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMineRepository, MineRepository>();
 builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
 builder.Services.AddScoped<IExhibitRepository, ExhibitRepository>();
+builder.Services.AddScoped<IBuilderCardRepository, BuilderCardRepository>();
 builder.Services.AddScoped<IPlayerInfoRepository, PlayerInfoRepository>();
 builder.Services.AddScoped<IStorySceneRepository, StorySceneRepository>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
@@ -132,6 +141,7 @@ builder.Services.AddScoped<IMineCellGeneratorService, MineCellGeneratorService>(
 builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddScoped<IExhibitService, ExhibitService>();
+builder.Services.AddScoped<IBuilderCardService, BuilderCardService>();
 builder.Services.AddScoped<ILoadService, LoadService>();
 builder.Services.AddScoped<ISaveService, SaveService>();
 builder.Services.AddScoped<IPlayerInfoService, PlayerInfoService>();

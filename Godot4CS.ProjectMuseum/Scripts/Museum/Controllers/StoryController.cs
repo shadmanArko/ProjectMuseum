@@ -8,7 +8,7 @@ public partial class StoryController : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		MuseumActions.PlayStoryScene?.Invoke(4);
+		// MuseumActions.PlayStoryScene?.Invoke(4);
 		MuseumActions.StorySceneEnded += StorySceneEnded;
 	}
 

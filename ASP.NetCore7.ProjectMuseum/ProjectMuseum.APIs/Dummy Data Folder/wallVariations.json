@@ -1,0 +1,18 @@
+[
+  {
+    "VariationName": "BrickWall",
+    "Price": 2
+  },
+  {
+    "VariationName": "StoneWall",
+    "Price": 2
+  },
+  {
+    "VariationName": "WoodenWall",
+    "Price": 2
+  },
+  {
+    "VariationName": "ConcreteWall",
+    "Price": 2
+  }
+]

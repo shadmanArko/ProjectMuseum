@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dauvmdkqn3ikf"]
 
-[ext_resource type="Script" path="res://Plugins/Arko's Tooltip/Scripts/MineSceneTooltip.cs" id="1_udkyh"]
+[ext_resource type="Script" path="res://Plugins/Arko's Tooltip/Scripts/MuseumSceneTooltip.cs" id="1_34k4e"]
 [ext_resource type="Theme" uid="uid://bty1kdie3hqyi" path="res://Plugins/Arko's Tooltip/Assets/MineSceneTooltipTheme.tres" id="2_g0gww"]
 [ext_resource type="FontFile" uid="uid://bwsjyoc8ldclp" path="res://Assets/Fonts/PixelOperator.ttf" id="3_u1fdq"]
 
@@ -15,11 +15,11 @@ region_rect = Rect2(2, 34, 44, 44)
 VBoxContainer/constants/separation = 4
 VBoxContainer/styles/Stylebox = SubResource("StyleBoxTexture_44dsh")
 
-[node name="MineSceneTooltip" type="Control" node_paths=PackedStringArray("_label", "_vBoxContainer", "_marginContainer", "_panel")]
+[node name="MuseumSceneTooltip" type="Control" node_paths=PackedStringArray("_label", "_vBoxContainer", "_marginContainer", "_panel")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
-script = ExtResource("1_udkyh")
+script = ExtResource("1_34k4e")
 _label = NodePath("MarginContainer/VBoxContainer/Label")
 _vBoxContainer = NodePath("MarginContainer/VBoxContainer")
 _marginContainer = NodePath("MarginContainer")

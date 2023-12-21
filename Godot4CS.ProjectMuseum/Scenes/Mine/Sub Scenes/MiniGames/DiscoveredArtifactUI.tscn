@@ -1,18 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=3 format=3 uid="uid://dk7krdct01tse"]
 
 [ext_resource type="Texture2D" uid="uid://wghq5xodtlc3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/sword.png" id="1_4uwx6"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
 
-[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_okayButton")]
+[node name="DiscoveredArtifactVisualizer" type="CanvasLayer" node_paths=PackedStringArray("_artifactSprite")]
 script = ExtResource("1_l5epx")
-_canvasLayer = NodePath("CanvasLayer")
-_artifactName = NodePath("CanvasLayer/Panel/ArtifactName")
-_artifactSprite = NodePath("CanvasLayer/Panel/ArtifactSprite")
-_okayButton = NodePath("CanvasLayer/Panel/OkayButton")
+_artifactSprite = NodePath("Panel/Sprite2D")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,7 +16,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel"]
+[node name="Label" type="Label" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -37,13 +32,13 @@ grow_vertical = 2
 text = "You found a Spanish Cutlass"
 horizontal_alignment = 1
 
-[node name="ArtifactSprite" type="Sprite2D" parent="CanvasLayer/Panel"]
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
 texture_filter = 1
 position = Vector2(580, 320)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_4uwx6")
 
-[node name="OkayButton" type="Button" parent="CanvasLayer/Panel"]
+[node name="Button" type="Button" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -57,3 +52,5 @@ offset_bottom = 242.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "OKAY"
+
+[connection signal="pressed" from="Panel/Button" to="." method="OnOkayButtonPressed"]

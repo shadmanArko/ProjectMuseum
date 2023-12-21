@@ -118,5 +118,6 @@ public partial class AlternateTapMiniGame : CanvasLayer
 			MineActions.OnMiniGameLost?.Invoke();
 		
 		GD.Print("Process Stopped");
+		QueueFree();
 	}
 }

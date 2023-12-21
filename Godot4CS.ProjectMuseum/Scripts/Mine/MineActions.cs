@@ -34,10 +34,10 @@ public partial class MineActions : Node
 
     public static Action<Equipables> OnToolbarSlotChanged;
 
-    public static Action<Node2D> OnMiniGameLoad;
+    public static Action<Vector2I> OnMiniGameLoad;
     public static Action OnMiniGameWon;
     public static Action OnMiniGameLost;
-    public static Action OnArtifactDiscoveryOkayButtonPressed;
+    public static Action<Vector2I> OnArtifactCellBroken;
     public static Action<Artifact> OnArtifactSuccessfullyRetrieved;
 
 	public static Action<KinematicCollision2D> OnPlayerCollisionDetection;

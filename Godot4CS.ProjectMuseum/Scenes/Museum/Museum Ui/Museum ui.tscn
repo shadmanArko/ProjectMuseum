@@ -361,10 +361,21 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -111.0
+offset_left = -79.0
 offset_top = 53.0
-offset_right = -11.0
-offset_bottom = 153.0
+offset_right = -15.0
+offset_bottom = 117.0
+grow_horizontal = 0
+
+[node name="TownMap Button" type="Button" parent="Right Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -79.0
+offset_top = -21.0
+offset_right = -15.0
+offset_bottom = 43.0
 grow_horizontal = 0
 
 [node name="CheckButton" type="CheckButton" parent="Right Panel"]
@@ -391,9 +402,8 @@ anchor_top = 0.096
 anchor_right = 0.213
 anchor_bottom = 0.425
 offset_left = 5.0
-offset_top = 104.0
-offset_right = 409.0
-offset_bottom = 459.0
+offset_top = 0.32
+offset_right = 0.0400085
 grow_vertical = 2
 color = Color(0.647059, 0.647059, 0.647059, 1)
 script = ExtResource("11_0y8jq")

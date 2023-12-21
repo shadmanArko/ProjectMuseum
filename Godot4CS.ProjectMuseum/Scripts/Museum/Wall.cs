@@ -63,6 +63,7 @@ public partial class Wall : Sprite2D
     }
     private void OnClickWall()
     {
+        
         Texture = _wallPreviewSprite;
         _wallPreview.Visible = false;
     }

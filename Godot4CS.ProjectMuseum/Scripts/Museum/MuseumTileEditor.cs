@@ -44,6 +44,7 @@ public partial class MuseumTileEditor : Node2D
         GD.Print("museumTileEditor is ready");
     }
 
+    private TileVariation _selectedTileVariation;
     private void OnClickBuilderCard(BuilderCardType cardType, string cardName)
     {
         if (cardType == BuilderCardType.Flooring)
@@ -52,6 +53,7 @@ public partial class MuseumTileEditor : Node2D
             {
                 if (tileVariation.VariationName == cardName)
                 {
+                    _selectedTileVariation = tileVariation;
                     _tileSourceId = tileVariation.SourceId;
                     _canEditTiles = true;
                 }
@@ -66,6 +68,8 @@ public partial class MuseumTileEditor : Node2D
     private void OnRequestForUpdatingTilesSourceIdCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         GD.Print("source id put done");
+        string jsonStr = Encoding.UTF8.GetString(body);
+        _museumTileContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
     }
 
     private void OnRequestForGettingTileVariationsCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -160,13 +164,13 @@ public partial class MuseumTileEditor : Node2D
         {
             foreach (var museumTile in _museumTileContainer.MuseumTiles)
             {
-                if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
+                if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y && museumTile.TileSetNumber != sourceId)
                 {
                     tileIds.Add(museumTile.Id);
                 }
             }
         }
-        
+        MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
         string[] headers = { "Content-Type: application/json"};
         var body = JsonConvert.SerializeObject(tileIds);
         Error error = _httpRequestForUpdatingTilesSourceId.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesSourceId?sourceId={sourceId}", headers,

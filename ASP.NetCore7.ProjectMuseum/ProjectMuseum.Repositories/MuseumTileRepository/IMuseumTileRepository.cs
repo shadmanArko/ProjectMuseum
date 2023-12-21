@@ -10,6 +10,7 @@ public interface IMuseumTileRepository
     Task<MuseumTile?> GetByPosition(int xPosition, int yPosition);
     Task<List<MuseumTile>?> GetAll();
     Task<List<MuseumTile>?> UpdateMuseumTilesSourceId(List<string> ids, int sourceId);
+    Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<string> ids, string wallId);
     Task<MuseumTile?> UpdateExhibitToMuseumTile(string tileId, string exhibitId);
     Task<List<MuseumTile>?> UpdateExhibitToMuseumTiles(List<string> tileIds, string exhibitId);
     Task<MuseumTile?> Delete(string id);

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://baf5s8ygn03sp"]
+
+[ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
+
+[node name="Town" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("1_d0pjk")

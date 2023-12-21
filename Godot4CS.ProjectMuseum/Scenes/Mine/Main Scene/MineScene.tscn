@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
 [ext_resource type="PackedScene" uid="uid://dmbaqgvetw2w" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromInventoryToMuseum.tscn" id="11_si3nu"]
-[ext_resource type="PackedScene" uid="uid://d2igll2u72jvt" path="res://Plugins/Arko's Tooltip/Scenes/Tooltip4.tscn" id="12_1cu8i"]
+[ext_resource type="PackedScene" uid="uid://d2igll2u72jvt" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
 
 [node name="MineScene" type="Node2D"]
 script = ExtResource("1_rq1hl")
@@ -35,14 +35,15 @@ enemySpawner = NodePath("../EnemySpawner")
 mineExitPromptUi = NodePath("../MineExitPromptUI")
 campExitPromptUi = NodePath("../CampExitPromptUI")
 DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
-Tooltip = NodePath("../MineUI/Tooltip4")
+Tooltip = NodePath("../MineUI/MineSceneTooltip")
 
 [node name="Auto Animation Controller" type="Node2D" parent="."]
 script = ExtResource("7_5sphp")
 
 [node name="MineUI" parent="." instance=ExtResource("3_ambmn")]
 
-[node name="Tooltip4" parent="MineUI" instance=ExtResource("12_1cu8i")]
+[node name="MineSceneTooltip" parent="MineUI" instance=ExtResource("12_1cu8i")]
+visible = false
 
 [node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
 visible = false

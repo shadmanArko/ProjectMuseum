@@ -4,7 +4,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
 public partial class ToolbarSlot : Node
 {
-	private Tooltip4 _tooltip4;
+	private MineSceneTooltip _mineSceneTooltip;
 	
 	[Export] private Sprite2D _highlighter;
 	[Export] private Sprite2D _itemSlot;
@@ -18,7 +18,7 @@ public partial class ToolbarSlot : Node
 
 	public override void _Ready()
 	{
-		_tooltip4 = ReferenceStorage.Instance.Tooltip;
+		_mineSceneTooltip = ReferenceStorage.Instance.Tooltip;
 		_itemSlot.Texture = _itemSprite;
 	}
 
@@ -46,12 +46,12 @@ public partial class ToolbarSlot : Node
 	private void OnMouseEnter()
 	{
 		GD.Print("Mouse entered");
-		_tooltip4.ShowToolbarToolTooltip(ItemId, IsArtifact);
+		_mineSceneTooltip.ShowToolbarTooltip(ItemId, IsArtifact);
 	}
 
 	private void OnMouseExit()
 	{
 		GD.Print("Mouse exited");
-		_tooltip4.HideTooltip();
+		_mineSceneTooltip.HideTooltip();
 	}
 }

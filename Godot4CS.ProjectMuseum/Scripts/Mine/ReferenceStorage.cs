@@ -24,5 +24,5 @@ public partial class ReferenceStorage : Node2D
     //Particle Effects//
     [Export] public string DepletedParticleExplosion;
 
-    [Export] public Tooltip4 Tooltip;
+    [Export] public MineSceneTooltip Tooltip;
 }

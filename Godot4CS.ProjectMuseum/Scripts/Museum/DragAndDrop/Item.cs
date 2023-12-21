@@ -197,6 +197,7 @@ public partial class Item : Sprite2D, IComparable<Item>
             if (GetRect().HasPoint(GetLocalMousePosition()))
             {
                 MuseumActions.OnClickItem?.Invoke(this, ExhibitData);
+                MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SelectItem");
             }
         }
         if (Input.IsActionJustPressed("PressQ") && selectedItem)

@@ -30,6 +30,7 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInDisplay.RequestCompleted += HttpRequestForGettingExhibitsInDisplayOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnSlot += ArtifactDroppedOnSlot;
 		MuseumActions.ArtifactRemovedFromSlot += ArtifactRemovedFromSlot;
+		MuseumActions.PlayStoryScene += PlayStoryScene;
 		_exitButton.Pressed += ExitButtonOnPressed;
 	}
 
@@ -122,6 +123,12 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInDisplay.RequestCompleted -= HttpRequestForGettingExhibitsInDisplayOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnSlot -= ArtifactDroppedOnSlot;
 		MuseumActions.ArtifactRemovedFromSlot -= ArtifactRemovedFromSlot;
+		MuseumActions.PlayStoryScene -= PlayStoryScene;
 		_exitButton.Pressed -= ExitButtonOnPressed;
+	}
+
+	private void PlayStoryScene(int obj)
+	{
+		ExitButtonOnPressed();
 	}
 }

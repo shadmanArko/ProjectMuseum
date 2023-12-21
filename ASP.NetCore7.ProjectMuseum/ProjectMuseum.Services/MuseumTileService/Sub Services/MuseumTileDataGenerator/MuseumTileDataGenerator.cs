@@ -49,4 +49,37 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
         return museumTiles;
         
     }
+    public async Task<List<MuseumTile>?> ExpandMuseumTiles(int originPositionX, int originPositionY)
+    {
+        Random r = new Random();
+        int probabilityOfDamagedTile = 5; 
+        for (int x = originPositionX; x > originPositionX - numberOfTilesInX; x--)
+        {
+            for (int y = originPositionY; y > originPositionY - numberOfTilesInY; y--)
+            {
+                var tileSetId = 8;
+                if (r.Next(0, 100) <= probabilityOfDamagedTile)
+                {
+                    tileSetId = r.Next(9, 13);
+                }
+                var museumTile = new MuseumTile
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    XPosition = x,
+                    YPosition = y,
+                    TileSetNumber = tileSetId,
+                    TileAtlasCoOrdinateX = 0,
+                    TileAtlasCoOrdinateY = 0,
+                    Layer = 0,
+                    WallId = "string",
+                    ExhibitId = "string",
+                    HangingLightId = "string"
+                };
+                await _museumTileRepository.Insert(museumTile);
+            }
+        }
+        var museumTiles = await _museumTileRepository.GetAll();
+        return museumTiles;
+        
+    }
 }

@@ -7,6 +7,7 @@ public interface IPlayerInfoRepository
     Task<PlayerInfo> Insert(PlayerInfo playerInfo);
     Task<PlayerInfo> Update(string id, PlayerInfo playerInfo);
     Task<PlayerInfo?> GetById(string id);
+    Task<PlayerInfo?> GetLastPlayerInfo();
     Task<List<PlayerInfo>?> GetAll();
     Task<PlayerInfo?> Delete(string id);
 }

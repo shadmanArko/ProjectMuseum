@@ -29,6 +29,12 @@ public class PlayerInfoRepository: IPlayerInfoRepository
         throw new NotImplementedException();
     }
 
+    public async Task<PlayerInfo?> GetLastPlayerInfo()
+    {
+        var playerInfos = await _playerInfoDatabase.ReadDataAsync();
+        return playerInfos?.Last();
+    }
+
     public Task<List<PlayerInfo>?> GetAll()
     {
         throw new NotImplementedException();

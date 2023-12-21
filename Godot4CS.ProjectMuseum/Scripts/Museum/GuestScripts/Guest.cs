@@ -135,7 +135,6 @@ public partial class Guest : CharacterBody2D
         if (_currentPathIndex < _path.Count )
         {
             _currentTargetNode = _path[_currentPathIndex];
-            Vector2 nextPosition = GameManager.TileMap.MapToLocal(_currentTargetNode);
             _direction = _currentTargetNode - GameManager.TileMap.LocalToMap(Position);
             _currentPathIndex++;
             ControlAnimation();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=35 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -23,6 +23,8 @@
 [ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
+[ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
+[ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
@@ -30,6 +32,8 @@
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
+[ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
@@ -46,8 +50,6 @@ _wallLeft = ExtResource("6_plrwf")
 _dirtyWallProbability = 0
 _dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_bhbr7"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
 _wallsParent = NodePath("../WallsParent")
-
-[node name="HTTPRequest" type="HTTPRequest" parent="museum/TileMap"]
 
 [node name="Camera2D" type="Camera2D" parent="museum"]
 position = Vector2(50, -210)
@@ -70,13 +72,28 @@ visible = false
 offset_bottom = -50.0
 
 [node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
+visible = false
+mouse_filter = 2
 
 [node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
 visible = false
 
 [node name="Player" parent="museum" instance=ExtResource("12_55fh7")]
-position = Vector2(54, -120)
+visible = false
+position = Vector2(55, -11)
 _displacementSpeed = 50.0
+
+[node name="Player_Uncontrolled" parent="museum" instance=ExtResource("19_1kq7h")]
+position = Vector2(50, -6)
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -4)])
+_museumExitingCoordinate = Vector2i(0, -2)
+_animationNameAfterInitialMovement = "idle_back_facing"
+
+[node name="Professor" parent="museum" instance=ExtResource("19_yibo3")]
+position = Vector2(40, -14)
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -6)])
+_animationNameAfterInitialMovement = "idle_front_facing"
+_lookAheadDistance = 1.0
 
 [node name="GuestsController" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -112,6 +129,7 @@ texture = ExtResource("21_6abge")
 offset = Vector2(0, -32.5)
 
 [node name="Background Foresnt" type="Node2D" parent="museum"]
+z_index = -1
 y_sort_enabled = true
 
 [node name="IsomatricForestChunk" type="Sprite2D" parent="museum/Background Foresnt"]
@@ -203,6 +221,14 @@ script = ExtResource("27_mm5mn")
 _dayEndTileCoord = Vector2i(0, -1)
 
 [node name="StoryController" type="Node2D" parent="."]
+process_mode = 4
 script = ExtResource("29_6vdgp")
 
-[connection signal="request_completed" from="museum/TileMap/HTTPRequest" to="museum/TileMap" method="OnRequestCompleted"]
+[node name="TutorialSystem" type="Node2D" parent="."]
+script = ExtResource("33_vs3ci")
+
+[node name="StoryCharacterController" type="Node2D" parent="." node_paths=PackedStringArray("_storyPlayer", "_storyProfessor", "_gameCharacter")]
+script = ExtResource("34_r65mj")
+_storyPlayer = NodePath("../museum/Player_Uncontrolled")
+_storyProfessor = NodePath("../museum/Professor")
+_gameCharacter = NodePath("../museum/Player")

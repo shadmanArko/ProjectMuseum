@@ -96,11 +96,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p6y7"]
 size = Vector2(15, 5)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite")]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("2_olhew")
+_characterSprite = NodePath("Sprite2D")
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 

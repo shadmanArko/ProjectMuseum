@@ -68,6 +68,8 @@ public partial class DropTarget : Control
             MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact,
                 ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag);
             MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, SlotNumber);
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PlaceArtifactOnDisplaySlot");
+
         }
         Highlight(false); 
         ((Node)data).QueueFree();// Reset highlight after dropping

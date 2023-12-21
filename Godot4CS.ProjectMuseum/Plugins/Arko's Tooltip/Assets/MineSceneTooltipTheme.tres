@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://bty1kdie3hqyi"]
 
-[ext_resource type="Texture2D" uid="uid://pis0xchdpo7" path="res://Plugins/Arko's Tooltip/Scenes/GUI.png" id="1_pi5cv"]
+[ext_resource type="Texture2D" uid="uid://pis0xchdpo7" path="res://Plugins/Arko's Tooltip/Assets/TooltipGUI.png" id="1_pi5cv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gx0nw"]
 texture = ExtResource("1_pi5cv")

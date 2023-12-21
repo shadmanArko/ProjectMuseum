@@ -4,7 +4,7 @@ using System.Linq;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using ProjectMuseum.DTOs;
 
-public partial class Tooltip4 : Control
+public partial class MineSceneTooltip : Control
 {
     private RawArtifactDTO _rawArtifactDto;
     
@@ -19,38 +19,18 @@ public partial class Tooltip4 : Control
     {
         InstallDiReference();
         
-        //label = GetNode<Label>("Label");
-        // _vBoxContainer = GetNode<VBoxContainer>("MarginContainer/VBoxContainer");
-        // _marginContainer = GetNode<MarginContainer>("MarginContainer");
-        // _panel = GetNode<Panel>("Panel");
-       // label = GetNode<Label>("MarginContainer/VBoxContainer/Label");
          Hide();
         _rect = GetRect();
         _rect.Size = new Vector2(_vBoxContainer.GetRect().Size.X + 10, _vBoxContainer.GetRect().Size.Y + 5);
 
         _panel.Size = _marginContainer.Size;
-        //GD.Print(_rect.Size);
     }
     
     private void InstallDiReference()
     {
         _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
     }
-
-    public void SetText(string text)
-    {
-        _label.Text = text;
-       _rect.Size = new Vector2(_vBoxContainer.GetRect().Size.X + 10, _vBoxContainer.GetRect().Size.Y + 5);
-       _panel.Size = _marginContainer.Size;
-       Show();
-       //GD.Print(_rect.Size);
-    }
-
-    public void ShowTooltip()
-    {
-        Show();
-    }
-
+    
     public void HideTooltip()
     {
         Hide();
@@ -87,12 +67,9 @@ public partial class Tooltip4 : Control
         
         _rect.Size = new Vector2(_vBoxContainer.GetRect().Size.X + 10, _vBoxContainer.GetRect().Size.Y + 5);
         _panel.Size = _marginContainer.Size;
-        
-        // Follow the mouse position
-        //GD.Print(GetViewportRect().Size/2);
     }
     
-    public void ShowToolbarToolTooltip(string itemId, bool isArtifact)
+    public void ShowToolbarTooltip(string itemId, bool isArtifact)
     {
         if (isArtifact)
         {

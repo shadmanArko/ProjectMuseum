@@ -6,7 +6,7 @@ using ProjectMuseum.DTOs;
 
 public partial class MuseumSceneTooltip : Control
 {
-    private RawArtifactDTO _rawArtifactDto;
+    // private RawArtifactDTO _rawArtifactDto;
     
 	[Export] private RichTextLabel _label;
     [Export] private VBoxContainer _vBoxContainer;
@@ -28,7 +28,9 @@ public partial class MuseumSceneTooltip : Control
     
     private void InstallDiReference()
     {
-        _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
+        // _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
+        
+        // todo if needs any
     }
     
     public void HideTooltip()

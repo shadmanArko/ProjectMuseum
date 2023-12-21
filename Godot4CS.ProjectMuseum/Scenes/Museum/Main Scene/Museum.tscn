@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=36 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
@@ -106,9 +107,9 @@ y_sort_enabled = true
 
 [node name="WallsParent" type="Node2D" parent="museum"]
 y_sort_enabled = true
+script = ExtResource("23_md2ii")
 
 [node name="MuseumTileEditor" type="Node2D" parent="museum"]
-process_mode = 4
 y_sort_enabled = true
 script = ExtResource("11_uydor")
 _tileSourceId = 5

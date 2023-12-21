@@ -1,11 +1,15 @@
 using Godot;
 using System;
 using System.Drawing;
+using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class Wall : Sprite2D
 {
     [Export] private Sprite2D _wallPreview;
     [Export] private Texture2D _wallPreviewSprite;
+
+    private bool _showPreview = false;
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
@@ -21,12 +25,29 @@ public partial class Wall : Sprite2D
     // Initialization here
     public override void _Ready()
     {
-        
+        MuseumActions.OnPreviewWallpaperUpdated += OnPreviewWallpaperUpdated;
+        MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+    }
+
+    private void OnClickBuilderCard(BuilderCardType arg1, string arg2)
+    {
+        if (arg1 != BuilderCardType.Wallpaper)
+        {
+            _showPreview = false;
+        }
+    }
+
+    private void OnPreviewWallpaperUpdated(Texture2D obj)
+    {
+        _showPreview = true;
+        _wallPreviewSprite = obj;
     }
 
     // Function called when the mouse enters the object
     private void _on_Hover()
     {
+        if (!_showPreview) return;
+        
         // GD.Print("Mouse entered!");
         _wallPreview.Texture = _wallPreviewSprite;
         _wallPreview.Visible = true;
@@ -73,5 +94,10 @@ public partial class Wall : Sprite2D
         }
     }
 
-    
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        MuseumActions.OnPreviewWallpaperUpdated -= OnPreviewWallpaperUpdated;
+
+    }
 }

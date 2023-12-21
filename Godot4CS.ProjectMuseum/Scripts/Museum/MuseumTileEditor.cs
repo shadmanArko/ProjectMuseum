@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using Newtonsoft.Json;
@@ -17,22 +20,47 @@ public partial class MuseumTileEditor : Node2D
     [Export] private int _tileSourceId;
     private TileMap _tileMap;
     private int _tileSize;
-    private HttpRequest _httpRequestForGettingTiles;
+    private HttpRequest _httpRequestForGettingTileVariations;
     private HttpRequest _httpRequestForUpdatingTilesSourceId;
-    private List<MuseumTile> _museumTiles;
-    private string _museumTilesApiPath = "";
-    public override void _Ready()
+    private List<TileVariation> _tileVariations;
+    private string _museumTileVariationsApiPath = "";
+    private MuseumTileContainer _museumTileContainer;
+    private bool _canEditTiles = false;
+    public override async void _Ready()
     {
         base._Ready();
         _tileMap = GameManager.TileMap;
-        _museumTilesApiPath = ApiAddress.MuseumApiPath + "GetAllMuseumTiles";
-        _httpRequestForGettingTiles = new HttpRequest();
+        _museumTileVariationsApiPath = ApiAddress.MuseumApiPath + "GetAllTileVariations";
+        _httpRequestForGettingTileVariations = new HttpRequest();
         _httpRequestForUpdatingTilesSourceId = new HttpRequest();
-        AddChild(_httpRequestForGettingTiles);
+        AddChild(_httpRequestForGettingTileVariations);
         AddChild(_httpRequestForUpdatingTilesSourceId);
-        _httpRequestForGettingTiles.RequestCompleted += OnRequestForGettingTilesCompleted;
+        _httpRequestForGettingTileVariations.RequestCompleted += OnRequestForGettingTileVariationsCompleted;
         _httpRequestForUpdatingTilesSourceId.RequestCompleted += OnRequestForUpdatingTilesSourceIdCompleted;
+        _httpRequestForGettingTileVariations.Request(_museumTileVariationsApiPath);
+        MuseumActions.OnClickBuilderCard += OnClickBuilderCard; 
+        await Task.Delay(1000);
+        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         GD.Print("museumTileEditor is ready");
+    }
+
+    private void OnClickBuilderCard(BuilderCardType cardType, string cardName)
+    {
+        if (cardType == BuilderCardType.Flooring)
+        {
+            foreach (var tileVariation in _tileVariations)
+            {
+                if (tileVariation.VariationName == cardName)
+                {
+                    _tileSourceId = tileVariation.SourceId;
+                    _canEditTiles = true;
+                }
+            }
+        }
+        else
+        {
+            _canEditTiles = false;
+        }
     }
 
     private void OnRequestForUpdatingTilesSourceIdCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -40,11 +68,11 @@ public partial class MuseumTileEditor : Node2D
         GD.Print("source id put done");
     }
 
-    private void OnRequestForGettingTilesCompleted(long result, long responsecode, string[] headers, byte[] body)
+    private void OnRequestForGettingTileVariationsCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
-        _museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-        GD.Print("number of tiles" + _museumTiles.Count);
+        _tileVariations = JsonSerializer.Deserialize<List<TileVariation>>(jsonStr);
+        GD.Print("number of tile variations" + _tileVariations.Count);
     }
 
     // public override void _Input(InputEvent @event)
@@ -65,12 +93,13 @@ public partial class MuseumTileEditor : Node2D
     private Rect2 _selectionRect;
     public override void _Input(InputEvent @event)
     {
+        if (!_canEditTiles) return;
+        
         if (@event is InputEventMouseButton mouseEvent)
         {
            
             if (Input.IsActionJustPressed("ui_left_click"))
             {
-                _httpRequestForGettingTiles.Request(_museumTilesApiPath);
                 // Left mouse button pressed
                 _tileSize = GameManager.TileMap.CellQuadrantSize;
                 _dragStartPosition = GetGlobalMousePosition();
@@ -129,7 +158,7 @@ public partial class MuseumTileEditor : Node2D
         List<string> tileIds = new List<string>();
         foreach (var tilePosition in tilePositions)
         {
-            foreach (var museumTile in _museumTiles)
+            foreach (var museumTile in _museumTileContainer.MuseumTiles)
             {
                 if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
                 {
@@ -142,5 +171,12 @@ public partial class MuseumTileEditor : Node2D
         var body = JsonConvert.SerializeObject(tileIds);
         Error error = _httpRequestForUpdatingTilesSourceId.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesSourceId?sourceId={sourceId}", headers,
             HttpClient.Method.Put, body);
+    }
+
+    public override void _ExitTree()
+    {
+        _httpRequestForGettingTileVariations.RequestCompleted -= OnRequestForGettingTileVariationsCompleted;
+        _httpRequestForUpdatingTilesSourceId.RequestCompleted -= OnRequestForUpdatingTilesSourceIdCompleted;
+        MuseumActions.OnClickBuilderCard -= OnClickBuilderCard; 
     }
 }

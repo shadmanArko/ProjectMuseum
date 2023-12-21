@@ -12,6 +12,7 @@ public class SaveDataJsonFileDatabase
     private readonly string _exhibitVariationDataFolderPath;
     private readonly string _tileVariationDataFolderPath;
     private readonly string _wallVariationDataFolderPath;
+    private readonly string _wallpaperVariationDataFolderPath;
     private readonly string _inventoryDataFolderPath;
     private readonly string _mineDataFolderPath;
     private readonly string _mineArtifactsDataFolderPath;
@@ -42,7 +43,8 @@ public class SaveDataJsonFileDatabase
         string timeDataFolderPath,
         string tutorialDataFolderPath, 
         string wallVariationDataFolderPath, 
-        string tileVariationDataFolderPath)
+        string tileVariationDataFolderPath,
+        string wallpaperVariationDataFolderPath)
     {
         _artifactStorageDataFolderPath = artifactStorageDataFolderPath;
         _displayArtifactDataFolderPath = displayArtifactDataFolderPath;
@@ -61,6 +63,7 @@ public class SaveDataJsonFileDatabase
         _tutorialDataFolderPath = tutorialDataFolderPath;
         _wallVariationDataFolderPath = wallVariationDataFolderPath;
         _tileVariationDataFolderPath = tileVariationDataFolderPath;
+        _wallpaperVariationDataFolderPath = wallpaperVariationDataFolderPath;
     }
 
     public async Task MergeJsonFiles()
@@ -70,6 +73,7 @@ public class SaveDataJsonFileDatabase
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(await File.ReadAllTextAsync(_exhibitDataFolderPath));
         var exhibitVariations = JsonSerializer.Deserialize<List<ExhibitVariation>>(await File.ReadAllTextAsync(_exhibitVariationDataFolderPath));
         var wallVariations = JsonSerializer.Deserialize<List<WallVariation>>(await File.ReadAllTextAsync(_wallVariationDataFolderPath));
+        var wallpaperVariations = JsonSerializer.Deserialize<List<WallpaperVariation>>(await File.ReadAllTextAsync(_wallpaperVariationDataFolderPath));
         var tileVariations = JsonSerializer.Deserialize<List<TileVariation>>(await File.ReadAllTextAsync(_tileVariationDataFolderPath));
         var inventory = JsonSerializer.Deserialize<List<Inventory>>(await File.ReadAllTextAsync(_inventoryDataFolderPath));
         var mine = JsonSerializer.Deserialize<List<Mine>>(await File.ReadAllTextAsync(_mineDataFolderPath));
@@ -100,7 +104,8 @@ public class SaveDataJsonFileDatabase
             TradingArtifacts = tradingArtifacts,
             Times = times,
             WallVariations = wallVariations,
-            TileVariations = tileVariations
+            TileVariations = tileVariations,
+            WallpaperVariations = wallpaperVariations
         };
 
         var mergedJson = JsonSerializer.Serialize(mergedData, new JsonSerializerOptions{ WriteIndented = true });
@@ -118,6 +123,7 @@ public class SaveDataJsonFileDatabase
         await File.WriteAllTextAsync(_exhibitDataFolderPath, JsonSerializer.Serialize(mergedData?.Exhibits, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_exhibitVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.ExhibitVariations, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_wallVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.WallVariations, new JsonSerializerOptions{ WriteIndented = true }));
+        await File.WriteAllTextAsync(_wallpaperVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.WallpaperVariations, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_tileVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.TileVariations, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_inventoryDataFolderPath, JsonSerializer.Serialize(mergedData?.Inventories, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_mineDataFolderPath, JsonSerializer.Serialize(mergedData?.Mines, new JsonSerializerOptions{ WriteIndented = true }));
@@ -150,4 +156,5 @@ public class MergedData
     [JsonPropertyName("Time")] public List<Time>? Times { get; set; }
     [JsonPropertyName("WallVariations")] public List<WallVariation>? WallVariations { get; set; }
     [JsonPropertyName("TileVariations")] public List<TileVariation>? TileVariations { get; set; }
+    [JsonPropertyName("WallpaperVariations")] public List<WallpaperVariation>? WallpaperVariations { get; set; }
 }

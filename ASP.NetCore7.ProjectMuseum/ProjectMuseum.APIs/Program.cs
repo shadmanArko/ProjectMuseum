@@ -40,6 +40,7 @@ string museumDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dum
 string exhibitDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibit.json");
 string exhibitVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibitVariations.json");
 string wallVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallVariations.json");
+string wallpaperVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallpaperVariations.json");
 string tileVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tileVariations.json");
 string storySceneDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "StoryScene.json");
 string tutorialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "Tutorials.json");
@@ -81,6 +82,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPat
 builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(exhibitVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<TileVariation>(tileVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<WallVariation>(wallVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<WallpaperVariation>(wallpaperVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<StoryScene>(storySceneDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Tutorial>(tutorialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(playerInfoDataFolderPath));
@@ -114,7 +116,8 @@ builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
     timeDataFolderPath,
     tutorialDataFolderPath,
     wallVariationDataFolderPath,
-    tileVariationDataFolderPath
+    tileVariationDataFolderPath,
+    wallpaperVariationDataFolderPath
     ));
 
 

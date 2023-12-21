@@ -73,6 +73,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
             HandleDecorationCardPlacement(builderCardType, cardName, _decorationItem);
         }
     }
+    
 
     private void HandleDecorationCardPlacement(BuilderCardType builderCardType, string cardName, PackedScene decorationPackedScene)
     {

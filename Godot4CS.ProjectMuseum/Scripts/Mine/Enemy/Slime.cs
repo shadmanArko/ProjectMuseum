@@ -67,7 +67,7 @@ public partial class Slime : Enemy
             _ => State
         };
 
-        GD.Print($"State changed to {State}");
+        //GD.Print($"State changed to {State}");
     }
 
     public override void _PhysicsProcess(double delta)

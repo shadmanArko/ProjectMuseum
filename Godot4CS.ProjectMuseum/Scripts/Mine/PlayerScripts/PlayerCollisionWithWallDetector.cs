@@ -52,7 +52,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnDigActionEnded += AttackWall;
         MineActions.OnBrushActionStarted += BrushWall;
         
-        MineActions.OnMiniGameLost += MiniGameLost;
+        //MineActions.OnMiniGameLost += MiniGameLost;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
     }
 

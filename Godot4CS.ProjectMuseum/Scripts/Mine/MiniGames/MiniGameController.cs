@@ -64,7 +64,8 @@ public partial class MiniGameController : Node2D
 		GD.Print("Successfully Extracted Artifact");
 		var discoveredArtifactVisualizer = ReferenceStorage.Instance.DiscoveredArtifactVisualizer;
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
-		discoveredArtifactVisualizer.ShowDiscoveredArtifactVisualizerUi(cell.ArtifactId);
+		GD.Print($"ARTIFACT CELL IS : ({cell.PositionX},{cell.PositionY}), {cell.ArtifactId}");
+		//discoveredArtifactVisualizer.ShowDiscoveredArtifactVisualizerUi(cell.ArtifactId);
 		SendArtifactToInventory(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		_playerControllerVariables.CanMove = true;

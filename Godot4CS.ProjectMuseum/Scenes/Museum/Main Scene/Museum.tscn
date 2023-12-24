@@ -44,8 +44,10 @@ script = ExtResource("2_yr8uh")
 [node name="Town" parent="." instance=ExtResource("2_pnteo")]
 process_mode = 4
 visible = false
+position = Vector2(0, -210)
 zoomSpd = 0.2
 Minzoom = 1.0
+Maxzoom = 4.0
 
 [node name="museum" type="Node2D" parent="."]
 y_sort_enabled = true

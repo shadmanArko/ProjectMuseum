@@ -4,7 +4,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum.Controllers;
 
-public partial class TutorialController : ColorRect
+public partial class TutorialController : Control
 {
 	[Export] private RichTextLabel _tutorialBody;
 	[Export] private AnimationPlayer _animationPlayer;

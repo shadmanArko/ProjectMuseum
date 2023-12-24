@@ -25,7 +25,11 @@ public partial class MuseumActions : Node
 
     public static Action<bool> OnClickMuseumGateToggle;
     public static Action<int> TotalGuestsUpdated;
+    #region TimeActions
 
+    public static Action OnTownMapButtonClicked;
+
+    #endregion
     #region TimeActions
 
     public static Action<int, int, int, int, int> OnTimeUpdated;

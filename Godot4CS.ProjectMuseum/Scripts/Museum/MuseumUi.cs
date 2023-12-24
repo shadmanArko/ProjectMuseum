@@ -18,6 +18,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene _decorationItem;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export] private Button _diggingPermitsButton;
+    [Export] private Button _townMapButton;
     [Export] private CheckButton _museumGateCheckButton;
     [Export] private Control _diggingPermitsUi;
     [Export]public Node2D ItemsParent;
@@ -46,8 +47,14 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
        
         
         _diggingPermitsButton.Pressed += DiggingPermitsButtonOnPressed;
+        _townMapButton.Pressed += TownMapButtonOnPressed;
         _museumGateCheckButton.Pressed += MuseumGateCheckButtonOnPressed;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+    }
+
+    private void TownMapButtonOnPressed()
+    {
+        MuseumActions.OnTownMapButtonClicked?.Invoke();
     }
 
     private void MuseumGateCheckButtonOnPressed()
@@ -180,6 +187,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     {
         Item.OnItemPlaced -= UpdateUiOnItemPlaced;
         _diggingPermitsButton.Pressed -= DiggingPermitsButtonOnPressed;
+        _townMapButton.Pressed -= TownMapButtonOnPressed;
         MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
         _museumGateCheckButton.Pressed -= MuseumGateCheckButtonOnPressed;
         base._ExitTree();

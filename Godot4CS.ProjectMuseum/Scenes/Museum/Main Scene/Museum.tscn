@@ -1,7 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=38 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
+[ext_resource type="PackedScene" uid="uid://baf5s8ygn03sp" path="res://Scenes/Museum/Town/town.tscn" id="2_pnteo"]
 [ext_resource type="Script" path="res://Scenes/Museum/Main Scene/MuseumSceneDiInstaller.cs" id="2_yr8uh"]
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
 [ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="4_kytf8"]
@@ -35,9 +36,16 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
+
+[node name="Town" parent="." instance=ExtResource("2_pnteo")]
+process_mode = 4
+visible = false
+zoomSpd = 0.2
+Minzoom = 1.0
 
 [node name="museum" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -233,3 +241,8 @@ script = ExtResource("34_r65mj")
 _storyPlayer = NodePath("../museum/Player_Uncontrolled")
 _storyProfessor = NodePath("../museum/Professor")
 _gameCharacter = NodePath("../museum/Player")
+
+[node name="TownController" type="Node2D" parent="." node_paths=PackedStringArray("_camera2D", "_townScene")]
+script = ExtResource("37_vwmma")
+_camera2D = NodePath("../museum/Camera2D")
+_townScene = NodePath("../Town")

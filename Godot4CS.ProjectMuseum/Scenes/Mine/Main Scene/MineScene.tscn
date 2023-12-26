@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=15 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -7,11 +7,13 @@
 [ext_resource type="Script" path="res://Scripts/Mine/ReferenceStorage.cs" id="5_yk3pc"]
 [ext_resource type="PackedScene" uid="uid://veekhqh7bm57" path="res://Scenes/Mine/Sub Scenes/UI/SceneTransition.tscn" id="6_1bas2"]
 [ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="7_5sphp"]
+[ext_resource type="PackedScene" uid="uid://ccshgryravaf2" path="res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn" id="8_mppk2"]
 [ext_resource type="PackedScene" uid="uid://p4pp1nmkb44s" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_uross"]
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
 [ext_resource type="PackedScene" uid="uid://dmbaqgvetw2w" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromInventoryToMuseum.tscn" id="11_si3nu"]
-[ext_resource type="PackedScene" uid="uid://d2igll2u72jvt" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
+[ext_resource type="PackedScene" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
+[ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
 
 [node name="MineScene" type="Node2D"]
 script = ExtResource("1_rq1hl")
@@ -26,24 +28,34 @@ _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 _parentNode = NodePath("../MineSceneInitializer")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
-[node name="ReferenceStorage" type="Node2D" parent="." node_paths=PackedStringArray("sceneTransition", "autoAnimationController", "enemySpawner", "mineExitPromptUi", "campExitPromptUi", "Tooltip")]
-z_index = 11
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("sceneTransition", "autoAnimationController", "enemySpawner", "miniGameController", "mineExitPromptUi", "campExitPromptUi", "DiscoveredArtifactVisualizer", "Tooltip")]
 script = ExtResource("5_yk3pc")
 sceneTransition = NodePath("../SceneTransition")
 autoAnimationController = NodePath("../Auto Animation Controller")
 enemySpawner = NodePath("../EnemySpawner")
+miniGameController = NodePath("../MiniGameController")
 mineExitPromptUi = NodePath("../MineExitPromptUI")
 campExitPromptUi = NodePath("../CampExitPromptUI")
+DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
 DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
-Tooltip = NodePath("../MineUI/MineSceneTooltip")
+Tooltip = NodePath("../MineUI/Tooltip4")
 
 [node name="Auto Animation Controller" type="Node2D" parent="."]
 script = ExtResource("7_5sphp")
 
+[node name="ArtifactFromMineToInventory" parent="." instance=ExtResource("10_ebucy")]
+
+[node name="ArtifactFromInventoryToMuseum" parent="." instance=ExtResource("11_si3nu")]
+
+[node name="DiscoveredArtifactVisualizer" parent="." instance=ExtResource("8_mppk2")]
+
+[node name="MiniGameController" type="Node2D" parent="."]
+script = ExtResource("14_oqhev")
+_alternateMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn"
+
 [node name="MineUI" parent="." instance=ExtResource("3_ambmn")]
 
-[node name="MineSceneTooltip" parent="MineUI" instance=ExtResource("12_1cu8i")]
-visible = false
+[node name="Tooltip4" parent="MineUI" instance=ExtResource("12_1cu8i")]
 
 [node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
 visible = false
@@ -53,7 +65,3 @@ visible = false
 
 [node name="CampExitPromptUI" parent="." instance=ExtResource("9_ybt60")]
 visible = false
-
-[node name="ArtifactFromMineToInventory" parent="." instance=ExtResource("10_ebucy")]
-
-[node name="ArtifactFromInventoryToMuseum" parent="." instance=ExtResource("11_si3nu")]

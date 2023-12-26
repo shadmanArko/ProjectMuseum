@@ -50,19 +50,21 @@ public partial class AlternateTapMiniGame : CanvasLayer
 				_pressButtonLabel.Text = "Failed to Extract Artifact";
 				_miniGameWon = false;
 			}
-			_ExitTree();
+			DestroyScene();
+			GD.Print("Alt Tap INSIDE IF");
 		}
 		else
 		{
 			_countDownTimer -= delta;
+			
+			if (_progressValue >= _finalValue)
+			{
+				_miniGameWon = true;
+				GD.Print("Alt Tap INSIDE ELSE");
+				DestroyScene();
+			}
 		}
-
-		if (_progressValue >= _finalValue)
-		{
-			_miniGameWon = true;
-			_ExitTree();
-		}
-
+        
 		if (_progressValue <= 0)
 			_progressValue = 0;
 		
@@ -108,7 +110,7 @@ public partial class AlternateTapMiniGame : CanvasLayer
 		_isAlternateTapOption = !_isAlternateTapOption;
 	}
 
-	public override void _ExitTree()
+	private void DestroyScene()
 	{
 		SetProcess(false);
 		Visible = false;
@@ -118,5 +120,6 @@ public partial class AlternateTapMiniGame : CanvasLayer
 			MineActions.OnMiniGameLost?.Invoke();
 		
 		GD.Print("Process Stopped");
+		QueueFree();
 	}
 }

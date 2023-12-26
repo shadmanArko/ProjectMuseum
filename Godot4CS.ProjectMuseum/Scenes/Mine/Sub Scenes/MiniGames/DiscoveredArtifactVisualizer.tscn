@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://db037mwpqisj0"]
+[gd_scene load_steps=7 format=3 uid="uid://ccshgryravaf2"]
 
-[ext_resource type="Texture2D" uid="uid://wghq5xodtlc3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/sword.png" id="1_4uwx6"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
+[ext_resource type="Texture2D" uid="uid://wcewhq3qlnu3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
 
-[node name="DiscoveredArtifactVisualizer" type="CanvasLayer" node_paths=PackedStringArray("_artifactSprite")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c4hsb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5m5pf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xruif"]
+
+[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
 script = ExtResource("1_l5epx")
-_artifactSprite = NodePath("Panel/Sprite2D")
+_canvasLayer = NodePath("CanvasLayer")
+_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel/ArtifactName")
+_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer/Artifact Sprite")
+_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer2/Artifact Description")
+_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel3/OkayButton")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,41 +29,76 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="Control" type="Control" parent="CanvasLayer/Panel"]
+custom_minimum_size = Vector2(800, 600)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -197.0
-offset_right = 20.0
-offset_bottom = -174.0
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_c4hsb")
+
+[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_q8tpq")
 text = "You found a Spanish Cutlass"
 horizontal_alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel"]
-texture_filter = 1
-position = Vector2(580, 320)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_4uwx6")
+[node name="Panel2" type="HBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
 
-[node name="Button" type="Button" parent="Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -120.0
-offset_top = 176.0
-offset_right = 117.0
-offset_bottom = 242.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
+
+[node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer"]
+scale = Vector2(3, 3)
+texture = ExtResource("2_d333x")
+centered = false
+offset = Vector2(20, 20)
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
+
+[node name="Artifact Description" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_q8tpq")
+text = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Panel3" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xruif")
+
+[node name="OkayButton" type="Button" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel3"]
+layout_mode = 2
 text = "OKAY"
-
-[connection signal="pressed" from="Panel/Button" to="." method="OnOkayButtonPressed"]

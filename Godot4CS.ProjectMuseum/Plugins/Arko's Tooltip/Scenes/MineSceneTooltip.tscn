@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2igll2u72jvt"]
+[gd_scene load_steps=6 format=3 uid="uid://dwrtwt0aj6gqu"]
 
 [ext_resource type="Script" path="res://Plugins/Arko's Tooltip/Scripts/MineSceneTooltip.cs" id="1_p5x5t"]
 [ext_resource type="Theme" uid="uid://bty1kdie3hqyi" path="res://Plugins/Arko's Tooltip/Assets/MineSceneTooltipTheme.tres" id="2_lix0f"]

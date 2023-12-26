@@ -15,8 +15,8 @@ public partial class MineToCampTransition : Button
     public override void _Ready()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-        _mineExitPromptUi = ReferenceStorage.Instance.mineExitPromptUi;
-        _campExitPromptUi = ReferenceStorage.Instance.campExitPromptUi;
+        _mineExitPromptUi = ReferenceStorage.Instance.MineExitPromptUi;
+        _campExitPromptUi = ReferenceStorage.Instance.CampExitPromptUi;
         _mineExitPromptUi.ReturnToCampButton.ButtonUp += TransitFromMineToCamp;
     }
 
@@ -28,7 +28,7 @@ public partial class MineToCampTransition : Button
     private async void MineToCamp()
     {
         DeactivateMineExitPromptUi();
-        var sceneTransition = ReferenceStorage.Instance.sceneTransition;
+        var sceneTransition = ReferenceStorage.Instance.SceneTransition;
         await sceneTransition.FadeIn();
         _playerControllerVariables.CanMove = false;
         await Task.Delay(2000);

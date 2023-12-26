@@ -14,15 +14,16 @@ public partial class ReferenceStorage : Node
         Instance ??= this;
     }
 
-    [Export] public SceneTransition sceneTransition;
-    [Export] public AutoAnimationController autoAnimationController;
-    [Export] public EnemySpawner enemySpawner;
-    [Export] public MiniGameController miniGameController;
+    [Export] public SceneTransition SceneTransition;
+    [Export] public AutoAnimationController AutoAnimationController;
+    [Export] public EnemySpawner EnemySpawner;
+    [Export] public MiniGameController MiniGameController;
     
     //UI//
-    [Export] public MineExitPromptUi mineExitPromptUi;
-    [Export] public CampExitPromptUi campExitPromptUi;
+    [Export] public MineExitPromptUi MineExitPromptUi;
+    [Export] public CampExitPromptUi CampExitPromptUi;
     [Export] public DiscoveredArtifactVisualizer DiscoveredArtifactVisualizer;
+    [Export] public MinePopUp MinePopUp;
     
     //Particle Effects//
     [Export] public string DepletedParticleExplosion;

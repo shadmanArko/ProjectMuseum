@@ -44,6 +44,7 @@ public partial class MineActions : Node
 
 	public static Action<double> OnMouseMotionAction;
 
-	public static Action OnPlayerGrabActionPressed;
+	public static Action OnPlayerGrabActionStarted;
+	public static Action OnPlayerGrabActionEnded;
 
 }

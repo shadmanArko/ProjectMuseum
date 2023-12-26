@@ -30,7 +30,7 @@ public partial class AnimationController : AnimationPlayer
 		MineActions.OnRollStarted += PlayRollAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
-		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
+		MineActions.OnPlayerGrabActionStarted += ToggleHangOnWall;
 
 		_sprite.FrameChanged += OnDigAnimationStrikeStarted;
 	}

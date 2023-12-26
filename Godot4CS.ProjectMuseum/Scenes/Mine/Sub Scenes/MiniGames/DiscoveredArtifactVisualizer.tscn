@@ -13,10 +13,10 @@
 [node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
 script = ExtResource("1_l5epx")
 _canvasLayer = NodePath("CanvasLayer")
-_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel/ArtifactName")
-_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer/Artifact Sprite")
-_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer2/Artifact Description")
-_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Panel3/OkayButton")
+_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
+_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel/Artifact Sprite")
+_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel/Artifact Description")
+_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -28,6 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="Control" type="Control" parent="CanvasLayer/Panel"]
 custom_minimum_size = Vector2(800, 600)
@@ -53,52 +54,67 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+[node name="Discovered An Item Label" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_c4hsb")
 
-[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel"]
+[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label"]
+texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_q8tpq")
-text = "You found a Spanish Cutlass"
+theme_override_font_sizes/font_size = 22
+text = "You have found"
 horizontal_alignment = 1
 
-[node name="Panel2" type="HBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+[node name="Artifact Sprite and Description Panel" type="HBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2"]
-custom_minimum_size = Vector2(400, 0)
+[node name="Artifact Sprite Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
 
-[node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer"]
-scale = Vector2(3, 3)
+[node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel"]
+texture_filter = 1
+scale = Vector2(4, 4)
 texture = ExtResource("2_d333x")
 centered = false
-offset = Vector2(20, 20)
+offset = Vector2(10, 10)
 
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2"]
+[node name="Artifact Description Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
 
-[node name="Artifact Description" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel2/PanelContainer2"]
-custom_minimum_size = Vector2(400, 0)
+[node name="Artifact Description" type="RichTextLabel" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel"]
+texture_filter = 1
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_q8tpq")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("2_q8tpq")
+theme_override_fonts/bold_font = ExtResource("2_q8tpq")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 28
+bbcode_enabled = true
 text = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO"
-vertical_alignment = 1
-autowrap_mode = 3
+fit_content = true
 
-[node name="Panel3" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+[node name="Okay Button Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_xruif")
 
-[node name="OkayButton" type="Button" parent="CanvasLayer/Panel/Control/VBoxContainer/Panel3"]
+[node name="OkayButton" type="Button" parent="CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_q8tpq")
+theme_override_font_sizes/font_size = 22
 text = "OKAY"
+
+[connection signal="pressed" from="CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton" to="." method="OnOkayButtonPressed"]

@@ -6,7 +6,7 @@
 script = ExtResource("1_fkuwd")
 
 [node name="Enemy Spawn Timer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 30.0
 autostart = true
 
 [connection signal="timeout" from="Enemy Spawn Timer" to="." method="OnTimeEndSpawnEnemy"]

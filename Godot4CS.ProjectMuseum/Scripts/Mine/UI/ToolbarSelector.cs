@@ -89,25 +89,25 @@ public partial class ToolbarSelector : Node
 		}
 		
 		GD.Print(_rawArtifactDto.RawArtifactFunctionals.Count);
-		foreach (var artifact in _inventory.Artifacts)
-		{
-			var rawArtifactFunctional =
-				_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);
-			if (rawArtifactFunctional == null)
-			{
-				GD.Print("Artifact Not Found");
-				continue;
-			}
-			_toolbarSlots[artifact.Slot].SetItemTexture(rawArtifactFunctional.SmallImageLocation);
-			_toolbarSlots[artifact.Slot].SetItemData(rawArtifactFunctional.Id, true);
-		}
+		// foreach (var artifact in _inventory.Artifacts)
+		// {
+		// 	var rawArtifactFunctional =
+		// 		_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);
+		// 	if (rawArtifactFunctional == null)
+		// 	{
+		// 		GD.Print("Artifact Not Found");
+		// 		continue;
+		// 	}
+		// 	_toolbarSlots[artifact.Slot].SetItemTexture(rawArtifactFunctional.SmallImageLocation);
+		// 	_toolbarSlots[artifact.Slot].SetItemData(rawArtifactFunctional.Id, true);
+		// }
 	}
 
 	#endregion
     
 	private void SelectItem(Equipables equipable)
 	{
-		GD.Print($"eqipable: {(int) equipable}");
+		GD.Print($"equipable: {(int) equipable}");
 		DeselectAllItems();
 		_toolbarSlots[(int) equipable].SetItemAsSelected();
 	}

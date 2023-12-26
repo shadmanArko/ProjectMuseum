@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0j6dxw0vj3ce"
-path="res://.godot/imported/Classical Native American Bowl.png-1e32d3ae33d59ae32131dbbdf1e147a8.ctex"
+uid="uid://b6dwe7nm52h22"
+path="res://.godot/imported/ModernAmericanRifle2.png-9542bca0dc7ef7ec8b35abae8e5624be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Classical Native American Bowl.png"
-dest_files=["res://.godot/imported/Classical Native American Bowl.png-1e32d3ae33d59ae32131dbbdf1e147a8.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle2.png"
+dest_files=["res://.godot/imported/ModernAmericanRifle2.png-9542bca0dc7ef7ec8b35abae8e5624be.ctex"]
 
 [params]
 

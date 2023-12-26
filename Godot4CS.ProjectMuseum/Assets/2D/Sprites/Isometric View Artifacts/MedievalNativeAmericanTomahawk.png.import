@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh0hp8q57tkr7"
-path="res://.godot/imported/Industrial American Musket.png-e76febea3229988e1ab288e02554cbb0.ctex"
+uid="uid://calvamrn0ropn"
+path="res://.godot/imported/MedievalNativeAmericanTomahawk.png-a75ac2861143d3e3a080c4696511ede8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Industrial American Musket.png"
-dest_files=["res://.godot/imported/Industrial American Musket.png-e76febea3229988e1ab288e02554cbb0.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/MedievalNativeAmericanTomahawk.png"
+dest_files=["res://.godot/imported/MedievalNativeAmericanTomahawk.png-a75ac2861143d3e3a080c4696511ede8.ctex"]
 
 [params]
 

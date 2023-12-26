@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Godot4CS.ProjectMuseum.Plugins.Time_System.MineTimeSystem.Scripts;
 
 public partial class MineTimeSystem : Node
 {

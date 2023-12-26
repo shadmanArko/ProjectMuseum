@@ -44,6 +44,12 @@ public partial class MineActions : Node
 
 	public static Action<double> OnMouseMotionAction;
 
+	/// <summary>
+	/// Mine Time System
+	/// </summary>
+	public static Action<int> OnEachMinutePassed;
+	public static Action<int> OnEachHourPassed;
+
 	public static Action OnPlayerGrabActionStarted;
 	public static Action OnPlayerGrabActionEnded;
 

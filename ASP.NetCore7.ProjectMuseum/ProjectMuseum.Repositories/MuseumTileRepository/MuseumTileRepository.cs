@@ -47,6 +47,27 @@ public class MuseumTileRepository : IMuseumTileRepository
         if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTiles;
     }
+
+    public async Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<string> ids, string wallId)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        
+        foreach (var id in ids)
+        {
+            if (museumTiles != null)
+                foreach (var museumTile in museumTiles)
+                {
+                    if (museumTile.Id == id)
+                    {
+                        museumTile.WallId = wallId;
+                    }
+                }
+        }
+        
+        if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTiles;
+    }
+
     public async Task<MuseumTile?> GetById(string id)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();

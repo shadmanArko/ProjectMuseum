@@ -64,6 +64,12 @@ public class MuseumController : ControllerBase
         var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
         return Ok(allExhibitVariations);
     }
+    [HttpGet("GetAllWallpaperVariations")]
+    public async Task<IActionResult> GetAllWallpaperVariations()
+    {
+        var allVariations = await _builderCardService.GetAllWallpaperVariations();
+        return Ok(allVariations);
+    }
     [HttpGet("GetAllWallVariations")]
     public async Task<IActionResult> GetAllWallVariations()
     {
@@ -105,6 +111,12 @@ public class MuseumController : ControllerBase
     public async Task<IActionResult> UpdateMuseumTilesSourceId(List<string> ids, int sourceId)
     {
         var updatedMuseumTile = await _museumTileService.UpdateMuseumTilesSourceId(ids, sourceId);
+        return Ok(updatedMuseumTile);
+    }
+    [HttpPut("UpdateMuseumTilesWallId")]
+    public async Task<IActionResult> UpdateMuseumTilesWallId(List<string> ids, string wallId)
+    {
+        var updatedMuseumTile = await _museumTileService.UpdateMuseumTilesWallId(ids, wallId);
         return Ok(updatedMuseumTile);
     }
     [HttpDelete("{id}")]

@@ -21,10 +21,15 @@ public partial class MuseumActions : Node
     public static Action<Artifact, int> ArtifactRemovedFromSlot;
     public static Action<Artifact, Item, int> ArtifactDroppedOnExhibitSlot;
     public static Action<Artifact, Item, int> ArtifactRemovedFromExhibitSlot;
+    public static Action<Texture2D> OnPreviewWallpaperUpdated;
 
     public static Action<bool> OnClickMuseumGateToggle;
     public static Action<int> TotalGuestsUpdated;
+    #region TimeActions
 
+    public static Action OnTownMapButtonClicked;
+
+    #endregion
     #region TimeActions
 
     public static Action<int, int, int, int, int> OnTimeUpdated;

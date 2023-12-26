@@ -23,4 +23,10 @@ public class BuilderCardService: IBuilderCardService
         return wallVariations;
         
     }
+
+    public async Task<List<WallpaperVariation>?> GetAllWallpaperVariations()
+    {
+        var variations =  await _builderCardRepository.GetAllWallpaperVariations();
+        return variations;
+    }
 }

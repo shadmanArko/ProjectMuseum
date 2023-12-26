@@ -8,6 +8,7 @@ public partial class BottomBarMuseumUi : Control
 	[Export] private Button _newExhibitButton;
 	[Export] private Button _decorationsButton;
 	[Export] private Button _flooringButton;
+	[Export] private Button _wallpapersButton;
 	[Export] private Button _exhibitButton;
 	[Export] private Label _museumMoneyTextField;
 	[Export] private Label _museumGuestNumberTextField;
@@ -19,8 +20,15 @@ public partial class BottomBarMuseumUi : Control
 		_decorationsButton.Pressed += DecorationsButtonOnPressed;
 		_flooringButton.Pressed += FlooringButtonOnPressed;
 		_exhibitButton.Pressed += DisableBuilderCard;
+		_wallpapersButton.Pressed += WallpapersButtonOnPressed;
 		MuseumActions.OnMuseumBalanceUpdated += OnMuseumBalanceUpdated;
 		MuseumActions.TotalGuestsUpdated += TotalGuestsUpdated;
+	}
+
+	private void WallpapersButtonOnPressed()
+	{
+		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.Wallpaper);
+		EnableBuilderCard();
 	}
 
 	private void FlooringButtonOnPressed()

@@ -103,7 +103,7 @@ _data = {
 "Slide_Out": SubResource("Animation_1ovfu")
 }
 
-[node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField", "_diggingPermitsButton", "_museumGateCheckButton", "_diggingPermitsUi")]
+[node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,6 +113,7 @@ grow_vertical = 2
 script = ExtResource("1_mfgvl")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 _diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
+_townMapButton = NodePath("Right Panel/TownMap Button")
 _museumGateCheckButton = NodePath("Right Panel/CheckButton")
 _diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 metadata/_edit_vertical_guides_ = [-481.0]
@@ -361,10 +362,21 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -111.0
+offset_left = -79.0
 offset_top = 53.0
-offset_right = -11.0
-offset_bottom = 153.0
+offset_right = -15.0
+offset_bottom = 117.0
+grow_horizontal = 0
+
+[node name="TownMap Button" type="Button" parent="Right Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -79.0
+offset_top = -31.0
+offset_right = -15.0
+offset_bottom = 33.0
 grow_horizontal = 0
 
 [node name="CheckButton" type="CheckButton" parent="Right Panel"]

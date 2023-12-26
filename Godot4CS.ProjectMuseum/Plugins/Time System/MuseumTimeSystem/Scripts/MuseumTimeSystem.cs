@@ -69,7 +69,7 @@ public partial class MuseumTimeSystem : Node
 	
 	private void UpdateTime()
 	{
-		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
+		// GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
 		_time.Minutes+=10;
 		if (_time.Minutes >= _minutesInHour)
 		{

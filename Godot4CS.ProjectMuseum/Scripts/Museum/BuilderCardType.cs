@@ -4,5 +4,6 @@ public enum BuilderCardType
 {
     Exhibit,
     Decoration,
-    Flooring
+    Flooring,
+    Wallpaper
 }

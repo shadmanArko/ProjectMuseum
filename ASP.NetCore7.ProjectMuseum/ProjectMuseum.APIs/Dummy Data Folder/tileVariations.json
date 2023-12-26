@@ -2,21 +2,21 @@
   {
     "VariationName": "Wood 1",
     "Price": 1,
-    "SourceId": 1
+    "SourceId": 4
   },
   {
     "VariationName": "Wood 2",
     "Price": 1,
-    "SourceId": 2
+    "SourceId": 5
   },
   {
     "VariationName": "Wood 3",
     "Price": 1,
-    "SourceId": 3
+    "SourceId": 6
   },
   {
     "VariationName": "Wood 4",
     "Price": 1,
-    "SourceId": 4
+    "SourceId": 7
   }
 ]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ukovot2svv0h"]
+
+[ext_resource type="PackedScene" uid="uid://baf5s8ygn03sp" path="res://Scenes/Museum/Town/town.tscn" id="1_p87ks"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Town" parent="." instance=ExtResource("1_p87ks")]
+position = Vector2(426, 210)

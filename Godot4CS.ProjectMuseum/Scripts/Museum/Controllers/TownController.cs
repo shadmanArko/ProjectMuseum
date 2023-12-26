@@ -5,7 +5,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 public partial class TownController : Node2D
 {
 	[Export] private Camera2D _camera2D;
-	[Export] private Node2D _townScene;
+	[Export] private Control _townScene;
 
 	private bool _townMapEnabled;
 
@@ -19,12 +19,15 @@ public partial class TownController : Node2D
 	{
 		_cameraStartZoom = _camera2D.Zoom;
 		_cameraStartPosition = _camera2D.Position;
+		_cameraLastZoom = _cameraStartZoom;
+		_cameraLastPosition = _cameraStartPosition;
 		MuseumActions.OnTownMapButtonClicked += EnableTownMap;
-		// DisableTownMap();
+		DisableTownMap();
 	}
 
 	private void EnableTownMap()
 	{
+		GD.Print("Enabled Town map");
 		_cameraLastZoom = _camera2D.Zoom;
 		_cameraLastPosition = _camera2D.Position;
 		_camera2D.Zoom = _cameraStartZoom;
@@ -32,8 +35,8 @@ public partial class TownController : Node2D
 		_townMapEnabled = true;
 		_camera2D.ProcessMode = ProcessModeEnum.Disabled;
 		_townScene.ProcessMode = ProcessModeEnum.Inherit;
-		_townScene.Scale = new Vector2(1, 1);
-		_townScene.Position = new Vector2(0, -210);
+		// _townScene.Scale = new Vector2(1, 1);
+		// _townScene.Position = new Vector2(0, -210);
 		_townScene.Visible = true;
 	}
 	private void DisableTownMap()

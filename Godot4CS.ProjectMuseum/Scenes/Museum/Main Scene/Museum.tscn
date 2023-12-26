@@ -41,14 +41,6 @@
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
 
-[node name="Town" parent="." instance=ExtResource("2_pnteo")]
-process_mode = 4
-visible = false
-position = Vector2(0, -210)
-zoomSpd = 0.2
-Minzoom = 1.0
-Maxzoom = 4.0
-
 [node name="museum" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("1_3ql1b")
@@ -70,6 +62,8 @@ Minzoom = 1.0
 Maxzoom = 4.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
+
+[node name="Town Ui" parent="museum/CanvasLayer" instance=ExtResource("2_pnteo")]
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
 ItemsParent = NodePath("../../ItemParents")
@@ -247,4 +241,4 @@ _gameCharacter = NodePath("../museum/Player")
 [node name="TownController" type="Node2D" parent="." node_paths=PackedStringArray("_camera2D", "_townScene")]
 script = ExtResource("37_vwmma")
 _camera2D = NodePath("../museum/Camera2D")
-_townScene = NodePath("../Town")
+_townScene = NodePath("../museum/CanvasLayer/Town Ui")

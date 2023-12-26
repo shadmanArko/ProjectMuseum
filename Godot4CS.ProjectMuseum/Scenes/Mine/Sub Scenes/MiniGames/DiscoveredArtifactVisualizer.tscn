@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=6 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
 [ext_resource type="Texture2D" uid="uid://wcewhq3qlnu3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c4hsb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5m5pf"]
 
@@ -52,20 +50,32 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Discovered An Item Label" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+[node name="Discovered An Item Label" type="VBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_c4hsb")
+theme_override_constants/separation = 10
 
-[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label"]
+[node name="You Have Found Text" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label"]
 texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_q8tpq")
 theme_override_font_sizes/font_size = 22
 text = "You have found"
 horizontal_alignment = 1
+
+[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q8tpq")
+theme_override_font_sizes/font_size = 33
+text = "Tomahawk"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Artifact Sprite and Description Panel" type="HBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
 custom_minimum_size = Vector2(400, 400)
@@ -99,7 +109,7 @@ size_flags_vertical = 4
 theme_override_fonts/normal_font = ExtResource("2_q8tpq")
 theme_override_fonts/bold_font = ExtResource("2_q8tpq")
 theme_override_font_sizes/normal_font_size = 22
-theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_font_size = 33
 bbcode_enabled = true
 text = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO"
 fit_content = true
@@ -110,6 +120,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_xruif")
 
 [node name="OkayButton" type="Button" parent="CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel"]
+texture_filter = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4

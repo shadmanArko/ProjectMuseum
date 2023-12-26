@@ -62,9 +62,20 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 
 		GD.Print("SHOWING ARTIFACT FROM ARTIFACT ID IN DISCOVERY ARTIFACT VISUALIZER");
 		_canvasLayer.Visible = true;
-		//_artifactName.Text = rawArtifactDescriptive.ArtifactName;
+		_artifactName.Text = rawArtifactDescriptive.ArtifactName;
 		var descriptionText =
-			$"[b]{rawArtifactDescriptive.ArtifactName}[/b][p align=fill]{rawArtifactDescriptive.Description}[/p]";
+			$"[p align=fill]{rawArtifactDescriptive.Description}[/p]" +
+			$"[p] [/p] [p] [/p] [p]Tags: [/p]" +
+			$"[p][font_size={11}]{rawArtifactFunctional.Era}, {rawArtifactFunctional.Region},[/font_size][/p]" +
+			$"[p][font_size={11}]{rawArtifactFunctional.Object}, {rawArtifactFunctional.ObjectClass}," +
+			$" {rawArtifactFunctional.ObjectSize}[/font_size][/p]";
+		var materialText = "[font_size={11}][p]";
+		foreach (var material in rawArtifactFunctional.Materials)
+		{
+			materialText += $"{material}, ";
+		}
+
+		descriptionText += materialText+"[/p][/font_size]";
 		_artifactDescription.Text = descriptionText;
 		_artifactSprite.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
 	}

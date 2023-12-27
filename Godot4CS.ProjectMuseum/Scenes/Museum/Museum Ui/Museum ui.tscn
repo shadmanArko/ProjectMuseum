@@ -308,8 +308,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Gate"
 
 [node name="Tutorial" parent="." instance=ExtResource("11_n0rbh")]
+visible = false
 layout_mode = 0
 anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 104.0
+offset_right = 409.0
+offset_bottom = 459.0
+grow_vertical = 1
 
 [connection signal="pressed" from="Panel/Exhibit 0" to="." method="OnExhibit0Pressed"]
 [connection signal="pressed" from="Panel/Exhibit 1" to="." method="OnExhibit1Pressed"]

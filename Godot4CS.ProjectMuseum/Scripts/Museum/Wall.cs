@@ -3,17 +3,23 @@ using System;
 using System.Drawing;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using ProjectMuseum.Models;
 
 public partial class Wall : Sprite2D
 {
     [Export] private Sprite2D _wallPreview;
     [Export] private Texture2D _wallPreviewSprite;
-
+    public string WallId;
+    public string TileId;
     private bool _showPreview = false;
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
-
+    public void SetUpWall(MuseumTile museumTile, string wallId)
+    {
+        WallId = wallId;
+        TileId = museumTile.Id;
+    }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
@@ -49,9 +55,14 @@ public partial class Wall : Sprite2D
         if (!_showPreview) return;
         
         // GD.Print("Mouse entered!");
+        ShowPreview();
+        // Add your hover effect code here
+    }
+
+    private void ShowPreview()
+    {
         _wallPreview.Texture = _wallPreviewSprite;
         _wallPreview.Visible = true;
-        // Add your hover effect code here
     }
 
     // Function called when the mouse exits the object
@@ -63,9 +74,14 @@ public partial class Wall : Sprite2D
     }
     private void OnClickWall()
     {
+        if (_showPreview)
+        {
+            ShowPreview();
+            // Texture = _wallPreviewSprite;
+            // _wallPreview.Visible = false;
+        }
         
-        Texture = _wallPreviewSprite;
-        _wallPreview.Visible = false;
+        
     }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Input(InputEvent @event)
@@ -76,13 +92,13 @@ public partial class Wall : Sprite2D
             if (GetRect().HasPoint(GetLocalMousePosition()) )
             {
                 // Emit the mouse_entered signal
-                _on_Hover();
+                // _on_Hover();
                 
             }
             else
             {
                 // Emit the mouse_exited signal
-                _on_Unhover();
+                // _on_Unhover();
             }
         }
 
@@ -93,6 +109,7 @@ public partial class Wall : Sprite2D
                 OnClickWall();
             }
         }
+        
     }
 
     public override void _ExitTree()

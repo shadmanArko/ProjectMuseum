@@ -9,6 +9,7 @@ using Godot.Collections;
 using Godot4CS.ProjectMuseum.Plugins.AStarPathFinding;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
@@ -38,6 +39,7 @@ public partial class Guest : CharacterBody2D
     [Export] private Vector2I _startTileCoordinate;
     [Export] private Vector2I _targetTileCoordinate;
     [Export] private int _currentExhibitIndex = 0;
+    private bool _gamePaused = false;
     public Guest()
     {
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
@@ -46,6 +48,7 @@ public partial class Guest : CharacterBody2D
     public override void _Ready()
     {
         base._Ready();
+        MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
         GetRandomInterval();
         
         // _listOfMuseumTile = ServiceRegistry.Resolve<List<MuseumTile>>();
@@ -58,7 +61,12 @@ public partial class Guest : CharacterBody2D
         _animationPlayerInstance.Play("idle_front_facing");
     }
 
-    
+    private void OnTimePauseValueUpdated(bool obj)
+    {
+        _gamePaused = obj;
+        ControlAnimation();
+    }
+
 
     private void GetRandomInterval()
     {
@@ -151,7 +159,7 @@ public partial class Guest : CharacterBody2D
     private Vector2 _offset = new( -0.5f, -0.5f);
     public override void _PhysicsProcess(double delta)
     {
-        if (_canMove)
+        if (_canMove && !_gamePaused)
         {
             motion = new Vector2(_direction.X * (float)(_displacementSpeed * delta),
                 _direction.Y * (float)(_displacementSpeed * delta));
@@ -173,6 +181,18 @@ public partial class Guest : CharacterBody2D
 
     private void ControlAnimation()
     {
+        if (_gamePaused)
+        {
+            if (_playerFacingTheFront)
+            {
+                _animationPlayerInstance.Play("RESET");
+            }
+            else
+            {
+                _animationPlayerInstance.Play("RESET_BACK");
+            }
+            return;
+        }
         if (_canMove)
         {
             if (_direction == new Vector2(1, 0))
@@ -201,6 +221,8 @@ public partial class Guest : CharacterBody2D
                 _animationPlayerInstance.Play("idle_back_facing");
             }
         }
+
+        
     }
 
     private void TakeNextMovementDecision()
@@ -266,5 +288,11 @@ public partial class Guest : CharacterBody2D
         _characterSprite.Scale = new Vector2(-1, 1);
         _animationPlayerInstance.Play("walk_backward");
         _playerFacingTheFront = false;
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
     }
 }

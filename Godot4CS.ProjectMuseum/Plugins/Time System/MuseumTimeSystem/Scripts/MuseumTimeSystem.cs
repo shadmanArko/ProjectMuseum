@@ -145,6 +145,7 @@ public partial class MuseumTimeSystem : Node
 	public void TogglePause()
 	{
 		_isPaused = !_isPaused;
+		MuseumActions.OnTimePauseValueUpdated?.Invoke(_isPaused);
 		GD.Print(_isPaused ? "Game Paused" : "Game Resumed");
 	}
 	public void SetClockSpeed(int speed)

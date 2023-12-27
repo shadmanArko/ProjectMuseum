@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=18 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dmbaqgvetw2w" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromInventoryToMuseum.tscn" id="11_si3nu"]
 [ext_resource type="PackedScene" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
 [ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
+[ext_resource type="PackedScene" uid="uid://kj2e2wox5sxe" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
 [ext_resource type="PackedScene" uid="uid://boobbvr80bqqf" path="res://Scenes/Mine/Sub Scenes/Tutorials/MineTutorial.tscn" id="16_37v3a"]
 
@@ -32,12 +33,13 @@ visible = false
 _parentNode = NodePath("../MineSceneInitializer")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
 EnemySpawner = NodePath("../EnemySpawner")
 MiniGameController = NodePath("../MiniGameController")
+MineTutorial = NodePath("../MineTutorial")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
@@ -58,11 +60,16 @@ script = ExtResource("7_5sphp")
 script = ExtResource("14_oqhev")
 _alternateMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn"
 
+[node name="MineTutorial" parent="." instance=ExtResource("16_37v3a")]
+
 [node name="MineUI" parent="." instance=ExtResource("3_ambmn")]
 
 [node name="Tooltip4" parent="MineUI" instance=ExtResource("12_1cu8i")]
 
 [node name="MinePopUp" parent="MineUI" instance=ExtResource("12_uukqb")]
+
+[node name="Tutorial" parent="MineUI" instance=ExtResource("13_d8f08")]
+visible = false
 
 [node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
 visible = false
@@ -72,5 +79,3 @@ visible = false
 
 [node name="CampExitPromptUI" parent="." instance=ExtResource("9_ybt60")]
 visible = false
-
-[node name="MineTutorial" parent="." instance=ExtResource("16_37v3a")]

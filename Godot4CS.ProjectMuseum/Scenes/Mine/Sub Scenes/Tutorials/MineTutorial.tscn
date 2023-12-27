@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/MineTutorial.cs" id="1_ndx6q"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="2_g1pbb"]
 
-[node name="MineTutorial" type="Node"]
+[node name="MineTutorial" type="Node" node_paths=PackedStringArray("_tutorialSystem")]
 script = ExtResource("1_ndx6q")
+_tutorialSystem = NodePath("Tutorial System")
 
 [node name="Tutorial System" type="Node" parent="."]
 script = ExtResource("2_g1pbb")

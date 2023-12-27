@@ -3,6 +3,7 @@ using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
@@ -96,6 +97,7 @@ public partial class MiniGameController : Node2D
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
 		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
+		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");
 	}
 
 	#endregion

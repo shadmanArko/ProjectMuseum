@@ -4,6 +4,7 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -79,6 +80,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 			}
 			else
 			{
+				if (!_playerControllerVariables.CanMoveLeftAndRight) return;
 				Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
 				Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed);
 			}
@@ -164,17 +166,29 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		if(_playerControllerVariables.State != MotionState.Grounded) return;
 		MineActions.OnRollStarted?.Invoke();
-		
-		
 	}
 
 	private void PlayerGrab()
 	{
-		_playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
-			MotionState.Falling : MotionState.Hanging;
-		animationController.PlayAnimation("idle_to_climb");
-		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
-			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
+		if(!_playerControllerVariables.CanToggleClimb) return;
+
+		if (_playerControllerVariables.State == MotionState.Hanging)
+		{
+			animationController.PlayAnimation("climb_to_idle");
+			_playerControllerVariables.State = MotionState.Falling;
+			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed / 2;
+		}
+		else
+		{
+			animationController.PlayAnimation("idle_to_climb");
+			_playerControllerVariables.State = MotionState.Hanging;
+			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
+		}
+		// _playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
+		// 	MotionState.Falling : MotionState.Hanging;
+		// animationController.PlayAnimation(_playerControllerVariables.State == MotionState.Hanging ? "climb_to_idle" : "idle_to_climb");
+		// _playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
+		// 	PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
 	
 	public override void _Input(InputEvent @event)
@@ -183,10 +197,10 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		MouseMotion(@event);
 		if(@event.IsActionReleased("toggle_grab"))
 			PlayerGrab();
-		if(@event.IsActionReleased("Lamp"))
-			Lamp();
-		if(@event.IsActionReleased("Test"))
-			Test();
+		// if(@event.IsActionReleased("Lamp"))
+		// 	Lamp();
+		// if(@event.IsActionReleased("Test"))
+		// 	Test();
 	}
 
 	#region For Testing Purposes

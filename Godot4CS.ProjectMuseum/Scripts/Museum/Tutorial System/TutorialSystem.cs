@@ -104,6 +104,8 @@ public partial class TutorialSystem : Node
     {
     }
 
+    public string GetCurrentTutorialSceneEntry() => _currentTutorialSceneEntry.EntryNo;
+
     public override void _Input(InputEvent @event)
     {
         base._Input(@event);

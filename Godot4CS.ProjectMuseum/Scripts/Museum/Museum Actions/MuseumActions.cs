@@ -34,6 +34,7 @@ public partial class MuseumActions : Node
 
     public static Action<int, int, int, int, int> OnTimeUpdated;
     public static Action OnClickPausePlayButton;
+    public static Action<bool> OnTimePauseValueUpdated;
     public static Action<int> OnClickTimeSpeedButton;
 
     #endregion

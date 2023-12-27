@@ -65,7 +65,6 @@ Minzoom = 1.0
 Maxzoom = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
-visible = false
 
 [node name="Town Ui" parent="museum/CanvasLayer" instance=ExtResource("2_pnteo")]
 

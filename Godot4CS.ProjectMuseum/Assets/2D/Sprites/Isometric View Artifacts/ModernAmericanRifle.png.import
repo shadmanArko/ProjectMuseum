@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6dwe7nm52h22"
-path="res://.godot/imported/ModernAmericanRifle2.png-9542bca0dc7ef7ec8b35abae8e5624be.ctex"
+path="res://.godot/imported/ModernAmericanRifle.png-2e06a4f2872dea29e3a2547768b80f71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle2.png"
-dest_files=["res://.godot/imported/ModernAmericanRifle2.png-9542bca0dc7ef7ec8b35abae8e5624be.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png"
+dest_files=["res://.godot/imported/ModernAmericanRifle.png-2e06a4f2872dea29e3a2547768b80f71.ctex"]
 
 [params]
 

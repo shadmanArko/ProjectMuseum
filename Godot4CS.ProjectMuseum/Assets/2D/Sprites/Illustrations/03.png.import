@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blguo3pqctpry"
-path="res://.godot/imported/Renaissance American Cutlass.png-55d9d9a701776548bb0e25c4ddd056fb.ctex"
+uid="uid://c756pejmht8fg"
+path="res://.godot/imported/03.png-79a89b291ca6fd9b58383bb1425c0577.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Renaissance American Cutlass.png"
-dest_files=["res://.godot/imported/Renaissance American Cutlass.png-55d9d9a701776548bb0e25c4ddd056fb.ctex"]
+source_file="res://Assets/2D/Sprites/Illustrations/03.png"
+dest_files=["res://.godot/imported/03.png-79a89b291ca6fd9b58383bb1425c0577.ctex"]
 
 [params]
 

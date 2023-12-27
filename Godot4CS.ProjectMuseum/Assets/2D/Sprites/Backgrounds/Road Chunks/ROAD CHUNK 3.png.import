@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk6cmt7p7r2om"
-path="res://.godot/imported/Renaissance American Bowl.png-5898e9e50d92f73377b9d58c93392212.ctex"
+uid="uid://bs6uu5d0ajyol"
+path="res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Renaissance American Bowl.png"
-dest_files=["res://.godot/imported/Renaissance American Bowl.png-5898e9e50d92f73377b9d58c93392212.ctex"]
+source_file="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png"
+dest_files=["res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"]
 
 [params]
 

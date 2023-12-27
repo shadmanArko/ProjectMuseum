@@ -3,15 +3,14 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
 
-public partial class CharacterBody2DIsometric : CharacterBody2D
+public partial class CharacterBody2DIsometric : PathNavigatorCharacter
 {
-    [Export] private float _displacementSpeed = 100;
     private Vector2 motion = Vector2.Zero;
 
-    [Export] private AnimationPlayer _animationPlayer;
 
     [Export] private Sprite2D _characterSprite;
     private bool _playerFacingTheFront = true;
@@ -22,7 +21,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
     {
         base._Ready();
         // AddToGroup("ManualSortGroup");
-        _animationPlayer.Play("idle_front_facing");
+        _animationPlayerInstance.Play("idle_front_facing");
         await Task.Delay(1000);
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
     }
@@ -51,14 +50,14 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         {
             direction += new Vector2(0, -1);
             _characterSprite.Scale = new Vector2(-1, 1);
-            _animationPlayer.Play("walk_backward");
+            _animationPlayerInstance.Play("walk_backward");
             _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_down"))
         {
             direction += new Vector2(0, 1);
             _characterSprite.Scale = new Vector2(-1, 1);
-            _animationPlayer.Play("walk_forward");
+            _animationPlayerInstance.Play("walk_forward");
             _playerFacingTheFront = true;
         }
 
@@ -66,14 +65,14 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         {
             direction += new Vector2(-1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
-            _animationPlayer.Play("walk_backward");
+            _animationPlayerInstance.Play("walk_backward");
             _playerFacingTheFront = false;
         }
         else if (Input.IsActionPressed("move_right"))
         {
             direction += new Vector2(1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
-            _animationPlayer.Play("walk_forward");
+            _animationPlayerInstance.Play("walk_forward");
             _playerFacingTheFront = true;
         }
 
@@ -81,11 +80,11 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         {
             if (_playerFacingTheFront)
             {
-                _animationPlayer.Play("idle_front_facing");
+                _animationPlayerInstance.Play("idle_front_facing");
             }
             else
             {
-                _animationPlayer.Play("idle_back_facing");
+                _animationPlayerInstance.Play("idle_back_facing");
             }
             return;
         }
@@ -97,7 +96,7 @@ public partial class CharacterBody2DIsometric : CharacterBody2D
         Vector2 nextPosition = Position + motion;
         
         // Check if the next position is within the bounds of the TileMap
-        if (nextPosition.IsWorldPositionInsideTileMap(GameManager.TileMap) && _museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
+        if (_museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
         {
             // Move only if the next position is within the TileMap bounds
             var newTile = GameManager.TileMap.LocalToMap(Position);

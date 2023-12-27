@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
 
@@ -18,5 +19,11 @@ public class PlayerInfoService: IPlayerInfoService
         newPlayerInfo.Id = Guid.NewGuid().ToString();
         await _playerInfoRepository.Insert(playerInfo);
         return newPlayerInfo;
+    }
+
+    public async Task<PlayerInfo?> GetPlayerInfo()
+    {
+        var info = await _playerInfoRepository.GetLastPlayerInfo();
+        return info;
     }
 }

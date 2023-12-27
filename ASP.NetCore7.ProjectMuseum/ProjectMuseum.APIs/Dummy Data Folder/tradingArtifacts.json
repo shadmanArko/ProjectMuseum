@@ -5,25 +5,29 @@
         "Id": "yz012eeq",
         "RawArtifactId": "raw234fdsda",
         "PositionX": 0,
-        "PositionY": 0
+        "PositionY": 0,
+        "Slot": 0
       },
       {
         "Id": "lmn456ed",
         "RawArtifactId": "raw567sdff",
         "PositionX": 0,
-        "PositionY": 0
+        "PositionY": 0,
+        "Slot": 0
       },
       {
         "Id": "opq789asd",
         "RawArtifactId": "raw890sdf",
         "PositionX": 0,
-        "PositionY": 0
+        "PositionY": 0,
+        "Slot": 0
       },
       {
         "Id": "aaaaa",
         "RawArtifactId": "aaaaa",
         "PositionX": 0,
-        "PositionY": 0
+        "PositionY": 0,
+        "Slot": 0
       }
     ]
   }

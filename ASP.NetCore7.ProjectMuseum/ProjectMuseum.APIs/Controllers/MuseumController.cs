@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
+using ProjectMuseum.Services.BuilderCardService;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
@@ -21,8 +22,9 @@ public class MuseumController : ControllerBase
     private readonly IArtifactStorageService _artifactStorageService;
     private readonly ITradingArtifactsService _tradingArtifactsService;
     private readonly IExhibitService _exhibitService;
+    private readonly IBuilderCardService _builderCardService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -30,6 +32,7 @@ public class MuseumController : ControllerBase
         _artifactStorageService = artifactStorageService;
         _tradingArtifactsService = tradingArtifactsService;
         _exhibitService = exhibitService;
+        _builderCardService = builderCardService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -61,10 +64,34 @@ public class MuseumController : ControllerBase
         var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
         return Ok(allExhibitVariations);
     }
+    [HttpGet("GetAllWallpaperVariations")]
+    public async Task<IActionResult> GetAllWallpaperVariations()
+    {
+        var allVariations = await _builderCardService.GetAllWallpaperVariations();
+        return Ok(allVariations);
+    }
+    [HttpGet("GetAllWallVariations")]
+    public async Task<IActionResult> GetAllWallVariations()
+    {
+        var allWallVariations = await _builderCardService.GetAllWallVariations();
+        return Ok(allWallVariations);
+    }
+    [HttpGet("GetAllTileVariations")]
+    public async Task<IActionResult> GetAllTileVariations()
+    {
+        var allTileVariations = await _builderCardService.GetAllTileVariations();
+        return Ok(allTileVariations);
+    }
     [HttpGet("GetAllMuseumTilesForNewGame")]
     public async Task<IActionResult> GetAllMuseumTilesForNewGame()
     {
         var museumTiles =await _museumTileService.GenerateMuseumTileForNewGame();
+        return Ok(museumTiles);
+    }
+    [HttpGet("ExpandMuseum/{originPositionX}/{originPositionY}")]
+    public async Task<IActionResult> ExpandMuseum(int originPositionX, int originPositionY)
+    {
+        var museumTiles =await _museumTileService.ExpandMuseumTiles(originPositionX, originPositionY);
         return Ok(museumTiles);
     }
     [HttpPost]
@@ -84,6 +111,12 @@ public class MuseumController : ControllerBase
     public async Task<IActionResult> UpdateMuseumTilesSourceId(List<string> ids, int sourceId)
     {
         var updatedMuseumTile = await _museumTileService.UpdateMuseumTilesSourceId(ids, sourceId);
+        return Ok(updatedMuseumTile);
+    }
+    [HttpPut("UpdateMuseumTilesWallId")]
+    public async Task<IActionResult> UpdateMuseumTilesWallId(List<string> ids, string wallId)
+    {
+        var updatedMuseumTile = await _museumTileService.UpdateMuseumTilesWallId(ids, wallId);
         return Ok(updatedMuseumTile);
     }
     [HttpDelete("{id}")]

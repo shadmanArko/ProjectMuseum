@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://baf5s8ygn03sp"]
+
+[ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
+[ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
+[ext_resource type="PackedScene" uid="uid://btdho8rkmjqck" path="res://Scenes/Museum/Town/town_building.tscn" id="3_3sk7y"]
+
+[node name="Town Ui" type="Control" node_paths=PackedStringArray("_sprite2D")]
+clip_contents = true
+layout_mode = 3
+anchor_left = 0.174
+anchor_right = 0.826
+anchor_bottom = 0.998
+offset_left = 0.919922
+offset_right = -0.920044
+offset_bottom = 2.15991
+script = ExtResource("2_4g4cw")
+_sprite2D = NodePath("Town Ground With roads")
+zoomSpd = 0.5
+Minzoom = 1.0
+Maxzoom = 4.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 6
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
+
+[node name="Town Ground With roads" type="Sprite2D" parent="."]
+z_index = 5
+texture_filter = 1
+position = Vector2(625, 538)
+texture = ExtResource("1_d0pjk")
+
+[node name="TownBuilding" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+
+[node name="TownBuilding2" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+position = Vector2(60, -296)
+
+[node name="TownBuilding3" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+position = Vector2(336, 184)
+
+[node name="TownBuilding4" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+position = Vector2(444, 229)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = 6
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+z_index = 6
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_vertical = 2
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+z_index = 6
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+grow_horizontal = 0
+grow_vertical = 2

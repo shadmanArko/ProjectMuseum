@@ -33,6 +33,12 @@ public class PlayerController : ControllerBase
         var newPlayerInfo = await _playerInfoService.InsertPlayerInfo(playerInfo);
         return Ok(newPlayerInfo);
     }
+    [HttpGet("GetPlayerInfo")]
+    public async Task<IActionResult> GetPlayerInfo()
+    {
+        var newPlayerInfo = await _playerInfoService.GetPlayerInfo();
+        return Ok(newPlayerInfo);
+    }
     [HttpGet("SaveData")]
     public async Task<IActionResult> SaveData()
     {

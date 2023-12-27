@@ -27,6 +27,7 @@ public partial class DialogueSystem : Control
 	private HttpRequest _httpRequestForGettingStory;
 	private Task _dialogueShowingTask;
 	private CancellationTokenSource _cancellationTokenSource;// Called when the node enters the scene tree for the first time.
+	private bool _finishedCurrentDialogue = false;
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
@@ -41,6 +42,8 @@ public partial class DialogueSystem : Control
 
 	private async void NextDialogueButtonOnPressed()
 	{
+		if (!_finishedCurrentDialogue) return;
+		
 		_cancellationTokenSource.Cancel();
 		try
 		{
@@ -53,6 +56,8 @@ public partial class DialogueSystem : Control
 		}
 
 		_cancellationTokenSource = new CancellationTokenSource();
+		var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
+		MuseumActions.StorySceneEntryEnded?.Invoke(storySceneEntry.EntryNo);
 		if (_storyEntryCount < _storyScene.StorySceneEntries.Count -1)
 		{
 			_storyEntryCount++;
@@ -60,7 +65,22 @@ public partial class DialogueSystem : Control
 		}
 		else
 		{
-			_dialogueSystemAnimationPlayer.Play("Slide_Out");
+			HandleSceneEnd();
+		}
+	}
+
+	private async void HandleSceneEnd()
+	{
+		_dialogueSystemAnimationPlayer.Play("Slide_Out");
+		await Task.Delay(800);
+		_cutsceneArt.Visible = false;
+		Visible = false;
+		if (_storyScene.HasTutorial)
+		{
+			MuseumActions.PlayTutorial?.Invoke(_storyScene.TutorialNumber);
+		}
+		else
+		{
 			MuseumActions.StorySceneEnded?.Invoke(_currentStorySceneNumber);
 		}
 	}
@@ -68,7 +88,7 @@ public partial class DialogueSystem : Control
 	private void LoadAndSetCharacterPortrait()
 	{
 		// Path to the folder containing your PNG file
-		string folderPath = "res://Assets/2D/Sprites/Characters/";
+		string folderPath = "res://Assets/2D/Sprites/Portraits/";
 		var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
 
 		// Name of your PNG file
@@ -124,8 +144,9 @@ public partial class DialogueSystem : Control
 
 	private void ShowNextStoryEntry()
 	{
+		Visible = true;
 		LoadAndSetCharacterPortrait();
-		// LoadAndSetCutsceneArt();
+		LoadAndSetCutsceneArt();
 		_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
 	}
 
@@ -148,7 +169,7 @@ public partial class DialogueSystem : Control
 			return;
 		}
 		// Path to the folder containing your PNG file
-		string folderPath = "res://Assets/2D/Sprites/Cutscenes/";
+		string folderPath = "res://Assets/2D/Sprites/Illustrations/";
 		
 		// Name of your PNG file
 		string fileName = $"{storySceneEntry.IllustrationName}.png";
@@ -183,7 +204,7 @@ public partial class DialogueSystem : Control
 	
 	async Task ShowDialogue(int entry, CancellationToken cancellationToken)
 	{
-		
+		_finishedCurrentDialogue = false;
 		bool skipIteration = false;
 		string tag = "";
 		string dialogue = _storyScene.StorySceneEntries[entry].Dialogue;
@@ -221,6 +242,8 @@ public partial class DialogueSystem : Control
 			cancellationToken.ThrowIfCancellationRequested();
 			await Task.Delay((int)(delayTime * 1000), cancellationToken);
 		}
+
+		_finishedCurrentDialogue = true;
 	}
 
 	public override void _ExitTree()

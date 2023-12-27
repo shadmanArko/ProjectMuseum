@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://dj4qpmv17d2tv"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/ProfessorScripts/UncontrolledCharacter.cs" id="1_mymyv"]
+[ext_resource type="Texture2D" uid="uid://pv4hg3ylyek7" path="res://Assets/2D/Animations/Museum Character Animations/Professor_Walk_Idle.png" id="5_6ikrp"]
+
+[sub_resource type="Animation" id="Animation_x31cg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_itqy1"]
+resource_name = "idle_back_facing"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28]
+}
+
+[sub_resource type="Animation" id="Animation_dsn50"]
+resource_name = "idle_front_facing"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_o546g"]
+resource_name = "walk_backward"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_i4sps"]
+resource_name = "walk_forward"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_71njp"]
+_data = {
+"RESET": SubResource("Animation_x31cg"),
+"idle_back_facing": SubResource("Animation_itqy1"),
+"idle_front_facing": SubResource("Animation_dsn50"),
+"walk_backward": SubResource("Animation_o546g"),
+"walk_forward": SubResource("Animation_i4sps")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p6y7"]
+size = Vector2(15, 38)
+
+[node name="Professor" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
+z_index = 1
+texture_filter = 1
+script = ExtResource("1_mymyv")
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -3)])
+_animationPlayer = NodePath("PlayerAnimation")
+_characterSprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 6)
+scale = Vector2(-1, 1)
+texture = ExtResource("5_6ikrp")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 4
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_71njp")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, -19)
+shape = SubResource("RectangleShape2D_4p6y7")
+disabled = true

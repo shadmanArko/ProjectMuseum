@@ -10,6 +10,7 @@ public partial class NewGameSetupUi : Control
 
 	[Export] public CheckButton CheckButton;
 	[Export] private Control _warningPanel;
+	[Export] private Control LoadingPanel;
 
 	private HttpRequest _httpRequestForNewGameSetUpData;
 	private HttpRequest _httpRequestForClearingPreviousDataAndStartingNewGame;
@@ -75,6 +76,8 @@ public partial class NewGameSetupUi : Control
 
 	void OnNewGameSetupRequestForNewGameSetUpDataComplete(long result, long responsecode, string[] headers, byte[] body)
 	{
+		LoadingPanel.SetProcess(true);
+		LoadingPanel.Visible = true;
 		_httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.MuseumApiPath +
 		                                                              "StartNewGame");
 		GD.Print("new game set Up request done");

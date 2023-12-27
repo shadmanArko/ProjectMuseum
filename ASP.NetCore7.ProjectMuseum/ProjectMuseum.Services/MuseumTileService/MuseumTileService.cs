@@ -78,6 +78,12 @@ public class MuseumTileService : IMuseumTileService
         return updatedMuseumTile;
     }
 
+    public async Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<string> museumTilesId, string wallId)
+    {
+        var updatedMuseumTile = await _museumTileRepository.UpdateMuseumTilesWallId(museumTilesId, wallId);
+        return updatedMuseumTile;
+    }
+
     public async Task<MuseumTile?> DeleteMuseumTileById(string tileId)
     {
         var museumTile = await _museumTileRepository.Delete(tileId);
@@ -94,6 +100,9 @@ public class MuseumTileService : IMuseumTileService
     {
        return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();
     }
-
+    public async Task<List<MuseumTile>?> ExpandMuseumTiles(int originPositionX, int originPositionY)
+    {
+        return await _museumTileDataGenerator.ExpandMuseumTiles(originPositionX, originPositionY);
+    }
     
 }

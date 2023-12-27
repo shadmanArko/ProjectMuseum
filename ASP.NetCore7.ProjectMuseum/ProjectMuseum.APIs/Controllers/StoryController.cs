@@ -18,4 +18,10 @@ public class StoryController : ControllerBase
         var storyScene = await _storySceneService.GetStorySceneBySceneNo(sceneNo);
         return Ok(storyScene);
     }
+    [HttpGet("GetTutorialScene/{sceneNo}")]
+    public async Task<IActionResult> GetTutorialScene(int sceneNo)
+    {
+        var tutorial = await _storySceneService.GetTutorialByNumber(sceneNo);
+        return Ok(tutorial);
+    }
 }

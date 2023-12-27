@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bubw1v2o1o04u"]
+[gd_scene load_steps=6 format=3 uid="uid://bubw1v2o1o04u"]
 
 [ext_resource type="Script" path="res://Scripts/NewGameSetup/NewGameSetupUi.cs" id="1_aeqpo"]
 [ext_resource type="Texture2D" uid="uid://cyj27cdfc6cf7" path="res://Assets/2D/Sprites/Placeholder/male_and_female_mainj.png" id="1_jrv3g"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="3_hla8t"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/WarningUI.cs" id="3_hyewe"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/LoadingPanel.cs" id="5_qvqrp"]
 
-[node name="NewGameSetupUi" type="Control" node_paths=PackedStringArray("StartButton", "LineEdit", "OptionButton", "CheckButton", "_warningPanel")]
+[node name="NewGameSetupUi" type="Control" node_paths=PackedStringArray("StartButton", "LineEdit", "OptionButton", "CheckButton", "_warningPanel", "LoadingPanel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +19,7 @@ LineEdit = NodePath("Panel/Player name/LineEdit")
 OptionButton = NodePath("Panel/Gender/OptionButton")
 CheckButton = NodePath("Panel/Turorial/CheckButton")
 _warningPanel = NodePath("Panel/Warning UI")
+LoadingPanel = NodePath("Loading Panel")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -159,3 +161,37 @@ grow_vertical = 0
 theme = ExtResource("3_hla8t")
 theme_override_font_sizes/font_size = 32
 text = "Okay"
+
+[node name="Loading Panel" type="Panel" parent="." node_paths=PackedStringArray("_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qvqrp")
+_label = NodePath("ColorRect/Label")
+
+[node name="ColorRect" type="ColorRect" parent="Loading Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="Label" type="Label" parent="Loading Panel/ColorRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -110.0
+offset_right = 376.0
+offset_bottom = -19.0
+grow_vertical = 0
+theme = ExtResource("3_hla8t")
+theme_override_font_sizes/font_size = 64
+text = "Loading..."

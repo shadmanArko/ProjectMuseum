@@ -1,8 +1,12 @@
 using Godot;
 using System;
+using System.Text;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Newtonsoft.Json;
+using ProjectMuseum.Models;
 using Time = ProjectMuseum.Models.Time;
-
+using JsonSerializer = System.Text.Json.JsonSerializer;
 public partial class MuseumTimeSystem : Node
 {
 	private double _secondsIn10Minutes = 5;
@@ -14,18 +18,42 @@ public partial class MuseumTimeSystem : Node
 	private bool _isPaused = false;
 
     private double _originalClockUnitSpeed;
-    private readonly Time _time = new Time();
-
+    private  Time _time = new Time();
+    private HttpRequest _httpRequestForGettingTime;
+    private HttpRequest _httpRequestForUpdatingTime;
     public override void _Ready()
 	{
 		_originalClockUnitSpeed = _secondsIn10Minutes;
-		MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+
+		_httpRequestForGettingTime = new HttpRequest();
+		_httpRequestForUpdatingTime = new HttpRequest();
+		AddChild(_httpRequestForGettingTime);
+		AddChild(_httpRequestForUpdatingTime);
+		_httpRequestForGettingTime.RequestCompleted += HttpRequestForGettingTimeOnRequestCompleted;
+		_httpRequestForUpdatingTime.RequestCompleted += HttpRequestForUpdatingTimeOnRequestCompleted;
+		_httpRequestForGettingTime.Request(ApiAddress.PlayerApiPath + "GetTime");
+		// MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 		MuseumActions.OnClickTimeSpeedButton += SetClockSpeed;
 		MuseumActions.OnClickPausePlayButton += TogglePause;
+		MuseumActions.OnPlayerSavedGame += SaveTime;
 	}
 
-	
-	public override void _Process(double delta)
+    private void HttpRequestForUpdatingTimeOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+	    string jsonStr = Encoding.UTF8.GetString(body);
+	    GD.Print( "saved time "+jsonStr);
+    }
+
+    private void HttpRequestForGettingTimeOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+	    string jsonStr = Encoding.UTF8.GetString(body);
+	    GD.Print(jsonStr);
+	    _time = JsonSerializer.Deserialize<Time>(jsonStr);
+	    MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+    }
+
+
+    public override void _Process(double delta)
 	{ 
 			if (!_isPaused)
             {
@@ -41,7 +69,7 @@ public partial class MuseumTimeSystem : Node
 	
 	private void UpdateTime()
 	{
-		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
+		// GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
 		_time.Minutes+=10;
 		if (_time.Minutes >= _minutesInHour)
 		{
@@ -104,7 +132,15 @@ public partial class MuseumTimeSystem : Node
 		}
 		MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 	}
-	
+
+	private void SaveTime()
+	{
+		string[] headers = { "Content-Type: application/json"};
+		var body = JsonConvert.SerializeObject(_time);
+		string url = ApiAddress.PlayerApiPath + "SaveTime";
+		// _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+		_httpRequestForUpdatingTime.Request(url, headers, HttpClient.Method.Post, body);
+	}
 
 	public void TogglePause()
 	{
@@ -121,5 +157,6 @@ public partial class MuseumTimeSystem : Node
 		base._ExitTree();
 		MuseumActions.OnClickTimeSpeedButton -= SetClockSpeed;
 		MuseumActions.OnClickPausePlayButton -= TogglePause;
+		MuseumActions.OnPlayerSavedGame -= SaveTime;
 	}
 }

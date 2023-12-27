@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_hulbe"]
 
-[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_decorationsButton", "_exhibitButton", "_museumMoneyTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
+[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_decorationsButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 12
@@ -20,6 +20,8 @@ grow_vertical = 0
 script = ExtResource("1_26dxj")
 _newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/New Exhibit Button")
 _decorationsButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/Food and Drinks Button")
+_flooringButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Flooring Button")
+_wallpapersButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Wallpaper Button")
 _exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button")
 _museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/Money Text Holder")
 _museumGuestNumberTextField = NodePath("Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Count")

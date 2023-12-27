@@ -15,11 +15,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5j1h5")
-_exitButton = NodePath("Panel/ColorRect/Top Panel/Button")
+_exitButton = NodePath("Panel/Exhibit Editor Ui BG/Top Panel/Button")
 _draggable = ExtResource("3_vjpch")
 _dropTarget = ExtResource("5_v7dyc")
-_draggablesParent = NodePath("Panel/ColorRect/Left Panel/VBoxContainer")
-_dropTargetsParent = NodePath("Panel/ColorRect/Right Panel/MarginContainer/GridContainer")
+_draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer")
+_dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -31,12 +31,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Panel"]
+[node name="Exhibit Editor Ui BG" type="ColorRect" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.135156
+anchor_left = 0.270312
 anchor_top = 0.125
-anchor_right = 0.774218
+anchor_right = 0.909375
 anchor_bottom = 0.796297
 offset_bottom = 6.10352e-05
 grow_horizontal = 2
@@ -44,7 +44,7 @@ grow_vertical = 2
 color = Color(0.247059, 0.247059, 0.247059, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Top Panel" type="Panel" parent="Panel/ColorRect"]
+[node name="Top Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -52,7 +52,7 @@ anchor_bottom = 0.083
 offset_right = 0.000610352
 offset_bottom = -0.116718
 
-[node name="Button" type="Button" parent="Panel/ColorRect/Top Panel"]
+[node name="Button" type="Button" parent="Panel/Exhibit Editor Ui BG/Top Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.905
@@ -67,7 +67,7 @@ grow_vertical = 2
 theme = ExtResource("2_kqmcg")
 text = "Exit"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/ColorRect/Top Panel"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Exhibit Editor Ui BG/Top Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -85,7 +85,7 @@ theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "[center]Exhibit Editor[/center]"
 
-[node name="Left Panel" type="Panel" parent="Panel/ColorRect"]
+[node name="Left Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
 self_modulate = Color(0.403922, 0.211765, 0.494118, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -98,7 +98,7 @@ offset_bottom = -0.333923
 grow_vertical = 2
 theme = ExtResource("2_kqmcg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ColorRect/Left Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 15
@@ -110,7 +110,7 @@ theme_override_constants/separation = 10
 script = ExtResource("4_mx4kr")
 _parentTarget = true
 
-[node name="Right Panel" type="Panel" parent="Panel/ColorRect"]
+[node name="Right Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
 modulate = Color(0.937255, 0.898039, 1, 1)
 self_modulate = Color(0.388235, 0.388235, 0.388235, 1)
 layout_mode = 1
@@ -126,7 +126,7 @@ offset_bottom = -0.333923
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/ColorRect/Right Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -139,16 +139,16 @@ theme_override_constants/margin_left = 140
 theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 180
 
-[node name="GridContainer" type="GridContainer" parent="Panel/ColorRect/Right Panel/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer"]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 theme_override_constants/v_separation = 45
 
-[node name="DropTarget 1" parent="Panel/ColorRect/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
+[node name="DropTarget 1" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
 layout_mode = 2
 
-[node name="DropTarget 2" parent="Panel/ColorRect/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
+[node name="DropTarget 2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
 layout_mode = 2
 
-[node name="DropTarget 3" parent="Panel/ColorRect/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
+[node name="DropTarget 3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
 layout_mode = 2

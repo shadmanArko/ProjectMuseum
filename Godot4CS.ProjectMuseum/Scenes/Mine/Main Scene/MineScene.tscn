@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=17 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -12,9 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
 [ext_resource type="PackedScene" uid="uid://dmbaqgvetw2w" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromInventoryToMuseum.tscn" id="11_si3nu"]
-[ext_resource type="PackedScene" uid="uid://dwrtwt0aj6gqu" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
-[ext_resource type="PackedScene" uid="uid://dwi4qbmovh0bp" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
+[ext_resource type="PackedScene" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
+[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
+[ext_resource type="PackedScene" uid="uid://boobbvr80bqqf" path="res://Scenes/Mine/Sub Scenes/Tutorials/MineTutorial.tscn" id="16_37v3a"]
 
 [node name="MineScene" type="Node2D"]
 script = ExtResource("1_rq1hl")
@@ -71,3 +72,5 @@ visible = false
 
 [node name="CampExitPromptUI" parent="." instance=ExtResource("9_ybt60")]
 visible = false
+
+[node name="MineTutorial" parent="." instance=ExtResource("16_37v3a")]

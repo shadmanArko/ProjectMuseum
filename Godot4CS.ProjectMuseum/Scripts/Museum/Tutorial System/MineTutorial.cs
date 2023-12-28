@@ -29,13 +29,14 @@ public partial class MineTutorial : Node
 
 	private void SubscribeToActions()
 	{
-		MuseumActions.OnPlayerPerformedTutorialRequiringAction += CheckPlayerTutorialsCompleted;
+		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
 	}
+
 
 	public async void PlayMineTutorials()
 	{
-		await Task.Delay(1000);
 		MuseumActions.PlayTutorial?.Invoke(6);
+		await Task.Delay(1500);
 		SetProcess(true);
 	}
 
@@ -89,23 +90,18 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = false;
 			_playerControllerVariables.CanToggleClimb = true;
 		}
-		else
-		{
-			_playerControllerVariables.CanMoveLeftAndRight = true;
-			_playerControllerVariables.CanAttack = true;
-			_playerControllerVariables.CanBrush = true;
-			_playerControllerVariables.CanDig = true;
-			_playerControllerVariables.CanToggleClimb = true;
-		}
 	}
 
-	private void CheckMoveLeftAndRightComplete()
+	private void BasicMineTutorialEnded(string entryNo)
 	{
-		
+		GD.Print($"Ended scene Entry No: {entryNo}");
+		if(entryNo != "Tut6g") return;
+		SetProcess(false);
+		_playerControllerVariables.CanMoveLeftAndRight = true;
+		_playerControllerVariables.CanAttack = true;
+		_playerControllerVariables.CanBrush = true;
+		_playerControllerVariables.CanDig = true;
+		_playerControllerVariables.CanToggleClimb = true;
 	}
-
-	private void CheckPlayerTutorialsCompleted(string str)
-	{
-		
-	}
+	
 }

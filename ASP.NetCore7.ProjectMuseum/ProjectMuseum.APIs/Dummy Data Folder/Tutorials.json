@@ -54,8 +54,8 @@
   {
     "Id": "Tut6",
     "SceneNo": 6,
-    "ContinuesStory": false,
-    "StoryNumber": 0,
+    "ContinuesStory": true,
+    "StoryNumber": 10,
     "TutorialSceneEntries": [
       {
         "EntryNo": "Tut6a",
@@ -96,8 +96,8 @@
       {
         "EntryNo": "Tut6g",
         "TutorialText": "You can press {Q} to toggle climbing mode. Try it. Press Q again when you want to stop climbing. ",
-        "KeyBindsNeedsToPerform": ["toggle_grab"],
-        "ActionsNeedsToPerform": []
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": ["ToggleGrab"]
       }
     ]
   }

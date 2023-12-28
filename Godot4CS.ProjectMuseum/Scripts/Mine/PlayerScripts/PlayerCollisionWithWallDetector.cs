@@ -7,6 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -22,7 +23,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     private List<RawArtifactFunctional> _rawArtifactFunctional;
 
     private HttpRequest _getMineArtifactHttpRequest;
-    private HttpRequest _sendArtifactToInventoryHttpRequest;
+    // private HttpRequest _sendArtifactToInventoryHttpRequest;
 
     private RandomNumberGenerator _randomNumberGenerator;
 
@@ -51,10 +52,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
         MineActions.OnBrushActionStarted += BrushWall;
-
-        MineActions.OnMiniGameWon += MiniGameWon;
-        MineActions.OnMiniGameLost += MiniGameLost;
-        MineActions.OnArtifactDiscoveryOkayButtonPressed += TurnOffArtifactDiscoveryScene;
+        
+        //MineActions.OnMiniGameLost += MiniGameLost;
+        MineActions.OnArtifactCellBroken += DigOrdinaryCell;
     }
 
     #endregion
@@ -67,9 +67,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         AddChild(_getMineArtifactHttpRequest);
         _getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
 
-        _sendArtifactToInventoryHttpRequest = new HttpRequest();
-        AddChild(_sendArtifactToInventoryHttpRequest);
-        _sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
+        // _sendArtifactToInventoryHttpRequest = new HttpRequest();
+        // AddChild(_sendArtifactToInventoryHttpRequest);
+        // _sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
     }
 
     #region Get Mine Artifact Request
@@ -78,45 +78,37 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         var url = ApiAddress.MineApiPath + "GetMineArtifactById/" + artifactId;
         _getMineArtifactHttpRequest.Request(url);
-        GD.Print($"HTTP REQUEST FOR GETTING ARTIFACT BY ID FROM DATABASE (1)");
     }
 
     private void OnGetMineArtifactHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
         var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
-        var rawArtifact = _rawArtifactFunctional.FirstOrDefault(raw => raw.Id == artifact.RawArtifactId);
-
-        var rand = new RandomNumberGenerator();
-        var randomMat = rawArtifact!.Materials[rand.RandiRange(0, rawArtifact!.Materials.Count)];
-        // var cellCrackMaterial =
-        // 	_mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(mat => mat.MaterialType == randomMat);
-        MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
-        GD.Print($"HTTP REQUEST COMPLETED (2)");
+        //MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
     }
 
     #endregion
 
-    #region Send Artifact To Inventory
-
-    private void SendArtifactToInventory(string artifactId)
-    {
-        var url = $"{ApiAddress.MineApiPath}SendArtifactToInventory/{artifactId}";
-        _sendArtifactToInventoryHttpRequest.Request(url);
-
-        GD.Print($"HTTP REQUEST FOR SENDING ARTIFACT TO INVENTORY (1)");
-    }
-
-    private void OnSendArtifactToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers,
-        byte[] body)
-    {
-        GD.Print("Successfully sent artifact to inventory");
-        var jsonStr = Encoding.UTF8.GetString(body);
-        //var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
-        GD.Print("body " + jsonStr);
-    }
-
-    #endregion
+    // #region Send Artifact To Inventory
+    //
+    // private void SendArtifactToInventory(string artifactId)
+    // {
+    //     var url = $"{ApiAddress.MineApiPath}SendArtifactToInventory/{artifactId}";
+    //     _sendArtifactToInventoryHttpRequest.Request(url);
+    //
+    //     GD.Print($"HTTP REQUEST FOR SENDING ARTIFACT TO INVENTORY (1)");
+    // }
+    //
+    // private void OnSendArtifactToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers,
+    //     byte[] body)
+    // {
+    //     GD.Print("Successfully sent artifact to inventory");
+    //     var jsonStr = Encoding.UTF8.GetString(body);
+    //     //var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
+    //     GD.Print("body " + jsonStr);
+    // }
+    //
+    // #endregion
 
     #endregion
 
@@ -178,33 +170,23 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             cellCrackMaterial, _mineGenerationVariables.MineGenView);
 
         _playerControllerVariables.CanMove = false;
-        _artifactTilePos = tilePos;
-
-        var scene =
-            ResourceLoader.Load<PackedScene>(_alternateButtonPressMiniGameScenePath).Instantiate() as
-                AlternateTapMiniGame;
-        if (scene is null)
-        {
-            GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
-            return;
-        }
-
-        AddChild(scene);
+        MineActions.OnMiniGameLoad?.Invoke(tilePos);
+        MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushArtifactCell");
     }
 
     #region Mini Game
 
-    private void MiniGameWon()
-    {
-        GD.Print("Successfully Extracted Artifact");
-
-        ShowDiscoveredArtifact();
-        var cell = _mineGenerationVariables.GetCell(_artifactTilePos);
-        DigOrdinaryCell(_artifactTilePos);
-        GD.Print("Sending artifact to inventory");
-        GD.Print($"cell artifact id: {cell.ArtifactId}");
-        SendArtifactToInventory(cell.ArtifactId);
-    }
+    // private void MiniGameWon()
+    // {
+    //     GD.Print("Successfully Extracted Artifact");
+    //
+    //     // ShowDiscoveredArtifact();
+    //     var cell = _mineGenerationVariables.GetCell(_artifactTilePos);
+    //     DigOrdinaryCell(_artifactTilePos);
+    //     GD.Print("Sending artifact to inventory");
+    //     GD.Print($"cell artifact id: {cell.ArtifactId}");
+    //     SendArtifactToInventory(cell.ArtifactId);
+    // }
 
     private void MiniGameLost()
     {
@@ -283,6 +265,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             cellCrackMaterial, _mineGenerationVariables.MineGenView);
         MakeMineWallDepletedParticleEffect();
         
+        if(cell.HitPoint == 1)
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
+        
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
@@ -332,11 +317,12 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             {
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                 var cellCrackMaterial =
-                    _mineCellCrackMaterial.CellCrackMaterials[0]; //.FirstOrDefault(cellCrackMat =>
-                // cellCrackMat.MaterialType == "Normal");
+                    _mineCellCrackMaterial.CellCrackMaterials[0];
                 MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
                     cellCrackMaterial, _mineGenerationVariables.MineGenView);
             }
+            
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
         }
     }
 

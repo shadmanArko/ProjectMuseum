@@ -47,7 +47,7 @@ public partial class EnemySpawner : Node2D
 
     private void OnTimeEndSpawnEnemy()
     {
-        GD.Print("Spawning new enemy");
+        //GD.Print("Spawning new enemy");
         if(_enemies.Count >= 3) return;
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
         GD.Print($"Slime Scene is null {scene is null}");

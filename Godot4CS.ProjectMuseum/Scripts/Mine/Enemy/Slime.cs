@@ -67,7 +67,7 @@ public partial class Slime : Enemy
             _ => State
         };
 
-        GD.Print($"State changed to {State}");
+        //GD.Print($"State changed to {State}");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -177,11 +177,11 @@ public partial class Slime : Enemy
         }
         else
         {
-            GD.Print("chase method called");
+            //GD.Print("chase method called");
             var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
             var directionBool = NavAgent.TargetPosition.X > Position.X;
             //_enemyAnimationController.PlayAnimation("move");
-            GD.Print($"chase velocity: {Velocity}");
+            //GD.Print($"chase velocity: {Velocity}");
             AnimationController.Sprite.FlipH = directionBool;
         
             var velocityX = direction.X * MoveSpeed;

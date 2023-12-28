@@ -11,7 +11,7 @@ public partial class MineEntranceController : Node2D
 
     public override void _Ready()
     {
-        _mineExitPromptUi = ReferenceStorage.Instance.mineExitPromptUi;
+        _mineExitPromptUi = ReferenceStorage.Instance.MineExitPromptUi;
     }
 
     private void OnPlayerEnterTrigger(Node body)

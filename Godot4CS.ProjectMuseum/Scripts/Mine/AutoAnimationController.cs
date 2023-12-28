@@ -68,6 +68,7 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.IsAffectedByGravity = true;
 		_playerControllerVariables.Gravity = 25f;
 		
+		ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
 	}
     
 	#region Auto Animations

@@ -1,5 +1,7 @@
 using Godot;
-using System;
+using Time = ProjectMuseum.Models.Time;
+
+namespace Godot4CS.ProjectMuseum.Plugins.Time_System.MineTimeSystem.Scripts;
 
 public partial class MineTimeSystem : Node
 {
@@ -9,15 +11,10 @@ public partial class MineTimeSystem : Node
 	private int _daysInMonth = 30;
 	private int _monthsInYear = 4;
 
-	private double _seconds = 0;
-	private int _minutes = 0;
-	private int _hours = 0;
-	private int _days = 1;
-	private int _months = 1;
-	
 	private bool _isPaused = false;
     
-    
+	private  Time _time = new Time();
+
 	public override void _Ready()
 	{
 	}
@@ -27,11 +24,11 @@ public partial class MineTimeSystem : Node
 	{ 
 		if (!_isPaused)
 		{
-			_seconds += delta;
+			_time.Seconds += delta;
     
-			if (_seconds >= _secondsIn10Minutes)
+			if (_time.Seconds >= _secondsIn10Minutes)
 			{
-				_seconds = 0f;
+				_time.Seconds = 0f;
 				UpdateTime();
 			}
 		}
@@ -39,13 +36,13 @@ public partial class MineTimeSystem : Node
 	
 	private void UpdateTime()
 	{
-		GD.Print($"Season: {_months}, Day: {_days}, Time: {_hours:D2}:{_minutes:D2}");
+		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
 		
-		_minutes+=10;
-		if (_minutes >= _minutesInHour)
+		_time.Minutes+=10;
+		if (_time.Minutes >= _minutesInHour)
 		{
-			_minutes = 0;
-			_hours++;
+			_time.Minutes = 0;
+				_time.Hours++;
 			
 			// TODO Invoke Hourly Events
 			
@@ -59,10 +56,10 @@ public partial class MineTimeSystem : Node
 			// </code>
 			// </example>
 			
-			if (_hours >= _hoursInDay)
+			if (_time.Hours >= _hoursInDay)
 			{
-				_hours = 0;
-				_days++;
+				_time.Hours = 0;
+					_time.Days++;
 				
 				//TODO Invoke Daily Events
 				
@@ -76,10 +73,10 @@ public partial class MineTimeSystem : Node
 				// </code>
 				// </example>
 				
-				if (_days >= _daysInMonth)
+				if (_time.Days >= _daysInMonth)
 				{
-					_days = 1;
-					_months = (_months % _monthsInYear) + 1;
+					_time.Days = 1;
+					_time.Months = (_time.Months % _monthsInYear) + 1;
 					
 					//TODO Invoke Monthly Events
 					

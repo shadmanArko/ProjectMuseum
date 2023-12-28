@@ -23,8 +23,8 @@ public partial class CampToMineTransition : Button
     public override void _Ready()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-        _autoAnimationController = ReferenceStorage.Instance.autoAnimationController;
-        _campExitPromptUi = ReferenceStorage.Instance.campExitPromptUi;
+        _autoAnimationController = ReferenceStorage.Instance.AutoAnimationController;
+        _campExitPromptUi = ReferenceStorage.Instance.CampExitPromptUi;
         _campExitPromptUi.SleepForTheNightButton.ButtonUp += TransitFromCampToMine;
         _campExitPromptUi.SleepForTheNightButton.ButtonUp += DeactivateCampExitPromptUi;
 
@@ -49,7 +49,7 @@ public partial class CampToMineTransition : Button
     private async void TransitFromCampToMuseum()
     {
         DeactivateCampExitPromptUi();
-        var sceneTransition = ReferenceStorage.Instance.sceneTransition;
+        var sceneTransition = ReferenceStorage.Instance.SceneTransition;
         await sceneTransition.FadeIn();
         _playerControllerVariables.CanMove = false;
         await Task.Delay(2000);

@@ -213,8 +213,8 @@
   {
     "Id": "",
     "SceneNo": 6,
-    "HasTutorial": false,
-    "TutorialNumber": 0,
+    "HasTutorial": true,
+    "TutorialNumber": 3,
     "StorySceneEntries": [
       {
         "EntryNo": "6a",
@@ -267,6 +267,49 @@
         "Dialogue": "[TRIGGERTUTORIAL]",
         "Speaker": "",
         "SpeakerEmotion": "",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 7,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "7a",
+        "IllustrationName": "",
+        "Dialogue": "Heck yea! The museum is coming back! My name is Alex! I\u0027d love to help you find cool ancient stuff! I know so many World War 2 fun facts!",
+        "Speaker": "Alex",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 8,
+    "HasTutorial": true,
+    "TutorialNumber": 4,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "8a",
+        "IllustrationName": "",
+        "Dialogue": "Good. You\u0027ve found someone already!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "8b",
+        "IllustrationName": "",
+        "Dialogue": "Tomorrow you will go digging for the first time. I\u0027ll meet you first thing in the morning.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
         "HasCutscene": false,
         "HasCutsceneArt": false
       }

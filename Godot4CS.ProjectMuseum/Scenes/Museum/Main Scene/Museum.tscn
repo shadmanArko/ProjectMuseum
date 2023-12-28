@@ -81,6 +81,7 @@ offset_bottom = -50.0
 
 [node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
 visible = false
+z_index = 8
 mouse_filter = 2
 
 [node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
@@ -271,7 +272,6 @@ script = ExtResource("27_mm5mn")
 _dayEndTileCoord = Vector2i(0, -1)
 
 [node name="StoryController" type="Node2D" parent="."]
-process_mode = 4
 script = ExtResource("29_6vdgp")
 
 [node name="TutorialSystem" type="Node2D" parent="."]

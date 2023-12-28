@@ -92,6 +92,7 @@ _data = {
 }
 
 [node name="Tutorial" type="ColorRect" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer")]
+z_index = 7
 anchors_preset = -1
 anchor_top = 0.096
 anchor_right = 0.213

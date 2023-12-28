@@ -54,8 +54,8 @@
   {
     "Id": "Tut6",
     "SceneNo": 6,
-    "ContinuesStory": false,
-    "StoryNumber": 0,
+    "ContinuesStory": true,
+    "StoryNumber": 10,
     "TutorialSceneEntries": [
       {
         "EntryNo": "Tut6a",

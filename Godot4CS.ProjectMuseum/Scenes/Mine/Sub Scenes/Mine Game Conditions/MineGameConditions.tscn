@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wetkwhla6pg5"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/MineGameConditions.cs" id="1_2r14q"]
+
+[node name="MineGameConditions" type="Node"]
+script = ExtResource("1_2r14q")

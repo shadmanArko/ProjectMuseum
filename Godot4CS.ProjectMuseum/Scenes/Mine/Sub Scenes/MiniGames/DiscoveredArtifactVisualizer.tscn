@@ -8,7 +8,7 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xruif"]
 
-[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
+[node name="DiscoveredArtifactVisualizer2" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
 script = ExtResource("1_l5epx")
 _canvasLayer = NodePath("CanvasLayer")
 _artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckssulhaofgyn"]
+[gd_scene load_steps=4 format=3 uid="uid://x5j5na7x1hy7"]
 
 [ext_resource type="Script" path="res://Plugins/Time System/MineTimeSystem/Scripts/MineTimeSystem.cs" id="1_fot8p"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_n2v8b"]

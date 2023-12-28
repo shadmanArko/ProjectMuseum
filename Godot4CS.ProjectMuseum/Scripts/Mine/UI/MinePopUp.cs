@@ -6,7 +6,6 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 public partial class MinePopUp : PanelContainer
 {
     [Export] private RichTextLabel _popUpText;
-    
 
     public async Task ShowPopUp(string message)
     {

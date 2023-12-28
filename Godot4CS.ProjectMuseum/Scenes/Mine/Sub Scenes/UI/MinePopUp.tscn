@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwi4qbmovh0bp"]
+[gd_scene load_steps=3 format=3 uid="uid://503e52mqqilf"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/MinePopUp.cs" id="1_m4g74"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_wxos4"]

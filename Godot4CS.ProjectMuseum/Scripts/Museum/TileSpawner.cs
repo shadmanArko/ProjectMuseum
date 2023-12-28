@@ -2,6 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Text;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
@@ -19,6 +20,8 @@ public partial class TileSpawner : TileMap
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 	private HttpRequest _httpRequestForExpandingMuseumTiles;
 	private HttpRequest _httpRequestForUpdatingMuseumWalls;
+
+	private MuseumTileContainer _museumTileContainer;
 	// [Export] private Array<int> _dirtyTilesIndex;
 	public override void _Ready()
 	{
@@ -41,11 +44,25 @@ public partial class TileSpawner : TileMap
 		string jsonStr = Encoding.UTF8.GetString(body);
 
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		_museumTileContainer.MuseumTiles = museumTiles;
+		SpawnWalls(museumTiles);
+	}
+
+	private void SpawnWalls(List<MuseumTile> museumTiles)
+	{
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.WallId ==  _basicWallsId)
+			if (museumTile.WallId != "" && museumTile.WallId != "string")
 			{
-				GD.Print(museumTile.WallId);
+				if (museumTile.XPosition == _minCellIndexX)
+				{
+					InstantiateWall(museumTile, _wallLeft);
+				}
+
+				if (museumTile.YPosition == _minCellIndexY)
+				{
+					InstantiateWall(museumTile, _wallRight);
+				}
 			}
 		}
 	}
@@ -59,8 +76,10 @@ public partial class TileSpawner : TileMap
 
 	private void OnRequestCompletedForGettingMuseumTiles(long result, long responseCode, string[] headers, byte[] body)
 	{
+		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		_museumTileContainer.MuseumTiles = museumTiles;
 		SpawnTilesAndWalls(museumTiles);
 	}
 
@@ -73,10 +92,12 @@ public partial class TileSpawner : TileMap
 		}
 	}
 
+	private int _minCellIndexX;
+	private int _minCellIndexY;
 	private void SpawnTilesAndWalls(List<MuseumTile> museumTiles)
 	{
-		var minCellIndexX = int.MaxValue;
-		var minCellIndexY = int.MaxValue;
+		_minCellIndexX = int.MaxValue;
+		_minCellIndexY = int.MaxValue;
 
 		foreach (Node child in _wallsParent.GetChildren())
 		{
@@ -85,32 +106,40 @@ public partial class TileSpawner : TileMap
 		
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.XPosition < minCellIndexX) minCellIndexX = museumTile.XPosition;
-			if (museumTile.YPosition < minCellIndexY) minCellIndexY = museumTile.YPosition;
+			if (museumTile.XPosition < _minCellIndexX) _minCellIndexX = museumTile.XPosition;
+			if (museumTile.YPosition < _minCellIndexY) _minCellIndexY = museumTile.YPosition;
 			SetCell(0, new Vector2I(museumTile.XPosition, museumTile.YPosition), museumTile.TileSetNumber, Vector2I.Zero);
 		}
 
 		List<MuseumTile> museumTilesToUpdateWalls = new List<MuseumTile>();
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.XPosition == minCellIndexX)
+			if (museumTile.XPosition == _minCellIndexX)
 			{
-				InstantiateWall(museumTile, _wallLeft);
+				// InstantiateWall(museumTile, _wallLeft);
+				if (museumTile.WallId == "" || museumTile.WallId == "string")
+				{
+					museumTilesToUpdateWalls.Add(museumTile);
+				}
 			}
 
-			if (museumTile.YPosition == minCellIndexY)
+			if (museumTile.YPosition == _minCellIndexY)
 			{
-				InstantiateWall(museumTile, _wallRight);
+				// InstantiateWall(museumTile, _wallRight);
+				if (museumTile.WallId == "" || museumTile.WallId == "string")
+				{
+					museumTilesToUpdateWalls.Add(museumTile);
+				}
 			}
-
-			if (museumTile.WallId == "" || museumTile.WallId == "string")
-			{
-				museumTilesToUpdateWalls.Add(museumTile);
-			}
+			
 		}
 
-		UpdateMuseumTilesToDatabase(museumTilesToUpdateWalls);
-		GD.Print($"Min x {minCellIndexX}, Min y {minCellIndexY}");
+		if (museumTilesToUpdateWalls.Count > 0)
+		{
+			UpdateMuseumTilesToDatabase(museumTilesToUpdateWalls);
+
+		}else SpawnWalls(museumTiles);
+		GD.Print($"Min x {_minCellIndexX}, Min y {_minCellIndexY}");
 	}
 
 	private void UpdateMuseumTilesToDatabase(List<MuseumTile> museumTilesToUpdateWalls)
@@ -137,6 +166,7 @@ public partial class TileSpawner : TileMap
 	private void InstantiateWall(MuseumTile museumTile, PackedScene wall)
 	{
 		var instance = (Node2D)wall.Instantiate();
+		instance.GetNode<Wall>(".").SetUpWall(museumTile);
 		AddDirtyWallTexture(instance);
 		instance.Position = GetCellWorldPosition(museumTile.XPosition, museumTile.YPosition);
 		_wallsParent.AddChild(instance);

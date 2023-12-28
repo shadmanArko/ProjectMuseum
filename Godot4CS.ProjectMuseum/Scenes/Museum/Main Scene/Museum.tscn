@@ -115,7 +115,6 @@ y_sort_enabled = true
 
 [node name="WallsParent" type="Node2D" parent="museum"]
 y_sort_enabled = true
-script = ExtResource("23_md2ii")
 
 [node name="MuseumTileEditor" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -288,3 +287,6 @@ _gameCharacter = NodePath("../museum/Player")
 script = ExtResource("37_vwmma")
 _camera2D = NodePath("../museum/Camera2D")
 _townScene = NodePath("../museum/CanvasLayer/Town Ui")
+
+[node name="WallController" type="Node2D" parent="."]
+script = ExtResource("23_md2ii")

@@ -8,6 +8,8 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 public partial class MuseumActions : Node
 {
     public static Action<Item, Exhibit> OnClickItem;
+    public static Action<string> OnClickWallForUpdatingWallPaper;
+    public static Action OnWallpaperSuccessfullyUpdated;
     public static Action<Draggable> DragStarted;
     public static Action<Draggable> DragEnded;
     public static Action<BuilderCardType, string> OnClickBuilderCard;

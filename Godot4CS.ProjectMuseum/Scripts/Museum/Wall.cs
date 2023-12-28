@@ -15,10 +15,12 @@ public partial class Wall : Sprite2D
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
-    public void SetUpWall(MuseumTile museumTile, string wallId)
+    public void SetUpWall(MuseumTile museumTile)
     {
-        WallId = wallId;
+        WallId = museumTile.WallId;
         TileId = museumTile.Id;
+        Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Wallpapers/{WallId}.png");
+        Texture = texture2D;
     }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
@@ -33,6 +35,23 @@ public partial class Wall : Sprite2D
     {
         MuseumActions.OnPreviewWallpaperUpdated += OnPreviewWallpaperUpdated;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+        MuseumActions.OnWallpaperSuccessfullyUpdated += OnWallpaperSuccessfullyUpdated;
+    }
+
+    private void OnWallpaperSuccessfullyUpdated()
+    {
+        if (_showedPreviewOnce)
+        {
+            Texture = _wallPreviewSprite;
+        }
+        DisablePreview();
+    }
+
+    private void DisablePreview()
+    {
+        _showPreview = false;
+        _showedPreviewOnce = false;
+        _wallPreview.Visible = false;
     }
 
     private void OnClickBuilderCard(BuilderCardType arg1, string arg2)
@@ -40,6 +59,7 @@ public partial class Wall : Sprite2D
         if (arg1 != BuilderCardType.Wallpaper)
         {
             _showPreview = false;
+            _showedPreviewOnce = false;
         }
     }
 
@@ -59,10 +79,12 @@ public partial class Wall : Sprite2D
         // Add your hover effect code here
     }
 
+    private bool _showedPreviewOnce = false;
     private void ShowPreview()
     {
         _wallPreview.Texture = _wallPreviewSprite;
         _wallPreview.Visible = true;
+        _showedPreviewOnce = true;
     }
 
     // Function called when the mouse exits the object
@@ -74,9 +96,10 @@ public partial class Wall : Sprite2D
     }
     private void OnClickWall()
     {
-        if (_showPreview)
+        if (_showPreview && !_showedPreviewOnce)
         {
             ShowPreview();
+            MuseumActions.OnClickWallForUpdatingWallPaper?.Invoke(TileId);
             // Texture = _wallPreviewSprite;
             // _wallPreview.Visible = false;
         }

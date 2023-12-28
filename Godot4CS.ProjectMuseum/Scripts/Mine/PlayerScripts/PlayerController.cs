@@ -177,18 +177,18 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 			animationController.PlayAnimation("climb_to_idle");
 			_playerControllerVariables.State = MotionState.Falling;
 			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed / 2;
+			MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ToggleGrab");
 		}
 		else
 		{
 			animationController.PlayAnimation("idle_to_climb");
 			_playerControllerVariables.State = MotionState.Hanging;
 			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
+			MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ToggleGrab");
 		}
-		// _playerControllerVariables.State = _playerControllerVariables.State == MotionState.Hanging ? 
-		// 	MotionState.Falling : MotionState.Hanging;
-		// animationController.PlayAnimation(_playerControllerVariables.State == MotionState.Hanging ? "climb_to_idle" : "idle_to_climb");
-		// _playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
-		// 	PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
+		
+		_playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
+			PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
 	}
 	
 	public override void _Input(InputEvent @event)

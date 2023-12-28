@@ -31,6 +31,7 @@ public partial class MineTimeSystem : Node
 			{
 				_time.Seconds = 0f;
 				UpdateTime();
+				MineActions.OnTenMinutesPassed?.Invoke(_time.Minutes);
 			}
 		}
 	}
@@ -38,13 +39,14 @@ public partial class MineTimeSystem : Node
 	private void UpdateTime()
 	{
 		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 		
 		_time.Minutes+=10;
 		if (_time.Minutes >= _minutesInHour)
 		{
 			_time.Minutes = 0;
 				_time.Hours++;
-			
+            MineActions.OnOneHourPassed?.Invoke(_time.Hours);
 			// TODO Invoke Hourly Events
 			
 			// <example>
@@ -61,7 +63,7 @@ public partial class MineTimeSystem : Node
 			{
 				_time.Hours = 0;
 					_time.Days++;
-				
+                MineActions.OnOneDayPassed?.Invoke(_time.Days);
 				//TODO Invoke Daily Events
 				
 				// <example>
@@ -93,8 +95,7 @@ public partial class MineTimeSystem : Node
 				}
 			}
 		}
-		
-		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+        
 
 	}
 	

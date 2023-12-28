@@ -7,26 +7,30 @@
 [node name="TimeSystem" type="Node"]
 script = ExtResource("1_fot8p")
 
-[node name="Time Panel" type="PanelContainer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Time Panel" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("_time")]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -320.0
+offset_left = -450.0
 offset_top = 50.0
-offset_right = -20.0
-offset_bottom = 200.0
+offset_right = -50.0
+offset_bottom = 150.0
 grow_horizontal = 0
 script = ExtResource("2_clfyr")
+_time = NodePath("HBoxContainer/Time")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Time Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Time Panel"]
 layout_mode = 2
 alignment = 1
 
-[node name="Hours" type="Label" parent="Time Panel/HBoxContainer"]
+[node name="Time" type="Label" parent="CanvasLayer/Time Panel/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(100, 70)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.894531, 0.773438, 0.347656, 1)
 theme_override_colors/font_shadow_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
 theme_override_constants/shadow_offset_x = 5
@@ -34,44 +38,8 @@ theme_override_constants/shadow_offset_y = 5
 theme_override_constants/shadow_outline_size = 10
 theme_override_constants/line_spacing = 10
 theme_override_fonts/font = ExtResource("1_n2v8b")
-theme_override_font_sizes/font_size = 66
-text = "08"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="Colon" type="Label" parent="Time Panel/HBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.894531, 0.773438, 0.347656, 1)
-theme_override_colors/font_shadow_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/shadow_outline_size = 10
-theme_override_constants/line_spacing = 10
-theme_override_fonts/font = ExtResource("1_n2v8b")
-theme_override_font_sizes/font_size = 66
-text = ":"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="Minutes" type="Label" parent="Time Panel/HBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(100, 70)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.894531, 0.773438, 0.347656, 1)
-theme_override_colors/font_shadow_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/shadow_outline_size = 10
-theme_override_constants/line_spacing = 10
-theme_override_fonts/font = ExtResource("1_n2v8b")
-theme_override_font_sizes/font_size = 66
-text = "00"
+theme_override_font_sizes/font_size = 33
+text = "Day(s) 01, 00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

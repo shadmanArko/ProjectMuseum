@@ -4,8 +4,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.MineTimeSystem;
 
 public partial class MineTimePanel : PanelContainer
 {
-	[Export] private int _minutes;
-	[Export] private int _hours;
+	[Export] private Label _time;
 	public override void _Ready()
 	{
 		SubscribeToActions();
@@ -13,17 +12,11 @@ public partial class MineTimePanel : PanelContainer
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnEachMinutePassed += MinutesPassed;
-		MineActions.OnEachHourPassed += HoursPassed;
+		MineActions.OnTimeUpdated += UpdateMineTime;
 	}
 
-	private void HoursPassed(int hours)
+	private void UpdateMineTime(int minutes, int hours, int days, int months, int years)
 	{
-		
-	}
-
-	private void MinutesPassed(int minutes)
-	{
-		
+		_time.Text = $"Day(s) {days:D2}, {hours:D2}:{minutes:D2}";
 	}
 }

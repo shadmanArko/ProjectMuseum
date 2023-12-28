@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=20 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://kj2e2wox5sxe" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
 [ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="15_jb2j0"]
+[ext_resource type="PackedScene" uid="uid://ckssulhaofgyn" path="res://Scenes/Mine/Sub Scenes/UI/TimeSystem.tscn" id="16_2lo0e"]
 [ext_resource type="PackedScene" uid="uid://boobbvr80bqqf" path="res://Scenes/Mine/Sub Scenes/Tutorials/MineTutorial.tscn" id="16_37v3a"]
 
 [node name="MineScene" type="Node2D"]
@@ -71,9 +72,14 @@ _alternateMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateT
 
 [node name="Tutorial" parent="MineUI" instance=ExtResource("13_d8f08")]
 visible = false
+offset_top = 0.32
+offset_right = 0.0400085
+offset_bottom = 0.0
 
 [node name="Dialogue Ui" parent="MineUI" instance=ExtResource("15_jb2j0")]
 visible = false
+
+[node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
 [node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
 visible = false

@@ -1,4 +1,5 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Mine;
 using Time = ProjectMuseum.Models.Time;
 
 namespace Godot4CS.ProjectMuseum.Plugins.Time_System.MineTimeSystem.Scripts;
@@ -92,6 +93,9 @@ public partial class MineTimeSystem : Node
 				}
 			}
 		}
+		
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+
 	}
 	
 

@@ -52,5 +52,6 @@ public partial class MineActions : Node
 
 	public static Action OnPlayerGrabActionStarted;
 	public static Action OnPlayerGrabActionEnded;
-
+	
+	public static Action<int, int, int, int, int> OnTimeUpdated;
 }

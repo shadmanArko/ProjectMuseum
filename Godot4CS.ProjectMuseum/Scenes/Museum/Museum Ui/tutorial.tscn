@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://djocevsum0ga0"]
+[gd_scene load_steps=7 format=3 uid="uid://dm4eekpyeu8on"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TutorialController.cs" id="1_tcxio"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_pxgon"]

@@ -13,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
 [ext_resource type="PackedScene" uid="uid://dmbaqgvetw2w" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromInventoryToMuseum.tscn" id="11_si3nu"]
 [ext_resource type="PackedScene" uid="uid://dwrtwt0aj6gqu" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
-[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
-[ext_resource type="PackedScene" uid="uid://djocevsum0ga0" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
+[ext_resource type="PackedScene" uid="uid://dwi4qbmovh0bp" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
+[ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
 [ext_resource type="PackedScene" uid="uid://boobbvr80bqqf" path="res://Scenes/Mine/Sub Scenes/Tutorials/MineTutorial.tscn" id="16_37v3a"]
 
@@ -33,17 +33,9 @@ visible = false
 _parentNode = NodePath("../MineSceneInitializer")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("DiscoveredArtifactVisualizer", "Tooltip")]
 script = ExtResource("5_yk3pc")
-SceneTransition = NodePath("../SceneTransition")
-AutoAnimationController = NodePath("../Auto Animation Controller")
-EnemySpawner = NodePath("../EnemySpawner")
-MiniGameController = NodePath("../MiniGameController")
-MineTutorial = NodePath("../MineTutorial")
-MineExitPromptUi = NodePath("../MineExitPromptUI")
-CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
-MinePopUp = NodePath("../MineUI/MinePopUp")
 DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
 Tooltip = NodePath("../MineUI/Tooltip4")
 

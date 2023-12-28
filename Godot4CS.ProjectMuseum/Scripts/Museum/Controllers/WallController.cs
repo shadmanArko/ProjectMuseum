@@ -17,7 +17,7 @@ public partial class WallController : Node2D
 
 	private MuseumTileContainer _museumTileContainer;
 
-	private List<string> _wallTileIds;
+	private List<string> _wallTileIds = new List<string>();
 
 	private bool _listenForWallPaperUpdates = false;
 
@@ -90,7 +90,7 @@ public partial class WallController : Node2D
 			{
 				foreach (var museumTile in _museumTileContainer.MuseumTiles)
 				{
-					if (museumTile.Id == wallTileId && museumTile.WallId != wallTileId)
+					if (museumTile.Id == wallTileId && museumTile.WallId != _currentCardName)
 					{
 						validWallTileIds.Add(wallTileId);
 					}
@@ -105,6 +105,10 @@ public partial class WallController : Node2D
 				GD.Print(body);
 				Error error = _httpRequestForUpdatingWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?wallId={_currentCardName}", headers,
 					HttpClient.Method.Post, body);
+			}
+			else
+			{
+				MuseumActions.OnWallpaperSuccessfullyUpdated?.Invoke();
 			}
 		}
 	}

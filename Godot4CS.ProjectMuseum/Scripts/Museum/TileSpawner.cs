@@ -147,12 +147,10 @@ public partial class TileSpawner : TileMap
 		if (museumTilesToUpdateWalls.Count > 0)
 		{
 			List<string> tileIds = new List<string>();
-			int count = 5;
 			foreach (var museumTile in museumTilesToUpdateWalls)
 			{
 				tileIds.Add(museumTile.Id);
-				count--;
-				if (count < 0) break;
+				
 			}
 			// MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
 			string[] headers = { "Content-Type: application/json"};

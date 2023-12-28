@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
 [ext_resource type="PackedScene" uid="uid://btdho8rkmjqck" path="res://Scenes/Museum/Town/town_building.tscn" id="3_3sk7y"]
 
-[node name="Town Ui" type="Control" node_paths=PackedStringArray("_sprite2D")]
+[node name="Town Ui" type="Control"]
 clip_contents = true
 layout_mode = 3
 anchor_left = 0.174
@@ -14,7 +14,6 @@ offset_left = 0.919922
 offset_right = -0.920044
 offset_bottom = 2.15991
 script = ExtResource("2_4g4cw")
-_sprite2D = NodePath("Town Ground With roads")
 zoomSpd = 0.5
 Minzoom = 1.0
 Maxzoom = 4.0

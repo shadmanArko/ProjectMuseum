@@ -65,6 +65,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 
     private void DiggingPermitsButtonOnPressed()
     {
+        MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ClickedDiggingPermitsButton");
         _diggingPermitsUi.Visible = true;
     }
 

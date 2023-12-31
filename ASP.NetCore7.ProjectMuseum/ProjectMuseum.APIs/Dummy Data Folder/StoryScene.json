@@ -314,5 +314,49 @@
         "HasCutsceneArt": false
       }
     ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 9,
+    "HasTutorial": true,
+    "TutorialNumber": 5,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "9a",
+        "IllustrationName": "",
+        "Dialogue": "Rise and shine! ",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "9b",
+        "IllustrationName": "",
+        "Dialogue": "Ugh",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Groggy",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "9c",
+        "IllustrationName": "",
+        "Dialogue": "Wake up! Your buddy Alex has been waiting outside the museum. I had to use my old key to let us in!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Stern",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "9d",
+        "IllustrationName": "",
+        "Dialogue": "Hey [PlayerName]! I can't wait to go excavating! ",
+        "Speaker": "Alex",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
   }
 ]

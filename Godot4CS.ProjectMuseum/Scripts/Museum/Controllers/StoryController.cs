@@ -14,7 +14,7 @@ public partial class StoryController : Node2D
 
 	private async void StorySceneEnded(int sceneNumber)
 	{
-		if (sceneNumber < 9)
+		if (sceneNumber < 10)
 		{
 			MuseumActions.PlayStoryScene(++sceneNumber);
 		}

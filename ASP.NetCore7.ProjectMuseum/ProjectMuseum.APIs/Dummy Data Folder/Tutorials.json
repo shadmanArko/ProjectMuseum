@@ -92,6 +92,30 @@
     ]
   },
   {
+    "Id": "Tut5",
+    "SceneNo": 5,
+    "ContinuesStory": false,
+    "StoryNumber": 0,
+    "TutorialSceneEntries": [
+      {
+        "EntryNo": "Tut5a",
+        "TutorialText": "Click on the Digging and Permits Button.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "ClickedDiggingPermitsButton"
+        ]
+      },
+      {
+        "EntryNo": "Tut5b",
+        "TutorialText": "Select the Possible Battle Site from the North American list.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "SelectedMineSite"
+        ]
+      }
+    ]
+  },
+  {
     "Id": "Tut6",
     "SceneNo": 6,
     "ContinuesStory": true,

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="1_hsa1v"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_ij7bg"]
 
-[node name="DiggingAndPermitsMenu" type="Control" node_paths=PackedStringArray("_closePanelButton")]
+[node name="DiggingAndPermitsMenu" type="Control" node_paths=PackedStringArray("_closePanelButton", "_subcontinentButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_ft8li")
 _closePanelButton = NodePath("PanelContainer/Container/Top Panel/Button")
+_subcontinentButton = NodePath("PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(1080, 640)

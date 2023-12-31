@@ -118,4 +118,4 @@ text = "Possible Battle Site"
 
 [node name="SceneChanger" parent="." node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("1_hsa1v")]
 _sceneChangerButton = NodePath("../PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
-_scenePath = "res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"
+_scenePath = "res://Scenes/Mine/Main Scene/MineScene.tscn"

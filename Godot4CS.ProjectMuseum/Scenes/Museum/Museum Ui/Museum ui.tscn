@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/LargeWoodenExhibitBasic.png" id="7_lgtob"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/DateTimeUi.cs" id="10_6y0pe"]
-[ext_resource type="PackedScene" uid="uid://djocevsum0ga0" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="11_n0rbh"]
+[ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="11_n0rbh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
@@ -308,8 +308,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Gate"
 
 [node name="Tutorial" parent="." instance=ExtResource("11_n0rbh")]
+visible = false
 layout_mode = 0
 anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 104.0
+offset_right = 409.0
+offset_bottom = 459.0
+grow_vertical = 1
 
 [connection signal="pressed" from="Panel/Exhibit 0" to="." method="OnExhibit0Pressed"]
 [connection signal="pressed" from="Panel/Exhibit 1" to="." method="OnExhibit1Pressed"]

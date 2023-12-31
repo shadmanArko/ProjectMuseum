@@ -3,17 +3,25 @@ using System;
 using System.Drawing;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using ProjectMuseum.Models;
 
 public partial class Wall : Sprite2D
 {
     [Export] private Sprite2D _wallPreview;
     [Export] private Texture2D _wallPreviewSprite;
-
+    public string WallId;
+    public string TileId;
     private bool _showPreview = false;
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
-
+    public void SetUpWall(MuseumTile museumTile)
+    {
+        WallId = museumTile.WallId;
+        TileId = museumTile.Id;
+        Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Wallpapers/{WallId}.png");
+        Texture = texture2D;
+    }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
@@ -27,6 +35,23 @@ public partial class Wall : Sprite2D
     {
         MuseumActions.OnPreviewWallpaperUpdated += OnPreviewWallpaperUpdated;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+        MuseumActions.OnWallpaperSuccessfullyUpdated += OnWallpaperSuccessfullyUpdated;
+    }
+
+    private void OnWallpaperSuccessfullyUpdated()
+    {
+        if (_showedPreviewOnce)
+        {
+            Texture = _wallPreviewSprite;
+        }
+        DisablePreview();
+    }
+
+    private void DisablePreview()
+    {
+        _showPreview = false;
+        _showedPreviewOnce = false;
+        _wallPreview.Visible = false;
     }
 
     private void OnClickBuilderCard(BuilderCardType arg1, string arg2)
@@ -34,6 +59,7 @@ public partial class Wall : Sprite2D
         if (arg1 != BuilderCardType.Wallpaper)
         {
             _showPreview = false;
+            _showedPreviewOnce = false;
         }
     }
 
@@ -49,9 +75,16 @@ public partial class Wall : Sprite2D
         if (!_showPreview) return;
         
         // GD.Print("Mouse entered!");
+        ShowPreview();
+        // Add your hover effect code here
+    }
+
+    private bool _showedPreviewOnce = false;
+    private void ShowPreview()
+    {
         _wallPreview.Texture = _wallPreviewSprite;
         _wallPreview.Visible = true;
-        // Add your hover effect code here
+        _showedPreviewOnce = true;
     }
 
     // Function called when the mouse exits the object
@@ -63,9 +96,15 @@ public partial class Wall : Sprite2D
     }
     private void OnClickWall()
     {
+        if (_showPreview && !_showedPreviewOnce)
+        {
+            ShowPreview();
+            MuseumActions.OnClickWallForUpdatingWallPaper?.Invoke(TileId);
+            // Texture = _wallPreviewSprite;
+            // _wallPreview.Visible = false;
+        }
         
-        Texture = _wallPreviewSprite;
-        _wallPreview.Visible = false;
+        
     }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Input(InputEvent @event)
@@ -76,13 +115,13 @@ public partial class Wall : Sprite2D
             if (GetRect().HasPoint(GetLocalMousePosition()) )
             {
                 // Emit the mouse_entered signal
-                _on_Hover();
+                // _on_Hover();
                 
             }
             else
             {
                 // Emit the mouse_exited signal
-                _on_Unhover();
+                // _on_Unhover();
             }
         }
 
@@ -93,6 +132,7 @@ public partial class Wall : Sprite2D
                 OnClickWall();
             }
         }
+        
     }
 
     public override void _ExitTree()

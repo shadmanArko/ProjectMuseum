@@ -43,6 +43,7 @@ position = Vector2(336, 184)
 
 [node name="TownBuilding4" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
 position = Vector2(444, 229)
+_hasDiggingBuddy = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 z_index = 6

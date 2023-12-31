@@ -1,10 +1,12 @@
 using Godot;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Newtonsoft.Json;
 using ProjectMuseum.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 public partial class TileSpawner : TileMap
 {
@@ -13,19 +15,56 @@ public partial class TileSpawner : TileMap
 	[Export] private int _dirtyWallProbability = 10;
 	[Export] private Array<Texture2D> _dirtyWallTextures;
 	[Export] private Node2D _wallsParent;
+	private string _basicWallsId = "wallpaperside2";
 	[Export] private Vector2I _originOfExpansion = new Vector2I(0, -20);
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 	private HttpRequest _httpRequestForExpandingMuseumTiles;
+	private HttpRequest _httpRequestForUpdatingMuseumWalls;
+
+	private MuseumTileContainer _museumTileContainer;
 	// [Export] private Array<int> _dirtyTilesIndex;
 	public override void _Ready()
 	{
 		_httpRequestForGettingMuseumTiles = new HttpRequest();
 		_httpRequestForExpandingMuseumTiles = new HttpRequest();
+		_httpRequestForUpdatingMuseumWalls = new HttpRequest();
 		AddChild(_httpRequestForGettingMuseumTiles);
 		AddChild(_httpRequestForExpandingMuseumTiles);
+		AddChild(_httpRequestForUpdatingMuseumWalls);
 		_httpRequestForGettingMuseumTiles.RequestCompleted += OnRequestCompletedForGettingMuseumTiles;
 		_httpRequestForExpandingMuseumTiles.RequestCompleted += HttpRequestForExpandingMuseumTilesOnRequestCompleted;
+		_httpRequestForUpdatingMuseumWalls.RequestCompleted += HttpRequestForUpdatingMuseumWallsOnRequestCompleted;
 		_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/GetAllMuseumTiles");
+	}
+
+	private void HttpRequestForUpdatingMuseumWallsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		GD.Print("wall id put done");
+		
+		string jsonStr = Encoding.UTF8.GetString(body);
+
+		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		_museumTileContainer.MuseumTiles = museumTiles;
+		SpawnWalls(museumTiles);
+	}
+
+	private void SpawnWalls(List<MuseumTile> museumTiles)
+	{
+		foreach (var museumTile in museumTiles)
+		{
+			if (museumTile.WallId != "" && museumTile.WallId != "string")
+			{
+				if (museumTile.XPosition == _minCellIndexX)
+				{
+					InstantiateWall(museumTile, _wallLeft);
+				}
+
+				if (museumTile.YPosition == _minCellIndexY)
+				{
+					InstantiateWall(museumTile, _wallRight);
+				}
+			}
+		}
 	}
 
 	private void HttpRequestForExpandingMuseumTilesOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -37,8 +76,10 @@ public partial class TileSpawner : TileMap
 
 	private void OnRequestCompletedForGettingMuseumTiles(long result, long responseCode, string[] headers, byte[] body)
 	{
+		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		_museumTileContainer.MuseumTiles = museumTiles;
 		SpawnTilesAndWalls(museumTiles);
 	}
 
@@ -51,10 +92,12 @@ public partial class TileSpawner : TileMap
 		}
 	}
 
+	private int _minCellIndexX;
+	private int _minCellIndexY;
 	private void SpawnTilesAndWalls(List<MuseumTile> museumTiles)
 	{
-		var minCellIndexX = int.MaxValue;
-		var minCellIndexY = int.MaxValue;
+		_minCellIndexX = int.MaxValue;
+		_minCellIndexY = int.MaxValue;
 
 		foreach (Node child in _wallsParent.GetChildren())
 		{
@@ -63,31 +106,68 @@ public partial class TileSpawner : TileMap
 		
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.XPosition < minCellIndexX) minCellIndexX = museumTile.XPosition;
-			if (museumTile.YPosition < minCellIndexY) minCellIndexY = museumTile.YPosition;
+			if (museumTile.XPosition < _minCellIndexX) _minCellIndexX = museumTile.XPosition;
+			if (museumTile.YPosition < _minCellIndexY) _minCellIndexY = museumTile.YPosition;
 			SetCell(0, new Vector2I(museumTile.XPosition, museumTile.YPosition), museumTile.TileSetNumber, Vector2I.Zero);
 		}
 
+		List<MuseumTile> museumTilesToUpdateWalls = new List<MuseumTile>();
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.XPosition == minCellIndexX)
+			if (museumTile.XPosition == _minCellIndexX)
 			{
-				var instance = (Node2D)_wallLeft.Instantiate();
-				AddDirtyWallTexture(instance);
-				instance.Position = GetCellWorldPosition(museumTile.XPosition, museumTile.YPosition);
-				_wallsParent.AddChild(instance);
+				// InstantiateWall(museumTile, _wallLeft);
+				if (museumTile.WallId == "" || museumTile.WallId == "string")
+				{
+					museumTilesToUpdateWalls.Add(museumTile);
+				}
 			}
 
-			if (museumTile.YPosition == minCellIndexY)
+			if (museumTile.YPosition == _minCellIndexY)
 			{
-				var instance = (Node2D)_wallRight.Instantiate();
-				AddDirtyWallTexture(instance);
-				instance.Position = GetCellWorldPosition(museumTile.XPosition, +museumTile.YPosition);
-				_wallsParent.AddChild(instance);
+				// InstantiateWall(museumTile, _wallRight);
+				if (museumTile.WallId == "" || museumTile.WallId == "string")
+				{
+					museumTilesToUpdateWalls.Add(museumTile);
+				}
 			}
+			
 		}
 
-		GD.Print($"Min x {minCellIndexX}, Min y {minCellIndexY}");
+		if (museumTilesToUpdateWalls.Count > 0)
+		{
+			UpdateMuseumTilesToDatabase(museumTilesToUpdateWalls);
+
+		}else SpawnWalls(museumTiles);
+		GD.Print($"Min x {_minCellIndexX}, Min y {_minCellIndexY}");
+	}
+
+	private void UpdateMuseumTilesToDatabase(List<MuseumTile> museumTilesToUpdateWalls)
+	{
+		if (museumTilesToUpdateWalls.Count > 0)
+		{
+			List<string> tileIds = new List<string>();
+			foreach (var museumTile in museumTilesToUpdateWalls)
+			{
+				tileIds.Add(museumTile.Id);
+				
+			}
+			// MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
+			string[] headers = { "Content-Type: application/json"};
+			var body = JsonConvert.SerializeObject(tileIds);
+			GD.Print(body);
+			Error error = _httpRequestForUpdatingMuseumWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?wallId={_basicWallsId}", headers,
+				HttpClient.Method.Post, body);
+		}
+	}
+
+	private void InstantiateWall(MuseumTile museumTile, PackedScene wall)
+	{
+		var instance = (Node2D)wall.Instantiate();
+		instance.GetNode<Wall>(".").SetUpWall(museumTile);
+		AddDirtyWallTexture(instance);
+		instance.Position = GetCellWorldPosition(museumTile.XPosition, museumTile.YPosition);
+		_wallsParent.AddChild(instance);
 	}
 
 	private void AddDirtyWallTexture(Node2D instance)

@@ -34,7 +34,7 @@ public partial class AlternateTapMiniGame : CanvasLayer
     
 	public override void _Process(double delta)
 	{
-		_timerLabel.Text = $"Time Remaining:   00:{Mathf.Ceil(Mathf.Clamp(_countDownTimer,0,_initialCountDownValue)):00}";
+		_timerLabel.Text = $"Time Remaining:   00:{Mathf.Ceil(Mathf.Clamp(_countDownTimer,0,_initialCountDownValue)):g00}";
 		if (_countDownTimer <= 0)
 		{
 			if (_progressValue >= _finalValue)

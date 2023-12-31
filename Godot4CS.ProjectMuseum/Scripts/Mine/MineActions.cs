@@ -8,6 +8,9 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineActions : Node
 {
+	public static Action OnPlayerSpawned;
+	public static Action OnPlayerDead;
+	
 	public static Action OnDigActionStarted;
 	public static Action OnDigActionEnded;
 	

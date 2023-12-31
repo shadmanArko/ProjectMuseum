@@ -37,6 +37,7 @@ public partial class AutoAnimationController : Node2D
 		_time = 0;
 		_playerControllerVariables.Gravity = 0;
 		_playerControllerVariables.State = MotionState.Grounded;
+		//MineActions.OnPlayerSpawned?.Invoke();
 		SetProcess(true);
 		SetPhysicsProcess(false);
 		GD.Print("inside here");

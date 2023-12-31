@@ -273,7 +273,13 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		if(animName != "death") return;
 		_playerControllerVariables.IsDead = true;
 		SetPhysicsProcess(false);
+		MineActions.OnPlayerDead?.Invoke();
 		_ExitTree();
 		QueueFree();
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
 	}
 }

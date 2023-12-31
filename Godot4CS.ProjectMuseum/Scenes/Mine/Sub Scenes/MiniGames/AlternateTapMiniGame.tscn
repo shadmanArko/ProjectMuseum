@@ -1,100 +1,137 @@
-[gd_scene load_steps=5 format=3 uid="uid://csg8bjst12w7f"]
+[gd_scene load_steps=6 format=3 uid="uid://csg8bjst12w7f"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/AlternateTapMiniGame.cs" id="1_i0xcx"]
 [ext_resource type="Texture2D" uid="uid://bsn0ka4exkaib" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarUnder.png" id="2_4doy4"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_5tfpf"]
+[ext_resource type="Texture2D" uid="uid://drlegajgqcabr" path="res://Assets/2D/Sprites/Keyboard Letters/Keyboard Letters and Symbols.png" id="3_6jkpx"]
 [ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="3_p7y4i"]
 
-[node name="AlternateTapMiniGame" type="CanvasLayer" node_paths=PackedStringArray("_timerLabel", "_pressButtonLabel", "_progressLabel", "_textureProgressBar")]
+[node name="AlternateTapMiniGame" type="CanvasLayer" node_paths=PackedStringArray("_timerLabel", "_progressLabel", "_textureProgressBar")]
 script = ExtResource("1_i0xcx")
+_initialCountDownValue = 20.0
 _countDownTimer = 20.0
 _timeReduceInterval = 0.25
-_timerLabel = NodePath("Panel/Timer Label")
-_pressButtonLabel = NodePath("Panel/Press Button Label")
-_progressLabel = NodePath("Panel/Progress label")
-_textureProgressBar = NodePath("Panel/TextureProgressBar")
+_timerLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Timer Label")
+_progressLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Progress Label")
+_textureProgressBar = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container/TextureProgressBar")
 _finalValue = 100
 _successPoints = 5
 _failPoints = 5
 
-[node name="Panel" type="Panel" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+layout_direction = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_vertical = 6
-metadata/_edit_use_anchors_ = true
 
-[node name="Press Button Label" type="Label" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer"]
+custom_minimum_size = Vector2(800, 900)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Mini Game Name" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
 texture_filter = 1
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -13.0
-offset_bottom = 13.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1, 1.96)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_5tfpf")
-text = "Alternatively Tap \"Q\" and \"E\""
+theme_override_font_sizes/font_size = 66
+text = "Alternate Button Tap"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer Label" type="Label" parent="Panel"]
+[node name="Timer Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
 texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -15.0
-offset_top = -152.0
-offset_right = -5.0
-offset_bottom = -126.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(0.5, 0.5)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_5tfpf")
-text = "2
-"
+theme_override_font_sizes/font_size = 33
+text = "Time Remaining      00:20"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Progress label" type="Label" parent="Panel"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -78.0
-offset_top = 54.0001
-offset_right = -38.0
-offset_bottom = 77.0001
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3.72, 2.16)
+[node name="Press Q and E" type="HBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel"]
+[node name="Press" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/Press Q and E"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_5tfpf")
+theme_override_font_sizes/font_size = 55
+text = "Press"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Q" type="PanelContainer" parent="CanvasLayer/PanelContainer/VBoxContainer/Press Q and E"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/PanelContainer/VBoxContainer/Press Q and E/Q"]
 texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -31.9999
-offset_top = -77.0
-offset_right = 32.0001
-offset_bottom = -67.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(5, 5)
-pivot_offset = Vector2(30, 0)
+scale = Vector2(5.25, 5.25)
+texture = ExtResource("3_6jkpx")
+centered = false
+region_enabled = true
+region_rect = Rect2(1, 66, 13, 12)
+
+[node name="and" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/Press Q and E"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_5tfpf")
+theme_override_font_sizes/font_size = 55
+text = "and"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="E" type="PanelContainer" parent="CanvasLayer/PanelContainer/VBoxContainer/Press Q and E"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/PanelContainer/VBoxContainer/Press Q and E/E"]
+texture_filter = 1
+scale = Vector2(5.25, 5.25)
+texture = ExtResource("3_6jkpx")
+centered = false
+region_enabled = true
+region_rect = Rect2(65, 34, 13, 12)
+
+[node name="Alternatively" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/Press Q and E"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_5tfpf")
+theme_override_font_sizes/font_size = 55
+text = "alternatively"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Progress Bar Container" type="PanelContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container"]
+texture_filter = 1
+layout_mode = 2
+nine_patch_stretch = true
 texture_under = ExtResource("2_4doy4")
 texture_progress = ExtResource("3_p7y4i")
+
+[node name="Progress Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5tfpf")
+theme_override_font_sizes/font_size = 33
+text = "Progress: "
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -23,7 +24,7 @@ public partial class TileSpawner : TileMap
 
 	private MuseumTileContainer _museumTileContainer;
 	// [Export] private Array<int> _dirtyTilesIndex;
-	public override void _Ready()
+	public override async void  _Ready()
 	{
 		_httpRequestForGettingMuseumTiles = new HttpRequest();
 		_httpRequestForExpandingMuseumTiles = new HttpRequest();
@@ -34,6 +35,7 @@ public partial class TileSpawner : TileMap
 		_httpRequestForGettingMuseumTiles.RequestCompleted += OnRequestCompletedForGettingMuseumTiles;
 		_httpRequestForExpandingMuseumTiles.RequestCompleted += HttpRequestForExpandingMuseumTilesOnRequestCompleted;
 		_httpRequestForUpdatingMuseumWalls.RequestCompleted += HttpRequestForUpdatingMuseumWallsOnRequestCompleted;
+		await Task.Delay(1000);
 		_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/GetAllMuseumTiles");
 	}
 

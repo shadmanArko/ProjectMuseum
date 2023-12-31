@@ -12,12 +12,13 @@ public partial class MineTimeSystem : Node
 	private int _daysInMonth = 30;
 	private int _monthsInYear = 4;
 
-	private bool _isPaused = false;
+	private bool _isPaused;
     
-	private  Time _time = new Time();
+	private  Time _time = new();
 
 	public override void _Ready()
 	{
+		//_isPaused = true;
 	}
 
 	
@@ -98,6 +99,20 @@ public partial class MineTimeSystem : Node
         
 
 	}
+
+	// public void StartTime()
+	// {
+	// 	_isPaused = false;
+	// 	_time.Days = 1;
+	// 	_time.Hours = 8;
+	// 	_time.Minutes = 0;
+	// 	_time.Seconds = 0;
+	// }
+	//
+	// public void SetTime()
+	// {
+	// 	
+	// }
 	
 
 	public void TogglePause()

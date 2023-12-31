@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.BuilderCardsRepository;
@@ -33,6 +34,7 @@ using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
 using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
 using ProjectMuseum.Services.StorySceneService;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json");
@@ -178,6 +180,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+Console.WriteLine("Base directory " +AppContext.BaseDirectory);
+Console.WriteLine("Current directory " +Directory.GetCurrentDirectory());
+Console.WriteLine("persistent directory " +  Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Museum Keeper"));
 
 app.UseHttpsRedirection();
 

@@ -55,6 +55,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private void TownMapButtonOnPressed()
     {
         MuseumActions.OnTownMapButtonClicked?.Invoke();
+        MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ClickedTownMap");
     }
 
     private void MuseumGateCheckButtonOnPressed()

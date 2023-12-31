@@ -173,7 +173,7 @@ public partial class MuseumTileEditor : Node2D
         MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
         string[] headers = { "Content-Type: application/json"};
         var body = JsonConvert.SerializeObject(tileIds);
-        Error error = _httpRequestForUpdatingTilesSourceId.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesSourceId?sourceId={sourceId}", headers,
+        Error error = _httpRequestForUpdatingTilesSourceId.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?sourceId={sourceId}", headers,
             HttpClient.Method.Put, body);
     }
 

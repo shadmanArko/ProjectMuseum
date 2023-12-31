@@ -81,24 +81,24 @@ offset_bottom = -50.0
 
 [node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
 visible = false
+z_index = 8
 mouse_filter = 2
 
 [node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
 visible = false
 
 [node name="Player" parent="museum" instance=ExtResource("12_55fh7")]
+visible = false
 position = Vector2(55, -11)
 _displacementSpeed = 50.0
 
 [node name="Player_Uncontrolled" parent="museum" instance=ExtResource("19_1kq7h")]
-visible = false
 position = Vector2(50, -6)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -4)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_back_facing"
 
 [node name="Professor" parent="museum" instance=ExtResource("19_yibo3")]
-visible = false
 position = Vector2(40, -14)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -6)])
 _animationNameAfterInitialMovement = "idle_front_facing"
@@ -115,7 +115,6 @@ y_sort_enabled = true
 
 [node name="WallsParent" type="Node2D" parent="museum"]
 y_sort_enabled = true
-script = ExtResource("23_md2ii")
 
 [node name="MuseumTileEditor" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -272,7 +271,6 @@ script = ExtResource("27_mm5mn")
 _dayEndTileCoord = Vector2i(0, -1)
 
 [node name="StoryController" type="Node2D" parent="."]
-process_mode = 4
 script = ExtResource("29_6vdgp")
 
 [node name="TutorialSystem" type="Node2D" parent="."]
@@ -288,3 +286,6 @@ _gameCharacter = NodePath("../museum/Player")
 script = ExtResource("37_vwmma")
 _camera2D = NodePath("../museum/Camera2D")
 _townScene = NodePath("../museum/CanvasLayer/Town Ui")
+
+[node name="WallController" type="Node2D" parent="."]
+script = ExtResource("23_md2ii")

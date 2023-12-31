@@ -39,6 +39,7 @@ public partial class DayEndController : Node2D
 		MuseumActions.OnPlayerSavedGame?.Invoke();
 		MuseumActions.OnClickYesOfPopUpUi = null;
 		MuseumActions.OnClickYesOfPopUpUi = null;
+		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SleepAndSave");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

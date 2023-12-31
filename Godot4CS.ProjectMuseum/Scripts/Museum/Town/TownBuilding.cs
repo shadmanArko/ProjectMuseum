@@ -1,11 +1,13 @@
 using Godot;
 using System;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class TownBuilding : Sprite2D
 {
 	// Called when the node enters the scene tree for the first time.
 	private bool _mouseOnBuilding;
 	private Color _startColor;
+	[Export] private bool _hasDiggingBuddy;
 	public override void _Ready()
 	{
 		_startColor = Modulate;
@@ -23,6 +25,10 @@ public partial class TownBuilding : Sprite2D
 		{
 			GD.Print("Mouse Clicked"+ Name);
 			Modulate = Colors.Brown;
+			if (_hasDiggingBuddy)
+			{
+				MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("FoundDiggingBuddy");
+			}
 		}
 	}
 

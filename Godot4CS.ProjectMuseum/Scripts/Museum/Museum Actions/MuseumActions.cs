@@ -26,6 +26,7 @@ public partial class MuseumActions : Node
     public static Action<Texture2D> OnPreviewWallpaperUpdated;
 
     public static Action<bool> OnClickMuseumGateToggle;
+    public static Action OnClickCloseTownUi;
     public static Action<int> TotalGuestsUpdated;
     #region TimeActions
 
@@ -44,6 +45,7 @@ public partial class MuseumActions : Node
 
     public static Action<Vector2I> PlayerEnteredNewTile;
     public static Action OnPlayerSavedGame;
+    public static Action OnPlayerSleepAndSavedGame;
     public static Action<PathNavigatorCharacter> PathEnded;
 
     #endregion

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxystp6xmjk7p"]
+[gd_scene load_steps=4 format=3 uid="uid://dxystp6xmjk7p"]
 
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.cs" id="1_ft8li"]
 [ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="1_hsa1v"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_ij7bg"]
 
 [node name="DiggingAndPermitsMenu" type="Control" node_paths=PackedStringArray("_closePanelButton")]
 layout_mode = 3
@@ -68,6 +69,7 @@ custom_minimum_size = Vector2(130, 0)
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("2_ij7bg")
 text = "LEFT"
 
 [node name="Location Display Label" type="Label" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer/Location Selector HBox"]
@@ -76,6 +78,7 @@ layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
+theme = ExtResource("2_ij7bg")
 theme_override_font_sizes/font_size = 32
 text = "NORTH AMERICA"
 horizontal_alignment = 1
@@ -87,6 +90,7 @@ custom_minimum_size = Vector2(130, 0)
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 8
+theme = ExtResource("2_ij7bg")
 text = "RIGHT"
 
 [node name="Sublocation Panel" type="PanelContainer" parent="PanelContainer/Container/Location Selector Panel/VBoxContainer"]
@@ -114,8 +118,9 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_filter = 1
+theme = ExtResource("2_ij7bg")
 text = "Possible Battle Site"
 
 [node name="SceneChanger" parent="." node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("1_hsa1v")]
 _sceneChangerButton = NodePath("../PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
-_scenePath = "res://Scenes/Mine/Main Scene/MineScene.tscn"
+_scenePath = "res://Scenes/Mine/Main Scene/MineSceneDiInstaller.tscn"

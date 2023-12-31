@@ -22,6 +22,7 @@ public partial class TownController : Node2D
 		_cameraLastZoom = _cameraStartZoom;
 		_cameraLastPosition = _cameraStartPosition;
 		MuseumActions.OnTownMapButtonClicked += EnableTownMap;
+		MuseumActions.OnClickCloseTownUi += DisableTownMap;
 		DisableTownMap();
 	}
 
@@ -61,6 +62,7 @@ public partial class TownController : Node2D
 	{
 		base._ExitTree();
 		MuseumActions.OnTownMapButtonClicked -= EnableTownMap;
+		MuseumActions.OnClickCloseTownUi -= DisableTownMap;
 
 	}
 }

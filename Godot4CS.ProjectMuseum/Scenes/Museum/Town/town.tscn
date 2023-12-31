@@ -1,12 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=5 format=3 uid="uid://baf5s8ygn03sp"]
 
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
 [ext_resource type="PackedScene" uid="uid://btdho8rkmjqck" path="res://Scenes/Museum/Town/town_building.tscn" id="3_3sk7y"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_ase1j"]
 
-[node name="Town Ui" type="Control" node_paths=PackedStringArray("_sprite2D")]
+[node name="Panel" type="Panel"]
+self_modulate = Color(1, 1, 1, 0.388235)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Town Ui" type="Control" parent="." node_paths=PackedStringArray("_sprite2D", "_townClosingButton")]
 clip_contents = true
-layout_mode = 3
+layout_mode = 1
 anchor_left = 0.174
 anchor_right = 0.826
 anchor_bottom = 0.998
@@ -18,8 +27,9 @@ _sprite2D = NodePath("Town Ground With roads")
 zoomSpd = 0.5
 Minzoom = 1.0
 Maxzoom = 4.0
+_townClosingButton = NodePath("../Town closing Button")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="Town Ui"]
 z_index = 6
 layout_mode = 1
 anchors_preset = 10
@@ -27,25 +37,25 @@ anchor_right = 1.0
 offset_bottom = 10.0
 grow_horizontal = 2
 
-[node name="Town Ground With roads" type="Sprite2D" parent="."]
+[node name="Town Ground With roads" type="Sprite2D" parent="Town Ui"]
 z_index = 5
 texture_filter = 1
 position = Vector2(625, 538)
 texture = ExtResource("1_d0pjk")
 
-[node name="TownBuilding" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+[node name="TownBuilding" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
 
-[node name="TownBuilding2" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+[node name="TownBuilding2" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
 position = Vector2(60, -296)
 
-[node name="TownBuilding3" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+[node name="TownBuilding3" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
 position = Vector2(336, 184)
 
-[node name="TownBuilding4" parent="Town Ground With roads" instance=ExtResource("3_3sk7y")]
+[node name="TownBuilding4" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
 position = Vector2(444, 229)
 _hasDiggingBuddy = true
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="Town Ui"]
 z_index = 6
 layout_mode = 1
 anchors_preset = 12
@@ -56,7 +66,7 @@ offset_top = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ColorRect3" type="ColorRect" parent="."]
+[node name="ColorRect3" type="ColorRect" parent="Town Ui"]
 z_index = 6
 layout_mode = 1
 anchors_preset = 9
@@ -64,7 +74,7 @@ anchor_bottom = 1.0
 offset_right = 10.0
 grow_vertical = 2
 
-[node name="ColorRect4" type="ColorRect" parent="."]
+[node name="ColorRect4" type="ColorRect" parent="Town Ui"]
 z_index = 6
 layout_mode = 1
 anchors_preset = 11
@@ -74,3 +84,19 @@ anchor_bottom = 1.0
 offset_left = -10.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="Town closing Button" type="Button" parent="."]
+z_index = 6
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82
+anchor_top = 0.009
+anchor_right = 0.82
+anchor_bottom = 0.009
+offset_left = -39.4003
+offset_top = 0.28
+offset_right = 0.599731
+offset_bottom = 40.28
+grow_horizontal = 0
+theme = ExtResource("4_ase1j")
+text = "X"

@@ -1,4 +1,5 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum;
 
@@ -10,6 +11,16 @@ public partial class SpritePanAndZoom : Control
     [Export] private float Minzoom = 0.001f;
     [Export] private float Maxzoom = 3.0f;
     [Export] private Vector2 dragSensitivity = new Vector2(1f, 1f);
+    [Export] private Button _townClosingButton;
+    public override void _Ready()
+    {
+        _townClosingButton.Pressed += TownClosingButtonOnPressed;
+    }
+
+    private void TownClosingButtonOnPressed()
+    {
+        MuseumActions.OnClickCloseTownUi?.Invoke();
+    }
 
     public override void _Input(InputEvent @event)
     {
@@ -59,5 +70,12 @@ public partial class SpritePanAndZoom : Control
         newPosition.Y = Mathf.Clamp(newPosition.Y, -(maxPosition.Y / multiplier) + Size.Y, maxPosition.Y / multiplier);
         // Set the new position
         _sprite2D.Position = newPosition;
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        _townClosingButton.Pressed -= TownClosingButtonOnPressed;
+
     }
 }

@@ -37,6 +37,7 @@ public partial class DayEndController : Node2D
 	private void OnClickYesOfPopUpUi()
 	{
 		MuseumActions.OnPlayerSavedGame?.Invoke();
+		MuseumActions.OnPlayerSleepAndSavedGame?.Invoke();
 		MuseumActions.OnClickYesOfPopUpUi = null;
 		MuseumActions.OnClickYesOfPopUpUi = null;
 		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SleepAndSave");

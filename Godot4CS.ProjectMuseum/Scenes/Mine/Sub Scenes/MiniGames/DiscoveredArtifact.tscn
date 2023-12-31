@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://db037mwpqisj0"]
+[gd_scene load_steps=3 format=3 uid="uid://c2kpw6quvatj7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_q1pt4"]
 [ext_resource type="Texture2D" uid="uid://wghq5xodtlc3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/sword.png" id="2_7wesq"]
 
-[node name="DiscoveredArtifactVisualizer" type="CanvasLayer" node_paths=PackedStringArray("_artifactSprite")]
+[node name="DiscoveredArtifactVisualizer3" type="CanvasLayer" node_paths=PackedStringArray("_artifactSprite")]
 script = ExtResource("1_q1pt4")
 _artifactSprite = NodePath("Panel/Sprite2D")
 

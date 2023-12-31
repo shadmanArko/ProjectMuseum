@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blguo3pqctpry"
-path="res://.godot/imported/Renaissance American Cutlass.png-55d9d9a701776548bb0e25c4ddd056fb.ctex"
+uid="uid://cr7kq2627afbv"
+path="res://.godot/imported/ROAD CHUNK 2.png-9b54908840bbc63e5914bb1528a62f75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Renaissance American Cutlass.png"
-dest_files=["res://.godot/imported/Renaissance American Cutlass.png-55d9d9a701776548bb0e25c4ddd056fb.ctex"]
+source_file="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2.png"
+dest_files=["res://.godot/imported/ROAD CHUNK 2.png-9b54908840bbc63e5914bb1528a62f75.ctex"]
 
 [params]
 

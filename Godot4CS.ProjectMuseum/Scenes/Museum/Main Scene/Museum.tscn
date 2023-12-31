@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=41 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -34,20 +34,15 @@
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
+[ext_resource type="Texture2D" uid="uid://dsii5p1yni3e2" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK.png" id="30_wqv7k"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
+[ext_resource type="Texture2D" uid="uid://cr7kq2627afbv" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2.png" id="39_edsxa"]
+[ext_resource type="Texture2D" uid="uid://bs6uu5d0ajyol" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png" id="40_5qu8p"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
-
-[node name="Town" parent="." instance=ExtResource("2_pnteo")]
-process_mode = 4
-visible = false
-position = Vector2(0, -210)
-zoomSpd = 0.2
-Minzoom = 1.0
-Maxzoom = 4.0
 
 [node name="museum" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -67,9 +62,11 @@ position = Vector2(50, -210)
 script = ExtResource("4_kytf8")
 zoomSpd = 0.2
 Minzoom = 1.0
-Maxzoom = 4.0
+Maxzoom = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
+
+[node name="Town Ui" parent="museum/CanvasLayer" instance=ExtResource("2_pnteo")]
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
 ItemsParent = NodePath("../../ItemParents")
@@ -90,17 +87,18 @@ mouse_filter = 2
 visible = false
 
 [node name="Player" parent="museum" instance=ExtResource("12_55fh7")]
-visible = false
 position = Vector2(55, -11)
 _displacementSpeed = 50.0
 
 [node name="Player_Uncontrolled" parent="museum" instance=ExtResource("19_1kq7h")]
+visible = false
 position = Vector2(50, -6)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -4)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_back_facing"
 
 [node name="Professor" parent="museum" instance=ExtResource("19_yibo3")]
+visible = false
 position = Vector2(40, -14)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -6)])
 _animationNameAfterInitialMovement = "idle_front_facing"
@@ -145,7 +143,7 @@ y_sort_enabled = true
 
 [node name="IsomatricForestChunk" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
-position = Vector2(358.285, -334.5)
+position = Vector2(359.285, -334.5)
 texture = ExtResource("23_38mdj")
 
 [node name="IsomatricForestChunk2" type="Sprite2D" parent="museum/Background Foresnt"]
@@ -165,7 +163,7 @@ texture = ExtResource("23_38mdj")
 
 [node name="IsomatricForestChunk6" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
-position = Vector2(694, -503)
+position = Vector2(694, -502)
 texture = ExtResource("23_38mdj")
 
 [node name="IsomatricForestChunk7" type="Sprite2D" parent="museum/Background Foresnt"]
@@ -195,7 +193,7 @@ texture = ExtResource("23_38mdj")
 
 [node name="IsomatricForestChunk13" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
-position = Vector2(1031, -671)
+position = Vector2(1031, -669)
 texture = ExtResource("23_38mdj")
 
 [node name="IsomatricForestChunk14" type="Sprite2D" parent="museum/Background Foresnt"]
@@ -217,6 +215,48 @@ texture = ExtResource("23_38mdj")
 texture_filter = 1
 position = Vector2(-494.715, -766)
 texture = ExtResource("23_38mdj")
+
+[node name="Road" type="Node2D" parent="museum"]
+
+[node name="RoadChunk2" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(-398, -47)
+texture = ExtResource("39_edsxa")
+
+[node name="RoadChunk4" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(-732, -214)
+texture = ExtResource("39_edsxa")
+
+[node name="RoadChunk5" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(-1062, -378)
+texture = ExtResource("39_edsxa")
+
+[node name="RoadChunk3" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(16, 135)
+texture = ExtResource("40_5qu8p")
+
+[node name="RoadChunk" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(431, -47)
+texture = ExtResource("30_wqv7k")
+
+[node name="RoadChunk6" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(767, -216)
+texture = ExtResource("30_wqv7k")
+
+[node name="RoadChunk7" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(1105, -384)
+texture = ExtResource("30_wqv7k")
+
+[node name="RoadChunk8" type="Sprite2D" parent="museum/Road"]
+texture_filter = 1
+position = Vector2(1441, -553)
+texture = ExtResource("30_wqv7k")
 
 [node name="Museum Time System" type="Node2D" parent="."]
 script = ExtResource("24_wpojy")
@@ -247,4 +287,4 @@ _gameCharacter = NodePath("../museum/Player")
 [node name="TownController" type="Node2D" parent="." node_paths=PackedStringArray("_camera2D", "_townScene")]
 script = ExtResource("37_vwmma")
 _camera2D = NodePath("../museum/Camera2D")
-_townScene = NodePath("../Town")
+_townScene = NodePath("../museum/CanvasLayer/Town Ui")

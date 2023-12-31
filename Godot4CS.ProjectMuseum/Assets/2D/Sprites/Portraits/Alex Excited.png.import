@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://calvamrn0ropn"
-path="res://.godot/imported/Medieval Native American Tomahawk.png-ea01137b258e975a7f5e0f4ede5542b8.ctex"
+uid="uid://bt8ew267gqfa0"
+path="res://.godot/imported/Alex Excited.png-879f1300a050ce7556cd78783d3d6292.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Medieval Native American Tomahawk.png"
-dest_files=["res://.godot/imported/Medieval Native American Tomahawk.png-ea01137b258e975a7f5e0f4ede5542b8.ctex"]
+source_file="res://Assets/2D/Sprites/Portraits/Alex Excited.png"
+dest_files=["res://.godot/imported/Alex Excited.png-879f1300a050ce7556cd78783d3d6292.ctex"]
 
 [params]
 

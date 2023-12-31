@@ -271,5 +271,40 @@
         "HasCutsceneArt": false
       }
     ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 10,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "10a",
+        "IllustrationName": "",
+        "Dialogue": "Looks like you got the hang of it! Good luck down there!",
+        "Speaker": "Alex",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 11,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "11a",
+        "IllustrationName": "",
+        "Dialogue": "Hey, before it gets too late, be sure to make your way to the surface! It's dangerous to stay down there too late at night.",
+        "Speaker": "Alex",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
   }
+
 ]

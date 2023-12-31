@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv2e0ix1s6aq8"
-path="res://.godot/imported/Classical Native American War Shield.png-63a852192a94328dbf54689d021c051a.ctex"
+uid="uid://bh0hp8q57tkr7"
+path="res://.godot/imported/IndustrialAmericanMusket.png-8be87cd060ca59d9aa228c2872dc5897.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Classical Native American War Shield.png"
-dest_files=["res://.godot/imported/Classical Native American War Shield.png-63a852192a94328dbf54689d021c051a.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/IndustrialAmericanMusket.png"
+dest_files=["res://.godot/imported/IndustrialAmericanMusket.png-8be87cd060ca59d9aa228c2872dc5897.ctex"]
 
 [params]
 

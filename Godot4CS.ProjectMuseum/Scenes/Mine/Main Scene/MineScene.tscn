@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=20 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -12,8 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
 [ext_resource type="PackedScene" uid="uid://dmbaqgvetw2w" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromInventoryToMuseum.tscn" id="11_si3nu"]
-[ext_resource type="PackedScene" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
+[ext_resource type="PackedScene" uid="uid://dwrtwt0aj6gqu" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
+[ext_resource type="PackedScene" uid="uid://503e52mqqilf" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
+[ext_resource type="PackedScene" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
+[ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="15_jb2j0"]
+[ext_resource type="PackedScene" uid="uid://x5j5na7x1hy7" path="res://Scenes/Mine/Sub Scenes/UI/TimeSystem.tscn" id="16_2lo0e"]
+[ext_resource type="PackedScene" uid="uid://boobbvr80bqqf" path="res://Scenes/Mine/Sub Scenes/Tutorials/MineTutorial.tscn" id="16_37v3a"]
 
 [node name="MineScene" type="Node2D"]
 script = ExtResource("1_rq1hl")
@@ -25,18 +30,22 @@ _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_xj3qh")]
+process_mode = 4
+visible = false
 _parentNode = NodePath("../MineSceneInitializer")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("sceneTransition", "autoAnimationController", "enemySpawner", "miniGameController", "mineExitPromptUi", "campExitPromptUi", "DiscoveredArtifactVisualizer", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "Tooltip")]
 script = ExtResource("5_yk3pc")
-sceneTransition = NodePath("../SceneTransition")
-autoAnimationController = NodePath("../Auto Animation Controller")
-enemySpawner = NodePath("../EnemySpawner")
-miniGameController = NodePath("../MiniGameController")
-mineExitPromptUi = NodePath("../MineExitPromptUI")
-campExitPromptUi = NodePath("../CampExitPromptUI")
+SceneTransition = NodePath("../SceneTransition")
+AutoAnimationController = NodePath("../Auto Animation Controller")
+EnemySpawner = NodePath("../EnemySpawner")
+MiniGameController = NodePath("../MiniGameController")
+MineTutorial = NodePath("../MineTutorial")
+MineExitPromptUi = NodePath("../MineExitPromptUI")
+CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
+MinePopUp = NodePath("../MineUI/MinePopUp")
 DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
 Tooltip = NodePath("../MineUI/Tooltip4")
 
@@ -53,9 +62,24 @@ script = ExtResource("7_5sphp")
 script = ExtResource("14_oqhev")
 _alternateMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn"
 
+[node name="MineTutorial" parent="." instance=ExtResource("16_37v3a")]
+
 [node name="MineUI" parent="." instance=ExtResource("3_ambmn")]
 
 [node name="Tooltip4" parent="MineUI" instance=ExtResource("12_1cu8i")]
+
+[node name="MinePopUp" parent="MineUI" instance=ExtResource("12_uukqb")]
+
+[node name="Tutorial" parent="MineUI" instance=ExtResource("13_d8f08")]
+visible = false
+offset_top = 0.32
+offset_right = 0.0400085
+offset_bottom = 0.0
+
+[node name="Dialogue Ui" parent="MineUI" instance=ExtResource("15_jb2j0")]
+visible = false
+
+[node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
 [node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
 visible = false

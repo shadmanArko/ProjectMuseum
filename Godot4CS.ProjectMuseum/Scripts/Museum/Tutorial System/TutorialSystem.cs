@@ -91,6 +91,7 @@ public partial class TutorialSystem : Node
         {
             _currentTutorialCompleted = true;
             MuseumActions.OnTutorialEnded?.Invoke();
+            GD.Print($"current tutorial No {_currentTutorialSceneEntry.EntryNo}");
             if (_currentTutorial.ContinuesStory)
             {
                 MuseumActions.PlayStoryScene?.Invoke(_currentTutorial.StoryNumber);
@@ -103,6 +104,8 @@ public partial class TutorialSystem : Node
     public override void _Process(double delta)
     {
     }
+
+    public string GetCurrentTutorialSceneEntry() => _currentTutorialSceneEntry.EntryNo;
 
     public override void _Input(InputEvent @event)
     {
@@ -139,6 +142,7 @@ public partial class TutorialSystem : Node
                 return;
             }
         }
+        MuseumActions.TutorialSceneEntryEnded?.Invoke(_currentTutorialSceneEntry.EntryNo);
         ShowNextTutorialScene();
     }
 

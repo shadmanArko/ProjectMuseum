@@ -5,8 +5,10 @@ public partial class TownBuilding : Sprite2D
 {
 	// Called when the node enters the scene tree for the first time.
 	private bool _mouseOnBuilding;
+	private Color _startColor;
 	public override void _Ready()
 	{
+		_startColor = Modulate;
 		GD.Print("Building started");
 	}
 
@@ -20,6 +22,7 @@ public partial class TownBuilding : Sprite2D
 		if (@event.IsActionPressed("ui_left_click") && _mouseOnBuilding)
 		{
 			GD.Print("Mouse Clicked"+ Name);
+			Modulate = Colors.Brown;
 		}
 	}
 
@@ -27,6 +30,7 @@ public partial class TownBuilding : Sprite2D
 	private void OnMouseEntered()
 	{
 		_mouseOnBuilding = true;
+		Modulate = Colors.Burlywood;
 		GD.Print("Mouse Entered"+ Name);
 	}
 	private void InputEvent(Viewport viewport, InputEvent @event, int index)
@@ -35,6 +39,7 @@ public partial class TownBuilding : Sprite2D
 	private void OnMouseExit()
 	{
 		_mouseOnBuilding = false;
+		Modulate = _startColor;
 		GD.Print("Mouse Exit" + Name);
 	}
 }

@@ -30,7 +30,7 @@ public partial class AnimationController : AnimationPlayer
 		MineActions.OnRollStarted += PlayRollAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
-		MineActions.OnPlayerGrabActionPressed += ToggleHangOnWall;
+		MineActions.OnPlayerGrabActionStarted += ToggleHangOnWall;
 
 		_sprite.FrameChanged += OnDigAnimationStrikeStarted;
 	}
@@ -39,12 +39,12 @@ public partial class AnimationController : AnimationPlayer
 		var tempVelocity = _playerControllerVariables.Velocity;
 		
 		if(_playerControllerVariables.State == MotionState.Hanging)
-			PlayHangingAnimations(tempVelocity, isAttacking);
+			PlayHangingAnimations(tempVelocity);
 		else
-			PlayMovementAnimations(tempVelocity, isAttacking);
+			PlayMovementAnimations(tempVelocity);
 	}
 
-	private void PlayMovementAnimations(Vector2 velocity, bool isAttacking)
+	private void PlayMovementAnimations(Vector2 velocity)
 	{
 		switch (velocity.X)
 		{
@@ -63,7 +63,7 @@ public partial class AnimationController : AnimationPlayer
 		}
 	}
 
-	private void PlayHangingAnimations(Vector2 velocity, bool isAttacking)
+	private void PlayHangingAnimations(Vector2 velocity)
 	{
 		switch (velocity.X)
 		{

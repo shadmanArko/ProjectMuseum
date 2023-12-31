@@ -7,6 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -170,6 +171,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
         _playerControllerVariables.CanMove = false;
         MineActions.OnMiniGameLoad?.Invoke(tilePos);
+        MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushArtifactCell");
     }
 
     #region Mini Game
@@ -263,6 +265,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             cellCrackMaterial, _mineGenerationVariables.MineGenView);
         MakeMineWallDepletedParticleEffect();
         
+        if(cell.HitPoint == 1)
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
+        
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
@@ -312,11 +317,12 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             {
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                 var cellCrackMaterial =
-                    _mineCellCrackMaterial.CellCrackMaterials[0]; //.FirstOrDefault(cellCrackMat =>
-                // cellCrackMat.MaterialType == "Normal");
+                    _mineCellCrackMaterial.CellCrackMaterials[0];
                 MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
                     cellCrackMaterial, _mineGenerationVariables.MineGenView);
             }
+            
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
         }
     }
 

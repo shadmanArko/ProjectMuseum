@@ -50,5 +50,55 @@
         ]
       }
     ]
+  },
+  {
+    "Id": "Tut6",
+    "SceneNo": 6,
+    "ContinuesStory": true,
+    "StoryNumber": 10,
+    "TutorialSceneEntries": [
+      {
+        "EntryNo": "Tut6a",
+        "TutorialText": "Welcome to the excavation screen! Move left and right using {A} and {D}",
+        "KeyBindsNeedsToPerform": ["move_left","move_right"],
+        "ActionsNeedsToPerform": []
+      },
+      {
+        "EntryNo": "Tut6b",
+        "TutorialText": "Break the block directly below you using {Left Click}, while the pickaxe is selected.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": ["PickaxeSelected","OnDigFirstOrdinaryCell"]
+      },
+      {
+        "EntryNo": "Tut6c",
+        "TutorialText": "The block directly below you has an artifact. {Left Click} three times.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": ["OnDigFirstArtifactCell"]
+      },
+      {
+        "EntryNo": "Tut6d",
+        "TutorialText": "Switch to your brush by pressing {3}",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": ["BrushSelected"]
+      },
+      {
+        "EntryNo": "Tut6e",
+        "TutorialText": "Click on the block below you while your brush is equipped. ",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": ["BrushArtifactCell"]
+      },
+      {
+        "EntryNo": "Tut6f",
+        "TutorialText": "There's a mini game to extract the artifact! ",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": ["MiniGamesWon"]
+      },
+      {
+        "EntryNo": "Tut6g",
+        "TutorialText": "You can press {Q} to toggle climbing mode. Try it. Press Q again when you want to stop climbing. ",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": ["ToggleGrab"]
+      }
+    ]
   }
 ]

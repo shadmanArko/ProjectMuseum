@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk6cmt7p7r2om"
-path="res://.godot/imported/Renaissance American Bowl.png-5898e9e50d92f73377b9d58c93392212.ctex"
+uid="uid://blguo3pqctpry"
+path="res://.godot/imported/RenaissanceAmericanCutlass.png-c1b683d53f4bcf42733cc24c39118aa1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Renaissance American Bowl.png"
-dest_files=["res://.godot/imported/Renaissance American Bowl.png-5898e9e50d92f73377b9d58c93392212.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/RenaissanceAmericanCutlass.png"
+dest_files=["res://.godot/imported/RenaissanceAmericanCutlass.png-c1b683d53f4bcf42733cc24c39118aa1.ctex"]
 
 [params]
 

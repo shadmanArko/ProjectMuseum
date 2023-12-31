@@ -72,7 +72,7 @@ public partial class DialogueSystem : Control
 	private async void HandleSceneEnd()
 	{
 		_dialogueSystemAnimationPlayer.Play("Slide_Out");
-		await Task.Delay(800);
+		await Task.Delay(1200);
 		_cutsceneArt.Visible = false;
 		Visible = false;
 		if (_storyScene.HasTutorial)

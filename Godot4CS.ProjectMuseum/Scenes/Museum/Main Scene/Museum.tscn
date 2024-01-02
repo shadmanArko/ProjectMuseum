@@ -69,6 +69,7 @@ Maxzoom = 2.0
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
 
 [node name="Fade In and Out Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bhjmc")]
+z_index = 8
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
 mouse_filter = 1

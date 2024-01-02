@@ -20,7 +20,7 @@ public partial class FadeInAndOutUi : Control
 	async void PlayFadeInAndOut()
 	{
 		_animationPlayer.Play("Fade_In");
-		await Task.Delay(1000);
+		await Task.Delay(2000);
 		_animationPlayer.Play("Fade_Out");
 	}
 }

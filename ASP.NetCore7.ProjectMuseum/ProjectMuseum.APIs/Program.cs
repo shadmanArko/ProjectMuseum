@@ -182,6 +182,7 @@ if (app.Environment.IsDevelopment())
 }
 Console.WriteLine("Base directory " +AppContext.BaseDirectory);
 Console.WriteLine("Current directory " +Directory.GetCurrentDirectory());
+Console.WriteLine("Doc folder directory " +Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
 Console.WriteLine("persistent directory " +  Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Museum Keeper"));
 
 app.UseHttpsRedirection();

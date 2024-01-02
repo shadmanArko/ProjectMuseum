@@ -20,7 +20,16 @@ public class PlayerInfoService: IPlayerInfoService
         await _playerInfoRepository.Insert(playerInfo);
         return newPlayerInfo;
     }
-
+    public async Task<PlayerInfo> UpdateCompletedTutorial(int completedTutorialNumber)
+    {
+        var info = await _playerInfoRepository.UpdateCompletedTutorial(completedTutorialNumber);
+        return info;
+    }
+    public async Task<PlayerInfo> UpdateCompletedStory(int completedStoryNumber)
+    {
+        var info = await _playerInfoRepository.UpdateCompletedStory(completedStoryNumber);
+        return info;
+    }
     public async Task<PlayerInfo?> GetPlayerInfo()
     {
         var info = await _playerInfoRepository.GetLastPlayerInfo();

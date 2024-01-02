@@ -64,6 +64,12 @@ public class MuseumController : ControllerBase
         var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
         return Ok(allExhibitVariations);
     }
+    [HttpGet("GetExhibitVariation/variationName")]
+    public async Task<IActionResult> GetExhibitVariation(string variationName)
+    {
+        var allExhibitVariations = await _exhibitService.GetExhibitVariation(variationName);
+        return Ok(allExhibitVariations);
+    }
     [HttpGet("GetAllWallpaperVariations")]
     public async Task<IActionResult> GetAllWallpaperVariations()
     {

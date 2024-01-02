@@ -35,6 +35,24 @@ public class PlayerInfoRepository: IPlayerInfoRepository
         return playerInfos?.Last();
     }
 
+    public async Task<PlayerInfo> UpdateCompletedStory(int completedStoryNumber)
+    {
+        var playerInfos = await _playerInfoDatabase.ReadDataAsync();
+        var currentPlayerInfo = playerInfos?.Last();
+        currentPlayerInfo!.CompletedStoryScene = completedStoryNumber;
+        if (playerInfos != null) await _playerInfoDatabase.WriteDataAsync(playerInfos);
+        return  currentPlayerInfo;
+    }
+
+    public async Task<PlayerInfo> UpdateCompletedTutorial(int completedTutorialNumber)
+    {
+        var playerInfos = await _playerInfoDatabase.ReadDataAsync();
+        var currentPlayerInfo = playerInfos?.Last();
+        currentPlayerInfo!.CompletedTutorialScene = completedTutorialNumber;
+        if (playerInfos != null) await _playerInfoDatabase.WriteDataAsync(playerInfos);
+        return  currentPlayerInfo;
+    }
+
     public Task<List<PlayerInfo>?> GetAll()
     {
         throw new NotImplementedException();

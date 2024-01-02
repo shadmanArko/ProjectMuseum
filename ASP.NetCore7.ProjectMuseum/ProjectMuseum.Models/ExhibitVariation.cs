@@ -3,6 +3,7 @@ namespace ProjectMuseum.Models;
 public class ExhibitVariation
 {
     public string VariationName { get; set; }
+    public float Price { get; set; }
     public string ExhibitDecoration { get; set; }
     public string ExhibitSize { get; set; }
     public int NumberOfTilesNeeded { get; set; }

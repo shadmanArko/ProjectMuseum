@@ -39,6 +39,18 @@ public class PlayerController : ControllerBase
         var newPlayerInfo = await _playerInfoService.GetPlayerInfo();
         return Ok(newPlayerInfo);
     }
+    [HttpGet("UpdateCompletedTutorial/{completedTutorialNumber}")]
+    public async Task<IActionResult> UpdateCompletedTutorial(int completedTutorialNumber)
+    {
+        var newPlayerInfo = await _playerInfoService.UpdateCompletedTutorial(completedTutorialNumber);
+        return Ok(newPlayerInfo);
+    }
+    [HttpGet("UpdateCompletedStory/{completedStoryNumber}")]
+    public async Task<IActionResult> UpdateCompletedStory(int completedStoryNumber)
+    {
+        var newPlayerInfo = await _playerInfoService.UpdateCompletedStory(completedStoryNumber);
+        return Ok(newPlayerInfo);
+    }
     [HttpGet("SaveData")]
     public async Task<IActionResult> SaveData()
     {

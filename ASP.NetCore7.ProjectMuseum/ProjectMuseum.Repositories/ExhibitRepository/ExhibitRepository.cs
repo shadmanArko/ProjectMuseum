@@ -49,6 +49,13 @@ public class ExhibitRepository : IExhibitRepository
         return exhibitVariations;
     }
 
+    public async Task<ExhibitVariation?> GetExhibitVariation(string variationName)
+    {
+        var exhibitVariations = await _exhibitVariationDatabase.ReadDataAsync();
+        var exhibitVariation = exhibitVariations!.FirstOrDefault(variation => variation.VariationName == variationName);
+        return exhibitVariation;
+    }
+
     public async Task<List<Exhibit>?> GetAllExhibits()
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();

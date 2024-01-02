@@ -12,13 +12,13 @@ public partial class MineTimeSystem : Node
 	private int _daysInMonth = 30;
 	private int _monthsInYear = 4;
 
-	private bool _isPaused;
+	[Export] private bool _isPaused;
     
 	private  Time _time = new();
 
 	public override void _Ready()
 	{
-		//_isPaused = true;
+		
 	}
 
 	
@@ -41,6 +41,8 @@ public partial class MineTimeSystem : Node
 	{
 		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
 		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+		
+		GD.Print($"{_time.Days}-{_time.Hours}:{_time.Minutes}");
 		
 		_time.Minutes+=10;
 		if (_time.Minutes >= _minutesInHour)
@@ -100,19 +102,22 @@ public partial class MineTimeSystem : Node
 
 	}
 
-	// public void StartTime()
-	// {
-	// 	_isPaused = false;
-	// 	_time.Days = 1;
-	// 	_time.Hours = 8;
-	// 	_time.Minutes = 0;
-	// 	_time.Seconds = 0;
-	// }
-	//
-	// public void SetTime()
-	// {
-	// 	
-	// }
+	public void StartDay()
+	{
+		_time.Days = 1;
+		_time.Hours = 23;
+		_time.Minutes = 0;
+		_time.Seconds = 0;
+		_isPaused = false;
+	}
+	
+	public void SetTime(int seconds, int minutes, int hours, int days)
+	{
+		_time.Days = days;
+		_time.Hours = hours;
+		_time.Minutes = minutes;
+		_time.Seconds = seconds;
+	}
 	
 
 	public void TogglePause()

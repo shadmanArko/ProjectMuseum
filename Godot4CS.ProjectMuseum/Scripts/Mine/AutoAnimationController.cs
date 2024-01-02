@@ -2,6 +2,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
@@ -68,8 +69,14 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.CanMove = true;
 		_playerControllerVariables.IsAffectedByGravity = true;
 		_playerControllerVariables.Gravity = 25f;
-		
-		ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+	
+		//TODO: TURN ON THIS IF YOU WANT TUTORIALS
+		// ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+		_playerControllerVariables.CanMoveLeftAndRight = true;
+		_playerControllerVariables.CanAttack = true;
+		_playerControllerVariables.CanBrush = true;
+		_playerControllerVariables.CanDig = true;
+		_playerControllerVariables.CanToggleClimb = true;
 	}
     
 	#region Auto Animations

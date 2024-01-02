@@ -36,6 +36,7 @@ public partial class MiniGameController : Node2D
 	{
 		MineActions.OnMiniGameLoad += LoadAlternateTapMiniGame;
 		MineActions.OnMiniGameWon += MiniGameWon;
+		MineActions.OnMiniGameLost += MiniGameLost;
 	}
 	
 	private void CreateHttpRequests()
@@ -101,4 +102,11 @@ public partial class MiniGameController : Node2D
 	}
 
 	#endregion
+
+	public override void _ExitTree()
+	{
+		MineActions.OnMiniGameLoad -= LoadAlternateTapMiniGame;
+		MineActions.OnMiniGameWon -= MiniGameWon;
+		MineActions.OnMiniGameLost -= MiniGameLost;
+	}
 }

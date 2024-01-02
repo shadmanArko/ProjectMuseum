@@ -37,6 +37,7 @@ public partial class EnemySpawner : Node2D
         _enemies = new List<Enemy>();
         SetProcess(false);
         SetPhysicsProcess(false);
+        
     }
 
     private void InitializeDiInstallers()
@@ -47,8 +48,16 @@ public partial class EnemySpawner : Node2D
 
     private void OnTimeEndSpawnEnemy()
     {
-        //GD.Print("Spawning new enemy");
-        if(_enemies.Count >= 3) return;
+        GD.Print("Spawning new enemy");
+
+        var enemiesAlive = 0;
+        foreach (var tempEnemy in _enemies)
+        {
+            if (!tempEnemy.IsDead)
+                enemiesAlive++;
+        }
+        
+        if(enemiesAlive >= 3 || _mineGenerationVariables.BrokenCells < 10) return;
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
         GD.Print($"Slime Scene is null {scene is null}");
         _parentNode.AddChild(scene);
@@ -59,6 +68,7 @@ public partial class EnemySpawner : Node2D
             return;
         }
 
+        GD.Print("Spawning Enemy");
         _newEnemy = enemy;
         _autoMoveToPos = false;
         _jumpIntoMine = true;

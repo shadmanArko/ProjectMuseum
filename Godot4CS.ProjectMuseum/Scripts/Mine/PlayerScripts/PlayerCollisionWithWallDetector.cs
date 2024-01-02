@@ -5,7 +5,6 @@ using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
-using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -19,11 +18,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     private MineCellCrackMaterial _mineCellCrackMaterial;
-    private List<RawArtifactDescriptive> _rawArtifactDescriptive;
-    private List<RawArtifactFunctional> _rawArtifactFunctional;
 
     private HttpRequest _getMineArtifactHttpRequest;
-    // private HttpRequest _sendArtifactToInventoryHttpRequest;
 
     private RandomNumberGenerator _randomNumberGenerator;
 
@@ -43,8 +39,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
-        _rawArtifactDescriptive = ServiceRegistry.Resolve<List<RawArtifactDescriptive>>();
-        _rawArtifactFunctional = ServiceRegistry.Resolve<List<RawArtifactFunctional>>();
+        ServiceRegistry.Resolve<List<RawArtifactDescriptive>>();
+        ServiceRegistry.Resolve<List<RawArtifactFunctional>>();
     }
 
     private void SubscribeToActions()
@@ -173,51 +169,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnMiniGameLoad?.Invoke(tilePos);
         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushArtifactCell");
     }
-
-    #region Mini Game
-
-    // private void MiniGameWon()
-    // {
-    //     GD.Print("Successfully Extracted Artifact");
-    //
-    //     // ShowDiscoveredArtifact();
-    //     var cell = _mineGenerationVariables.GetCell(_artifactTilePos);
-    //     DigOrdinaryCell(_artifactTilePos);
-    //     GD.Print("Sending artifact to inventory");
-    //     GD.Print($"cell artifact id: {cell.ArtifactId}");
-    //     SendArtifactToInventory(cell.ArtifactId);
-    // }
-
-    private void MiniGameLost()
-    {
-        GD.Print("Failed to Extract Artifact");
-        DigOrdinaryCell(_artifactTilePos);
-        _playerControllerVariables.CanMove = true;
-    }
-
-    [Export] private string _discoveredArtifactScenePath;
-
-    private void ShowDiscoveredArtifact()
-    {
-        var scene =
-            ResourceLoader.Load<PackedScene>(_discoveredArtifactScenePath)
-                .Instantiate() as DiscoveredArtifactVisualizer;
-        if (scene is null)
-        {
-            GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
-            return;
-        }
-
-        AddChild(scene);
-    }
-
-    private void TurnOffArtifactDiscoveryScene()
-    {
-        _playerControllerVariables.CanMove = true;
-    }
-
-    #endregion
-
+    
     private Vector2I FindPositionOfTargetCell()
     {
         var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
@@ -321,7 +273,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
                     cellCrackMaterial, _mineGenerationVariables.MineGenView);
             }
-            
+
+            _mineGenerationVariables.BrokenCells++;
+            MineActions.OnMineCellBroken?.Invoke();
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
         }
     }

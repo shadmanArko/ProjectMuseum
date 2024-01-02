@@ -25,7 +25,15 @@ public partial class MineGameConditions : Node
 
 	private void PlayerFaintOnMidnight(int hours)
 	{
-		if (hours is < 1 or > 8) return;
+		GD.Print("An Hour Passed: "+hours);
+		if(hours != 24) return;
+		
 		_playerControllerVariables.PlayerHealth = 0;
+		GD.Print("Player fainted");
+	}
+
+	public override void _ExitTree()
+	{
+		MineActions.OnOneHourPassed -= PlayerFaintOnMidnight;
 	}
 }

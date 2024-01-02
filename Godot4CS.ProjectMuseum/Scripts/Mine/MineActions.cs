@@ -26,6 +26,8 @@ public partial class MineActions : Node
     public static Action OnRollStarted;
     public static Action OnRollEnded;
 
+    public static Action OnMineCellBroken;	//Called every time a mine cell is successfully broken 
+
     //for starting the enemy damage at the right moment
     // public static Action OnPlayerAttackAnimationStarted; 
     // public static Action OnPlayerAttackAnimationEnded; 

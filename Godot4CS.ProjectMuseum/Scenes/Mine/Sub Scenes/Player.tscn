@@ -768,7 +768,6 @@ drag_vertical_enabled = true
 [node name="CollisionDetector" type="Node2D" parent="."]
 script = ExtResource("4_rq7pk")
 _alternateButtonPressMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn"
-_discoveredArtifactScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn"
 
 [node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource("5_0x0fh")

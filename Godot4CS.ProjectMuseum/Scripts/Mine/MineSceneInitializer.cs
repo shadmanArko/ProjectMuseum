@@ -30,8 +30,7 @@ public partial class MineSceneInitializer : Node
 		var scene = ResourceLoader.Load<PackedScene>(_playerScenePrefabPath).Instantiate();
 		GD.Print($"Player Scene is null {scene is null}");
 		AddChild(scene);
-		// MineActions.OnPlayerSpawned?.Invoke();
-		ReferenceStorage.Instance.CameraController.SetCameraToFollowPlayer();
+		MineActions.OnPlayerSpawned?.Invoke();
 		GD.Print("ON PLAYER SPAWNED CALLED");
 	}
             

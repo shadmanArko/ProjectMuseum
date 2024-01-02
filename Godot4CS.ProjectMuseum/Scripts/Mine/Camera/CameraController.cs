@@ -63,8 +63,6 @@ public partial class CameraController : Node2D
 		var lowerBoundX = _camera.Position.X - _camera.DragLeftMargin;
 		var upperBoundY = _camera.Position.Y + _camera.DragTopMargin;
 		var lowerBoundY = _camera.Position.Y + _camera.DragBottomMargin;
-		
-		GD.Print("Checking Camera position");
 
 		var playerPos = _playerControllerVariables.Position;
 		if(playerPos.X > upperBoundX || playerPos.X < lowerBoundX || playerPos.Y > upperBoundY || playerPos.Y < lowerBoundY)
@@ -78,8 +76,6 @@ public partial class CameraController : Node2D
 		var smoothLerpX = Mathf.Lerp(cameraPos.X, playerPos.X, 0.5f);
 		var smoothLerpY = Mathf.Lerp(cameraPos.Y, playerPos.Y, 0.5f);
 		_camera.Position = new Vector2(smoothLerpX, smoothLerpY);
-		
-		GD.Print("Following Player");
 	}
 
 	public override void _ExitTree()

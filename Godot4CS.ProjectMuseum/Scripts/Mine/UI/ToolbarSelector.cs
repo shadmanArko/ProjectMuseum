@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,7 +67,7 @@ public partial class ToolbarSelector : Node
 	private void OnGetPlayerInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
-		_inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
+		 _inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
 
 		for (var i = 0; i < _inventory.SlotsUnlocked; i++)
 		{
@@ -81,26 +82,39 @@ public partial class ToolbarSelector : Node
             
 			AddChild(toolbarSlot);
 			_toolbarSlots.Add(toolbarSlot);
+			_inventory.EmptySlots.Add(i);
 		}
 
 		foreach (var equipable in _inventory.Equipables)
 		{
+			_inventory.EmptySlots.Remove(equipable.Slot);
 			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
 		}
 		
 		GD.Print(_rawArtifactDto.RawArtifactFunctionals.Count);
-		// foreach (var artifact in _inventory.Artifacts)
-		// {
-		// 	var rawArtifactFunctional =
-		// 		_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);
-		// 	if (rawArtifactFunctional == null)
-		// 	{
-		// 		GD.Print("Artifact Not Found");
-		// 		continue;
-		// 	}
-		// 	_toolbarSlots[artifact.Slot].SetItemTexture(rawArtifactFunctional.SmallImageLocation);
-		// 	_toolbarSlots[artifact.Slot].SetItemData(rawArtifactFunctional.Id, true);
-		// }
+		foreach (var artifact in _inventory.Artifacts)
+		{
+			var emptySlot = 0;
+
+			for (var i = 0; i < _inventory.SlotsUnlocked; i++)
+			{
+				if(!_inventory.EmptySlots.Contains(i)) continue;
+				emptySlot = i;
+			}
+			
+			artifact.Slot = emptySlot;
+			_inventory.EmptySlots.Remove(emptySlot);
+			
+			var rawArtifactFunctional =
+				_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);
+			if (rawArtifactFunctional == null)
+			{
+				GD.Print("Artifact Not Found");
+				continue;
+			}
+			_toolbarSlots[artifact.Slot].SetItemTexture(rawArtifactFunctional.SmallImageLocation);
+			_toolbarSlots[artifact.Slot].SetItemData(rawArtifactFunctional.Id, true);
+		}
 	}
 
 	#endregion

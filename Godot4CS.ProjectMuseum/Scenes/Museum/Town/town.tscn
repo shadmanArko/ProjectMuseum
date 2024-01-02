@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=15 format=3 uid="uid://baf5s8ygn03sp"]
 
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
+[ext_resource type="PackedScene" uid="uid://c42fbpn0n0tjo" path="res://Scenes/Museum/Town/trailer_home.tscn" id="3_2ledy"]
 [ext_resource type="PackedScene" uid="uid://btdho8rkmjqck" path="res://Scenes/Museum/Town/town_building.tscn" id="3_3sk7y"]
+[ext_resource type="PackedScene" uid="uid://c5ai236xvvcnm" path="res://medium_house_1_front.tscn" id="3_bddl8"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_ase1j"]
+[ext_resource type="PackedScene" uid="uid://dkdpf3vsytj2d" path="res://Scenes/Museum/Town/medium_house_2_back.tscn" id="4_gd5bj"]
+[ext_resource type="Texture2D" uid="uid://cvimeiel3ta4o" path="res://Assets/2D/Sprites/Town/carpenter shop .png" id="4_saq27"]
+[ext_resource type="Texture2D" uid="uid://8x7jwnasgdag" path="res://Assets/2D/Sprites/Town/medium house 2 front.png" id="5_8y2p6"]
+[ext_resource type="Texture2D" uid="uid://ceonc6jkwdt4x" path="res://Assets/2D/Sprites/Town/clinic.png" id="5_itq42"]
+[ext_resource type="Texture2D" uid="uid://bkqd0blx23fc4" path="res://Assets/2D/Sprites/Town/carpainter.png" id="6_b5787"]
+[ext_resource type="Texture2D" uid="uid://cpbrxf7pi8i6p" path="res://Assets/2D/Sprites/Town/bus stand.png" id="7_1kqxn"]
+[ext_resource type="Texture2D" uid="uid://d3hmnrxrk34jp" path="res://Assets/2D/Sprites/Town/fire hydrant.png" id="8_c6n77"]
+[ext_resource type="Texture2D" uid="uid://cqjcidbxx76of" path="res://Assets/2D/Sprites/Town/street lamp.png" id="9_xmybg"]
 
 [node name="Panel" type="Panel"]
 self_modulate = Color(1, 1, 1, 0.388235)
@@ -43,16 +53,85 @@ texture_filter = 1
 position = Vector2(625, 538)
 texture = ExtResource("1_d0pjk")
 
+[node name="TrailerHome" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+position = Vector2(368, 193)
+
+[node name="TrailerHome2" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+position = Vector2(460, 241)
+
+[node name="TrailerHome3" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+position = Vector2(555, 285)
+
+[node name="TrailerHome4" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+position = Vector2(327.5, 260)
+
+[node name="TrailerHome5" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+position = Vector2(419.5, 308)
+
+[node name="TrailerHome6" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+position = Vector2(514.5, 352)
+
+[node name="MediumHouse1Front" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_bddl8")]
+
+[node name="MediumHouse1Front2" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_bddl8")]
+position = Vector2(-45.9999, 119)
+
+[node name="MediumHouse2Back" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+
+[node name="MediumHouse2Back2" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+position = Vector2(57.0001, 184)
+
+[node name="MediumHouse2Front1" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+position = Vector2(82.0001, -191)
+texture = ExtResource("5_8y2p6")
+
+[node name="MediumHouse2Front2" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+position = Vector2(209, -252)
+texture = ExtResource("5_8y2p6")
+
+[node name="MediumHouse2Front3" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+position = Vector2(336, -313)
+texture = ExtResource("5_8y2p6")
+
+[node name="MediumHouse2Front4" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+position = Vector2(447, -368)
+texture = ExtResource("5_8y2p6")
+
+[node name="CarpenterShop" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+position = Vector2(517, 18)
+texture = ExtResource("4_saq27")
+
+[node name="Clinic" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+position = Vector2(242, -106)
+texture = ExtResource("5_itq42")
+
+[node name="Carpainter" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+position = Vector2(390, -35)
+texture = ExtResource("6_b5787")
+
+[node name="BusStand" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+position = Vector2(-266, -337)
+texture = ExtResource("7_1kqxn")
+
+[node name="FireHydrant" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+position = Vector2(42.0001, -143)
+texture = ExtResource("8_c6n77")
+
+[node name="StreetLamp" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+position = Vector2(-130, -245)
+texture = ExtResource("9_xmybg")
+
 [node name="TownBuilding" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
+position = Vector2(65.0001, -284)
 
 [node name="TownBuilding2" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
-position = Vector2(60, -296)
+position = Vector2(196.5, -347)
 
 [node name="TownBuilding3" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
-position = Vector2(336, 184)
+position = Vector2(320, -408)
 
 [node name="TownBuilding4" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
-position = Vector2(444, 229)
+position = Vector2(442, -473)
 _hasDiggingBuddy = true
 
 [node name="ColorRect2" type="ColorRect" parent="Town Ui"]

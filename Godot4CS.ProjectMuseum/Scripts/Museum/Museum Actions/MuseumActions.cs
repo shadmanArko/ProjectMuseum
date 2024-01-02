@@ -31,6 +31,7 @@ public partial class MuseumActions : Node
     #region TimeActions
 
     public static Action OnTownMapButtonClicked;
+    public static Action OnSleepComplete;
 
     #endregion
     #region TimeActions

@@ -10,6 +10,8 @@ using ProjectMuseum.Models;
 public partial class StoryController : Node2D
 {
 	private HttpRequest _httpRequestForGettingPlayerInfo;
+
+	private int _totalStoryNumber = 15;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -27,7 +29,7 @@ public partial class StoryController : Node2D
 		GD.Print( "Player info " +jsonStr);
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		var nextStoryNumber = playerInfo.CompletedStoryScene + 1;
-		if (nextStoryNumber< 14)
+		if (nextStoryNumber<= _totalStoryNumber)
 		{
 			MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber);
 		}
@@ -36,7 +38,7 @@ public partial class StoryController : Node2D
 
 	private async void StorySceneEnded(int sceneNumber)
 	{
-		if (sceneNumber < 10)
+		if (sceneNumber <= _totalStoryNumber)
 		{
 			MuseumActions.PlayStoryScene(++sceneNumber);
 		}

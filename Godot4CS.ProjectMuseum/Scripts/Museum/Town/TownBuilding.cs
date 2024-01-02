@@ -39,9 +39,6 @@ public partial class TownBuilding : Sprite2D
 		Modulate = Colors.Burlywood;
 		GD.Print("Mouse Entered"+ Name);
 	}
-	private void InputEvent(Viewport viewport, InputEvent @event, int index)
-	{
-	}
 	private void OnMouseExit()
 	{
 		_mouseOnBuilding = false;

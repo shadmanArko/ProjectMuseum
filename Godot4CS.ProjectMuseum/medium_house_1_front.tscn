@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5ai236xvvcnm"]
+
+[ext_resource type="Texture2D" uid="uid://u8qhv4dr5ixw" path="res://Assets/2D/Sprites/Town/medium house 1 front.png" id="1_bj3mk"]
+[ext_resource type="Script" path="res://Scripts/Museum/Town/TownBuilding.cs" id="2_bpwwo"]
+
+[node name="MediumHouse1Front" type="Sprite2D"]
+position = Vector2(82.0001, 49)
+texture = ExtResource("1_bj3mk")
+script = ExtResource("2_bpwwo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-34.0001, 21, -37.0001, 7, -44.0001, 8, -23.0001, -8, -15.0001, -15, -14.0001, -28, -21.0001, -30, -23.0001, -32, -9.0001, -45, 17.9999, -60, 43.9999, -33, 47.9999, -29, 67.9999, -12, 65.9999, -6, 61.9999, 4, 63.9999, 27, 6.9999, 56, 0.999901, 55, -11.0001, 49, -21.0001, 52, -31.0001, 59, -51.0001, 51, -49.0001, 37, -32.0001, 27)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="OnMouseExit"]

@@ -13,6 +13,7 @@ public partial class MuseumActions : Node
     public static Action<Draggable> DragStarted;
     public static Action<Draggable> DragEnded;
     public static Action<BuilderCardType, string> OnClickBuilderCard;
+    public static Action OnMuseumTilesUpdated;
     public static Action<float> OnMuseumBalanceUpdated;
     public static Action<float> OnMuseumBalanceReduced;
     public static Action<float> OnMuseumBalanceAdded;
@@ -48,6 +49,8 @@ public partial class MuseumActions : Node
     public static Action OnPlayerSavedGame;
     public static Action OnPlayerSleepAndSavedGame;
     public static Action<PathNavigatorCharacter> PathEnded;
+    public static Action<Vector2I, PlayerDirectionsEnum> OnPlayerInteract;
+    public static Action<string> OnPlayerInteractWith;
 
     #endregion
     #region PopUpUi
@@ -62,6 +65,7 @@ public partial class MuseumActions : Node
     public static Action<int> PlayStoryScene;
     public static Action<int> StorySceneEnded;
     public static Action<string> StorySceneEntryEnded;
+    public static Action<string> StorySceneEntryStarted;
     public static Action<string> TutorialSceneEntryEnded;
     public static Action<int> PlayTutorial;
     public static Action<string> OnTutorialUpdated;

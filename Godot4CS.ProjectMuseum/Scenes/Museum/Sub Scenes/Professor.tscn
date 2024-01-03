@@ -107,11 +107,11 @@ _characterSprite = NodePath("Sprite2D")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, 6)
-scale = Vector2(-1, 1)
 texture = ExtResource("5_6ikrp")
 offset = Vector2(0, -24.38)
 hframes = 8
 vframes = 4
+frame = 9
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -122,3 +122,7 @@ libraries = {
 position = Vector2(-1.5, -19)
 shape = SubResource("RectangleShape2D_4p6y7")
 disabled = true
+
+[connection signal="input_event" from="." to="." method="OnInputEvent"]
+[connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

@@ -12,7 +12,12 @@ public partial class DayEndController : Node2D
 	public override async void _Ready()
 	{
 		MuseumActions.PlayerEnteredNewTile += PlayerEnteredNewTile;
-		await Task.Delay(1000);
+
+		MuseumActions.OnMuseumTilesUpdated +=  SetDayEndCell;
+	}
+
+	private void SetDayEndCell()
+	{
 		GameManager.TileMap.SetCell(0, _dayEndTileCoord, _saveSpotTileSourceId, new Vector2I(0, 0));
 	}
 
@@ -52,5 +57,7 @@ public partial class DayEndController : Node2D
 	{
 		base._ExitTree();
 		MuseumActions.PlayerEnteredNewTile -= PlayerEnteredNewTile;
+		MuseumActions.OnMuseumTilesUpdated -=  SetDayEndCell;
+
 	}
 }

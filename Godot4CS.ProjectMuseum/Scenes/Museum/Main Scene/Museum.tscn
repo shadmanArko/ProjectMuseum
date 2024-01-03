@@ -51,6 +51,7 @@ y_sort_enabled = true
 script = ExtResource("1_3ql1b")
 
 [node name="TileMap" parent="museum" node_paths=PackedStringArray("_wallsParent") instance=ExtResource("2_2v5tj")]
+position = Vector2(-2, -1)
 layer_0/tile_data = PackedInt32Array()
 script = ExtResource("3_txjx3")
 _wallRight = ExtResource("10_xt14w")

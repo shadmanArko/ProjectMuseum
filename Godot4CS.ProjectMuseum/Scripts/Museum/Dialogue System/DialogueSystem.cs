@@ -54,7 +54,7 @@ public partial class DialogueSystem : Control
 
 	private async void NextDialogueButtonOnPressed()
 	{
-		if (!_finishedCurrentDialogue) return;
+		// if (!_finishedCurrentDialogue) return;
 		
 		_cancellationTokenSource.Cancel();
 		try
@@ -161,6 +161,7 @@ public partial class DialogueSystem : Control
 		Visible = true;
 		LoadAndSetCharacterPortrait();
 		LoadAndSetCutsceneArt();
+		MuseumActions.StorySceneEntryStarted?.Invoke(_storyScene.StorySceneEntries[_storyEntryCount].EntryNo);
 		_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
 	}
 

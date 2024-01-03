@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
@@ -67,6 +68,7 @@ public partial class TileSpawner : TileMap
 				}
 			}
 		}
+		MuseumActions.OnMuseumTilesUpdated?.Invoke();
 	}
 
 	private void HttpRequestForExpandingMuseumTilesOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)

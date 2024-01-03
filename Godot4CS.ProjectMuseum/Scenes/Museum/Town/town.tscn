@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=19 format=3 uid="uid://baf5s8ygn03sp"]
 
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
@@ -14,6 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://cpbrxf7pi8i6p" path="res://Assets/2D/Sprites/Town/bus stand.png" id="7_1kqxn"]
 [ext_resource type="Texture2D" uid="uid://d3hmnrxrk34jp" path="res://Assets/2D/Sprites/Town/fire hydrant.png" id="8_c6n77"]
 [ext_resource type="Texture2D" uid="uid://cqjcidbxx76of" path="res://Assets/2D/Sprites/Town/street lamp.png" id="9_xmybg"]
+[ext_resource type="Texture2D" uid="uid://de5xlvon7v3r6" path="res://Assets/2D/Sprites/Town/tree 2.png" id="14_1x5o7"]
+[ext_resource type="Texture2D" uid="uid://yluxww6pnckx" path="res://Assets/2D/Sprites/Town/tree 3.png" id="15_3yjas"]
+[ext_resource type="Texture2D" uid="uid://cto1evuud5now" path="res://Assets/2D/Sprites/Town/tree 1.png" id="16_ogrck"]
+[ext_resource type="Texture2D" uid="uid://dg3fk2x43213h" path="res://Assets/2D/Sprites/Town/fences v1.png" id="17_1d4jb"]
 
 [node name="Panel" type="Panel"]
 self_modulate = Color(1, 1, 1, 0.388235)
@@ -53,86 +57,413 @@ texture_filter = 1
 position = Vector2(625, 538)
 texture = ExtResource("1_d0pjk")
 
-[node name="TrailerHome" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+[node name="Houses" type="Node2D" parent="Town Ui/Town Ground With roads"]
+y_sort_enabled = true
+
+[node name="TrailerHome" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(368, 193)
 
-[node name="TrailerHome2" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+[node name="TrailerHome2" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(460, 241)
 
-[node name="TrailerHome3" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+[node name="TrailerHome3" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(555, 285)
 
-[node name="TrailerHome4" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+[node name="TrailerHome4" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(327.5, 260)
 
-[node name="TrailerHome5" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+[node name="TrailerHome5" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(419.5, 308)
 
-[node name="TrailerHome6" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_2ledy")]
+[node name="TrailerHome6" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(514.5, 352)
 
-[node name="MediumHouse1Front" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_bddl8")]
+[node name="MediumHouse1Front" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_bddl8")]
 
-[node name="MediumHouse1Front2" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_bddl8")]
+[node name="MediumHouse1Front2" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_bddl8")]
 position = Vector2(-45.9999, 119)
 
-[node name="MediumHouse2Back" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+[node name="MediumHouse2Back" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("4_gd5bj")]
 
-[node name="MediumHouse2Back2" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+[node name="MediumHouse2Back2" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("4_gd5bj")]
 position = Vector2(57.0001, 184)
 
-[node name="MediumHouse2Front1" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+[node name="MediumHouse2Front1" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("4_gd5bj")]
 position = Vector2(82.0001, -191)
 texture = ExtResource("5_8y2p6")
 
-[node name="MediumHouse2Front2" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+[node name="MediumHouse2Front2" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("4_gd5bj")]
 position = Vector2(209, -252)
 texture = ExtResource("5_8y2p6")
 
-[node name="MediumHouse2Front3" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+[node name="MediumHouse2Front3" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("4_gd5bj")]
 position = Vector2(336, -313)
 texture = ExtResource("5_8y2p6")
 
-[node name="MediumHouse2Front4" parent="Town Ui/Town Ground With roads" instance=ExtResource("4_gd5bj")]
+[node name="MediumHouse2Front4" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("4_gd5bj")]
 position = Vector2(447, -368)
 texture = ExtResource("5_8y2p6")
 
-[node name="CarpenterShop" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+[node name="TownBuilding" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_3sk7y")]
+position = Vector2(65.0001, -284)
+
+[node name="TownBuilding2" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_3sk7y")]
+position = Vector2(196.5, -347)
+
+[node name="TownBuilding3" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_3sk7y")]
+position = Vector2(320, -408)
+
+[node name="TownBuilding4" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_3sk7y")]
+position = Vector2(442, -473)
+_hasDiggingBuddy = true
+
+[node name="Shops and Institutions" type="Node2D" parent="Town Ui/Town Ground With roads"]
+
+[node name="CarpenterShop" type="Sprite2D" parent="Town Ui/Town Ground With roads/Shops and Institutions"]
 position = Vector2(517, 18)
 texture = ExtResource("4_saq27")
 
-[node name="Clinic" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+[node name="Clinic" type="Sprite2D" parent="Town Ui/Town Ground With roads/Shops and Institutions"]
 position = Vector2(242, -106)
 texture = ExtResource("5_itq42")
 
-[node name="Carpainter" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+[node name="Carpainter" type="Sprite2D" parent="Town Ui/Town Ground With roads/Shops and Institutions"]
 position = Vector2(390, -35)
 texture = ExtResource("6_b5787")
 
-[node name="BusStand" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+[node name="BusStand" type="Sprite2D" parent="Town Ui/Town Ground With roads/Shops and Institutions"]
 position = Vector2(-266, -337)
 texture = ExtResource("7_1kqxn")
 
-[node name="FireHydrant" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
-position = Vector2(42.0001, -143)
-texture = ExtResource("8_c6n77")
+[node name="StreetLamps" type="Node2D" parent="Town Ui/Town Ground With roads"]
 
-[node name="StreetLamp" type="Sprite2D" parent="Town Ui/Town Ground With roads"]
+[node name="StreetLamp" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
 position = Vector2(-130, -245)
 texture = ExtResource("9_xmybg")
 
-[node name="TownBuilding" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
-position = Vector2(65.0001, -284)
+[node name="StreetLamp2" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(46.0001, -157)
+texture = ExtResource("9_xmybg")
 
-[node name="TownBuilding2" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
-position = Vector2(196.5, -347)
+[node name="StreetLamp3" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(125, -116)
+texture = ExtResource("9_xmybg")
 
-[node name="TownBuilding3" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
-position = Vector2(320, -408)
+[node name="StreetLamp4" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(253, -53)
+texture = ExtResource("9_xmybg")
 
-[node name="TownBuilding4" parent="Town Ui/Town Ground With roads" instance=ExtResource("3_3sk7y")]
-position = Vector2(442, -473)
-_hasDiggingBuddy = true
+[node name="StreetLamp5" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(523, 82)
+texture = ExtResource("9_xmybg")
+
+[node name="StreetLamp6" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(-224, -170.5)
+texture = ExtResource("9_xmybg")
+
+[node name="StreetLamp7" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(-28.9999, -73)
+texture = ExtResource("9_xmybg")
+
+[node name="StreetLamp9" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(185, 30)
+texture = ExtResource("9_xmybg")
+
+[node name="StreetLamp10" type="Sprite2D" parent="Town Ui/Town Ground With roads/StreetLamps"]
+position = Vector2(429, 156.5)
+texture = ExtResource("9_xmybg")
+
+[node name="FireHydrants" type="Node2D" parent="Town Ui/Town Ground With roads"]
+
+[node name="FireHydrant" type="Sprite2D" parent="Town Ui/Town Ground With roads/FireHydrants"]
+position = Vector2(42.0001, -143)
+texture = ExtResource("8_c6n77")
+
+[node name="FireHydrant2" type="Sprite2D" parent="Town Ui/Town Ground With roads/FireHydrants"]
+position = Vector2(562, 118)
+texture = ExtResource("8_c6n77")
+
+[node name="FireHydrant3" type="Sprite2D" parent="Town Ui/Town Ground With roads/FireHydrants"]
+position = Vector2(468, 194)
+texture = ExtResource("8_c6n77")
+
+[node name="FireHydrant4" type="Sprite2D" parent="Town Ui/Town Ground With roads/FireHydrants"]
+position = Vector2(9.00012, -36)
+texture = ExtResource("8_c6n77")
+
+[node name="Trees" type="Node2D" parent="Town Ui/Town Ground With roads"]
+
+[node name="Big dark Green Trees (tree 2)" type="Node2D" parent="Town Ui/Town Ground With roads/Trees"]
+y_sort_enabled = true
+
+[node name="Tree2" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(-423, -52)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree3" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(-266, -113)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree4" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(-266, 19)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree5" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(-78.9999, -70)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree6" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(-119, 13)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree7" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(597, 348)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree8" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(415, -451)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree9" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(582, -468)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree10" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(394, -222)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree11" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(517, -285)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree12" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(456, -135)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree13" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(-120, -512)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree14" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(-32.9999, -478)
+texture = ExtResource("14_1x5o7")
+
+[node name="Tree15" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Big dark Green Trees (tree 2)"]
+position = Vector2(60.0001, -542)
+texture = ExtResource("14_1x5o7")
+
+[node name="Lighr green trees (tree 3)" type="Node2D" parent="Town Ui/Town Ground With roads/Trees"]
+
+[node name="Tree3" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(-331, -58)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree4" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(-198, -63)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree5" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(10.0001, 4)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree6" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(-135, 86)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree7" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(159, 236)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree8" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(501, -90)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree9" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(603, -132)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree10" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(555, -224)
+texture = ExtResource("15_3yjas")
+
+[node name="Tree11" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
+position = Vector2(613, -338)
+texture = ExtResource("15_3yjas")
+
+[node name="Pine trees (tree 1)" type="Node2D" parent="Town Ui/Town Ground With roads/Trees"]
+y_sort_enabled = true
+
+[node name="Tree1" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(-278, -419)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree2" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(-281, -472)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree3" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(-278, -512)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree4" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(-69.9999, -418)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree5" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(-3.99988, -452)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree6" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(62.0001, -478)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree7" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(126, -511)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree8" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(-25.9999, -251)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree9" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(148, -325)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree10" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(277, -384)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree11" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(170, -233)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree12" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(300, -293)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree13" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(535, -410)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree14" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(584, 35)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree15" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(311, 176)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree16" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(364, 200)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree17" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(417, 225)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree18" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(476, 256)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree19" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(530, 279)
+texture = ExtResource("16_ogrck")
+
+[node name="Fences" type="Node2D" parent="Town Ui/Town Ground With roads"]
+
+[node name="FencesV1" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(-77.9999, -212)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV2" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(-58.9999, -201)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV3" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(-37.9999, -191)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV4" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(-17.9999, -180)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV5" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(182, -84)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV6" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(292, -31)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV7" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(404, 24)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV8" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(425, 35)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV9" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(533, 84)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+frame = 1
+
+[node name="FencesV10" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(96.0001, -140)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+
+[node name="FencesV11" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(146, -165)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+
+[node name="FencesV12" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(201, -191)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+
+[node name="FencesV13" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(222, -202)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+
+[node name="FencesV14" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(274, -227)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+
+[node name="FencesV15" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(295, -238)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+
+[node name="FencesV16" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(342, -262)
+texture = ExtResource("17_1d4jb")
+hframes = 2
+
+[node name="FencesV17" type="Sprite2D" parent="Town Ui/Town Ground With roads/Fences"]
+position = Vector2(409, -297)
+texture = ExtResource("17_1d4jb")
+hframes = 2
 
 [node name="ColorRect2" type="ColorRect" parent="Town Ui"]
 z_index = 6

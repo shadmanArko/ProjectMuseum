@@ -45,4 +45,10 @@ public partial class FadeInAndOutUi : Control
 	{
 		MuseumActions.OnSleepComplete?.Invoke();
 	}
+
+	public override void _ExitTree()
+	{
+		MuseumActions.OnPlayerSleepAndSavedGame -= PlayFadeInAndOut;
+		MuseumActions.OnTimeUpdated -= OnTimeUpdated;
+	}
 }

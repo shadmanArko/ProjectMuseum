@@ -198,15 +198,6 @@
         "SpeakerEmotion": "Excited",
         "HasCutscene": false,
         "HasCutsceneArt": false
-      },
-      {
-        "EntryNo": "5d",
-        "IllustrationName": "05",
-        "Dialogue": "[TRIGGERTUTORIAL]",
-        "Speaker": "",
-        "SpeakerEmotion": "",
-        "HasCutscene": false,
-        "HasCutsceneArt": false
       }
     ]
   },
@@ -258,15 +249,6 @@
         "Dialogue": "Hold your horses! You still need a digging assistant, and I, for one, am too busy with the university. See if someone in town is willing to help you out. Meanwhile, I\u0027ll get some dinner.",
         "Speaker": "Professor Eucalyptus",
         "SpeakerEmotion": "Thoughtful",
-        "HasCutscene": false,
-        "HasCutsceneArt": false
-      },
-      {
-        "EntryNo": "6f",
-        "IllustrationName": "06",
-        "Dialogue": "[TRIGGERTUTORIAL]",
-        "Speaker": "",
-        "SpeakerEmotion": "",
         "HasCutscene": false,
         "HasCutsceneArt": false
       }
@@ -493,8 +475,8 @@
   {
     "Id": "",
     "SceneNo": 14,
-    "HasTutorial": false,
-    "TutorialNumber": 0,
+    "HasTutorial": true,
+    "TutorialNumber": 7,
     "StorySceneEntries": [
       {
         "EntryNo": "14a",
@@ -509,6 +491,23 @@
         "EntryNo": "14b",
         "IllustrationName": "",
         "Dialogue": "Once you think the museum is ready. Come speak to me and we will officially open!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 15,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "15a",
+        "IllustrationName": "",
+        "Dialogue": "Oh my... I haven't been this excited since I was about your age! ",
         "Speaker": "Professor Eucalyptus",
         "SpeakerEmotion": "Pleased",
         "HasCutscene": false,

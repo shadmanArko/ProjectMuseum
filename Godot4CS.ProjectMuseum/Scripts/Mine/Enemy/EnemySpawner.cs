@@ -22,10 +22,15 @@ public partial class EnemySpawner : Node2D
     
     [Export] private double _time;
     
-    private bool _autoMoveToPos;
-    private bool _jumpIntoMine;
+    // private bool _autoMoveToPos;
+    // private bool _jumpIntoMine;
     
     private Vector2 _newPos = new(560,-60);
+
+    [Export] private int[] _cellBreakTargetCount;
+    [Export] private int[] _enemySpawnCount;
+    [Export] private int _counter;
+    [Export] private bool _enemyMovingIntoMine;
 
     public override void _EnterTree()
     {
@@ -37,7 +42,7 @@ public partial class EnemySpawner : Node2D
         _enemies = new List<Enemy>();
         SetProcess(false);
         SetPhysicsProcess(false);
-        
+        _counter = 0;
     }
 
     private void InitializeDiInstallers()
@@ -57,7 +62,27 @@ public partial class EnemySpawner : Node2D
                 enemiesAlive++;
         }
         
-        if(enemiesAlive >= 3 || _mineGenerationVariables.BrokenCells < 10) return;
+        if(enemiesAlive >= 3) return;
+        CheckForEnemySpawnConditions();
+    }
+
+    private void CheckForEnemySpawnConditions()
+    {
+        if(_counter >= _enemySpawnCount.Length) return;
+
+        if (_enemySpawnCount[_counter] <= 0)
+            _counter++;
+
+        if (_mineGenerationVariables.BrokenCells >= _cellBreakTargetCount[_counter])
+        {
+            SpawnEnemy();
+            GD.Print($"SPAWNING SLIME OF COUNTER {_counter} AFTER BREAKING {_mineGenerationVariables.BrokenCells} CELLS (TARGET:{_cellBreakTargetCount[_counter]})");
+            _enemySpawnCount[_counter]--;
+        }
+    }
+
+    private void SpawnEnemy()
+    {
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
         GD.Print($"Slime Scene is null {scene is null}");
         _parentNode.AddChild(scene);
@@ -70,10 +95,9 @@ public partial class EnemySpawner : Node2D
 
         GD.Print("Spawning Enemy");
         _newEnemy = enemy;
-        _autoMoveToPos = false;
-        _jumpIntoMine = true;
+        //_autoMoveToPos = false;
+        //_jumpIntoMine = true;
         enemy.Position = new Vector2(730, -58);
-        
         SetProcess(true);
     }
 
@@ -109,7 +133,7 @@ public partial class EnemySpawner : Node2D
         if(enemy == null) return;
         if(enemy.Position.X > _newPos.X)
         {
-            enemy.Translate(new Vector2(-0.02f,0));
+            enemy.Translate(new Vector2(-0.1f,0));
             enemy.AnimationController.Play("move");
         }
         else
@@ -117,7 +141,7 @@ public partial class EnemySpawner : Node2D
             _p0 = enemy.Position;
             _p2 = enemy.Position + new Vector2(-60, 0);
             _p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
-            _autoMoveToPos = true;
+            //_autoMoveToPos = true;
             SetProcess(false);
             SetPhysicsProcess(true);
         }

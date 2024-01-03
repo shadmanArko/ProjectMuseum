@@ -23,13 +23,15 @@ public partial class MineGameConditions : Node
 		MineActions.OnOneHourPassed += PlayerFaintOnMidnight;
 	}
 
-	private void PlayerFaintOnMidnight(int hours)
+	private async void PlayerFaintOnMidnight(int hours)
 	{
 		GD.Print("An Hour Passed: "+hours);
 		if(hours != 24) return;
 		
 		_playerControllerVariables.PlayerHealth = 0;
 		GD.Print("Player fainted");
+		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Player fainted");
+		ReferenceStorage.Instance.SceneLoader.LoadMuseumScene();
 	}
 
 	public override void _ExitTree()

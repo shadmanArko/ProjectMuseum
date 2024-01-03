@@ -41,8 +41,6 @@ public partial class CampToMineTransition : Button
 		
         _playerControllerVariables.Gravity = 0;
         _playerControllerVariables.State = MotionState.Grounded;
-        // SetProcess(true);
-        // SetPhysicsProcess(false);
         _autoAnimationController._Ready();
     }
 
@@ -53,60 +51,39 @@ public partial class CampToMineTransition : Button
         await sceneTransition.FadeIn();
         _playerControllerVariables.CanMove = false;
         await Task.Delay(2000);
-        // await sceneTransition.FadeOut();
     }
 
-    // #region Process
+    
+    
+    // #region Auto Animations
     //
-    // public override void _Process(double delta)
+    // private void AutoMoveToPosition()
     // {
-    //     AutoMoveToPosition();
+    //     if(_playerControllerVariables.Player.Position.X <= _newPos.X)
+    //     {
+    //         _playerControllerVariables.Player.animationController.Play("run");
+    //         _playerControllerVariables.Player.Translate(new Vector2(0.02f,0));
+    //     }
+    //     else
+    //     {
+    //         _p0 = _playerControllerVariables.Player.Position;
+    //         _p2 = _playerControllerVariables.Player.Position + new Vector2(60, 0);
+    //         _p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
+    //
+    //         SetProcess(false);
+    //         SetPhysicsProcess(true);
+    //     }
     // }
-    //
-    // public override void _PhysicsProcess(double delta)
+	   //
+    // private Vector2 AutoJumpIntoMine(float t)
     // {
-    //     _playerControllerVariables.Player.Position = AutoJumpIntoMine((float) _time);
-    //     _time += delta;
-    //
-    //     if (!(_time >= 1.2f)) return;
-    //     SetProcess(false);
-    //     SetPhysicsProcess(false);
-    //     _playerControllerVariables.CanMove = true;
-    //     _playerControllerVariables.IsAffectedByGravity = true;
-    //     _playerControllerVariables.Gravity = 25f;
+    //     var q0 = _p0.Lerp(_p1, t);
+    //     var q1 = _p1.Lerp(_p2, t);
+    //     var r = q0.Lerp(q1, t);
+    //     return r;
     // }
     //
     // #endregion
-    
-    #region Auto Animations
-
-    private void AutoMoveToPosition()
-    {
-        if(_playerControllerVariables.Player.Position.X <= _newPos.X)
-        {
-            _playerControllerVariables.Player.animationController.Play("run");
-            _playerControllerVariables.Player.Translate(new Vector2(0.02f,0));
-        }
-        else
-        {
-            _p0 = _playerControllerVariables.Player.Position;
-            _p2 = _playerControllerVariables.Player.Position + new Vector2(60, 0);
-            _p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
-
-            SetProcess(false);
-            SetPhysicsProcess(true);
-        }
-    }
-	
-    private Vector2 AutoJumpIntoMine(float t)
-    {
-        var q0 = _p0.Lerp(_p1, t);
-        var q1 = _p1.Lerp(_p2, t);
-        var r = q0.Lerp(q1, t);
-        return r;
-    }
-
-    #endregion
 
     private void DeactivateCampExitPromptUi()
     {

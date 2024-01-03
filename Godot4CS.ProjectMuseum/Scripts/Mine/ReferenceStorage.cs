@@ -23,6 +23,7 @@ public partial class ReferenceStorage : Node
     [Export] public MineTutorial MineTutorial;
     [Export] public CameraController CameraController;
     [Export] public Plugins.Time_System.MineTimeSystem.Scripts.MineTimeSystem MineTimeSystem;
+    [Export] public SceneLoader SceneLoader;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://coi6tcy4grgu3"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/SceneLoader.cs" id="1_k0onf"]
+
+[node name="SceneLoader" type="Node"]
+script = ExtResource("1_k0onf")
+_museumScenePath = "res://Scenes/Museum/Main Scene/Museum.tscn"

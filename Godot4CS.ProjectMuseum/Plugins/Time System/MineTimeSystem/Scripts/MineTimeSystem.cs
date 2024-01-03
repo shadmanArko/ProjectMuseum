@@ -40,7 +40,7 @@ public partial class MineTimeSystem : Node
 	private void UpdateTime()
 	{
 		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
-		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+		
 		
 		GD.Print($"{_time.Days}-{_time.Hours}:{_time.Minutes}");
 		
@@ -98,8 +98,7 @@ public partial class MineTimeSystem : Node
 				}
 			}
 		}
-        
-
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 	}
 
 	public void StartDay()

@@ -275,7 +275,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		SetPhysicsProcess(false);
 		MineActions.OnPlayerDead?.Invoke();
 		_ExitTree();
-		QueueFree();
 	}
 
 	public override void _ExitTree()

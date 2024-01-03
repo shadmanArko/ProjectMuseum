@@ -5,9 +5,15 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.MineTimeSystem;
 public partial class MineTimePanel : PanelContainer
 {
 	[Export] private Label _time;
-	public override void _Ready()
+
+	public override void _EnterTree()
 	{
 		SubscribeToActions();
+	}
+
+	public override void _Ready()
+	{
+		
 	}
 
 	private void SubscribeToActions()

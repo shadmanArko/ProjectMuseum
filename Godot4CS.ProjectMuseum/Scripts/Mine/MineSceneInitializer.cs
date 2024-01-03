@@ -12,7 +12,7 @@ public partial class MineSceneInitializer : Node
 	{
 		GenerateMine();
 		InstantiatePlayer();
-		ReferenceStorage.Instance.MineTimeSystem.StartDay();
+		
 	}
 
 	private void GenerateMine()

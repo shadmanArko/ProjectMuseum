@@ -16,6 +16,17 @@ public partial class MineTimeSystem : Node
     
 	private  Time _time = new();
 
+	public override void _EnterTree()
+	{
+		SubscribeToActions();
+		_isPaused = true;
+	}
+
+	private void SubscribeToActions()
+	{
+		MineActions.OnPlayerSpawned += StartDayOneMineExcavation;
+	}
+
 	public override void _Ready()
 	{
 		
@@ -101,13 +112,22 @@ public partial class MineTimeSystem : Node
 		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 	}
 
-	public void StartDay()
+	public void StartDayOneMineExcavation()
 	{
 		_time.Days = 1;
-		_time.Hours = 23;
+		_time.Hours = 8;
 		_time.Minutes = 0;
 		_time.Seconds = 0;
-		_isPaused = false;
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+	}
+	
+	public void StartNextDayMineExcavation()
+	{
+		++_time.Days;
+		_time.Hours = 8;
+		_time.Minutes = 0;
+		_time.Seconds = 0;
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 	}
 	
 	public void SetTime(int seconds, int minutes, int hours, int days)
@@ -117,7 +137,9 @@ public partial class MineTimeSystem : Node
 		_time.Minutes = minutes;
 		_time.Seconds = seconds;
 	}
-	
+
+	public void PlayTimer() => _isPaused = false;
+	public void PauseTimer() => _isPaused = true;
 
 	public void TogglePause()
 	{

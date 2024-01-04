@@ -40,7 +40,7 @@
     "Materials": ["Wood", "Stone"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
-    "LargeImageLocation": "TBD",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Tomahawk.png",
     "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {

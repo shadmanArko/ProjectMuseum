@@ -24,6 +24,8 @@ public partial class Slime : Enemy
     
     [Export] private Timer _stateChangeTimer;
 
+    #region Initializers
+
     public override void _EnterTree()
     {
         TrackTimer = GetNode<Timer>("Track Timer");
@@ -50,6 +52,8 @@ public partial class Slime : Enemy
     {
         
     }
+
+    #endregion
 
     private void OnTrackTimerTimeOut()
     {
@@ -194,6 +198,7 @@ public partial class Slime : Enemy
     public void OnAggroAnimationFinished(string animName)
     {
         if(animName != "aggro") return;
+        IsAggro = true;
         State = EnemyState.Move;
     }
 

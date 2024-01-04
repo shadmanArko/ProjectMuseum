@@ -22,6 +22,7 @@ public partial class MineToCampTransition : Button
 
     private void TransitFromMineToCamp()
     {
+        ReferenceStorage.Instance.MineTimeSystem.PauseTimer();
         MineToCamp();
     }
 

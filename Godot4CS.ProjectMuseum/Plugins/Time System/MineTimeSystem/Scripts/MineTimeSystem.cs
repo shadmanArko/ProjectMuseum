@@ -12,13 +12,24 @@ public partial class MineTimeSystem : Node
 	private int _daysInMonth = 30;
 	private int _monthsInYear = 4;
 
-	private bool _isPaused;
+	[Export] private bool _isPaused;
     
 	private  Time _time = new();
 
+	public override void _EnterTree()
+	{
+		SubscribeToActions();
+		_isPaused = true;
+	}
+
+	private void SubscribeToActions()
+	{
+		MineActions.OnPlayerSpawned += StartDayOneMineExcavation;
+	}
+
 	public override void _Ready()
 	{
-		//_isPaused = true;
+		
 	}
 
 	
@@ -40,7 +51,9 @@ public partial class MineTimeSystem : Node
 	private void UpdateTime()
 	{
 		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
-		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+		
+		
+		GD.Print($"{_time.Days}-{_time.Hours}:{_time.Minutes}");
 		
 		_time.Minutes+=10;
 		if (_time.Minutes >= _minutesInHour)
@@ -96,24 +109,37 @@ public partial class MineTimeSystem : Node
 				}
 			}
 		}
-        
-
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 	}
 
-	// public void StartTime()
-	// {
-	// 	_isPaused = false;
-	// 	_time.Days = 1;
-	// 	_time.Hours = 8;
-	// 	_time.Minutes = 0;
-	// 	_time.Seconds = 0;
-	// }
-	//
-	// public void SetTime()
-	// {
-	// 	
-	// }
+	public void StartDayOneMineExcavation()
+	{
+		_time.Days = 1;
+		_time.Hours = 8;
+		_time.Minutes = 0;
+		_time.Seconds = 0;
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+	}
 	
+	public void StartNextDayMineExcavation()
+	{
+		++_time.Days;
+		_time.Hours = 8;
+		_time.Minutes = 0;
+		_time.Seconds = 0;
+		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+	}
+	
+	public void SetTime(int seconds, int minutes, int hours, int days)
+	{
+		_time.Days = days;
+		_time.Hours = hours;
+		_time.Minutes = minutes;
+		_time.Seconds = seconds;
+	}
+
+	public void PlayTimer() => _isPaused = false;
+	public void PauseTimer() => _isPaused = true;
 
 	public void TogglePause()
 	{

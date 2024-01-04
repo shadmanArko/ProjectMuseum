@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=20 format=3 uid="uid://baf5s8ygn03sp"]
 
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://yluxww6pnckx" path="res://Assets/2D/Sprites/Town/tree 3.png" id="15_3yjas"]
 [ext_resource type="Texture2D" uid="uid://cto1evuud5now" path="res://Assets/2D/Sprites/Town/tree 1.png" id="16_ogrck"]
 [ext_resource type="Texture2D" uid="uid://dg3fk2x43213h" path="res://Assets/2D/Sprites/Town/fences v1.png" id="17_1d4jb"]
+[ext_resource type="Texture2D" uid="uid://bctxfkps1ledr" path="res://Assets/2D/Sprites/Town/grass.png" id="17_pei67"]
 
 [node name="Panel" type="Panel"]
 self_modulate = Color(1, 1, 1, 0.388235)
@@ -192,6 +193,7 @@ position = Vector2(9.00012, -36)
 texture = ExtResource("8_c6n77")
 
 [node name="Trees" type="Node2D" parent="Town Ui/Town Ground With roads"]
+y_sort_enabled = true
 
 [node name="Big dark Green Trees (tree 2)" type="Node2D" parent="Town Ui/Town Ground With roads/Trees"]
 y_sort_enabled = true
@@ -253,6 +255,7 @@ position = Vector2(60.0001, -542)
 texture = ExtResource("14_1x5o7")
 
 [node name="Lighr green trees (tree 3)" type="Node2D" parent="Town Ui/Town Ground With roads/Trees"]
+y_sort_enabled = true
 
 [node name="Tree3" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Lighr green trees (tree 3)"]
 position = Vector2(-331, -58)
@@ -353,6 +356,14 @@ texture = ExtResource("16_ogrck")
 position = Vector2(311, 176)
 texture = ExtResource("16_ogrck")
 
+[node name="Tree20" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(-34.9999, 159)
+texture = ExtResource("16_ogrck")
+
+[node name="Tree21" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
+position = Vector2(154, 169)
+texture = ExtResource("16_ogrck")
+
 [node name="Tree16" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
 position = Vector2(364, 200)
 texture = ExtResource("16_ogrck")
@@ -368,6 +379,157 @@ texture = ExtResource("16_ogrck")
 [node name="Tree19" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
 position = Vector2(530, 279)
 texture = ExtResource("16_ogrck")
+
+[node name="Small Trees (grass)" type="Node2D" parent="Town Ui/Town Ground With roads/Trees"]
+y_sort_enabled = true
+
+[node name="Grass" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-393, -12)
+texture = ExtResource("17_pei67")
+
+[node name="Grass2" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-367, -69)
+texture = ExtResource("17_pei67")
+
+[node name="Grass3" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-284, -81)
+texture = ExtResource("17_pei67")
+
+[node name="Grass4" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-337, 4)
+texture = ExtResource("17_pei67")
+
+[node name="Grass5" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-208, 11)
+texture = ExtResource("17_pei67")
+
+[node name="Grass6" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-163, -33)
+texture = ExtResource("17_pei67")
+
+[node name="Grass7" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-155, -74)
+texture = ExtResource("17_pei67")
+
+[node name="Grass8" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-245, 65)
+texture = ExtResource("17_pei67")
+
+[node name="Grass9" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-211, 93)
+texture = ExtResource("17_pei67")
+
+[node name="Grass10" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-166, 108)
+texture = ExtResource("17_pei67")
+
+[node name="Grass11" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-156, 38)
+texture = ExtResource("17_pei67")
+
+[node name="Grass12" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-39.9999, 40)
+texture = ExtResource("17_pei67")
+
+[node name="Grass13" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(-56.9999, -26)
+texture = ExtResource("17_pei67")
+
+[node name="Grass14" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(39.0001, 33)
+texture = ExtResource("17_pei67")
+
+[node name="Grass15" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(58.0001, 133)
+texture = ExtResource("17_pei67")
+
+[node name="Grass17" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(203, 295)
+texture = ExtResource("17_pei67")
+
+[node name="Grass18" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(249, 319)
+texture = ExtResource("17_pei67")
+
+[node name="Grass19" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(297, 341)
+texture = ExtResource("17_pei67")
+
+[node name="Grass20" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(345, 365)
+texture = ExtResource("17_pei67")
+
+[node name="Grass21" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(394, 389)
+texture = ExtResource("17_pei67")
+
+[node name="Grass22" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(442, 413)
+texture = ExtResource("17_pei67")
+
+[node name="Grass23" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(491, 437)
+texture = ExtResource("17_pei67")
+
+[node name="Grass24" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(538, 462)
+texture = ExtResource("17_pei67")
+
+[node name="Grass25" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(585, 483)
+texture = ExtResource("17_pei67")
+
+[node name="Grass26" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(417, -331)
+texture = ExtResource("17_pei67")
+
+[node name="Grass27" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(522, -472)
+texture = ExtResource("17_pei67")
+
+[node name="Grass28" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(581, -409)
+texture = ExtResource("17_pei67")
+
+[node name="Grass29" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(335, -179)
+texture = ExtResource("17_pei67")
+
+[node name="Grass30" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(351, -129)
+texture = ExtResource("17_pei67")
+
+[node name="Grass31" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(431, -95)
+texture = ExtResource("17_pei67")
+
+[node name="Grass32" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(467, -225)
+texture = ExtResource("17_pei67")
+
+[node name="Grass33" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(589, -311)
+texture = ExtResource("17_pei67")
+
+[node name="Grass34" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(525, -174)
+texture = ExtResource("17_pei67")
+
+[node name="Grass35" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(598, -223)
+texture = ExtResource("17_pei67")
+
+[node name="Grass36" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(576, -64)
+texture = ExtResource("17_pei67")
+
+[node name="Grass37" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(591, 90)
+texture = ExtResource("17_pei67")
+
+[node name="Grass16" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
+position = Vector2(141, 93)
+texture = ExtResource("17_pei67")
 
 [node name="Fences" type="Node2D" parent="Town Ui/Town Ground With roads"]
 

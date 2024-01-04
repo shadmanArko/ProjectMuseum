@@ -40,6 +40,7 @@ public partial class Slime : Enemy
         IsDead = false;
         Health = 100;
         StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
+        IsAggro = true;
     }
 
     private void InitializeDiReferences()
@@ -76,7 +77,7 @@ public partial class Slime : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
-        CheckPlayerAggro();
+        // CheckPlayerAggro();
 
         switch (State)
         {

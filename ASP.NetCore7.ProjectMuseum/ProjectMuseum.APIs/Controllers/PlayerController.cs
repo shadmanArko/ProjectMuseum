@@ -63,6 +63,12 @@ public class PlayerController : ControllerBase
         await _loadService.LoadData();
         return Ok();
     }
+    [HttpGet("LoadDataForNewGame")]
+    public async Task<IActionResult> LoadDataForNewGame()
+    {
+        await _loadService.LoadDataForNewGame();
+        return Ok();
+    }
 
     [HttpGet("GetAllWeaponsInInventory")]
     public async Task<IActionResult> GetAllWeaponsInInventory()

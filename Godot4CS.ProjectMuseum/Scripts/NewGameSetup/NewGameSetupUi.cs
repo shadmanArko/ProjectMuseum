@@ -30,8 +30,7 @@ public partial class NewGameSetupUi : Control
 
 	private void HttpRequestForClearingPreviousDataAndStartingNewGameOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
-		GD.Print("wil change scene now");
-		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
+		SavePlayerInfo();
 	}
 
 	private void StartButtonOnPressed()
@@ -42,18 +41,25 @@ public partial class NewGameSetupUi : Control
 			_warningPanel.Visible = true;
 			return;
 		}
+		LoadingPanel.SetProcess(true);
+		LoadingPanel.Visible = true;
+		_httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.PlayerApiPath +
+		                                                              "LoadDataForNewGame");
+		GD.Print("new game set Up request done");
 		
-		GD.Print($"Name: {LineEdit.Text}, Gender: {OptionButton.Text}, Tutorial: { CheckButton.ButtonPressed}" );
+	}
+
+	private void SavePlayerInfo()
+	{
+		GD.Print($"Name: {LineEdit.Text}, Gender: {OptionButton.Text}, Tutorial: {CheckButton.ButtonPressed}");
 		string body = Json.Stringify(new Godot.Collections.Dictionary
 		{
 			{ "Id", "string" },
 			{ "Name", LineEdit.Text },
 			{ "Gender", OptionButton.Text },
 			{ "Tutorial", CheckButton.ButtonPressed }
-			
-
 		});
-		string[] headers = { "Content-Type: application/json"};
+		string[] headers = { "Content-Type: application/json" };
 		Error error = _httpRequestForNewGameSetUpData.Request($"{ApiAddress.UrlPrefix}Player/PostPlayerInfo", headers,
 			HttpClient.Method.Post, body);
 		if (error != Error.Ok)
@@ -64,11 +70,9 @@ public partial class NewGameSetupUi : Control
 		{
 			GD.Print("Error ok");
 		}
-
-		
 	}
 
-	
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
@@ -76,10 +80,7 @@ public partial class NewGameSetupUi : Control
 
 	void OnNewGameSetupRequestForNewGameSetUpDataComplete(long result, long responsecode, string[] headers, byte[] body)
 	{
-		LoadingPanel.SetProcess(true);
-		LoadingPanel.Visible = true;
-		_httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.MuseumApiPath +
-		                                                              "StartNewGame");
-		GD.Print("new game set Up request done");
+		GD.Print("wil change scene now");
+		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
 	}
 }

@@ -226,7 +226,7 @@ public partial class DialogueSystem : Control
 		_dialogueRichTextLabel.Text = "";
 		foreach (var letter in dialogue.ToCharArray())
 		{
-			cancellationToken.ThrowIfCancellationRequested();
+			// cancellationToken.ThrowIfCancellationRequested();
 			float delayTime = _delayBetweenLetters;
 			if (letter == ',')
 			{
@@ -254,7 +254,7 @@ public partial class DialogueSystem : Control
 				continue;
 			}
 			_dialogueRichTextLabel.Text += letter;
-			cancellationToken.ThrowIfCancellationRequested();
+			// cancellationToken.ThrowIfCancellationRequested();
 			await Task.Delay((int)(delayTime * 1000), cancellationToken);
 		}
 

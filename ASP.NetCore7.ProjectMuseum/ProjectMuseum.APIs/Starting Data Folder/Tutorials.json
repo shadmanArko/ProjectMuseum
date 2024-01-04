@@ -180,5 +180,21 @@
         ]
       }
     ]
+  },
+  {
+    "Id": "Tut7",
+    "SceneNo": 7,
+    "ContinuesStory": true,
+    "StoryNumber": 15,
+    "TutorialSceneEntries": [
+      {
+        "EntryNo": "Tut7a",
+        "TutorialText": "Speak to the Professor once you are ready to open the museum to visitors.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "TalkToProfessor"
+        ]
+      }
+    ]
   }
 ]

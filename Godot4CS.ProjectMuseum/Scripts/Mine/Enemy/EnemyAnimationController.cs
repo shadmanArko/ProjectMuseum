@@ -18,8 +18,6 @@ public partial class EnemyAnimationController : AnimationPlayer
         else
             Play(animName);
     }
-    
-    
 
     
 }

@@ -10,20 +10,20 @@ public class SaveDataJsonFileDatabase
     private readonly string _displayArtifactDataFolderPath;
     private readonly string _exhibitDataFolderPath;
     private readonly string _exhibitVariationDataFolderPath;
-    private readonly string _tileVariationDataFolderPath;
-    private readonly string _wallVariationDataFolderPath;
-    private readonly string _wallpaperVariationDataFolderPath;
     private readonly string _inventoryDataFolderPath;
-    private readonly string _mineDataFolderPath;
     private readonly string _mineArtifactsDataFolderPath;
+    private readonly string _mineDataFolderPath;
     private readonly string _museumDataFolderPath;
     private readonly string _museumTileDataFolderPath;
     private readonly string _playerInfoDataFolderPath;
     private readonly string _saveDataFolderPath;
-    private readonly string _tutorialDataFolderPath;
     private readonly string _storySceneDataFolderPath;
-    private readonly string _tradingArtifactsDataFolderPath;
+    private readonly string _tileVariationDataFolderPath;
     private readonly string _timeDataFolderPath;
+    private readonly string _tradingArtifactsDataFolderPath;
+    private readonly string _tutorialDataFolderPath;
+    private readonly string _wallpaperVariationDataFolderPath;
+    private readonly string _wallVariationDataFolderPath;
 
 
     public SaveDataJsonFileDatabase(
@@ -112,7 +112,7 @@ public class SaveDataJsonFileDatabase
 
         await File.WriteAllTextAsync(_saveDataFolderPath, mergedJson);
     }
-    
+
     public async Task SplitJsonFile()
     {
         var mergedJson = await File.ReadAllTextAsync(_saveDataFolderPath);
@@ -136,7 +136,6 @@ public class SaveDataJsonFileDatabase
         await File.WriteAllTextAsync(_tradingArtifactsDataFolderPath, JsonSerializer.Serialize(mergedData?.TradingArtifacts, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_timeDataFolderPath, JsonSerializer.Serialize(mergedData?.Times, new JsonSerializerOptions{ WriteIndented = true }));
     }
-    
 }
 public class MergedData
 {

@@ -12,6 +12,7 @@ public partial class MineSceneInitializer : Node
 	{
 		GenerateMine();
 		InstantiatePlayer();
+		
 	}
 
 	private void GenerateMine()
@@ -30,6 +31,8 @@ public partial class MineSceneInitializer : Node
 		var scene = ResourceLoader.Load<PackedScene>(_playerScenePrefabPath).Instantiate();
 		GD.Print($"Player Scene is null {scene is null}");
 		AddChild(scene);
+		MineActions.OnPlayerSpawned?.Invoke();
+		GD.Print("ON PLAYER SPAWNED CALLED");
 	}
             
 }

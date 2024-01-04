@@ -9,4 +9,7 @@ public interface IInventoryRepository
     Task<Artifact> AddArtifact(Artifact artifact);
     Task RemoveAllArtifacts();
     Task<Inventory?> GetInventory();
+    Task<List<int>?> GetEmptySlots();
+    Task<int> GetNextEmptySlot();
+    Task ReleaseOccupiedSlot(int slot);
 }

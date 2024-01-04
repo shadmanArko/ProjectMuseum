@@ -1,7 +1,9 @@
+using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
@@ -59,16 +61,9 @@ public partial class AutoAnimationController : Node2D
 	{
 		_playerControllerVariables.Player.Position = AutoJumpIntoMine((float) _time);
 		_time += delta;
-
-		// if (!(_time >= 1.1f)) return;
-		if(_playerControllerVariables.Position.Y < _p2.Y+10) return;
-		SetProcess(false);
-		SetPhysicsProcess(false);
-		_playerControllerVariables.CanMove = true;
-		_playerControllerVariables.IsAffectedByGravity = true;
-		_playerControllerVariables.Gravity = 25f;
 		
-		ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+		if(_playerControllerVariables.Position.Y < _p2.Y+10) return;
+		ActionsToPerformAfterPlayerLandsIntoTheMine();
 	}
     
 	#region Auto Animations
@@ -78,7 +73,7 @@ public partial class AutoAnimationController : Node2D
 		if(_playerControllerVariables.Player.Position.X <= _newPos.X)
 		{
 			_animationController.Play("run");
-			_playerControllerVariables.Player.Translate(new Vector2(0.03f,0));
+			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0));
 		}
 		else
 		{
@@ -102,4 +97,22 @@ public partial class AutoAnimationController : Node2D
 	}
 
 	#endregion
+
+	private void ActionsToPerformAfterPlayerLandsIntoTheMine()
+	{
+		SetProcess(false);
+		SetPhysicsProcess(false);
+		_playerControllerVariables.CanMove = true;
+		_playerControllerVariables.IsAffectedByGravity = true;
+		_playerControllerVariables.Gravity = 25f;
+	
+		//TODO: TURN ON THIS IF YOU WANT TUTORIALS
+		// ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+		_playerControllerVariables.CanMoveLeftAndRight = true;
+		_playerControllerVariables.CanAttack = true;
+		_playerControllerVariables.CanBrush = true;
+		_playerControllerVariables.CanDig = true;
+		_playerControllerVariables.CanToggleClimb = true;
+		ReferenceStorage.Instance.MineTimeSystem.PlayTimer();
+	}
 }

@@ -8,6 +8,7 @@ public class MineGenerationVariables
 {
     public global::ProjectMuseum.Models.Mine Mine;
     public MineGenerationView MineGenView;
+    public int BrokenCells { get; set; }
 
     public Cell GetCell(Vector2I tilePos)
     {

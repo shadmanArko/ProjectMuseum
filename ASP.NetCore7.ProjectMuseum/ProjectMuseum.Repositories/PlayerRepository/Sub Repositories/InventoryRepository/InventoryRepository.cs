@@ -43,6 +43,41 @@ public class InventoryRepository : IInventoryRepository
         return inventory;
     }
 
+    public async Task<List<int>?> GetEmptySlots()
+    {
+        var listOfInventory = await _inventoryDatabase.ReadDataAsync();
+        var inventory = listOfInventory?[0];
+        return inventory?.EmptySlots;
+    }
+
+    public async Task<int> GetNextEmptySlot()
+    {
+        var listOfInventory = await _inventoryDatabase.ReadDataAsync();
+        var inventory = listOfInventory?[0];
+        var emptySlots = inventory?.EmptySlots;
+        //TODO: check for empty slot and return most recent one
+        return emptySlots![0];
+    }
+
+    public async Task ReleaseOccupiedSlot(int slot)
+    {
+        var listOfInventory = await _inventoryDatabase.ReadDataAsync();
+        var inventory = listOfInventory?[0];
+        var emptySlots = inventory?.EmptySlots;
+        emptySlots?.RemoveAt(slot);
+        var tempSlots = new List<int>();
+        if (emptySlots != null)
+        {
+            foreach (var emptySlot in emptySlots)
+            {
+                if (emptySlot == 0) continue;
+                tempSlots.Add(emptySlot);
+            }
+        }
+
+        inventory!.EmptySlots = tempSlots;
+    }
+
     public async Task<Artifact> AddArtifact(Artifact artifact)
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();

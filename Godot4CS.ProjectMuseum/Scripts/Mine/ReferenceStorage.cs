@@ -1,4 +1,5 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using Godot4CS.ProjectMuseum.Scripts.Mine.UI;
@@ -20,6 +21,9 @@ public partial class ReferenceStorage : Node
     [Export] public EnemySpawner EnemySpawner;
     [Export] public MiniGameController MiniGameController;
     [Export] public MineTutorial MineTutorial;
+    [Export] public CameraController CameraController;
+    [Export] public Plugins.Time_System.MineTimeSystem.Scripts.MineTimeSystem MineTimeSystem;
+    [Export] public SceneLoader SceneLoader;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;

@@ -13,7 +13,6 @@ public static class Const
     public static string tutorialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "Tutorials.json");
     public static string mineDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mine.json");
     public static string playerInfoDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "PlayerInfo.json");
-
     public static string saveDataFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Documents", "RTI", "Museum Keeper", "save.json");
     public static string inventoryDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "inventory.json");
     public static string mineArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mineArtifact.json");

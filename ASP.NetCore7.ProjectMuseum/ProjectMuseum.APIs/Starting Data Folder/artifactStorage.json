@@ -2,73 +2,10 @@
   {
     "Artifacts": [
       {
-        "Id": null,
-        "RawArtifactId": "A001",
-        "PositionX": 0,
-        "PositionY": 0,
-        "Slot": 0
-      },
-      {
-        "Id": null,
-        "RawArtifactId": "A002",
-        "PositionX": 0,
-        "PositionY": 0,
-        "Slot": 0
-      },
-      {
-        "Id": "xyz789",
-        "RawArtifactId": "raw987",
-        "PositionX": 0,
-        "PositionY": 0,
-        "Slot": 0
-      },
-      {
-        "Id": null,
-        "RawArtifactId": "A001",
-        "PositionX": 0,
-        "PositionY": 0,
-        "Slot": 0
-      },
-      {
-        "Id": null,
-        "RawArtifactId": "A002",
-        "PositionX": 0,
-        "PositionY": 0,
-        "Slot": 0
-      },
-      {
-        "Id": "xyz789",
-        "RawArtifactId": "raw987",
-        "PositionX": 0,
-        "PositionY": 0,
-        "Slot": 0
-      },
-      {
-        "Id": "12",
-        "RawArtifactId": "IndustrialAmericanMusket",
-        "PositionX": 23,
-        "PositionY": 46,
-        "Slot": 0
-      },
-      {
-        "Id": "12",
-        "RawArtifactId": "IndustrialAmericanMusket",
-        "PositionX": 23,
-        "PositionY": 46,
-        "Slot": 0
-      },
-      {
-        "Id": "164",
-        "RawArtifactId": "ClassicalNativeAmericanWarShield",
-        "PositionX": 23,
-        "PositionY": 46,
-        "Slot": 0
-      },
-      {
-        "Id": "165",
-        "RawArtifactId": "ClassicalNativeAmericanBowl",
-        "PositionX": 23,
-        "PositionY": 46,
+        "Id": "4",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 22,
+        "PositionY": 6,
         "Slot": 0
       }
     ]

@@ -1,7 +1,6 @@
 [
   {
     "VariationName": "SmallWoodenExhibitBasic",
-    "Price": 75,
     "ExhibitDecoration": "Sprite-0006",
     "ExhibitSize": "small",
     "NumberOfTilesNeeded": 1,
@@ -11,7 +10,6 @@
   },
   {
     "VariationName": "MediumWoodenExhibitBasic",
-    "Price": 100,
     "ExhibitDecoration": "Sprite-0007",
     "ExhibitSize": "Medium",
     "NumberOfTilesNeeded": 2,
@@ -21,7 +19,6 @@
   },
   {
     "VariationName": "MediumWoodenExhibitBasic2",
-    "Price": 100,
     "ExhibitDecoration": "Sprite-0008",
     "ExhibitSize": "Medium",
     "NumberOfTilesNeeded": 2,
@@ -31,7 +28,6 @@
   },
   {
     "VariationName": "LargeWoodenExhibitBasic",
-    "Price": 200,
     "ExhibitDecoration": "Sprite-0009",
     "ExhibitSize": "Large",
     "NumberOfTilesNeeded": 2,

@@ -358,5 +358,179 @@
         "HasCutsceneArt": false
       }
     ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 10,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "10a",
+        "IllustrationName": "",
+        "Dialogue": "Looks like you got the hang of it! Good luck down there! ",
+        "Speaker": "Alex",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 11,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "11a",
+        "IllustrationName": "",
+        "Dialogue": "Hey, before it gets too late, be sure to make your way to the surface! It's dangerous to stay down there too late at night.",
+        "Speaker": "Alex",
+        "SpeakerEmotion": "Excited",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 12,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "12a",
+        "IllustrationName": "",
+        "Dialogue": "Looks like you had a productive first expedition. A couple of new artifacts will go a long way in helping the museum return to its glory days.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "12b",
+        "IllustrationName": "",
+        "Dialogue": "Actually, before you officially reopen the museum, I think you'll need a bit more help. I wonder if someone is willing to help run the ticket counter. Someone unscrupulous... and organized.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "12c",
+        "IllustrationName": "",
+        "Dialogue": "*Knock* *Knock*",
+        "Speaker": "Default",
+        "SpeakerEmotion": "",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 13,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "13a",
+        "IllustrationName": "",
+        "Dialogue": "Hey. I'm Emily from down the street. I've been noticing some ruckus about the museum.",
+        "Speaker": "Emily",
+        "SpeakerEmotion": "Informative",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "13b",
+        "IllustrationName": "",
+        "Dialogue": "Am I correct in assuming that the museum is opening again?",
+        "Speaker": "Emily",
+        "SpeakerEmotion": "Sassy",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "13c",
+        "IllustrationName": "",
+        "Dialogue": "Well... whattaya know?",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "13d",
+        "IllustrationName": "",
+        "Dialogue": "Young lady, are you, by any chance, in need of a job?",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "13e",
+        "IllustrationName": "",
+        "Dialogue": "You kidding? I'd happily take a gig at a museum in this economy.",
+        "Speaker": "Emily",
+        "SpeakerEmotion": "Sassy",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "13f",
+        "IllustrationName": "",
+        "Dialogue": "Well [PLAYERNAME], it looks like some problems sort themselves out.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 14,
+    "HasTutorial": true,
+    "TutorialNumber": 7,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "14a",
+        "IllustrationName": "",
+        "Dialogue": "Looks like we have a small team going!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "14b",
+        "IllustrationName": "",
+        "Dialogue": "Once you think the museum is ready. Come speak to me and we will officially open!",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 15,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "15a",
+        "IllustrationName": "",
+        "Dialogue": "Oh my... I haven't been this excited since I was about your age! ",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
   }
 ]

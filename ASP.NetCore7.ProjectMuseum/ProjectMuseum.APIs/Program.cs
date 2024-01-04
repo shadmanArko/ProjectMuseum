@@ -1,4 +1,3 @@
-using System.Net.Mime;
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.BuilderCardsRepository;
@@ -34,28 +33,8 @@ using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
 using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
 using ProjectMuseum.Services.StorySceneService;
-using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
-string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json");
-string museumDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museum.json");
-string exhibitDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibit.json");
-string exhibitVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibitVariations.json");
-string wallVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallVariations.json");
-string wallpaperVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallpaperVariations.json");
-string tileVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tileVariations.json");
-string storySceneDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "StoryScene.json");
-string tutorialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "Tutorials.json");
-string mineDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mine.json");
-string playerInfoDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "PlayerInfo.json");
-string saveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "save.json");
-string inventoryDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "inventory.json");
-string mineArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "mineArtifact.json");
-string displayArtifactDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "displayArtifact.json");
-string artifactStorageDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "artifactStorage.json");
-string tradingArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tradingArtifacts.json");
-string timeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "time.json");
-
 
 
 //NO Need to change these paths
@@ -79,47 +58,47 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
-builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(museumTileDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(exhibitDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(exhibitVariationDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<TileVariation>(tileVariationDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<WallVariation>(wallVariationDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<WallpaperVariation>(wallpaperVariationDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<StoryScene>(storySceneDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Tutorial>(tutorialDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(playerInfoDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Museum>(museumDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Mine>(mineDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Inventory>(inventoryDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<MineArtifacts>(mineArtifactsDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<DisplayArtifacts>(displayArtifactDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<ArtifactStorage>(artifactStorageDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(tradingArtifactsDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(Const.museumTileDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(Const.exhibitDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(Const.exhibitVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<TileVariation>(Const.tileVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<WallVariation>(Const.wallVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<WallpaperVariation>(Const.wallpaperVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<StoryScene>(Const.storySceneDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Tutorial>(Const.tutorialDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(Const.playerInfoDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Museum>(Const.museumDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Mine>(Const.mineDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Inventory>(Const.inventoryDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<MineArtifacts>(Const.mineArtifactsDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<DisplayArtifacts>(Const.displayArtifactDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ArtifactStorage>(Const.artifactStorageDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(Const.tradingArtifactsDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackMaterialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Time>(timeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
-    artifactStorageDataFolderPath,
-    displayArtifactDataFolderPath,
-    exhibitDataFolderPath,
-    exhibitVariationDataFolderPath,
-    inventoryDataFolderPath,
-    mineDataFolderPath,
-    mineArtifactsDataFolderPath,
-    museumDataFolderPath,
-    museumTileDataFolderPath,
-    playerInfoDataFolderPath,
-    saveDataFolderPath,
-    storySceneDataFolderPath,
-    tradingArtifactsDataFolderPath,
-    timeDataFolderPath,
-    tutorialDataFolderPath,
-    wallVariationDataFolderPath,
-    tileVariationDataFolderPath,
-    wallpaperVariationDataFolderPath
+    Const.artifactStorageDataFolderPath,
+    Const.displayArtifactDataFolderPath,
+    Const.exhibitDataFolderPath,
+    Const.exhibitVariationDataFolderPath,
+    Const.inventoryDataFolderPath,
+    Const.mineDataFolderPath,
+    Const.mineArtifactsDataFolderPath,
+    Const.museumDataFolderPath,
+    Const.museumTileDataFolderPath,
+    Const.playerInfoDataFolderPath,
+    Const.saveDataFolderPath,
+    Const.storySceneDataFolderPath,
+    Const.tradingArtifactsDataFolderPath,
+    Const.timeDataFolderPath,
+    Const.tutorialDataFolderPath,
+    Const.wallVariationDataFolderPath,
+    Const.tileVariationDataFolderPath,
+    Const.wallpaperVariationDataFolderPath
     ));
 
 
@@ -180,10 +159,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-Console.WriteLine("Base directory " +AppContext.BaseDirectory);
-Console.WriteLine("Current directory " +Directory.GetCurrentDirectory());
-Console.WriteLine("Doc folder directory " +Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-Console.WriteLine("persistent directory " +  Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Museum Keeper"));
+Console.WriteLine("Base directory " + AppContext.BaseDirectory);
+Console.WriteLine("Current directory " + Directory.GetCurrentDirectory());
+Console.WriteLine("Doc folder directory " + Environment.SpecialFolder.MyDocuments);
+Console.WriteLine("persistent directory " +  Environment.SpecialFolder.ApplicationData);
+
+var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Documents", "RTI","DemoSave.json");
+if (!Directory.Exists(path))
+{
+    Directory.CreateDirectory(path);
+}
 
 app.UseHttpsRedirection();
 

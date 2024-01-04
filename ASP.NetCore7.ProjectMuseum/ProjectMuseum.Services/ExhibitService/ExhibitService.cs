@@ -16,6 +16,11 @@ public class ExhibitService : IExhibitService
         return await _exhibitRepository.GetAllExhibitVariations();
     }
 
+    public async Task<ExhibitVariation?> GetExhibitVariation(string variationName)
+    {
+        return await _exhibitRepository.GetExhibitVariation(variationName);
+    }
+
     public async Task<List<Exhibit>?> DeleteAllExhibits()
     {
         return await _exhibitRepository.DeleteAllExhibits();

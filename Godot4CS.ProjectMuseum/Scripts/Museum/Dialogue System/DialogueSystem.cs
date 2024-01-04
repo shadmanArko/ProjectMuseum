@@ -25,6 +25,7 @@ public partial class DialogueSystem : Control
 	private int _storyEntryCount = 0;
 	
 	private HttpRequest _httpRequestForGettingStory;
+	private HttpRequest _httpRequestForCompletingStory;
 	private Task _dialogueShowingTask;
 	private CancellationTokenSource _cancellationTokenSource;// Called when the node enters the scene tree for the first time.
 	private bool _finishedCurrentDialogue = false;
@@ -34,15 +35,26 @@ public partial class DialogueSystem : Control
 		// GD.Print(fullDialogue);
 		_cancellationTokenSource = new CancellationTokenSource();
 		_httpRequestForGettingStory = new HttpRequest();
+		_httpRequestForCompletingStory = new HttpRequest();
 		AddChild(_httpRequestForGettingStory);
+		AddChild(_httpRequestForCompletingStory);
 		_httpRequestForGettingStory.RequestCompleted += HttpRequestForGettingStoryOnRequestCompleted;
+		_httpRequestForCompletingStory.RequestCompleted += HttpRequestForCompletingStoryOnRequestCompleted;
 		MuseumActions.PlayStoryScene += LoadStoryScene;
 		_nextDialogueButton.Pressed += NextDialogueButtonOnPressed;
 	}
 
+	private void HttpRequestForCompletingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		GD.Print(jsonStr);
+		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+		GD.Print($"Story completion updated to {playerInfo.CompletedStoryScene}");
+	}
+
 	private async void NextDialogueButtonOnPressed()
 	{
-		if (!_finishedCurrentDialogue) return;
+		// if (!_finishedCurrentDialogue) return;
 		
 		_cancellationTokenSource.Cancel();
 		try
@@ -71,6 +83,8 @@ public partial class DialogueSystem : Control
 
 	private async void HandleSceneEnd()
 	{
+		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
+		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
 		_dialogueSystemAnimationPlayer.Play("Slide_Out");
 		await Task.Delay(1200);
 		_cutsceneArt.Visible = false;
@@ -147,6 +161,7 @@ public partial class DialogueSystem : Control
 		Visible = true;
 		LoadAndSetCharacterPortrait();
 		LoadAndSetCutsceneArt();
+		MuseumActions.StorySceneEntryStarted?.Invoke(_storyScene.StorySceneEntries[_storyEntryCount].EntryNo);
 		_dialogueShowingTask = ShowDialogue(_storyEntryCount, _cancellationTokenSource.Token);
 	}
 

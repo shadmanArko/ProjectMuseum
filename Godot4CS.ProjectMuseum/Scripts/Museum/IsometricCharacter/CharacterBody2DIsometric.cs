@@ -108,6 +108,25 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
             MoveAndCollide(motion);
         }
     }
-    
-    
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+        if (@event.IsActionPressed("Interact"))
+        {
+            var tile = GameManager.TileMap.LocalToMap(Position);
+            var directions = GetPlayerDirectionsEnum();
+            MuseumActions.OnPlayerInteract?.Invoke(tile, directions);
+        }
+    }
+
+   
+}
+
+public enum PlayerDirectionsEnum
+{
+    FrontRight,
+    FrontLeft,
+    BackRight,
+    BackLeft
 }

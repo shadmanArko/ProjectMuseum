@@ -50,7 +50,20 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         _animationPlayerInstance.Play("idle_front_facing");
     }
 
-    
+    protected PlayerDirectionsEnum GetPlayerDirectionsEnum()
+    {
+        var directions = PlayerDirectionsEnum.FrontLeft;
+        if (!_playerFacingTheFront)
+        {
+            directions = Scale.X > 0 ? PlayerDirectionsEnum.FrontLeft : PlayerDirectionsEnum.FrontRight;
+        }
+        else
+        {
+            directions = Scale.X > 0 ? PlayerDirectionsEnum.BackRight : PlayerDirectionsEnum.BackLeft;
+        }
+
+        return directions;
+    }
 
     private void GetRandomInterval()
     {

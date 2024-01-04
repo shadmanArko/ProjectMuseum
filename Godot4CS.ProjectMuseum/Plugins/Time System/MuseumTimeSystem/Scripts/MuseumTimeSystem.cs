@@ -34,9 +34,39 @@ public partial class MuseumTimeSystem : Node
 		_httpRequestForGettingTime.Request(ApiAddress.PlayerApiPath + "GetTime");
 		// MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 		MuseumActions.OnClickTimeSpeedButton += SetClockSpeed;
+		MuseumActions.OnPlayerSleepAndSavedGame += OnPlayerSleepAndSavedGame;
 		MuseumActions.OnClickPausePlayButton += TogglePause;
 		MuseumActions.OnPlayerSavedGame += SaveTime;
+		MuseumActions.OnSleepComplete += OnSleepComplete;
 	}
+
+    private void OnSleepComplete()
+    {
+	    _time.Minutes+=10;
+
+	    _time.Minutes = 0;
+	    _time.Hours = 6;
+	    _time.Days++;
+	    if (_time.Days >= _daysInMonth)
+	    {
+		    _time.Days = 1;
+		    _time.Months++;
+		   
+		    if (_time.Months >=_monthsInYear)
+		    {
+			    _time.Months = 1;
+			    _time.Years++;
+		    }
+	    }
+		    
+	    
+	    MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+    }
+
+    private void OnPlayerSleepAndSavedGame()
+    {
+	    MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+    }
 
     private void HttpRequestForUpdatingTimeOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
@@ -159,5 +189,6 @@ public partial class MuseumTimeSystem : Node
 		MuseumActions.OnClickTimeSpeedButton -= SetClockSpeed;
 		MuseumActions.OnClickPausePlayButton -= TogglePause;
 		MuseumActions.OnPlayerSavedGame -= SaveTime;
+		MuseumActions.OnSleepComplete -= OnSleepComplete;
 	}
 }

@@ -11,6 +11,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
 public partial class TutorialSystem : Node
 {
     private HttpRequest _httpRequestForGettingTutorial;
+    private HttpRequest _httpRequestForCompletingTutorial;
     private HttpRequest _httpRequestForGettingPlayerInfo;
 
     private int _currentTutorialNumber;
@@ -27,14 +28,25 @@ public partial class TutorialSystem : Node
     {
         _httpRequestForGettingTutorial = new HttpRequest();
         _httpRequestForGettingPlayerInfo = new HttpRequest();
+        _httpRequestForCompletingTutorial = new HttpRequest();
         AddChild(_httpRequestForGettingTutorial);
         AddChild(_httpRequestForGettingPlayerInfo);
+        AddChild(_httpRequestForCompletingTutorial);
         _httpRequestForGettingTutorial.RequestCompleted += HttpRequestForGettingTutorialOnRequestCompleted;
         _httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
+        _httpRequestForCompletingTutorial.RequestCompleted += HttpRequestForCompletingTutorialOnRequestCompleted;
         MuseumActions.OnPlayerPerformedTutorialRequiringAction += OnPlayerPerformedTutorialRequiringAction;
         _httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
         
         MuseumActions.PlayTutorial += LoadTutorial;
+    }
+
+    private void HttpRequestForCompletingTutorialOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+    {
+        string jsonStr = Encoding.UTF8.GetString(body);
+        GD.Print(jsonStr);
+        var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+        GD.Print($"tutorial completion updated to {playerInfo.CompletedTutorialScene}");
     }
 
     private void HttpRequestForGettingPlayerInfoOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -54,7 +66,7 @@ public partial class TutorialSystem : Node
     {
         
         GD.Print("Show tutorial called");
-        
+        _currentTutorialNumber = number;
         _httpRequestForGettingTutorial.Request(ApiAddress.StoryApiPath + $"GetTutorialScene/{number}");
     }
     private void HttpRequestForGettingTutorialOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -90,6 +102,8 @@ public partial class TutorialSystem : Node
         else
         {
             _currentTutorialCompleted = true;
+            _httpRequestForCompletingTutorial.Request(ApiAddress.PlayerApiPath +
+                                                      $"UpdateCompletedTutorial/{_currentTutorialNumber}");
             MuseumActions.OnTutorialEnded?.Invoke();
             GD.Print($"current tutorial No {_currentTutorialSceneEntry.EntryNo}");
             if (_currentTutorial.ContinuesStory)

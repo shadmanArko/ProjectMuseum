@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 
@@ -12,7 +13,35 @@ public partial class StoryCharacterController : Node2D
 	public override void _Ready()
 	{
 		MuseumActions.StorySceneEntryEnded += StorySceneEntryEndedPlaying;
+		MuseumActions.StorySceneEntryStarted += StorySceneEntryStarted;
+		_storyPlayer.Visible = false;
+		_storyProfessor.Visible = false;
+		_gameCharacter.Visible = true;
+		MuseumActions.PlayStoryScene += PlayStoryScene;
 	}
+
+	private void PlayStoryScene(int obj)
+	{
+		if (obj <= 4)
+		{
+			_storyPlayer.Visible = true;
+			_storyProfessor.Visible = true;
+			_gameCharacter.Visible = false;
+		}
+	}
+
+	private async void StorySceneEntryStarted(string obj)
+	{
+		if (obj == "12a")
+		{
+			await Task.Delay(1000);
+			_storyProfessor.StartFollowingDirection();
+		}
+	}
+
+
+
+	
 
 	private void StorySceneEntryEndedPlaying(string obj)
 	{
@@ -33,6 +62,7 @@ public partial class StoryCharacterController : Node2D
 		{
 			_storyProfessor.ExitMuseum();
 		}
+		
 	}
 
 	private void StorySceneEnded(int obj)

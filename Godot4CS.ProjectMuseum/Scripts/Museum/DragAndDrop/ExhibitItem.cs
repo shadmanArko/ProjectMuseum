@@ -13,20 +13,36 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
 public partial class ExhibitItem : Item
 {
 	[Export] private Array<Sprite2D> _artifactSlots;
+	private HttpRequest _httpRequestForGettingExhibitVariation;
 	public override void _Ready()
 	{
 		base._Ready();
+		_httpRequestForGettingExhibitVariation = new HttpRequest();
+		AddChild(_httpRequestForGettingExhibitVariation);
+		_httpRequestForGettingExhibitVariation.RequestCompleted += HttpRequestForGettingExhibitVariationOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnExhibitSlot += ArtifactDroppedOnExhibitSlot;
 		MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
 		_httpRequestForArtifactPlacement.RequestCompleted += HttpRequestForArtifactPlacementOnRequestCompleted;
 		_httpRequestForArtifactRemoval.RequestCompleted += HttpRequestForArtifactRemovalOnRequestCompleted;
+		
 	}
+
+	private void HttpRequestForGettingExhibitVariationOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		var exhibitVariation = JsonSerializer.Deserialize<ExhibitVariation>(jsonStr);
+		ItemPrice = exhibitVariation.Price;
+		GD.Print("Placed Artifact");
+	}
+
 	public void Initialize(string exhibitVariationName)
 	{
         
 		ExhibitVariationName = exhibitVariationName;
 		selectedItem = true;
 		_itemType = ItemTypes.Exhibit;
+		_httpRequestForGettingExhibitVariation.Request(ApiAddress.MuseumApiPath +
+		                                               $"GetExhibitVariation/variationName?variationName={exhibitVariationName}");
 		GD.Print("Item Initialized");
 	}
 	public void SpawnFromDatabase(Exhibit exhibit, List<Artifact> displayArtifacts)
@@ -190,5 +206,7 @@ public partial class ExhibitItem : Item
 	    MuseumActions.ArtifactDroppedOnExhibitSlot -= ArtifactDroppedOnExhibitSlot;
 	    MuseumActions.ArtifactRemovedFromExhibitSlot -= ArtifactRemovedFromExhibitSlot;
 	    _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
-	    _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;}
+	    _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
+	    _httpRequestForGettingExhibitVariation.RequestCompleted -= HttpRequestForGettingExhibitVariationOnRequestCompleted;
+    }
 }

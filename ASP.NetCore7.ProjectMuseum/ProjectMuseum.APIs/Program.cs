@@ -164,10 +164,10 @@ Console.WriteLine("Current directory " + Directory.GetCurrentDirectory());
 Console.WriteLine("Doc folder directory " + Environment.SpecialFolder.MyDocuments);
 Console.WriteLine("persistent directory " +  Environment.SpecialFolder.ApplicationData);
 
-var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Documents", "RTI","DemoSave.json");
-if (!Directory.Exists(path))
+var savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Documents", "RTI","Museum Keeper");
+if (!Directory.Exists(savePath))
 {
-    Directory.CreateDirectory(path);
+    Directory.CreateDirectory(savePath);
 }
 
 app.UseHttpsRedirection();

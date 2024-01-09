@@ -7,7 +7,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.ArtifactStorage;
 
 public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 {
-	private HttpRequest _addArtifactToInventoryHttpRequest;
+	private HttpRequest _sendAllArtifactFromInventoryToArtifactStorageHttpRequest;
 
 	public override void _Ready()
 	{
@@ -17,26 +17,22 @@ public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 
 	private void SubscribeToActions()
 	{
-		//MineActions.OnArtifactSuccessfullyRetrieved += MoveArtifactFromInventoryToArtifactStorage;
+		MineActions.OnPlayerReachBackToCamp += SendAllArtifactFromInventoryToArtifactStorage;
 	}
 
 	private void CreateHttpRequest()
 	{
-		_addArtifactToInventoryHttpRequest = new HttpRequest();
-		AddChild(_addArtifactToInventoryHttpRequest);
-		_addArtifactToInventoryHttpRequest.RequestCompleted += OnMoveArtifactFromInventoryToArtifactStorageHttpRequestComplete;
+		_sendAllArtifactFromInventoryToArtifactStorageHttpRequest = new HttpRequest();
+		AddChild(_sendAllArtifactFromInventoryToArtifactStorageHttpRequest);
+		_sendAllArtifactFromInventoryToArtifactStorageHttpRequest.RequestCompleted += OnSendAllArtifactFromInventoryToArtifactStorageHttpRequestComplete;
 	}
 	
-	private void MoveArtifactFromInventoryToArtifactStorage(Artifact artifact)
+	private void SendAllArtifactFromInventoryToArtifactStorage()
 	{
-		string[] headers = { "Content-Type: application/json"};
-		var body = JsonConvert.SerializeObject(artifact);
-
-		_addArtifactToInventoryHttpRequest.Request(ApiAddress.MineApiPath+"AddArtifactToArtifactStorage", headers,
-			HttpClient.Method.Post, body);
+		_sendAllArtifactFromInventoryToArtifactStorageHttpRequest.Request(ApiAddress.PlayerApiPath+"SendAllArtifactsFromInventoryToArtifactStorage");
 	}
 	
-	private void OnMoveArtifactFromInventoryToArtifactStorageHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
+	private void OnSendAllArtifactFromInventoryToArtifactStorageHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
 		GD.Print($"artifact added to artifact storage");
 	}

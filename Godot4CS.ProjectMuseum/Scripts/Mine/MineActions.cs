@@ -44,6 +44,9 @@ public partial class MineActions : Node
     public static Action OnMiniGameLost;
     public static Action<Vector2I> OnArtifactCellBroken;
     public static Action<Artifact> OnArtifactSuccessfullyRetrieved;
+    public static Action OnPlayerReachBackToCamp;
+
+    public static Action OnInventoryUpdate;
 
 	public static Action<KinematicCollision2D> OnPlayerCollisionDetection;
 

@@ -78,6 +78,8 @@ public partial class StoryCharacterController : Node2D
 	public override void _ExitTree()
 	{
 		MuseumActions.StorySceneEntryEnded -= StorySceneEntryEndedPlaying;
+		MuseumActions.StorySceneEntryStarted -= StorySceneEntryStarted;
+		MuseumActions.PlayStoryScene -= PlayStoryScene;
 		base._ExitTree();
 		
 	}

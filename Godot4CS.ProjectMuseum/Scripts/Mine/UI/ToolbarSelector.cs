@@ -33,7 +33,6 @@ public partial class ToolbarSelector : Node
 	public override void _Ready()
 	{
 		SubscribeToActions();
-
 		_toolbarSlots = new List<ToolbarSlot>();
 		GetPlayerInventory();
 	}
@@ -71,21 +70,19 @@ public partial class ToolbarSelector : Node
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		_inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-
+		GD.Print("Inventory:"+jsonStr);
+		
+		RemoveAllInventorySlots();
 		CreateInventorySlots();
-		
-		SetEquipablesOnInventorySlots();
-		
 		SetArtifactsOnInventorySlots();
+		SetEquipablesOnInventorySlots();
 	}
 
 	#endregion
 
 	private void UpdatePlayerInventory()
 	{
-		RemoveAllArtifactsFromInventorySlots();
-		SetEquipablesOnInventorySlots();
-		SetArtifactsOnInventorySlots();
+		GetPlayerInventory();
 		GD.Print("UPDATING PLAYER INVENTORY");
 	}
 
@@ -108,18 +105,27 @@ public partial class ToolbarSelector : Node
 		}
 	}
 
+	private void RemoveAllInventorySlots()
+	{
+		if(_toolbarSlots.Count <= 0) return;
+		foreach (var t in _toolbarSlots)
+			t.QueueFree();
+	}
+
 	private void SetEquipablesOnInventorySlots()
 	{
 		foreach (var equipable in _inventory.Equipables)
 		{
 			_inventory.EmptySlots.Remove(equipable.Slot);
 			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
+			_toolbarSlots[equipable.Slot].SetItemData(equipable.Id, false);
 		}
 	}
 
 	private void SetArtifactsOnInventorySlots()
 	{
 		GD.Print(_rawArtifactDto.RawArtifactFunctionals.Count);
+		if(_inventory.Artifacts.Count <= 0) return;
 		foreach (var artifact in _inventory.Artifacts)
 		{
 			var emptySlot = 0;
@@ -129,6 +135,8 @@ public partial class ToolbarSelector : Node
 				if(!_inventory.EmptySlots.Contains(i)) continue;
 				emptySlot = i;
 			}
+			
+			if(emptySlot == 0) continue;
 			
 			artifact.Slot = emptySlot;
 			_inventory.EmptySlots.Remove(emptySlot);

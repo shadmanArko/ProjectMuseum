@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -110,6 +109,8 @@ public partial class ToolbarSelector : Node
 		if(_toolbarSlots.Count <= 0) return;
 		foreach (var t in _toolbarSlots)
 			t.QueueFree();
+		_toolbarSlots.Clear();
+		_toolbarSlots = new List<ToolbarSlot>();
 	}
 
 	private void SetEquipablesOnInventorySlots()
@@ -117,6 +118,7 @@ public partial class ToolbarSelector : Node
 		foreach (var equipable in _inventory.Equipables)
 		{
 			_inventory.EmptySlots.Remove(equipable.Slot);
+			GD.Print("Setting up equipables: "+ $"{equipable.Slot} {equipable.Id} {equipable.PngPath} {equipable.Name}" );
 			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
 			_toolbarSlots[equipable.Slot].SetItemData(equipable.Id, false);
 		}

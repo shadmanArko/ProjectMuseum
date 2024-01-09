@@ -54,9 +54,12 @@ public partial class ToolbarSelector : Node
 	private void SubscribeToActions()
 	{
 		MineActions.OnToolbarSlotChanged += SelectItem;
+		MineActions.OnInventoryUpdate += UpdatePlayerInventory;
 	}
 
 	#region Player Inventory
+
+	#region Get Player Inventory
 
 	private void GetPlayerInventory()
 	{
@@ -67,8 +70,27 @@ public partial class ToolbarSelector : Node
 	private void OnGetPlayerInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
-		 _inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
+		_inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
 
+		CreateInventorySlots();
+		
+		SetEquipablesOnInventorySlots();
+		
+		SetArtifactsOnInventorySlots();
+	}
+
+	#endregion
+
+	private void UpdatePlayerInventory()
+	{
+		RemoveAllArtifactsFromInventorySlots();
+		SetEquipablesOnInventorySlots();
+		SetArtifactsOnInventorySlots();
+		GD.Print("UPDATING PLAYER INVENTORY");
+	}
+
+	private void CreateInventorySlots()
+	{
 		for (var i = 0; i < _inventory.SlotsUnlocked; i++)
 		{
 			var toolbarSlot = ResourceLoader.Load<PackedScene>(_toolbarSlotScenePath).Instantiate() as ToolbarSlot;
@@ -84,13 +106,19 @@ public partial class ToolbarSelector : Node
 			_toolbarSlots.Add(toolbarSlot);
 			_inventory.EmptySlots.Add(i);
 		}
+	}
 
+	private void SetEquipablesOnInventorySlots()
+	{
 		foreach (var equipable in _inventory.Equipables)
 		{
 			_inventory.EmptySlots.Remove(equipable.Slot);
 			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
 		}
-		
+	}
+
+	private void SetArtifactsOnInventorySlots()
+	{
 		GD.Print(_rawArtifactDto.RawArtifactFunctionals.Count);
 		foreach (var artifact in _inventory.Artifacts)
 		{
@@ -115,6 +143,12 @@ public partial class ToolbarSelector : Node
 			_toolbarSlots[artifact.Slot].SetItemTexture(rawArtifactFunctional.SmallImageLocation);
 			_toolbarSlots[artifact.Slot].SetItemData(rawArtifactFunctional.Id, true);
 		}
+	}
+
+	private void RemoveAllArtifactsFromInventorySlots()
+	{
+		foreach (var slot in _toolbarSlots)
+			slot.RemoveItem();
 	}
 
 	#endregion

@@ -36,11 +36,29 @@ public partial class ToolbarSlot : Node
 	{
 		_itemSlot.Texture = GD.Load<Texture2D>(pngPath);
 	}
+	
+	private void RemoveItemTexture()
+	{
+		_itemSlot.Texture = null;
+	}
 
 	public void SetItemData(string itemId, bool isArtifact)
 	{
 		ItemId = itemId;
 		IsArtifact = isArtifact;
+	}
+	
+	private void RemoveItemData()
+	{
+		ItemId = "";
+		IsArtifact = false;
+	}
+
+	public void RemoveItem()
+	{
+		SetItemAsDeselected();
+		RemoveItemTexture();
+		RemoveItemData();
 	}
 
 	private void OnMouseEnter()

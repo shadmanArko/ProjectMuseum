@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://dmbaqgvetw2w"]
+[gd_scene load_steps=2 format=3 uid="uid://dmbaqgvetw2w"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/ArtifactStorage/ArtifactFromInventoryToArtifactStorage.cs" id="1_vb7e4"]
 
 [node name="ArtifactFromInventoryToMuseum" type="Node2D"]
+script = ExtResource("1_vb7e4")

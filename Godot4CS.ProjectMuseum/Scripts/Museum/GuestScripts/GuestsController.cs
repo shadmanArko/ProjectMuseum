@@ -81,5 +81,11 @@ public partial class GuestsController : Node2D
 		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		_httpRequestForGettingMuseumTiles.RequestCompleted -= HttpRequestForGettingMuseumTilesOnRequestCompleted;
+		MuseumActions.OnClickMuseumGateToggle -= OnClickMuseumGateToggle;
+		MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
+	}
 }

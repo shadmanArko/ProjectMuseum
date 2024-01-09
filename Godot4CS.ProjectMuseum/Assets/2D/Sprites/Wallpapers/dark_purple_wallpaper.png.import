@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bohw5jxucq52y"
-path="res://.godot/imported/wallpaper side 1.png-9ca5e4407e22f853df5ca20c56228036.ctex"
+uid="uid://b2fp0wp0r57ow"
+path="res://.godot/imported/dark_purple_wallpaper.png-05e868faedc5aed86330b5a411a275cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Wallpapers/wallpaper side 1.png"
-dest_files=["res://.godot/imported/wallpaper side 1.png-9ca5e4407e22f853df5ca20c56228036.ctex"]
+source_file="res://Assets/2D/Sprites/Wallpapers/dark_purple_wallpaper.png"
+dest_files=["res://.godot/imported/dark_purple_wallpaper.png-05e868faedc5aed86330b5a411a275cd.ctex"]
 
 [params]
 

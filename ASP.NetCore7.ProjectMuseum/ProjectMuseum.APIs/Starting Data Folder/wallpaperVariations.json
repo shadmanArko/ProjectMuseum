@@ -1,6 +1,30 @@
 [
   {
-    "VariationName": "wallpaper side 1",
+    "VariationName": "wallpaperside2",
+    "Price": 2
+  },
+  {
+    "VariationName": "basic_light_grey_wallpaper",
+    "Price": 2
+  },
+  {
+    "VariationName": "dark_purple_wallpaper",
+    "Price": 2
+  },
+  {
+  "VariationName": "green_flower_wallpaper",
+  "Price": 2
+  },
+  {
+    "VariationName": "grey_basic_wallpaper",
+    "Price": 2
+  },
+  {
+    "VariationName": "maroon_wallpaper",
+    "Price": 2
+  },
+  {
+    "VariationName": "sky_blue_wallpaper",
     "Price": 2
   }
 ]

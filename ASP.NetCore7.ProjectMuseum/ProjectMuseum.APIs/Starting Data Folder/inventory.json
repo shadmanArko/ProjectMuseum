@@ -24,34 +24,7 @@
       }
     ],
     "Artifacts": [
-      {
-        "Id": "art1",
-        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
-        "PositionX": 10,
-        "PositionY": 20,
-        "Slot": 4
-      },
-      {
-        "Id": "art2",
-        "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
-        "PositionX": 15,
-        "PositionY": 25,
-        "Slot": 5
-      },
-      {
-        "Id": "art3",
-        "RawArtifactId": "RenaissanceAmericanCutlass",
-        "PositionX": 30,
-        "PositionY": 40,
-        "Slot": 6
-      },
-      {
-        "Id": "art4",
-        "RawArtifactId": "IndustrialAmericanMusket",
-        "PositionX": 5,
-        "PositionY": 15,
-        "Slot": 7
-      }
+      
     ],
     "EmptySlots": [],
     "SlotsUnlocked": 12

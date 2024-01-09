@@ -35,6 +35,7 @@ public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 	private void OnSendAllArtifactFromInventoryToArtifactStorageHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
 		GD.Print($"artifact added to artifact storage");
+		MineActions.OnInventoryUpdate?.Invoke();
 	}
 
 }

@@ -107,12 +107,14 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.Gravity = 25f;
 	
 		//TODO: TURN ON THIS IF YOU WANT TUTORIALS
-		//ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
-		_playerControllerVariables.CanMoveLeftAndRight = true;
-		_playerControllerVariables.CanAttack = true;
-		_playerControllerVariables.CanBrush = true;
-		_playerControllerVariables.CanDig = true;
-		_playerControllerVariables.CanToggleClimb = true;
+		ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+		
+		//TODO: For testing purposes turn off tutorial and turn these on
+		// _playerControllerVariables.CanMoveLeftAndRight = true;
+		// _playerControllerVariables.CanAttack = true;
+		// _playerControllerVariables.CanBrush = true;
+		// _playerControllerVariables.CanDig = true;
+		// _playerControllerVariables.CanToggleClimb = true;
 		ReferenceStorage.Instance.MineTimeSystem.PlayTimer();
 	}
 }

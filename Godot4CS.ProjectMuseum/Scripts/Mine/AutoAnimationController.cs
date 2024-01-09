@@ -98,7 +98,7 @@ public partial class AutoAnimationController : Node2D
 
 	#endregion
 
-	private void ActionsToPerformAfterPlayerLandsIntoTheMine()
+	private async void ActionsToPerformAfterPlayerLandsIntoTheMine()
 	{
 		SetProcess(false);
 		SetPhysicsProcess(false);
@@ -107,14 +107,17 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.Gravity = 25f;
 	
 		//TODO: TURN ON THIS IF YOU WANT TUTORIALS
-		ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+		var isTutorialPlaying = await ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
 		
 		//TODO: For testing purposes turn off tutorial and turn these on
-		// _playerControllerVariables.CanMoveLeftAndRight = true;
-		// _playerControllerVariables.CanAttack = true;
-		// _playerControllerVariables.CanBrush = true;
-		// _playerControllerVariables.CanDig = true;
-		// _playerControllerVariables.CanToggleClimb = true;
+		if (!isTutorialPlaying)
+		{
+			_playerControllerVariables.CanMoveLeftAndRight = true;
+			_playerControllerVariables.CanAttack = true;
+			_playerControllerVariables.CanBrush = true;
+			_playerControllerVariables.CanDig = true;
+			_playerControllerVariables.CanToggleClimb = true;
+		}
 		ReferenceStorage.Instance.MineTimeSystem.PlayTimer();
 	}
 }

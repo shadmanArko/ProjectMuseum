@@ -81,8 +81,16 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 			else
 			{
 				if (!_playerControllerVariables.CanMoveLeftAndRight) return;
-				Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
-				Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed);
+				if (_playerControllerVariables.State == MotionState.Falling)
+				{
+					var vel = Velocity;
+					Velocity = new Vector2(0, vel.Y);
+				}
+				else
+				{
+					Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
+					Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed);
+				}
 			}
 		}
 	}

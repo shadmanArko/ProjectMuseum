@@ -6,6 +6,11 @@ public static class Const
     public static string museumDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museum.json");
     public static string exhibitDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibit.json");
     public static string exhibitVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "exhibitVariations.json");
+    public static string decorationShopDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationShop.json");
+    public static string decorationShopVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationShopVariations.json");
+    public static string decorationOtherDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationOther.json");
+    public static string decorationOtherVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationOtherVariations.json");
+
     public static string wallVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallVariations.json");
     public static string wallpaperVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallpaperVariations.json");
     public static string tileVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tileVariations.json");

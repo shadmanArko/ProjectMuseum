@@ -5,9 +5,20 @@ namespace ProjectMuseum.Repositories.DecorationShopRepository;
 
 public class DecorationShopRepository : IDecorationShopRepository
 {
-    public Task<DecorationShop> Insert(DecorationShop DecorationShop)
+    private readonly JsonFileDatabase<DecorationShop> _decorationShopDatabase;
+    private readonly JsonFileDatabase<DecorationShopVariation> _decorationShopVariationDatabase;
+
+    public DecorationShopRepository(JsonFileDatabase<DecorationShop> decorationShopDatabase, JsonFileDatabase<DecorationShopVariation> decorationShopVariationDatabase)
     {
-        throw new NotImplementedException();
+        _decorationShopDatabase = decorationShopDatabase;
+        _decorationShopVariationDatabase = decorationShopVariationDatabase;
+    }
+    public async Task<DecorationShop> Insert(DecorationShop decorationShop)
+    {
+        var decorationShops = await _decorationShopDatabase.ReadDataAsync();
+        decorationShops?.Add(decorationShop);
+        if (decorationShops != null) await _decorationShopDatabase.WriteDataAsync(decorationShops);
+        return decorationShop;
     }
 
     public Task<DecorationShop> Update(string id, DecorationShop DecorationShop)
@@ -25,9 +36,10 @@ public class DecorationShopRepository : IDecorationShopRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<DecorationShopVariation>?> GetAllDecorationShopVariations()
+    public async Task<List<DecorationShopVariation>?> GetAllDecorationShopVariations()
     {
-        throw new NotImplementedException();
+        var decorationShopVariations = await _decorationShopVariationDatabase.ReadDataAsync();
+        return decorationShopVariations;
     }
 
     public Task<DecorationShopVariation?> GetDecorationShopVariation(string variationName)

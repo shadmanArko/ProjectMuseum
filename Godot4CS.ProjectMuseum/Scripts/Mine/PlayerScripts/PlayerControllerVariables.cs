@@ -21,8 +21,8 @@ public class PlayerControllerVariables
     
     #region Movement Variables
 
-    public const int MaxSpeed = 2500;
-    public int Acceleration = 2500;
+    public const int MaxSpeed = 2800;
+    public int Acceleration = 2800;
     public const int Friction = 500;
 
     #endregion

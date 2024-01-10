@@ -252,6 +252,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 
 	public void TakeDamage()
 	{
+		if(_playerControllerVariables.IsDead) return;
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;

@@ -1,37 +1,49 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
 public partial class EnemyCollisionDetector : Area2D
 {
-    [Export] private Enemy _character;
+    [Export] private Enemy _enemy;
     
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
+    
+    [Export] private Timer _enemyCooldownTimer;
+    [Export] private bool _enemyCooldown;
 
     public override void _Ready()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
     }
+    
+    private void OnEnemyAttackCooldownTimeOut()
+    {
+        GD.Print("Enemy cooldown is false");
+        _enemyCooldown = false;
+    }
 
     public void AttackPlayer(Node2D body)
     {
         var player = body as PlayerController;
         if(player == null) return;
-        //if(!_playerControllerVariables.IsAttacking) return;
+        if(_playerControllerVariables.IsDead) return;
         
 
-        if (_character!.State != EnemyState.DigIn)
+        if (_enemy!.State != EnemyState.DigIn && !_enemyCooldown)
         {
-            _character!.State = EnemyState.Attack;
-            _character.Attack();
+            _enemy!.State = EnemyState.Attack;
+            _enemy.Attack();
+            _enemyCooldown = true;
+            GD.Print("Enemy cooldown is true");
         }
     }
+
+    #region Wall Collision
 
     private void OnCollideWithWallEntered(Node body)
     {
@@ -84,4 +96,6 @@ public partial class EnemyCollisionDetector : Area2D
     {
         GD.Print("Colliding with wall");
     }
+
+    #endregion
 }

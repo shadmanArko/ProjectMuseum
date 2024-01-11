@@ -9,11 +9,11 @@ public class DecorationOtherRepository : IDecorationOtherRepository
     private readonly JsonFileDatabase<DecorationOtherVariation> _decorationOtherVariationDatabase;
 
     //todo problem when uncomment following lines
-    // public DecorationOtherRepository(JsonFileDatabase<DecorationOther> decorationOtherDatabase, JsonFileDatabase<DecorationOtherVariation> decorationOtherVariationDatabase)
-    // {
-    //     _decorationOtherDatabase = decorationOtherDatabase;
-    //     _decorationOtherVariationDatabase = decorationOtherVariationDatabase;
-    // }
+    public DecorationOtherRepository(JsonFileDatabase<DecorationOther> decorationOtherDatabase, JsonFileDatabase<DecorationOtherVariation> decorationOtherVariationDatabase)
+    {
+        _decorationOtherDatabase = decorationOtherDatabase;
+        _decorationOtherVariationDatabase = decorationOtherVariationDatabase;
+    }
     public async Task<DecorationOther> Insert(DecorationOther decorationOther)
     {
         var decorationOthers = await _decorationOtherDatabase.ReadDataAsync();

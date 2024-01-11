@@ -17,7 +17,7 @@ public static class Const
     public static string tutorialDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "Tutorials.json");
     public static string mineDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "mine.json");
     public static string playerInfoDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "PlayerInfo.json");
-    public static string saveDataFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Documents", "Red Thorn Interactive", "Museum Keeper", "save.json");
+    public static string saveDataFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),/* "Documents",*/ "Red Thorn Interactive", "Museum Keeper", "save.json");
     public static string inventoryDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "inventory.json");
     public static string mineArtifactsDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "mineArtifact.json");
     public static string displayArtifactDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "displayArtifact.json");

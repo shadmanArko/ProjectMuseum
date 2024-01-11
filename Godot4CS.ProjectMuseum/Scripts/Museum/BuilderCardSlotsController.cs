@@ -14,9 +14,13 @@ public partial class BuilderCardSlotsController : ColorRect
 	[Export] private GridContainer _builderCardContainer;
 
 	private List<ExhibitVariation> _exhibitVariations = new List<ExhibitVariation>();
+	private List<DecorationShopVariation> _decorationShopVariations = new List<DecorationShopVariation>();
+	private List<DecorationOtherVariation> _decorationOtherVariations = new List<DecorationOtherVariation>();
 	private List<TileVariation> _tileVariations = new List<TileVariation>();
 	private List<WallpaperVariation> _wallpaperVariations = new List<WallpaperVariation>();
 	private HttpRequest _httpRequestForGettingExhibitVariations;
+	private HttpRequest _httpRequestForGettingDecorationShopVariations;
+	private HttpRequest _httpRequestForGettingDecorationOtherVariations;
 	private HttpRequest _httpRequestForGettingTileVariations;
 	private HttpRequest _httpRequestForGettingWallpaperVariations;
 	// Called when the node enters the scene tree for the first time.
@@ -24,19 +28,39 @@ public partial class BuilderCardSlotsController : ColorRect
 	public override void _Ready()
 	{
 		_httpRequestForGettingExhibitVariations = new HttpRequest();
+		_httpRequestForGettingDecorationShopVariations = new HttpRequest();
+		_httpRequestForGettingDecorationOtherVariations = new HttpRequest();
 		_httpRequestForGettingTileVariations = new HttpRequest();
 		_httpRequestForGettingWallpaperVariations = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitVariations);
+		AddChild(_httpRequestForGettingDecorationShopVariations);
+		AddChild(_httpRequestForGettingDecorationOtherVariations);
 		AddChild(_httpRequestForGettingTileVariations);
 		AddChild(_httpRequestForGettingWallpaperVariations);
 		_httpRequestForGettingExhibitVariations.RequestCompleted += HttpRequestForGettingExhibitVariationsOnRequestCompleted;
+		_httpRequestForGettingDecorationShopVariations.RequestCompleted += HttpRequestForGettingDecorationShopVariationsOnRequestCompleted;
+		_httpRequestForGettingDecorationOtherVariations.RequestCompleted += HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted;
 		_httpRequestForGettingTileVariations.RequestCompleted += HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingWallpaperVariations.RequestCompleted += HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
 		_httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
+		_httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
+		_httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
 		_httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
 		_httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
 
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked += ReInitialize;
+	}
+
+	private void HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		_decorationOtherVariations = JsonSerializer.Deserialize<List<DecorationOtherVariation>>(jsonStr);
+	}
+
+	private void HttpRequestForGettingDecorationShopVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		_decorationShopVariations = JsonSerializer.Deserialize<List<DecorationShopVariation>>(jsonStr);
 	}
 
 	private void HttpRequestForGettingWallpaperVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -61,8 +85,11 @@ public partial class BuilderCardSlotsController : ColorRect
 			case BuilderCardType.Exhibit:
 				ShowExhibitsCards();
 				break;
-			case BuilderCardType.Decoration:
+			case BuilderCardType.DecorationShop:
 				ShowDecorationCards();
+				break;
+			case BuilderCardType.DecorationOther:
+				ShowOtherDecorationCards();
 				break;
 			case BuilderCardType.Flooring:
 				ShowFlooringCards();
@@ -74,6 +101,18 @@ public partial class BuilderCardSlotsController : ColorRect
 				throw new ArgumentOutOfRangeException(nameof(builderCardType), builderCardType, null);
 		}
 		
+	}
+
+	private void ShowOtherDecorationCards()
+	{
+		if (_decorationOtherVariations.Count <= 0) return;
+		
+		foreach (var decorationOtherVariation in _decorationOtherVariations)
+		{
+			var card = _builderCardScene.Instantiate();
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationOtherVariation.VariationName);
+			_builderCardContainer.AddChild(card);
+		}
 	}
 
 	private void ShowWallpaperCards()
@@ -110,12 +149,14 @@ public partial class BuilderCardSlotsController : ColorRect
 
 	private void ShowDecorationCards()
 	{
-		var card = _builderCardScene.Instantiate();
-		card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, "vendingmachine1");
-		_builderCardContainer.AddChild(card);
-		var card2 = _builderCardScene.Instantiate();
-		card2.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, "vendingmachine2");
-		_builderCardContainer.AddChild(card2);
+		if (_decorationShopVariations.Count <= 0) return;
+		
+		foreach (var decorationShopVariation in _decorationShopVariations)
+		{
+			var card = _builderCardScene.Instantiate();
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationShopVariation.VariationName);
+			_builderCardContainer.AddChild(card);
+		}
 	}
 
 	private void HttpRequestForGettingExhibitVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)

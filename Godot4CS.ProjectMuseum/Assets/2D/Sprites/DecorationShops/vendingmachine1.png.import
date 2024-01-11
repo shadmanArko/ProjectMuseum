@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drpa3iobehi5n"
-path="res://.godot/imported/plant fern 1.png-ff54f53cc39d8ec8e2f62d8578258fe8.ctex"
+uid="uid://gon63saer8ki"
+path="res://.godot/imported/vendingmachine1.png-e66ed5abd1ab475a650c0a35e7e7573a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Decorations/plant fern 1.png"
-dest_files=["res://.godot/imported/plant fern 1.png-ff54f53cc39d8ec8e2f62d8578258fe8.ctex"]
+source_file="res://Assets/2D/Sprites/DecorationShops/vendingmachine1.png"
+dest_files=["res://.godot/imported/vendingmachine1.png-e66ed5abd1ab475a650c0a35e7e7573a.ctex"]
 
 [params]
 

@@ -10,6 +10,10 @@ public class SaveDataJsonFileDatabase
     private readonly string _displayArtifactDataFolderPath;
     private readonly string _exhibitDataFolderPath;
     private readonly string _exhibitVariationDataFolderPath;
+    private readonly string _decorationShopDataFolderPath;
+    private readonly string _decorationShopVariationDataFolderPath;
+    private readonly string _decorationOtherDataFolderPath;
+    private readonly string _decorationOtherVariationDataFolderPath;
     private readonly string _inventoryDataFolderPath;
     private readonly string _mineArtifactsDataFolderPath;
     private readonly string _mineDataFolderPath;
@@ -31,6 +35,10 @@ public class SaveDataJsonFileDatabase
         string displayArtifactDataFolderPath,
         string exhibitDataFolderPath,
         string exhibitVariationDataFolderPath,
+        string decorationShopDataFolderPath,
+        string decorationShopVariationDataFolderPath,
+        string decorationOtherDataFolderPath,
+        string decorationOtherVariationDataFolderPath,
         string inventoryDataFolderPath,
         string mineDataFolderPath,
         string mineArtifactsDataFolderPath,
@@ -50,6 +58,10 @@ public class SaveDataJsonFileDatabase
         _displayArtifactDataFolderPath = displayArtifactDataFolderPath;
         _exhibitDataFolderPath = exhibitDataFolderPath;
         _exhibitVariationDataFolderPath = exhibitVariationDataFolderPath;
+        _decorationShopDataFolderPath = decorationShopDataFolderPath;
+        _decorationShopVariationDataFolderPath = decorationShopVariationDataFolderPath;
+        _decorationOtherDataFolderPath = decorationOtherDataFolderPath;
+        _decorationOtherVariationDataFolderPath = decorationOtherVariationDataFolderPath;
         _inventoryDataFolderPath = inventoryDataFolderPath;
         _mineDataFolderPath = mineDataFolderPath;
         _mineArtifactsDataFolderPath = mineArtifactsDataFolderPath;
@@ -72,6 +84,10 @@ public class SaveDataJsonFileDatabase
         var displayArtifact = JsonSerializer.Deserialize<List<DisplayArtifacts>>(await File.ReadAllTextAsync(_displayArtifactDataFolderPath));
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(await File.ReadAllTextAsync(_exhibitDataFolderPath));
         var exhibitVariations = JsonSerializer.Deserialize<List<ExhibitVariation>>(await File.ReadAllTextAsync(_exhibitVariationDataFolderPath));
+        var decorationShops = JsonSerializer.Deserialize<List<DecorationShop>>(await File.ReadAllTextAsync(_decorationShopDataFolderPath));
+        var decorationShopVariations = JsonSerializer.Deserialize<List<DecorationShopVariation>>(await File.ReadAllTextAsync(_decorationShopVariationDataFolderPath));
+        var decorationOthers = JsonSerializer.Deserialize<List<DecorationOther>>(await File.ReadAllTextAsync(_decorationOtherDataFolderPath));
+        var decorationOtherVariations = JsonSerializer.Deserialize<List<DecorationOtherVariation>>(await File.ReadAllTextAsync(_decorationOtherVariationDataFolderPath));
         var wallVariations = JsonSerializer.Deserialize<List<WallVariation>>(await File.ReadAllTextAsync(_wallVariationDataFolderPath));
         var wallpaperVariations = JsonSerializer.Deserialize<List<WallpaperVariation>>(await File.ReadAllTextAsync(_wallpaperVariationDataFolderPath));
         var tileVariations = JsonSerializer.Deserialize<List<TileVariation>>(await File.ReadAllTextAsync(_tileVariationDataFolderPath));
@@ -93,6 +109,10 @@ public class SaveDataJsonFileDatabase
             DisplayArtifacts = displayArtifact,
             Exhibits = exhibits,
             ExhibitVariations = exhibitVariations,
+            DecorationShops = decorationShops,
+            DecorationShopVariations = decorationShopVariations,
+            DecorationOthers = decorationOthers,
+            DecorationOtherVariations = decorationOtherVariations,
             Inventories = inventory,
             Mines = mine,
             MineArtifacts = mineArtifact,
@@ -122,6 +142,11 @@ public class SaveDataJsonFileDatabase
         await File.WriteAllTextAsync(_displayArtifactDataFolderPath, JsonSerializer.Serialize(mergedData?.DisplayArtifacts, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_exhibitDataFolderPath, JsonSerializer.Serialize(mergedData?.Exhibits, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_exhibitVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.ExhibitVariations, new JsonSerializerOptions{ WriteIndented = true }));
+        await File.WriteAllTextAsync(_decorationShopDataFolderPath, JsonSerializer.Serialize(mergedData?.DecorationShops, new JsonSerializerOptions{ WriteIndented = true }));
+        await File.WriteAllTextAsync(_decorationShopVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.DecorationShopVariations, new JsonSerializerOptions{ WriteIndented = true }));
+        await File.WriteAllTextAsync(_decorationOtherDataFolderPath, JsonSerializer.Serialize(mergedData?.DecorationOthers, new JsonSerializerOptions{ WriteIndented = true }));
+        await File.WriteAllTextAsync(_decorationOtherVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.DecorationOtherVariations, new JsonSerializerOptions{ WriteIndented = true }));
+
         await File.WriteAllTextAsync(_wallVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.WallVariations, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_wallpaperVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.WallpaperVariations, new JsonSerializerOptions{ WriteIndented = true }));
         await File.WriteAllTextAsync(_tileVariationDataFolderPath, JsonSerializer.Serialize(mergedData?.TileVariations, new JsonSerializerOptions{ WriteIndented = true }));
@@ -143,6 +168,10 @@ public class MergedData
     [JsonPropertyName("DisplayArtifacts")] public List<DisplayArtifacts>? DisplayArtifacts { get; set; }
     [JsonPropertyName("Exhibits")] public List<Exhibit>? Exhibits { get; set; }
     [JsonPropertyName("ExhibitVariations")] public List<ExhibitVariation>? ExhibitVariations { get; set; }
+    [JsonPropertyName("DecorationShops")] public List<DecorationShop>? DecorationShops { get; set; }
+    [JsonPropertyName("DecorationShopVariations")] public List<DecorationShopVariation>? DecorationShopVariations { get; set; }
+    [JsonPropertyName("DecorationOthers")] public List<DecorationOther>? DecorationOthers { get; set; }
+    [JsonPropertyName("DecorationOtherVariations")] public List<DecorationOtherVariation>? DecorationOtherVariations { get; set; }
     [JsonPropertyName("Inventories")] public List<Inventory>? Inventories { get; set; }
     [JsonPropertyName("Mines")] public List<Mine>? Mines { get; set; }
     [JsonPropertyName("MineArtifacts")] public List<MineArtifacts>? MineArtifacts { get; set; }

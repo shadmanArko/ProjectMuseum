@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj555nhq5m70u"
-path="res://.godot/imported/plant mini tree1.png-beb1830d54fc09ba01b6254ea34bc4ff.ctex"
+uid="uid://blqjp7i70nw4a"
+path="res://.godot/imported/entry_gate_old.png-1c174825a515139cde105810e8c2d4f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Decorations/plant mini tree1.png"
-dest_files=["res://.godot/imported/plant mini tree1.png-beb1830d54fc09ba01b6254ea34bc4ff.ctex"]
+source_file="res://Assets/2D/Sprites/Decorations/entry_gate_old.png"
+dest_files=["res://.godot/imported/entry_gate_old.png-1c174825a515139cde105810e8c2d4f4.ctex"]
 
 [params]
 

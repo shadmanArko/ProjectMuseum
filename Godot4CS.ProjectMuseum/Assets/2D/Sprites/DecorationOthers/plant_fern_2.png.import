@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6wj1oj2j7wl2"
-path="res://.godot/imported/ticket counter.png-46d0b5bf45af2729e349a53996934b12.ctex"
+uid="uid://ce4vdqba5yx0f"
+path="res://.godot/imported/plant_fern_2.png-9c1f7a36717ad8f5c6111b3fc860bcf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Decorations/ticket counter.png"
-dest_files=["res://.godot/imported/ticket counter.png-46d0b5bf45af2729e349a53996934b12.ctex"]
+source_file="res://Assets/2D/Sprites/DecorationOthers/plant_fern_2.png"
+dest_files=["res://.godot/imported/plant_fern_2.png-9c1f7a36717ad8f5c6111b3fc860bcf7.ctex"]
 
 [params]
 

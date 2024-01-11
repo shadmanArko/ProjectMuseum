@@ -1,6 +1,9 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.BuilderCardsRepository;
+using ProjectMuseum.Repositories.DecorationOtherRepository;
+using ProjectMuseum.Repositories.DecorationRepository;
+using ProjectMuseum.Repositories.DecorationShopRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
@@ -16,6 +19,9 @@ using ProjectMuseum.Repositories.PlayerInfoRepository;
 using ProjectMuseum.Repositories.PlayerRepository.Sub_Repositories.TimeRepository;
 using ProjectMuseum.Repositories.StorySceneRepository;
 using ProjectMuseum.Services.BuilderCardService;
+using ProjectMuseum.Services.DecorationOtherService;
+using ProjectMuseum.Services.DecorationOtherServices;
+using ProjectMuseum.Services.DecorationShopServices;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
@@ -61,6 +67,12 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(Const.museumTileDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(Const.exhibitDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(Const.exhibitVariationDataFolderPath));
+
+builder.Services.AddSingleton(new JsonFileDatabase<DecorationShop>(Const.decorationShopDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<DecorationShopVariation>(Const.decorationShopVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<DecorationOther>(Const.decorationOtherDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<DecorationOtherVariation>(Const.decorationOtherVariationDataFolderPath));
+
 builder.Services.AddSingleton(new JsonFileDatabase<TileVariation>(Const.tileVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<WallVariation>(Const.wallVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<WallpaperVariation>(Const.wallpaperVariationDataFolderPath));
@@ -85,6 +97,10 @@ builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
     Const.displayArtifactDataFolderPath,
     Const.exhibitDataFolderPath,
     Const.exhibitVariationDataFolderPath,
+    Const.decorationShopDataFolderPath,
+    Const.decorationShopVariationDataFolderPath,
+    Const.decorationOtherDataFolderPath,
+    Const.decorationOtherVariationDataFolderPath,
     Const.inventoryDataFolderPath,
     Const.mineDataFolderPath,
     Const.mineArtifactsDataFolderPath,
@@ -106,6 +122,8 @@ builder.Services.AddScoped<IMuseumTileRepository, MuseumTileRepository>();
 builder.Services.AddScoped<IMineRepository, MineRepository>();
 builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
 builder.Services.AddScoped<IExhibitRepository, ExhibitRepository>();
+builder.Services.AddScoped<IDecorationOtherRepository, DecorationOtherRepository>();
+builder.Services.AddScoped<IDecorationShopRepository, DecorationShopRepository>();
 builder.Services.AddScoped<IBuilderCardRepository, BuilderCardRepository>();
 builder.Services.AddScoped<IPlayerInfoRepository, PlayerInfoRepository>();
 builder.Services.AddScoped<IStorySceneRepository, StorySceneRepository>();
@@ -125,6 +143,8 @@ builder.Services.AddScoped<IMineCellGeneratorService, MineCellGeneratorService>(
 builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddScoped<IExhibitService, ExhibitService>();
+builder.Services.AddScoped<IDecorationOtherService, DecorationOtherService>();
+builder.Services.AddScoped<IDecorationShopService, DecorationShopService>();
 builder.Services.AddScoped<IBuilderCardService, BuilderCardService>();
 builder.Services.AddScoped<ILoadService, LoadService>();
 builder.Services.AddScoped<ISaveService, SaveService>();

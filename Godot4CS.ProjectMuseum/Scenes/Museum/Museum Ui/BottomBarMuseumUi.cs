@@ -6,7 +6,8 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 public partial class BottomBarMuseumUi : Control
 {
 	[Export] private Button _newExhibitButton;
-	[Export] private Button _decorationsButton;
+	[Export] private Button _decorationsShopButton;
+	[Export] private Button _decorationsOtherButton;
 	[Export] private Button _flooringButton;
 	[Export] private Button _wallpapersButton;
 	[Export] private Button _exhibitButton;
@@ -17,12 +18,19 @@ public partial class BottomBarMuseumUi : Control
 	public override void _Ready()
 	{
 		_newExhibitButton.Pressed += NewExhibitButtonOnPressed;
-		_decorationsButton.Pressed += DecorationsButtonOnPressed;
+		_decorationsShopButton.Pressed += DecorationsShopButtonOnPressed;
+		_decorationsOtherButton.Pressed += DecorationsOtherButtonOnPressed;
 		_flooringButton.Pressed += FlooringButtonOnPressed;
 		_exhibitButton.Pressed += DisableBuilderCard;
 		_wallpapersButton.Pressed += WallpapersButtonOnPressed;
 		MuseumActions.OnMuseumBalanceUpdated += OnMuseumBalanceUpdated;
 		MuseumActions.TotalGuestsUpdated += TotalGuestsUpdated;
+	}
+
+	private void DecorationsOtherButtonOnPressed()
+	{
+		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.DecorationOther);
+		EnableBuilderCard();
 	}
 
 	private void WallpapersButtonOnPressed()
@@ -43,9 +51,9 @@ public partial class BottomBarMuseumUi : Control
 		EnableBuilderCard();
 	}
 
-	private void DecorationsButtonOnPressed()
+	private void DecorationsShopButtonOnPressed()
 	{
-		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.Decoration);
+		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.DecorationShop);
 		EnableBuilderCard();
 	}
 

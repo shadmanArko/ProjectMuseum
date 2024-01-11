@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3g6we5d6r048"]
 
-[ext_resource type="Texture2D" uid="uid://gon63saer8ki" path="res://Assets/2D/Sprites/Decorations/vendingmachine1.png" id="1_1y1bq"]
+[ext_resource type="Texture2D" uid="uid://gon63saer8ki" path="res://Assets/2D/Sprites/DecorationShops/vendingmachine1.png" id="1_1y1bq"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/DecorationItem.cs" id="2_lb2ok"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]

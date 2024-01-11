@@ -2,6 +2,9 @@ using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.BuilderCardService;
+using ProjectMuseum.Services.DecorationOtherService;
+using ProjectMuseum.Services.DecorationOtherServices;
+using ProjectMuseum.Services.DecorationShopServices;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
@@ -22,9 +25,11 @@ public class MuseumController : ControllerBase
     private readonly IArtifactStorageService _artifactStorageService;
     private readonly ITradingArtifactsService _tradingArtifactsService;
     private readonly IExhibitService _exhibitService;
+    private readonly IDecorationShopService _decorationShopService;
+    private readonly IDecorationOtherService _decorationOtherService;
     private readonly IBuilderCardService _builderCardService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -33,6 +38,8 @@ public class MuseumController : ControllerBase
         _tradingArtifactsService = tradingArtifactsService;
         _exhibitService = exhibitService;
         _builderCardService = builderCardService;
+        _decorationShopService = decorationShopService;
+        _decorationOtherService = decorationOtherService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -63,6 +70,18 @@ public class MuseumController : ControllerBase
     {
         var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
         return Ok(allExhibitVariations);
+    }
+    [HttpGet("GetAllDecorationShopVariations")]
+    public async Task<IActionResult> GetAllDecorationShopVariations()
+    {
+        var decorationShopVariations = await _decorationShopService.GetAllDecorationShopVariations();
+        return Ok(decorationShopVariations);
+    }
+    [HttpGet("GetAllDecorationOtherVariations")]
+    public async Task<IActionResult> GetAllDecorationOtherVariations()
+    {
+        var decorationOtherVariations = await _decorationOtherService.GetAllDecorationOtherVariations();
+        return Ok(decorationOtherVariations);
     }
     [HttpGet("GetExhibitVariation/variationName")]
     public async Task<IActionResult> GetExhibitVariation(string variationName)

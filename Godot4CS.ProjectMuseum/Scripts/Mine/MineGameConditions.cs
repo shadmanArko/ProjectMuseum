@@ -44,7 +44,8 @@ public partial class MineGameConditions : Node
 		GD.Print("An Hour Passed: "+hours);
 		if(hours != 20) return;
 		GD.Print("Player faint first warning");
-		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("The sun is getting really low");
+		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("It's getting late");
+		MineActions.OnPlayerReachFirstWarning?.Invoke();
 	}
 	
 	private async void PlayerFaintSecondWarning(int hours)
@@ -52,7 +53,7 @@ public partial class MineGameConditions : Node
 		GD.Print("An Hour Passed: "+hours);
 		if(hours != 23) return;
 		GD.Print("Player faint first warning");
-		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("You don't have much time left");
+		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Feeling drowsy");
 	}
 
 	public override void _ExitTree()

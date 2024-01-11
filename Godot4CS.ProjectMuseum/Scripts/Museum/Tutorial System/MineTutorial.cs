@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -63,6 +64,9 @@ public partial class MineTutorial : Node
 		
 		if (_playerInfo.CompletedTutorialScene < 6)
 			AddTutorialArtifactToMine();
+		
+		if(_playerInfo.CompletedStoryScene == 10)
+			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
 	#endregion
@@ -79,6 +83,7 @@ public partial class MineTutorial : Node
 	private void SubscribeToActions()
 	{
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
+		MineActions.OnPlayerReachFirstWarning += GetPlayerInfo;
 	}
 
 
@@ -156,5 +161,10 @@ public partial class MineTutorial : Node
 		_playerControllerVariables.CanDig = true;
 		_playerControllerVariables.CanToggleClimb = true;
 	}
-	
+
+	public override void _ExitTree()
+	{
+		MuseumActions.TutorialSceneEntryEnded -= BasicMineTutorialEnded;
+		MineActions.OnPlayerReachFirstWarning -= GetPlayerInfo;
+	}
 }

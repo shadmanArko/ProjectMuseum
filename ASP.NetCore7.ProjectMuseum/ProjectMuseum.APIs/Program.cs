@@ -184,7 +184,7 @@ if (app.Environment.IsDevelopment())
 // Console.WriteLine("Doc folder directory " + Environment.SpecialFolder.MyDocuments);
 // Console.WriteLine("persistent directory " +  Environment.SpecialFolder.ApplicationData);
 
-var savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Documents", "RTI","Museum Keeper");
+var savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Documents", "Red Thorn Interactive","Museum Keeper");
 if (!Directory.Exists(savePath))
 {
     Directory.CreateDirectory(savePath);

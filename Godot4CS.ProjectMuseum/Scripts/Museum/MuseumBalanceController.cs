@@ -67,4 +67,13 @@ public partial class MuseumBalanceController: Node2D
         string url = $"{ApiAddress.MuseumApiPath}AddToMuseumBalance/museum0/{amount}";
         _httpRequestForAddingMoney.Request(url);
     }
+
+    public override void _ExitTree()
+    {
+        _httpRequestForAddingMoney.RequestCompleted -= HttpRequestForAddingMoneyOnRequestCompleted;
+        _httpRequestForGettingBalance.RequestCompleted -= HttpRequestForGettingBalanceOnRequestCompleted;
+        _httpRequestForReducingBalance.RequestCompleted -= HttpRequestForReducingBalanceOnRequestCompleted;
+        MuseumActions.OnMuseumBalanceAdded -= OnMuseumBalanceAdded;
+        MuseumActions.OnMuseumBalanceReduced -= OnMuseumBalanceReduced;
+    }
 }

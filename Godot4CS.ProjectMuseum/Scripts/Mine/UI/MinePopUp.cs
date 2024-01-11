@@ -14,7 +14,7 @@ public partial class MinePopUp : PanelContainer
         var panelSize = Size;
         panelSize.Y = _popUpText.Size.Y + 20;
         Size = panelSize;
-        await Task.Delay(3000);
+        await Task.Delay(5000);
         _popUpText.Text = "";
         Hide();
     }

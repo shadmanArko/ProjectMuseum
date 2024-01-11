@@ -15,7 +15,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item2;
     private PackedScene item3;
     private PackedScene item4;
-    private PackedScene _decorationItem;
+    [Export] private PackedScene _decorationShopItem;
+    [Export] private PackedScene _decorationOtherItem;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export] private Button _diggingPermitsButton;
     [Export] private Button _townMapButton;
@@ -38,7 +39,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
         item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
         item4 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_4.tscn");
-        _decorationItem = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Decorations/decorationItem.tscn");
+        // _decorationShopItem = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Decorations/decorationItem.tscn");
         Item.OnItemPlaced += UpdateUiOnItemPlaced;
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
@@ -79,7 +80,11 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
             HandleExhibitItemPlacement(cardName);
         }else if (builderCardType == BuilderCardType.DecorationShop)
         {
-            HandleDecorationCardPlacement(builderCardType, cardName, _decorationItem);
+            HandleDecorationCardPlacement(builderCardType, cardName, _decorationShopItem);
+        }
+        else if (builderCardType == BuilderCardType.DecorationOther)
+        {
+            HandleDecorationCardPlacement(builderCardType, cardName, _decorationOtherItem);
         }
     }
     

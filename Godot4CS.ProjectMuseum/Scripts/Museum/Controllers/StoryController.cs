@@ -28,6 +28,7 @@ public partial class StoryController : Node2D
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print( "Player info " +jsonStr);
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+		MuseumActions.OnPlayerGetPlayerInfo?.Invoke(playerInfo);
 		var nextStoryNumber = playerInfo.CompletedStoryScene + 1;
 		if (nextStoryNumber<= _totalStoryNumber)
 		{

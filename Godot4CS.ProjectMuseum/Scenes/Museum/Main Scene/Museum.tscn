@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=45 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="13_bch1s"]
 [ext_resource type="PackedScene" path="res://Scenes/Museum/Museum Ui/fade_in_and_out_ui.tscn" id="13_bhjmc"]
 [ext_resource type="PackedScene" uid="uid://bwlwmmvr5vtvc" path="res://Scenes/Museum/Museum Ui/pop_up_ui.tscn" id="13_k824c"]
+[ext_resource type="PackedScene" uid="uid://d3g6we5d6r048" path="res://Scenes/Museum/Decorations/decorationShopItem.tscn" id="15_j81qh"]
+[ext_resource type="PackedScene" uid="uid://mna3mnreah7e" path="res://Scenes/Museum/Decorations/decorationOtherItem.tscn" id="16_1ehrh"]
 [ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
@@ -74,6 +76,8 @@ z_index = 8
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
 mouse_filter = 1
+_decorationShopItem = ExtResource("15_j81qh")
+_decorationOtherItem = ExtResource("16_1ehrh")
 ItemsParent = NodePath("../../ItemParents")
 
 [node name="Town Ui" parent="museum/CanvasLayer" instance=ExtResource("2_pnteo")]

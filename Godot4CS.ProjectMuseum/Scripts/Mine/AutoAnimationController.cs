@@ -1,23 +1,22 @@
-using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
-using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class AutoAnimationController : Node2D
 {
 	private PlayerControllerVariables _playerControllerVariables;
-	private MineGenerationVariables mineGenerationVariables;
+	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private PlayerController _playerController;
 	[Export] private AnimationController _animationController;
-
+	
 	private bool _autoMoveToPos;
 	private bool _jumpIntoMine;
 
+	[Export] private float _movementSpeedFactor = 1000;
 	[Export] private Vector2 _p0;
 	[Export] private Vector2 _p1;
 	[Export] private Vector2 _p2;
@@ -49,12 +48,12 @@ public partial class AutoAnimationController : Node2D
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-		mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
 	public override void _Process(double delta)
 	{
-		AutoMoveToPosition();
+		AutoMoveToPosition((float) delta);
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -68,17 +67,17 @@ public partial class AutoAnimationController : Node2D
     
 	#region Auto Animations
 
-	private void AutoMoveToPosition()
+	private void AutoMoveToPosition(float delta)
 	{
 		if(_playerControllerVariables.Player.Position.X <= _newPos.X)
 		{
 			_animationController.Play("run");
-			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0));
+			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0) * delta * _movementSpeedFactor);
 		}
 		else
 		{
-			var cell = mineGenerationVariables.GetCell(new Vector2I(24, 0));
-			var cellSize = mineGenerationVariables.Mine.CellSize;
+			var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
+			var cellSize = _mineGenerationVariables.Mine.CellSize;
 			_p0 = _playerControllerVariables.Player.Position;
 			_p2 = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);	//_playerControllerVariables.Player.Position + new Vector2(60, 0);
 			_p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);

@@ -61,6 +61,7 @@ _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
 [node name="Auto Animation Controller" type="Node2D" parent="."]
 script = ExtResource("7_5sphp")
+_movementSpeedFactor = 1000.0
 
 [node name="ArtifactFromMineToInventory" parent="." instance=ExtResource("10_ebucy")]
 

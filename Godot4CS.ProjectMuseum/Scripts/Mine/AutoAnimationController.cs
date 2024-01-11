@@ -14,10 +14,11 @@ public partial class AutoAnimationController : Node2D
 
 	[Export] private PlayerController _playerController;
 	[Export] private AnimationController _animationController;
-
+	
 	private bool _autoMoveToPos;
 	private bool _jumpIntoMine;
 
+	[Export] private float _movementSpeedFactor;
 	[Export] private Vector2 _p0;
 	[Export] private Vector2 _p1;
 	[Export] private Vector2 _p2;
@@ -73,7 +74,7 @@ public partial class AutoAnimationController : Node2D
 		if(_playerControllerVariables.Player.Position.X <= _newPos.X)
 		{
 			_animationController.Play("run");
-			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0) * delta);
+			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0) * delta * _movementSpeedFactor);
 		}
 		else
 		{

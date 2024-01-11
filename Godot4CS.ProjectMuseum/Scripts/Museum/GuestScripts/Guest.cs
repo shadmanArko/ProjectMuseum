@@ -19,7 +19,7 @@ public partial class Guest : CharacterBody2D
 	[Export] private float _displacementSpeed = 30;
 	[Export] private float _lookAheadDistance = 2;
     private Vector2 motion = Vector2.Zero;
-
+    [Export] private Vector2I _exitTile = new (0, -2);
     [Export] private AnimationPlayer _animationPlayer;
     private AnimationPlayer _animationPlayerInstance;
     [Export] private Sprite2D _characterSprite;
@@ -42,12 +42,13 @@ public partial class Guest : CharacterBody2D
     private bool _gamePaused = false;
     public Guest()
     {
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        
     }
     // Converts any Vector2 coordinates or motion from the cartesian to the isometric system
     public override void _Ready()
     {
         base._Ready();
+        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
         GetRandomInterval();
         
@@ -117,9 +118,37 @@ public partial class Guest : CharacterBody2D
         }
         else
         {
-            GD.Print($"Exhibits finished for {Name}");
+            if (!_exitingMuseum)
+            {
+                GD.Print($"Exhibits finished for {Name}");
+                ExitMuseum();
+            }
+            
+            
         }
         
+    }
+
+    private bool _exitingMuseum = false;
+    private void ExitMuseum()
+    {
+        _exitingMuseum = true;
+        _startTileCoordinate = GameManager.TileMap.LocalToMap(Position);
+        // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
+        _targetTileCoordinate = _exitTile;
+        if (_targetTileCoordinate != new Vector2I(1000, 1000))
+        {
+            var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
+            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
+            if (path == null)
+            {
+                GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
+            }
+            _path = path;
+            _currentPathIndex = 0; // Start from the beginning of the path
+            _canMove = true;
+            MoveToNextPathNode();
+        }
     }
 
     private Vector2I GetTargetExhibitViewingLocation()
@@ -149,10 +178,20 @@ public partial class Guest : CharacterBody2D
         }
         else
         {
-            _canMove = false; // Stop moving when the path is completed
-            ControlAnimation();
-            await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
-            SetPath();
+            if (_exitingMuseum)
+            {
+                _canMove = false;
+                MuseumActions.OnGuestExitMuseum?.Invoke();
+                QueueFree();
+            }
+            else
+            {
+                _canMove = false; // Stop moving when the path is completed
+                ControlAnimation();
+                await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
+                SetPath();
+            }
+            
         }
     }
     Vector2 _direction = Vector2.Zero;

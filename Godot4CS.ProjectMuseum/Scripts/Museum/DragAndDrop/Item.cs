@@ -128,6 +128,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         TilesWithExhibitDto tilesWithExhibitDto = JsonSerializer.Deserialize<TilesWithExhibitDto>(jsonStr);
         ExhibitData = tilesWithExhibitDto.Exhibit;
         _museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
+        if (tilesWithExhibitDto.Exhibits != null) _museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
         GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
     }
 

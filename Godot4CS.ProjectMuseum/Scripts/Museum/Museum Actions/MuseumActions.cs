@@ -14,10 +14,12 @@ public partial class MuseumActions : Node
     public static Action<Draggable> DragEnded;
     public static Action<BuilderCardType, string> OnClickBuilderCard;
     public static Action OnMuseumTilesUpdated;
+    public static Action OnGuestExitMuseum;
     public static Action<float> OnMuseumBalanceUpdated;
     public static Action<float> OnMuseumBalanceReduced;
     public static Action<float> OnMuseumBalanceAdded;
     public static Action OnItemUpdated;
+    public static Action OnItemPlaced;
     public static Action<string> OnBottomPanelButtonClicked;
     public static Action<BuilderCardType> OnBottomPanelBuilderCardToggleClicked;
     public static Action<Artifact, int> ArtifactDroppedOnSlot;

@@ -70,8 +70,8 @@ builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(Const.exhib
 
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationShop>(Const.decorationShopDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationShopVariation>(Const.decorationShopVariationDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<DecorationShop>(Const.decorationOtherDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<DecorationShopVariation>(Const.decorationOtherVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<DecorationOther>(Const.decorationOtherDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<DecorationOtherVariation>(Const.decorationOtherVariationDataFolderPath));
 
 builder.Services.AddSingleton(new JsonFileDatabase<TileVariation>(Const.tileVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<WallVariation>(Const.wallVariationDataFolderPath));
@@ -145,7 +145,6 @@ builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddScoped<IExhibitService, ExhibitService>();
 builder.Services.AddScoped<IDecorationOtherService, DecorationOtherService>();
 builder.Services.AddScoped<IDecorationShopService, DecorationShopService>();
-
 builder.Services.AddScoped<IBuilderCardService, BuilderCardService>();
 builder.Services.AddScoped<ILoadService, LoadService>();
 builder.Services.AddScoped<ISaveService, SaveService>();

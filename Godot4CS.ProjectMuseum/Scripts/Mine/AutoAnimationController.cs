@@ -18,7 +18,7 @@ public partial class AutoAnimationController : Node2D
 	private bool _autoMoveToPos;
 	private bool _jumpIntoMine;
 
-	[Export] private float _movementSpeedFactor;
+	[Export] private float _movementSpeedFactor = 1000;
 	[Export] private Vector2 _p0;
 	[Export] private Vector2 _p1;
 	[Export] private Vector2 _p2;

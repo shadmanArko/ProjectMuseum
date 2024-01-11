@@ -37,6 +37,9 @@ public partial class StoryController : Node2D
 				MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber);
 			}
 
+		}else if (nextStoryNumber == 11)
+		{
+			MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber+1);
 		}
 		
 	}

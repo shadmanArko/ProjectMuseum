@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfyphwktlmmhb"]
+
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="1_7dcfl"]
+[ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="2_0y4ib"]
+
+[node name="ConceptEnding UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 292.0
+offset_top = 229.0
+offset_right = -318.0
+offset_bottom = -450.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7dcfl")
+theme_override_colors/default_color = Color(0.752941, 0.752941, 0.752941, 1)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]  This is the end of the Proof of Concept for Museum Keeper
+ by 
+Red Thorn Interactive[/center]"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 753.0
+offset_top = 630.0
+offset_right = 1158.0
+offset_bottom = 738.0
+theme = ExtResource("1_7dcfl")
+theme_override_font_sizes/font_size = 32
+text = "Back To Main menu"
+
+[node name="SceneChanger" parent="." node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("2_0y4ib")]
+_sceneChangerButton = NodePath("../Panel/Button")
+_scenePath = "res://Scenes/MainMenu/Main Scene/MainMenu.tscn"

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
@@ -12,6 +13,7 @@ public partial class BottomBarMuseumUi : Control
 	[Export] private Button _wallpapersButton;
 	[Export] private Button _exhibitButton;
 	[Export] private Label _museumMoneyTextField;
+	[Export] private Label _museumAddedMoneyAmountTextField;
 	[Export] private Label _museumGuestNumberTextField;
 	[Export] private Control _builderCardPanel;
 	// Called when the node enters the scene tree for the first time.
@@ -25,6 +27,16 @@ public partial class BottomBarMuseumUi : Control
 		_wallpapersButton.Pressed += WallpapersButtonOnPressed;
 		MuseumActions.OnMuseumBalanceUpdated += OnMuseumBalanceUpdated;
 		MuseumActions.TotalGuestsUpdated += TotalGuestsUpdated;
+		MuseumActions.OnMuseumBalanceAdded += OnMuseumBalanceAdded;
+	}
+
+	private async void OnMuseumBalanceAdded(float obj)
+	{
+		_museumAddedMoneyAmountTextField.Text = $"+${obj:0.0}";
+		_museumAddedMoneyAmountTextField.Visible = true;
+		await Task.Delay(1000);
+		_museumAddedMoneyAmountTextField.Visible = false;
+
 	}
 
 	private void DecorationsOtherButtonOnPressed()
@@ -62,7 +74,7 @@ public partial class BottomBarMuseumUi : Control
 		_museumGuestNumberTextField.Text = totalNumber.ToString();
 	}
 
-	private void OnMuseumBalanceUpdated(float amount)
+	private async void OnMuseumBalanceUpdated(float amount)
 	{
 		_museumMoneyTextField.Text = amount.ToString("0.00");
 	}
@@ -86,6 +98,7 @@ public partial class BottomBarMuseumUi : Control
 	{
 		_newExhibitButton.Pressed -= EnableBuilderCard;
 		_exhibitButton.Pressed -= DisableBuilderCard;
+		MuseumActions.OnMuseumBalanceAdded -= OnMuseumBalanceAdded;
 		MuseumActions.TotalGuestsUpdated -= TotalGuestsUpdated;
 		MuseumActions.OnMuseumBalanceUpdated -= OnMuseumBalanceUpdated;
 	}

@@ -1,1 +1,7 @@
-[{"Id":"museum0","Name":"my Museum","Money":20225}]
+[
+  {
+    "Id": "museum0",
+    "Name": "my Museum",
+    "Money": 20000.00
+  }
+]

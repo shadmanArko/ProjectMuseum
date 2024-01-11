@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_hulbe"]
 
-[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsOtherButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
+[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsOtherButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 12
@@ -24,7 +24,8 @@ _decorationsOtherButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/D
 _flooringButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Flooring Button")
 _wallpapersButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Wallpaper Button")
 _exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button")
-_museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/Money Text Holder")
+_museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Text Holder")
+_museumAddedMoneyAmountTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Adding Amount")
 _museumGuestNumberTextField = NodePath("Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Count")
 _builderCardPanel = NodePath("Builder card panel")
 
@@ -327,7 +328,21 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Money Text Holder" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Right Panel/Money Display Panel/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Money Adding Amount" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("6_hulbe")
+theme_override_colors/font_color = Color(0, 0.780392, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "+$5"
+horizontal_alignment = 1
+
+[node name="Money Text Holder" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "1300.99"
 

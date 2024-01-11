@@ -52,6 +52,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
         if(!_playerControllerVariables.IsAttacking) return;
         if(_playerControllerVariables.CurrentEquippedItem != Equipables.Sword) return;
         enemy.TakeDamage();
+        GD.Print("PLAYER ATTACKING ENEMY");
     }
 
     private void OnBodyExit(Node2D body)

@@ -7,4 +7,5 @@ public interface IMineService
     Task<Mine> UpdateMine(Mine mine);
     Task<Mine> GetMineData();
     Task<Mine> AssignArtifactsToMine();
+    Task AssignTutorialArtifactToMine();
 }

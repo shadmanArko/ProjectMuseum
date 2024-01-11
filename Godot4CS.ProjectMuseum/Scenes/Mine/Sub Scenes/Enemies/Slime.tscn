@@ -308,13 +308,11 @@ AnimTree = NodePath("AnimationTree")
 HealthBar = NodePath("Health Bar")
 AnimationController = NodePath("AnimationPlayer")
 
-[node name="Enemy Collision Detector" type="Area2D" parent="." node_paths=PackedStringArray("_enemy", "_enemyCooldownTimer")]
+[node name="Enemy Collision Detector" type="Area2D" parent="."]
 position = Vector2(0, 3)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_4f4sl")
-_enemy = NodePath("..")
-_enemyCooldownTimer = NodePath("../Attack Cooldown")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy Collision Detector"]
 texture_filter = 1
@@ -378,17 +376,17 @@ parameters/conditions/is_moving = false
 parameters/conditions/is_taking_damage = false
 parameters/move/blend_position = Vector2(0.00318813, -0.0102041)
 
-[connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="OnCollideWithWallEntered"]
 [connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="AttackPlayer"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
+[connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="OnCollideWithWallEntered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
 [connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]
 [connection signal="timeout" from="Attack Cooldown" to="Enemy Collision Detector" method="OnEnemyAttackCooldownTimeOut"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="OnDeathAnimationFinished"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="OnAttackAnimationFinished"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnTakeDamageAnimationFinished"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnDeathAnimationFinished"]

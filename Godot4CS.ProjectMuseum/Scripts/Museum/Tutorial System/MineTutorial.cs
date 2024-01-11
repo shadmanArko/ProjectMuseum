@@ -17,6 +17,7 @@ public partial class MineTutorial : Node
 	[Export] private TutorialSystem _tutorialSystem;
 
 	private HttpRequest _getPlayerInfoHttpRequest;
+	private HttpRequest _addTutorialArtifactToMine;
 	
 	private bool _moveLeftAndRightCompleted;
 	private bool _digOrdinaryCellCompleted;
@@ -31,6 +32,7 @@ public partial class MineTutorial : Node
 	{
 		CreateHttpRequest();
 		GetPlayerInfo();
+		
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		SubscribeToActions();
 		SetProcess(false);
@@ -41,7 +43,12 @@ public partial class MineTutorial : Node
 		_getPlayerInfoHttpRequest = new HttpRequest();
 		AddChild(_getPlayerInfoHttpRequest);
 		_getPlayerInfoHttpRequest.RequestCompleted += OnGetPlayerInfoHttpRequestCompleted;
+		
+		_addTutorialArtifactToMine = new HttpRequest();
+		AddChild(_addTutorialArtifactToMine);
 	}
+
+	#region Get Player Info
 
 	private void GetPlayerInfo()
 	{
@@ -53,7 +60,21 @@ public partial class MineTutorial : Node
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print( "Player info " +jsonStr);
 		_playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+		
+		if (_playerInfo.CompletedTutorialScene < 6)
+			AddTutorialArtifactToMine();
 	}
+
+	#endregion
+
+	#region Add Tutorial Artifact To Mine
+
+	private void AddTutorialArtifactToMine()
+	{
+		_addTutorialArtifactToMine.Request(ApiAddress.MineApiPath + "AddTutorialArtifactToMine");
+	}
+
+	#endregion
 
 	private void SubscribeToActions()
 	{
@@ -64,6 +85,7 @@ public partial class MineTutorial : Node
 	public async Task<bool> PlayMineTutorials()
 	{
 		GD.Print($"Tutorial No: "+_playerInfo.CompletedTutorialScene);
+		
 		if(_playerInfo.CompletedTutorialScene != 5) return false;
 		MuseumActions.PlayTutorial?.Invoke(6);
 		await Task.Delay(1500);

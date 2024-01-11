@@ -40,6 +40,7 @@ public partial class EnemyCollisionDetector : Area2D
             _enemy.Attack();
             _enemyCooldown = true;
             GD.Print("Enemy cooldown is true");
+            GD.Print("ENEMY ATTACKING PLAYER");
         }
     }
 

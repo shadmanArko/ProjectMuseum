@@ -18,7 +18,7 @@ public partial class DiggingAndPermitsMenu : Control
 
 	private void OnPlayerGetPlayerInfo(PlayerInfo obj)
 	{
-		if (obj.CompletedStoryScene >= 11)
+		if (obj.CompletedStoryScene >= 10)
 		{
 			_subcontinentButton.Visible = false;
 		}

@@ -185,6 +185,11 @@ public partial class BuilderCardSlotsController : ColorRect
 	public override void _ExitTree()
 	{
 		base._ExitTree();
+		_httpRequestForGettingExhibitVariations.RequestCompleted -= HttpRequestForGettingExhibitVariationsOnRequestCompleted;
+		_httpRequestForGettingDecorationShopVariations.RequestCompleted -= HttpRequestForGettingDecorationShopVariationsOnRequestCompleted;
+		_httpRequestForGettingDecorationOtherVariations.RequestCompleted -= HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted;
+		_httpRequestForGettingTileVariations.RequestCompleted -= HttpRequestForGettingTileVariationsOnRequestCompleted;
+		_httpRequestForGettingWallpaperVariations.RequestCompleted -= HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked -= ReInitialize;
 
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=48 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -30,10 +30,13 @@
 [ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
+[ext_resource type="PackedScene" uid="uid://cfyphwktlmmhb" path="res://Scenes/Museum/Museum Ui/concept_ending_ui.tscn" id="22_o4gbe"]
 [ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
+[ext_resource type="PackedScene" uid="uid://2nxthrd3s2eh" path="res://Scenes/Museum/Sub Scenes/Emily.tscn" id="24_vxlv2"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
+[ext_resource type="PackedScene" uid="uid://bggrmc7dfa7d8" path="res://Scenes/Museum/Sub Scenes/Alex.tscn" id="25_qfbsa"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
@@ -74,10 +77,11 @@ Maxzoom = 2.0
 [node name="Fade In and Out Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bhjmc")]
 z_index = 8
 
-[node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("ItemsParent") instance=ExtResource("7_xsnwb")]
+[node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_conceptEndingUi", "ItemsParent") instance=ExtResource("7_xsnwb")]
 mouse_filter = 1
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
+_conceptEndingUi = NodePath("../ConceptEnding UI")
 ItemsParent = NodePath("../../ItemParents")
 
 [node name="Town Ui" parent="museum/CanvasLayer" instance=ExtResource("2_pnteo")]
@@ -99,9 +103,25 @@ mouse_filter = 2
 [node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
 visible = false
 
+[node name="ConceptEnding UI" parent="museum/CanvasLayer" instance=ExtResource("22_o4gbe")]
+visible = false
+z_index = 10
+
 [node name="Player" parent="museum" instance=ExtResource("12_55fh7")]
 position = Vector2(55, -11)
 _displacementSpeed = 50.0
+
+[node name="Emily" parent="museum" instance=ExtResource("24_vxlv2")]
+position = Vector2(54, -14)
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
+_museumExitingCoordinate = Vector2i(0, -2)
+_animationNameAfterInitialMovement = "idle_back_facing"
+
+[node name="Alex" parent="museum" instance=ExtResource("25_qfbsa")]
+position = Vector2(54, -11)
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
+_museumExitingCoordinate = Vector2i(0, -2)
+_animationNameAfterInitialMovement = "idle_front_facing"
 
 [node name="Player_Uncontrolled" parent="museum" instance=ExtResource("19_1kq7h")]
 visible = false
@@ -291,10 +311,12 @@ script = ExtResource("29_6vdgp")
 [node name="TutorialSystem" type="Node2D" parent="."]
 script = ExtResource("33_vs3ci")
 
-[node name="StoryCharacterController" type="Node2D" parent="." node_paths=PackedStringArray("_storyPlayer", "_storyProfessor", "_gameCharacter")]
+[node name="StoryCharacterController" type="Node2D" parent="." node_paths=PackedStringArray("_storyPlayer", "_storyProfessor", "_storyAlex", "_storyEmily", "_gameCharacter")]
 script = ExtResource("34_r65mj")
 _storyPlayer = NodePath("../museum/Player_Uncontrolled")
 _storyProfessor = NodePath("../museum/Professor")
+_storyAlex = NodePath("../museum/Alex")
+_storyEmily = NodePath("../museum/Emily")
 _gameCharacter = NodePath("../museum/Player")
 
 [node name="TownController" type="Node2D" parent="." node_paths=PackedStringArray("_camera2D", "_townScene")]

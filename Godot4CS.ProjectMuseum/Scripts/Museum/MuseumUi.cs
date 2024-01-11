@@ -18,6 +18,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     [Export] private PackedScene _decorationShopItem;
     [Export] private PackedScene _decorationOtherItem;
     [Export] private RichTextLabel museumMoneyTextField;
+    [Export] private Control _conceptEndingUi;
     [Export] private Button _diggingPermitsButton;
     [Export] private Button _townMapButton;
     [Export] private CheckButton _museumGateCheckButton;
@@ -52,7 +53,18 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _museumGateCheckButton.Pressed += MuseumGateCheckButtonOnPressed;
         MuseumActions.OnConceptStoryCompleted += OnConceptStoryCompleted;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+        MuseumActions.OnTimeUpdated += OnTimeUpdated;
     }
+
+    private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
+    {
+        if (hours == 18)
+        {
+            _conceptEndingUi.Visible = true;
+        }
+        
+    }
+
 
     private void OnConceptStoryCompleted()
     {
@@ -208,6 +220,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
         _museumGateCheckButton.Pressed -= MuseumGateCheckButtonOnPressed;
         MuseumActions.OnConceptStoryCompleted -= OnConceptStoryCompleted;
+        MuseumActions.OnTimeUpdated -= OnTimeUpdated;
         base._ExitTree();
     }
 }

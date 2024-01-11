@@ -21,7 +21,7 @@ public partial class GuestsController : Node2D
 	private int _numberOfGuestsInMusuem;
 	private bool _isMuseumGateOpen = false;
 	private bool _isGamePaused = false;
-	private float _ticketPrice = 15;
+	private float _ticketPrice = 5;
     
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
@@ -94,6 +94,5 @@ public partial class GuestsController : Node2D
 		MuseumActions.OnClickMuseumGateToggle -= OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
 		MuseumActions.OnGuestExitMuseum -= OnGuestExitMuseum;
-
 	}
 }

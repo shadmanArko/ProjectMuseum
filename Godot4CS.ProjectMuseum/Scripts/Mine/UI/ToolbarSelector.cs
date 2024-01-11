@@ -127,7 +127,7 @@ public partial class ToolbarSelector : Node
 	private void SetArtifactsOnInventorySlots()
 	{
 		GD.Print($"raw artifact dto is null: {_rawArtifactDto == null}");
-		GD.Print($"raw artifact functionals is null: {_rawArtifactDto?.RawArtifactFunctionals == null}");
+		GD.Print($"raw artifact functional is null: {_rawArtifactDto?.RawArtifactFunctionals == null}");
 		GD.Print(_rawArtifactDto?.RawArtifactFunctionals.Count);
 		if(_inventory.Artifacts.Count <= 0) return;
 		foreach (var artifact in _inventory.Artifacts)

@@ -31,8 +31,17 @@ public partial class CampToMineTransition : Button
         await sceneTransition.FadeIn();
         await Task.Delay(2000);
         await sceneTransition.FadeOut();
-        ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
-        _autoAnimationController._Ready();
+
+        if (ReferenceStorage.Instance.MineTimeSystem.GetTime().Days < 5)
+        {
+            ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
+            _autoAnimationController._Ready();
+        }
+        else
+        {
+            ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
+        }
+            
     }
 
     private async void TransitFromCampToMuseum()

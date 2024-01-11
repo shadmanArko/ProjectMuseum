@@ -76,7 +76,8 @@ public partial class MineTimeSystem : Node
 			if (_time.Hours >= _hoursInDay)
 			{
 				_time.Hours = 0;
-					_time.Days++;
+                _time.Days++;
+                GD.Print($"days passed: {_time.Days}");
                 MineActions.OnOneDayPassed?.Invoke(_time.Days);
 				//TODO Invoke Daily Events
 				
@@ -128,6 +129,8 @@ public partial class MineTimeSystem : Node
 		_time.Minutes = 0;
 		_time.Seconds = 0;
 		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+		GD.Print($"days passed: {_time.Days}");
+		MineActions.OnOneDayPassed?.Invoke(_time.Days);
 	}
 	
 	public void SetTime(int seconds, int minutes, int hours, int days)
@@ -136,6 +139,11 @@ public partial class MineTimeSystem : Node
 		_time.Hours = hours;
 		_time.Minutes = minutes;
 		_time.Seconds = seconds;
+	}
+
+	public Time GetTime()
+	{
+		return _time;
 	}
 
 	public void PlayTimer() => _isPaused = false;

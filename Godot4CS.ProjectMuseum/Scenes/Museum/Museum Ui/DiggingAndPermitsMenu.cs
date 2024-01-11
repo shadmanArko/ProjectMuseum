@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using ProjectMuseum.Models;
 
 public partial class DiggingAndPermitsMenu : Control
 {
@@ -11,6 +12,16 @@ public partial class DiggingAndPermitsMenu : Control
 	{
 		_closePanelButton.Pressed += closePanelButtonOnPressed();
 		_subcontinentButton.Pressed += SubcontinentButtonOnPressed;
+		MuseumActions.OnPlayerGetPlayerInfo+= OnPlayerGetPlayerInfo;
+
+	}
+
+	private void OnPlayerGetPlayerInfo(PlayerInfo obj)
+	{
+		if (obj.CompletedStoryScene >= 11)
+		{
+			_subcontinentButton.Visible = false;
+		}
 	}
 
 	private Action closePanelButtonOnPressed()
@@ -33,5 +44,7 @@ public partial class DiggingAndPermitsMenu : Control
 		base._ExitTree();
 		_closePanelButton.Pressed -= closePanelButtonOnPressed();
 		_subcontinentButton.Pressed -= SubcontinentButtonOnPressed;
+		MuseumActions.OnPlayerGetPlayerInfo-= OnPlayerGetPlayerInfo;
+
 	}
 }

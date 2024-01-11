@@ -51,6 +51,7 @@ public partial class MuseumActions : Node
     public static Action<PathNavigatorCharacter> PathEnded;
     public static Action<Vector2I, PlayerDirectionsEnum> OnPlayerInteract;
     public static Action<string> OnPlayerInteractWith;
+    public static Action<PlayerInfo> OnPlayerGetPlayerInfo;
 
     #endregion
     #region PopUpUi

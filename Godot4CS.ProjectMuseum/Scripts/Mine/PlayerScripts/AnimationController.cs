@@ -128,8 +128,8 @@ public partial class AnimationController : AnimationPlayer
 		var isHanging = _playerControllerVariables.State == MotionState.Hanging;
 		if (mouseDirection == Vector2I.Up)
 			PlayAnimation(isHanging ? "climb_mine_up" : "mining_up");
-		else if (mouseDirection == Vector2I.Down)
-			PlayAnimation(isHanging ? "climb_mine_down" : "mining_down");
+		else if (mouseDirection == Vector2I.Down && !isHanging)
+			PlayAnimation("mining_down");
 		else
 			PlayAnimation(isHanging ? "climb_mine_horizontal" : "mining_horizontal");
 	}

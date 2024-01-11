@@ -46,6 +46,8 @@ public partial class MineActions : Node
     public static Action<Artifact> OnArtifactSuccessfullyRetrieved;
     public static Action OnPlayerReachBackToCamp;
 
+    public static Action OnPlayerReachFirstWarning;
+
     public static Action OnInventoryUpdate;
 
 	public static Action<KinematicCollision2D> OnPlayerCollisionDetection;

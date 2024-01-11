@@ -54,4 +54,26 @@ public class MineService : IMineService
         await _mineRepository.Update(mine);
         return mine;
     }
+
+    public async Task AssignTutorialArtifactToMine()
+    {
+        var artifacts = await _mineArtifactRepository.GetAllArtifacts();
+
+        if (artifacts != null)
+        {
+            if (artifacts.FirstOrDefault(targetArtifact => targetArtifact is { PositionX: 24, PositionY: 2 }) == null)
+            {
+                var newArtifact = new Artifact
+                {
+                    PositionX = 24,
+                    PositionY = 2,
+                    Id = "tutorialArtifact",
+                    RawArtifactId = "ClassicalNativeAmericanTomahawk",
+                    Slot = 0
+                };
+                
+                await _mineArtifactRepository.AddArtifact(newArtifact);
+            }
+        }
+    }
 }

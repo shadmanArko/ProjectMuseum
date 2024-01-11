@@ -23,6 +23,7 @@ public partial class Slime : Enemy
     #endregion
     
     [Export] private Timer _stateChangeTimer;
+    
 
     #region Initializers
 
@@ -56,6 +57,8 @@ public partial class Slime : Enemy
 
     #endregion
 
+    #region Timers
+
     private void OnTrackTimerTimeOut()
     {
         NavAgent.TargetPosition = IsAggro ? _playerControllerVariables.Position : MoveDirection;
@@ -74,6 +77,8 @@ public partial class Slime : Enemy
 
         //GD.Print($"State changed to {State}");
     }
+
+    #endregion
 
     public override void _PhysicsProcess(double delta)
     {

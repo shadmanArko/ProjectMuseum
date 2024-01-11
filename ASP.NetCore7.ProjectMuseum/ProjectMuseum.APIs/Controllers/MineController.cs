@@ -86,6 +86,13 @@ public class MineController : ControllerBase
         return Ok(cellCrackMaterial);
     }
 
+    [HttpGet("AddTutorialArtifactToMine")]
+    public async Task<IActionResult> AddTutorialArtifactToMine()
+    {
+        await _mineService.AssignTutorialArtifactToMine();
+        return Ok();
+    }
+
     [HttpGet("GetAllMineCellCrackMaterials")]
     public async Task<IActionResult> GetAllCellCrackMaterials()
     {

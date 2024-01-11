@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://bypida1m5guj5" path="res://Scenes/Museum/Museum Ui/Builder Ui/Builder Card.tscn" id="12_730rj"]
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitController.cs" id="12_k33tk"]
 [ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="13_bch1s"]
-[ext_resource type="PackedScene" uid="uid://dgnrj8tqnh8sc" path="res://Scenes/Museum/Museum Ui/fade_in_and_out_ui.tscn" id="13_bhjmc"]
+[ext_resource type="PackedScene" path="res://Scenes/Museum/Museum Ui/fade_in_and_out_ui.tscn" id="13_bhjmc"]
 [ext_resource type="PackedScene" uid="uid://bwlwmmvr5vtvc" path="res://Scenes/Museum/Museum Ui/pop_up_ui.tscn" id="13_k824c"]
 [ext_resource type="PackedScene" uid="uid://d3g6we5d6r048" path="res://Scenes/Museum/Decorations/decorationShopItem.tscn" id="15_j81qh"]
 [ext_resource type="PackedScene" uid="uid://mna3mnreah7e" path="res://Scenes/Museum/Decorations/decorationOtherItem.tscn" id="16_1ehrh"]

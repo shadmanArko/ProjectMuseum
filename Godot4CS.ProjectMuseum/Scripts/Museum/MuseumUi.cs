@@ -50,7 +50,17 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _diggingPermitsButton.Pressed += DiggingPermitsButtonOnPressed;
         _townMapButton.Pressed += TownMapButtonOnPressed;
         _museumGateCheckButton.Pressed += MuseumGateCheckButtonOnPressed;
+        MuseumActions.OnConceptStoryCompleted += OnConceptStoryCompleted;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
+    }
+
+    private void OnConceptStoryCompleted()
+    {
+        if (!_museumGateCheckButton.ButtonPressed)
+        {
+            _museumGateCheckButton.ButtonPressed = true;
+            MuseumGateCheckButtonOnPressed();
+        }
     }
 
     private void TownMapButtonOnPressed()
@@ -197,6 +207,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _townMapButton.Pressed -= TownMapButtonOnPressed;
         MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
         _museumGateCheckButton.Pressed -= MuseumGateCheckButtonOnPressed;
+        MuseumActions.OnConceptStoryCompleted -= OnConceptStoryCompleted;
         base._ExitTree();
     }
 }

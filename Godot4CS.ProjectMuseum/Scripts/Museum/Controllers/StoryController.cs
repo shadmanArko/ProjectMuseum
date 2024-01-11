@@ -30,18 +30,26 @@ public partial class StoryController : Node2D
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		MuseumActions.OnPlayerGetPlayerInfo?.Invoke(playerInfo);
 		var nextStoryNumber = playerInfo.CompletedStoryScene + 1;
-		if (nextStoryNumber<= _totalStoryNumber)
+		if (nextStoryNumber <= 8 || nextStoryNumber >= 12)
 		{
-			MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber);
+			if (nextStoryNumber<= _totalStoryNumber)
+			{
+				MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber);
+			}
+
 		}
 		
 	}
 
 	private async void StorySceneEnded(int sceneNumber)
 	{
-		if (sceneNumber <= _totalStoryNumber)
+		if (sceneNumber < _totalStoryNumber)
 		{
 			MuseumActions.PlayStoryScene(++sceneNumber);
+		}
+		else
+		{
+			MuseumActions.OnConceptStoryCompleted?.Invoke();
 		}
 
 	}

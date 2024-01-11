@@ -66,6 +66,7 @@ public partial class MuseumActions : Node
     #region Story
 
     public static Action<int> PlayStoryScene;
+    public static Action OnConceptStoryCompleted;
     public static Action<int> StorySceneEnded;
     public static Action<string> StorySceneEntryEnded;
     public static Action<string> StorySceneEntryStarted;

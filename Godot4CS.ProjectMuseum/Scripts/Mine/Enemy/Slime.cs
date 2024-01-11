@@ -95,9 +95,9 @@ public partial class Slime : Enemy
             case EnemyState.Idle:
                 Idle();
                 break;
-            case EnemyState.Attack:
-                Attack();
-                break;
+            // case EnemyState.Attack:
+            //     Attack();
+            //     break;
             
         }
 

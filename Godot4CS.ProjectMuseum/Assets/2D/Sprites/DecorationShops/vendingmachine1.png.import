@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8qogxl0u4ahd"
-path="res://.godot/imported/vendingmachine2.png-80f0885faec891205c726f2b43eddbc7.ctex"
+uid="uid://gon63saer8ki"
+path="res://.godot/imported/vendingmachine1.png-e66ed5abd1ab475a650c0a35e7e7573a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Decorations/vendingmachine2.png"
-dest_files=["res://.godot/imported/vendingmachine2.png-80f0885faec891205c726f2b43eddbc7.ctex"]
+source_file="res://Assets/2D/Sprites/DecorationShops/vendingmachine1.png"
+dest_files=["res://.godot/imported/vendingmachine1.png-e66ed5abd1ab475a650c0a35e7e7573a.ctex"]
 
 [params]
 

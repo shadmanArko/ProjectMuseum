@@ -77,7 +77,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         if ((builderCardType == BuilderCardType.Exhibit))
         {
             HandleExhibitItemPlacement(cardName);
-        }else if (builderCardType == BuilderCardType.Decoration)
+        }else if (builderCardType == BuilderCardType.DecorationShop)
         {
             HandleDecorationCardPlacement(builderCardType, cardName, _decorationItem);
         }

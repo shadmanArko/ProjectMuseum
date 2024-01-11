@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drpa3iobehi5n"
-path="res://.godot/imported/plant fern 1.png-ff54f53cc39d8ec8e2f62d8578258fe8.ctex"
+uid="uid://bgxjlbp65sucw"
+path="res://.godot/imported/plant mini tree1.png-6cd716a44e6b743ffa239fa9db5b982b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Decorations/plant fern 1.png"
-dest_files=["res://.godot/imported/plant fern 1.png-ff54f53cc39d8ec8e2f62d8578258fe8.ctex"]
+source_file="res://Assets/2D/Sprites/DecorationOthers/plant mini tree1.png"
+dest_files=["res://.godot/imported/plant mini tree1.png-6cd716a44e6b743ffa239fa9db5b982b.ctex"]
 
 [params]
 

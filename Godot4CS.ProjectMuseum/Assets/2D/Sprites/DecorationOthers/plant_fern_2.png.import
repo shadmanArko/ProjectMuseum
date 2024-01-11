@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0opeqvxjcpl2"
-path="res://.godot/imported/entry gate old.png-053943295a7cc54a7b370b5716b6cc08.ctex"
+uid="uid://ce4vdqba5yx0f"
+path="res://.godot/imported/plant_fern_2.png-9c1f7a36717ad8f5c6111b3fc860bcf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Decorations/entry gate old.png"
-dest_files=["res://.godot/imported/entry gate old.png-053943295a7cc54a7b370b5716b6cc08.ctex"]
+source_file="res://Assets/2D/Sprites/DecorationOthers/plant_fern_2.png"
+dest_files=["res://.godot/imported/plant_fern_2.png-9c1f7a36717ad8f5c6111b3fc860bcf7.ctex"]
 
 [params]
 

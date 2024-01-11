@@ -3,7 +3,8 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum;
 public enum BuilderCardType
 {
     Exhibit,
-    Decoration,
+    DecorationShop,
+    DecorationOther,
     Flooring,
     Wallpaper
 }

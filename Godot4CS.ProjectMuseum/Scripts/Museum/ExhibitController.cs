@@ -54,27 +54,31 @@ public partial class ExhibitController : Node2D
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(jsonStr);
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         _museumTileContainer.Exhibits = exhibits;
+        SpawnExhibits(exhibits);
+        GD.Print($"Number of exhibits {exhibits.Count}");
+    }
+
+    private void SpawnExhibits(List<Exhibit> exhibits)
+    {
         foreach (var exhibit in exhibits)
         {
             if (exhibit.ExhibitVariationName == "SmallWoodenExhibitBasic")
             {
                 SpawnExhibit(exhibit, item1);
-            }else if (exhibit.ExhibitVariationName =="MediumWoodenExhibitBasic")
+            }
+            else if (exhibit.ExhibitVariationName == "MediumWoodenExhibitBasic")
             {
                 SpawnExhibit(exhibit, item3);
-
-            }else if (exhibit.ExhibitVariationName =="MediumWoodenExhibitBasic2")
+            }
+            else if (exhibit.ExhibitVariationName == "MediumWoodenExhibitBasic2")
             {
                 SpawnExhibit(exhibit, item4);
-
-            }else if (exhibit.ExhibitVariationName =="LargeWoodenExhibitBasic")
+            }
+            else if (exhibit.ExhibitVariationName == "LargeWoodenExhibitBasic")
             {
                 SpawnExhibit(exhibit, item2);
             }
-
-            
         }
-        GD.Print($"Number of exhibits {exhibits.Count}");
     }
 
     private void SpawnExhibit(Exhibit exhibit, PackedScene packedScene)

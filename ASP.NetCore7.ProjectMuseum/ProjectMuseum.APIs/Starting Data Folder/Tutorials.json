@@ -35,7 +35,7 @@
     "TutorialSceneEntries": [
       {
         "EntryNo": "Tut2a",
-        "TutorialText": "Use {Left Click} to select the exhibit.",
+        "TutorialText": "Use {Right Click} to select the exhibit.",
         "KeyBindsNeedsToPerform": [],
         "ActionsNeedsToPerform": [
           "SelectItem"

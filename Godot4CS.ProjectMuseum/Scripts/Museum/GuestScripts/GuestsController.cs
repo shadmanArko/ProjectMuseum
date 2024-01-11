@@ -35,7 +35,13 @@ public partial class GuestsController : Node2D
 		_httpRequestForGettingMuseumTiles.Request(ApiAddress.MuseumApiPath + "GetAllMuseumTiles");
 		MuseumActions.OnClickMuseumGateToggle += OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
+		MuseumActions.OnGuestExitMuseum += OnGuestExitMuseum;
 		await Task.Delay(500);
+	}
+
+	private void OnGuestExitMuseum()
+	{
+		_numberOfGuestsInMusuem--;
 	}
 
 	private void OnTimePauseValueUpdated(bool obj)
@@ -87,5 +93,7 @@ public partial class GuestsController : Node2D
 		_httpRequestForGettingMuseumTiles.RequestCompleted -= HttpRequestForGettingMuseumTilesOnRequestCompleted;
 		MuseumActions.OnClickMuseumGateToggle -= OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
+		MuseumActions.OnGuestExitMuseum -= OnGuestExitMuseum;
+
 	}
 }

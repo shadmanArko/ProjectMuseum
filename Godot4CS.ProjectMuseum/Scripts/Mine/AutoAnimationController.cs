@@ -54,7 +54,7 @@ public partial class AutoAnimationController : Node2D
 
 	public override void _Process(double delta)
 	{
-		AutoMoveToPosition();
+		AutoMoveToPosition((float) delta);
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -68,12 +68,12 @@ public partial class AutoAnimationController : Node2D
     
 	#region Auto Animations
 
-	private void AutoMoveToPosition()
+	private void AutoMoveToPosition(float delta)
 	{
 		if(_playerControllerVariables.Player.Position.X <= _newPos.X)
 		{
 			_animationController.Play("run");
-			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0));
+			_playerControllerVariables.Player.Translate(new Vector2(0.05f,0) * delta);
 		}
 		else
 		{

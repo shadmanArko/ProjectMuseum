@@ -52,7 +52,6 @@ public partial class TutorialSystem : Node
     private void HttpRequestForGettingPlayerInfoOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
-        GD.Print( "Player info " +jsonStr);
         _playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
     }
 

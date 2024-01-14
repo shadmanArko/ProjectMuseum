@@ -11,7 +11,6 @@ public partial class MineSceneDiInstaller : Node
 {
 	public MineSceneDiInstaller()
 	{
-		GD.Print("Mine DI Installer initialized");
 		ServiceRegistry.RegisterSingleton<PlayerControllerVariables>();
 		ServiceRegistry.RegisterSingleton<MineGenerationVariables>();
 		ServiceRegistry.RegisterSingleton<global::ProjectMuseum.Models.Mine>();
@@ -19,6 +18,5 @@ public partial class MineSceneDiInstaller : Node
 		ServiceRegistry.RegisterSingleton<RawArtifactDTO>();
 		
 		ServiceRegistry.Initialize();
-		GD.Print("Service Registry initialized");
 	}
 }

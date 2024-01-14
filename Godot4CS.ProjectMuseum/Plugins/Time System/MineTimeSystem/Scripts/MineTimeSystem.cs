@@ -50,11 +50,6 @@ public partial class MineTimeSystem : Node
 	
 	private void UpdateTime()
 	{
-		GD.Print($"Season: {_time.Months}, Day: {_time.Days}, Time: {_time.Hours:D2}:{_time.Minutes:D2}");
-		
-		
-		GD.Print($"{_time.Days}-{_time.Hours}:{_time.Minutes}");
-		
 		_time.Minutes+=10;
 		if (_time.Minutes >= _minutesInHour)
 		{
@@ -77,7 +72,6 @@ public partial class MineTimeSystem : Node
 			{
 				_time.Hours = 0;
                 _time.Days++;
-                GD.Print($"days passed: {_time.Days}");
                 MineActions.OnOneDayPassed?.Invoke(_time.Days);
 				//TODO Invoke Daily Events
 				
@@ -129,7 +123,6 @@ public partial class MineTimeSystem : Node
 		_time.Minutes = 0;
 		_time.Seconds = 0;
 		MineActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
-		GD.Print($"days passed: {_time.Days}");
 		MineActions.OnOneDayPassed?.Invoke(_time.Days);
 	}
 	
@@ -152,6 +145,5 @@ public partial class MineTimeSystem : Node
 	public void TogglePause()
 	{
 		_isPaused = !_isPaused;
-		GD.Print(_isPaused ? "Game Paused" : "Game Resumed");
 	}
 }

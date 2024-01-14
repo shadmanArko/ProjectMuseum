@@ -40,7 +40,6 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.State = MotionState.Grounded;
 		SetProcess(true);
 		SetPhysicsProcess(false);
-		GD.Print("inside here");
 	}
 
 	private Vector2 _newPos = new(420,-58);

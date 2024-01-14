@@ -45,19 +45,10 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		MineActions.OnPlayerHealthValueChanged += Death;
 	}
 
-	public override void _Ready()
-	{
-		GD.Print($"player is null: {_playerControllerVariables.Player is null}");
-	}
-
 	public override void _PhysicsProcess(double delta)
 	{
         if(_playerControllerVariables.CanMove)
 	        PlayerMovement(delta);
-        
-        GD.Print($"Player state: {_playerControllerVariables.State}");
-        GD.Print($"Player max speed: {_playerControllerVariables.Acceleration}");
-        GD.Print($"Player state: {_playerControllerVariables.State}");
 
         if (_playerControllerVariables.IsAffectedByGravity)
         {
@@ -209,18 +200,9 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		MouseMotion(@event);
 		if(@event.IsActionReleased("toggle_grab"))
 			PlayerGrab();
-		// if(@event.IsActionReleased("Lamp"))
-		// 	Lamp();
-		// if(@event.IsActionReleased("Test"))
-		// 	Test();
 	}
 
 	#region For Testing Purposes
-
-	private void Test()
-	{
-		GD.Print($"State: {_playerControllerVariables.State}");
-	}
 
 	private void Lamp()
 	{
@@ -228,7 +210,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		_mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
 		var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(Position);
 		scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize);
-		GD.Print("Lamp instantiated");
 	}
 
 	#endregion
@@ -273,7 +254,6 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
 		if(_playerControllerVariables.PlayerHealth > 0) return;
 		if(_playerControllerVariables.IsDead) return;
-		GD.Print("Death animation");
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;

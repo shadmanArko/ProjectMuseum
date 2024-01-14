@@ -89,8 +89,7 @@ public partial class MineGenerationController : Node2D
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
 		_rawArtifactDto.RawArtifactFunctionals = rawArtifactFunctionalList;
-		GD.Print("Raw artifact functional API called");
-		GD.Print($"raw artifact functional: {_rawArtifactDto.RawArtifactFunctionals.Count}");
+		MineActions.OnRawArtifactDTOInitialized?.Invoke();
 	}
 
 	private void OnGetRawArtifactDescriptiveHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
@@ -113,7 +112,6 @@ public partial class MineGenerationController : Node2D
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
 		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
-		GD.Print("Raw artifact functional resolved from Mine Generation Script");
 	}
 
 	#region Get Mine Crack Material From Server
@@ -160,7 +158,7 @@ public partial class MineGenerationController : Node2D
 	}
 	private void OnSaveGeneratedMineHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
-		GD.Print("ON SAVE GENERATED MINE HTTP REQUEST COMPLETE method called");
+		// GD.Print("ON SAVE GENERATED MINE HTTP REQUEST COMPLETE method called");
 		_savingCanvas.Visible = false;
 	}
 
@@ -195,9 +193,7 @@ public partial class MineGenerationController : Node2D
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		
-		
-		GD.Print(mine);
+        
 		GenerateGridFromMineData(mine);
 
 		void SetTutorialArtifactOnSecondMineCell()
@@ -240,19 +236,19 @@ public partial class MineGenerationController : Node2D
     
 	#endregion
 
-	public override void _Input(InputEvent @event)
-	{
-		if (@event.IsActionReleased("generateGrid"))
-		{
-			var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 10));
-			cell.HasArtifact = true;
-			GD.Print("Generated artifact");
-		}
-		
-		if(@event.IsActionReleased("saveGrid"))
-			SaveMineDataIntoServer();
-			
-		if(@event.IsActionReleased("loadGrid"))
-			LoadMineDataFromServer();
-	}
+	// public override void _Input(InputEvent @event)
+	// {
+	// 	if (@event.IsActionReleased("generateGrid"))
+	// 	{
+	// 		var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 10));
+	// 		cell.HasArtifact = true;
+	// 		GD.Print("Generated artifact");
+	// 	}
+	// 	
+	// 	if(@event.IsActionReleased("saveGrid"))
+	// 		SaveMineDataIntoServer();
+	// 		
+	// 	if(@event.IsActionReleased("loadGrid"))
+	// 		LoadMineDataFromServer();
+	// }
 }

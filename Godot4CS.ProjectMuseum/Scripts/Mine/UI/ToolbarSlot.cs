@@ -63,13 +63,11 @@ public partial class ToolbarSlot : Node
 
 	private void OnMouseEnter()
 	{
-		GD.Print("Mouse entered");
 		_mineSceneTooltip.ShowToolbarTooltip(ItemId, IsArtifact);
 	}
 
 	private void OnMouseExit()
 	{
-		GD.Print("Mouse exited");
 		_mineSceneTooltip.HideTooltip();
 	}
 }

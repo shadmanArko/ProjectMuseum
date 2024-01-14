@@ -124,7 +124,6 @@ public static class MineSetCellConditions
     
     private static void SetCrackBasedOnDigDirection(MineGenerationView mineGenerationView,Vector2I mouseDir, int tileSourceId, Vector2I tilePos, Vector2I coords)
     {
-        GD.Print($"Set crack cell {tilePos}");
         switch (mouseDir)
         {
             case (1,0):

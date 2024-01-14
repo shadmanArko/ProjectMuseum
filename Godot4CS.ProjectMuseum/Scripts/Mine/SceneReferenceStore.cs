@@ -10,7 +10,6 @@ public partial class SceneReferenceStore : Node
 
 	public override void _Ready()
 	{
-		GD.Print("Scene Reference store initialized");
 		SubscribeToActions();
 	}
 

@@ -65,4 +65,6 @@ public partial class MineActions : Node
 	public static Action OnPlayerGrabActionEnded;
 	
 	public static Action<int, int, int, int, int> OnTimeUpdated;
+
+	public static Action OnRawArtifactDTOInitialized;	//TODO: has to be changed later
 }

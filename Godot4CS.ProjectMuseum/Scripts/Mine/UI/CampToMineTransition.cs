@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
@@ -30,9 +31,11 @@ public partial class CampToMineTransition : Button
         await Task.Delay(2000);
         await sceneTransition.FadeOut();
 
-        if (ReferenceStorage.Instance.MineTimeSystem.GetTime().Days < 5)
+        if (ReferenceStorage.Instance.MineTimeSystem.GetTime().Days <= 5)
         {
             ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
+            HealthSystem.RestorePlayerFullHealth(10, _playerControllerVariables);
+            EnergySystem.RestoreFullEnergy(200, _playerControllerVariables);
             _autoAnimationController._Ready();
         }
         else

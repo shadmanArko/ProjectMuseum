@@ -53,8 +53,6 @@ public partial class EnemySpawner : Node2D
 
     private void OnTimeEndSpawnEnemy()
     {
-        GD.Print("Spawning new enemy");
-
         var enemiesAlive = 0;
         foreach (var tempEnemy in _enemies)
         {

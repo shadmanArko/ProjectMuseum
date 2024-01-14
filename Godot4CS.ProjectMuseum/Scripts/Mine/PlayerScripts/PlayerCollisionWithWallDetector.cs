@@ -133,7 +133,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (!IsCellBreakValid(targetTilePosition)) return;
 
         var cell = _mineGenerationVariables.GetCell(targetTilePosition);
-        GD.Print($"breaking cell: {targetTilePosition}");
+        // GD.Print($"breaking cell: {targetTilePosition}");
         if (cell.HasArtifact)
             DigArtifactCell(targetTilePosition);
         else
@@ -204,7 +204,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     private void DigArtifactCell(Vector2I tilePos)
     {
-        GD.Print("Inside artifact break method");
         var cell = _mineGenerationVariables.GetCell(tilePos);
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
@@ -212,7 +211,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         var cellCrackMaterial =
             _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
                 tempCell.MaterialType == cell.ArtifactMaterial);
-        GD.Print($"artifact id: {cell.ArtifactId}");
         MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             cellCrackMaterial, _mineGenerationVariables.MineGenView);
         MakeMineWallDepletedParticleEffect();
@@ -223,11 +221,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
-
-            GD.Print($"mouseDirection: {_playerControllerVariables.MouseDirection}");
+            
             if (_playerControllerVariables.MouseDirection == Vector2I.Down)
             {
-                GD.Print("is grounded is made false");
                 if (_playerControllerVariables.State != MotionState.Hanging)
                     _playerControllerVariables.State = MotionState.Falling;
             }
@@ -256,11 +252,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
-
-            GD.Print($"mouseDirection: {_playerControllerVariables.MouseDirection}");
+            
             if (_playerControllerVariables.MouseDirection == Vector2I.Down)
             {
-                GD.Print("is grounded is made false");
                 if (_playerControllerVariables.State != MotionState.Hanging)
                     _playerControllerVariables.State = MotionState.Falling;
             }
@@ -316,7 +310,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         }
 
         _mineGenerationVariables.MineGenView.AddChild(particle);
-        GD.Print("Emitting particles");
         var direction = _playerControllerVariables.MouseDirection * -1;
         particle.EmitParticle(direction);
     }

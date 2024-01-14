@@ -33,13 +33,11 @@ public partial class ToolbarSelector : Node
 	{
 		SubscribeToActions();
 		_toolbarSlots = new List<ToolbarSlot>();
-		GetPlayerInventory();
 	}
 	
 	private void InitializeDiReferences()
 	{
 		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
-		GD.Print("Raw artifact functional resolved from Toolbar Selector Script");
 	}
 
 	private void CreateHttpRequest()
@@ -53,6 +51,7 @@ public partial class ToolbarSelector : Node
 	{
 		MineActions.OnToolbarSlotChanged += SelectItem;
 		MineActions.OnInventoryUpdate += UpdatePlayerInventory;
+		MineActions.OnRawArtifactDTOInitialized += GetPlayerInventory;
 	}
 
 	#region Player Inventory
@@ -69,7 +68,6 @@ public partial class ToolbarSelector : Node
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		_inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-		GD.Print("Inventory:"+jsonStr);
 		
 		RemoveAllInventorySlots();
 		CreateInventorySlots();
@@ -95,8 +93,6 @@ public partial class ToolbarSelector : Node
 				GD.PrintErr($"error instantiating slot");
 				continue;
 			}
-			
-			GD.Print("Instantiating toolbar slots "+i);
             
 			AddChild(toolbarSlot);
 			_toolbarSlots.Add(toolbarSlot);
@@ -118,7 +114,6 @@ public partial class ToolbarSelector : Node
 		foreach (var equipable in _inventory.Equipables)
 		{
 			_inventory.EmptySlots.Remove(equipable.Slot);
-			GD.Print("Setting up equipables: "+ $"{equipable.Slot} {equipable.Id} {equipable.PngPath} {equipable.Name}" );
 			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
 			_toolbarSlots[equipable.Slot].SetItemData(equipable.Id, false);
 		}
@@ -126,9 +121,6 @@ public partial class ToolbarSelector : Node
 
 	private void SetArtifactsOnInventorySlots()
 	{
-		GD.Print($"raw artifact dto is null: {_rawArtifactDto == null}");
-		GD.Print($"raw artifact functional is null: {_rawArtifactDto?.RawArtifactFunctionals == null}");
-		GD.Print(_rawArtifactDto?.RawArtifactFunctionals.Count);
 		if(_inventory.Artifacts.Count <= 0) return;
 		foreach (var artifact in _inventory.Artifacts)
 		{
@@ -167,7 +159,6 @@ public partial class ToolbarSelector : Node
     
 	private void SelectItem(Equipables equipable)
 	{
-		GD.Print($"equipable: {(int) equipable}");
 		DeselectAllItems();
 		_toolbarSlots[(int) equipable].SetItemAsSelected();
 	}

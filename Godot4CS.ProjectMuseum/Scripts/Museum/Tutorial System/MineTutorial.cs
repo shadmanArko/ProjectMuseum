@@ -59,7 +59,6 @@ public partial class MineTutorial : Node
 	private void OnGetPlayerInfoHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		GD.Print( "Player info " +jsonStr);
 		_playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		
 		if (_playerInfo.CompletedTutorialScene < 6)

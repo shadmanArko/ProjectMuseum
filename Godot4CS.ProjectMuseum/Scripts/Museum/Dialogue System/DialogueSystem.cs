@@ -29,6 +29,7 @@ public partial class DialogueSystem : Control
 	private Task _dialogueShowingTask;
 	private CancellationTokenSource _cancellationTokenSource;// Called when the node enters the scene tree for the first time.
 	private bool _finishedCurrentDialogue = false;
+	private string _playerName;
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
@@ -49,6 +50,7 @@ public partial class DialogueSystem : Control
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print(jsonStr);
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+		_playerName = playerInfo.Name;
 		GD.Print($"Story completion updated to {playerInfo.CompletedStoryScene}");
 	}
 
@@ -107,7 +109,10 @@ public partial class DialogueSystem : Control
 			}else if (letter == ']')
 			{
 				skipIteration = false;
-				
+				if (tag == "PLAYERNAME")
+				{
+					_dialogueRichTextLabel.Text += _playerName;
+				}
 				continue;
 			}
 			if (skipIteration)
@@ -115,6 +120,7 @@ public partial class DialogueSystem : Control
 				tag += letter;
 				continue;
 			}
+			
 			_dialogueRichTextLabel.Text += letter;
 			// cancellationToken.ThrowIfCancellationRequested();
 			
@@ -288,6 +294,9 @@ public partial class DialogueSystem : Control
 				if (tag == "PAUSE")
 				{
 					await Task.Delay((int)(_delayForPause * 1000), cancellationToken);
+				}else if (tag == "PLAYERNAME")
+				{
+					_dialogueRichTextLabel.Text += _playerName;
 				}
 				continue;
 			}

@@ -45,7 +45,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         GD.Print("ready from ui being called");
         if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
-        
+        _diggingPermitsButton.Visible = false;
        
         
         _diggingPermitsButton.Pressed += DiggingPermitsButtonOnPressed;
@@ -54,6 +54,15 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         MuseumActions.OnConceptStoryCompleted += OnConceptStoryCompleted;
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
         MuseumActions.OnTimeUpdated += OnTimeUpdated;
+        MuseumActions.StorySceneEntryEnded += StorySceneEnded;
+    }
+
+    private void StorySceneEnded(string obj)
+    {
+        if (obj == "9d")
+        {
+            _diggingPermitsButton.Visible = true;
+        }
     }
 
     private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
@@ -221,6 +230,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         _museumGateCheckButton.Pressed -= MuseumGateCheckButtonOnPressed;
         MuseumActions.OnConceptStoryCompleted -= OnConceptStoryCompleted;
         MuseumActions.OnTimeUpdated -= OnTimeUpdated;
+        MuseumActions.StorySceneEntryEnded -= StorySceneEnded;
+
         base._ExitTree();
     }
 }

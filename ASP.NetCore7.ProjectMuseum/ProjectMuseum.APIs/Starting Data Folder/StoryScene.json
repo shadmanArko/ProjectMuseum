@@ -333,7 +333,7 @@
       {
         "EntryNo": "9d",
         "IllustrationName": "",
-        "Dialogue": "Hey [PlayerName]! I can't wait to go excavating! ",
+        "Dialogue": "Hey [PLAYERNAME]! I can't wait to go excavating! ",
         "Speaker": "Alex",
         "SpeakerEmotion": "Excited",
         "HasCutscene": false,

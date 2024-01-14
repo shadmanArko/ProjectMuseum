@@ -64,11 +64,18 @@ public partial class DialogueSystem : Control
 		}
 		catch (TaskCanceledException)
 		{
-			GD.Print("Printing canceled.");
-		}
+			if (!_finishedCurrentDialogue )
+			{
+				CompleteDialogueWithoutWaiting(_storyEntryCount);
+				GD.Print("Printing cancelled.");
+				return;
+			}
 
-		_cancellationTokenSource = new CancellationTokenSource();
+
+		}
 		var storySceneEntry = _storyScene.StorySceneEntries[_storyEntryCount];
+
+		 _cancellationTokenSource = new CancellationTokenSource();
 		MuseumActions.StorySceneEntryEnded?.Invoke(storySceneEntry.EntryNo);
 		if (_storyEntryCount < _storyScene.StorySceneEntries.Count -1)
 		{
@@ -79,6 +86,42 @@ public partial class DialogueSystem : Control
 		{
 			HandleSceneEnd();
 		}
+	}
+
+	private void CompleteDialogueWithoutWaiting( int entry)
+	{
+		_finishedCurrentDialogue = false;
+		bool skipIteration = false;
+		string tag = "";
+		string dialogue = _storyScene.StorySceneEntries[entry].Dialogue;
+		_dialogueRichTextLabel.Text = "";
+		foreach (var letter in dialogue.ToCharArray())
+		{
+			// cancellationToken.ThrowIfCancellationRequested();
+			
+			 if (letter == '[')
+			{
+				skipIteration = true;
+				tag = "";
+				continue;
+			}else if (letter == ']')
+			{
+				skipIteration = false;
+				
+				continue;
+			}
+			if (skipIteration)
+			{
+				tag += letter;
+				continue;
+			}
+			_dialogueRichTextLabel.Text += letter;
+			// cancellationToken.ThrowIfCancellationRequested();
+			
+		}
+
+		_finishedCurrentDialogue = true;
+
 	}
 
 	private async void HandleSceneEnd()

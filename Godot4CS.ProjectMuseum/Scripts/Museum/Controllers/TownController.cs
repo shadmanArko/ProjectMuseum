@@ -6,6 +6,7 @@ public partial class TownController : Node2D
 {
 	[Export] private Camera2D _camera2D;
 	[Export] private Control _townScene;
+	
 
 	private bool _townMapEnabled;
 
@@ -14,9 +15,11 @@ public partial class TownController : Node2D
 	
 	private Vector2 _cameraLastZoom;
 	private Vector2 _cameraLastPosition;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
 		_cameraStartZoom = _camera2D.Zoom;
 		_cameraStartPosition = _camera2D.Position;
 		_cameraLastZoom = _cameraStartZoom;
@@ -25,6 +28,8 @@ public partial class TownController : Node2D
 		MuseumActions.OnClickCloseTownUi += DisableTownMap;
 		DisableTownMap();
 	}
+
+
 
 	private void EnableTownMap()
 	{

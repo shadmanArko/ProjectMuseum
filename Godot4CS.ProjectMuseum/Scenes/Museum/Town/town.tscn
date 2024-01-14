@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=21 format=3 uid="uid://baf5s8ygn03sp"]
 
+[ext_resource type="Script" path="res://Scripts/Museum/UI/TownUi.cs" id="1_18m7k"]
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
 [ext_resource type="PackedScene" uid="uid://c42fbpn0n0tjo" path="res://Scenes/Museum/Town/trailer_home.tscn" id="3_2ledy"]
@@ -20,13 +21,15 @@
 [ext_resource type="Texture2D" uid="uid://dg3fk2x43213h" path="res://Assets/2D/Sprites/Town/fences v1.png" id="17_1d4jb"]
 [ext_resource type="Texture2D" uid="uid://bctxfkps1ledr" path="res://Assets/2D/Sprites/Town/grass.png" id="17_pei67"]
 
-[node name="Panel" type="Panel"]
+[node name="Panel" type="Panel" node_paths=PackedStringArray("_popUpUi")]
 self_modulate = Color(1, 1, 1, 0.388235)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_18m7k")
+_popUpUi = NodePath("Town Ui/TownWarning")
 
 [node name="Town Ui" type="Control" parent="." node_paths=PackedStringArray("_sprite2D", "_townClosingButton")]
 clip_contents = true
@@ -656,6 +659,34 @@ anchor_bottom = 1.0
 offset_left = -10.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="TownWarning" type="ColorRect" parent="Town Ui"]
+visible = false
+z_index = 6
+layout_mode = 0
+offset_left = 19.0001
+offset_top = 63.0
+offset_right = 419.0
+offset_bottom = 143.0
+theme = ExtResource("4_ase1j")
+color = Color(0.282353, 0.282353, 0.282353, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Town Ui/TownWarning"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+
+[node name="Label" type="Label" parent="Town Ui/TownWarning/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_ase1j")
+theme_override_colors/font_color = Color(0.776471, 0.776471, 0.776471, 1)
+theme_override_font_sizes/font_size = 16
+text = "Looks like no one is home."
+vertical_alignment = 1
 
 [node name="Town closing Button" type="Button" parent="."]
 z_index = 6

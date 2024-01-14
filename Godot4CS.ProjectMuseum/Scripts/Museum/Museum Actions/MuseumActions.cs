@@ -54,6 +54,8 @@ public partial class MuseumActions : Node
     public static Action<Vector2I, PlayerDirectionsEnum> OnPlayerInteract;
     public static Action<string> OnPlayerInteractWith;
     public static Action<PlayerInfo> OnPlayerGetPlayerInfo;
+    public static Action OnPlayerClickedAnEmptyHouse;
+
 
     #endregion
     #region PopUpUi

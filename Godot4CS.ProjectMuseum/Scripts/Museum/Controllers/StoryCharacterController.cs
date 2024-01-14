@@ -43,7 +43,12 @@ public partial class StoryCharacterController : Node2D
 		}
 		if (obj == "9a")
 		{
+			_storyProfessor.Visible = true;
 			_storyProfessor.StartFollowingDirection();
+		}
+		if (obj == "14a")
+		{
+			_storyEmily.StandInCounter();
 		}
 	}
 

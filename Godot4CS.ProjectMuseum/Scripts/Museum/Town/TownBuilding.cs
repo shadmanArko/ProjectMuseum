@@ -29,6 +29,10 @@ public partial class TownBuilding : Sprite2D
 			{
 				MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("FoundDiggingBuddy");
 			}
+			else
+			{
+				MuseumActions.OnPlayerClickedAnEmptyHouse?.Invoke();
+			}
 		}
 	}
 

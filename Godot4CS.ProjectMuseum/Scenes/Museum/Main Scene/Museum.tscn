@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=49 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -47,6 +47,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Texture2D" uid="uid://dvcqly7kpochn" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2.png" id="39_edsxa"]
 [ext_resource type="Texture2D" uid="uid://dhiwtsd4ydkea" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png" id="40_5qu8p"]
+[ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
@@ -116,6 +117,8 @@ position = Vector2(54, -14)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_back_facing"
+_counterCoordinate = Vector2i(0, -5)
+_animationNameAfterStandingInCounter = "idle_front_facing"
 
 [node name="Alex" parent="museum" instance=ExtResource("25_qfbsa")]
 position = Vector2(54, -11)
@@ -146,6 +149,14 @@ _spawnAtTile = Vector2i(0, -2)
 
 [node name="ItemParents" type="Node2D" parent="museum"]
 y_sort_enabled = true
+
+[node name="TicketCounter" type="Sprite2D" parent="museum/ItemParents"]
+z_index = 1
+texture_filter = 1
+position = Vector2(65, -32)
+texture = ExtResource("48_piabe")
+hframes = 4
+frame = 1
 
 [node name="WallsParent" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -252,42 +263,50 @@ texture = ExtResource("23_38mdj")
 [node name="Road" type="Node2D" parent="museum"]
 
 [node name="RoadChunk" type="Sprite2D" parent="museum/Road"]
+z_index = 2
 texture_filter = 1
 position = Vector2(663, -193)
 texture = ExtResource("30_wqv7k")
 
 [node name="RoadChunk5" type="Sprite2D" parent="museum/Road"]
+z_index = 2
 texture_filter = 1
 position = Vector2(-632, -193)
 texture = ExtResource("39_edsxa")
 
 [node name="RoadChunk6" type="Sprite2D" parent="museum/Road"]
+z_index = 2
 texture_filter = 1
 position = Vector2(-966, -360)
 texture = ExtResource("39_edsxa")
 
 [node name="RoadChunk7" type="Sprite2D" parent="museum/Road"]
+z_index = 2
 texture_filter = 1
 position = Vector2(-1300, -527)
 texture = ExtResource("39_edsxa")
 
 [node name="RoadChunk2" type="Sprite2D" parent="museum/Road"]
+z_index = 2
 texture_filter = 1
 position = Vector2(997, -360)
 texture = ExtResource("30_wqv7k")
 
 [node name="RoadChunk4" type="Sprite2D" parent="museum/Road"]
+z_index = 2
 texture_filter = 1
 position = Vector2(1333, -528)
 texture = ExtResource("30_wqv7k")
 
 [node name="RoadChunk3" type="Sprite2D" parent="museum/Road"]
+z_index = 2
 texture_filter = 1
 position = Vector2(15, 47)
 texture = ExtResource("40_5qu8p")
 
 [node name="TrafficLight2" type="Sprite2D" parent="museum/Road"]
 visible = false
+z_index = 2
 texture_filter = 1
 position = Vector2(17, -14)
 texture = ExtResource("32_e4370")

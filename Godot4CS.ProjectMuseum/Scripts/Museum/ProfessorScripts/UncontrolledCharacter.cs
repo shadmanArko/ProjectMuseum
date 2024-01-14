@@ -16,7 +16,11 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
     [Export] private Vector2I _museumExitingCoordinate;
     private int _currentDirectionIndex = 0;
     [Export] private string _animationNameAfterInitialMovement;
+    
+    [Export] private Vector2I _counterCoordinate;
+    [Export] private string _animationNameAfterStandingInCounter;
     private bool _exitingMuseum = false;
+    private bool _goingToCounter = false;
     private Color _startColor;
     public override async void _Ready()
     {
@@ -50,6 +54,9 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
 
     public void StartFollowingDirection()
     {
+        _exitingMuseum = false;
+        _goingToCounter = false;
+        _currentDirectionIndex = 0;
         Visible = true;
         FollowDirections();
     }
@@ -63,6 +70,12 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
             if (_exitingMuseum)
             {
                 Visible = false;
+                return;
+            }
+            if (_goingToCounter)
+            {
+                Scale = new Vector2(-1, 1);
+                _animationPlayerInstance.Play(_animationNameAfterStandingInCounter);
                 return;
             }
             FollowDirections();
@@ -86,6 +99,11 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
     {
         _exitingMuseum = true;
         SetPath(_museumExitingCoordinate);
+    }
+    public void StandInCounter()
+    {
+        _goingToCounter = true;
+        SetPath(_counterCoordinate);
     }
 
     public override void _ExitTree()

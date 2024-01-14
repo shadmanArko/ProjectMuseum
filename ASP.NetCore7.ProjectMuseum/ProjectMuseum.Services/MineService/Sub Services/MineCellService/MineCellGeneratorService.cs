@@ -53,11 +53,6 @@ public class MineCellGeneratorService : IMineCellGeneratorService
                     CreateUnbreakableCell(cell);
                     cells.Add(cell);
                 }
-                else if (x == XSize / 2 && y == 5)
-                {
-                    CreateArtifactCell(cell);
-                    cells.Add(cell);
-                }
                 else
                 {
                     CreateBreakableCell(cell);

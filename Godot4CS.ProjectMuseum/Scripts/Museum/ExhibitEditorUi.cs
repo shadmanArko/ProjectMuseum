@@ -70,6 +70,8 @@ public partial class ExhibitEditorUi : Control
 	public void ReInitialize(Item item, Exhibit exhibit)
 	{
 		_selectedExhibit = exhibit;
+		_httpRequestForGettingExhibitsInStore.CancelRequest();
+		_httpRequestForGettingExhibitsInDisplay.CancelRequest();
 		_httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
@@ -80,7 +82,7 @@ public partial class ExhibitEditorUi : Control
 			instance.GetNode<DropTarget>(".").Initialize(i+1);
 			_dropTargetsParent.AddChild(instance);
 		}
-		_httpRequestForGettingExhibitsInDisplay.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+		
 		
 		// if ()
 		// {
@@ -100,7 +102,8 @@ public partial class ExhibitEditorUi : Control
 			instance.GetNode<Draggable>(".").Initialize(artifact);
 		}
 
-		
+		_httpRequestForGettingExhibitsInDisplay.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+
 	}
 
 	private void DeleteChild(Control node)

@@ -317,7 +317,7 @@
         "IllustrationName": "",
         "Dialogue": "Ugh",
         "Speaker": "Player",
-        "SpeakerEmotion": "Groggy",
+        "SpeakerEmotion": "Thoughtful",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -326,7 +326,7 @@
         "IllustrationName": "",
         "Dialogue": "Wake up! Your buddy Alex has been waiting outside the museum. I had to use my old key to let us in!",
         "Speaker": "Professor Eucalyptus",
-        "SpeakerEmotion": "Stern",
+        "SpeakerEmotion": "Excited",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -403,8 +403,8 @@
         "EntryNo": "12c",
         "IllustrationName": "",
         "Dialogue": "*Knock* *Knock*",
-        "Speaker": "Default",
-        "SpeakerEmotion": "",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
         "HasCutscene": false,
         "HasCutsceneArt": false
       }
@@ -420,8 +420,8 @@
         "EntryNo": "13a",
         "IllustrationName": "",
         "Dialogue": "Hey. I'm Emily from down the street. I've been noticing some ruckus about the museum.",
-        "Speaker": "Emily",
-        "SpeakerEmotion": "Informative",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -429,8 +429,8 @@
         "EntryNo": "13b",
         "IllustrationName": "",
         "Dialogue": "Am I correct in assuming that the museum is opening again?",
-        "Speaker": "Emily",
-        "SpeakerEmotion": "Sassy",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -456,8 +456,8 @@
         "EntryNo": "13e",
         "IllustrationName": "",
         "Dialogue": "You kidding? I'd happily take a gig at a museum in this economy.",
-        "Speaker": "Emily",
-        "SpeakerEmotion": "Sassy",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },

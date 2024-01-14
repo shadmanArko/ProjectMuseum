@@ -75,6 +75,7 @@ position = Vector2(327.5, 260)
 
 [node name="TrailerHome5" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(419.5, 308)
+_hasDiggingBuddy = true
 
 [node name="TrailerHome6" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(514.5, 352)
@@ -116,7 +117,6 @@ position = Vector2(320, -408)
 
 [node name="TownBuilding4" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_3sk7y")]
 position = Vector2(442, -473)
-_hasDiggingBuddy = true
 
 [node name="Shops and Institutions" type="Node2D" parent="Town Ui/Town Ground With roads"]
 
@@ -436,11 +436,11 @@ position = Vector2(-56.9999, -26)
 texture = ExtResource("17_pei67")
 
 [node name="Grass14" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
-position = Vector2(39.0001, 33)
+position = Vector2(30.0001, 34)
 texture = ExtResource("17_pei67")
 
 [node name="Grass15" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]
-position = Vector2(58.0001, 133)
+position = Vector2(53.0001, 125)
 texture = ExtResource("17_pei67")
 
 [node name="Grass17" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Small Trees (grass)"]

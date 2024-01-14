@@ -317,7 +317,7 @@
         "IllustrationName": "",
         "Dialogue": "Ugh",
         "Speaker": "Player",
-        "SpeakerEmotion": "Groggy",
+        "SpeakerEmotion": "Excited",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -326,7 +326,7 @@
         "IllustrationName": "",
         "Dialogue": "Wake up! Your buddy Alex has been waiting outside the museum. I had to use my old key to let us in!",
         "Speaker": "Professor Eucalyptus",
-        "SpeakerEmotion": "Stern",
+        "SpeakerEmotion": "Excited",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },

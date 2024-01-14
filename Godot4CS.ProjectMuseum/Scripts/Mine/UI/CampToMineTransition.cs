@@ -17,14 +17,12 @@ public partial class CampToMineTransition : Button
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _autoAnimationController = ReferenceStorage.Instance.AutoAnimationController;
         _campExitPromptUi = ReferenceStorage.Instance.CampExitPromptUi;
-        // _campExitPromptUi.SleepForTheNightButton.ButtonUp += TransitFromCampToMine;
         _campExitPromptUi.SleepForTheNightButton.ButtonUp += DeactivateCampExitPromptUi;
-
-        // _campExitPromptUi.ReturnToMuseumButton.ButtonUp += TransitFromCampToMuseum;
         _campExitPromptUi.ReturnToMuseumButton.ButtonUp += DeactivateCampExitPromptUi;
+        _campExitPromptUi.ReturnToMineButton.ButtonUp += DeactivateCampExitPromptUi;
     }
     
-    private async void TransitFromCampToMine()
+    private async void TransitFromCampToMineTheNextDay()
     {
         GD.PrintErr("TransitFromCampToMine");
         var sceneTransition = ReferenceStorage.Instance.SceneTransition;
@@ -38,10 +36,12 @@ public partial class CampToMineTransition : Button
             _autoAnimationController._Ready();
         }
         else
-        {
             ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
-        }
-            
+    }
+
+    private void TransitionFromCampToMineOnTheSameDay()
+    {
+        _autoAnimationController._Ready();
     }
 
     private async void TransitFromCampToMuseum()

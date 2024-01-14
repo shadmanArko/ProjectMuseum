@@ -103,7 +103,8 @@ public partial class AutoAnimationController : Node2D
 		SetPhysicsProcess(false);
 		_playerControllerVariables.CanMove = true;
 		_playerControllerVariables.IsAffectedByGravity = true;
-		_playerControllerVariables.Gravity = 25f;
+		_playerControllerVariables.Gravity = 30f;
+		_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
 	
 		//TODO: TURN ON THIS IF YOU WANT TUTORIALS
 		var isTutorialPlaying = await ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();

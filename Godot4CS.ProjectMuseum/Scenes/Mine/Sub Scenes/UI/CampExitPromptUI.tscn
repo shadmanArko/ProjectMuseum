@@ -7,10 +7,11 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n65nu"]
 
-[node name="CampExitPromptUI" type="CanvasLayer" node_paths=PackedStringArray("SleepForTheNightButton", "ReturnToMuseumButton")]
+[node name="CampExitPromptUI" type="CanvasLayer" node_paths=PackedStringArray("SleepForTheNightButton", "ReturnToMuseumButton", "ReturnToMineButton")]
 script = ExtResource("1_jpjbt")
 SleepForTheNightButton = NodePath("Panel/Control/Button Container/Sleep For The Night")
 ReturnToMuseumButton = NodePath("Panel/Control/Button Container/Return To Museum")
+ReturnToMineButton = NodePath("Panel/Control/Button Container/Return To Mine")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 6
@@ -40,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 15
 alignment = 1
 
 [node name="Sleep For The Night" type="Button" parent="Panel/Control/Button Container"]
@@ -60,9 +62,19 @@ theme_override_fonts/font = ExtResource("1_w1mvd")
 text = "RETURN TO MUSEUM?"
 script = ExtResource("2_nhs7x")
 
+[node name="Return To Mine" type="Button" parent="Panel/Control/Button Container"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("1_w1mvd")
+text = "RETURN TO MINE?"
+script = ExtResource("2_nhs7x")
+
 [node name="SceneChanger" parent="Panel/Control" node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("4_oc4fq")]
 _sceneChangerButton = NodePath("../Button Container/Return To Museum")
 _scenePath = "res://Scenes/Museum/Main Scene/Museum.tscn"
 
-[connection signal="button_up" from="Panel/Control/Button Container/Sleep For The Night" to="Panel/Control/Button Container/Sleep For The Night" method="TransitFromCampToMine"]
+[connection signal="button_up" from="Panel/Control/Button Container/Sleep For The Night" to="Panel/Control/Button Container/Sleep For The Night" method="TransitFromCampToMineTheNextDay"]
 [connection signal="button_up" from="Panel/Control/Button Container/Return To Museum" to="Panel/Control/Button Container/Return To Museum" method="TransitFromCampToMuseum"]
+[connection signal="button_up" from="Panel/Control/Button Container/Return To Mine" to="Panel/Control/Button Container/Return To Mine" method="TransitionFromCampToMineOnTheSameDay"]

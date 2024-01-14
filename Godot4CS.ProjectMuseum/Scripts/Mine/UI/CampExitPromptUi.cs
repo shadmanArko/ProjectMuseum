@@ -6,4 +6,5 @@ public partial class CampExitPromptUi : CanvasLayer
 {
     [Export] public Button SleepForTheNightButton;
     [Export] public Button ReturnToMuseumButton;
+    [Export] public Button ReturnToMineButton;
 }

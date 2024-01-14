@@ -54,6 +54,10 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	{
         if(_playerControllerVariables.CanMove)
 	        PlayerMovement(delta);
+        
+        GD.Print($"Player state: {_playerControllerVariables.State}");
+        GD.Print($"Player max speed: {_playerControllerVariables.Acceleration}");
+        GD.Print($"Player state: {_playerControllerVariables.State}");
 
         if (_playerControllerVariables.IsAffectedByGravity)
         {

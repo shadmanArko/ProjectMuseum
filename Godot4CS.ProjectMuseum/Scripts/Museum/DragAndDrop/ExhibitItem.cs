@@ -101,7 +101,7 @@ public partial class ExhibitItem : Item
 		string url =
 			$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}/{Frame}";
 		_httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
-		GD.Print("Handling exhibit placement");
+		GD.Print($"Handling exhibit placement for price {ItemPrice}");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 		

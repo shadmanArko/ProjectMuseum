@@ -96,10 +96,14 @@ public partial class BottomBarMuseumUi : Control
 
 	public override void _ExitTree()
 	{
-		_newExhibitButton.Pressed -= EnableBuilderCard;
+		_newExhibitButton.Pressed -= NewExhibitButtonOnPressed;
+		_decorationsShopButton.Pressed -= DecorationsShopButtonOnPressed;
+		_decorationsOtherButton.Pressed -= DecorationsOtherButtonOnPressed;
+		_flooringButton.Pressed -= FlooringButtonOnPressed;
 		_exhibitButton.Pressed -= DisableBuilderCard;
-		MuseumActions.OnMuseumBalanceAdded -= OnMuseumBalanceAdded;
-		MuseumActions.TotalGuestsUpdated -= TotalGuestsUpdated;
+		_wallpapersButton.Pressed -= WallpapersButtonOnPressed;
 		MuseumActions.OnMuseumBalanceUpdated -= OnMuseumBalanceUpdated;
+		MuseumActions.TotalGuestsUpdated -= TotalGuestsUpdated;
+		MuseumActions.OnMuseumBalanceAdded -= OnMuseumBalanceAdded;
 	}
 }

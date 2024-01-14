@@ -10,6 +10,6 @@ public partial class ButtonPress : Button
 	public void OnButtonPressed()
 	{
 		MuseumActions.OnBottomPanelButtonClicked?.Invoke(_stringName);
-		GD.PrintErr(_stringName +" button is pressed");
+		// GD.PrintErr(_stringName +" button is pressed");
 	}
 }

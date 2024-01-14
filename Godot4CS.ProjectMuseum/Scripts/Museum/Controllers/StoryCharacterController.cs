@@ -63,7 +63,6 @@ public partial class StoryCharacterController : Node2D
 		{
 			_storyPlayer.Visible = false;
 			_gameCharacter.Position = _storyPlayer.Position;
-			_storyPlayer.QueueFree();
 			_gameCharacter.Visible = true;
 		}
 		if (obj == "6e")
@@ -94,10 +93,10 @@ public partial class StoryCharacterController : Node2D
 
 	public override void _ExitTree()
 	{
+		base._ExitTree();
 		MuseumActions.StorySceneEntryEnded -= StorySceneEntryEndedPlaying;
 		MuseumActions.StorySceneEntryStarted -= StorySceneEntryStarted;
 		MuseumActions.PlayStoryScene -= PlayStoryScene;
-		base._ExitTree();
 		
 	}
 }

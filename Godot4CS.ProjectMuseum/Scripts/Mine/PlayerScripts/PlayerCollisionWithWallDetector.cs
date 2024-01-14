@@ -205,6 +205,19 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     private void DigArtifactCell(Vector2I tilePos)
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
+        
+        if (cell.HitPoint == 1)
+        {
+            if (ReferenceStorage.Instance.MineTutorial.PlayerInfo.CompletedTutorialScene == 5)
+            {
+                if (ReferenceStorage.Instance.MineTutorial.GetCurrentTutorial() == "Tut6c")
+                {
+                    MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
+                    return;
+                }
+            }
+        }
+        
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
 
@@ -214,9 +227,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             cellCrackMaterial, _mineGenerationVariables.MineGenView);
         MakeMineWallDepletedParticleEffect();
+
         
-        if(cell.HitPoint == 1)
-            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
         
         if (cell.HitPoint <= 0)
         {

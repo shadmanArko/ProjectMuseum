@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Museum/UI/TownUi.cs" id="1_18m7k"]
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
-[ext_resource type="PackedScene" uid="uid://c42fbpn0n0tjo" path="res://Scenes/Museum/Town/trailer_home.tscn" id="3_2ledy"]
+[ext_resource type="PackedScene" path="res://Scenes/Museum/Town/trailer_home.tscn" id="3_2ledy"]
 [ext_resource type="PackedScene" uid="uid://btdho8rkmjqck" path="res://Scenes/Museum/Town/town_building.tscn" id="3_3sk7y"]
-[ext_resource type="PackedScene" uid="uid://c5ai236xvvcnm" path="res://medium_house_1_front.tscn" id="3_bddl8"]
+[ext_resource type="PackedScene" path="res://medium_house_1_front.tscn" id="3_bddl8"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_ase1j"]
 [ext_resource type="PackedScene" uid="uid://dkdpf3vsytj2d" path="res://Scenes/Museum/Town/medium_house_2_back.tscn" id="4_gd5bj"]
 [ext_resource type="Texture2D" uid="uid://cvimeiel3ta4o" path="res://Assets/2D/Sprites/Town/carpenter shop .png" id="4_saq27"]
@@ -665,9 +665,9 @@ visible = false
 z_index = 6
 layout_mode = 0
 offset_left = 19.0001
-offset_top = 63.0
+offset_top = 26.0
 offset_right = 419.0
-offset_bottom = 143.0
+offset_bottom = 106.0
 theme = ExtResource("4_ase1j")
 color = Color(0.282353, 0.282353, 0.282353, 1)
 

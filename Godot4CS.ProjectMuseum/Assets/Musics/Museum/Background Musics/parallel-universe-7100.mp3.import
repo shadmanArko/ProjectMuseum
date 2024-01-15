@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bg4wbnrpifp3f"
+path="res://.godot/imported/parallel-universe-7100.mp3-0f7a0cd934780b0f89051ece0975b925.mp3str"
+
+[deps]
+
+source_file="res://Assets/Musics/Museum/Background Musics/parallel-universe-7100.mp3"
+dest_files=["res://.godot/imported/parallel-universe-7100.mp3-0f7a0cd934780b0f89051ece0975b925.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

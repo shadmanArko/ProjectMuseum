@@ -195,13 +195,6 @@ public partial class MineGenerationController : Node2D
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
         
 		GenerateGridFromMineData(mine);
-
-		void SetTutorialArtifactOnSecondMineCell()
-		{
-			var cellWithTutorialArtifact =
-				mine.Cells.FirstOrDefault(targetCell => targetCell.PositionX == 24 && targetCell.PositionY == 2);
-			
-		}
 	}
 
 	#endregion

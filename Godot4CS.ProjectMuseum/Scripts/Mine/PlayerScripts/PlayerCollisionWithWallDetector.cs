@@ -20,6 +20,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     private MineCellCrackMaterial _mineCellCrackMaterial;
 
     private HttpRequest _getMineArtifactHttpRequest;
+    private HttpRequest _mineCrackCellMaterialHttpRequest;
 
     private RandomNumberGenerator _randomNumberGenerator;
 
@@ -28,7 +29,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         CreateHttpRequests();
         InitializeDiReferences();
         SubscribeToActions();
-
+        GetMineCrackMaterialData();
         _randomNumberGenerator = new RandomNumberGenerator();
     }
 
@@ -61,9 +62,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         AddChild(_getMineArtifactHttpRequest);
         _getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
 
-        // _sendArtifactToInventoryHttpRequest = new HttpRequest();
-        // AddChild(_sendArtifactToInventoryHttpRequest);
-        // _sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
+        _mineCrackCellMaterialHttpRequest = new HttpRequest();
+        AddChild(_mineCrackCellMaterialHttpRequest);
+        _mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
     }
 
     #region Get Mine Artifact Request
@@ -79,6 +80,23 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         var jsonStr = Encoding.UTF8.GetString(body);
         var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
         //MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
+    }
+
+    #endregion
+
+    #region Get Mine Cell Crack Materials
+
+    private void GetMineCrackMaterialData()
+    {
+        var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
+        _mineCrackCellMaterialHttpRequest.Request(url);
+    }
+    
+    private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+    {
+        var jsonStr = Encoding.UTF8.GetString(body);
+        var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
+        _mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
     }
 
     #endregion
@@ -219,6 +237,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
 
+        GD.Print($"Mine Cell Crack Material is null: {_mineCellCrackMaterial == null}");
+        GD.Print($"Cell Crack Materials is null: {_mineCellCrackMaterial.CellCrackMaterials == null}");
         var cellCrackMaterial =
             _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
                 tempCell.MaterialType == cell.ArtifactMaterial);

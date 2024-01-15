@@ -59,7 +59,7 @@ public partial class MineTutorial : Node
 	private void OnGetPlayerInfoHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		GD.Print( "Player info " +jsonStr);
+		//GD.Print( "Player info " +jsonStr);
 		_playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		
 		if (_playerInfo.CompletedTutorialScene < 6)
@@ -89,7 +89,7 @@ public partial class MineTutorial : Node
 
 	public async Task<bool> PlayMineTutorials()
 	{
-		GD.Print($"Tutorial No: "+_playerInfo.CompletedTutorialScene);
+		//GD.Print($"Tutorial No: "+_playerInfo.CompletedTutorialScene);
 		
 		if(_playerInfo.CompletedTutorialScene != 5) return false;
 		MuseumActions.PlayTutorial?.Invoke(6);
@@ -152,7 +152,7 @@ public partial class MineTutorial : Node
 
 	private void BasicMineTutorialEnded(string entryNo)
 	{
-		GD.Print($"Ended scene Entry No: {entryNo}");
+		//GD.Print($"Ended scene Entry No: {entryNo}");
 		if(entryNo != "Tut6g") return;
 		SetProcess(false);
 		_playerControllerVariables.CanMoveLeftAndRight = true;

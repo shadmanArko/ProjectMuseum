@@ -23,10 +23,10 @@ public partial class DayEndController : Node2D
 
 	private void PlayerEnteredNewTile(Vector2I playerEnteredTile)
 	{
-		GD.Print("Player Entered new Tile");
+		//GD.Print("Player Entered new Tile");
 		if (playerEnteredTile == _dayEndTileCoord)
 		{
-			GD.Print("Player Entered Day End Tile");
+			//GD.Print("Player Entered Day End Tile");
 			MuseumActions.OnNeedOfPopUpUi?.Invoke("Are you sure you want to save and end the day?");
 			MuseumActions.OnClickYesOfPopUpUi = OnClickYesOfPopUpUi;
 			MuseumActions.OnClickNoOfPopUpUi = OnClickNoOfPopUpUi;

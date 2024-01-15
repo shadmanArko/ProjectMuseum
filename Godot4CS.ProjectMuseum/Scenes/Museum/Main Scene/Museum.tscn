@@ -122,7 +122,7 @@ _animationNameAfterStandingInCounter = "idle_front_facing"
 
 [node name="Alex" parent="museum" instance=ExtResource("25_qfbsa")]
 position = Vector2(54, -11)
-_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-6, -5)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_front_facing"
 

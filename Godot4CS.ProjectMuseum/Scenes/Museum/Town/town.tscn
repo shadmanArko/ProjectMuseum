@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=22 format=3 uid="uid://baf5s8ygn03sp"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/TownUi.cs" id="1_18m7k"]
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_4g4cw"]
-[ext_resource type="PackedScene" path="res://Scenes/Museum/Town/trailer_home.tscn" id="3_2ledy"]
+[ext_resource type="PackedScene" uid="uid://c42fbpn0n0tjo" path="res://Scenes/Museum/Town/trailer_home.tscn" id="3_2ledy"]
 [ext_resource type="PackedScene" uid="uid://btdho8rkmjqck" path="res://Scenes/Museum/Town/town_building.tscn" id="3_3sk7y"]
-[ext_resource type="PackedScene" path="res://medium_house_1_front.tscn" id="3_bddl8"]
+[ext_resource type="PackedScene" uid="uid://c5ai236xvvcnm" path="res://medium_house_1_front.tscn" id="3_bddl8"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_ase1j"]
 [ext_resource type="PackedScene" uid="uid://dkdpf3vsytj2d" path="res://Scenes/Museum/Town/medium_house_2_back.tscn" id="4_gd5bj"]
 [ext_resource type="Texture2D" uid="uid://cvimeiel3ta4o" path="res://Assets/2D/Sprites/Town/carpenter shop .png" id="4_saq27"]
@@ -20,8 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://cto1evuud5now" path="res://Assets/2D/Sprites/Town/tree 1.png" id="16_ogrck"]
 [ext_resource type="Texture2D" uid="uid://dg3fk2x43213h" path="res://Assets/2D/Sprites/Town/fences v1.png" id="17_1d4jb"]
 [ext_resource type="Texture2D" uid="uid://bctxfkps1ledr" path="res://Assets/2D/Sprites/Town/grass.png" id="17_pei67"]
+[ext_resource type="Texture2D" uid="uid://bwa5xyu1hry00" path="res://Assets/2D/Sprites/Museum Ui/town map pointer.png" id="21_04t4b"]
 
-[node name="Panel" type="Panel" node_paths=PackedStringArray("_popUpUi")]
+[node name="Panel" type="Panel" node_paths=PackedStringArray("_popUpUi", "_indicatorForHouseOfBuddy")]
 self_modulate = Color(1, 1, 1, 0.388235)
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_18m7k")
 _popUpUi = NodePath("Town Ui/TownWarning")
+_indicatorForHouseOfBuddy = NodePath("Town Ui/indicator")
 
 [node name="Town Ui" type="Control" parent="." node_paths=PackedStringArray("_sprite2D", "_townClosingButton")]
 clip_contents = true
@@ -687,6 +689,17 @@ theme_override_colors/font_color = Color(0.776471, 0.776471, 0.776471, 1)
 theme_override_font_sizes/font_size = 16
 text = "Looks like no one is home."
 vertical_alignment = 1
+
+[node name="indicator" type="TextureRect" parent="Town Ui"]
+visible = false
+z_index = 6
+texture_filter = 1
+layout_mode = 0
+offset_left = 982.0
+offset_top = 854.0
+offset_right = 1022.0
+offset_bottom = 894.0
+texture = ExtResource("21_04t4b")
 
 [node name="Town closing Button" type="Button" parent="."]
 z_index = 6

@@ -44,14 +44,15 @@ public partial class TutorialSystem : Node
     private void HttpRequestForCompletingTutorialOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
-        GD.Print(jsonStr);
+        //GD.Print(jsonStr);
         var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
-        GD.Print($"tutorial completion updated to {playerInfo.CompletedTutorialScene}");
+        //GD.Print($"tutorial completion updated to {playerInfo.CompletedTutorialScene}");
     }
 
     private void HttpRequestForGettingPlayerInfoOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
+        //GD.Print( "Player info " +jsonStr);
         _playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
     }
 
@@ -64,18 +65,18 @@ public partial class TutorialSystem : Node
     void LoadTutorial(int number)
     {
         
-        GD.Print("Show tutorial called");
+        //GD.Print("Show tutorial called");
         _currentTutorialNumber = number;
         _httpRequestForGettingTutorial.Request(ApiAddress.StoryApiPath + $"GetTutorialScene/{number}");
     }
     private void HttpRequestForGettingTutorialOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
-        GD.Print(jsonStr);
+        //GD.Print(jsonStr);
         _currentTutorial = JsonSerializer.Deserialize<Tutorial>(jsonStr);
         if (_playerInfo.Tutorial)
         {
-            GD.Print("Show tutorial invoked");
+            //GD.Print("Show tutorial invoked");
             _currentTutorialSceneNumber = 0;
             _currentTutorialCompleted = false;
             ShowNextTutorialScene();    
@@ -104,7 +105,7 @@ public partial class TutorialSystem : Node
             _httpRequestForCompletingTutorial.Request(ApiAddress.PlayerApiPath +
                                                       $"UpdateCompletedTutorial/{_currentTutorialNumber}");
             MuseumActions.OnTutorialEnded?.Invoke();
-            GD.Print($"current tutorial No {_currentTutorialSceneEntry.EntryNo}");
+            //GD.Print($"current tutorial No {_currentTutorialSceneEntry.EntryNo}");
             if (_currentTutorial.ContinuesStory)
             {
                 MuseumActions.PlayStoryScene?.Invoke(_currentTutorial.StoryNumber);
@@ -151,7 +152,7 @@ public partial class TutorialSystem : Node
         {
             if (!_performedActions.Contains(action))
             {
-                GD.Print($"{action} not performed yet");
+                //GD.Print($"{action} not performed yet");
                 return;
             }
         }

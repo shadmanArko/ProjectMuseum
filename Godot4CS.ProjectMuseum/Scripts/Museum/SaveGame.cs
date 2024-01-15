@@ -27,7 +27,7 @@ public partial class SaveGame : Node2D
 			if (!_savingGame)
 			{
 				_httpRequestForSavingGame.Request(ApiAddress.PlayerApiPath + "SaveData");
-				GD.Print("Save Game");
+				//GD.Print("Save Game");
 			}
 		}
 	}

@@ -42,7 +42,7 @@ public partial class TileSpawner : TileMap
 
 	private void HttpRequestForUpdatingMuseumWallsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
-		GD.Print("wall id put done");
+		//GD.Print("wall id put done");
 		
 		string jsonStr = Encoding.UTF8.GetString(body);
 
@@ -143,7 +143,7 @@ public partial class TileSpawner : TileMap
 			UpdateMuseumTilesToDatabase(museumTilesToUpdateWalls);
 
 		}else SpawnWalls(museumTiles);
-		GD.Print($"Min x {_minCellIndexX}, Min y {_minCellIndexY}");
+		//GD.Print($"Min x {_minCellIndexX}, Min y {_minCellIndexY}");
 	}
 
 	private void UpdateMuseumTilesToDatabase(List<MuseumTile> museumTilesToUpdateWalls)
@@ -159,7 +159,7 @@ public partial class TileSpawner : TileMap
 			// MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
 			string[] headers = { "Content-Type: application/json"};
 			var body = JsonConvert.SerializeObject(tileIds);
-			GD.Print(body);
+			//GD.Print(body);
 			Error error = _httpRequestForUpdatingMuseumWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?wallId={_basicWallsId}", headers,
 				HttpClient.Method.Post, body);
 		}

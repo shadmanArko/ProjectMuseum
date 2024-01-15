@@ -129,7 +129,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         ExhibitData = tilesWithExhibitDto.Exhibit;
         _museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
         if (tilesWithExhibitDto.Exhibits != null) _museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
-        GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
+        //GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
     }
 
     protected Vector2I _lastCheckedTile = new Vector2I();
@@ -158,7 +158,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         {
             if (!_eligibleForItemPlacementInTile)
             {
-                GD.Print("Not Eligible tile");
+                //GD.Print("Not Eligible tile");
                 return;
             }
 
@@ -175,7 +175,7 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     public async void HandleItemPlacement()
     {
-        GD.Print("Handled item placement from Item");
+        //GD.Print("Handled item placement from Item");
         List<string> tileIds = new List<string>();
         foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
         {
@@ -186,7 +186,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         string url =
             $"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}";
         _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
-        GD.Print("Handling exhibit placement");
+        //GD.Print("Handling exhibit placement");
         MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
         MuseumActions.OnItemUpdated?.Invoke();
     }

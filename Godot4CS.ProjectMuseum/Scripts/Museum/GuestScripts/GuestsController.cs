@@ -18,7 +18,7 @@ public partial class GuestsController : Node2D
 	private string _testString;
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 	[Export] private int _maxNumberGuests = 10;
-	private int _numberOfGuestsInMusuem;
+	private int _numberOfGuestsInMuseum;
 	private bool _isMuseumGateOpen = false;
 	private bool _isGamePaused = false;
 	private float _ticketPrice = 5;
@@ -41,7 +41,8 @@ public partial class GuestsController : Node2D
 
 	private void OnGuestExitMuseum()
 	{
-		_numberOfGuestsInMusuem--;
+		_numberOfGuestsInMuseum--;
+		MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMuseum);
 	}
 
 	private void OnTimePauseValueUpdated(bool obj)
@@ -49,7 +50,7 @@ public partial class GuestsController : Node2D
 		_isGamePaused = obj;
 		if (!_isGamePaused && _isMuseumGateOpen)
 		{
-			SpawnGuests(10 -_numberOfGuestsInMusuem, 5);
+			SpawnGuests(10 -_numberOfGuestsInMuseum, 5);
 		}
 	}
 
@@ -58,7 +59,7 @@ public partial class GuestsController : Node2D
 		_isMuseumGateOpen = gateOpen;
 		if (gateOpen)
 		{
-			SpawnGuests(10, 5);
+			SpawnGuests(10 -_numberOfGuestsInMuseum, 5);
 		}
 	}
 
@@ -66,14 +67,14 @@ public partial class GuestsController : Node2D
 	{
 		for (int i = 0; i < numberOfGuests; i++)
 		{
-			if (!_isMuseumGateOpen || _numberOfGuestsInMusuem >= _maxNumberGuests || _isGamePaused) return;
+			if (!_isMuseumGateOpen || _numberOfGuestsInMuseum >= _maxNumberGuests || _isGamePaused) return;
 			var guest = _guestScene.Instantiate();
 			guest.GetNode<Guest>(".").Position = GameManager.TileMap.MapToLocal(_spawnAtTile);
 			AddChild(guest);
 			guest.GetNode<Guest>(".").Initialize();
-			_numberOfGuestsInMusuem++;
+			_numberOfGuestsInMuseum++;
 			MuseumActions.OnMuseumBalanceAdded?.Invoke(_ticketPrice);
-			MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMusuem);
+			MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMuseum);
 			await Task.Delay( (int)(1000 * delayBetweenSpawningGuests));
 		}
 	}
@@ -83,7 +84,7 @@ public partial class GuestsController : Node2D
 		_museumTileContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		if (_museumTileContainer.MuseumTiles.Count > 0)
 		{
-			GD.Print($"found museum tiles {_museumTileContainer.MuseumTiles.Count}");
+			//GD.Print($"found museum tiles {_museumTileContainer.MuseumTiles.Count}");
 		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

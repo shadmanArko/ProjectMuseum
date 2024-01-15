@@ -48,7 +48,7 @@ public partial class Draggable : ColorRect
 	{
 		if (artifact == null)
 		{
-			GD.Print("No artifact");
+			//GD.Print("No artifact");
 			return;
 		}
 		_nameOfDraggable.Text = artifact.RawArtifactId;
@@ -57,7 +57,7 @@ public partial class Draggable : ColorRect
 	private void StartDrag()
 	{
 		isDragging = true;
-		GD.Print("Drag started");
+		//GD.Print("Drag started");
 		MuseumActions.DragStarted?.Invoke(this);
 		// Additional logic to initialize drag, if needed
 	}
@@ -70,7 +70,7 @@ public partial class Draggable : ColorRect
 	{
 		if (isDragging)
 		{
-			GD.Print("Drag ended");
+			//GD.Print("Drag ended");
 			MuseumActions.DragEnded?.Invoke(this);
 			// Additional logic to finalize drag, if needed
 		}
@@ -79,7 +79,7 @@ public partial class Draggable : ColorRect
 	public override Variant _GetDragData(Vector2 atPosition)
 	{
 		SlotAtTheStartOfDrag = parentDropTarget.SlotNumber;
-		GD.Print($"get_drag_data has run");
+		//GD.Print($"get_drag_data has run");
 		if (!droppedOnTarget)
 		{
 			SetDragPreview((Control)_draggablePreview.Instantiate());

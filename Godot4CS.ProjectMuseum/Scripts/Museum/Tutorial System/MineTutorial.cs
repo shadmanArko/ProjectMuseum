@@ -83,7 +83,7 @@ public partial class MineTutorial : Node
 	private void SubscribeToActions()
 	{
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
-		MuseumActions.TutorialSceneEntryEnded += OnPlayerReachedArtifactBrushTutorial;
+		// MuseumActions.TutorialSceneEntryEnded += OnPlayerReachedArtifactBrushTutorial;
 		MineActions.OnPlayerReachFirstWarning += GetPlayerInfo;
 	}
 
@@ -151,15 +151,15 @@ public partial class MineTutorial : Node
 		}
 	}
 
-	private void OnPlayerReachedArtifactBrushTutorial(string entryNo)
-	{
-		if(entryNo != "Tut6c") return;
-		_playerControllerVariables.CanMoveLeftAndRight = false;
-		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = false;
-		_playerControllerVariables.CanDig = false;
-		_playerControllerVariables.CanToggleClimb = false;
-	}
+	// private void OnPlayerReachedArtifactBrushTutorial(string entryNo)
+	// {
+	// 	if(entryNo != "Tut6c") return;
+	// 	_playerControllerVariables.CanMoveLeftAndRight = false;
+	// 	_playerControllerVariables.CanAttack = false;
+	// 	_playerControllerVariables.CanBrush = false;
+	// 	_playerControllerVariables.CanDig = false;
+	// 	_playerControllerVariables.CanToggleClimb = false;
+	// }
 
 	private void BasicMineTutorialEnded(string entryNo)
 	{
@@ -181,7 +181,7 @@ public partial class MineTutorial : Node
 	public override void _ExitTree()
 	{
 		MuseumActions.TutorialSceneEntryEnded -= BasicMineTutorialEnded;
-		MuseumActions.TutorialSceneEntryEnded -= OnPlayerReachedArtifactBrushTutorial;
+		// MuseumActions.TutorialSceneEntryEnded -= OnPlayerReachedArtifactBrushTutorial;
 		MineActions.OnPlayerReachFirstWarning -= GetPlayerInfo;
 	}
 }

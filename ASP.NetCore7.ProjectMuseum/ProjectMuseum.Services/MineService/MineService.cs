@@ -35,22 +35,38 @@ public class MineService : IMineService
         var artifacts = await _mineArtifactRepository.GetAllArtifacts();
         var mine = await _mineRepository.Get();
 
-        foreach (var artifact in artifacts)
+        if (artifacts != null)
         {
-            foreach (var cell in mine.Cells)
+            foreach (var artifact in artifacts)
             {
-                if (cell.PositionX == artifact.PositionX && cell.PositionY == artifact.PositionY)
+                foreach (var cell in mine.Cells)
                 {
-                    cell.HasArtifact = true;
-                    cell.ArtifactId = artifact.Id;
+                    if (cell.PositionX == artifact.PositionX && cell.PositionY == artifact.PositionY)
+                    {
+                        cell.HasArtifact = true;
+                        cell.ArtifactId = artifact.Id;
 
-                    var temp = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
-                    var rawArtifactMaterial = temp.FirstOrDefault(mat => mat.Id == artifact.RawArtifactId).Materials[0];
-                    cell.ArtifactMaterial = rawArtifactMaterial;
+                        var rawArtifactFunctionals = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
+
+                        if (rawArtifactFunctionals != null)
+                        {
+                            foreach (var rawArtifactFunctional in rawArtifactFunctionals)
+                            {
+                                if (rawArtifactFunctional.Id == artifact.RawArtifactId)
+                                {
+                                    var mat = rawArtifactFunctional.Materials[0];
+                                    cell.ArtifactMaterial = mat;
+                                }
+                            }
+                        }
+                        
+                        // var rawArtifactMaterial =
+                        //     temp.FirstOrDefault(mat => mat.Id == artifact.RawArtifactId).Materials[0];
+                        // cell.ArtifactMaterial = rawArtifactMaterial;
+                    }
                 }
             }
         }
-        
         await _mineRepository.Update(mine);
         return mine;
     }

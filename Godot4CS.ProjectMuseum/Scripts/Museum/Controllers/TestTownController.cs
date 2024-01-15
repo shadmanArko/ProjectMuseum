@@ -31,7 +31,7 @@ public partial class TestTownController : Node
 
 	private void EnableTownMap()
 	{
-		GD.Print("Enabled Town map");
+		//GD.Print("Enabled Town map");
 		_cameraLastZoom = _camera2D.Zoom;
 		_cameraLastPosition = _camera2D.Position;
 		_camera2D.Zoom = _cameraStartZoom;

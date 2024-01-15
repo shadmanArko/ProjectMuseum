@@ -53,7 +53,7 @@ public partial class Guest : CharacterBody2D
         GetRandomInterval();
         
         // _listOfMuseumTile = ServiceRegistry.Resolve<List<MuseumTile>>();
-        GD.Print($"{Name} got {_museumTileContainer.MuseumTiles.Count} tiles");
+        //GD.Print($"{Name} got {_museumTileContainer.MuseumTiles.Count} tiles");
         // AddToGroup("ManualSortGroup");
         _animationPlayerInstance = _animationPlayer.Duplicate() as AnimationPlayer;
         AddChild(_animationPlayerInstance);
@@ -109,7 +109,7 @@ public partial class Guest : CharacterBody2D
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
             if (path == null)
             {
-                GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
+                //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
             }
             _path = path;
             _currentPathIndex = 0; // Start from the beginning of the path
@@ -120,7 +120,7 @@ public partial class Guest : CharacterBody2D
         {
             if (!_exitingMuseum)
             {
-                GD.Print($"Exhibits finished for {Name}");
+                //GD.Print($"Exhibits finished for {Name}");
                 ExitMuseum();
             }
             
@@ -142,7 +142,7 @@ public partial class Guest : CharacterBody2D
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
             if (path == null)
             {
-                GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
+                //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
             }
             _path = path;
             _currentPathIndex = 0; // Start from the beginning of the path
@@ -157,7 +157,7 @@ public partial class Guest : CharacterBody2D
         {
             var exhibit = _museumTileContainer.Exhibits[_currentExhibitIndex];
             Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToExhibit(exhibit);
-            GD.Print($"Found closest coordinate {coordinate}");
+            //GD.Print($"Found closest coordinate {coordinate}");
             _currentExhibitIndex++;
             return coordinate;
         }

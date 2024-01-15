@@ -31,7 +31,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     public void Inject(List<ExhibitPlacementConditionData> exhibitPlacementConditionDatas)
     {
         ExhibitPlacementConditionDatas = exhibitPlacementConditionDatas;
-        GD.Print("inject being called");
+        //GD.Print("inject being called");
     }
     
     public override void _Ready()
@@ -43,8 +43,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         // _decorationShopItem = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Decorations/decorationItem.tscn");
         Item.OnItemPlaced += UpdateUiOnItemPlaced;
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
-        GD.Print("ready from ui being called");
-        if(ExhibitPlacementConditionDatas == null) GD.Print("Null exhibit data");
+        //GD.Print("ready from ui being called");
+        if(ExhibitPlacementConditionDatas == null) //GD.Print("Null exhibit data");
         _diggingPermitsButton.Visible = false;
        
         
@@ -65,9 +65,13 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         }
     }
 
+    private bool _conceptStoryCompleted = false;
+    private int _finishConceptGameAtHour = 18;
+    private int _lastFoundHour = 0;
     private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
     {
-        if (hours == 18)
+        _lastFoundHour = hours;
+        if (hours == _finishConceptGameAtHour && _conceptStoryCompleted)
         {
             _conceptEndingUi.Visible = true;
         }
@@ -79,6 +83,8 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     {
         if (!_museumGateCheckButton.ButtonPressed)
         {
+            _finishConceptGameAtHour = (_lastFoundHour + 3) % 24;
+            _conceptStoryCompleted = true;
             _museumGateCheckButton.ButtonPressed = true;
             MuseumGateCheckButtonOnPressed();
         }
@@ -122,7 +128,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 
     private void HandleDecorationCardPlacement(BuilderCardType builderCardType, string cardName, PackedScene decorationPackedScene)
     {
-        GD.Print("Handling decoration placement");
+        //GD.Print("Handling decoration placement");
         var instance = (Node)decorationPackedScene.Instantiate();
         Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/{builderCardType}s/{cardName}.png");
         var sprite = instance.GetNode<Sprite2D>(".") ;
@@ -141,7 +147,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         }
         else
         {
-            GD.Print("Item script not found");
+            //GD.Print("Item script not found");
         }
     }
 
@@ -199,7 +205,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         }
         else
         {
-            GD.Print("Item script not found");
+            //GD.Print("Item script not found");
         }
     }
     

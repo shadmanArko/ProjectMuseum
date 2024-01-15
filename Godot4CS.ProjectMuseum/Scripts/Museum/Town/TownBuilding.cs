@@ -11,7 +11,7 @@ public partial class TownBuilding : Sprite2D
 	public override void _Ready()
 	{
 		_startColor = Modulate;
-		GD.Print("Building started");
+		//GD.Print("Building started");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +23,7 @@ public partial class TownBuilding : Sprite2D
 	{
 		if (@event.IsActionPressed("ui_left_click") && _mouseOnBuilding)
 		{
-			GD.Print("Mouse Clicked"+ Name);
+			//GD.Print("Mouse Clicked"+ Name);
 			Modulate = Colors.Brown;
 			if (_hasDiggingBuddy)
 			{
@@ -41,12 +41,12 @@ public partial class TownBuilding : Sprite2D
 	{
 		_mouseOnBuilding = true;
 		Modulate = Colors.Burlywood;
-		GD.Print("Mouse Entered"+ Name);
+		//GD.Print("Mouse Entered"+ Name);
 	}
 	private void OnMouseExit()
 	{
 		_mouseOnBuilding = false;
 		Modulate = _startColor;
-		GD.Print("Mouse Exit" + Name);
+		//GD.Print("Mouse Exit" + Name);
 	}
 }

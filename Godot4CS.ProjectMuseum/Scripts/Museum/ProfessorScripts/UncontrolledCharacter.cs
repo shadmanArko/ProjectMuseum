@@ -34,11 +34,11 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
 
     private void OnPlayerInteract(Vector2I playerPosition, PlayerDirectionsEnum playerDirection)
     {
-        GD.Print("player interact call");
+        //GD.Print("player interact call");
         var myPosition = GameManager.TileMap.LocalToMap(Position);
         var myDirection = GetPlayerDirectionsEnum();
 
-        GD.Print($"me {Name} player direction { playerDirection}, my direction {myDirection}, player pos {playerPosition}, my pos {myPosition}");
+        //GD.Print($"me {Name} player direction { playerDirection}, my direction {myDirection}, player pos {playerPosition}, my pos {myPosition}");
         if (Math.Abs(myPosition.X - playerPosition.X) <= 1 || Math.Abs(myPosition.Y - playerPosition.Y) <= 1)
         {
             if (myDirection == PlayerDirectionsEnum.FrontLeft && playerDirection == PlayerDirectionsEnum.BackRight)
@@ -64,7 +64,7 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
     private void PathEnded(PathNavigatorCharacter obj)
     {
         
-        GD.Print("Path ended call prom professor");
+        //GD.Print("Path ended call prom professor");
         if (obj == this)
         {
             if (_exitingMuseum)
@@ -91,7 +91,7 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
         }
         else
         {
-            GD.Print("manual animation");
+            //GD.Print("manual animation");
             _animationPlayerInstance.Play(_animationNameAfterInitialMovement);
         }
     }
@@ -120,7 +120,7 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
     {
         if (@event.IsActionPressed("ui_left_click") && _mouseOnCharacter)
         {
-            GD.Print("Mouse Clicked"+ Name);
+            //GD.Print("Mouse Clicked"+ Name);
             Modulate = Colors.Brown;
             
         }
@@ -131,13 +131,13 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
     {
         _mouseOnCharacter = true;
         Modulate = Colors.Burlywood;
-        GD.Print("Mouse Entered"+ Name);
+        //GD.Print("Mouse Entered"+ Name);
     }
     private void OnMouseExit()
     {
         _mouseOnCharacter = false;
         Modulate = _startColor;
-        GD.Print("Mouse Exit" + Name);
+        //GD.Print("Mouse Exit" + Name);
     }
    
     

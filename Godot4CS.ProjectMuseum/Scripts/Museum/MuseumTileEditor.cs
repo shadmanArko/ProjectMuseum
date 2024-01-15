@@ -41,7 +41,7 @@ public partial class MuseumTileEditor : Node2D
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard; 
         await Task.Delay(1000);
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-        GD.Print("museumTileEditor is ready");
+        //GD.Print("museumTileEditor is ready");
     }
 
     private TileVariation _selectedTileVariation;
@@ -67,7 +67,7 @@ public partial class MuseumTileEditor : Node2D
 
     private void OnRequestForUpdatingTilesSourceIdCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
-        GD.Print("source id put done");
+        //GD.Print("source id put done");
         string jsonStr = Encoding.UTF8.GetString(body);
         _museumTileContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
     }
@@ -76,7 +76,7 @@ public partial class MuseumTileEditor : Node2D
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         _tileVariations = JsonSerializer.Deserialize<List<TileVariation>>(jsonStr);
-        GD.Print("number of tile variations" + _tileVariations.Count);
+        //GD.Print("number of tile variations" + _tileVariations.Count);
     }
 
     // public override void _Input(InputEvent @event)

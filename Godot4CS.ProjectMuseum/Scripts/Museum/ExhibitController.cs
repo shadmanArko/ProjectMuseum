@@ -55,7 +55,7 @@ public partial class ExhibitController : Node2D
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         _museumTileContainer.Exhibits = exhibits;
         SpawnExhibits(exhibits);
-        GD.Print($"Number of exhibits {exhibits.Count}");
+        //GD.Print($"Number of exhibits {exhibits.Count}");
     }
 
     private void SpawnExhibits(List<Exhibit> exhibits)
@@ -94,7 +94,7 @@ public partial class ExhibitController : Node2D
 
     private void OnClickItem(Item item, Exhibit exhibit)
     {
-        GD.Print($"Clicked {item.ExhibitVariationName} {item.Name}");
+        //GD.Print($"Clicked {item.ExhibitVariationName} {item.Name}");
         _exhibitEditorUi.Visible = true;
         _exhibitEditorUi.ReInitialize(item, exhibit);
     }

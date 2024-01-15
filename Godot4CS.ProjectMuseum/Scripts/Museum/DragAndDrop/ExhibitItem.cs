@@ -32,7 +32,7 @@ public partial class ExhibitItem : Item
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var exhibitVariation = JsonSerializer.Deserialize<ExhibitVariation>(jsonStr);
 		ItemPrice = exhibitVariation.Price;
-		GD.Print("Placed Artifact");
+		//GD.Print("Placed Artifact");
 	}
 
 	public void Initialize(string exhibitVariationName)
@@ -43,7 +43,7 @@ public partial class ExhibitItem : Item
 		_itemType = ItemTypes.Exhibit;
 		_httpRequestForGettingExhibitVariation.Request(ApiAddress.MuseumApiPath +
 		                                               $"GetExhibitVariation/variationName?variationName={exhibitVariationName}");
-		GD.Print("Item Initialized");
+		//GD.Print("Item Initialized");
 	}
 	public void SpawnFromDatabase(Exhibit exhibit, List<Artifact> displayArtifacts)
 	{
@@ -74,7 +74,7 @@ public partial class ExhibitItem : Item
 		{
 			if (!_eligibleForItemPlacementInTile)
 			{
-				GD.Print("Not Eligible tile");
+				//GD.Print("Not Eligible tile");
 				return;
 			}
 
@@ -90,7 +90,7 @@ public partial class ExhibitItem : Item
 	}
 	private new void HandleItemPlacement()
 	{
-		GD.Print("Handled item placement from ExhibitItem");
+		//GD.Print("Handled item placement from ExhibitItem");
 		List<string> tileIds = new List<string>();
 		foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
 		{
@@ -101,7 +101,7 @@ public partial class ExhibitItem : Item
 		string url =
 			$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}/{Frame}";
 		_httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
-		GD.Print($"Handling exhibit placement for price {ItemPrice}");
+		//GD.Print($"Handling exhibit placement for price {ItemPrice}");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 		
@@ -127,7 +127,7 @@ public partial class ExhibitItem : Item
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
-        GD.Print("Removed Artifact");
+        //GD.Print("Removed Artifact");
     }
 
     private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber)
@@ -157,7 +157,7 @@ public partial class ExhibitItem : Item
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
-        GD.Print("Placed Artifact");
+        //GD.Print("Placed Artifact");
     }
 
     private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber)
@@ -195,7 +195,7 @@ public partial class ExhibitItem : Item
 
         if (texture == null)
         {
-            GD.Print($"Failed to load texture for artifact: {artifactIconName}");
+            //GD.Print($"Failed to load texture for artifact: {artifactIconName}");
         }
 
         return texture;

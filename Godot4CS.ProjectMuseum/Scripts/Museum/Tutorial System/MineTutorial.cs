@@ -13,21 +13,21 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
 
 public partial class MineTutorial : Node
 {
-	public PlayerInfo PlayerInfo;
+	private PlayerInfo _playerInfo;
 	private PlayerControllerVariables _playerControllerVariables;
 	[Export] private TutorialSystem _tutorialSystem;
 
 	private HttpRequest _getPlayerInfoHttpRequest;
 	private HttpRequest _addTutorialArtifactToMine;
 	
-	// private bool _moveLeftAndRightCompleted;
-	// private bool _digOrdinaryCellCompleted;
-	public bool _digArtifactCellCompleted;
-	// private bool _switchToBrushCompleted;
-	// private bool _brushArtifactCellCompleted;
-	// private bool _startMiniGameCompleted;
-	// private bool _idleToClimbCompleted;
-	// private bool _climbToIdleCompleted;
+	private bool _moveLeftAndRightCompleted;
+	private bool _digOrdinaryCellCompleted;
+	private bool _digArtifactCellCompleted;
+	private bool _switchToBrushCompleted;
+	private bool _brushArtifactCellCompleted;
+	private bool _startMiniGameCompleted;
+	private bool _idleToClimbCompleted;
+	private bool _climbToIdleCompleted;
 	
 	public override void _Ready()
 	{
@@ -37,7 +37,6 @@ public partial class MineTutorial : Node
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		SubscribeToActions();
 		SetProcess(false);
-		_digArtifactCellCompleted = false;
 	}
 
 	private void CreateHttpRequest()
@@ -60,12 +59,13 @@ public partial class MineTutorial : Node
 	private void OnGetPlayerInfoHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		PlayerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+		//GD.Print( "Player info " +jsonStr);
+		_playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		
-		if (PlayerInfo.CompletedTutorialScene < 6)
+		if (_playerInfo.CompletedTutorialScene < 6)
 			AddTutorialArtifactToMine();
 		
-		if(PlayerInfo.CompletedStoryScene == 10)
+		if(_playerInfo.CompletedStoryScene == 10)
 			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
@@ -83,16 +83,15 @@ public partial class MineTutorial : Node
 	private void SubscribeToActions()
 	{
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
-		// MuseumActions.TutorialSceneEntryEnded += OnPlayerReachedArtifactBrushTutorial;
 		MineActions.OnPlayerReachFirstWarning += GetPlayerInfo;
 	}
 
 
 	public async Task<bool> PlayMineTutorials()
 	{
-		GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
+		//GD.Print($"Tutorial No: "+_playerInfo.CompletedTutorialScene);
 		
-		if(PlayerInfo.CompletedTutorialScene != 5) return false;
+		if(_playerInfo.CompletedTutorialScene != 5) return false;
 		MuseumActions.PlayTutorial?.Invoke(6);
 		await Task.Delay(1500);
 		SetProcess(true);
@@ -151,19 +150,9 @@ public partial class MineTutorial : Node
 		}
 	}
 
-	// private void OnPlayerReachedArtifactBrushTutorial(string entryNo)
-	// {
-	// 	if(entryNo != "Tut6c") return;
-	// 	_playerControllerVariables.CanMoveLeftAndRight = false;
-	// 	_playerControllerVariables.CanAttack = false;
-	// 	_playerControllerVariables.CanBrush = false;
-	// 	_playerControllerVariables.CanDig = false;
-	// 	_playerControllerVariables.CanToggleClimb = false;
-	// }
-
 	private void BasicMineTutorialEnded(string entryNo)
 	{
-		GD.Print($"Ended scene Entry No: {entryNo}");
+		//GD.Print($"Ended scene Entry No: {entryNo}");
 		if(entryNo != "Tut6g") return;
 		SetProcess(false);
 		_playerControllerVariables.CanMoveLeftAndRight = true;
@@ -173,15 +162,9 @@ public partial class MineTutorial : Node
 		_playerControllerVariables.CanToggleClimb = true;
 	}
 
-	public string GetCurrentTutorial()
-	{
-		return _tutorialSystem.GetCurrentTutorialSceneEntry();
-	}
-
 	public override void _ExitTree()
 	{
 		MuseumActions.TutorialSceneEntryEnded -= BasicMineTutorialEnded;
-		// MuseumActions.TutorialSceneEntryEnded -= OnPlayerReachedArtifactBrushTutorial;
 		MineActions.OnPlayerReachFirstWarning -= GetPlayerInfo;
 	}
 }

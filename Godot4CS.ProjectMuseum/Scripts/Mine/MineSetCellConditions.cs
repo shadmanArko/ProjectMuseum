@@ -99,6 +99,8 @@ public static class MineSetCellConditions
             return;
         if (cell.HitPoint == 3)
         {
+            GD.Print($"cell crack mat is null: {cellCrackMaterial == null}");
+            GD.Print($"small crack mat is null: {cellCrackMaterial == null}");
             var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
                 cellCrackMaterial.SmallCrack.AtlasCoordY);
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir ,cellCrackMaterial.SmallCrack.TileSourceId, tilePos, coords);

@@ -39,8 +39,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
-        ServiceRegistry.Resolve<List<RawArtifactDescriptive>>();
-        ServiceRegistry.Resolve<List<RawArtifactFunctional>>();
     }
 
     private void SubscribeToActions()

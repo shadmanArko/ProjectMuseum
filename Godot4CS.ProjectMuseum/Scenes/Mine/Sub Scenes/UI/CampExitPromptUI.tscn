@@ -71,9 +71,8 @@ theme_override_fonts/font = ExtResource("1_w1mvd")
 text = "RETURN TO MINE?"
 script = ExtResource("2_nhs7x")
 
-[node name="SceneChanger" parent="Panel/Control" node_paths=PackedStringArray("_sceneChangerButton") instance=ExtResource("4_oc4fq")]
-_sceneChangerButton = NodePath("../Button Container/Return To Museum")
-_scenePath = "res://Scenes/Museum/Main Scene/Museum.tscn"
+[node name="SceneChanger" parent="Panel/Control" instance=ExtResource("4_oc4fq")]
+script = null
 
 [connection signal="button_up" from="Panel/Control/Button Container/Sleep For The Night" to="Panel/Control/Button Container/Sleep For The Night" method="TransitFromCampToMineTheNextDay"]
 [connection signal="button_up" from="Panel/Control/Button Container/Return To Museum" to="Panel/Control/Button Container/Return To Museum" method="TransitFromCampToMuseum"]

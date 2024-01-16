@@ -7,7 +7,7 @@
     "Materials": ["Wood", "Stone"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
-    "LargeImageLocation": "TBD",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Isometric View Artifacts/AncientNativeAmericanClub.png",
     "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
@@ -18,7 +18,7 @@
     "Materials": ["Wood"],
     "ObjectClass": "Weapon",
     "ObjectSize": "Medium",
-    "LargeImageLocation": "TBD",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanWoodenSword.png",
     "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
@@ -95,7 +95,7 @@
     "Materials": ["Leather", "Wood"],
     "ObjectClass": "Armor",
     "ObjectSize": "Medium",
-    "LargeImageLocation": "TBD",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanWarShield.png",
     "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   },
   {
@@ -106,7 +106,7 @@
     "Materials": ["Leather", "Wood"],
     "ObjectClass": "Armor",
     "ObjectSize": "Medium",
-    "LargeImageLocation": "TBD",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Isometric View Artifacts/Medieval Native American War Shield.png",
     "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   }
 ]

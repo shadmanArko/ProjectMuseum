@@ -70,6 +70,7 @@ public partial class MuseumTileEditor : Node2D
         //GD.Print("source id put done");
         string jsonStr = Encoding.UTF8.GetString(body);
         _museumTileContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+        MuseumActions.OnMuseumTilesUpdated?.Invoke();
     }
 
     private void OnRequestForGettingTileVariationsCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -173,7 +174,7 @@ public partial class MuseumTileEditor : Node2D
         MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
         string[] headers = { "Content-Type: application/json"};
         var body = JsonConvert.SerializeObject(tileIds);
-        Error error = _httpRequestForUpdatingTilesSourceId.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?sourceId={sourceId}", headers,
+        Error error = _httpRequestForUpdatingTilesSourceId.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesSourceId/{sourceId}", headers,
             HttpClient.Method.Put, body);
     }
 

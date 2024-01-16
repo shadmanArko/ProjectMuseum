@@ -61,6 +61,7 @@ public partial class ToolbarSelector : Node
 	private void GetPlayerInventory()
 	{
 		var url = ApiAddress.PlayerApiPath+"GetInventory";
+		_getPlayerInventoryHttpRequest.CancelRequest();
 		_getPlayerInventoryHttpRequest.Request(url);
 	}
 	

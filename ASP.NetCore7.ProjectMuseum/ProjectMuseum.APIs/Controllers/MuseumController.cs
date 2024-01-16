@@ -132,7 +132,7 @@ public class MuseumController : ControllerBase
         var updatedMuseumTile = await _museumTileService.UpdateMuseumTileById(id, museumTile);
         return Ok(updatedMuseumTile);
     }
-    [HttpPut("UpdateMuseumTilesSourceId")]
+    [HttpPut("UpdateMuseumTilesSourceId/{sourceId}")]
     public async Task<IActionResult> UpdateMuseumTilesSourceId(List<string> ids, int sourceId)
     {
         var updatedMuseumTile = await _museumTileService.UpdateMuseumTilesSourceId(ids, sourceId);

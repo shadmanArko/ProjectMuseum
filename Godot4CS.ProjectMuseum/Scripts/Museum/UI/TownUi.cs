@@ -5,7 +5,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 public partial class TownUi : Panel
 {
 	[Export] private Control _popUpUi;
-	[Export] private Control _indicatorForHouseOfBuddy;
+	[Export] private Sprite2D _indicatorForHouseOfBuddy;
 	private Timer _timer;
 
 	// Called when the node enters the scene tree for the first time.

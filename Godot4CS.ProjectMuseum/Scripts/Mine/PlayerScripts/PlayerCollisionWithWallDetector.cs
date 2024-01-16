@@ -231,6 +231,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                     MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
                     return;
                 }
+                //MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
             }
         }
         

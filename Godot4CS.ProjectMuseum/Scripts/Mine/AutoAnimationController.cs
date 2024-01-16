@@ -106,10 +106,13 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
 	
 		//TODO: TURN ON THIS IF YOU WANT TUTORIALS
-		var isTutorialPlaying = await ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+		var isTutorialPlaying = ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying();
+		var firstDayPassed = ReferenceStorage.Instance.MineTimeSystem.GetTime().Days > 1;
 		
 		//TODO: For testing purposes turn off tutorial and turn these on
-		if (!isTutorialPlaying)
+		if (isTutorialPlaying && !firstDayPassed)
+			await ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
+		else
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = true;
 			_playerControllerVariables.CanAttack = true;
@@ -117,6 +120,7 @@ public partial class AutoAnimationController : Node2D
 			_playerControllerVariables.CanDig = true;
 			_playerControllerVariables.CanToggleClimb = true;
 		}
+        
 		ReferenceStorage.Instance.MineTimeSystem.PlayTimer();
 	}
 }

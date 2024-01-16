@@ -36,7 +36,7 @@ public partial class MuseumTimeSystem : Node
 		MuseumActions.OnClickTimeSpeedButton += SetClockSpeed;
 		MuseumActions.OnPlayerSleepAndSavedGame += OnPlayerSleepAndSavedGame;
 		MuseumActions.OnClickPausePlayButton += TogglePause;
-		MuseumActions.OnPlayerSavedGame += SaveTime;
+		// MuseumActions.OnPlayerSavedGame += SaveTime;
 		MuseumActions.OnSleepComplete += OnSleepComplete;
 	}
 
@@ -188,7 +188,7 @@ public partial class MuseumTimeSystem : Node
 		base._ExitTree();
 		MuseumActions.OnClickTimeSpeedButton -= SetClockSpeed;
 		MuseumActions.OnClickPausePlayButton -= TogglePause;
-		MuseumActions.OnPlayerSavedGame -= SaveTime;
+		// MuseumActions.OnPlayerSavedGame -= SaveTime;
 		MuseumActions.OnSleepComplete -= OnSleepComplete;
 	}
 }

@@ -135,7 +135,6 @@
         "TutorialText": "Break the block directly below you using {Left Click}, while the pickaxe is selected.",
         "KeyBindsNeedsToPerform": [],
         "ActionsNeedsToPerform": [
-          "PickaxeSelected",
           "OnDigFirstOrdinaryCell"
         ]
       },

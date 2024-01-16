@@ -47,8 +47,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
         MineActions.OnBrushActionStarted += BrushWall;
-        
-        //MineActions.OnMiniGameLost += MiniGameLost;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
     }
 
@@ -101,27 +99,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     #endregion
 
-    // #region Send Artifact To Inventory
-    //
-    // private void SendArtifactToInventory(string artifactId)
-    // {
-    //     var url = $"{ApiAddress.MineApiPath}SendArtifactToInventory/{artifactId}";
-    //     _sendArtifactToInventoryHttpRequest.Request(url);
-    //
-    //     GD.Print($"HTTP REQUEST FOR SENDING ARTIFACT TO INVENTORY (1)");
-    // }
-    //
-    // private void OnSendArtifactToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers,
-    //     byte[] body)
-    // {
-    //     GD.Print("Successfully sent artifact to inventory");
-    //     var jsonStr = Encoding.UTF8.GetString(body);
-    //     //var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
-    //     GD.Print("body " + jsonStr);
-    // }
-    //
-    // #endregion
-
     #endregion
 
     private void DetectCollision(KinematicCollision2D collision)
@@ -149,7 +126,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (!IsCellBreakValid(targetTilePosition)) return;
 
         var cell = _mineGenerationVariables.GetCell(targetTilePosition);
-        // GD.Print($"breaking cell: {targetTilePosition}");
         if (cell.HasArtifact)
             DigArtifactCell(targetTilePosition);
         else
@@ -236,17 +212,13 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
-
-        GD.Print($"Mine Cell Crack Material is null: {_mineCellCrackMaterial == null}");
-        GD.Print($"Cell Crack Materials is null: {_mineCellCrackMaterial.CellCrackMaterials == null}");
+        
         var cellCrackMaterial =
             _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
                 tempCell.MaterialType == cell.ArtifactMaterial);
         MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             cellCrackMaterial, _mineGenerationVariables.MineGenView);
         MakeMineWallDepletedParticleEffect();
-
-        
         
         if (cell.HitPoint <= 0)
         {

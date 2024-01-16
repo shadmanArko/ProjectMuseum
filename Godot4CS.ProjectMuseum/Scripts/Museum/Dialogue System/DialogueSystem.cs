@@ -135,7 +135,7 @@ public partial class DialogueSystem : Control
 		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
 		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
 		_dialogueSystemAnimationPlayer.Play("Slide_Out");
-		await Task.Delay(1200);
+		await Task.Delay(1000);
 		_cutsceneArt.Visible = false;
 		Visible = false;
 		if (_storyScene.HasTutorial)

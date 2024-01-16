@@ -115,11 +115,11 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(250, 50)
+custom_minimum_size = Vector2(250, 600)
 layout_mode = 2
 theme_override_constants/separation = 10
-alignment = 1
 script = ExtResource("4_mx4kr")
+_parentTarget = true
 
 [node name="Right Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
 modulate = Color(0.937255, 0.898039, 1, 1)

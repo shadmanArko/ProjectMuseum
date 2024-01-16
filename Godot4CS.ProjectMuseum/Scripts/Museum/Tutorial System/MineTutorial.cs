@@ -91,7 +91,6 @@ public partial class MineTutorial : Node
 	public async Task<bool> PlayMineTutorials()
 	{
 		GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
-		
 		if(PlayerInfo.CompletedTutorialScene != 5) return false;
 		MuseumActions.PlayTutorial?.Invoke(6);
 		await Task.Delay(1500);
@@ -101,7 +100,7 @@ public partial class MineTutorial : Node
     
 	public override void _Process(double delta)
 	{
-		if (!_moveLeftAndRightCompleted && _tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6a")
+		if (_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6a")
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = true;
 			_playerControllerVariables.CanAttack = false;
@@ -109,10 +108,9 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = false;
 			_playerControllerVariables.CanToggleClimb = false;
 			_moveLeftAndRightCompleted = true;
-			GD.Print("MOVE LEFT AND RIGHT CELL COMPLETED");
 		}
 		
-		if(!_digOrdinaryCellCompleted && _tutorialSystem.GetCurrentTutorialSceneEntry() is "Tut6b")
+		if(_tutorialSystem.GetCurrentTutorialSceneEntry() is "Tut6b")
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = false;
 			_playerControllerVariables.CanAttack = false;
@@ -120,10 +118,9 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = true;
 			_playerControllerVariables.CanToggleClimb = false;
 			_digOrdinaryCellCompleted = true;
-			GD.Print("DIGGING ORDINARY CELL COMPLETED");
 		}
 		
-		if(!_digArtifactCellCompleted && _tutorialSystem.GetCurrentTutorialSceneEntry() is "Tut6c")
+		if(_tutorialSystem.GetCurrentTutorialSceneEntry() is "Tut6c")
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = false;
 			_playerControllerVariables.CanAttack = false;
@@ -131,10 +128,9 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = true;
 			_playerControllerVariables.CanToggleClimb = false;
 			_digArtifactCellCompleted = true;
-			GD.Print("DIGGING ARTIFACT CELL COMPLETED");
 		}
 		
-		if(!_switchToBrushCompleted && _tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6d")
+		if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6d")
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = false;
 			_playerControllerVariables.CanAttack = false;
@@ -142,10 +138,9 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = false;
 			_playerControllerVariables.CanToggleClimb = false;
 			_switchToBrushCompleted = true;
-			GD.Print("SWITCH TO BRUSH COMPLETED");
 		}
 		
-		if(!_brushArtifactCellCompleted && _tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6e")
+		if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6e")
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = false;
 			_playerControllerVariables.CanAttack = false;
@@ -153,10 +148,9 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = false;
 			_playerControllerVariables.CanToggleClimb = false;
 			_brushArtifactCellCompleted = true;
-			GD.Print("BRUSH ARTIFACT CELL COMPLETED");
 		}
 		
-		if(!_startMiniGameCompleted && _tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6f")
+		if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6f")
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = false;
 			_playerControllerVariables.CanAttack = false;
@@ -164,10 +158,9 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = false;
 			_playerControllerVariables.CanToggleClimb = false;
 			_startMiniGameCompleted = true;
-			GD.Print("START MINI GAME COMPLETED");
 		}
 		
-		if(!_idleToClimbCompleted && _tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6g")
+		if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6g")
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = false;
 			_playerControllerVariables.CanAttack = false;
@@ -175,7 +168,6 @@ public partial class MineTutorial : Node
 			_playerControllerVariables.CanDig = false;
 			_playerControllerVariables.CanToggleClimb = true;
 			_idleToClimbCompleted = true;
-			GD.Print("TOGGLE GRAB COMPLETED");
 		}
 	}
 
@@ -203,7 +195,7 @@ public partial class MineTutorial : Node
 
 	public string GetCurrentTutorial()
 	{
-		return _tutorialSystem.GetCurrentTutorialSceneEntry();
+		return _tutorialSystem!.GetCurrentTutorialSceneEntry();
 	}
 
 	public override void _ExitTree()

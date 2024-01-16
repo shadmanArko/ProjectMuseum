@@ -83,7 +83,7 @@ position = Vector2(419.5, 308)
 _hasDiggingBuddy = true
 
 [node name="indicator" type="Sprite2D" parent="Town Ui/Town Ground With roads/Houses/TrailerHome5"]
-z_index = 6
+visible = false
 texture_filter = 1
 position = Vector2(-58.4999, 26)
 scale = Vector2(2, 2)

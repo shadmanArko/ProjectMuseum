@@ -139,6 +139,8 @@ public partial class Wall : Sprite2D
     {
         base._ExitTree();
         MuseumActions.OnPreviewWallpaperUpdated -= OnPreviewWallpaperUpdated;
+        MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
+        MuseumActions.OnWallpaperSuccessfullyUpdated -= OnWallpaperSuccessfullyUpdated;
 
     }
 }

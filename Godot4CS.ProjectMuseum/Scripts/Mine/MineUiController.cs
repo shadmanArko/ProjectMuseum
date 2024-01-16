@@ -47,10 +47,7 @@ public partial class MineUiController : CanvasLayer
 		var currentPos = _playerControllerVariables.Position;
 		var tilePos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(currentPos);
 		var str = $"(X,Y) = ({tilePos.X},{tilePos.Y})";
-		if (tilePos.X > 0 && tilePos.Y > 0)
-			_playerCoordinates.Text = str;
-		else
-			_playerCoordinates.Text = "";
+		_playerCoordinates.Text = tilePos is { X: > 0, Y: > 0 } ? str : "";
 	}
     
 }

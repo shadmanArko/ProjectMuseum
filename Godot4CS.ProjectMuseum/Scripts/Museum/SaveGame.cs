@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 
 public partial class SaveGame : Node2D
@@ -12,6 +13,7 @@ public partial class SaveGame : Node2D
 		_httpRequestForSavingGame = new HttpRequest();
 		AddChild(_httpRequestForSavingGame);
 		_httpRequestForSavingGame.RequestCompleted += HttpRequestForSavingGameOnRequestCompleted;
+		MuseumActions.OnPlayerSavedGame += SaveGameToDatabase;
 	}
 
 	private void HttpRequestForSavingGameOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -24,11 +26,23 @@ public partial class SaveGame : Node2D
 		base._Input(@event);
 		if (Input.IsActionJustPressed("save"))
 		{
-			if (!_savingGame)
-			{
-				_httpRequestForSavingGame.Request(ApiAddress.PlayerApiPath + "SaveData");
-				GD.Print("Save Game");
-			}
+			SaveGameToDatabase();
 		}
+	}
+
+	private void SaveGameToDatabase()
+	{
+		if (!_savingGame)
+		{
+			_httpRequestForSavingGame.Request(ApiAddress.PlayerApiPath + "SaveData");
+			GD.Print("Saved Game");
+		}
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		_httpRequestForSavingGame.RequestCompleted -= HttpRequestForSavingGameOnRequestCompleted;
+		MuseumActions.OnPlayerSavedGame -= SaveGameToDatabase;
 	}
 }

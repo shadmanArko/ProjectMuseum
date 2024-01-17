@@ -20,6 +20,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     private MineCellCrackMaterial _mineCellCrackMaterial;
 
     private HttpRequest _getMineArtifactHttpRequest;
+    private HttpRequest _mineCrackCellMaterialHttpRequest;
 
     private RandomNumberGenerator _randomNumberGenerator;
 
@@ -28,7 +29,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         CreateHttpRequests();
         InitializeDiReferences();
         SubscribeToActions();
-
+        GetMineCrackMaterialData();
         _randomNumberGenerator = new RandomNumberGenerator();
     }
 
@@ -39,8 +40,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
-        ServiceRegistry.Resolve<List<RawArtifactDescriptive>>();
-        ServiceRegistry.Resolve<List<RawArtifactFunctional>>();
     }
 
     private void SubscribeToActions()
@@ -48,8 +47,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
         MineActions.OnBrushActionStarted += BrushWall;
-        
-        //MineActions.OnMiniGameLost += MiniGameLost;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
     }
 
@@ -63,9 +60,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         AddChild(_getMineArtifactHttpRequest);
         _getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
 
-        // _sendArtifactToInventoryHttpRequest = new HttpRequest();
-        // AddChild(_sendArtifactToInventoryHttpRequest);
-        // _sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
+        _mineCrackCellMaterialHttpRequest = new HttpRequest();
+        AddChild(_mineCrackCellMaterialHttpRequest);
+        _mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
     }
 
     #region Get Mine Artifact Request
@@ -85,26 +82,22 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     #endregion
 
-    // #region Send Artifact To Inventory
-    //
-    // private void SendArtifactToInventory(string artifactId)
-    // {
-    //     var url = $"{ApiAddress.MineApiPath}SendArtifactToInventory/{artifactId}";
-    //     _sendArtifactToInventoryHttpRequest.Request(url);
-    //
-    //     GD.Print($"HTTP REQUEST FOR SENDING ARTIFACT TO INVENTORY (1)");
-    // }
-    //
-    // private void OnSendArtifactToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers,
-    //     byte[] body)
-    // {
-    //     GD.Print("Successfully sent artifact to inventory");
-    //     var jsonStr = Encoding.UTF8.GetString(body);
-    //     //var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
-    //     GD.Print("body " + jsonStr);
-    // }
-    //
-    // #endregion
+    #region Get Mine Cell Crack Materials
+
+    private void GetMineCrackMaterialData()
+    {
+        var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
+        _mineCrackCellMaterialHttpRequest.Request(url);
+    }
+    
+    private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+    {
+        var jsonStr = Encoding.UTF8.GetString(body);
+        var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
+        _mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
+    }
+
+    #endregion
 
     #endregion
 
@@ -133,7 +126,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (!IsCellBreakValid(targetTilePosition)) return;
 
         var cell = _mineGenerationVariables.GetCell(targetTilePosition);
-        // GD.Print($"breaking cell: {targetTilePosition}");
         if (cell.HasArtifact)
             DigArtifactCell(targetTilePosition);
         else
@@ -220,15 +212,13 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
-
+        
         var cellCrackMaterial =
             _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
                 tempCell.MaterialType == cell.ArtifactMaterial);
         MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             cellCrackMaterial, _mineGenerationVariables.MineGenView);
         MakeMineWallDepletedParticleEffect();
-
-        
         
         if (cell.HitPoint <= 0)
         {

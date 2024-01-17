@@ -30,7 +30,7 @@ public partial class DecorationItem : Item
 		{
 			if (!_eligibleForItemPlacementInTile)
 			{
-				GD.Print("Not Eligible tile");
+				//GD.Print("Not Eligible tile");
 				return;
 			}
 
@@ -51,7 +51,7 @@ public partial class DecorationItem : Item
 	}
 	private new void HandleItemPlacement()
 	{
-		GD.Print("Handled item placement from Decoration Item");
+		//GD.Print("Handled item placement from Decoration Item");
 		// List<string> tileIds = new List<string>();
 		// foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
 		// {

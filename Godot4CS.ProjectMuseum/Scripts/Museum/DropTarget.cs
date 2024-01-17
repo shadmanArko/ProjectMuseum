@@ -41,14 +41,14 @@ public partial class DropTarget : Control
     public override bool _CanDropData(Vector2 atPosition, Variant data)
     {
         var canDrop = ((Node)data).IsInGroup("Draggable");
-        GD.Print($"Can drop data has run {Name}");
+        //GD.Print($"Can drop data has run {Name}");
         // Highlight(canDrop && hasEmptySlot); // Highlight if conditions are met
         return (canDrop && hasEmptySlot) || _parentTarget;
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
     {
-        GD.Print($"Drop data has run");
+        //GD.Print($"Drop data has run");
         hasEmptySlot = false;
         Control draggableCopy = (Control)draggableScene.Instantiate();
         // draggableCopy.GetNode<Draggable>(".").canBeDragged = false;

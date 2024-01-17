@@ -35,6 +35,10 @@ public partial class MineGenerationController : Node2D
 	{
 		CreateHttpRequests();
 		InitializeDiReferences();
+		GetMineCrackMaterialData();
+		GetAllRawArtifactDescriptiveData();
+		GetAllRawArtifactFunctionalData();
+		GenerateMineData();
 	}
 
 	public override void _Ready()
@@ -42,10 +46,7 @@ public partial class MineGenerationController : Node2D
 		_mineGenerationView = GetNode<MineGenerationView>("Mine");
 		_mineGenerationVariables.MineGenView = _mineGenerationView;
 		_savingCanvas.Visible = false;
-		GetMineCrackMaterialData();
-		GetAllRawArtifactDescriptiveData();
-		GetAllRawArtifactFunctionalData();
-		GenerateMineData();
+		
 		_mineBackGround.Position = new Vector2(482, -107);
 	}
 

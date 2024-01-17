@@ -19,15 +19,8 @@ public partial class MineTutorial : Node
 
 	private HttpRequest _getPlayerInfoHttpRequest;
 	private HttpRequest _addTutorialArtifactToMine;
-	
-	// private bool _moveLeftAndRightCompleted;
-	// private bool _digOrdinaryCellCompleted;
-	public bool _digArtifactCellCompleted;
-	// private bool _switchToBrushCompleted;
-	// private bool _brushArtifactCellCompleted;
-	// private bool _startMiniGameCompleted;
-	// private bool _idleToClimbCompleted;
-	// private bool _climbToIdleCompleted;
+
+	private bool _isMineTutorialDonePlaying;
 	
 	public override void _Ready()
 	{
@@ -37,7 +30,8 @@ public partial class MineTutorial : Node
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		SubscribeToActions();
 		SetProcess(false);
-		_digArtifactCellCompleted = false;
+		
+		MoveLeftAndRightTutorial();
 	}
 
 	private void CreateHttpRequest()
@@ -83,82 +77,107 @@ public partial class MineTutorial : Node
 	private void SubscribeToActions()
 	{
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
-		// MuseumActions.TutorialSceneEntryEnded += OnPlayerReachedArtifactBrushTutorial;
 		MineActions.OnPlayerReachFirstWarning += GetPlayerInfo;
+		
+		MuseumActions.TutorialSceneEntryEnded += DigOrdinaryAndArtifactCellTutorial;
+		MuseumActions.TutorialSceneEntryEnded += SwitchToBrushTutorial;
+		MuseumActions.TutorialSceneEntryEnded += BrushArtifactCellTutorial;
+		MuseumActions.TutorialSceneEntryEnded += PlayMiniGameTutorial;
+		MuseumActions.TutorialSceneEntryEnded += ToggleClimbTutorial;
+		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
 	}
 
-
-	public async Task<bool> PlayMineTutorials()
+	public bool IsMineTutorialPlaying()
 	{
-		GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
+		if (_isMineTutorialDonePlaying) return false;
 		
-		if(PlayerInfo.CompletedTutorialScene != 5) return false;
+		GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
+		return PlayerInfo.CompletedTutorialScene == 5;
+	}
+	
+	public async Task PlayMineTutorials()
+	{
 		MuseumActions.PlayTutorial?.Invoke(6);
 		await Task.Delay(1500);
 		SetProcess(true);
-		return true;
 	}
-
-	public override void _Process(double delta)
+    
+	private void MoveLeftAndRightTutorial()
 	{
-		if (_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6a")
-		{
-			_playerControllerVariables.CanMoveLeftAndRight = true;
-			_playerControllerVariables.CanAttack = false;
-			_playerControllerVariables.CanBrush = false;
-			_playerControllerVariables.CanDig = false;
-			_playerControllerVariables.CanToggleClimb = false;
-		}
-		else if(_tutorialSystem.GetCurrentTutorialSceneEntry() is "Tut6b" or "Tut6c")
-		{
-			_playerControllerVariables.CanMoveLeftAndRight = false;
-			_playerControllerVariables.CanAttack = false;
-			_playerControllerVariables.CanBrush = false;
-			_playerControllerVariables.CanDig = true;
-			_playerControllerVariables.CanToggleClimb = false;
-		}
-		else if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6d")
-		{
-			_playerControllerVariables.CanMoveLeftAndRight = false;
-			_playerControllerVariables.CanAttack = false;
-			_playerControllerVariables.CanBrush = false;
-			_playerControllerVariables.CanDig = false;
-			_playerControllerVariables.CanToggleClimb = false;
-		}
-		else if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6e")
-		{
-			_playerControllerVariables.CanMoveLeftAndRight = false;
-			_playerControllerVariables.CanAttack = false;
-			_playerControllerVariables.CanBrush = true;
-			_playerControllerVariables.CanDig = false;
-			_playerControllerVariables.CanToggleClimb = false;
-		}
-		else if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6f")
-		{
-			_playerControllerVariables.CanMoveLeftAndRight = false;
-			_playerControllerVariables.CanAttack = false;
-			_playerControllerVariables.CanBrush = false;
-			_playerControllerVariables.CanDig = false;
-			_playerControllerVariables.CanToggleClimb = false;
-		}
-		else if(_tutorialSystem.GetCurrentTutorialSceneEntry() == "Tut6g")
-		{
-			_playerControllerVariables.CanMoveLeftAndRight = false;
-			_playerControllerVariables.CanAttack = false;
-			_playerControllerVariables.CanBrush = false;
-			_playerControllerVariables.CanDig = false;
-			_playerControllerVariables.CanToggleClimb = true;
-		}
+		_playerControllerVariables.CanMoveLeftAndRight = true;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanBrush = false;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.CanToggleClimb = false;
 	}
-
-	// private void OnPlayerReachedArtifactBrushTutorial(string entryNo)
+	
+	private void DigOrdinaryAndArtifactCellTutorial(string entryNo)
+	{
+		GD.Print($"Ended scene Entry No: {entryNo}");
+		if(entryNo is not "Tut6a") return;
+		_playerControllerVariables.CanMoveLeftAndRight = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanBrush = false;
+		_playerControllerVariables.CanDig = true;
+		_playerControllerVariables.CanToggleClimb = false;
+	}
+	
+	private void SwitchToBrushTutorial(string entryNo)
+	{
+		GD.Print($"Ended scene Entry No: {entryNo}");
+		if(entryNo is not "Tut6c") return;
+		_playerControllerVariables.CanMoveLeftAndRight = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanBrush = false;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.CanToggleClimb = false;
+	}
+	
+	private void BrushArtifactCellTutorial(string entryNo)
+	{
+		GD.Print($"Ended scene Entry No: {entryNo}");
+		if(entryNo != "Tut6d") return;
+		
+		_playerControllerVariables.CanMoveLeftAndRight = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanBrush = true;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.CanToggleClimb = false;
+	}
+	
+	private void PlayMiniGameTutorial(string entryNo)
+	{
+		GD.Print($"Ended scene Entry No: {entryNo}");
+		if(entryNo != "Tut6e") return;
+		
+		_playerControllerVariables.CanMoveLeftAndRight = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanBrush = false;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.CanToggleClimb = false;
+	}
+	
+	private void ToggleClimbTutorial(string entryNo)
+	{
+		GD.Print($"Ended scene Entry No: {entryNo}");
+		if(entryNo != "Tut6f") return;
+		
+		_playerControllerVariables.CanMoveLeftAndRight = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanBrush = false;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.CanToggleClimb = true;
+	}
+	
+	// private void EndMineTutorial(string entryNo)
 	// {
-	// 	if(entryNo != "Tut6c") return;
-	// 	_playerControllerVariables.CanMoveLeftAndRight = false;
-	// 	_playerControllerVariables.CanAttack = false;
-	// 	_playerControllerVariables.CanBrush = false;
-	// 	_playerControllerVariables.CanDig = false;
-	// 	_playerControllerVariables.CanToggleClimb = false;
+	// 	GD.Print($"Ended scene Entry No: {entryNo}");
+	// 	if(entryNo != "Tut6g") return;
+	// 	_playerControllerVariables.CanMoveLeftAndRight = true;
+	// 	_playerControllerVariables.CanAttack = true;
+	// 	_playerControllerVariables.CanBrush = true;
+	// 	_playerControllerVariables.CanDig = true;
+	// 	_playerControllerVariables.CanToggleClimb = true;
 	// }
 
 	private void BasicMineTutorialEnded(string entryNo)
@@ -171,11 +190,12 @@ public partial class MineTutorial : Node
 		_playerControllerVariables.CanBrush = true;
 		_playerControllerVariables.CanDig = true;
 		_playerControllerVariables.CanToggleClimb = true;
+		_isMineTutorialDonePlaying = true;
 	}
 
 	public string GetCurrentTutorial()
 	{
-		return _tutorialSystem.GetCurrentTutorialSceneEntry();
+		return _tutorialSystem!.GetCurrentTutorialSceneEntry();
 	}
 
 	public override void _ExitTree()

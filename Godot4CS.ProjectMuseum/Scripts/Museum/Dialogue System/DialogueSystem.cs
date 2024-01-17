@@ -48,10 +48,10 @@ public partial class DialogueSystem : Control
 	private void HttpRequestForCompletingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		GD.Print(jsonStr);
+		//GD.Print(jsonStr);
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		_playerName = playerInfo.Name;
-		GD.Print($"Story completion updated to {playerInfo.CompletedStoryScene}");
+		//GD.Print($"Story completion updated to {playerInfo.CompletedStoryScene}");
 	}
 
 	private async void NextDialogueButtonOnPressed()
@@ -69,7 +69,7 @@ public partial class DialogueSystem : Control
 			if (!_finishedCurrentDialogue )
 			{
 				CompleteDialogueWithoutWaiting(_storyEntryCount);
-				GD.Print("Printing cancelled.");
+				//GD.Print("Printing cancelled.");
 				return;
 			}
 
@@ -135,7 +135,7 @@ public partial class DialogueSystem : Control
 		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
 		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
 		_dialogueSystemAnimationPlayer.Play("Slide_Out");
-		await Task.Delay(1200);
+		await Task.Delay(1000);
 		_cutsceneArt.Visible = false;
 		Visible = false;
 		if (_storyScene.HasTutorial)
@@ -161,7 +161,7 @@ public partial class DialogueSystem : Control
 		string fullPath = folderPath + fileName;
 
 		// Print the full path to help with debugging
-		GD.Print("Attempting to load texture from path: " + fullPath);
+		//GD.Print("Attempting to load texture from path: " + fullPath);
 
 		// Load the texture from the file
 		try
@@ -177,12 +177,12 @@ public partial class DialogueSystem : Control
 			else
 			{
 				_characterPortrait.Texture = null;
-				GD.Print("Failed to load texture: " + fullPath);
+				//GD.Print("Failed to load texture: " + fullPath);
 			}
 		}
 		catch (Exception e)
 		{
-			GD.Print("Error loading texture: " + e.Message);
+			//GD.Print("Error loading texture: " + e.Message);
 		}
 	}
 
@@ -198,7 +198,7 @@ public partial class DialogueSystem : Control
 	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
 		 string jsonStr = Encoding.UTF8.GetString(body);
-		 GD.Print(jsonStr);
+		 //GD.Print(jsonStr);
 		 _storyScene = JsonSerializer.Deserialize<StoryScene>(jsonStr);
 		 _storyEntryCount = 0;
 		 _dialogueSystemAnimationPlayer.Play("Slide_In");
@@ -255,12 +255,12 @@ public partial class DialogueSystem : Control
 			else
 			{
 				_cutsceneArt.Texture = null;
-				GD.Print("Failed to load cutscene texture: " + fullPath);
+				//GD.Print("Failed to load cutscene texture: " + fullPath);
 			}
 		}
 		catch (Exception e)
 		{
-			GD.Print("Error loading cutscene texture: " + e.Message);
+			//GD.Print("Error loading cutscene texture: " + e.Message);
 		}
 	}
 

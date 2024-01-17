@@ -44,7 +44,7 @@ public partial class WallController : Node2D
 
 	private void HttpRequestForUpdatingWallsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
-		GD.Print("wall id put done");
+		//GD.Print("wall id put done");
 		
 		string jsonStr = Encoding.UTF8.GetString(body);
 
@@ -102,7 +102,7 @@ public partial class WallController : Node2D
 				MuseumActions.OnMuseumBalanceReduced?.Invoke(validWallTileIds.Count);
 				string[] headers = { "Content-Type: application/json"};
 				var body = JsonConvert.SerializeObject(validWallTileIds);
-				GD.Print(body);
+				//GD.Print(body);
 				Error error = _httpRequestForUpdatingWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?wallId={_currentCardName}", headers,
 					HttpClient.Method.Post, body);
 			}

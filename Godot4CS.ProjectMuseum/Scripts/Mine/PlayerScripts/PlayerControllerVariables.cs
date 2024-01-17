@@ -133,8 +133,27 @@ public class PlayerControllerVariables
         }       
     }
 
-    public Vector2 Position;
-    public Vector2 Velocity;
+    private Vector2 _position;
+    public Vector2 Position
+    {
+        get => _position;
+        set
+        {
+            _position = value;
+            MineActions.OnPlayerPositionUpdated?.Invoke();
+        }
+    }
+
+    private Vector2 _velocity;
+    public Vector2 Velocity
+    {
+        get => _velocity;
+        set
+        {
+            _velocity = value;
+            MineActions.OnPlayerVelocityUpdated?.Invoke();
+        }
+    }
 
     public Vector2I MouseDirection;
 

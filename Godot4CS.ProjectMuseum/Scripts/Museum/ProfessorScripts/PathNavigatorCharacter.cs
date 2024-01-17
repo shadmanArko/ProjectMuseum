@@ -101,7 +101,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
             if (path == null)
             {
-                GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
+                //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
             }
             _path = path;
             _currentPathIndex = 0; // Start from the beginning of the path
@@ -110,7 +110,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         }
         else
         {
-            GD.Print($"Exhibits finished for {Name}");
+            //GD.Print($"Exhibits finished for {Name}");
         }
         
     }

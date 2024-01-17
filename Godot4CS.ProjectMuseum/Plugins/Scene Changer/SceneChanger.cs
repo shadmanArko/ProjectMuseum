@@ -48,4 +48,10 @@ public partial class SceneChanger : Node
 		// Replace the current scene with the new scene.
 		var newScene = GetTree().ChangeSceneToFile(scenePath);
 	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		_sceneChangerButton.Disconnect(BaseButton.SignalName.ButtonDown, Callable.From(OnChangeSceneRequestedAsync));
+	}
 }

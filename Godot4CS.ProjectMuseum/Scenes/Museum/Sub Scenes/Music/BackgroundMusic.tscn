@@ -1,0 +1,11 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2pdemcp18g4i"]
+
+[ext_resource type="AudioStream" uid="uid://bg4wbnrpifp3f" path="res://Assets/Musics/Museum/Background Musics/parallel-universe-7100.mp3" id="1_m2iyv"]
+[ext_resource type="Script" path="res://Scripts/Museum/Music/MuseumBackgroundMusicPlayer.cs" id="2_44pks"]
+[ext_resource type="AudioStream" uid="uid://t7ctatgdpp5f" path="res://Assets/Musics/Museum/Background Musics/8bittownthemesong-59266.mp3" id="3_c3fhe"]
+[ext_resource type="AudioStream" uid="uid://cd2r5h02wf4ta" path="res://Assets/Musics/Museum/Background Musics/suits-you-69233.mp3" id="4_7fh20"]
+
+[node name="BackgrounRandomAudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_m2iyv")
+script = ExtResource("2_44pks")
+_bgMusics = Array[AudioStream]([ExtResource("3_c3fhe"), ExtResource("1_m2iyv"), ExtResource("4_7fh20")])

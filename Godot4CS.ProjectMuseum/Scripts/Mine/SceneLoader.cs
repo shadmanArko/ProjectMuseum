@@ -14,7 +14,7 @@ public partial class SceneLoader : Node
 	private async Task LoadScene(string scenePath)
 	{
 		await PerformAsyncOperation();
-		await ChangeSceneAsync(scenePath);
+		ChangeSceneAsync(scenePath);
 	}
 	
 	private async Task PerformAsyncOperation()
@@ -22,7 +22,7 @@ public partial class SceneLoader : Node
 		await Task.Delay(1000);
 	}
 	
-	private async Task ChangeSceneAsync(string scenePath)
+	private void ChangeSceneAsync(string scenePath)
 	{
 		// Replace the current scene with the new scene.
 		var newScene = GetTree().ChangeSceneToFile(scenePath);

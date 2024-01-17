@@ -781,6 +781,9 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3lnct")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+active = false
+deterministic = false
+root_node = NodePath("../Sprite2D")
 tree_root = SubResource("AnimationNodeStateMachine_bp87q")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_attacking = false

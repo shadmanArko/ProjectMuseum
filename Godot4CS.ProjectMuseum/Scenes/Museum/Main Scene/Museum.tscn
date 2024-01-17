@@ -75,71 +75,102 @@ Maxzoom = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
 
-[node name="Fade In and Out Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bhjmc")]
+[node name="Fade In and Out Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_animationPlayer", "_timeUi") instance=ExtResource("13_bhjmc")]
 z_index = 8
+_animationPlayer = NodePath("AnimationPlayer")
+_timeUi = NodePath("Label")
 
-[node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_conceptEndingUi", "ItemsParent") instance=ExtResource("7_xsnwb")]
+[node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("museumMoneyTextField", "_conceptEndingUi", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi", "ItemsParent") instance=ExtResource("7_xsnwb")]
 mouse_filter = 1
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
+museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 _conceptEndingUi = NodePath("../ConceptEnding UI")
+_diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
+_townMapButton = NodePath("Right Panel/TownMap Button")
+_museumGateCheckButton = NodePath("Right Panel/CheckButton")
+_diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 ItemsParent = NodePath("../../ItemParents")
 
-[node name="Town Ui" parent="museum/CanvasLayer" instance=ExtResource("2_pnteo")]
+[node name="Exhibit Editor Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent") instance=ExtResource("10_c21vt")]
 visible = false
-
-[node name="Exhibit Editor Ui" parent="museum/CanvasLayer" instance=ExtResource("10_c21vt")]
-visible = false
+_exitButton = NodePath("Panel/Exhibit Editor Ui BG/Top Panel/Button")
+_draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer/VBoxContainer")
+_dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer")
 
 [node name="Control" parent="museum/CanvasLayer" instance=ExtResource("12_730rj")]
 process_mode = 4
 visible = false
 offset_bottom = -50.0
 
-[node name="Dialogue Ui" parent="museum/CanvasLayer" instance=ExtResource("13_bch1s")]
+[node name="Dialogue Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer") instance=ExtResource("13_bch1s")]
 visible = false
 z_index = 8
 mouse_filter = 2
+_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue")
+_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue/Button")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/TextureRect")
+_cutsceneArt = NodePath("Panel/Illustration Image")
+_dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 
-[node name="PopUpUi" parent="museum/CanvasLayer" instance=ExtResource("13_k824c")]
+[node name="PopUpUi" parent="museum/CanvasLayer" node_paths=PackedStringArray("_popUpText", "_yesButton", "_noButton") instance=ExtResource("13_k824c")]
 visible = false
+_popUpText = NodePath("ColorRect/MarginContainer/RichTextLabel")
+_yesButton = NodePath("ColorRect/Yes Button")
+_noButton = NodePath("ColorRect/No Button")
 
 [node name="ConceptEnding UI" parent="museum/CanvasLayer" instance=ExtResource("22_o4gbe")]
 visible = false
 z_index = 10
 
-[node name="Player" parent="museum" instance=ExtResource("12_55fh7")]
-position = Vector2(55, -11)
-_displacementSpeed = 50.0
+[node name="Town Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_popUpUi", "_indicatorForHouseOfBuddy") instance=ExtResource("2_pnteo")]
+visible = false
+_popUpUi = NodePath("Town Ui/TownWarning")
+_indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
 
-[node name="Emily" parent="museum" instance=ExtResource("24_vxlv2")]
+[node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
+position = Vector2(55, -11)
+_characterSprite = NodePath("Sprite2D")
+_displacementSpeed = 50.0
+_animationPlayer = NodePath("PlayerAnimation")
+_characterSprite = NodePath("Sprite2D")
+
+[node name="Emily" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("24_vxlv2")]
 position = Vector2(54, -14)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_back_facing"
 _counterCoordinate = Vector2i(0, -5)
 _animationNameAfterStandingInCounter = "idle_front_facing"
+_animationPlayer = NodePath("PlayerAnimation")
+_characterSprite = NodePath("Sprite2D")
 
-[node name="Alex" parent="museum" instance=ExtResource("25_qfbsa")]
+[node name="Alex" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("25_qfbsa")]
 position = Vector2(54, -11)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-6, -5)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_front_facing"
+_animationPlayer = NodePath("PlayerAnimation")
+_characterSprite = NodePath("Sprite2D")
 
-[node name="Player_Uncontrolled" parent="museum" instance=ExtResource("19_1kq7h")]
+[node name="Player_Uncontrolled" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_1kq7h")]
 visible = false
 position = Vector2(50, -6)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -4)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_back_facing"
+_animationPlayer = NodePath("PlayerAnimation")
+_characterSprite = NodePath("Sprite2D")
 
-[node name="Professor" parent="museum" instance=ExtResource("19_yibo3")]
+[node name="Professor" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_yibo3")]
 visible = false
 position = Vector2(40, -14)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -6)])
 _museumExitingCoordinate = Vector2i(0, -2)
 _animationNameAfterInitialMovement = "idle_front_facing"
 _lookAheadDistance = 1.0
+_animationPlayer = NodePath("PlayerAnimation")
+_characterSprite = NodePath("Sprite2D")
 
 [node name="GuestsController" type="Node2D" parent="museum"]
 y_sort_enabled = true

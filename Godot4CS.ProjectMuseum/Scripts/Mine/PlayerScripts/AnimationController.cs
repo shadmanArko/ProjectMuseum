@@ -250,5 +250,6 @@ public partial class AnimationController : AnimationPlayer
 		if(!_playerControllerVariables.CanMove) return;
 		if(_playerControllerVariables.Velocity.X != 0) return;
 		_sprite.FlipH = mousePos is < 90 and >= -90;
+		_playerControllerVariables.PlayerDirection = new Vector2I(_sprite.FlipH ? 1 : -1, 0);
 	}
 }

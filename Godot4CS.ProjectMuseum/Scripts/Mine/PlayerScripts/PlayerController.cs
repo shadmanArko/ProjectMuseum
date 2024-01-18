@@ -19,6 +19,9 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	[Export] private float _maxVerticalVelocity;
 	[Export] private float _fallTime;
 	[Export] private float _fallTimeThreshold;
+	
+	[Export(PropertyHint.Range, "1,200,1")]
+	public int MovementFactor = 100;
 
 	[Export] private string _lampScenePath;
 
@@ -28,7 +31,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		SubscribeToActions();
 		_playerControllerVariables.Player = this;
 		_playerControllerVariables.PlayerHealth = 200;
-		_playerControllerVariables.PlayerEnergy = 2000000;
+		_playerControllerVariables.PlayerEnergy = 200;
 		_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
 	}
 
@@ -68,8 +71,8 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 			var input = GetInputKeyboard();
 			if (input == Vector2.Zero)
 			{
-				if (Velocity.Length() > PlayerControllerVariables.Friction * delta)
-					Velocity -= Velocity.Normalized() * (PlayerControllerVariables.Friction * (float)delta);
+				if (Velocity.Length() > PlayerControllerVariables.Friction * delta * MovementFactor)
+					Velocity -= Velocity.Normalized() * (PlayerControllerVariables.Friction * (float)delta * MovementFactor);
 				else
 					Velocity = Vector2.Zero;
 			}
@@ -83,8 +86,8 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 				}
 				else
 				{
-					Velocity = input * _playerControllerVariables.Acceleration * (float)delta;
-					Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed);
+					Velocity = input * _playerControllerVariables.Acceleration * (float)delta * MovementFactor;
+					Velocity = Velocity.LimitLength(PlayerControllerVariables.MaxSpeed * MovementFactor);
 				}
 			}
 		}
@@ -273,5 +276,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 	public override void _ExitTree()
 	{
 		base._ExitTree();
+		MineActions.OnSuccessfulDigActionCompleted -= ReducePlayerEnergy;
+		MineActions.OnPlayerHealthValueChanged -= Death;
 	}
 }

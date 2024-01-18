@@ -24,7 +24,8 @@ public partial class TownBuilding : Sprite2D
 		if (@event.IsActionPressed("ui_left_click") && _mouseOnBuilding)
 		{
 			//GD.Print("Mouse Clicked"+ Name);
-			Modulate = Colors.Brown;
+			// Modulate = Colors.Brown;
+			AssignColor(0x808080);
 			if (_hasDiggingBuddy)
 			{
 				MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("FoundDiggingBuddy");
@@ -40,7 +41,11 @@ public partial class TownBuilding : Sprite2D
 	private void OnMouseEntered()
 	{
 		_mouseOnBuilding = true;
-		Modulate = Colors.Burlywood;
+		AssignColor(0xD3D3D3);
+		var color = Colors.Brown;
+		var endColor = Colors.Black;
+
+		// Modulate = Colors.LightBlue;
 		//GD.Print("Mouse Entered"+ Name);
 	}
 	private void OnMouseExit()
@@ -48,5 +53,16 @@ public partial class TownBuilding : Sprite2D
 		_mouseOnBuilding = false;
 		Modulate = _startColor;
 		//GD.Print("Mouse Exit" + Name);
+	}
+	private void AssignColor(int hexCode)
+	{
+		// int hexCode = 0xFF00FF; // Replace this with your hex code
+		int red = (hexCode >> 16) & 0xFF;
+		int green = (hexCode >> 8) & 0xFF;
+		int blue = hexCode & 0xFF;
+		// Color currentColor = color.Lerp(endColor, )
+		// Set the modulate color
+		Color modulateColor = new Color(red / 255.0f, green / 255.0f, blue / 255.0f);
+		Modulate = modulateColor;
 	}
 }

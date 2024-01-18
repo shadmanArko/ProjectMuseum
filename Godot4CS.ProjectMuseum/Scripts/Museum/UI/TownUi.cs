@@ -38,8 +38,11 @@ public partial class TownUi : Panel
 		_timer.Start(1);
 		_popUpUi.Visible = true;
 		_indicatorForHouseOfBuddy.Visible = true;
-
+		
 	}
+
+	
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{

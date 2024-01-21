@@ -6,7 +6,7 @@ public partial class MineSettings : Node
 {
 	public override void _Ready()
 	{
-		Engine.MaxFps = 100;
+		Engine.MaxFps = 120;
 	}
 
 	public override void _Process(double delta)

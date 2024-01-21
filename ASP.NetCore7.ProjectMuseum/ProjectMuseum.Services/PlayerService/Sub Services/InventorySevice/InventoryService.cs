@@ -39,4 +39,6 @@ public class InventoryService : IInventoryService
         var inventory = await _inventoryRepository.GetInventory();
         return inventory;
     }
+    
+    
 }

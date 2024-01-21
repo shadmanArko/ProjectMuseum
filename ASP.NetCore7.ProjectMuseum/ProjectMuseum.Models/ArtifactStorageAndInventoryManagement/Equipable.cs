@@ -4,7 +4,11 @@ public class Equipable
 {
     public string Id { get; set; }
     public string Name { get; set; }
+    
     public int Slot { get; set; }
-    public string Type { get; set; }
-    public string PngPath { get; set; }
+    public string EquipmentType { get; set; }
+    public string EquipmentCategory { get; set; }
+    public bool IsStackable { get; set; }
+    public int StackNo { get; set; }
+    public string SmallPngPath { get; set; }
 }

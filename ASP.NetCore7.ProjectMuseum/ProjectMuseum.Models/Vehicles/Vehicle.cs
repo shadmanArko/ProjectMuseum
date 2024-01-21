@@ -2,6 +2,11 @@ namespace ProjectMuseum.Models.Vehicles;
 
 public class Vehicle
 {
-    public List<MiningCart> MiningCarts { get; set; }
-    public List<ElevatorPlatform> ElevatorPlatforms { get; set; }
+    public string Id { get; set; }
+    public int PositionX { get; set; }
+    public int PositionY { get; set; }
+    public string Category { get; set; }
+    
+    public string SmallPngPath { get; set; }
+    public string LargePngPath { get; set; }
 }

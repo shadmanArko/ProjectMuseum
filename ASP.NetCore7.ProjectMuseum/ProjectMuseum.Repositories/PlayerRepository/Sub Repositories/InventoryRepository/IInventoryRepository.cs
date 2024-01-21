@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.Vehicles;
 
 namespace ProjectMuseum.Repositories;
 
@@ -9,7 +10,9 @@ public interface IInventoryRepository
     Task<Artifact> AddArtifact(Artifact artifact);
     Task RemoveAllArtifacts();
     Task<Inventory?> GetInventory();
-    Task<List<int>?> GetEmptySlots();
     Task<int> GetNextEmptySlot();
     Task ReleaseOccupiedSlot(int slot);
+    Task<Equipable?> AddEquipable(string equipmentType, string equipmentCategory, string smallPngPath);
+    Task<Equipable> RemoveEquipable(string equipableId);
+    
 }

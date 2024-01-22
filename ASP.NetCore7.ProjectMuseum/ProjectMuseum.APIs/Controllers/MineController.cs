@@ -20,9 +20,9 @@ public class MineController : ControllerBase
     private readonly IMineCellCrackMaterialService _mineCellCrackMaterialService;
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
-    private readonly IVehicleService _vehicleService;
+    private readonly IMineVehicleService _mineVehicleService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IVehicleService vehicleService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IMineVehicleService mineVehicleService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -30,7 +30,7 @@ public class MineController : ControllerBase
         _mineCellCrackMaterialService = mineCellCrackMaterialService;
         _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
-        _vehicleService = vehicleService;
+        _mineVehicleService = mineVehicleService;
     }
 
     [HttpGet("GetMineData")]
@@ -120,7 +120,7 @@ public class MineController : ControllerBase
     [HttpGet("SendVehicleFromMineToInventory/{vehicleId}")]
     public async Task<IActionResult> SendVehicleFromMineToInventory(string vehicleId)
     {
-        var equipable = await _vehicleService.SendVehicleToInventory(vehicleId);
+        var equipable = await _mineVehicleService.SendVehicleToInventory(vehicleId);
         return Ok(equipable);
     }
 

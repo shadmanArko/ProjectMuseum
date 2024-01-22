@@ -140,7 +140,7 @@ builder.Services.AddScoped<ITradingArtifactsRepository, TradingArtifactsReposito
 builder.Services.AddScoped<IMineCellCrackMaterialRepository, MineCellCrackMaterialRepository>();
 builder.Services.AddScoped<IRawArtifactFunctionalRepository, RawArtifactFunctionalRepository>();
 builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescriptiveRepository>();
-builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IMineVehicleRepository, MineVehicleRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 
 
@@ -164,7 +164,7 @@ builder.Services.AddScoped<ITradingArtifactsService, TradingArtifactsService>();
 builder.Services.AddScoped<IMineCellCrackMaterialService, MineCellCrackMaterialService>();
 builder.Services.AddScoped<IRawArtifactFunctionalService, RawArtifactFunctionalService>();
 builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiveService>();
-builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IMineVehicleService, MineVehicleService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
 
 

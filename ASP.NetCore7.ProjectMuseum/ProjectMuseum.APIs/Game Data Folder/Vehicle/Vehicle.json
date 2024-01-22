@@ -1,22 +1,22 @@
 [
   {
     "Id": "V123",
-    "Category": "Car",
-    "SubCategory": "Sedan",
+    "Category": "Elevator",
+    "SubCategory": "ManualElevator",
     "SmallPngPath": "/images/car_sedan_small.png",
     "LargePngPath": "/images/car_sedan_large.png"
   },
   {
     "Id": "V456",
-    "Category": "Truck",
-    "SubCategory": "Pickup",
+    "Category": "Elevator",
+    "SubCategory": "ElectricElevator",
     "SmallPngPath": "/images/truck_pickup_small.png",
     "LargePngPath": "/images/truck_pickup_large.png"
   },
   {
     "Id": "V789",
-    "Category": "Motorcycle",
-    "SubCategory": "Sport",
+    "Category": "Elevator",
+    "SubCategory": "NuclearElevator",
     "SmallPngPath": "/images/motorcycle_sport_small.png",
     "LargePngPath": "/images/motorcycle_sport_large.png"
   },

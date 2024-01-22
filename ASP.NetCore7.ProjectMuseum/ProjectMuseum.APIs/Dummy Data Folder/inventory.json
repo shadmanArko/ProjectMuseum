@@ -1,1 +1,43 @@
-[{"Equipables":[{"Id":"eqp1","Name":"Sword of Valor","Slot":0,"EquipmentType":null,"EquipmentSubcategory":null,"IsStackable":false,"StackNo":0,"SmallPngPath":null},{"Id":"eqp2","Name":"Iron Shield","Slot":1,"EquipmentType":null,"EquipmentSubcategory":null,"IsStackable":false,"StackNo":0,"SmallPngPath":null},{"Id":"eqp3","Name":"Leather Boots","Slot":2,"EquipmentType":null,"EquipmentSubcategory":null,"IsStackable":false,"StackNo":0,"SmallPngPath":null},{"Id":"00000000-0000-0000-0000-000000000000","Name":"Pickup","Slot":0,"EquipmentType":"Vehicle","EquipmentSubcategory":"Pickup","IsStackable":true,"StackNo":2,"SmallPngPath":"/images/truck_pickup_small.png"},{"Id":"00000000-0000-0000-0000-000000000000","Name":"Sedan","Slot":3,"EquipmentType":"Vehicle","EquipmentSubcategory":"Sedan","IsStackable":true,"StackNo":1,"SmallPngPath":"/images/car_sedan_small.png"},{"Id":"cfa38979-f6ab-4bf4-983b-a6cbdc879d09","Name":"Sport","Slot":4,"EquipmentType":"Vehicle","EquipmentSubcategory":"Sport","IsStackable":true,"StackNo":1,"SmallPngPath":"/images/motorcycle_sport_small.png"}],"Artifacts":[],"OccupiedSlots":[0,1,2,3,4],"SlotsUnlocked":12}]
+[
+  {
+    "Equipables": [
+      {
+        "Id": "eqp1",
+        "Name": "Sword of Valor",
+        "Slot": 0,
+        "EquipmentType": null,
+        "EquipmentSubcategory": null,
+        "IsStackable": false,
+        "StackNo": 0,
+        "SmallPngPath": null
+      },
+      {
+        "Id": "eqp2",
+        "Name": "Iron Shield",
+        "Slot": 1,
+        "EquipmentType": null,
+        "EquipmentSubcategory": null,
+        "IsStackable": false,
+        "StackNo": 0,
+        "SmallPngPath": null
+      },
+      {
+        "Id": "eqp3",
+        "Name": "Leather Boots",
+        "Slot": 2,
+        "EquipmentType": null,
+        "EquipmentSubcategory": null,
+        "IsStackable": false,
+        "StackNo": 0,
+        "SmallPngPath": null
+      }
+    ],
+    "Artifacts": [],
+    "OccupiedSlots": [
+      0,
+      1,
+      2
+    ],
+    "SlotsUnlocked": 12
+  }
+]

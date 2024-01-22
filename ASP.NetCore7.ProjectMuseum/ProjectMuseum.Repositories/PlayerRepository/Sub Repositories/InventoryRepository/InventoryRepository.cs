@@ -68,6 +68,7 @@ public class InventoryRepository : IInventoryRepository
         var inventory = listOfInventory?[0];
         var occupiedSlots = inventory?.OccupiedSlots;
         occupiedSlots!.Remove(occupiedSlots.FirstOrDefault(slot1 => slot1 == slot));
+        inventory!.OccupiedSlots = occupiedSlots;
         await _inventoryDatabase.WriteDataAsync(listOfInventory!);
     }
 

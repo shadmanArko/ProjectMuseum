@@ -71,16 +71,16 @@ public class InventoryRepository : IInventoryRepository
         await _inventoryDatabase.WriteDataAsync(listOfInventory!);
     }
 
-    public async Task<Equipable?> AddEquipable(string equipmentType, string equipmentCategory, string smallPngPath)
+    public async Task<Equipable?> AddEquipable(string equipmentType, string subCategory, string smallPngPath)
     {
         var inventories = await _inventoryDatabase.ReadDataAsync();
         var inventory = inventories?[0];
 
         if (inventory != null && inventory.Equipables.Any(equipable => equipable.EquipmentType == equipmentType))
         {
-            if(inventory.Equipables.Any(equipable => equipable.EquipmentCategory == equipmentCategory))
+            if(inventory.Equipables.Any(equipable => equipable.EquipmentSubcategory == subCategory))
             {
-                var equipable = inventory.Equipables.FirstOrDefault(equipable1 => equipable1.EquipmentCategory == equipmentCategory);
+                var equipable = inventory.Equipables.FirstOrDefault(equipable1 => equipable1.EquipmentSubcategory == subCategory);
                 if (equipable != null)
                 {
                     equipable.StackNo++;
@@ -91,7 +91,8 @@ public class InventoryRepository : IInventoryRepository
         }
 
         if (inventory!.OccupiedSlots.Count >= inventory.SlotsUnlocked) return null;
-        var newEquipable = await CreateNewEquipable(equipmentType, equipmentCategory, smallPngPath);
+        var newEquipable = await CreateNewEquipable(equipmentType, subCategory, smallPngPath);
+        inventory.OccupiedSlots.Add(newEquipable.Slot);
         inventory?.Equipables.Add(newEquipable);
         if (inventories != null) await _inventoryDatabase.WriteDataAsync(inventories);
         return newEquipable;
@@ -101,11 +102,11 @@ public class InventoryRepository : IInventoryRepository
     {
         return new Equipable
         {
-            Id = new Guid().ToString(),
+            Id = Guid.NewGuid().ToString(),
             Name = equipmentCategory,
             Slot = await GetNextEmptySlot(),
             EquipmentType = equipmentType,
-            EquipmentCategory = equipmentCategory,
+            EquipmentSubcategory = equipmentCategory,
             IsStackable = true,
             SmallPngPath = smallPngPath,
             StackNo = 1

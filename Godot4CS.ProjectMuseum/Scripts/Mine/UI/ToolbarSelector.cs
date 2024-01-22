@@ -97,7 +97,7 @@ public partial class ToolbarSelector : Node
             
 			AddChild(toolbarSlot);
 			_toolbarSlots.Add(toolbarSlot);
-			_inventory.EmptySlots.Add(i);
+			_inventory.OccupiedSlots.Add(i);
 		}
 	}
 
@@ -114,8 +114,8 @@ public partial class ToolbarSelector : Node
 	{
 		foreach (var equipable in _inventory.Equipables)
 		{
-			_inventory.EmptySlots.Remove(equipable.Slot);
-			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
+			_inventory.OccupiedSlots.Remove(equipable.Slot);
+			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.SmallPngPath);
 			_toolbarSlots[equipable.Slot].SetItemData(equipable.Id, false);
 		}
 	}
@@ -129,14 +129,14 @@ public partial class ToolbarSelector : Node
 
 			for (var i = 0; i < _inventory.SlotsUnlocked; i++)
 			{
-				if(!_inventory.EmptySlots.Contains(i)) continue;
+				if(!_inventory.OccupiedSlots.Contains(i)) continue;
 				emptySlot = i;
 			}
 			
 			if(emptySlot == 0) continue;
 			
 			artifact.Slot = emptySlot;
-			_inventory.EmptySlots.Remove(emptySlot);
+			_inventory.OccupiedSlots.Remove(emptySlot);
 			
 			var rawArtifactFunctional =
 				_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);

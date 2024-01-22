@@ -12,7 +12,7 @@ public interface IInventoryRepository
     Task<Inventory?> GetInventory();
     Task<int> GetNextEmptySlot();
     Task ReleaseOccupiedSlot(int slot);
-    Task<Equipable?> AddEquipable(string equipmentType, string equipmentCategory, string smallPngPath);
+    Task<Equipable?> AddEquipable(string equipmentType, string subCategory, string smallPngPath);
     Task<Equipable> RemoveEquipable(string equipableId);
     
 }

@@ -6,6 +6,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
+using ProjectMuseum.Services.MineService.Sub_Services.VehicleService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
 
@@ -19,8 +20,9 @@ public class MineController : ControllerBase
     private readonly IMineCellCrackMaterialService _mineCellCrackMaterialService;
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
+    private readonly IVehicleService _vehicleService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IVehicleService vehicleService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -28,6 +30,7 @@ public class MineController : ControllerBase
         _mineCellCrackMaterialService = mineCellCrackMaterialService;
         _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
+        _vehicleService = vehicleService;
     }
 
     [HttpGet("GetMineData")]
@@ -112,6 +115,13 @@ public class MineController : ControllerBase
     {
         var listOfRawArtifactDescriptive = await _rawArtifactDescriptiveService.GetAllRawArtifactDescriptive();
         return Ok(listOfRawArtifactDescriptive);
+    }
+    
+    [HttpGet("SendVehicleFromMineToInventory/{vehicleId}")]
+    public async Task<IActionResult> SendVehicleFromMineToInventory(string vehicleId)
+    {
+        var equipable = await _vehicleService.SendVehicleToInventory(vehicleId);
+        return Ok(equipable);
     }
 
 }

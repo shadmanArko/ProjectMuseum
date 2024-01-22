@@ -1,0 +1,72 @@
+[
+  {
+    "Id": "V123",
+    "Category": "Car",
+    "SubCategory": "Sedan",
+    "SmallPngPath": "/images/car_sedan_small.png",
+    "LargePngPath": "/images/car_sedan_large.png"
+  },
+  {
+    "Id": "V456",
+    "Category": "Truck",
+    "SubCategory": "Pickup",
+    "SmallPngPath": "/images/truck_pickup_small.png",
+    "LargePngPath": "/images/truck_pickup_large.png"
+  },
+  {
+    "Id": "V789",
+    "Category": "Motorcycle",
+    "SubCategory": "Sport",
+    "SmallPngPath": "/images/motorcycle_sport_small.png",
+    "LargePngPath": "/images/motorcycle_sport_large.png"
+  },
+  {
+    "Id": "V101",
+    "Category": "Bus",
+    "SubCategory": "City",
+    "SmallPngPath": "/images/bus_city_small.png",
+    "LargePngPath": "/images/bus_city_large.png"
+  },
+  {
+    "Id": "V202",
+    "Category": "Bicycle",
+    "SubCategory": "Mountain",
+    "SmallPngPath": "/images/bicycle_mountain_small.png",
+    "LargePngPath": "/images/bicycle_mountain_large.png"
+  },
+  {
+    "Id": "V303",
+    "Category": "Boat",
+    "SubCategory": "Sailboat",
+    "SmallPngPath": "/images/boat_sailboat_small.png",
+    "LargePngPath": "/images/boat_sailboat_large.png"
+  },
+  {
+    "Id": "V404",
+    "Category": "Airplane",
+    "SubCategory": "Jet",
+    "SmallPngPath": "/images/airplane_jet_small.png",
+    "LargePngPath": "/images/airplane_jet_large.png"
+  },
+  {
+    "Id": "V505",
+    "Category": "Train",
+    "SubCategory": "High-speed",
+    "SmallPngPath": "/images/train_high_speed_small.png",
+    "LargePngPath": "/images/train_high_speed_large.png"
+  },
+  {
+    "Id": "V606",
+    "Category": "Helicopter",
+    "SubCategory": "Transport",
+    "SmallPngPath": "/images/helicopter_transport_small.png",
+    "LargePngPath": "/images/helicopter_transport_large.png"
+  },
+  {
+    "Id": "V707",
+    "Category": "Car",
+    "SubCategory": "Convertible",
+    "SmallPngPath": "/images/car_convertible_small.png",
+    "LargePngPath": "/images/car_convertible_large.png"
+  }
+]

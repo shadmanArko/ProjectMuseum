@@ -7,7 +7,7 @@ public class Equipable
     
     public int Slot { get; set; }
     public string EquipmentType { get; set; }
-    public string EquipmentCategory { get; set; }
+    public string EquipmentSubcategory { get; set; }
     public bool IsStackable { get; set; }
     public int StackNo { get; set; }
     public string SmallPngPath { get; set; }

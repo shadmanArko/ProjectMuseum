@@ -1,6 +1,6 @@
 namespace ProjectMuseum.Models.TransportChainBlocks;
 
-public class Track
+public class Track : TransportChainBlockStat
 {
     
 }

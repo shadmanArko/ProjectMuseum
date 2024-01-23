@@ -1,0 +1,72 @@
+[
+  {
+    "Id": "1",
+    "Category": "Shaft",
+    "SubCategory": "ElectricShaft",
+    "SmallPngPath": "/images/truck_flatbed_small.png",
+    "LargePngPath": "/images/truck_flatbed_large.png"
+  },
+  {
+    "Id": "2",
+    "Category": "Track",
+    "SubCategory": "ElectricTrack",
+    "SmallPngPath": "/images/ship_cargo_small.png",
+    "LargePngPath": "/images/ship_cargo_large.png"
+  },
+  {
+    "Id": "3",
+    "Category": "Shaft",
+    "SubCategory": "ManualShaft",
+    "SmallPngPath": "/images/airplane_passenger_small.png",
+    "LargePngPath": "/images/airplane_passenger_large.png"
+  },
+  {
+    "Id": "4",
+    "Category": "Track",
+    "SubCategory": "ManualTrack",
+    "SmallPngPath": "/images/train_highspeed_small.png",
+    "LargePngPath": "/images/train_highspeed_large.png"
+  },
+  {
+    "Id": "5",
+    "Category": "Shaft",
+    "SubCategory": "ElectricShaft",
+    "SmallPngPath": "/images/bus_doubledecker_small.png",
+    "LargePngPath": "/images/bus_doubledecker_large.png"
+  },
+  {
+    "Id": "6",
+    "Category": "Track",
+    "SubCategory": "ElectricTrack",
+    "SmallPngPath": "/images/bicycle_mountain_small.png",
+    "LargePngPath": "/images/bicycle_mountain_large.png"
+  },
+  {
+    "Id": "7",
+    "Category": "Shaft",
+    "SubCategory": "ManualShaft",
+    "SmallPngPath": "/images/car_sedan_small.png",
+    "LargePngPath": "/images/car_sedan_large.png"
+  },
+  {
+    "Id": "8",
+    "Category": "Track",
+    "SubCategory": "ManualTrack",
+    "SmallPngPath": "/images/motorcycle_sport_small.png",
+    "LargePngPath": "/images/motorcycle_sport_large.png"
+  },
+  {
+    "Id": "9",
+    "Category": "Shaft",
+    "SubCategory": "ElectricShaft",
+    "SmallPngPath": "/images/helicopter_rescue_small.png",
+    "LargePngPath": "/images/helicopter_rescue_large.png"
+  },
+  {
+    "Id": "10",
+    "Category": "Track",
+    "SubCategory": "ElectricTrack",
+    "SmallPngPath": "/images/rocket_space_small.png",
+    "LargePngPath": "/images/rocket_space_large.png"
+  }
+]

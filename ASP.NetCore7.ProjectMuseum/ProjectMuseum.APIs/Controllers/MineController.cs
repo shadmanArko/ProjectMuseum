@@ -123,5 +123,12 @@ public class MineController : ControllerBase
         var equipable = await _mineVehicleService.SendVehicleToInventory(vehicleId);
         return Ok(equipable);
     }
+    
+    [HttpGet("SendTransportChainBlockToInventory/{transportChainBlockId}")]
+    public async Task<IActionResult> SendTransportChainBlockToInventory(string transportChainBlockId)
+    {
+        var equipable = await _mineVehicleService.SendVehicleToInventory(transportChainBlockId);
+        return Ok(equipable);
+    }
 
 }

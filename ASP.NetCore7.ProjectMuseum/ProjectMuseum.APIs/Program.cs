@@ -11,6 +11,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRep
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.TransportChainBlockRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.VehicleRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
@@ -33,6 +34,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
+using ProjectMuseum.Services.MineService.Sub_Services.TransportChainBlockService;
 using ProjectMuseum.Services.MineService.Sub_Services.VehicleService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
@@ -51,6 +53,7 @@ string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirect
 string rawArtifactFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
 string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
 string vehicleDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Vehicle", "Vehicle.json");
+string transportChainBlockDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "TransportChainBlock", "TransportChainBlock.json");
 
 
 
@@ -94,6 +97,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackM
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Vehicle>(vehicleDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Vehicle>(transportChainBlockDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
 
 
@@ -141,6 +145,7 @@ builder.Services.AddScoped<IMineCellCrackMaterialRepository, MineCellCrackMateri
 builder.Services.AddScoped<IRawArtifactFunctionalRepository, RawArtifactFunctionalRepository>();
 builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescriptiveRepository>();
 builder.Services.AddScoped<IMineVehicleRepository, MineVehicleRepository>();
+builder.Services.AddScoped<IMineTransportChainBlockRepository, MineTransportChainBlockRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 
 
@@ -165,6 +170,7 @@ builder.Services.AddScoped<IMineCellCrackMaterialService, MineCellCrackMaterialS
 builder.Services.AddScoped<IRawArtifactFunctionalService, RawArtifactFunctionalService>();
 builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiveService>();
 builder.Services.AddScoped<IMineVehicleService, MineVehicleService>();
+builder.Services.AddScoped<IMineTransportChainBlockService, MineTransportChainBlockService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
 
 

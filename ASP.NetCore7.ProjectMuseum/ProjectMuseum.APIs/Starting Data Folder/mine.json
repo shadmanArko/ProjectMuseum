@@ -53330,6 +53330,22 @@
         "LargePngPath": "/images/truck_pickup_large.png"
       }
     ],
+    "TransportChainBlocks": [
+      {
+        "Id": "1",
+        "Category": "Shaft",
+        "SubCategory": "ElectricShaft",
+        "SmallPngPath": "/images/truck_flatbed_small.png",
+        "LargePngPath": "/images/truck_flatbed_large.png"
+      },
+      {
+        "Id": "2",
+        "Category": "Track",
+        "SubCategory": "ElectricTrack",
+        "SmallPngPath": "/images/ship_cargo_small.png",
+        "LargePngPath": "/images/ship_cargo_large.png"
+      }
+    ],
     "CellSize": 20,
     "GridWidth": 49,
     "GridLength": 64

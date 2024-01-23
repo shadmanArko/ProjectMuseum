@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.TransportChainBlocks;
 using ProjectMuseum.Models.Vehicles;
 
 namespace ProjectMuseum.Services.InventorySevice;
@@ -10,5 +11,5 @@ public interface IInventoryService
     Task SendAllArtifactsToArtifactStorage();
     Task<Inventory?> GetInventory();
     Task<Vehicle> SendVehicleToMine(string equipableId);
-
+    Task<TransportChainBlock> SendTransportChainBlockToMine(string equipableId);
 }

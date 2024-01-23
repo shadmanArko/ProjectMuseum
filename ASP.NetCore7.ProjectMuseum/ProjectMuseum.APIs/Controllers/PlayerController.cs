@@ -118,4 +118,11 @@ public class PlayerController : ControllerBase
         var vehicle = await _inventoryService.SendVehicleToMine(equipableId);
         return Ok(vehicle);
     }
+    
+    [HttpGet("SendTransportChainBlockFromInventoryToMine/{equipableId}")]
+    public async Task<IActionResult> SendTransportChainBlockFromInventoryToMine(string equipableId)
+    {
+        var chainBlock = await _inventoryService.SendTransportChainBlockToMine(equipableId);
+        return Ok(chainBlock);
+    }
 }

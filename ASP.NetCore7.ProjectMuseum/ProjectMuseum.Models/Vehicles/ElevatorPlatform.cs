@@ -1,6 +1,6 @@
 namespace ProjectMuseum.Models.Vehicles;
 
-public class ElevatorPlatform : VehicleStat
+public class ElevatorPlatform : Vehicle
 {
    
 }

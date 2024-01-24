@@ -6,27 +6,28 @@ namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.VehicleRepo
 public class MineVehicleRepository : IMineVehicleRepository
 {
     private readonly JsonFileDatabase<Mine> _mineDatabase;
-    private readonly JsonFileDatabase<Vehicle> _vehicleDatabase;
+    private readonly JsonFileDatabase<Item> _vehicleDatabase;
     
-    public MineVehicleRepository(JsonFileDatabase<Mine> mineDatabase, JsonFileDatabase<Vehicle> vehicleDatabase)
+    public MineVehicleRepository(JsonFileDatabase<Mine> mineDatabase, JsonFileDatabase<Item> vehicleDatabase)
     {
         _mineDatabase = mineDatabase;
         _vehicleDatabase = vehicleDatabase;
     }
     
-    public async Task<Vehicle> AddVehicleToMine(string subCategory)
+    public async Task<Item> AddVehicleToMine(string subCategory)
     {
         var mines = await _mineDatabase.ReadDataAsync();
         var mine = mines?[0];
         var vehicles = await _vehicleDatabase.ReadDataAsync();
         var vehicle = vehicles?.FirstOrDefault(vehicle2 => vehicle2.SubCategory == subCategory);
         vehicle!.Id = Guid.NewGuid().ToString();
-        mine?.Vehicles.Add(vehicle);
+        var newVehicle = new Vehicle();
+        mine?.Vehicles.Add(newVehicle); //TODO: Initialize new vehicle from the category and variant
         if (mine != null) await _mineDatabase.WriteDataAsync(mines!);
         return vehicle;
     }
 
-    public async Task<Vehicle?> RemoveVehicleFromMine(string vehicleId)
+    public async Task<Item?> RemoveVehicleFromMine(string vehicleId)
     {
         var mine = await _mineDatabase.ReadDataAsync();
         var vehicles = mine?[0].Vehicles;

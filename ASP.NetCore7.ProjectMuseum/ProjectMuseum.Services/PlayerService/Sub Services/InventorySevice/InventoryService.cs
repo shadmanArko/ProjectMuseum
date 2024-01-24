@@ -48,11 +48,11 @@ public class InventoryService : IInventoryService
         return inventory;
     }
 
-    public async Task<Vehicle> SendVehicleToMine(string equipableId)
+    public async Task<Item> SendVehicleToMine(string equipableId)
     {
         var equipable = await _inventoryRepository.RemoveEquipable(equipableId);
         await _inventoryRepository.ReleaseOccupiedSlot(equipable.Slot);
-        var vehicle = await _mineVehicleRepository.AddVehicleToMine(equipable.EquipmentSubcategory);
+        var vehicle = await _mineVehicleRepository.AddVehicleToMine(equipable.ItemSubcategory);
         return vehicle;
     }
     
@@ -60,7 +60,7 @@ public class InventoryService : IInventoryService
     {
         var equipable = await _inventoryRepository.RemoveEquipable(equipableId);
         await _inventoryRepository.ReleaseOccupiedSlot(equipable.Slot);
-        var chainBlock = await _mineTransportChainBlockRepository.AddTransportChainBlockToMine(equipable.EquipmentSubcategory);
+        var chainBlock = await _mineTransportChainBlockRepository.AddTransportChainBlockToMine(equipable.ItemSubcategory);
         return chainBlock;
     }
 }

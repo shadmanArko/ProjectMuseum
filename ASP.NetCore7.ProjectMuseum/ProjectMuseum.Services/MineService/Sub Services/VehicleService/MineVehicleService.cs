@@ -19,7 +19,7 @@ public class MineVehicleService : IMineVehicleService
     public async Task<Equipable> SendVehicleToInventory(string vehicleId)
     {
         var vehicle = await _mineVehicleRepository.RemoveVehicleFromMine(vehicleId);
-        var equipable = await _inventoryRepository.AddEquipable("Vehicle", vehicle!.SubCategory, vehicle.SmallPngPath);
+        var equipable = await _inventoryRepository.AddEquipable("Item", vehicle!.SubCategory, vehicle.SmallPngPath);
         return equipable!;
     }
 }

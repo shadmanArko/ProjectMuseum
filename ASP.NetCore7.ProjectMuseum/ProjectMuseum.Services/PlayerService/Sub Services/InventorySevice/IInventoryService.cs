@@ -10,6 +10,6 @@ public interface IInventoryService
     Task<List<Artifact>?> GetAllArtifacts();
     Task SendAllArtifactsToArtifactStorage();
     Task<Inventory?> GetInventory();
-    Task<Vehicle> SendVehicleToMine(string equipableId);
+    Task<Item> SendVehicleToMine(string equipableId);
     Task<TransportChainBlock> SendTransportChainBlockToMine(string equipableId);
 }

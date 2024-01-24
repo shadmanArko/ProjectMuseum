@@ -6,6 +6,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
+using ProjectMuseum.Services.MineService.Sub_Services.TransportChainBlockService;
 using ProjectMuseum.Services.MineService.Sub_Services.VehicleService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -21,8 +22,9 @@ public class MineController : ControllerBase
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
     private readonly IMineVehicleService _mineVehicleService;
+    private readonly IMineTransportChainBlockService _mineTransportChainBlockService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IMineVehicleService mineVehicleService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IMineVehicleService mineVehicleService, IMineTransportChainBlockService mineTransportChainBlockService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -31,6 +33,7 @@ public class MineController : ControllerBase
         _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
         _mineVehicleService = mineVehicleService;
+        _mineTransportChainBlockService = mineTransportChainBlockService;
     }
 
     [HttpGet("GetMineData")]
@@ -127,7 +130,7 @@ public class MineController : ControllerBase
     [HttpGet("SendTransportChainBlockToInventory/{transportChainBlockId}")]
     public async Task<IActionResult> SendTransportChainBlockToInventory(string transportChainBlockId)
     {
-        var equipable = await _mineVehicleService.SendVehicleToInventory(transportChainBlockId);
+        var equipable = await _mineTransportChainBlockService.SendTransportChainBlockToInventory(transportChainBlockId);
         return Ok(equipable);
     }
 

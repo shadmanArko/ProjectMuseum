@@ -1,6 +1,6 @@
 namespace ProjectMuseum.Models.Vehicles;
 
-public class MiningCart : VehicleStat
+public class MiningCart : Vehicle
 {
     
 }

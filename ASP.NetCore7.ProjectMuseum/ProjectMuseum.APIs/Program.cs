@@ -53,7 +53,7 @@ var builder = WebApplication.CreateBuilder(args);
 string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
 string rawArtifactFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
 string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
-string vehicleDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Vehicle", "Vehicle.json");
+string vehicleDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Item", "Item.json");
 string transportChainBlockDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "TransportChainBlock", "TransportChainBlock.json");
 
 
@@ -97,7 +97,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(Const.tradi
 builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackMaterialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Vehicle>(vehicleDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Item>(vehicleDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<TransportChainBlock>(transportChainBlockDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
 

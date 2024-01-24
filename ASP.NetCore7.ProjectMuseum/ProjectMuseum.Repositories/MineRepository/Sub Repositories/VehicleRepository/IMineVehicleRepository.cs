@@ -4,6 +4,6 @@ namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.VehicleRepo
 
 public interface IMineVehicleRepository
 {
-    public Task<Vehicle> AddVehicleToMine(string subCategory);
-    public Task<Vehicle?> RemoveVehicleFromMine(string vehicleId);
+    public Task<Item> AddVehicleToMine(string subCategory);
+    public Task<Item?> RemoveVehicleFromMine(string vehicleId);
 }

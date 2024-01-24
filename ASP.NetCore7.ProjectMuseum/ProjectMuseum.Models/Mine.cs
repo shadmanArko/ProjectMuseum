@@ -6,6 +6,7 @@ namespace ProjectMuseum.Models;
 public class Mine
 {
     public List<Cell> Cells{ get; set; }
+    public List<Item> Items { get; set; }
     public List<Vehicle> Vehicles { get; set; }
     public List<TransportChainBlock> TransportChainBlocks { get; set; }
     public int CellSize{ get; set; }

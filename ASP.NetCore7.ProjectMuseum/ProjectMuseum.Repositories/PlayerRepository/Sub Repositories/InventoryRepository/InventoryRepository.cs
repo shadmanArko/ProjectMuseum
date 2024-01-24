@@ -77,11 +77,11 @@ public class InventoryRepository : IInventoryRepository
         var inventories = await _inventoryDatabase.ReadDataAsync();
         var inventory = inventories?[0];
 
-        if (inventory != null && inventory.Equipables.Any(equipable => equipable.EquipmentType == equipmentType))
+        if (inventory != null && inventory.Equipables.Any(equipable => equipable.ItemType == equipmentType))
         {
-            if(inventory.Equipables.Any(equipable => equipable.EquipmentSubcategory == subCategory))
+            if(inventory.Equipables.Any(equipable => equipable.ItemSubcategory == subCategory))
             {
-                var equipable = inventory.Equipables.FirstOrDefault(equipable1 => equipable1.EquipmentSubcategory == subCategory);
+                var equipable = inventory.Equipables.FirstOrDefault(equipable1 => equipable1.ItemSubcategory == subCategory);
                 if (equipable != null)
                 {
                     equipable.StackNo++;
@@ -106,8 +106,8 @@ public class InventoryRepository : IInventoryRepository
             Id = Guid.NewGuid().ToString(),
             Name = equipmentCategory,
             Slot = await GetNextEmptySlot(),
-            EquipmentType = equipmentType,
-            EquipmentSubcategory = equipmentCategory,
+            ItemType = equipmentType,
+            ItemSubcategory = equipmentCategory,
             IsStackable = true,
             SmallPngPath = smallPngPath,
             StackNo = 1

@@ -1,10 +1,8 @@
 namespace ProjectMuseum.Models.Vehicles;
 
-public class Vehicle
+public class Vehicle : Item
 {
-    public string Id { get; set; }
-    public string Category { get; set; }
-    public string SubCategory { get; set; }
-    public string SmallPngPath { get; set; }
-    public string LargePngPath { get; set; }
+    public float Speed { get; set; }
+    public bool CanMove { get; set; }
+    public bool IsMoving { get; set; }
 }

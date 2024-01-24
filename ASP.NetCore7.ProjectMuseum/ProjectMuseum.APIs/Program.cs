@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.TransportChainBlocks;
 using ProjectMuseum.Models.Vehicles;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.BuilderCardsRepository;
@@ -97,7 +98,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackM
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Vehicle>(vehicleDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Vehicle>(transportChainBlockDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<TransportChainBlock>(transportChainBlockDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
 
 

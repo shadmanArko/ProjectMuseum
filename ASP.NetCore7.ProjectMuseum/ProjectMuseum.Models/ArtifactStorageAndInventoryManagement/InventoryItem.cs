@@ -1,6 +1,6 @@
 namespace ProjectMuseum.Models;
 
-public class Equipable
+public class InventoryItem
 {
     public string Id { get; set; }
     public string Name { get; set; }

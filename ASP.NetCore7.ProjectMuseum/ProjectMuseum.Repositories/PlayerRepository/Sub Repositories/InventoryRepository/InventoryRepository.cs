@@ -11,7 +11,7 @@ public class InventoryRepository : IInventoryRepository
         _inventoryDatabase = inventoryDatabase;
     }
     
-    public async Task<List<Equipable>?> GetAllEquipables()
+    public async Task<List<InventoryItem>?> GetAllEquipables()
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];

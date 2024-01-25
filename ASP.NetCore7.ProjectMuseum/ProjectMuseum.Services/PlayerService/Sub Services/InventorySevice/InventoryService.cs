@@ -15,7 +15,7 @@ public class InventoryService : IInventoryService
         _artifactStorageRepository = artifactStorageRepository;
     }
 
-    public async Task<List<Equipable>?> GetAllEquipables()
+    public async Task<List<InventoryItem>?> GetAllEquipables()
     {
         var equipables = await _inventoryRepository.GetAllEquipables();
         return equipables;

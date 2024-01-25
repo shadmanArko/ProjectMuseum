@@ -1,3 +1,4 @@
+using System.Reflection;
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
@@ -39,4 +40,20 @@ public class InventoryService : IInventoryService
         var inventory = await _inventoryRepository.GetInventory();
         return inventory;
     }
+
+    //TODO: Find and Create class 
+    public async Task<InventoryItem?> SendItemFromInventoryToMine(string inventoryItemId)
+    {
+        var inventoryItem = await _inventoryRepository.RemoveInventoryItem(inventoryItemId);
+        object mineItem = CreateInstanceByName(inventoryItem.Variant);
+        return new InventoryItem();
+    }
+    
+    public static Type CreateInstanceByName(string variant)
+    {
+        var assemblyString = Assembly.CreateQualifiedName("ProjectMuseum.Models", variant);
+        var assembly = Assembly.Load(assemblyString);
+        return assembly.GetType(variant)!;
+    }
+    
 }

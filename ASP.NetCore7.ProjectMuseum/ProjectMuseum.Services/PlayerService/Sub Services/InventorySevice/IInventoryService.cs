@@ -8,4 +8,5 @@ public interface IInventoryService
     Task<List<Artifact>?> GetAllArtifacts();
     Task SendAllArtifactsToArtifactStorage();
     Task<Inventory?> GetInventory();
+    Task<InventoryItem?> SendItemFromInventoryToMine(string inventoryItemId);
 }

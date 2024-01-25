@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
+using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
 
@@ -19,8 +21,9 @@ public class MineController : ControllerBase
     private readonly IMineCellCrackMaterialService _mineCellCrackMaterialService;
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
+    private readonly IResourceService _resourceService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -28,6 +31,7 @@ public class MineController : ControllerBase
         _mineCellCrackMaterialService = mineCellCrackMaterialService;
         _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
+        _resourceService = resourceService;
     }
 
     [HttpGet("GetMineData")]
@@ -112,6 +116,13 @@ public class MineController : ControllerBase
     {
         var listOfRawArtifactDescriptive = await _rawArtifactDescriptiveService.GetAllRawArtifactDescriptive();
         return Ok(listOfRawArtifactDescriptive);
+    }
+    
+    [HttpGet("SendResourceFromMineToInventory/{resourceId}")]
+    public async Task<IActionResult> SendResourceFromMineToInventory(string resourceId)
+    {
+        var inventoryItem = await _resourceService.SendResourceFromMineToInventory(resourceId);
+        return Ok(inventoryItem);
     }
 
 }

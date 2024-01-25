@@ -12,4 +12,6 @@ public interface IInventoryRepository
     Task<List<int>?> GetEmptySlots();
     Task<int> GetNextEmptySlot();
     Task ReleaseOccupiedSlot(int slot);
+    Task<InventoryItem> AddInventoryItem(string type, string variant);
+    Task<InventoryItem> RemoveInventoryItem(string inventoryItemId);
 }

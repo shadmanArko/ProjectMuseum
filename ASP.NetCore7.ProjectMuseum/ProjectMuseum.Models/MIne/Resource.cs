@@ -1,4 +1,4 @@
-namespace ProjectMuseum.Models;
+namespace ProjectMuseum.Models.MIne;
 
 public class Resource
 {

@@ -1,3 +1,5 @@
+using ProjectMuseum.Models.MIne;
+
 namespace ProjectMuseum.Models;
 
 public class Mine

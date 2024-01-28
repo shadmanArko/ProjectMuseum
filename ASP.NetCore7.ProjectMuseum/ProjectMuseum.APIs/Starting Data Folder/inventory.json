@@ -1,6 +1,6 @@
 [
   {
-    "Equipables": [
+    "InventoryItems": [
       {
         "Id": "eqp1",
         "Name": "Sword of Valor",

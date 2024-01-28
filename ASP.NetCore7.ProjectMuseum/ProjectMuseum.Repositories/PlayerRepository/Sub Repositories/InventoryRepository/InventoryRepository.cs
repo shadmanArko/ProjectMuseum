@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.MIne;
 
 namespace ProjectMuseum.Repositories;
 
@@ -57,7 +58,6 @@ public class InventoryRepository : IInventoryRepository
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
         var emptySlots = inventory?.EmptySlots;
-        //TODO: check for empty slot and return most recent one
         return emptySlots![0];
     }
 
@@ -116,7 +116,8 @@ public class InventoryRepository : IInventoryRepository
             
             inventory.InventoryItems.Add(item);
         }
-
+        Console.WriteLine($"item id: {item.Id}, item variant: {item.Variant}");
+        
         await _inventoryDatabase.WriteDataAsync(inventories!);
         return item;
     }

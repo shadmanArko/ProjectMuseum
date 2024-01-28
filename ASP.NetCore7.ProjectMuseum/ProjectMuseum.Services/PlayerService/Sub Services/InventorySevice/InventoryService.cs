@@ -46,10 +46,11 @@ public class InventoryService : IInventoryService
     {
         var inventoryItem = await _inventoryRepository.RemoveInventoryItem(inventoryItemId);
         object mineItem = CreateInstanceByName(inventoryItem.Variant);
+        Console.WriteLine($"mineItem class: ");
         return new InventoryItem();
     }
     
-    public static Type CreateInstanceByName(string variant)
+    private static Type CreateInstanceByName(string variant)
     {
         var assemblyString = Assembly.CreateQualifiedName("ProjectMuseum.Models", variant);
         var assembly = Assembly.Load(assemblyString);

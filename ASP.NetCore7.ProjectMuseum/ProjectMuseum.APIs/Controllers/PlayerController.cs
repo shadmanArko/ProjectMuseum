@@ -111,4 +111,11 @@ public class PlayerController : ControllerBase
         var inventory = await _inventoryService.GetInventory();
         return Ok(inventory);
     }
+
+    [HttpGet("SendItemFromInventoryToMine/{inventoryItemId}")]
+    public async Task<IActionResult> SendItemFromInventoryToMine(string inventoryItemId)
+    {
+        var inventoryItem = await _inventoryService.SendItemFromInventoryToMine(inventoryItemId);
+        return Ok(inventoryItem);
+    }
 }

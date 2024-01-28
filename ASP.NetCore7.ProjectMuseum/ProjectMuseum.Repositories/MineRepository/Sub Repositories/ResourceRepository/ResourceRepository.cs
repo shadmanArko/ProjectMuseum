@@ -34,7 +34,7 @@ public class ResourceRepository : IResourceRepository
         var resourceToRemove = resources?.FirstOrDefault(resource1 => resource1.Id == resourceId);
         if (resourceToRemove != null) resources?.Remove(resourceToRemove);
         var cell = mine?.Cells.FirstOrDefault(cell => resourceToRemove != null && cell.PositionX == resourceToRemove.PositionX && cell.PositionY == resourceToRemove.PositionY);
-        if (cell != null) cell.HasArtifact = false;
+        if (cell != null) cell.HasResource = false;
         if (mine != null) await _mineDatabase.WriteDataAsync(mines!);
 
         return resourceToRemove;

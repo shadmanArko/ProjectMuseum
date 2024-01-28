@@ -18,7 +18,7 @@ public class ResourceRepository : IResourceRepository
         var mines = await _mineDatabase.ReadDataAsync();
         var mine = mines?[0];
         var resources = await _resourceDatabase.ReadDataAsync();
-        var resource = resources?.FirstOrDefault(resource1 => resource1.Varient == variant);
+        var resource = resources?.FirstOrDefault(resource1 => resource1.Variant == variant);
         resource!.Id = Guid.NewGuid().ToString();
         mine?.Resources.Add(resource);
         if (mine != null) await _mineDatabase.WriteDataAsync(mines!);

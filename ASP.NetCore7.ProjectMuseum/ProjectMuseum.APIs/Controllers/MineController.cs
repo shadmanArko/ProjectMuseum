@@ -72,8 +72,8 @@ public class MineController : ControllerBase
     [HttpGet("AssignResourcesToMine")]
     public async Task<IActionResult> AssignResourcesToMine()
     {
-        await _resourceService.AssignResourcesToMine();
-        return Ok();
+        var mine = await _resourceService.AssignResourcesToMine();
+        return Ok(mine);
     }
     
     [HttpGet("GetAllMineArtifacts")]

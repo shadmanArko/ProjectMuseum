@@ -25,7 +25,7 @@ public class ResourceService : IResourceService
         return inventoryItem;
     }
 
-    public async Task AssignResourcesToMine()
+    public async Task<Mine> AssignResourcesToMine()
     {
         var mine = await _mineRepository.Get();
         var resources = mine.Resources;
@@ -40,5 +40,8 @@ public class ResourceService : IResourceService
                 cell1.PositionX == resource.PositionX && cell1.PositionY == resource.PositionY);
             if (cell != null) cell.HasResource = true;
         }
+
+        await _mineRepository.Update(mine);
+        return mine;
     }
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3ghuigecyg6k"
-path="res://.godot/imported/Cracks.png-42bfbcbee94f9b6db28bef97b577f5db.ctex"
+uid="uid://bv1kdq7766ajc"
+path="res://.godot/imported/resources.png-09c23542bf7a89dfa19fcc9b776e1758.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/Tiles/Mince Cracks/Cracks.png"
-dest_files=["res://.godot/imported/Cracks.png-42bfbcbee94f9b6db28bef97b577f5db.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/Resources/resources.png"
+dest_files=["res://.godot/imported/resources.png-09c23542bf7a89dfa19fcc9b776e1758.ctex"]
 
 [params]
 

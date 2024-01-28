@@ -56,51 +56,52 @@ public static class MineSetCellConditions
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
         mineGenerationView.SetCell(1, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
 
-        if (cell.HasArtifact)
-            SetArtifactCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
-        else
-            SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
+        // if (cell.HasArtifact)
+        //     SetArtifactCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
+        // else
+        SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
     }
 
     #endregion
 
-    public static void SetArtifactCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
-    {
-        if(cell.HitPoint > 3) 
-            return;
-        if (cell.HitPoint == 3)
-        {
-            var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
-                cellCrackMaterial.SmallCrack.AtlasCoordY);
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.SmallCrack.TileSourceId, tilePos, coords);
-        }
-        else if (cell.HitPoint >= 2)
-        {
-            var coords = new Vector2I(cellCrackMaterial.MediumCrack.AtlasCoordX,
-                cellCrackMaterial.MediumCrack.AtlasCoordY);
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.MediumCrack.TileSourceId, tilePos, coords);
-        }
-        else if (cell.HitPoint >= 1)
-        {
-            var coords = new Vector2I(cellCrackMaterial.LargeCrack.AtlasCoordX,
-                cellCrackMaterial.LargeCrack.AtlasCoordY);
-            SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.LargeCrack.TileSourceId, tilePos, coords);
-        }
-        else if(cell.HitPoint <= 0)
-        {
-            EraseCellsOnAllLayers(mineGenerationView, tilePos);
-            mineGenerationView.SetCell(1,tilePos,mineGenerationView.TileSourceId,new Vector2I(5,2));
-        }
-    }
+    // public static void SetArtifactCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
+    // {
+    //     if(cell.HitPoint > 3) 
+    //         return;
+    //     if (cell.HitPoint == 3)
+    //     {
+    //         var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
+    //             cellCrackMaterial.SmallCrack.AtlasCoordY);
+    //         SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.SmallCrack.TileSourceId, tilePos, coords);
+    //     }
+    //     else if (cell.HitPoint >= 2)
+    //     {
+    //         var coords = new Vector2I(cellCrackMaterial.MediumCrack.AtlasCoordX,
+    //             cellCrackMaterial.MediumCrack.AtlasCoordY);
+    //         SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.MediumCrack.TileSourceId, tilePos, coords);
+    //     }
+    //     else if (cell.HitPoint >= 1)
+    //     {
+    //         var coords = new Vector2I(cellCrackMaterial.LargeCrack.AtlasCoordX,
+    //             cellCrackMaterial.LargeCrack.AtlasCoordY);
+    //         SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.LargeCrack.TileSourceId, tilePos, coords);
+    //     }
+    //     else if(cell.HitPoint <= 0)
+    //     {
+    //         EraseCellsOnAllLayers(mineGenerationView, tilePos);
+    //         mineGenerationView.SetCell(1,tilePos,mineGenerationView.TileSourceId,new Vector2I(5,2));
+    //     }
+    // }
 
     public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell,CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
     {
         if(cell.HitPoint > 3) 
             return;
+        if(cell.HasArtifact)
+            mineGenerationView.SetCell();
+        
         if (cell.HitPoint == 3)
         {
-            GD.Print($"cell crack mat is null: {cellCrackMaterial == null}");
-            GD.Print($"small crack mat is null: {cellCrackMaterial == null}");
             var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
                 cellCrackMaterial.SmallCrack.AtlasCoordY);
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir ,cellCrackMaterial.SmallCrack.TileSourceId, tilePos, coords);

@@ -112,11 +112,11 @@ public partial class ToolbarSelector : Node
 
 	private void SetEquipablesOnInventorySlots()
 	{
-		foreach (var equipable in _inventory.Equipables)
+		foreach (var inventoryItem in _inventory.InventoryItems)
 		{
-			_inventory.EmptySlots.Remove(equipable.Slot);
-			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
-			_toolbarSlots[equipable.Slot].SetItemData(equipable.Id, false);
+			_inventory.EmptySlots.Remove(inventoryItem.Slot);
+			_toolbarSlots[inventoryItem.Slot].SetItemTexture(inventoryItem.PngPath);
+			_toolbarSlots[inventoryItem.Slot].SetItemData(inventoryItem.Id, false);
 		}
 	}
 

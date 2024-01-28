@@ -222,8 +222,6 @@ public partial class MineGenerationController : Node2D
 			var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
 			var cellCrackMaterial = new CellCrackMaterial();
-				// _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
-				// 	tempCell.MaterialType == cell.ArtifactMaterial);
 			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationView);
 		}
 	}

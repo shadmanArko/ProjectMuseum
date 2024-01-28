@@ -90,7 +90,7 @@ public class InventoryRepository : IInventoryRepository
         return artifact;
     }
     
-    public async Task<InventoryItem> AddInventoryItem(string type, string variant)
+    public async Task<InventoryItem> AddInventoryItem(string type, string variant, string pngPath)
     {
         var inventories = await _inventoryDatabase.ReadDataAsync();
         var inventory = inventories?[0];
@@ -111,7 +111,8 @@ public class InventoryRepository : IInventoryRepository
                 Stack = 1,
                 Slot = await GetNextEmptySlot(),
                 Type = type,
-                Variant = variant
+                Variant = variant,
+                PngPath = pngPath
             };
             
             inventory.InventoryItems.Add(item);

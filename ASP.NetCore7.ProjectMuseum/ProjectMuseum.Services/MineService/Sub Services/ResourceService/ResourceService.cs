@@ -18,7 +18,7 @@ public class ResourceService : IResourceService
     public async Task<InventoryItem?> SendResourceFromMineToInventory(string resourceId)
     {
         var resource = await _resourceRepository.RemoveResourceFromMine(resourceId);
-        var inventoryItem = await _inventoryRepository.AddInventoryItem("Resource", resource!.Variant);
+        var inventoryItem = await _inventoryRepository.AddInventoryItem("Resource", resource!.Variant, resource.PNGPath);
         return inventoryItem;
     }
 }

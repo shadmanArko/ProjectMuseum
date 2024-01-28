@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dwrtwt0aj6gqu" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="12_1cu8i"]
 [ext_resource type="PackedScene" uid="uid://wetkwhla6pg5" path="res://Scenes/Mine/Sub Scenes/Mine Game Conditions/MineGameConditions.tscn" id="12_i3nvu"]
 [ext_resource type="PackedScene" uid="uid://503e52mqqilf" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
-[ext_resource type="PackedScene" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
+[ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
 [ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="15_jb2j0"]
 [ext_resource type="PackedScene" uid="uid://x5j5na7x1hy7" path="res://Scenes/Mine/Sub Scenes/UI/TimeSystem.tscn" id="16_2lo0e"]
@@ -51,7 +51,8 @@ Tooltip = NodePath("../MineUI/Tooltip4")
 
 [node name="SceneLoader" parent="." instance=ExtResource("22_h2clm")]
 
-[node name="MineTutorial" parent="." instance=ExtResource("16_37v3a")]
+[node name="MineTutorial" parent="." node_paths=PackedStringArray("_tutorialSystem") instance=ExtResource("16_37v3a")]
+_tutorialSystem = NodePath("Tutorial System")
 
 [node name="MineGameConditions" parent="." instance=ExtResource("12_i3nvu")]
 
@@ -66,33 +67,59 @@ script = ExtResource("7_5sphp")
 
 [node name="ArtifactFromInventoryToMuseum" parent="." instance=ExtResource("11_si3nu")]
 
-[node name="DiscoveredArtifactVisualizer" parent="." instance=ExtResource("8_mppk2")]
+[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton") instance=ExtResource("8_mppk2")]
+_canvasLayer = NodePath("CanvasLayer")
+_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
+_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel/Artifact Sprite")
+_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel/Artifact Description")
+_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton")
 
 [node name="MiniGameController" type="Node2D" parent="."]
 script = ExtResource("14_oqhev")
 _alternateMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn"
 
-[node name="CameraController" parent="." instance=ExtResource("10_rax0m")]
+[node name="CameraController" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("10_rax0m")]
+_camera = NodePath("Camera2D")
 
-[node name="MineUI" parent="." instance=ExtResource("3_ambmn")]
+[node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates") instance=ExtResource("3_ambmn")]
+_healthBar = NodePath("Health Bar")
+_energyBar = NodePath("Energy Bar")
+_playerCoordinates = NodePath("Player Coordinates")
 
-[node name="Tooltip4" parent="MineUI" instance=ExtResource("12_1cu8i")]
+[node name="Tooltip4" parent="MineUI" node_paths=PackedStringArray("_label", "_vBoxContainer", "_marginContainer", "_panel") instance=ExtResource("12_1cu8i")]
+_label = NodePath("MarginContainer/VBoxContainer/Label")
+_vBoxContainer = NodePath("MarginContainer/VBoxContainer")
+_marginContainer = NodePath("MarginContainer")
+_panel = NodePath("Panel")
 
-[node name="MinePopUp" parent="MineUI" instance=ExtResource("12_uukqb")]
+[node name="MinePopUp" parent="MineUI" node_paths=PackedStringArray("_popUpText") instance=ExtResource("12_uukqb")]
+_popUpText = NodePath("Pop Up Text")
 
-[node name="Tutorial" parent="MineUI" instance=ExtResource("13_d8f08")]
+[node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 visible = false
+_tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
+_animationPlayer = NodePath("Tutorial panel Animation Player")
 
-[node name="Dialogue Ui" parent="MineUI" instance=ExtResource("15_jb2j0")]
+[node name="Dialogue Ui" parent="MineUI" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer") instance=ExtResource("15_jb2j0")]
 visible = false
+_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue")
+_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue/Button")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/TextureRect")
+_cutsceneArt = NodePath("Panel/Illustration Image")
+_dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 
 [node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
-[node name="SceneTransition" parent="." instance=ExtResource("6_1bas2")]
+[node name="SceneTransition" parent="." node_paths=PackedStringArray("_colorRect") instance=ExtResource("6_1bas2")]
 visible = false
+_colorRect = NodePath("ColorRect")
 
-[node name="MineExitPromptUI" parent="." instance=ExtResource("8_uross")]
+[node name="MineExitPromptUI" parent="." node_paths=PackedStringArray("ReturnToCampButton") instance=ExtResource("8_uross")]
 visible = false
+ReturnToCampButton = NodePath("Panel/Control/Button Container/Return To Camp")
 
-[node name="CampExitPromptUI" parent="." instance=ExtResource("9_ybt60")]
+[node name="CampExitPromptUI" parent="." node_paths=PackedStringArray("SleepForTheNightButton", "ReturnToMuseumButton", "ReturnToMineButton") instance=ExtResource("9_ybt60")]
 visible = false
+SleepForTheNightButton = NodePath("Panel/Control/Button Container/Sleep For The Night")
+ReturnToMuseumButton = NodePath("Panel/Control/Button Container/Return To Museum")
+ReturnToMineButton = NodePath("Panel/Control/Button Container/Return To Mine")

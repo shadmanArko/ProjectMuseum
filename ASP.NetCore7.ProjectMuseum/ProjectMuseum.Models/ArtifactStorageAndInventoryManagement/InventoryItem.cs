@@ -10,5 +10,5 @@ public class InventoryItem
     public bool IsStackable { get; set; }
     public int Stack { get; set; }
     public int Slot { get; set; }
-    // public string PngPath { get; set; }
+    public string PngPath { get; set; }
 }

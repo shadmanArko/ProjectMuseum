@@ -1,12 +1,15 @@
-﻿using Godot;
+﻿using System;
+using System.Linq;
+using Godot;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public static class MineSetCellConditions
 {
-    public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
+    public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationVariables mineGenerationVariables)
     {
+        var mineGenerationView = ReferenceStorage.Instance.MineGenerationVariables.MineGenView;
         if (!cell.IsInstantiated || cell.IsBroken)
             SetBlankCell(mineGenerationView, tilePos);
         else
@@ -15,7 +18,7 @@ public static class MineSetCellConditions
                 SetUnbreakableCell(mineGenerationView, tilePos);
             else
             {
-                if (cell.IsRevealed) SetBreakableCell(mineGenerationView, cell, cellCrackMaterial, tilePos, mouseDir);
+                if (cell.IsRevealed) SetBreakableCell(mineGenerationVariables, cell, cellCrackMaterial, tilePos, mouseDir);
                 else SetUnrevealedCell(mineGenerationView, tilePos);
             }
         }
@@ -40,8 +43,9 @@ public static class MineSetCellConditions
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
     }
 
-    private static void SetBreakableCell(MineGenerationView mineGenerationView, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I tilePos, Vector2I mouseDir)
+    private static void SetBreakableCell(MineGenerationVariables mineGenerationVariables, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I tilePos, Vector2I mouseDir)
     {
+        var mineGenerationView = mineGenerationVariables.MineGenView;
         var n = 0;
         if (cell.TopBrokenSide)
             n += 1;
@@ -55,11 +59,28 @@ public static class MineSetCellConditions
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
         mineGenerationView.SetCell(1, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
-
+        if(cell.HasArtifact)
+            mineGenerationView.SetCell(2,tilePos, 2, new Vector2I(0,0));
+        
+        var random = new Random();
+        var resources = mineGenerationVariables.Mine.Resources;
+        GD.Print($"Resources is null: {resources == null}");
+        var resource = resources.FirstOrDefault(tempResource => tempResource.PositionX == tilePos.X && tempResource.PositionY == tilePos.Y);
+        GD.Print($"Resource is null: {resource == null} resource variant: {resource.Variant}");
+        mineGenerationView.SetCell(2,tilePos,3,new Vector2I(0, resource!.Variant == "Iron" ? 0 : 1));
+        
+        if (cell.HasResource)
+        {
+            
+        }
+        SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial);
+        
+        //TODO:for setting material on artifacts that will be used in the future///
         // if (cell.HasArtifact)
         //     SetArtifactCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
         // else
-        SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
+        //     SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial, mineGenerationView);
+        //TODO:for setting material on artifacts that will be used in the future///
     }
 
     #endregion
@@ -93,13 +114,11 @@ public static class MineSetCellConditions
     //     }
     // }
 
-    public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell,CellCrackMaterial cellCrackMaterial, MineGenerationView mineGenerationView)
+    public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell,CellCrackMaterial cellCrackMaterial)
     {
+        var mineGenerationView = ReferenceStorage.Instance.MineGenerationVariables.MineGenView;
         if(cell.HitPoint > 3) 
             return;
-        if(cell.HasArtifact)
-            mineGenerationView.SetCell();
-        
         if (cell.HitPoint == 3)
         {
             var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
@@ -130,16 +149,16 @@ public static class MineSetCellConditions
         switch (mouseDir)
         {
             case (1,0):
-                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords,1);
+                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords,1);
                 break;
             case (-1,0):
-                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords);
+                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords);
                 break;
             case (0,-1):
-                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords,2);
+                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords,2);
                 break;
             case (0,1):
-                mineGenerationView.SetCell(2,tilePos,tileSourceId,coords,3);
+                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords,3);
                 break;
         }
     }
@@ -149,6 +168,7 @@ public static class MineSetCellConditions
         mineGenerationView.EraseCell(0, tilePos);
         mineGenerationView.EraseCell(1, tilePos);
         mineGenerationView.EraseCell(2, tilePos);
+        mineGenerationView.EraseCell(3, tilePos);
     }
 
     private static Vector2I TileAtlasCoords(int tileValue)

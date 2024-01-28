@@ -2,13 +2,6 @@
   {
     "Artifacts": [
       {
-        "Id": "3",
-        "RawArtifactId": "MedievalNativeAmericanTomahawk",
-        "PositionX": 24,
-        "PositionY": 2,
-        "Slot": 0
-      },
-      {
         "Id": "5",
         "RawArtifactId": "AncientNativeAmericanClub",
         "PositionX": 6,
@@ -69,6 +62,13 @@
         "RawArtifactId": "MedievalNativeAmericanWarShield",
         "PositionX": 8,
         "PositionY": 56,
+        "Slot": 0
+      },
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
         "Slot": 0
       }
     ]

@@ -154,8 +154,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
                 tempCell.MaterialType == cell.ArtifactMaterial);
 
-        MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
-            cellCrackMaterial, _mineGenerationVariables.MineGenView);
+        MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
+            cellCrackMaterial);
 
         _playerControllerVariables.CanMove = false;
         MineActions.OnMiniGameLoad?.Invoke(tilePos);
@@ -216,8 +216,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         var cellCrackMaterial =
             _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
                 tempCell.MaterialType == cell.ArtifactMaterial);
-        MineSetCellConditions.SetArtifactCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
-            cellCrackMaterial, _mineGenerationVariables.MineGenView);
+        MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
+            cellCrackMaterial);
         MakeMineWallDepletedParticleEffect();
         
         if (cell.HitPoint <= 0)
@@ -234,7 +234,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             {
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                 MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
-                    cellCrackMaterial, _mineGenerationVariables.MineGenView);
+                    cellCrackMaterial, _mineGenerationVariables);
             }
         }
     }
@@ -249,7 +249,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
-            normalCellCrackMaterial, _mineGenerationVariables.MineGenView);
+            normalCellCrackMaterial);
         MakeMineWallDepletedParticleEffect();
         if (cell.HitPoint <= 0)
         {
@@ -267,7 +267,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 var cellCrackMaterial =
                     _mineCellCrackMaterial.CellCrackMaterials[0];
                 MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
-                    cellCrackMaterial, _mineGenerationVariables.MineGenView);
+                    cellCrackMaterial, _mineGenerationVariables);
             }
 
             _mineGenerationVariables.BrokenCells++;

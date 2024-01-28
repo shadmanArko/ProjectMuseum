@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -21,6 +20,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _mineCrackCellMaterialHttpRequest;
 	private HttpRequest _rawArtifactDescriptiveHttpRequest;
 	private HttpRequest _rawArtifactFunctionalHttpRequest;
+	private HttpRequest _assignResourceToMineHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
 	private PlayerControllerVariables _playerControllerVariables;
@@ -81,6 +81,10 @@ public partial class MineGenerationController : Node2D
 		_rawArtifactFunctionalHttpRequest = new HttpRequest();
 		AddChild(_rawArtifactFunctionalHttpRequest);
 		_rawArtifactFunctionalHttpRequest.RequestCompleted += OnGetRawArtifactFunctionalHttpRequestCompleted;
+		
+		_assignResourceToMineHttpRequest = new HttpRequest();
+		AddChild(_assignResourceToMineHttpRequest);
+		_assignResourceToMineHttpRequest.RequestCompleted += OnAssignResourceToMineHttpRequestCompleted;
 	}
 
 	#endregion
@@ -195,6 +199,23 @@ public partial class MineGenerationController : Node2D
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
         
+		AssignResourcesToMine();
+	}
+
+	#endregion
+
+	#region Assign Resources To Mine
+
+	private void AssignResourcesToMine()
+	{
+		var url = ApiAddress.MineApiPath+"AssignResourcesToMine";
+		_assignResourceToMineHttpRequest.Request(url);
+	}
+	
+	private void OnAssignResourceToMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
 		GenerateGridFromMineData(mine);
 	}
 
@@ -222,7 +243,7 @@ public partial class MineGenerationController : Node2D
 			var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
 			var cellCrackMaterial = new CellCrackMaterial();
-			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationView);
+			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationVariables);
 		}
 	}
     

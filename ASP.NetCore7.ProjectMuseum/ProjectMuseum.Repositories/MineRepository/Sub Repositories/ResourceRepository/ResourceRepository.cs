@@ -39,4 +39,12 @@ public class ResourceRepository : IResourceRepository
 
         return resourceToRemove;
     }
+
+    public async Task<List<Resource>?> GetAllResources()
+    {
+        var mines = await _mineDatabase.ReadDataAsync();
+        var mine = mines?[0];
+        var resources = mine?.Resources;
+        return resources;
+    }
 }

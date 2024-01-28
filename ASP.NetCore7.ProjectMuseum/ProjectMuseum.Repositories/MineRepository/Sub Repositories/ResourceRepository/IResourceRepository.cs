@@ -7,4 +7,5 @@ public interface IResourceRepository
 {
     Task<Resource> AddResourceToMine(string variant);
     Task<Resource?> RemoveResourceFromMine(string resourceId);
+    Task<List<Resource>?> GetAllResources();
 }

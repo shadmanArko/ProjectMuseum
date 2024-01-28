@@ -69,6 +69,13 @@ public class MineController : ControllerBase
         return Ok(mine);
     }
     
+    [HttpGet("AssignResourcesToMine")]
+    public async Task<IActionResult> AssignResourcesToMine()
+    {
+        await _resourceService.AssignResourcesToMine();
+        return Ok();
+    }
+    
     [HttpGet("GetAllMineArtifacts")]
     public async Task<IActionResult> GetAllMineArtifacts()
     {

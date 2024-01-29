@@ -1,1 +1,67 @@
-[{"InventoryItems":[{"Id":"eqp1","Name":"Sword of Valor","Type":"Weapon","Variant":"Sword","IsStackable":true,"Stack":0,"Slot":0,"PngPath":null},{"Id":"eqp2","Name":"Iron Shield","Type":"Shield","Variant":"Shield","IsStackable":true,"Stack":0,"Slot":1,"PngPath":null},{"Id":"eqp3","Name":"Leather Boots","Type":"Armor","Variant":"Armor","IsStackable":true,"Stack":0,"Slot":2,"PngPath":null},{"Id":"9","Name":"Coal Resource","Type":"Resource","Variant":"Coal","IsStackable":true,"Stack":1,"Slot":3,"PngPath":null},{"Id":"10","Name":"Iron Resource","Type":"Resource","Variant":"Iron","IsStackable":true,"Stack":0,"Slot":4,"PngPath":null}],"Artifacts":[{"Id":"3","RawArtifactId":"MedievalNativeAmericanTomahawk","PositionX":24,"PositionY":2,"Slot":0}],"EmptySlots":[],"SlotsUnlocked":12}]
+[
+  {
+    "InventoryItems": [
+      {
+        "Id": "eqp1",
+        "Name": "Sword of Valor",
+        "Type": "Weapon",
+        "Variant": "Sword",
+        "IsStackable": true,
+        "Stack": 0,
+        "Slot": 0,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
+      },
+      {
+        "Id": "eqp2",
+        "Name": "Iron Shield",
+        "Type": "Shield",
+        "Variant": "Shield",
+        "IsStackable": true,
+        "Stack": 0,
+        "Slot": 1,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
+      },
+      {
+        "Id": "eqp3",
+        "Name": "Leather Boots",
+        "Type": "Armor",
+        "Variant": "Armor",
+        "IsStackable": true,
+        "Stack": 0,
+        "Slot": 2,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Brush.png"
+      },
+      {
+        "Id": "9",
+        "Name": "Coal Resource",
+        "Type": "Resource",
+        "Variant": "Coal",
+        "IsStackable": true,
+        "Stack": 1,
+        "Slot": 3,
+        "PngPath": null
+      },
+      {
+        "Id": "10",
+        "Name": "Iron Resource",
+        "Type": "Resource",
+        "Variant": "Iron",
+        "IsStackable": true,
+        "Stack": 0,
+        "Slot": 4,
+        "PngPath": null
+      }
+    ],
+    "Artifacts": [
+      {
+        "Id": "3",
+        "RawArtifactId": "MedievalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 0
+      }
+    ],
+    "EmptySlots": [],
+    "SlotsUnlocked": 12
+  }
+]

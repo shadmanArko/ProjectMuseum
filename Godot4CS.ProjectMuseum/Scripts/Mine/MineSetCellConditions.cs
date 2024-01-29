@@ -59,19 +59,16 @@ public static class MineSetCellConditions
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
         mineGenerationView.SetCell(1, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
+        
         if(cell.HasArtifact)
             mineGenerationView.SetCell(2,tilePos, 2, new Vector2I(0,0));
         
-        var random = new Random();
-        var resources = mineGenerationVariables.Mine.Resources;
-        GD.Print($"Resources is null: {resources == null}");
-        var resource = resources.FirstOrDefault(tempResource => tempResource.PositionX == tilePos.X && tempResource.PositionY == tilePos.Y);
-        GD.Print($"Resource is null: {resource == null} resource variant: {resource.Variant}");
-        mineGenerationView.SetCell(2,tilePos,3,new Vector2I(0, resource!.Variant == "Iron" ? 0 : 1));
-        
         if (cell.HasResource)
         {
-            
+            var random = new Random();
+            var resources = mineGenerationVariables.Mine.Resources;
+            var resource = resources.FirstOrDefault(tempResource => tempResource.PositionX == tilePos.X && tempResource.PositionY == tilePos.Y);
+            mineGenerationView.SetCell(2,tilePos,3,new Vector2I(random.Next(0,2), resource!.Variant == "Iron" ? 0 : 1));
         }
         SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial);
         

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=24 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://wetkwhla6pg5" path="res://Scenes/Mine/Sub Scenes/Mine Game Conditions/MineGameConditions.tscn" id="12_i3nvu"]
 [ext_resource type="PackedScene" uid="uid://503e52mqqilf" path="res://Scenes/Mine/Sub Scenes/UI/MinePopUp.tscn" id="12_uukqb"]
 [ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="13_d8f08"]
+[ext_resource type="PackedScene" uid="uid://ogfqgrxxdwn0" path="res://Scenes/Mine/Sub Scenes/Generator Scenes/MineResourceAndParticleGenerator.tscn" id="14_3t058"]
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/MiniGameController.cs" id="14_oqhev"]
 [ext_resource type="PackedScene" uid="uid://crl7j8x5ieqw" path="res://Scenes/Museum/Museum Ui/dialogue_ui.tscn" id="15_jb2j0"]
 [ext_resource type="PackedScene" uid="uid://x5j5na7x1hy7" path="res://Scenes/Mine/Sub Scenes/UI/TimeSystem.tscn" id="16_2lo0e"]
@@ -80,6 +81,8 @@ _alternateMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateT
 
 [node name="CameraController" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("10_rax0m")]
 _camera = NodePath("Camera2D")
+
+[node name="MineResourceAndParticleGenerator" parent="." instance=ExtResource("14_3t058")]
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates") instance=ExtResource("3_ambmn")]
 _healthBar = NodePath("Health Bar")

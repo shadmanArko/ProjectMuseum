@@ -22,7 +22,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     private HttpRequest _getMineArtifactHttpRequest;
     private HttpRequest _mineCrackCellMaterialHttpRequest;
 
-    private RandomNumberGenerator _randomNumberGenerator;
+    
 
     public override void _Ready()
     {
@@ -30,7 +30,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         InitializeDiReferences();
         SubscribeToActions();
         GetMineCrackMaterialData();
-        _randomNumberGenerator = new RandomNumberGenerator();
+        
     }
 
     #region Initializers
@@ -218,7 +218,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 tempCell.MaterialType == cell.ArtifactMaterial);
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             cellCrackMaterial);
-        MakeMineWallDepletedParticleEffect();
+        // MakeMineWallDepletedParticleEffect();
         
         if (cell.HitPoint <= 0)
         {
@@ -250,7 +250,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 cellCrackMat.MaterialType == "Normal");
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             normalCellCrackMaterial);
-        MakeMineWallDepletedParticleEffect();
+        // MakeMineWallDepletedParticleEffect();
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
@@ -260,6 +260,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 if (_playerControllerVariables.State != MotionState.Hanging)
                     _playerControllerVariables.State = MotionState.Falling;
             }
+            
+            if(cell.HasResource)
+                InstantiateResourceObjects(cell);
 
             foreach (var tempCell in cells)
             {
@@ -276,47 +279,20 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         }
     }
 
-    #region Wall Particle Effects
+    #region Instantiate Resource Objects
 
-    private void MakeMineWallDepletedParticleEffect()
+    private void InstantiateResourceObjects(Cell cell)
     {
-        var particleEffectPath = ReferenceStorage.Instance.DepletedParticleExplosion;
-        var particle = ResourceLoader.Load<PackedScene>(particleEffectPath).Instantiate() as DepletedParticleExplosion;
-        if (particle == null) return;
-
-        var position = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
-        position += _playerControllerVariables.MouseDirection;
-        particle.Position = position * _mineGenerationVariables.Mine.CellSize;
-
-        var cellSize = _mineGenerationVariables.Mine.CellSize;
-        var rand = _randomNumberGenerator.RandfRange(cellSize / 4f,cellSize);
+        var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
+            tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
         
-        switch (_playerControllerVariables.MouseDirection)
-        {
-            case (1, 0):
-                particle.Position += new Vector2(0, rand);
-                particle.EmitParticle(_playerControllerVariables.MouseDirection);
-                break;
-            case (-1, 0):
-                particle.Position += new Vector2(cellSize, rand);
-                particle.EmitParticle(_playerControllerVariables.MouseDirection);
-                break;
-            case (0, -1):
-                particle.Position += new Vector2(rand, cellSize);
-                particle.EmitParticle(_playerControllerVariables.MouseDirection);
-                break;
-            case (0, 1):
-                particle.Position += new Vector2(rand, 0);
-                particle.EmitParticle(_playerControllerVariables.MouseDirection);
-                break;
-        }
-
-        _mineGenerationVariables.MineGenView.AddChild(particle);
-        var direction = _playerControllerVariables.MouseDirection * -1;
-        particle.EmitParticle(direction);
+        // if(resource == null) return;
+        // _mineGenerationVariables.mi
+        
     }
 
     #endregion
+
 
     #endregion
 }

@@ -46,14 +46,14 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         // Everything works like you're used to in a top-down game
         Vector2 direction = Vector2.Zero;
 
-        if (Input.IsActionPressed("move_up"))
+        if (Input.IsActionPressed("move_right"))
         {
             direction += new Vector2(0, -1);
             _characterSprite.Scale = new Vector2(-1, 1);
             _animationPlayerInstance.Play("walk_backward");
             _playerFacingTheFront = false;
         }
-        else if (Input.IsActionPressed("move_down"))
+        else if (Input.IsActionPressed("move_left"))
         {
             direction += new Vector2(0, 1);
             _characterSprite.Scale = new Vector2(-1, 1);
@@ -61,14 +61,14 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
             _playerFacingTheFront = true;
         }
 
-        if (Input.IsActionPressed("move_left"))
+        if (Input.IsActionPressed("move_up"))
         {
             direction += new Vector2(-1, 0);
             _characterSprite.Scale = new Vector2(1, 1);
             _animationPlayerInstance.Play("walk_backward");
             _playerFacingTheFront = false;
         }
-        else if (Input.IsActionPressed("move_right"))
+        else if (Input.IsActionPressed("move_down"))
         {
             direction += new Vector2(1, 0);
             _characterSprite.Scale = new Vector2(1, 1);

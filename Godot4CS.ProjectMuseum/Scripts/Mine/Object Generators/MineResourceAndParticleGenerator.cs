@@ -15,8 +15,8 @@ public partial class MineResourceAndParticleGenerator : Node
 	
 	public override void _Ready()
 	{
-		InitializeDiInstaller();
-		SubscribeToActions();
+		// InitializeDiInstaller();
+		// SubscribeToActions();
 		_randomNumberGenerator = new RandomNumberGenerator();
 	}
 

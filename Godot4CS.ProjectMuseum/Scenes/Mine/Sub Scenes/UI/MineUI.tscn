@@ -16,15 +16,16 @@ _playerCoordinates = NodePath("Player Coordinates")
 metadata/_edit_vertical_guides_ = [664.0]
 
 [node name="Toolbar Panel" type="HBoxContainer" parent="."]
+texture_filter = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -284.0
-offset_top = -48.0
-offset_right = 284.0
-offset_bottom = -8.0
+offset_top = -88.0
+offset_right = 316.0
+offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 6

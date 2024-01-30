@@ -39,7 +39,7 @@
         "IsStackable": true,
         "Stack": 1,
         "Slot": 3,
-        "PngPath": null
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
       },
       {
         "Id": "10",
@@ -47,15 +47,50 @@
         "Type": "Resource",
         "Variant": "Iron",
         "IsStackable": true,
-        "Stack": 0,
+        "Stack": 7,
         "Slot": 4,
-        "PngPath": null
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
       }
     ],
     "Artifacts": [
       {
         "Id": "3",
         "RawArtifactId": "MedievalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 0
+      },
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 0
+      },
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 0
+      },
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 0
+      },
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 0
+      },
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
         "PositionX": 24,
         "PositionY": 2,
         "Slot": 0

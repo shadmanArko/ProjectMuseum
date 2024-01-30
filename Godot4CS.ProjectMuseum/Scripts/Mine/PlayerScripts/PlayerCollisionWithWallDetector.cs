@@ -261,8 +261,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                     _playerControllerVariables.State = MotionState.Falling;
             }
             
-            if(cell.HasResource)
-                InstantiateResourceObjects(cell);
+            // if(cell.HasResource)
+            //     InstantiateResourceObjects(cell);
 
             foreach (var tempCell in cells)
             {
@@ -278,21 +278,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
         }
     }
-
-    #region Instantiate Resource Objects
-
-    private void InstantiateResourceObjects(Cell cell)
-    {
-        var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
-            tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
-        
-        // if(resource == null) return;
-        // _mineGenerationVariables.mi
-        
-    }
-
-    #endregion
-
 
     #endregion
 }

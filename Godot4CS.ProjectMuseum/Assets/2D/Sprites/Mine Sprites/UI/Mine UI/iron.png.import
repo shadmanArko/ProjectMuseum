@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmum5hrbpjtpd"
-path="res://.godot/imported/Yellow_Frame.png-cfece3c4930979749b0ea1d5c69ebe22.ctex"
+uid="uid://26ycj8dfbvf5"
+path="res://.godot/imported/Iron.png-4f0f0625d32f05f39bb80d95fc19c0e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Yellow_Frame.png"
-dest_files=["res://.godot/imported/Yellow_Frame.png-cfece3c4930979749b0ea1d5c69ebe22.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+dest_files=["res://.godot/imported/Iron.png-4f0f0625d32f05f39bb80d95fc19c0e6.ctex"]
 
 [params]
 

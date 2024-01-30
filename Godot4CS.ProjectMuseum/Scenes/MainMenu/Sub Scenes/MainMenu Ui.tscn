@@ -38,19 +38,23 @@ theme_override_constants/separation = 10
 
 [node name="Continue" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_uware")
 disabled = true
 text = "Continue"
 
 [node name="New Game" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_uware")
 text = "New Game"
 
 [node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_uware")
 text = "Options"
 
 [node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_uware")
 text = "Exit"
 
 [node name="TextureRect" type="TextureRect" parent="."]

@@ -38,7 +38,7 @@ public partial class MineGenerationController : Node2D
 		GetMineCrackMaterialData();
 		GetAllRawArtifactDescriptiveData();
 		GetAllRawArtifactFunctionalData();
-		GenerateMineData();
+		AssignArtifactsToMine();
 	}
 
 	public override void _Ready()
@@ -149,7 +149,6 @@ public partial class MineGenerationController : Node2D
 
 	#endregion
 
-
 	#region Save Mine Data Into Server
 
 	private void SaveMineDataIntoServer()
@@ -200,6 +199,7 @@ public partial class MineGenerationController : Node2D
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
         
 		AssignResourcesToMine();
+		// GenerateGridFromMineData(mine);
 	}
 
 	#endregion
@@ -217,6 +217,7 @@ public partial class MineGenerationController : Node2D
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
 		GenerateGridFromMineData(mine);
+		
 	}
 
 	#endregion
@@ -248,20 +249,4 @@ public partial class MineGenerationController : Node2D
 	}
     
 	#endregion
-
-	// public override void _Input(InputEvent @event)
-	// {
-	// 	if (@event.IsActionReleased("generateGrid"))
-	// 	{
-	// 		var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 10));
-	// 		cell.HasArtifact = true;
-	// 		GD.Print("Generated artifact");
-	// 	}
-	// 	
-	// 	if(@event.IsActionReleased("saveGrid"))
-	// 		SaveMineDataIntoServer();
-	// 		
-	// 	if(@event.IsActionReleased("loadGrid"))
-	// 		LoadMineDataFromServer();
-	// }
 }

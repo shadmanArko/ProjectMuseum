@@ -50,36 +50,36 @@ public class InventoryRepository : IInventoryRepository
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
-        return inventory?.EmptySlots;
+        return inventory?.OccupiedSlots;
     }
 
     public async Task<int> GetNextEmptySlot()
     {
-        var listOfInventory = await _inventoryDatabase.ReadDataAsync();
-        var inventory = listOfInventory?[0];
-        var emptySlots = inventory?.EmptySlots;
-        return emptySlots![0];
+        var inventories = await _inventoryDatabase.ReadDataAsync();
+        var inventory = inventories?[0];
+        var occupiedSlots = inventory?.OccupiedSlots;
+        var allSlots = new List<int>();
+        for (int i = 0; i < inventory!.SlotsUnlocked; i++)
+        {
+            allSlots.Add(i);
+        }
+        
+        var emptySlots = allSlots.Except(occupiedSlots!).ToList();
+        if (emptySlots.Count == 0) return -1;   // negative number means inventory is full
+        inventory.OccupiedSlots.Add(emptySlots[0]);
+        await _inventoryDatabase.WriteDataAsync(inventories!);
+        return emptySlots[0];
     }
 
     public async Task ReleaseOccupiedSlot(int slot)
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
-        var emptySlots = inventory?.EmptySlots;
-        emptySlots?.RemoveAt(slot);
-        var tempSlots = new List<int>();
-        if (emptySlots != null)
-        {
-            foreach (var emptySlot in emptySlots)
-            {
-                if (emptySlot == 0) continue;
-                tempSlots.Add(emptySlot);
-            }
-        }
-
-        inventory!.EmptySlots = tempSlots;
+        var occupiedSlots = inventory?.OccupiedSlots;
+        occupiedSlots!.Remove(occupiedSlots.FirstOrDefault(slot1 => slot1 == slot));
+        inventory!.OccupiedSlots = occupiedSlots;
+        await _inventoryDatabase.WriteDataAsync(listOfInventory!);
     }
-
     public async Task<Artifact> AddArtifact(Artifact artifact)
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();

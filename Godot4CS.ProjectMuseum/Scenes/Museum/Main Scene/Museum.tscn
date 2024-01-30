@@ -86,6 +86,7 @@ Maxzoom = 4.0
 z_index = 8
 _animationPlayer = NodePath("AnimationPlayer")
 _timeUi = NodePath("Label")
+metadata/_edit_use_anchors_ = true
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("museumMoneyTextField", "_conceptEndingUi", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi", "ItemsParent") instance=ExtResource("7_xsnwb")]
 mouse_filter = 1
@@ -377,5 +378,6 @@ _townScene = NodePath("../museum/CanvasLayer/Town Ui")
 script = ExtResource("23_md2ii")
 
 [node name="DayNightCycleController" type="Node2D" parent="." node_paths=PackedStringArray("_backgroundObject")]
+process_mode = 4
 script = ExtResource("46_uujue")
 _backgroundObject = NodePath("../museum/Background Foresnt")

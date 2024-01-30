@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
 public partial class DayNightCycleController : Node2D
 {
@@ -10,7 +11,13 @@ public partial class DayNightCycleController : Node2D
 	[Export] private Node2D _backgroundObject;
 	private double _elapsedTime = 0;
 	private float _transitionDuration = 10f;
-	
+
+	private bool _transitionOn = false;
+
+	private Color _transitionStartColor;
+	private Color _transitionEndColor;
+
+	private Color _currentFixedColor;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -63,5 +70,22 @@ public partial class DayNightCycleController : Node2D
 		// Set the modulate color
 		Color modulateColor = new Color(red / 255.0f, green / 255.0f, blue / 255.0f);
 		return modulateColor;
+	}
+	private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
+	{
+		
+	}
+
+	public override void _EnterTree()
+	{
+		base._EnterTree();
+		MuseumActions.OnTimeUpdated += OnTimeUpdated;
+	}
+
+	
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		MuseumActions.OnTimeUpdated -= OnTimeUpdated;
 	}
 }

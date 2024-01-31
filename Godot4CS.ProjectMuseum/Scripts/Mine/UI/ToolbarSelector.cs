@@ -73,7 +73,7 @@ public partial class ToolbarSelector : Node
 		RemoveAllInventorySlots();
 		CreateInventorySlots();
 		SetArtifactsOnInventorySlots();
-		SetEquipablesOnInventorySlots();
+		SetInventoryItemSlots();
 	}
 
 	#endregion
@@ -97,7 +97,6 @@ public partial class ToolbarSelector : Node
             
 			AddChild(toolbarSlot);
 			_toolbarSlots.Add(toolbarSlot);
-			_inventory.EmptySlots.Add(i);
 		}
 	}
 
@@ -110,13 +109,17 @@ public partial class ToolbarSelector : Node
 		_toolbarSlots = new List<ToolbarSlot>();
 	}
 
-	private void SetEquipablesOnInventorySlots()
+	private void SetInventoryItemSlots()
 	{
-		foreach (var equipable in _inventory.Equipables)
+		foreach (var inventoryItem in _inventory.InventoryItems)
 		{
-			_inventory.EmptySlots.Remove(equipable.Slot);
-			_toolbarSlots[equipable.Slot].SetItemTexture(equipable.PngPath);
-			_toolbarSlots[equipable.Slot].SetItemData(equipable.Id, false);
+			_toolbarSlots[inventoryItem.Slot].SetItemTexture(inventoryItem.PngPath);
+			_toolbarSlots[inventoryItem.Slot].SetItemData(inventoryItem.Id, false);
+			
+			if(inventoryItem.Stack > 1)
+				_toolbarSlots[inventoryItem.Slot].TurnOnItemCounter(inventoryItem.Stack);
+			else
+				_toolbarSlots[inventoryItem.Slot].TurnOffItemCounter();
 		}
 	}
 
@@ -125,18 +128,18 @@ public partial class ToolbarSelector : Node
 		if(_inventory.Artifacts.Count <= 0) return;
 		foreach (var artifact in _inventory.Artifacts)
 		{
-			var emptySlot = 0;
-
-			for (var i = 0; i < _inventory.SlotsUnlocked; i++)
-			{
-				if(!_inventory.EmptySlots.Contains(i)) continue;
-				emptySlot = i;
-			}
-			
-			if(emptySlot == 0) continue;
-			
-			artifact.Slot = emptySlot;
-			_inventory.EmptySlots.Remove(emptySlot);
+			// var emptySlot = 0;
+			//
+			// for (var i = 0; i < _inventory.SlotsUnlocked; i++)
+			// {
+			// 	if(!_inventory.EmptySlots.Contains(i)) continue;
+			// 	emptySlot = i;
+			// }
+			//
+			// if(emptySlot == 0) continue;
+			//
+			// artifact.Slot = emptySlot;
+			// _inventory.EmptySlots.Remove(emptySlot);
 			
 			var rawArtifactFunctional =
 				_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);

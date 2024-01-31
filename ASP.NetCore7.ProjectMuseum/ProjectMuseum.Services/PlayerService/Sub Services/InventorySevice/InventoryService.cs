@@ -15,7 +15,7 @@ public class InventoryService : IInventoryService
         _artifactStorageRepository = artifactStorageRepository;
     }
 
-    public async Task<List<Equipable>?> GetAllEquipables()
+    public async Task<List<InventoryItem>?> GetAllEquipables()
     {
         var equipables = await _inventoryRepository.GetAllEquipables();
         return equipables;
@@ -39,4 +39,21 @@ public class InventoryService : IInventoryService
         var inventory = await _inventoryRepository.GetInventory();
         return inventory;
     }
+
+    // //TODO: Find and Create class 
+    // public async Task<InventoryItem?> SendItemFromInventoryToMine(string inventoryItemId)
+    // {
+    //     var inventoryItem = await _inventoryRepository.RemoveInventoryItem(inventoryItemId);
+    //     object mineItem = CreateInstanceByName(inventoryItem.Variant);
+    //     Console.WriteLine($"mineItem class: ");
+    //     return new InventoryItem();
+    // }
+    //
+    // private static Type CreateInstanceByName(string variant)
+    // {
+    //     var assemblyString = Assembly.CreateQualifiedName("ProjectMuseum.Models", variant);
+    //     var assembly = Assembly.Load(assemblyString);
+    //     return assembly.GetType(variant)!;
+    // }
+    
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -21,6 +20,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _mineCrackCellMaterialHttpRequest;
 	private HttpRequest _rawArtifactDescriptiveHttpRequest;
 	private HttpRequest _rawArtifactFunctionalHttpRequest;
+	private HttpRequest _assignResourceToMineHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
 	private PlayerControllerVariables _playerControllerVariables;
@@ -38,7 +38,7 @@ public partial class MineGenerationController : Node2D
 		GetMineCrackMaterialData();
 		GetAllRawArtifactDescriptiveData();
 		GetAllRawArtifactFunctionalData();
-		GenerateMineData();
+		AssignArtifactsToMine();
 	}
 
 	public override void _Ready()
@@ -81,6 +81,10 @@ public partial class MineGenerationController : Node2D
 		_rawArtifactFunctionalHttpRequest = new HttpRequest();
 		AddChild(_rawArtifactFunctionalHttpRequest);
 		_rawArtifactFunctionalHttpRequest.RequestCompleted += OnGetRawArtifactFunctionalHttpRequestCompleted;
+		
+		_assignResourceToMineHttpRequest = new HttpRequest();
+		AddChild(_assignResourceToMineHttpRequest);
+		_assignResourceToMineHttpRequest.RequestCompleted += OnAssignResourceToMineHttpRequestCompleted;
 	}
 
 	#endregion
@@ -145,7 +149,6 @@ public partial class MineGenerationController : Node2D
 
 	#endregion
 
-
 	#region Save Mine Data Into Server
 
 	private void SaveMineDataIntoServer()
@@ -195,7 +198,26 @@ public partial class MineGenerationController : Node2D
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
         
+		AssignResourcesToMine();
+		// GenerateGridFromMineData(mine);
+	}
+
+	#endregion
+
+	#region Assign Resources To Mine
+
+	private void AssignResourcesToMine()
+	{
+		var url = ApiAddress.MineApiPath+"AssignResourcesToMine";
+		_assignResourceToMineHttpRequest.Request(url);
+	}
+	
+	private void OnAssignResourceToMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
 		GenerateGridFromMineData(mine);
+		
 	}
 
 	#endregion
@@ -222,27 +244,9 @@ public partial class MineGenerationController : Node2D
 			var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
 			var tilePos = _mineGenerationView.LocalToMap(pos);
 			var cellCrackMaterial = new CellCrackMaterial();
-				// _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
-				// 	tempCell.MaterialType == cell.ArtifactMaterial);
-			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationView);
+			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationVariables);
 		}
 	}
     
 	#endregion
-
-	// public override void _Input(InputEvent @event)
-	// {
-	// 	if (@event.IsActionReleased("generateGrid"))
-	// 	{
-	// 		var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 10));
-	// 		cell.HasArtifact = true;
-	// 		GD.Print("Generated artifact");
-	// 	}
-	// 	
-	// 	if(@event.IsActionReleased("saveGrid"))
-	// 		SaveMineDataIntoServer();
-	// 		
-	// 	if(@event.IsActionReleased("loadGrid"))
-	// 		LoadMineDataFromServer();
-	// }
 }

@@ -23,10 +23,8 @@
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Brush.png"
       }
     ],
-    "Artifacts": [
-      
-    ],
-    "OccupiedSlots": [0,1,2,3],
+    "Artifacts": [],
+    "OccupiedSlots": [0,1,2],
     "SlotsUnlocked": 12
   }
 ]

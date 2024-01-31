@@ -1,32 +1,74 @@
 [
   {
-    "Equipables": [
+    "InventoryItems": [
       {
         "Id": "eqp1",
         "Name": "Sword of Valor",
-        "Slot": 0,
         "Type": "Weapon",
+        "Variant": "Sword",
+        "IsStackable": true,
+        "Stack": 0,
+        "Slot": 0,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
       },
       {
         "Id": "eqp2",
         "Name": "Iron Shield",
-        "Slot": 1,
         "Type": "Shield",
+        "Variant": "Shield",
+        "IsStackable": true,
+        "Stack": 0,
+        "Slot": 1,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
       },
       {
         "Id": "eqp3",
         "Name": "Leather Boots",
-        "Slot": 2,
         "Type": "Armor",
+        "Variant": "Armor",
+        "IsStackable": true,
+        "Stack": 0,
+        "Slot": 2,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Brush.png"
+      },
+      {
+        "Id": "9",
+        "Name": "Coal Resource",
+        "Type": "Resource",
+        "Variant": "Coal",
+        "IsStackable": true,
+        "Stack": 11,
+        "Slot": 3,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "10",
+        "Name": "Iron Resource",
+        "Type": "Resource",
+        "Variant": "Iron",
+        "IsStackable": true,
+        "Stack": 7,
+        "Slot": 4,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
       }
     ],
     "Artifacts": [
-      
+      {
+        "Id": "3",
+        "RawArtifactId": "MedievalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 5
+      },
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 6
+      }
     ],
-    "EmptySlots": [],
+    "OccupiedSlots": [0,1,2,3,4,5,6],
     "SlotsUnlocked": 12
   }
 ]

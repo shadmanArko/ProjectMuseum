@@ -1,6 +1,6 @@
 [
   {
-    "Equipables": [
+    "InventoryItems": [
       {
         "Id": "eqp1",
         "Name": "Sword of Valor",
@@ -26,7 +26,7 @@
     "Artifacts": [
       
     ],
-    "EmptySlots": [],
+    "OccupiedSlots": [0,1,2,3],
     "SlotsUnlocked": 12
   }
 ]

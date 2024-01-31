@@ -97,6 +97,7 @@ public partial class MiniGameController : Node2D
 		GD.Print("Successfully sent artifact to inventory");
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
+		GD.Print($"artifact pos: {artifact.PositionX}, {artifact.PositionY}");
 		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
 		MineActions.OnInventoryUpdate?.Invoke();
 		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");

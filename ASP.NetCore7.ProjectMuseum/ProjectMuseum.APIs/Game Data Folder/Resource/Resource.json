@@ -1,0 +1,72 @@
+[
+  {
+    "Id": "1",
+    "Name": "Coal",
+    "Category": "Category A",
+    "Variant": "Coal",
+    "PNGPath": "/path/to/resource1.png"
+  },
+  {
+    "Id": "2",
+    "Name": "Iron",
+    "Category": "Category B",
+    "Variant": "Iron",
+    "PNGPath": "/path/to/resource2.png"
+  },
+  {
+    "Id": "3",
+    "Name": "Coal",
+    "Category": "Category A",
+    "Variant": "Coal",
+    "PNGPath": "/path/to/resource3.png"
+  },
+  {
+    "Id": "4",
+    "Name": "Iron",
+    "Category": "Category C",
+    "Variant": "Iron",
+    "PNGPath": "/path/to/resource4.png"
+  },
+  {
+    "Id": "5",
+    "Name": "Coal",
+    "Category": "Category B",
+    "Variant": "Coal",
+    "PNGPath": "/path/to/resource5.png"
+  },
+  {
+    "Id": "6",
+    "Name": "Iron",
+    "Category": "Category A",
+    "Variant": "Iron",
+    "PNGPath": "/path/to/resource6.png"
+  },
+  {
+    "Id": "7",
+    "Name": "Coal",
+    "Category": "Category C",
+    "Variant": "Coal",
+    "PNGPath": "/path/to/resource7.png"
+  },
+  {
+    "Id": "8",
+    "Name": "Iron",
+    "Category": "Category B",
+    "Variant": "Iron",
+    "PNGPath": "/path/to/resource8.png"
+  },
+  {
+    "Id": "9",
+    "Name": "Coal",
+    "Category": "Category A",
+    "Variant": "Coal",
+    "PNGPath": "/path/to/resource9.png"
+  },
+  {
+    "Id": "10",
+    "Name": "Iron",
+    "Category": "Category C",
+    "Variant": "Iron",
+    "PNGPath": "/path/to/resource10.png"
+  }
+]

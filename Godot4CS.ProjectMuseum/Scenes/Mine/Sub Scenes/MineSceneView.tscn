@@ -22,7 +22,7 @@ _mineBackGround = NodePath("MineBackground")
 [node name="MineBackground" parent="." instance=ExtResource("2_xr05r")]
 
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("3_01lxc")]
-cell_quadrant_size = 20
+rendering_quadrant_size = 20
 layer_0/name = "Mine"
 layer_0/modulate = Color(0.835294, 0.835294, 0.835294, 1)
 layer_1/name = "Walls"

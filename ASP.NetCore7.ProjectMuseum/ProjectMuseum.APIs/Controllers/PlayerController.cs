@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
-using ProjectMuseum.Repositories.PlayerRepository.Sub_Repositories.TimeRepository;
 using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.PlayerInfoService;
@@ -111,4 +110,11 @@ public class PlayerController : ControllerBase
         var inventory = await _inventoryService.GetInventory();
         return Ok(inventory);
     }
+
+    // [HttpGet("SendItemFromInventoryToMine/{inventoryItemId}")]
+    // public async Task<IActionResult> SendItemFromInventoryToMine(string inventoryItemId)
+    // {
+    //     var inventoryItem = await _inventoryService.SendItemFromInventoryToMine(inventoryItemId);
+    //     return Ok(inventoryItem);
+    // }
 }

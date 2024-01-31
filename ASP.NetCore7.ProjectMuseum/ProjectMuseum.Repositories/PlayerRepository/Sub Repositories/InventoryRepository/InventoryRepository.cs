@@ -85,7 +85,9 @@ public class InventoryRepository : IInventoryRepository
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
-        artifact.Slot = await GetNextEmptySlot();
+        var newEmptySlot = await GetNextEmptySlot();
+        artifact.Slot = newEmptySlot;
+        inventory?.OccupiedSlots.Add(newEmptySlot);
         var artifacts = inventory?.Artifacts;
         artifacts?.Add(artifact);
         if (listOfInventory != null) await _inventoryDatabase.WriteDataAsync(listOfInventory);

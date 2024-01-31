@@ -12,6 +12,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMa
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
+using ProjectMuseum.Repositories.MiscellaneousDataRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifactRepository;
@@ -34,6 +35,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
+using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
@@ -47,10 +49,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //NO Need to change these paths
-string cellCrackMaterialDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
-string rawArtifactFunctionalDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
-string rawArtifactDescriptiveDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
-string resourceDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "Resource", "Resource.json");
+string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
+string rawArtifactFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
+string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
+string resourceDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Resource", "Resource.json");
+string mainMenuMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MainMenuMiscellaneousData", "MainMenuMiscellaneousData.json");
+string settingsMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "SettingsMiscellaneousData", "SettingsMiscellaneousData.json");
+string museumMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MuseumMiscellaneousData", "MuseumMiscellaneousData.json");
+string mineMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MineMiscellaneousData", "MineMiscellaneousData.json");
 
 
 
@@ -95,6 +101,10 @@ builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArt
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Resource>(resourceDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<MainMenuMiscellaneousData>(mainMenuMiscellaneousDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<MuseumMiscellaneousData>(museumMiscellaneousDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<SettingsMiscellaneousData>(settingsMiscellaneousDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<MineMiscellaneousData>(mineMiscellaneousDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -142,6 +152,7 @@ builder.Services.AddScoped<IRawArtifactFunctionalRepository, RawArtifactFunction
 builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescriptiveRepository>();
 builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
+builder.Services.AddScoped<IMiscellaneousDataRepository, MiscellaneousDataRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -166,6 +177,8 @@ builder.Services.AddScoped<IRawArtifactFunctionalService, RawArtifactFunctionalS
 builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiveService>();
 builder.Services.AddScoped<IResourceService, ResourceService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
+builder.Services.AddScoped<IMiscellaneousDataService, MiscellaneousDataService>();
+
 
 
 // builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));
@@ -186,8 +199,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-Console.WriteLine("Base directory " + AppContext.BaseDirectory);
-// Console.WriteLine("Current directory " + AppContext.BaseDirectory);
+Console.WriteLine("Base directory " + Directory.GetCurrentDirectory());
+// Console.WriteLine("Current directory " + Directory.GetCurrentDirectory());
 // Console.WriteLine("Doc folder directory " + Environment.SpecialFolder.MyDocuments);
 // Console.WriteLine("persistent directory " +  Environment.SpecialFolder.ApplicationData);
 

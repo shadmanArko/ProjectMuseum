@@ -37,6 +37,11 @@ public class MineService : IMineService
 
         if (artifacts != null)
         {
+            foreach (var cell in mine.Cells)
+            {
+                cell.HasArtifact = false;
+            }
+            
             foreach (var artifact in artifacts)
             {
                 foreach (var cell in mine.Cells)

@@ -80,6 +80,7 @@ public class InventoryRepository : IInventoryRepository
         inventory!.OccupiedSlots = occupiedSlots;
         await _inventoryDatabase.WriteDataAsync(listOfInventory!);
     }
+    
     public async Task<Artifact> AddArtifact(Artifact artifact)
     {
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();

@@ -66,13 +66,13 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         mine.Cells = cells;
 
         return await _mineRepository.Update(mine);
-
     }
 
     private void CreateBlankCell(Cell cell)
     {
         cell.IsBreakable = false;
         cell.IsInstantiated = false;
+        cell.HasArtifact = false;
         cell.HitPoint = 10000;
     }
 
@@ -80,6 +80,7 @@ public class MineCellGeneratorService : IMineCellGeneratorService
     {
         cell.IsBreakable = false;
         cell.IsInstantiated = true;
+        cell.HasArtifact = false;
         cell.HitPoint = 10000;
     }
 
@@ -88,6 +89,7 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         cell.IsBreakable = true;
         cell.IsInstantiated = true;
         cell.IsRevealed = false;
+        cell.HasArtifact = false;
         cell.HitPoint = 4;
     }
 

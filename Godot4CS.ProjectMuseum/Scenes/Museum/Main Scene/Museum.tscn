@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=50 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="PackedScene" uid="uid://cfyphwktlmmhb" path="res://Scenes/Museum/Museum Ui/concept_ending_ui.tscn" id="22_o4gbe"]
-[ext_resource type="Texture2D" uid="uid://bqayq51aokdnh" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="23_38mdj"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
 [ext_resource type="PackedScene" uid="uid://2nxthrd3s2eh" path="res://Scenes/Museum/Sub Scenes/Emily.tscn" id="24_vxlv2"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
@@ -40,14 +39,22 @@
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
-[ext_resource type="Texture2D" uid="uid://dkwv2cr34w87u" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK.png" id="30_wqv7k"]
 [ext_resource type="Texture2D" uid="uid://bmihve30b011m" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/traffic light 2.png" id="32_e4370"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
+[ext_resource type="Texture2D" uid="uid://cadij7xn0trfq" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK .png" id="35_mega3"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
-[ext_resource type="Texture2D" uid="uid://dvcqly7kpochn" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2.png" id="39_edsxa"]
-[ext_resource type="Texture2D" uid="uid://dhiwtsd4ydkea" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png" id="40_5qu8p"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2lj4t"]
+load_path = "res://.godot/imported/isomatric forest chunk.png-39e4fad63e208a2655db8d51e4c382bd.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5oh1h"]
+load_path = "res://.godot/imported/ROAD CHUNK 2.png-9b54908840bbc63e5914bb1528a62f75.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rxu60"]
+load_path = "res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"
 
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
@@ -71,7 +78,7 @@ position = Vector2(50, -210)
 script = ExtResource("4_kytf8")
 zoomSpd = 0.2
 Minzoom = 1.0
-Maxzoom = 2.0
+Maxzoom = 4.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="museum"]
 
@@ -79,6 +86,7 @@ Maxzoom = 2.0
 z_index = 8
 _animationPlayer = NodePath("AnimationPlayer")
 _timeUi = NodePath("Label")
+metadata/_edit_use_anchors_ = true
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("museumMoneyTextField", "_conceptEndingUi", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi", "ItemsParent") instance=ExtResource("7_xsnwb")]
 mouse_filter = 1
@@ -219,116 +227,116 @@ y_sort_enabled = true
 [node name="IsomatricForestChunk" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(359.285, -334.5)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk2" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-243, -315.955)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk3" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(76, -478)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk8" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(127, -787)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk6" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(694, -502)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk7" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(414, -645.5)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk4" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-532, -459.955)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk5" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-206.715, -621.5)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk9" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-161, -931.5)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk12" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(464, -955)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk13" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(1031, -669)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk14" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(751, -813.5)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk15" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(176, -1099.5)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk10" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-820, -604.455)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="IsomatricForestChunk11" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-494.715, -766)
-texture = ExtResource("23_38mdj")
+texture = SubResource("CompressedTexture2D_2lj4t")
 
-[node name="Road" type="Node2D" parent="museum"]
+[node name="Road" type="Node2D" parent="museum/Background Foresnt"]
 
-[node name="RoadChunk" type="Sprite2D" parent="museum/Road"]
+[node name="RoadChunk" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
 position = Vector2(663, -193)
-texture = ExtResource("30_wqv7k")
+texture = ExtResource("35_mega3")
 
-[node name="RoadChunk5" type="Sprite2D" parent="museum/Road"]
+[node name="RoadChunk5" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
 position = Vector2(-632, -193)
-texture = ExtResource("39_edsxa")
+texture = SubResource("CompressedTexture2D_5oh1h")
 
-[node name="RoadChunk6" type="Sprite2D" parent="museum/Road"]
+[node name="RoadChunk6" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
 position = Vector2(-966, -360)
-texture = ExtResource("39_edsxa")
+texture = SubResource("CompressedTexture2D_5oh1h")
 
-[node name="RoadChunk7" type="Sprite2D" parent="museum/Road"]
+[node name="RoadChunk7" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
 position = Vector2(-1300, -527)
-texture = ExtResource("39_edsxa")
+texture = SubResource("CompressedTexture2D_5oh1h")
 
-[node name="RoadChunk2" type="Sprite2D" parent="museum/Road"]
+[node name="RoadChunk2" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
 position = Vector2(997, -360)
-texture = ExtResource("30_wqv7k")
+texture = ExtResource("35_mega3")
 
-[node name="RoadChunk4" type="Sprite2D" parent="museum/Road"]
+[node name="RoadChunk4" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
 position = Vector2(1333, -528)
-texture = ExtResource("30_wqv7k")
+texture = ExtResource("35_mega3")
 
-[node name="RoadChunk3" type="Sprite2D" parent="museum/Road"]
+[node name="RoadChunk3" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
 position = Vector2(15, 47)
-texture = ExtResource("40_5qu8p")
+texture = SubResource("CompressedTexture2D_rxu60")
 
-[node name="TrafficLight2" type="Sprite2D" parent="museum/Road"]
+[node name="TrafficLight2" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 visible = false
 texture_filter = 1
 position = Vector2(17, -14)
@@ -368,3 +376,8 @@ _townScene = NodePath("../museum/CanvasLayer/Town Ui")
 
 [node name="WallController" type="Node2D" parent="."]
 script = ExtResource("23_md2ii")
+
+[node name="DayNightCycleController" type="Node2D" parent="." node_paths=PackedStringArray("_backgroundObject")]
+process_mode = 4
+script = ExtResource("46_uujue")
+_backgroundObject = NodePath("../museum/Background Foresnt")

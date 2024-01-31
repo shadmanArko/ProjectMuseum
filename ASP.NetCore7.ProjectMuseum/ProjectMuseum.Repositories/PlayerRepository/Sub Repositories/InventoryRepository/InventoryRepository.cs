@@ -119,6 +119,7 @@ public class InventoryRepository : IInventoryRepository
                 PngPath = pngPath
             };
             
+            inventory.OccupiedSlots.Add(item.Slot);
             inventory.InventoryItems.Add(item);
         }
         Console.WriteLine($"item id: {item.Id}, item variant: {item.Variant}");

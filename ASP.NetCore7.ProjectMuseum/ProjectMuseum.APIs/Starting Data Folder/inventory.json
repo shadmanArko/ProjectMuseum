@@ -26,7 +26,7 @@
     "Artifacts": [
       
     ],
-    "OccupiedSlots": [],
+    "OccupiedSlots": [0,1,2,3],
     "SlotsUnlocked": 12
   }
 ]

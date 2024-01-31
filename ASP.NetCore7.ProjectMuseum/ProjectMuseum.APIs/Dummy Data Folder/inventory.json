@@ -37,7 +37,7 @@
         "Type": "Resource",
         "Variant": "Coal",
         "IsStackable": true,
-        "Stack": 1,
+        "Stack": 11,
         "Slot": 3,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
       },
@@ -58,45 +58,17 @@
         "RawArtifactId": "MedievalNativeAmericanTomahawk",
         "PositionX": 24,
         "PositionY": 2,
-        "Slot": 0
+        "Slot": 5
       },
       {
         "Id": "tutorialArtifact",
         "RawArtifactId": "ClassicalNativeAmericanTomahawk",
         "PositionX": 24,
         "PositionY": 2,
-        "Slot": 0
-      },
-      {
-        "Id": "tutorialArtifact",
-        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
-        "PositionX": 24,
-        "PositionY": 2,
-        "Slot": 0
-      },
-      {
-        "Id": "tutorialArtifact",
-        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
-        "PositionX": 24,
-        "PositionY": 2,
-        "Slot": 0
-      },
-      {
-        "Id": "tutorialArtifact",
-        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
-        "PositionX": 24,
-        "PositionY": 2,
-        "Slot": 0
-      },
-      {
-        "Id": "tutorialArtifact",
-        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
-        "PositionX": 24,
-        "PositionY": 2,
-        "Slot": 0
+        "Slot": 6
       }
     ],
-    "OccupiedSlots": [],
+    "OccupiedSlots": [0,1,2,3,4,5,6],
     "SlotsUnlocked": 12
   }
 ]

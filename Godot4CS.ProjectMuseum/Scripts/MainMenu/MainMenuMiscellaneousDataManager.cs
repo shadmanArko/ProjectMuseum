@@ -33,7 +33,7 @@ public partial class MainMenuMiscellaneousDataManager : Node2D
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print(jsonStr);
 		MainMenuMiscellaneousData mainMenuMiscellaneousData = JsonSerializer.Deserialize<MainMenuMiscellaneousData>(jsonStr);
-		SetUpMainMenuMiscellaneousData(mainMenuMiscellaneousData);
+		// SetUpMainMenuMiscellaneousData(mainMenuMiscellaneousData);
 	}
 
 	private void SetUpMainMenuMiscellaneousData(MainMenuMiscellaneousData mainMenuMiscellaneousData)

@@ -182,6 +182,10 @@ Interact={
 
 pointing/emulate_touch_from_mouse=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Localization/texts - Sheet1.en.translation", "res://Localization/texts - Sheet1.es.translation", "res://Localization/texts - Sheet1.ja.translation")
+
 [layer_names]
 
 2d_render/layer_1="Background"

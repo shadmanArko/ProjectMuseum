@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://2bjdicoahunp"]
+
+[ext_resource type="Script" path="res://Scripts/Test/SpriteSheetToTileMapTest.cs" id="1_enpy7"]
+[ext_resource type="Texture2D" uid="uid://bmdi1gwvqmabd" path="res://Assets/2D/Sprites/Mine Sprites/Artifact/Artifact.png" id="2_r4rxa"]
+
+[node name="SpriteSheetToTileMapTest" type="Node2D" node_paths=PackedStringArray("_sprite2D")]
+script = ExtResource("1_enpy7")
+_spriteSheetPath = "res://Assets/2D/Sprites/Mine Sprites/Backgrounds/Pipelines.png"
+_sprite2D = NodePath("CanvasLayer/Sprite2D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(1010, 527)
+texture = ExtResource("2_r4rxa")

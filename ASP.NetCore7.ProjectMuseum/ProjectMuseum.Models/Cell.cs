@@ -7,6 +7,7 @@ public class Cell
 	public string? Id { get; set; }
 	public int PositionX{ get; set; }
 	public int PositionY{ get; set; }
+	public List<SpriteSheetData> SpriteSheetDatas { get; set; }
 	public int HitPoint{ get; set; }
 	public bool IsBreakable{ get; set; }
 	public bool IsBroken { get; set; }

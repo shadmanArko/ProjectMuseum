@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b36m03rmoip3m"]
+[gd_scene load_steps=5 format=3 uid="uid://b36m03rmoip3m"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenu.cs" id="1_quodl"]
 [ext_resource type="Texture2D" uid="uid://bufddhwhsu3n7" path="res://Assets/2D/Sprites/Museum Ui/logo 1.png" id="2_wr5bl"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="3_uware"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuMiscellaneousDataManager.cs" id="4_asrhi"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton")]
 layout_mode = 3
@@ -84,3 +85,10 @@ theme = ExtResource("3_uware")
 theme_override_colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
 theme_override_font_sizes/font_size = 16
 text = "Proof of Concept."
+
+[node name="MainMenuMiscellaneousDataManager" type="Node2D" parent="." node_paths=PackedStringArray("_startNewGameButton", "_continueButton", "_optionsButton", "_exitButtonButton")]
+script = ExtResource("4_asrhi")
+_startNewGameButton = NodePath("../MarginContainer/VBoxContainer/New Game")
+_continueButton = NodePath("../MarginContainer/VBoxContainer/Continue")
+_optionsButton = NodePath("../MarginContainer/VBoxContainer/Options")
+_exitButtonButton = NodePath("../MarginContainer/VBoxContainer/Exit")

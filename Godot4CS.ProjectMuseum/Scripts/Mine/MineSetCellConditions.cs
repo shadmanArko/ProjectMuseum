@@ -7,12 +7,45 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public static class MineSetCellConditions
 {
+    private const int _normalBackdropLayer = 0;
+    private const int _specialBackdropLayer = 1;
+    private const int _wallLayer = 2;
+    private const int _specailWallLayer = 3;
+    private const int _cellCrackLayer = 4;
+    private const int _resourceAndArtifactLayer = 5;
+    private const int _wallPlaceableLayer = 6;
+    private const int _cellPlaceableLayer = 7;
+    private const int _transportBlockChainLayer = 8;
+    private const int _unrevealedCellLayer = 9;
+
+    public static void SetBackdropDuringMineGeneration(MineGenerationVariables mineGenerationVariables)
+    {
+        var cells = mineGenerationVariables.Mine.Cells;
+        var mineGenView = mineGenerationVariables.MineGenView;
+        var cellSize = mineGenerationVariables.Mine.CellSize;
+        
+        foreach (var cell in cells)
+        {
+            var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
+            var tilePos = mineGenView.LocalToMap(pos);
+            mineGenView.SetCell(_normalBackdropLayer,tilePos, 0, new Vector2I(5,2));
+        }
+
+        var specialBackdrops = mineGenerationVariables.Mine.SpecialBackdropPngInformations;
+        foreach (var specialBackdrop in specialBackdrops)  
+        {
+            var pos = new Vector2(specialBackdrop.TilePositionX * cellSize, specialBackdrop.TilePositionY * cellSize);
+            GD.Print("special backdrop position:"+pos);
+            var tilePos = mineGenView.LocalToMap(pos);
+            mineGenView.SetCell(_specialBackdropLayer,tilePos,specialBackdrop.SourceId, new Vector2I(0,0));
+        }
+    }
+    
     public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationVariables mineGenerationVariables)
     {
         var mineGenerationView = ReferenceStorage.Instance.MineGenerationVariables.MineGenView;
-        if (!cell.IsInstantiated || cell.IsBroken)
-            SetBlankCell(mineGenerationView, tilePos);
-        else
+
+        if (cell.IsInstantiated && !cell.IsBroken)
         {
             if (!cell.IsBreakable)
                 SetUnbreakableCell(mineGenerationView, tilePos);
@@ -22,25 +55,38 @@ public static class MineSetCellConditions
                 else SetUnrevealedCell(mineGenerationView, tilePos);
             }
         }
+        
+        // if (!cell.IsInstantiated || cell.IsBroken)
+        //     SetBlankCell(mineGenerationView, tilePos);
+        // else
+        // {
+        //     if (!cell.IsBreakable)
+        //         SetUnbreakableCell(mineGenerationView, tilePos);
+        //     else
+        //     {
+        //         if (cell.IsRevealed) SetBreakableCell(mineGenerationVariables, cell, cellCrackMaterial, tilePos, mouseDir);
+        //         else SetUnrevealedCell(mineGenerationView, tilePos);
+        //     }
+        // }
     }
 
     #region Set Cell Methods
 
     private static void SetUnrevealedCell(MineGenerationView mineGenerationView, Vector2I tilePos)
     {
-        mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
+        mineGenerationView.SetCell(_unrevealedCellLayer, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
     }
 
-    private static void SetBlankCell(MineGenerationView mineGenerationView, Vector2I tilePos)
-    {
-        EraseCellsOnAllLayers(mineGenerationView, tilePos);
-        mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
-    }
+    // private static void SetBlankCell(MineGenerationView mineGenerationView, Vector2I tilePos)
+    // {
+    //     EraseCellsOnAllLayers(mineGenerationView, tilePos);
+    //     mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
+    // }
 
     private static void SetUnbreakableCell(MineGenerationView mineGenerationView, Vector2I tilePos)
     {
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
-        mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
+        mineGenerationView.SetCell(_unrevealedCellLayer, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
     }
 
     private static void SetBreakableCell(MineGenerationVariables mineGenerationVariables, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I tilePos, Vector2I mouseDir)
@@ -57,18 +103,18 @@ public static class MineSetCellConditions
             n += 8;
         
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
-        mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
-        mineGenerationView.SetCell(1, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
+        //mineGenerationView.SetCell(0, tilePos,mineGenerationView.TileSourceId, new Vector2I(5,2));
+        mineGenerationView.SetCell(_wallLayer, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
         
         if(cell.HasArtifact)
-            mineGenerationView.SetCell(2,tilePos, 2, new Vector2I(0,0));
+            mineGenerationView.SetCell(_resourceAndArtifactLayer,tilePos, 2, new Vector2I(0,0));
         
         if (cell.HasResource)
         {
             var random = new Random();
             var resources = mineGenerationVariables.Mine.Resources;
             var resource = resources.FirstOrDefault(tempResource => tempResource.PositionX == tilePos.X && tempResource.PositionY == tilePos.Y);
-            mineGenerationView.SetCell(2,tilePos,3,new Vector2I(random.Next(0,2), resource!.Variant == "Iron" ? 0 : 1));
+            mineGenerationView.SetCell(_resourceAndArtifactLayer,tilePos,3,new Vector2I(random.Next(0,2), resource!.Variant == "Iron" ? 0 : 1));
         }
         SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial);
         
@@ -137,7 +183,7 @@ public static class MineSetCellConditions
         else if(cell.HitPoint <= 0)
         {
             EraseCellsOnAllLayers(mineGenerationView, tilePos);
-            mineGenerationView.SetCell(1,tilePos,mineGenerationView.TileSourceId,new Vector2I(5,2));
+            //mineGenerationView.SetCell(1,tilePos,mineGenerationView.TileSourceId,new Vector2I(5,2));
         }
     }
     
@@ -146,26 +192,28 @@ public static class MineSetCellConditions
         switch (mouseDir)
         {
             case (1,0):
-                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords,1);
+                mineGenerationView.SetCell(_cellCrackLayer,tilePos,tileSourceId,coords,1);
                 break;
             case (-1,0):
-                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords);
+                mineGenerationView.SetCell(_cellCrackLayer,tilePos,tileSourceId,coords);
                 break;
             case (0,-1):
-                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords,2);
+                mineGenerationView.SetCell(_cellCrackLayer,tilePos,tileSourceId,coords,2);
                 break;
             case (0,1):
-                mineGenerationView.SetCell(3,tilePos,tileSourceId,coords,3);
+                mineGenerationView.SetCell(_cellCrackLayer,tilePos,tileSourceId,coords,3);
                 break;
         }
     }
 
     private static void EraseCellsOnAllLayers(MineGenerationView mineGenerationView, Vector2I tilePos)
     {
-        mineGenerationView.EraseCell(0, tilePos);
-        mineGenerationView.EraseCell(1, tilePos);
-        mineGenerationView.EraseCell(2, tilePos);
-        mineGenerationView.EraseCell(3, tilePos);
+        // mineGenerationView.EraseCell(0, tilePos);
+        // mineGenerationView.EraseCell(1, tilePos);
+        mineGenerationView.EraseCell(_wallLayer, tilePos);
+        mineGenerationView.EraseCell(_cellCrackLayer, tilePos);
+        mineGenerationView.EraseCell(_resourceAndArtifactLayer, tilePos);
+        mineGenerationView.EraseCell(_unrevealedCellLayer, tilePos);
     }
 
     private static Vector2I TileAtlasCoords(int tileValue)

@@ -4,49 +4,30 @@ namespace Godot4CS.ProjectMuseum.Scripts.Test;
 
 public partial class SpriteSheetToTileMapTest : Node
 {
-	[Export] private string _spriteSheetPath;
-	[Export] private Sprite2D _sprite2D;
+    [Export] private TileMap _tileMap;
 
-	public override void _Ready()
-	{
-		TurnImageToTileMap();
-	}
+    [Export] private int wallCountX;
+    [Export] private int wallCountY;
 
-	public void TurnImageToTileMap()
-	{
-// 		// Load an image of any format supported by Godot from the filesystem.
-// 		var image = Image.LoadFromFile("path/to/image.png");
-//
-// Create a new `TileMap` node and add it to the scene.
-		var tilemap = new TileMap();
-		AddChild(tilemap);
+    public override void _Ready()
+    {
+        CreateWallLayer();
+        SetBackDrop();
+    }
 
-// Create a new `TileSet` resource.
-		var tileSet = new TileSet();
+    private void SetBackDrop()
+    {
+        _tileMap.SetCell(1,new Vector2I(12,12),0,new Vector2I(0,0));
+    }
 
-// Load the image into the `TileSet` resource.
-		// var texture = new ImageTexture();
-		//texture.CreateFromImage(image);
-		var texture = ResourceLoader.Load<Texture2D>(_spriteSheetPath);
-		_sprite2D.Texture = texture;
-		ModifyTileSet(tileSet);
-		tilemap.TileSet = tileSet;
-		
-		
-		
-		//tileSet.CreateTile(0);
-		//tileSet.TileSetTexture(0, texture);
-
-// Set the `TileSet` of the `TileMap` node to the loaded `TileSet` resource.
-		tilemap.TileSet = tileSet;
-	}
-
-	private void ModifyTileSet(TileSet tileSet)
-	{
-		// tileSet.
-		tileSet.TileShape = TileSet.TileShapeEnum.Square;
-		tileSet.TileSize = new Vector2I(20, 20);
-		// tileSet
-	}
-	
+    private void CreateWallLayer()
+    {
+        for (var i = 0; i < wallCountX; i++)
+        {
+            for (var j = 0; j < wallCountY; j++)
+            {
+                _tileMap.SetCell(0,new Vector2I(i,j),1,new Vector2I(6,0));
+            }
+        }
+    }
 }

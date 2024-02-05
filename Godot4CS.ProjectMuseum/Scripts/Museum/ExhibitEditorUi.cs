@@ -14,11 +14,13 @@ public partial class ExhibitEditorUi : Control
 	[Export] private PackedScene _dropTarget;
 	[Export] private Control _draggablesParent;
 	[Export] private Control _dropTargetsParent;
+	[Export] private CheckButton _glassCheckButton;
 	private Item _selectedItem;
 	private HttpRequest _httpRequestForGettingExhibitsInStore;
 	private HttpRequest _httpRequestForGettingExhibitsInDisplay;
 
 	private Exhibit _selectedExhibit;
+	
     // Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -32,6 +34,12 @@ public partial class ExhibitEditorUi : Control
 		MuseumActions.ArtifactRemovedFromSlot += ArtifactRemovedFromSlot;
 		MuseumActions.PlayStoryScene += PlayStoryScene;
 		_exitButton.Pressed += ExitButtonOnPressed;
+		_glassCheckButton.Pressed += GlassCheckButtonOnPressed;
+	}
+
+	private void GlassCheckButtonOnPressed()
+	{
+		_selectedItem.EnableGlass(_glassCheckButton.ButtonPressed);
 	}
 
 	private void ArtifactRemovedFromSlot(Artifact artifact, int slotNumber)
@@ -128,6 +136,8 @@ public partial class ExhibitEditorUi : Control
 		MuseumActions.ArtifactRemovedFromSlot -= ArtifactRemovedFromSlot;
 		MuseumActions.PlayStoryScene -= PlayStoryScene;
 		_exitButton.Pressed -= ExitButtonOnPressed;
+		_glassCheckButton.Pressed -= GlassCheckButtonOnPressed;
+
 	}
 
 	private void PlayStoryScene(int obj)

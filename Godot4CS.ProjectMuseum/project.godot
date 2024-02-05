@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Godot4CS.ProjectMuseum"
 run/main_scene="res://Scenes/MainMenu/Main Scene/MainMenu.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://Assets/2D/Sprites/icon.svg"
 
 [autoload]
@@ -181,10 +181,6 @@ Interact={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
-
-[internationalization]
-
-locale/translations=PackedStringArray("res://Localization/texts - Sheet1.en.translation", "res://Localization/texts - Sheet1.es.translation", "res://Localization/texts - Sheet1.ja.translation")
 
 [layer_names]
 

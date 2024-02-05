@@ -17,7 +17,6 @@ public partial class MainMenuMiscellaneousDataManager : Node2D
 	[Export] private Button _optionsButton;
 	[Export] private Button _exitButtonButton;
 	private HttpRequest _httpRequestForGettingMainMenuMiscellaneousData;
-	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

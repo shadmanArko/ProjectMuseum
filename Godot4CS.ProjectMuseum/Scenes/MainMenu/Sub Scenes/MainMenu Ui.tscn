@@ -46,7 +46,7 @@ text = "Continue"
 [node name="New Game" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_uware")
-text = "GREET"
+text = "New Game"
 
 [node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

@@ -13,8 +13,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainMenu" parent="CanvasLayer" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton") instance=ExtResource("1_yi0a2")]
-ContinueButton = NodePath("MarginContainer/VBoxContainer/Continue")
-NewGameButton = NodePath("MarginContainer/VBoxContainer/New Game")
-OptionsButton = NodePath("MarginContainer/VBoxContainer/Options")
-ExitButton = NodePath("MarginContainer/VBoxContainer/Exit")
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("1_yi0a2")]

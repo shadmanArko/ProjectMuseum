@@ -132,39 +132,30 @@
       },
       {
         "EntryNo": "Tut6b",
-        "TutorialText": "Break the block directly below you using {Left Click}, while the pickaxe is selected.",
+        "TutorialText": "Equip your pickaxe with {2}. You can toggle between your sword and pickaxe using {1} and {2}.",
         "KeyBindsNeedsToPerform": [],
         "ActionsNeedsToPerform": [
-          "PickaxeSelected",
-          "OnDigFirstOrdinaryCell"
+          "PickaxeSelected"
         ]
       },
       {
         "EntryNo": "Tut6c",
-        "TutorialText": "The block directly below you has an artifact. {Left Click} three times.",
+        "TutorialText": "Break the block directly below you using {Left Click}, while the pickaxe is selected.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "OnDigFirstOrdinaryCell"
+        ]
+      },
+      {
+        "EntryNo": "Tut6d",
+        "TutorialText": "The block directly below you has an artifact. {Left Click} with the cursor below your character.",
         "KeyBindsNeedsToPerform": [],
         "ActionsNeedsToPerform": [
           "OnDigFirstArtifactCell"
         ]
       },
       {
-        "EntryNo": "Tut6d",
-        "TutorialText": "Switch to your brush by pressing {3}",
-        "KeyBindsNeedsToPerform": [],
-        "ActionsNeedsToPerform": [
-          "BrushSelected"
-        ]
-      },
-      {
         "EntryNo": "Tut6e",
-        "TutorialText": "Click on the block below you while your brush is equipped. ",
-        "KeyBindsNeedsToPerform": [],
-        "ActionsNeedsToPerform": [
-          "BrushArtifactCell"
-        ]
-      },
-      {
-        "EntryNo": "Tut6f",
         "TutorialText": "There\u0027s a mini game to extract the artifact! ",
         "KeyBindsNeedsToPerform": [],
         "ActionsNeedsToPerform": [
@@ -172,7 +163,7 @@
         ]
       },
       {
-        "EntryNo": "Tut6g",
+        "EntryNo": "Tut6f",
         "TutorialText": "You can press {Q} to toggle climbing mode. Try it. Press Q again when you want to stop climbing. ",
         "KeyBindsNeedsToPerform": [],
         "ActionsNeedsToPerform": [

@@ -158,7 +158,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             cellCrackMaterial);
 
         _playerControllerVariables.CanMove = false;
-        MineActions.OnMiniGameLoad?.Invoke(tilePos);
+        // MineActions.OnMiniGameLoad?.Invoke(tilePos);
         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushArtifactCell");
     }
     
@@ -198,17 +198,17 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
         
-        if (cell.HitPoint == 1)
-        {
-            if (ReferenceStorage.Instance.MineTutorial.PlayerInfo.CompletedTutorialScene == 5)
-            {
-                if (ReferenceStorage.Instance.MineTutorial.GetCurrentTutorial() == "Tut6c")
-                {
-                    MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
-                    return;
-                }
-            }
-        }
+        // if (cell.HitPoint == 1)
+        // {
+        //     if (ReferenceStorage.Instance.MineTutorial.PlayerInfo.CompletedTutorialScene == 5)
+        //     {
+        //         if (ReferenceStorage.Instance.MineTutorial.GetCurrentTutorial() == "Tut6c")
+        //         {
+        //             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
+        //             return;
+        //         }
+        //     }
+        // }
         
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
@@ -222,6 +222,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         
         if (cell.HitPoint <= 0)
         {
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
+            MineActions.OnMiniGameLoad?.Invoke(tilePos);
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
             
             if (_playerControllerVariables.MouseDirection == Vector2I.Down)

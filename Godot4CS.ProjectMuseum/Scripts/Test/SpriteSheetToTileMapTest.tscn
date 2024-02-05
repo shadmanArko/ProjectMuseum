@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Test/SpriteSheetToTileMapTest.cs" id="1_enpy7"]
 [ext_resource type="Texture2D" uid="uid://bmdi1gwvqmabd" path="res://Assets/2D/Sprites/Mine Sprites/Artifact/Artifact.png" id="2_r4rxa"]
-[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/pipe lines 1.png" id="3_7pih1"]
+[ext_resource type="Texture2D" uid="uid://sdkauwbly13m" path="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/Pipelines.png" id="3_7pih1"]
 [ext_resource type="Texture2D" uid="uid://ba1tjq5haf74d" path="res://Assets/2D/Sprites/Mine Sprites/Tiles/new new tiles/new new tiles.png" id="4_vq6gi"]
 [ext_resource type="Texture2D" uid="uid://dt00ojgpeqsvp" path="res://Assets/2D/Sprites/Exhibits/Glass/glass.png" id="5_8le3a"]
 

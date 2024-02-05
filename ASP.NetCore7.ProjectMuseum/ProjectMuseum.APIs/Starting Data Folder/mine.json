@@ -53915,9 +53915,37 @@
       {
         "SourceId": 4,
         "SizeX": 7,
-        "SizeY": 77,
+        "SizeY": 7,
         "TilePositionX": 20,
         "TilePositionY": 18
+      },
+      {
+        "SourceId": 4,
+        "SizeX": 7,
+        "SizeY": 7,
+        "TilePositionX": 21,
+        "TilePositionY": 6
+      },
+      {
+        "SourceId": 4,
+        "SizeX": 7,
+        "SizeY": 7,
+        "TilePositionX": 29,
+        "TilePositionY": 7
+      },
+      {
+        "SourceId": 4,
+        "SizeX": 7,
+        "SizeY": 7,
+        "TilePositionX": 12,
+        "TilePositionY": 27
+      },
+      {
+        "SourceId": 4,
+        "SizeX": 7,
+        "SizeY": 7,
+        "TilePositionX": 34,
+        "TilePositionY": 23
       }
     ],
     "CellSize": 20,

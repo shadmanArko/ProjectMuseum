@@ -80,8 +80,9 @@ public partial class MineTutorial : Node
 		MineActions.OnPlayerReachFirstWarning += GetPlayerInfo;
 		
 		MuseumActions.TutorialSceneEntryEnded += DigOrdinaryAndArtifactCellTutorial;
-		MuseumActions.TutorialSceneEntryEnded += SwitchToBrushTutorial;
-		MuseumActions.TutorialSceneEntryEnded += BrushArtifactCellTutorial;
+		MuseumActions.TutorialSceneEntryEnded += SelectPickaxeTutorial;
+		// MuseumActions.TutorialSceneEntryEnded += SwitchToBrushTutorial;
+		// MuseumActions.TutorialSceneEntryEnded += BrushArtifactCellTutorial;
 		MuseumActions.TutorialSceneEntryEnded += PlayMiniGameTutorial;
 		MuseumActions.TutorialSceneEntryEnded += ToggleClimbTutorial;
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
@@ -111,44 +112,57 @@ public partial class MineTutorial : Node
 		_playerControllerVariables.CanToggleClimb = false;
 	}
 	
-	private void DigOrdinaryAndArtifactCellTutorial(string entryNo)
+	private void SelectPickaxeTutorial(string entryNo)
 	{
 		GD.Print($"Ended scene Entry No: {entryNo}");
 		if(entryNo is not "Tut6a") return;
+		GD.Print("after return statement in ended tutorial number "+entryNo);
+		_playerControllerVariables.CanMoveLeftAndRight = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanBrush = false;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.CanToggleClimb = false;
+	}
+	
+	// private void DigOrdinaryAndArtifactCellTutorial(string entryNo)
+	// {
+	// 	GD.Print($"Ended scene Entry No: {entryNo}");
+	// 	if (entryNo is not "Tut6b") return;
+	// 	_playerControllerVariables.CanMoveLeftAndRight = false;
+	// 	_playerControllerVariables.CanAttack = false;
+	// 	_playerControllerVariables.CanBrush = false;
+	// 	_playerControllerVariables.CanDig = true;
+	// 	_playerControllerVariables.CanToggleClimb = false;
+	// }
+	
+	private void DigOrdinaryAndArtifactCellTutorial(string entryNo)
+	{
+		GD.Print($"Ended scene Entry No: {entryNo}");
+		if (entryNo is not "Tut6b") return;
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
 		_playerControllerVariables.CanBrush = false;
 		_playerControllerVariables.CanDig = true;
 		_playerControllerVariables.CanToggleClimb = false;
 	}
+
 	
-	private void SwitchToBrushTutorial(string entryNo)
-	{
-		GD.Print($"Ended scene Entry No: {entryNo}");
-		if(entryNo is not "Tut6c") return;
-		_playerControllerVariables.CanMoveLeftAndRight = false;
-		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = false;
-		_playerControllerVariables.CanDig = false;
-		_playerControllerVariables.CanToggleClimb = false;
-	}
-	
-	private void BrushArtifactCellTutorial(string entryNo)
-	{
-		GD.Print($"Ended scene Entry No: {entryNo}");
-		if(entryNo != "Tut6d") return;
-		
-		_playerControllerVariables.CanMoveLeftAndRight = false;
-		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = true;
-		_playerControllerVariables.CanDig = false;
-		_playerControllerVariables.CanToggleClimb = false;
-	}
+	// private void BrushArtifactCellTutorial(string entryNo)
+	// {
+	// 	GD.Print($"Ended scene Entry No: {entryNo}");
+	// 	if(entryNo != "Tut6d") return;
+	// 	
+	// 	_playerControllerVariables.CanMoveLeftAndRight = false;
+	// 	_playerControllerVariables.CanAttack = false;
+	// 	_playerControllerVariables.CanBrush = true;
+	// 	_playerControllerVariables.CanDig = false;
+	// 	_playerControllerVariables.CanToggleClimb = false;
+	// }
 	
 	private void PlayMiniGameTutorial(string entryNo)
 	{
 		GD.Print($"Ended scene Entry No: {entryNo}");
-		if(entryNo != "Tut6e") return;
+		if(entryNo != "Tut6d") return;
 		
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
@@ -160,7 +174,7 @@ public partial class MineTutorial : Node
 	private void ToggleClimbTutorial(string entryNo)
 	{
 		GD.Print($"Ended scene Entry No: {entryNo}");
-		if(entryNo != "Tut6f") return;
+		if(entryNo != "Tut6e") return;
 		
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
@@ -168,22 +182,11 @@ public partial class MineTutorial : Node
 		_playerControllerVariables.CanDig = false;
 		_playerControllerVariables.CanToggleClimb = true;
 	}
-	
-	// private void EndMineTutorial(string entryNo)
-	// {
-	// 	GD.Print($"Ended scene Entry No: {entryNo}");
-	// 	if(entryNo != "Tut6g") return;
-	// 	_playerControllerVariables.CanMoveLeftAndRight = true;
-	// 	_playerControllerVariables.CanAttack = true;
-	// 	_playerControllerVariables.CanBrush = true;
-	// 	_playerControllerVariables.CanDig = true;
-	// 	_playerControllerVariables.CanToggleClimb = true;
-	// }
 
 	private void BasicMineTutorialEnded(string entryNo)
 	{
 		GD.Print($"Ended scene Entry No: {entryNo}");
-		if(entryNo != "Tut6g") return;
+		if(entryNo != "Tut6f") return;
 		SetProcess(false);
 		_playerControllerVariables.CanMoveLeftAndRight = true;
 		_playerControllerVariables.CanAttack = true;
@@ -201,7 +204,6 @@ public partial class MineTutorial : Node
 	public override void _ExitTree()
 	{
 		MuseumActions.TutorialSceneEntryEnded -= BasicMineTutorialEnded;
-		// MuseumActions.TutorialSceneEntryEnded -= OnPlayerReachedArtifactBrushTutorial;
 		MineActions.OnPlayerReachFirstWarning -= GetPlayerInfo;
 	}
 }

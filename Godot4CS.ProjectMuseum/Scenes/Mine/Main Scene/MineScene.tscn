@@ -110,7 +110,7 @@ _animationPlayer = NodePath("Tutorial panel Animation Player")
 visible = false
 _dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue")
 _nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue/Button")
-_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/TextureRect")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/portrait")
 _cutsceneArt = NodePath("Panel/Illustration Image")
 _dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 

@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dgtxslbhioje4" path="res://Assets/2D/Sprites/Dialogue Box/Dialogue box marble wood.png" id="4_hr58x"]
 [ext_resource type="Texture2D" uid="uid://ds2i1skim46bp" path="res://Assets/2D/Sprites/Dialogue Box/Portrait frame wood 2.png" id="5_4fifc"]
 [ext_resource type="Texture2D" uid="uid://bhe5ebi8gghxj" path="res://Assets/2D/Sprites/Dialogue Box/Portrait frame base 2.png" id="6_km2up"]
-[ext_resource type="Texture2D" uid="uid://cqyqdy1wtkgb1" path="res://Assets/2D/Sprites/Portraits/Professor Eucalyptus Excited.png" id="6_rgns8"]
 
 [sub_resource type="Animation" id="Animation_ddbpt"]
 length = 0.001
@@ -119,6 +118,9 @@ _data = {
 "Slide_In": SubResource("Animation_be3ok"),
 "Slide_Out": SubResource("Animation_100re")
 }
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gswl5"]
+load_path = "res://.godot/imported/Professor Eucalyptus Excited.png-5c8ada3987b7b448ceeb567fd29bed9e.ctex"
 
 [node name="Dialogue Ui" type="Control" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer")]
 texture_filter = 1
@@ -247,7 +249,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_rgns8")
+texture = SubResource("CompressedTexture2D_gswl5")
 
 [node name="border" type="TextureRect" parent="Panel/Dialogue and Potrait Panel/Character Potrait/portrait"]
 texture_filter = 1

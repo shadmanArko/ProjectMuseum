@@ -24,11 +24,8 @@ _mineBackGround = NodePath("MineBackground")
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("3_01lxc")]
 rendering_quadrant_size = 20
 layer_0/name = "Mine"
-layer_0/modulate = Color(0.835294, 0.835294, 0.835294, 1)
 layer_1/name = "Walls"
-layer_1/modulate = Color(0.772549, 0.772549, 0.772549, 1)
 layer_1/tile_data = PackedInt32Array()
-layer_2/modulate = Color(0.847059, 0.847059, 0.847059, 1)
 script = ExtResource("4_lljfn")
 TileMap = NodePath(".")
 TileSourceId = 0
@@ -68,7 +65,9 @@ shape = SubResource("RectangleShape2D_edtq2")
 layer = 0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
-color = Color(0.576471, 0.576471, 0.576471, 1)
+light_mask = 2
+visibility_layer = 2
+color = Color(0.674815, 0.674815, 0.674815, 1)
 
 [connection signal="body_entered" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerEnterTrigger"]
 [connection signal="body_exited" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerExitTrigger"]

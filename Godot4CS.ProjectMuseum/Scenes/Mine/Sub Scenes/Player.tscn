@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=41 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithWallDetector.cs" id="4_rq7pk"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithEnemyDetector.cs" id="7_3m1a8"]
+[ext_resource type="PackedScene" uid="uid://caue4uc4nb88t" path="res://Scenes/Mine/Sub Scenes/Torch.tscn" id="7_s7umg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cq4yg"]
 radius = 3.5
@@ -568,7 +569,7 @@ script = ExtResource("3_8nu7c")
 _sprite = NodePath("../Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-light_mask = 2
+light_mask = 128
 visibility_layer = 2
 texture_filter = 1
 texture = ExtResource("2_eymdr")
@@ -598,6 +599,9 @@ collision_mask = 4
 position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3lnct")
+
+[node name="Torch" parent="." instance=ExtResource("7_s7umg")]
+range_item_cull_mask = 34
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]

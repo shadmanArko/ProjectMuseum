@@ -3,13 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="1_o2y3v"]
 
 [node name="Torch" type="PointLight2D"]
-show_behind_parent = true
-top_level = true
-light_mask = 63
-visibility_layer = 63
+light_mask = 129
+visibility_layer = 129
 z_index = 10
 color = Color(0.866667, 0.756863, 0.454902, 1)
 energy = 1.2
+range_item_cull_mask = 35
 shadow_enabled = true
+shadow_item_cull_mask = 3
 texture = ExtResource("1_o2y3v")
 texture_scale = 1.2

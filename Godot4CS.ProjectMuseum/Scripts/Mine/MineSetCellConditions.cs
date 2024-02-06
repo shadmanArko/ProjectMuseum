@@ -11,8 +11,8 @@ public static class MineSetCellConditions
     private const int _specialBackdropLayer = 1;
     private const int _wallLayer = 2;
     private const int _specailWallLayer = 3;
-    private const int _cellCrackLayer = 4;
-    private const int _resourceAndArtifactLayer = 5;
+    private const int _resourceAndArtifactLayer = 4;
+    private const int _cellCrackLayer = 5;
     private const int _wallPlaceableLayer = 6;
     private const int _cellPlaceableLayer = 7;
     private const int _transportBlockChainLayer = 8;

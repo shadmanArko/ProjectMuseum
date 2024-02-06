@@ -10,6 +10,7 @@ public partial class DayNightCycleController : Node2D
 	private int _zoomInColor = 0x464646;
 	[Export] private Node2D _backgroundObject;
 	private double _elapsedTime = 0;
+	private float _startTransitionDuration = 10f;
 	private float _transitionDuration = 10f;
 
 	private bool _transitionOn = false;
@@ -27,27 +28,28 @@ public partial class DayNightCycleController : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// Update the elapsed time
-		_elapsedTime += delta;
-
-		// Calculate the interpolation factor
-		float t = (float)Mathf.Min(_elapsedTime / _transitionDuration, 1.0f);
-
-		var startColor = GetColor(_dayColor);
-		var targetColor = GetColor(_eveningColor);
-		// Interpolate between startColor and endColor
-		Color currentColor = startColor.Lerp(targetColor, t);
-
-		// Apply the interpolated color to your node or use it as needed
-		 _backgroundObject.Modulate = currentColor;
-
-		// Reset the elapsed time after the transition is complete
-		if (t >= 1.0f)
+		if (_transitionOn)
 		{
-			_elapsedTime = 0.0f;
-			_dayColor = _eveningColor;
-			_eveningColor = _nightColor;
+			// Update the elapsed time
+			_elapsedTime += delta;
+
+			// Calculate the interpolation factor
+			float t = (float)Mathf.Min(_elapsedTime / _transitionDuration, 1.0f);
+
+			var startColor = _transitionStartColor;
+			var targetColor = _transitionEndColor;
+			// Interpolate between startColor and endColor
+			Color currentColor = startColor.Lerp(targetColor, t);
+
+			// Apply the interpolated color to your node or use it as needed
+			_backgroundObject.Modulate = currentColor;
 		}
+		else
+		{
+			_backgroundObject.Modulate = _currentFixedColor;
+		}
+
+		
 	}
 	private void AssignColor(int hexCode)
 	{
@@ -73,19 +75,75 @@ public partial class DayNightCycleController : Node2D
 	}
 	private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
 	{
-		
+		_elapsedTime = 0;
+		float timeInFraction = GetTimeInFraction(hours, minutes);
+		if (timeInFraction is >= 6 and <= 16)
+		{
+			//day
+			_transitionOn = false;
+			_currentFixedColor = GetColor(_dayColor);
+		}else if (timeInFraction >= 16 && hours < 17)
+		{
+			//day to evening transition
+			_transitionOn = true;
+			_transitionStartColor = _backgroundObject.Modulate;
+			var endColor = GetColor(_eveningColor);
+			_transitionEndColor = _transitionStartColor.Lerp(endColor, timeInFraction - hours);
+		}
+		else if (Math.Abs(timeInFraction - 17) < 0.1f)
+		{
+			//final color of evening
+			_transitionOn = true;
+			_transitionStartColor = _backgroundObject.Modulate;
+			_transitionEndColor =  GetColor(_eveningColor);
+		}else if (timeInFraction is >= 17 and <= 18)
+		{
+			//evening
+			_transitionOn = false;
+			_currentFixedColor = GetColor(_eveningColor);
+		}
+		else if (timeInFraction >= 18 && hours < 19)
+		{
+			//evening to night
+			_transitionOn = true;
+			_transitionStartColor = _backgroundObject.Modulate;
+			var endColor = GetColor(_nightColor);
+			_transitionEndColor = _transitionStartColor.Lerp(endColor, timeInFraction - hours);
+		}
+		else if (Math.Abs(timeInFraction - 19) < 0.1f)
+		{
+			_transitionOn = true;
+			_transitionStartColor = _backgroundObject.Modulate;
+			_transitionEndColor =  GetColor(_nightColor);
+		}else if (timeInFraction is >= 19 or <= 6)
+		{
+			//night	
+			_transitionOn = false;
+			_currentFixedColor = GetColor(_nightColor);
+		}
+	}
+
+	private float GetTimeInFraction(int hours, int minutes)
+	{
+		float time = hours + (minutes / 60f);
+		return time;
+	}
+	private void OnClickTimeSpeedButton(int speed)
+	{
+		_transitionDuration = _startTransitionDuration / speed;
 	}
 
 	public override void _EnterTree()
 	{
 		base._EnterTree();
 		MuseumActions.OnTimeUpdated += OnTimeUpdated;
+		MuseumActions.OnClickTimeSpeedButton += OnClickTimeSpeedButton;
 	}
-
 	
 	public override void _ExitTree()
 	{
 		base._ExitTree();
 		MuseumActions.OnTimeUpdated -= OnTimeUpdated;
+		MuseumActions.OnClickTimeSpeedButton -= OnClickTimeSpeedButton;
 	}
 }

@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://crl7j8x5ieqw"]
+[gd_scene load_steps=12 format=3 uid="uid://crl7j8x5ieqw"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Dialogue System/DialogueSystem.cs" id="1_60ayo"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_7vfjw"]
 [ext_resource type="Texture2D" uid="uid://b7h8h52nhfaw1" path="res://Assets/2D/Sprites/Illustrations/01.png" id="2_wt1gy"]
+[ext_resource type="Texture2D" uid="uid://dgtxslbhioje4" path="res://Assets/2D/Sprites/Dialogue Box/Dialogue box marble wood.png" id="4_hr58x"]
+[ext_resource type="Texture2D" uid="uid://ds2i1skim46bp" path="res://Assets/2D/Sprites/Dialogue Box/Portrait frame wood 2.png" id="5_4fifc"]
+[ext_resource type="Texture2D" uid="uid://bhe5ebi8gghxj" path="res://Assets/2D/Sprites/Dialogue Box/Portrait frame base 2.png" id="6_km2up"]
 
 [sub_resource type="Animation" id="Animation_ddbpt"]
 length = 0.001
@@ -116,6 +119,9 @@ _data = {
 "Slide_Out": SubResource("Animation_100re")
 }
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gswl5"]
+load_path = "res://.godot/imported/Professor Eucalyptus Excited.png-5c8ada3987b7b448ceeb567fd29bed9e.ctex"
+
 [node name="Dialogue Ui" type="Control" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer")]
 texture_filter = 1
 layout_mode = 3
@@ -132,7 +138,7 @@ _delayForComma = 0.3
 _delayForPause = 1.0
 _dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue")
 _nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue/Button")
-_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/TextureRect")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/portrait")
 _cutsceneArt = NodePath("Panel/Illustration Image")
 _dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 
@@ -169,14 +175,14 @@ anchors_preset = -1
 anchor_top = 0.667
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1080.0
-offset_right = 1920.0
-offset_bottom = 1440.0
+offset_top = 359.64
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
 
-[node name="ColorRect" type="ColorRect" parent="Panel/Dialogue and Potrait Panel"]
+[node name="ColorRect" type="TextureRect" parent="Panel/Dialogue and Potrait Panel"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,7 +191,7 @@ offset_right = -420.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_7vfjw")
-color = Color(0.85098, 0.85098, 0.85098, 1)
+texture = ExtResource("4_hr58x")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/Dialogue and Potrait Panel/ColorRect"]
 layout_mode = 1
@@ -194,10 +200,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
 [node name="Dialogue" type="RichTextLabel" parent="Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer"]
 modulate = Color(0.00784314, 0.00784314, 0.00784314, 1)
@@ -223,7 +229,8 @@ disabled = true
 text = "
 "
 
-[node name="Character Potrait" type="ColorRect" parent="Panel/Dialogue and Potrait Panel"]
+[node name="Character Potrait" type="TextureRect" parent="Panel/Dialogue and Potrait Panel"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.781
@@ -232,9 +239,9 @@ anchor_bottom = 1.0
 offset_left = 0.47998
 grow_horizontal = 0
 grow_vertical = 2
-color = Color(0.603922, 0.603922, 0.603922, 1)
+texture = ExtResource("6_km2up")
 
-[node name="TextureRect" type="TextureRect" parent="Panel/Dialogue and Potrait Panel/Character Potrait"]
+[node name="portrait" type="TextureRect" parent="Panel/Dialogue and Potrait Panel/Character Potrait"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -242,3 +249,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("CompressedTexture2D_gswl5")
+
+[node name="border" type="TextureRect" parent="Panel/Dialogue and Potrait Panel/Character Potrait/portrait"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_4fifc")

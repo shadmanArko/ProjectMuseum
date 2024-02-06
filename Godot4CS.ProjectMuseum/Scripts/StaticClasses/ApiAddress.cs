@@ -9,5 +9,6 @@ public static class ApiAddress
     public const string PlayerApiPath = $"{UrlPrefix}Player/";
     public const string StoryApiPath = $"{UrlPrefix}Story/";
     public const string MineApiPath = $"{UrlPrefix}Mine/";
+    public const string MiscellaneousDataApiPath = $"{UrlPrefix}MiscellaneousData/";
     
 }

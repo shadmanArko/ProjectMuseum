@@ -40,6 +40,7 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     [Export] public int numberOfTilesItTakes = 1;
     [Export] public string TileExtentsInDirection = "Both";
+    [Export] private Sprite2D _glass;
     protected List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
     protected List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
@@ -48,7 +49,6 @@ public partial class Item : Sprite2D, IComparable<Item>
     protected Color _ineligibleColor = Colors.Red;
 
     protected Color _originalColor;
-
     protected HttpRequest _httpRequestForExhibitPlacementConditions;
     protected HttpRequest _httpRequestForExhibitPlacement;
     protected HttpRequest _httpRequestForArtifactPlacement;
@@ -173,6 +173,10 @@ public partial class Item : Sprite2D, IComparable<Item>
         }
     }
 
+    public void EnableGlass(bool enableGlass)
+    {
+        _glass.Visible = enableGlass;
+    }
     public async void HandleItemPlacement()
     {
         //GD.Print("Handled item placement from Item");

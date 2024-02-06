@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/DropTarget.cs" id="4_mx4kr"]
 [ext_resource type="PackedScene" uid="uid://crxjk410778yy" path="res://Scenes/Museum/Museum Ui/Drag And Drop/drop_target.tscn" id="5_v7dyc"]
 
-[node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent")]
+[node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -20,6 +20,7 @@ _draggable = ExtResource("3_vjpch")
 _dropTarget = ExtResource("5_v7dyc")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer")
+_glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/CheckButton")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -163,3 +164,18 @@ layout_mode = 2
 
 [node name="DropTarget 3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
 layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="Panel/Exhibit Editor Ui BG/Right Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -148.999
+offset_top = -85.0
+offset_right = -104.999
+offset_bottom = -61.0
+grow_horizontal = 0
+grow_vertical = 0
+button_pressed = true

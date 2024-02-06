@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(9.97071, 5.26112)
 
-[node name="Item1" type="Sprite2D" node_paths=PackedStringArray("_artifactSlots") groups=["Exhibit"]]
+[node name="Item1" type="Sprite2D" node_paths=PackedStringArray("_artifactSlots", "_glass") groups=["Exhibit"]]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -16,6 +16,7 @@ offset = Vector2(0, -3)
 hframes = 4
 script = ExtResource("2_82a57")
 _artifactSlots = [NodePath("Artifact Slot 1")]
+_glass = NodePath("glass")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -55)

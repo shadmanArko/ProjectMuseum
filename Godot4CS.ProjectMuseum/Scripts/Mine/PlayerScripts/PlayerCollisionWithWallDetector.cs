@@ -5,7 +5,6 @@ using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
-using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -30,7 +29,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         InitializeDiReferences();
         SubscribeToActions();
         GetMineCrackMaterialData();
-        
     }
 
     #region Initializers
@@ -46,7 +44,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
-        MineActions.OnBrushActionStarted += BrushWall;
+        // MineActions.OnBrushActionStarted += BrushWall;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
     }
 
@@ -198,18 +196,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
         
-        // if (cell.HitPoint == 1)
-        // {
-        //     if (ReferenceStorage.Instance.MineTutorial.PlayerInfo.CompletedTutorialScene == 5)
-        //     {
-        //         if (ReferenceStorage.Instance.MineTutorial.GetCurrentTutorial() == "Tut6c")
-        //         {
-        //             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
-        //             return;
-        //         }
-        //     }
-        // }
-        
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
         
@@ -218,7 +204,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 tempCell.MaterialType == cell.ArtifactMaterial);
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             cellCrackMaterial);
-        // MakeMineWallDepletedParticleEffect();
         
         if (cell.HitPoint <= 0)
         {

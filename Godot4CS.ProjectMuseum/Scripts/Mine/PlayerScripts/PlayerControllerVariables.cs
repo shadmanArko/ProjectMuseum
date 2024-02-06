@@ -61,11 +61,11 @@ public class PlayerControllerVariables
                         MineActions.OnDigActionStarted?.Invoke();
                         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
                         break;
-                    case Equipables.Brush:
-                        if(!CanBrush) return;
-                        MineActions.OnBrushActionStarted?.Invoke();
-                        MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushActionCompleted");
-                        break;
+                    // case Equipables.Brush:
+                    //     if(!CanBrush) return;
+                    //     MineActions.OnBrushActionStarted?.Invoke();
+                    //     MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushActionCompleted");
+                    //     break;
                     case Equipables.Sword:
                         if(!CanAttack) return;
                         MineActions.OnMeleeAttackActionStarted?.Invoke();
@@ -126,8 +126,8 @@ public class PlayerControllerVariables
             MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
             if(_currentEquippedItem == Equipables.Sword)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SwordSelected");
-            else if(_currentEquippedItem == Equipables.Brush)
-                MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("BrushSelected");
+            // else if(_currentEquippedItem == Equipables.Brush)
+            //     MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("BrushSelected");
             else if(_currentEquippedItem == Equipables.PickAxe)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
         }       

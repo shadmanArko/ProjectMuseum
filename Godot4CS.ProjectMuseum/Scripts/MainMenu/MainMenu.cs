@@ -1,4 +1,5 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 
 public partial class MainMenu : Control
@@ -32,7 +33,8 @@ public partial class MainMenu : Control
 
 	private void NewGameButtonOnPressed()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/NewGameSetUp/NewGameSetupUi.tscn");
+		MuseumActions.OnClinkStartNewGameButton?.Invoke();
+		Visible = false;
 	}
 
 	private void ExitButtonOnPressed()

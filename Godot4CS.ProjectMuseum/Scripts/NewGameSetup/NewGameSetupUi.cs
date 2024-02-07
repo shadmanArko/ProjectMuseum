@@ -1,4 +1,5 @@
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 
 public partial class NewGameSetupUi : Control
@@ -82,5 +83,20 @@ public partial class NewGameSetupUi : Control
 	{
 		GD.Print("wil change scene now");
 		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
+	}
+	private void OnClinkStartNewGameButton()
+	{
+		Visible = true;
+	}
+	public override void _EnterTree()
+	{
+		base._EnterTree();
+		MuseumActions.OnClinkStartNewGameButton += OnClinkStartNewGameButton;
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		MuseumActions.OnClinkStartNewGameButton -= OnClinkStartNewGameButton;
 	}
 }

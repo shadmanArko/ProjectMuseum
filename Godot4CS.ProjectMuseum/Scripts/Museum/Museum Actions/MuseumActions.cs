@@ -79,4 +79,10 @@ public partial class MuseumActions : Node
     public static Action<string> OnPlayerPerformedTutorialRequiringAction;
 
     #endregion
+    #region ButtonActions
+
+    public static Action OnClinkStartNewGameButton;
+
+
+    #endregion
 }

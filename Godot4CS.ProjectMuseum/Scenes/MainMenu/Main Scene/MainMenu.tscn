@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://f7mag5o4d6ps"]
+[gd_scene load_steps=4 format=3 uid="uid://f7mag5o4d6ps"]
 
 [ext_resource type="PackedScene" uid="uid://b36m03rmoip3m" path="res://Scenes/MainMenu/Sub Scenes/MainMenu Ui.tscn" id="1_yi0a2"]
 [ext_resource type="PackedScene" uid="uid://bubw1v2o1o04u" path="res://Scenes/NewGameSetUp/NewGameSetupUi.tscn" id="2_nx8bi"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuMiscellaneousDataManager.cs" id="3_y8duy"]
 
 [node name="MainMenu" type="Node2D"]
 
@@ -28,3 +29,7 @@ OptionButton = NodePath("Panel/Gender/OptionButton")
 CheckButton = NodePath("Panel/Turorial/CheckButton")
 _warningPanel = NodePath("Panel/Warning UI")
 LoadingPanel = NodePath("Loading Panel")
+
+[node name="MainMenuMiscellaneousDataManager" type="Node2D" parent="."]
+script = ExtResource("3_y8duy")
+_languageKey = "fr"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6vobx8tt4ixg"
-path="res://.godot/imported/Pipelines - Copy.png-0f886b74f05d7845b7215a40b163509b.ctex"
+uid="uid://bn3cmxo53nkqd"
+path="res://.godot/imported/TRex.png-ce75c6aa6663d2baa20350c2c09d8e7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/Pipelines - Copy.png"
-dest_files=["res://.godot/imported/Pipelines - Copy.png-0f886b74f05d7845b7215a40b163509b.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/TRex.png"
+dest_files=["res://.godot/imported/TRex.png-ce75c6aa6663d2baa20350c2c09d8e7a.ctex"]
 
 [params]
 

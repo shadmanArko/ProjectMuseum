@@ -61,7 +61,7 @@ public partial class MainMenuMiscellaneousDataManager : Node2D
 	private string GetLocalizedText(string lineEditText)
 	{
 		var translations = _mainMenuMiscellaneousData.Translations;
-		return translations[lineEditText][_languageKey];
+		return translations[lineEditText];
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

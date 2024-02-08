@@ -2,31 +2,11 @@
   {
   "Translations":
     {
-      "hello": {
-        "en": "Hello",
-        "fr": "Bonjour",
-        "es": "Hola"
-      },
-      "Continue": {
-        "en": "Continue",
-        "fr": "Continue fr",
-        "es": "Continue es"
-      },
-      "New Game": {
-        "en": "New Game",
-        "fr": "New Game fr",
-        "es": "New Game es"
-      },
-      "Options": {
-        "en": "Options",
-        "fr": "Options fr",
-        "es": "Options es"
-      },
-      "Exit": {
-        "en": "Exit",
-        "fr": "Exit fr",
-        "es": "Exit es"
-      }
+      "hello":"Hello",
+      "Continue":"Continue",
+      "New Game": "New Game",
+      "Options":"Options",
+      "Exit": "Exit"
    }
 }
   

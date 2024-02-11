@@ -246,6 +246,8 @@ public partial class MineGenerationController : Node2D
 			var cellCrackMaterial = new CellCrackMaterial();
 			MineSetCellConditions.SetTileMapCell(tilePos, _playerControllerVariables.MouseDirection, cell, cellCrackMaterial, _mineGenerationVariables);
 		}
+
+		MineSetCellConditions.SetBackdropDuringMineGeneration(_mineGenerationVariables);
 	}
     
 	#endregion

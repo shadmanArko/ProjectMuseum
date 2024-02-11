@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(14.3329, 6.79561)
 
-[node name="Item2" type="Sprite2D"]
+[node name="Item3" type="Sprite2D"]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1

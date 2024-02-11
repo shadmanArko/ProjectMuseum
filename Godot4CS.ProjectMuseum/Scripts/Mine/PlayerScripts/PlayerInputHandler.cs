@@ -2,12 +2,16 @@ using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Items;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public partial class PlayerInputHandler : Node2D
 {
 	private PlayerControllerVariables _playerControllerVariables;
+	private MineGenerationVariables _mineGenerationVariables;
+
+	private const string TorchScenePath = "res://Scenes/Mine/Sub Scenes/Props/FireTorch.tscn";
 	public override void _Ready()
 	{
 		InitializeDiReferences();
@@ -19,6 +23,7 @@ public partial class PlayerInputHandler : Node2D
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
 
 	private void SubscribeToActions()
@@ -32,6 +37,7 @@ public partial class PlayerInputHandler : Node2D
 	{
 		MouseMotion(inputEvent);
 		SwitchEquipables(inputEvent);
+		SetTorchInMine(inputEvent);
 	}
 
 	private void SwitchEquipables(InputEvent inputEvent)
@@ -41,8 +47,8 @@ public partial class PlayerInputHandler : Node2D
 			_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
 		else if(inputEvent.IsActionReleased("Equipment2"))
 			_playerControllerVariables.CurrentEquippedItem = Equipables.PickAxe;
-		else if(inputEvent.IsActionReleased("Equipment3"))
-			_playerControllerVariables.CurrentEquippedItem = Equipables.Brush;
+		// else if(inputEvent.IsActionReleased("Equipment3"))
+		// 	_playerControllerVariables.CurrentEquippedItem = Equipables.Brush;
 	}
 
 	private void MouseMotion(InputEvent @event)
@@ -62,6 +68,22 @@ public partial class PlayerInputHandler : Node2D
 		
 		MineActions.OnMouseMotionAction?.Invoke(degree);
 	}
+
+	#region For Testing Purposes
+
+	private void SetTorchInMine(InputEvent inputEvent)
+	{
+		if(inputEvent is not InputEventKey) return;
+		if (!inputEvent.IsActionReleased("Lamp")) return;
+		var scene = ResourceLoader.Load<PackedScene>(TorchScenePath).Instantiate() as FireTorch;
+		_mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
+		var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
+		scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize + new Vector2());
+		scene.PlayTorchAnimation();
+	}
+
+	#endregion
+
 }
 
 //TODO: Move all player inputs under this script

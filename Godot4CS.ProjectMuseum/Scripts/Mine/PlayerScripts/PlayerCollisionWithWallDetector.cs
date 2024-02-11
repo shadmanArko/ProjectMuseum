@@ -5,7 +5,6 @@ using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
-using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -30,7 +29,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         InitializeDiReferences();
         SubscribeToActions();
         GetMineCrackMaterialData();
-        
     }
 
     #region Initializers
@@ -46,7 +44,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
-        MineActions.OnBrushActionStarted += BrushWall;
+        // MineActions.OnBrushActionStarted += BrushWall;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
     }
 
@@ -134,33 +132,33 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnSuccessfulDigActionCompleted?.Invoke();
     }
 
-    private void BrushWall()
-    {
-        var targetTilePosition = FindPositionOfTargetCell();
-        if (!IsCellBreakValid(targetTilePosition)) return;
-        var cell = _mineGenerationVariables.GetCell(targetTilePosition);
-        BrushOutArtifact(cell, targetTilePosition);
-    }
+    // private void BrushWall()
+    // {
+    //     var targetTilePosition = FindPositionOfTargetCell();
+    //     if (!IsCellBreakValid(targetTilePosition)) return;
+    //     var cell = _mineGenerationVariables.GetCell(targetTilePosition);
+    //     BrushOutArtifact(cell, targetTilePosition);
+    // }
 
     [Export] private string _alternateButtonPressMiniGameScenePath;
     [Export] private bool _isMiniGameLoaded;
     private Vector2I _artifactTilePos;
 
-    private void BrushOutArtifact(Cell cell, Vector2I tilePos)
-    {
-        if (!cell.HasArtifact || cell.HitPoint != 1) return;
-
-        var cellCrackMaterial =
-            _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
-                tempCell.MaterialType == cell.ArtifactMaterial);
-
-        MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
-            cellCrackMaterial);
-
-        _playerControllerVariables.CanMove = false;
-        MineActions.OnMiniGameLoad?.Invoke(tilePos);
-        MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushArtifactCell");
-    }
+    // private void BrushOutArtifact(Cell cell, Vector2I tilePos)
+    // {
+    //     if (!cell.HasArtifact || cell.HitPoint != 1) return;
+    //
+    //     var cellCrackMaterial =
+    //         _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
+    //             tempCell.MaterialType == cell.ArtifactMaterial);
+    //
+    //     MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
+    //         cellCrackMaterial);
+    //
+    //     _playerControllerVariables.CanMove = false;
+    //     // MineActions.OnMiniGameLoad?.Invoke(tilePos);
+    //     MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushArtifactCell");
+    // }
     
     private Vector2I FindPositionOfTargetCell()
     {
@@ -198,30 +196,23 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
         
-        if (cell.HitPoint == 1)
-        {
-            if (ReferenceStorage.Instance.MineTutorial.PlayerInfo.CompletedTutorialScene == 5)
-            {
-                if (ReferenceStorage.Instance.MineTutorial.GetCurrentTutorial() == "Tut6c")
-                {
-                    MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
-                    return;
-                }
-            }
-        }
-        
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
         
+        // var cellCrackMaterial =
+        //     _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
+        //         tempCell.MaterialType == cell.ArtifactMaterial);
+        
         var cellCrackMaterial =
-            _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
-                tempCell.MaterialType == cell.ArtifactMaterial);
+            _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
+                cellCrackMat.MaterialType == "Normal");
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             cellCrackMaterial);
-        // MakeMineWallDepletedParticleEffect();
         
         if (cell.HitPoint <= 0)
         {
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstArtifactCell");
+            MineActions.OnMiniGameLoad?.Invoke(tilePos);
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
             
             if (_playerControllerVariables.MouseDirection == Vector2I.Down)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfdwr0v4fmx3j"
-path="res://.godot/imported/Coal.png-1bc86a1bc661c6ae08186e2a46abe2d6.ctex"
+uid="uid://dslbx4gvrw6vg"
+path="res://.godot/imported/Torch.png-d1c391a1aab12c0ac91dabdbc98d79b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
-dest_files=["res://.godot/imported/Coal.png-1bc86a1bc661c6ae08186e2a46abe2d6.ctex"]
+source_file="res://Assets/2D/Animations/Mine Animations/Torch/Torch.png"
+dest_files=["res://.godot/imported/Torch.png-d1c391a1aab12c0ac91dabdbc98d79b1.ctex"]
 
 [params]
 

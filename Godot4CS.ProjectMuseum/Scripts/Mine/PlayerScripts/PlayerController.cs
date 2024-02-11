@@ -204,19 +204,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		if(@event.IsActionReleased("toggle_grab"))
 			PlayerGrab();
 	}
-
-	#region For Testing Purposes
-
-	private void Lamp()
-	{
-		var scene = ResourceLoader.Load<PackedScene>(_lampScenePath).Instantiate();
-		_mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
-		var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(Position);
-		scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize);
-	}
-
-	#endregion
-
+    
 	private void MouseMotion(InputEvent @event)
 	{
 		if(@event is not InputEventMouseMotion) return;

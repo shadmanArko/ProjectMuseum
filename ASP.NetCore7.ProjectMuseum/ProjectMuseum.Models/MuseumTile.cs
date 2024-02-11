@@ -9,6 +9,7 @@ public class MuseumTile
     public int TileAtlasCoOrdinateX { get; set; }
     public int TileAtlasCoOrdinateY { get; set; }
     public int Layer { get; set; }
+    public bool IsInZone { get; set; }
     public string WallId { get; set; }
     public string ExhibitId { get; set; }
     public string HangingLightId { get; set; }

@@ -3,6 +3,7 @@ using ProjectMuseum.Models;
 using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.PlayerInfoService;
+using ProjectMuseum.Services.PlayerService.Sub_Services.InventoryService;
 using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -111,10 +112,10 @@ public class PlayerController : ControllerBase
         return Ok(inventory);
     }
 
-    // [HttpGet("SendItemFromInventoryToMine/{inventoryItemId}")]
-    // public async Task<IActionResult> SendItemFromInventoryToMine(string inventoryItemId)
-    // {
-    //     var inventoryItem = await _inventoryService.SendItemFromInventoryToMine(inventoryItemId);
-    //     return Ok(inventoryItem);
-    // }
+    [HttpGet("SendWallPlaceableFromInventoryToMine/{inventoryItemId}")]
+    public async Task<IActionResult> SendWallPlaceableFromInventoryToMine(string inventoryItemId, [FromBody] List<string> cellIds)
+    {
+        var wallPlaceable = await _inventoryService.SendWallPlaceableFromInventoryToMine(inventoryItemId, cellIds);
+        return Ok(wallPlaceable);
+    }
 }

@@ -42,6 +42,7 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
+using ProjectMuseum.Services.PlayerService.Sub_Services.InventoryService;
 using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
 using ProjectMuseum.Services.StorySceneService;
 

@@ -1,6 +1,8 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
+using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
+using ProjectMuseum.Services.PlayerService.Sub_Services.InventoryService;
 
 namespace ProjectMuseum.Services.InventorySevice;
 
@@ -8,11 +10,13 @@ public class InventoryService : IInventoryService
 {
     private readonly IInventoryRepository _inventoryRepository;
     private readonly IArtifactStorageRepository _artifactStorageRepository;
+    private readonly IWallPlaceableService _wallPlaceableService;
 
-    public InventoryService(IInventoryRepository inventoryRepository, IArtifactStorageRepository artifactStorageRepository)
+    public InventoryService(IInventoryRepository inventoryRepository, IArtifactStorageRepository artifactStorageRepository, IWallPlaceableService wallPlaceableService)
     {
         _inventoryRepository = inventoryRepository;
         _artifactStorageRepository = artifactStorageRepository;
+        _wallPlaceableService = wallPlaceableService;
     }
 
     public async Task<List<InventoryItem>?> GetAllEquipables()
@@ -40,20 +44,11 @@ public class InventoryService : IInventoryService
         return inventory;
     }
 
-    // //TODO: Find and Create class 
-    // public async Task<InventoryItem?> SendItemFromInventoryToMine(string inventoryItemId)
-    // {
-    //     var inventoryItem = await _inventoryRepository.RemoveInventoryItem(inventoryItemId);
-    //     object mineItem = CreateInstanceByName(inventoryItem.Variant);
-    //     Console.WriteLine($"mineItem class: ");
-    //     return new InventoryItem();
-    // }
-    //
-    // private static Type CreateInstanceByName(string variant)
-    // {
-    //     var assemblyString = Assembly.CreateQualifiedName("ProjectMuseum.Models", variant);
-    //     var assembly = Assembly.Load(assemblyString);
-    //     return assembly.GetType(variant)!;
-    // }
-    
+    public async Task<WallPlaceable> SendWallPlaceableFromInventoryToMine(string inventoryItemId, List<string> cellIds)
+    {
+        var inventoryItem = await _inventoryRepository.RemoveInventoryItem(inventoryItemId);
+        var wallPlaceable = await _wallPlaceableService.PlaceWallPlaceableInMine(inventoryItem.Variant, cellIds);
+
+        return wallPlaceable;
+    }
 }

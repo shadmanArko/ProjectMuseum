@@ -1,6 +1,6 @@
 using ProjectMuseum.Models;
 
-namespace ProjectMuseum.Services.InventorySevice;
+namespace ProjectMuseum.Services.PlayerService.Sub_Services.InventoryService;
 
 public interface IInventoryService
 {
@@ -8,5 +8,6 @@ public interface IInventoryService
     Task<List<Artifact>?> GetAllArtifacts();
     Task SendAllArtifactsToArtifactStorage();
     Task<Inventory?> GetInventory();
-    // Task<InventoryItem?> SendItemFromInventoryToMine(string inventoryItemId);
+    Task<WallPlaceable> SendWallPlaceableFromInventoryToMine(string inventoryItemId, List<string> cellIds);
+
 }

@@ -8,6 +8,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
+using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
 
@@ -22,8 +23,9 @@ public class MineController : ControllerBase
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
     private readonly IResourceService _resourceService;
+    private readonly IWallPlaceableService _wallPlaceableService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -32,6 +34,7 @@ public class MineController : ControllerBase
         _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
         _resourceService = resourceService;
+        _wallPlaceableService = wallPlaceableService;
     }
 
     [HttpGet("GetMineData")]
@@ -130,6 +133,13 @@ public class MineController : ControllerBase
     {
         var inventoryItem = await _resourceService.SendResourceFromMineToInventory(resourceId);
         return Ok(inventoryItem);
+    }
+    
+    [HttpGet("SendWallPlaceableFromMineToInventory/{wallPlaceableId}")]
+    public async Task<IActionResult> SendWallPlaceableFromMineToInventory(string wallPlaceableId)
+    {
+        var wallPlaceable = await _wallPlaceableService.RemoveWallPlaceableFromMine(wallPlaceableId);
+        return Ok(wallPlaceable);
     }
 
 }

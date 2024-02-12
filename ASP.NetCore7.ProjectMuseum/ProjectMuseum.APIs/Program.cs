@@ -16,6 +16,7 @@ using ProjectMuseum.Repositories.MiscellaneousDataRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifactRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.MuseumZoneRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifactRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
@@ -39,6 +40,7 @@ using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
@@ -152,6 +154,7 @@ builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescrip
 builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 builder.Services.AddScoped<IMiscellaneousDataRepository, MiscellaneousDataRepository>();
+builder.Services.AddScoped<IMuseumZoneRepository, MuseumZoneRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -177,6 +180,7 @@ builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiv
 builder.Services.AddScoped<IResourceService, ResourceService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
 builder.Services.AddScoped<IMiscellaneousDataService, MiscellaneousDataService>();
+builder.Services.AddScoped<IMuseumZoneService, MuseumZoneService>();
 
 
 

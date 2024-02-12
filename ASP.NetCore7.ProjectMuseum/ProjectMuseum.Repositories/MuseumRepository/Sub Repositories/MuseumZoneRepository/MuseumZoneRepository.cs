@@ -4,28 +4,49 @@ namespace ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.MuseumZon
 
 public class MuseumZoneRepository : IMuseumZoneRepository
 {
-    public Task<MuseumZone> Insert(MuseumZone museumZone)
+    private readonly JsonFileDatabase<Museum> _museumDatabase;
+    
+    public MuseumZoneRepository(JsonFileDatabase<Museum> museumDatabase)
     {
-        throw new NotImplementedException();
+        _museumDatabase = museumDatabase;
+    }
+    public async Task<MuseumZone> Insert(MuseumZone museumZone)
+    {
+        var museums = await _museumDatabase.ReadDataAsync();
+        museums?[0].MuseumZones?.Add(museumZone);
+        if (museums != null) await _museumDatabase.WriteDataAsync(museums);
+        return museumZone;
     }
 
-    public Task<MuseumZone> Update(string id, MuseumZone museumZone)
+    public async Task<MuseumZone> Update(string id, MuseumZone museumZone)
     {
-        throw new NotImplementedException();
+        var museums = await _museumDatabase.ReadDataAsync();
+        museums![0].MuseumZones.RemoveAll(zone => zone.Id == id);
+        museumZone.Id = id;
+        museums![0].MuseumZones.Add(museumZone);
+        await _museumDatabase.WriteDataAsync(museums);
+        return museumZone;
     }
 
-    public Task<MuseumZone?> GetById(string id)
+    public async Task<MuseumZone?> GetById(string id)
     {
-        throw new NotImplementedException();
+        var museums = await _museumDatabase.ReadDataAsync();
+        var museumZone = museums![0].MuseumZones.FirstOrDefault(tile => tile.Id == id);
+        return museumZone;
     }
 
-    public Task<List<MuseumZone>?> GetAll()
+    public async Task<List<MuseumZone>?> GetAll()
     {
-        throw new NotImplementedException();
+        var museums = await _museumDatabase.ReadDataAsync();
+        return museums![0].MuseumZones;
     }
 
-    public Task<MuseumZone?> Delete(string id)
+    public async Task<MuseumZone?> Delete(string id)
     {
-        throw new NotImplementedException();
+        var museums = await _museumDatabase.ReadDataAsync();
+        var museumZone = museums![0].MuseumZones.FirstOrDefault(tile => tile.Id == id);
+        if (museumZone != null) museums![0].MuseumZones.Remove(museumZone);
+        await _museumDatabase.WriteDataAsync(museums);
+        return museumZone;
     }
 }

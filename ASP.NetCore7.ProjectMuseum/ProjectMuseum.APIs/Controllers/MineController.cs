@@ -138,7 +138,7 @@ public class MineController : ControllerBase
     [HttpGet("SendWallPlaceableFromMineToInventory/{wallPlaceableId}")]
     public async Task<IActionResult> SendWallPlaceableFromMineToInventory(string wallPlaceableId)
     {
-        var wallPlaceable = await _wallPlaceableService.RemoveWallPlaceableFromMine(wallPlaceableId);
+        var wallPlaceable = await _wallPlaceableService.SendWallPlaceableFromMineToInventory(wallPlaceableId);
         return Ok(wallPlaceable);
     }
 

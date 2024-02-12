@@ -12,6 +12,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMa
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.WallPlaceableRepository;
 using ProjectMuseum.Repositories.MiscellaneousDataRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
@@ -26,7 +27,6 @@ using ProjectMuseum.Services.DecorationOtherService;
 using ProjectMuseum.Services.DecorationOtherServices;
 using ProjectMuseum.Services.DecorationShopServices;
 using ProjectMuseum.Services.ExhibitService;
-using ProjectMuseum.Services.InventorySevice;
 using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
@@ -35,6 +35,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
+using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
@@ -58,6 +59,7 @@ string mainMenuMiscellaneousDataFolderPath = Path.Combine(AppContext.BaseDirecto
 string settingsMiscellaneousDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "MiscellaneousData", "SettingsMiscellaneousData", "SettingsMiscellaneousData.json");
 string museumMiscellaneousDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "MiscellaneousData", "MuseumMiscellaneousData", "MuseumMiscellaneousData.json");
 string mineMiscellaneousDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "MiscellaneousData", "MineMiscellaneousData", "MineMiscellaneousData.json");
+string wallPlaceableDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "WallPlaceableData", "WallPlaceable.json");
 
 
 
@@ -101,6 +103,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackM
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Resource>(resourceDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<WallPlaceable>(wallPlaceableDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<MainMenuMiscellaneousData>(mainMenuMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumMiscellaneousData>(museumMiscellaneousDataFolderPath));
@@ -152,6 +155,7 @@ builder.Services.AddScoped<IMineCellCrackMaterialRepository, MineCellCrackMateri
 builder.Services.AddScoped<IRawArtifactFunctionalRepository, RawArtifactFunctionalRepository>();
 builder.Services.AddScoped<IRawArtifactDescriptiveRepository, RawArtifactDescriptiveRepository>();
 builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
+builder.Services.AddScoped<IWallPlaceableRepository, WallPlaceableRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 builder.Services.AddScoped<IMiscellaneousDataRepository, MiscellaneousDataRepository>();
 
@@ -177,6 +181,7 @@ builder.Services.AddScoped<IMineCellCrackMaterialService, MineCellCrackMaterialS
 builder.Services.AddScoped<IRawArtifactFunctionalService, RawArtifactFunctionalService>();
 builder.Services.AddScoped<IRawArtifactDescriptiveService, RawArtifactDescriptiveService>();
 builder.Services.AddScoped<IResourceService, ResourceService>();
+builder.Services.AddScoped<IWallPlaceableService, WallPlaceableService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
 builder.Services.AddScoped<IMiscellaneousDataService, MiscellaneousDataService>();
 

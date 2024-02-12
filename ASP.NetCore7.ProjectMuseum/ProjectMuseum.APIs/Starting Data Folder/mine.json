@@ -53948,6 +53948,7 @@
         "TilePositionY": 23
       }
     ],
+    "WallPlaceables": [],
     "CellSize": 20,
     "GridWidth": 49,
     "GridLength": 64

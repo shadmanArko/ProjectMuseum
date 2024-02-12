@@ -69627,6 +69627,21 @@
         "TilePositionY": 23
       }
     ],
+    "WallPlaceables": [
+      {
+        "Id": "1",
+        "PositionX": 10,
+        "PositionY": 20,
+        "OccupiedCellIds": ["1110a9ae-4187-4c09-b7b4-b53e0b4eca58","5cab5eda-2600-494c-a941-e123f763dd94"],
+        "ExtraOccupiedDimensionX": 2,
+        "ExtraOccupiedDimensionY": 1,
+        "Type": "WallPlaceable",
+        "Category": "Light",
+        "Variant": "FireTorch",
+        "ScenePath": "/scenes/room1.json",
+        "PngPath": "/scenes/room1.json"
+      }
+    ],
     "CellSize": 20,
     "GridWidth": 49,
     "GridLength": 64

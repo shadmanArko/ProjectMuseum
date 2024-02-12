@@ -12,4 +12,5 @@ public class WallPlaceable
     public string Category { get; set; }
     public string Variant { get; set; }
     public string ScenePath { get; set; }
+    public string PngPath { get; set; }
 }

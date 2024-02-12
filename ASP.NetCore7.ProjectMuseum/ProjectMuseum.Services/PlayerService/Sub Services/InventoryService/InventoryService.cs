@@ -2,9 +2,8 @@ using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
-using ProjectMuseum.Services.PlayerService.Sub_Services.InventoryService;
 
-namespace ProjectMuseum.Services.InventorySevice;
+namespace ProjectMuseum.Services.PlayerService.Sub_Services.InventoryService;
 
 public class InventoryService : IInventoryService
 {

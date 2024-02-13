@@ -30,11 +30,17 @@ window/size/mode=4
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
-window/vsync/vsync_mode=0
+window/vsync/vsync_mode=2
 
 [dotnet]
 
 project/assembly_name="Godot4CS.ProjectMuseum"
+
+[importer_defaults]
+
+animation_library={
+"animation/fps": 120.0
+}
 
 [input]
 
@@ -196,3 +202,12 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Collectible"
 2d_physics/layer_5="Blocker"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/msaa_3d=1
+viewport/hdr_2d=true
+anti_aliasing/quality/screen_space_aa=1
+anti_aliasing/quality/use_taa=true

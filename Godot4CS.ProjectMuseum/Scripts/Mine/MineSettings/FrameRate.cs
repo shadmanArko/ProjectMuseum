@@ -8,4 +8,9 @@ public partial class FrameRate : Node
 	{
 		Engine.MaxFps = 120;
 	}
+
+	public override void _Process(double delta)
+	{
+		GD.Print($"Fps: {Engine.MaxFps}");
+	}
 }

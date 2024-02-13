@@ -1,18 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://0v3ikej83pig"]
 
-[ext_resource type="Texture2D" uid="uid://ryv2jtctbobm" path="res://Assets/2D/Sprites/Wallpapers/wallpaperside2.png" id="1_dihff"]
+[ext_resource type="Texture2D" uid="uid://bi062cs0x8hv3" path="res://Assets/2D/Sprites/Wallpapers/wallpaperside2new.png" id="1_jq5kh"]
 [ext_resource type="Script" path="res://Scripts/Museum/Wall.cs" id="2_ltd76"]
 
 [node name="LeafyGreenWallPaper1" type="Sprite2D" node_paths=PackedStringArray("_wallPreview")]
 texture_filter = 1
 position = Vector2(-360, -212)
-texture = ExtResource("1_dihff")
+texture = ExtResource("1_jq5kh")
 offset = Vector2(-11, -46)
+hframes = 2
 script = ExtResource("2_ltd76")
 _wallPreview = NodePath("Wall Preview")
-_wallPreviewSprite = ExtResource("1_dihff")
+_wallPreviewSprite = ExtResource("1_jq5kh")
 
 [node name="Wall Preview" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.784314)
 texture_filter = 1
 offset = Vector2(-8, -46)
+hframes = 2

@@ -253,7 +253,7 @@ public class MuseumController : ControllerBase
         var zone = await _museumZoneService.ReleaseTilesFromZone(tileIds, zoneId);
         return Ok(zone);
     }
-    [HttpGet("EditZone/{zoneId}")]
+    [HttpPut("EditZone/{zoneId}")]
     public async Task<IActionResult> EditZone(string zoneId, MuseumZone museumZone)
     {
         var zone = await _museumZoneService.EditZone(zoneId, museumZone);

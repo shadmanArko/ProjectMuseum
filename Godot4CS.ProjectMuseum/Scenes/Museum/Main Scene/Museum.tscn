@@ -333,8 +333,9 @@ position = Vector2(1333, -528)
 texture = ExtResource("35_mega3")
 
 [node name="RoadChunk3" type="Sprite2D" parent="museum/Background Foresnt/Road"]
+z_index = 1
 texture_filter = 1
-position = Vector2(15, 47)
+position = Vector2(15, 48)
 texture = SubResource("CompressedTexture2D_rxu60")
 
 [node name="TrafficLight2" type="Sprite2D" parent="museum/Background Foresnt/Road"]

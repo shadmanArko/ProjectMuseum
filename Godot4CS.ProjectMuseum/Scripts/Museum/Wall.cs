@@ -15,12 +15,28 @@ public partial class Wall : Sprite2D
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
+    private int _maxXPosition = -17;
+    private int _maxYPosition = -19;
     public void SetUpWall(MuseumTile museumTile)
     {
         WallId = museumTile.WallId;
         TileId = museumTile.Id;
         Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Wallpapers/{WallId}.png");
         Texture = texture2D;
+        if (museumTile.XPosition == 0 || museumTile.YPosition == 0)
+        {
+            Frame = 1;
+            _wallPreview.Frame = 1;
+        }else if (museumTile.XPosition == _maxXPosition && museumTile.YPosition == _maxYPosition)
+        {
+            Frame = 0;
+            _wallPreview.Frame = 0;
+        }
+        else
+        {
+            Frame = 2;
+            _wallPreview.Frame = 2;
+        }
     }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)

@@ -17,7 +17,7 @@ public partial class TileSpawner : TileMap
 	[Export] private int _dirtyWallProbability = 10;
 	[Export] private Array<Texture2D> _dirtyWallTextures;
 	[Export] private Node2D _wallsParent;
-	private string _basicWallsId = "wallpaperside2";
+	private string _basicWallsId = "basic_red_wallpaper";
 	[Export] private Vector2I _originOfExpansion = new Vector2I(0, -20);
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 	private HttpRequest _httpRequestForExpandingMuseumTiles;

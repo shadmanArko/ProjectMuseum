@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv67lttcsqhgy"
-path="res://.godot/imported/wallpaper_side_2_test.png-f9e5048a8e1c66a2ad94afe624a0c9b8.ctex"
+uid="uid://d2cbtv1a3lskn"
+path="res://.godot/imported/basic_red_wallpaper.png-ec2e1bcdebdda32821721d6d7390c2ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Wallpapers/wallpaper_side_2_test.png"
-dest_files=["res://.godot/imported/wallpaper_side_2_test.png-f9e5048a8e1c66a2ad94afe624a0c9b8.ctex"]
+source_file="res://Assets/2D/Sprites/Wallpapers/basic_red_wallpaper.png"
+dest_files=["res://.godot/imported/basic_red_wallpaper.png-ec2e1bcdebdda32821721d6d7390c2ed.ctex"]
 
 [params]
 

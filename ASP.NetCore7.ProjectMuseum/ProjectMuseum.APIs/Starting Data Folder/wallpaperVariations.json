@@ -1,10 +1,10 @@
 [
   {
-    "VariationName": "wallpaperside2new",
+    "VariationName": "basic_light_grey_wallpaper",
     "Price": 2
   },
   {
-    "VariationName": "basic_light_grey_wallpaper",
+    "VariationName": "basic_red_wallpaper",
     "Price": 2
   },
   {
@@ -26,13 +26,5 @@
   {
     "VariationName": "sky_blue_wallpaper",
     "Price": 2
-  },
-  {
-    "VariationName": "basiclightgreywallpapetest",
-    "Price": 2
-  },
-  {
-  "VariationName": "wallpaper_side_2_test",
-  "Price": 2
   }
 ]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfdwr0v4fmx3j"
-path="res://.godot/imported/coal.png-a3002b6003fbbd02904f2d5259bed5c1.ctex"
+uid="uid://dr6s1kmt1og0c"
+path="res://.godot/imported/white-circle-free-png.webp-71d9cc6f18b123306146302b5587b566.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/coal.png"
-dest_files=["res://.godot/imported/coal.png-a3002b6003fbbd02904f2d5259bed5c1.ctex"]
+source_file="res://Scenes/Shader Testing/white-circle-free-png.webp"
+dest_files=["res://.godot/imported/white-circle-free-png.webp-71d9cc6f18b123306146302b5587b566.ctex"]
 
 [params]
 

@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccvyn5sbki7nm"]
+
+[ext_resource type="Shader" path="res://Scenes/Shader Testing/2dShaderTesting.gdshader" id="1_3d361"]
+[ext_resource type="Texture2D" uid="uid://pblolffy6i0m" path="res://Assets/2D/Sprites/light.png" id="2_gml85"]
+[ext_resource type="Texture2D" uid="uid://cqfrqomw1mp8o" path="res://Assets/2D/Sprites/icon.svg" id="3_0nfqn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxs1t"]
+shader = ExtResource("1_3d361")
+shader_parameter/maskImage = ExtResource("2_gml85")
+
+[node name="2dShaderTesting" type="Node2D"]
+
+[node name="Cracks" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sxs1t")
+position = Vector2(0, -106.15)
+scale = Vector2(1, 0.986719)
+texture = ExtResource("3_0nfqn")

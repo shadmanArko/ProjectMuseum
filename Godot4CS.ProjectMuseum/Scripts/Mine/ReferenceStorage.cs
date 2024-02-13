@@ -41,6 +41,8 @@ public partial class ReferenceStorage : Node
         Instance ??= this;
         PlayerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         MineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+        GD.Print($"player controller variables is null: {PlayerControllerVariables == null}");
+        GD.Print($"mine generation variables is null: {MineGenerationVariables == null}");
     }
 
     public override void _Ready()

@@ -44,7 +44,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
-        // MineActions.OnBrushActionStarted += BrushWall;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
     }
 
@@ -132,33 +131,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnSuccessfulDigActionCompleted?.Invoke();
     }
 
-    // private void BrushWall()
-    // {
-    //     var targetTilePosition = FindPositionOfTargetCell();
-    //     if (!IsCellBreakValid(targetTilePosition)) return;
-    //     var cell = _mineGenerationVariables.GetCell(targetTilePosition);
-    //     BrushOutArtifact(cell, targetTilePosition);
-    // }
-
     [Export] private string _alternateButtonPressMiniGameScenePath;
     [Export] private bool _isMiniGameLoaded;
     private Vector2I _artifactTilePos;
-
-    // private void BrushOutArtifact(Cell cell, Vector2I tilePos)
-    // {
-    //     if (!cell.HasArtifact || cell.HitPoint != 1) return;
-    //
-    //     var cellCrackMaterial =
-    //         _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
-    //             tempCell.MaterialType == cell.ArtifactMaterial);
-    //
-    //     MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
-    //         cellCrackMaterial);
-    //
-    //     _playerControllerVariables.CanMove = false;
-    //     // MineActions.OnMiniGameLoad?.Invoke(tilePos);
-    //     MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushArtifactCell");
-    // }
     
     private Vector2I FindPositionOfTargetCell()
     {
@@ -199,10 +174,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         cell.HitPoint--;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
         
-        // var cellCrackMaterial =
-        //     _mineCellCrackMaterial.CellCrackMaterials.FirstOrDefault(tempCell =>
-        //         tempCell.MaterialType == cell.ArtifactMaterial);
-        
         var cellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
@@ -241,7 +212,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 cellCrackMat.MaterialType == "Normal");
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             normalCellCrackMaterial);
-        // MakeMineWallDepletedParticleEffect();
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
@@ -251,9 +221,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 if (_playerControllerVariables.State != MotionState.Hanging)
                     _playerControllerVariables.State = MotionState.Falling;
             }
-            
-            // if(cell.HasResource)
-            //     InstantiateResourceObjects(cell);
 
             foreach (var tempCell in cells)
             {

@@ -3,6 +3,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Items;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -35,7 +36,7 @@ public partial class PlayerInputHandler : Node2D
 
 	public override void _Input(InputEvent inputEvent)
 	{
-		MouseMotion(inputEvent);
+		// MouseMotion(inputEvent);
 		SwitchEquipables(inputEvent);
 		SetTorchInMine(inputEvent);
 	}
@@ -51,35 +52,46 @@ public partial class PlayerInputHandler : Node2D
 		// 	_playerControllerVariables.CurrentEquippedItem = Equipables.Brush;
 	}
 
-	private void MouseMotion(InputEvent @event)
-	{
-		if(@event is not InputEventMouseMotion) return;
-		var mousePos = GetGlobalMousePosition();
-		var angle = GetAngleTo(mousePos);
-		var degree = angle * (180 / Math.PI);
-		
-		_playerControllerVariables.MouseDirection = degree switch
-		{
-			<= 45 and > -45 => Vector2I.Right,
-			<= -45 and > -135 => Vector2I.Up,
-			> 45 and <= 135 => Vector2I.Down,
-			_ => Vector2I.Left
-		};
-		
-		MineActions.OnMouseMotionAction?.Invoke(degree);
-	}
+	// private void MouseMotion(InputEvent @event)
+	// {
+	// 	if(@event is not InputEventMouseMotion) return;
+	// 	var mousePos = GetGlobalMousePosition();
+	// 	var angle = GetAngleTo(mousePos);
+	// 	var degree = angle * (180 / Math.PI);
+	// 	
+	// 	_playerControllerVariables.MouseDirection = degree switch
+	// 	{
+	// 		<= 45 and > -45 => Vector2I.Right,
+	// 		<= -45 and > -135 => Vector2I.Up,
+	// 		> 45 and <= 135 => Vector2I.Down,
+	// 		_ => Vector2I.Left
+	// 	};
+	// 	
+	// 	MineActions.OnMouseMotionAction?.Invoke(degree);
+	// }
 
 	#region For Testing Purposes
 
+	// private void SetTorchInMine(InputEvent inputEvent)
+	// {
+	// 	if(inputEvent is not InputEventKey) return;
+	// 	if (!inputEvent.IsActionReleased("Lamp")) return;
+	// 	var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
+	// 	var position = cellPos * _mineGenerationVariables.Mine.CellSize + new Vector2(); 
+	// 	SceneInstantiator.InstantiateScene(TorchScenePath,_mineGenerationVariables.MineGenView.TileMap,position);
+	// 	// var scene = ResourceLoader.Load<PackedScene>(TorchScenePath).Instantiate() as FireTorch;
+	// 	// _mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
+	// 	// var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
+	// 	// scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize + new Vector2());
+	// 	// scene.PlayTorchAnimation();
+	// }
+
 	private void SetTorchInMine(InputEvent inputEvent)
 	{
-		if(inputEvent is not InputEventKey) return;
-		if (!inputEvent.IsActionReleased("Lamp")) return;
-		var scene = ResourceLoader.Load<PackedScene>(TorchScenePath).Instantiate() as FireTorch;
-		_mineGenerationVariables.MineGenView.TileMap.AddChild(scene);
-		var cellPos = _mineGenerationVariables.MineGenView.TileMap.LocalToMap(_playerControllerVariables.Position);
-		scene!.Set("position", cellPos * _mineGenerationVariables.Mine.CellSize + new Vector2());
-		scene.PlayTorchAnimation();
+			if(inputEvent is not InputEventKey) return;
+			if (!inputEvent.IsActionReleased("Lamp")) return;
+		var inventoryTorchInit = new InventoryTorchInitializer();
+		inventoryTorchInit.SetUpTorchInMine(TorchScenePath);
 	}
 
 	#endregion

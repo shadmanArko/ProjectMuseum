@@ -7,6 +7,7 @@ public partial class FireTorch : Node
 	[Export] private AnimationPlayer _animationPlayer;
 	public override void _Ready()
 	{
+		PlayTorchAnimation();
 	}
 
 	public void PlayTorchAnimation()

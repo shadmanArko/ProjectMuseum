@@ -12,11 +12,11 @@ namespace Godot4CS.ProjectMuseum.Scripts.MainMenu;
 
 public partial class MainMenuMiscellaneousDataManager : Node2D
 {
-	[Export] private Button _startNewGameButton;
-	[Export] private Button _continueButton;
-	[Export] private Button _optionsButton;
-	[Export] private Button _exitButtonButton;
 	private HttpRequest _httpRequestForGettingMainMenuMiscellaneousData;
+
+	[Export] private string _languageKey = "en";
+
+	private MainMenuMiscellaneousData _mainMenuMiscellaneousData;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -31,16 +31,37 @@ public partial class MainMenuMiscellaneousDataManager : Node2D
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print(jsonStr);
-		MainMenuMiscellaneousData mainMenuMiscellaneousData = JsonSerializer.Deserialize<MainMenuMiscellaneousData>(jsonStr);
-		// SetUpMainMenuMiscellaneousData(mainMenuMiscellaneousData);
+		_mainMenuMiscellaneousData = JsonSerializer.Deserialize<MainMenuMiscellaneousData>(jsonStr);
+		SetUpMainMenuMiscellaneousData(_mainMenuMiscellaneousData);
 	}
 
 	private void SetUpMainMenuMiscellaneousData(MainMenuMiscellaneousData mainMenuMiscellaneousData)
 	{
-		_startNewGameButton.Text = mainMenuMiscellaneousData.StartNewGameText;
-		_optionsButton.Text = mainMenuMiscellaneousData.OptionsText;
-		_continueButton.Text = mainMenuMiscellaneousData.ContinueText;
-		_exitButtonButton.Text = mainMenuMiscellaneousData.ExitText;
+		
+
+		TraverseSceneTree(GetTree().Root);
+	}
+	private void TraverseSceneTree(Node node)
+	{
+		foreach (Node child in node.GetChildren())
+		{
+			// Check if the node is a TextField
+			if (child is Button lineEdit)
+			{
+				lineEdit.Text = GetLocalizedText(lineEdit.Text);
+				string text = lineEdit.Text;
+				GD.Print($"Found Text {text}");
+			}
+
+			// Recursive call to traverse children
+			TraverseSceneTree(child);
+		}
+	}
+
+	private string GetLocalizedText(string lineEditText)
+	{
+		var translations = _mainMenuMiscellaneousData.Translations;
+		return translations[lineEditText];
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

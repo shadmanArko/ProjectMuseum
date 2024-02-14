@@ -9,6 +9,7 @@ using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 
@@ -28,8 +29,9 @@ public class MuseumController : ControllerBase
     private readonly IDecorationShopService _decorationShopService;
     private readonly IDecorationOtherService _decorationOtherService;
     private readonly IBuilderCardService _builderCardService;
+    private readonly IMuseumZoneService _museumZoneService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -40,6 +42,7 @@ public class MuseumController : ControllerBase
         _builderCardService = builderCardService;
         _decorationShopService = decorationShopService;
         _decorationOtherService = decorationOtherService;
+        _museumZoneService = museumZoneService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -232,5 +235,46 @@ public class MuseumController : ControllerBase
         var artifact = await _tradingArtifactsService.AddArtifact(newArtifact);
         return Ok(artifact);
     }
-
+    [HttpPut("CreateNewZone")]
+    public async Task<IActionResult> CreateNewZone(MuseumZone museumZone)
+    {
+        var zone = await _museumZoneService.CreateNewZone(museumZone);
+        return Ok(zone);
+    }
+    [HttpGet("InsertTilesIntoZone/{tileIds}/{zoneId}")]
+    public async Task<IActionResult> InsertTilesIntoZone(List<string> tileIds, string zoneId)
+    {
+        var zone = await _museumZoneService.InsertTilesIntoZone(tileIds, zoneId);
+        return Ok(zone);
+    }
+    [HttpGet("ReleaseTilesFromZone/{tileIds}/{zoneId}")]
+    public async Task<IActionResult> ReleaseTilesFromZone(List<string> tileIds, string zoneId)
+    {
+        var zone = await _museumZoneService.ReleaseTilesFromZone(tileIds, zoneId);
+        return Ok(zone);
+    }
+    [HttpPut("EditZone/{zoneId}")]
+    public async Task<IActionResult> EditZone(string zoneId, MuseumZone museumZone)
+    {
+        var zone = await _museumZoneService.EditZone(zoneId, museumZone);
+        return Ok(zone);
+    }
+    [HttpGet("DeleteZone/{zoneId}")]
+    public async Task<IActionResult> DeleteZone(string zoneId)
+    {
+        var zone = await _museumZoneService.DeleteZone(zoneId);
+        return Ok(zone);
+    }
+    [HttpGet("GetZone/{zoneId}")]
+    public async Task<IActionResult> GetZone(string zoneId)
+    {
+        var zone = await _museumZoneService.GetZone(zoneId);
+        return Ok(zone);
+    }
+    [HttpGet("GetAllZones")]
+    public async Task<IActionResult> GetAllZones()
+    {
+        var zone = await _museumZoneService.GetAll();
+        return Ok(zone);
+    }
 }

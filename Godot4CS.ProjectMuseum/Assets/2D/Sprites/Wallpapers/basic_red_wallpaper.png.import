@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc8isy1tr16vw"
-path="res://.godot/imported/leafy green wall paper 1.png-874fe6fe5d3f2dd6263a02418722f192.ctex"
+uid="uid://d2cbtv1a3lskn"
+path="res://.godot/imported/basic_red_wallpaper.png-ec2e1bcdebdda32821721d6d7390c2ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Wallpapers/leafy green wall paper 1.png"
-dest_files=["res://.godot/imported/leafy green wall paper 1.png-874fe6fe5d3f2dd6263a02418722f192.ctex"]
+source_file="res://Assets/2D/Sprites/Wallpapers/basic_red_wallpaper.png"
+dest_files=["res://.godot/imported/basic_red_wallpaper.png-ec2e1bcdebdda32821721d6d7390c2ed.ctex"]
 
 [params]
 

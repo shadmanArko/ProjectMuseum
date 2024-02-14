@@ -7,11 +7,18 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxs1t"]
 shader = ExtResource("1_3d361")
 shader_parameter/maskImage = ExtResource("2_gml85")
+shader_parameter/backgroundImage = ExtResource("3_0nfqn")
 
 [node name="2dShaderTesting" type="Node2D"]
+position = Vector2(100, 23)
 
 [node name="Cracks" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_sxs1t")
-position = Vector2(0, -106.15)
+position = Vector2(-31, -92)
+scale = Vector2(1, 0.986719)
+texture = ExtResource("3_0nfqn")
+
+[node name="Cracks2" type="Sprite2D" parent="."]
+position = Vector2(104, -93)
 scale = Vector2(1, 0.986719)
 texture = ExtResource("3_0nfqn")

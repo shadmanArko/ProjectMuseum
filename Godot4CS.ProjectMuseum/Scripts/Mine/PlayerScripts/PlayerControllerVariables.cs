@@ -58,20 +58,18 @@ public class PlayerControllerVariables
                 {
                     case Equipables.PickAxe:
                         if(!CanDig) return;
+                        MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnDigActionStarted?.Invoke();
                         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
                         break;
-                    // case Equipables.Brush:
-                    //     if(!CanBrush) return;
-                    //     MineActions.OnBrushActionStarted?.Invoke();
-                    //     MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("BrushActionCompleted");
-                    //     break;
                     case Equipables.Sword:
                         if(!CanAttack) return;
+                        MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnMeleeAttackActionStarted?.Invoke();
                         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
                         break;
                     default:
+                        MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnMeleeAttackActionStarted?.Invoke();
                         break;
                 }

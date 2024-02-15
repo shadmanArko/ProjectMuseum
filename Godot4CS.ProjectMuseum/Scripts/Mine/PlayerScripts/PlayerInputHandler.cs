@@ -38,7 +38,7 @@ public partial class PlayerInputHandler : Node2D
 	{
 		// MouseMotion(inputEvent);
 		SwitchEquipables(inputEvent);
-		SetTorchInMine(inputEvent);
+		// SetTorchInMine(inputEvent);
 	}
 
 	private void SwitchEquipables(InputEvent inputEvent)
@@ -91,7 +91,7 @@ public partial class PlayerInputHandler : Node2D
 			if(inputEvent is not InputEventKey) return;
 			if (!inputEvent.IsActionReleased("Lamp")) return;
 		var inventoryTorchInit = new InventoryTorchInitializer();
-		inventoryTorchInit.SetUpTorchInMine(TorchScenePath);
+		// inventoryTorchInit.OnSelectWallPlaceableFromInventory(TorchScenePath);
 	}
 
 	#endregion

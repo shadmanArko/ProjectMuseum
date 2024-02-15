@@ -10,12 +10,19 @@ public partial class MineActions : Node
 {
 	public static Action OnPlayerSpawned;
 	public static Action OnPlayerDead;
+
+	#region Mouse Click Actions
+
+	public static Action OnLeftMouseClickActionStarted;
+	public static Action OnLeftMouseClickActionEnded;
+	
+	public static Action OnRightMouseClickActionStarted;
+	public static Action OnRightMouseClickActionEnded;
+
+	#endregion
 	
 	public static Action OnDigActionStarted;
 	public static Action OnDigActionEnded;
-	
-	public static Action OnBrushActionStarted;
-	public static Action OnBrushActionEnded;
 	
 	public static Action OnMeleeAttackActionStarted;
 	public static Action OnMeleeAttackActionEnded;

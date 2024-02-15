@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7xekoa5ueyf3"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/Operations/OperationControlManager.cs" id="1_0fax2"]
+[ext_resource type="Script" path="res://Scripts/Mine/Operations/WallPlaceableController.cs" id="2_crgrw"]
+
+[node name="OperationControllerManager" type="Node2D" node_paths=PackedStringArray("_wallPlaceableController")]
+script = ExtResource("1_0fax2")
+_wallPlaceableController = NodePath("WallPlaceableController")
+
+[node name="WallPlaceableController" type="Node2D" parent="."]
+script = ExtResource("2_crgrw")

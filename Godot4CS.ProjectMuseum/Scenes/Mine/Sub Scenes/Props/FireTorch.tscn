@@ -114,24 +114,24 @@ _data = {
 "fireTorch": SubResource("Animation_a3d6i")
 }
 
-[node name="FireTorch" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+[node name="FireTorch" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_torchSprite")]
 light_mask = 0
 visibility_layer = 128
 texture_filter = 1
 script = ExtResource("1_wobj7")
 _animationPlayer = NodePath("AnimationPlayer")
+_torchSprite = NodePath("Sprite2D")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 light_mask = 50
 visibility_layer = 128
 color = Color(0.980392, 0.372549, 0.243137, 1)
-energy = 1.5
+energy = 0.8
 range_item_cull_mask = 115
 shadow_enabled = true
 shadow_item_cull_mask = 3
 texture = ExtResource("1_tdkjj")
 offset = Vector2(-1, 1)
-texture_scale = 0.95
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 128

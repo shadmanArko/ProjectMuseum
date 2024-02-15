@@ -26,7 +26,7 @@ public partial class AnimationController : AnimationPlayer
 	{
 		MineActions.OnDigActionStarted += PlayDigAnimation;
 		MineActions.OnMeleeAttackActionStarted += PlayMeleeAttackAnimation;
-		MineActions.OnBrushActionStarted += PlayBrushAnimation;
+		// MineActions.OnBrushActionStarted += PlayBrushAnimation;
 		MineActions.OnRollStarted += PlayRollAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
@@ -104,19 +104,19 @@ public partial class AnimationController : AnimationPlayer
 		}
 	}
 
-	private void OnBrushAnimationStarted(string animName)
-	{
-		if(!animName.Contains("brush")) return;
-		
-		MineActions.OnBrushActionStarted?.Invoke();
-	}
+	// private void OnBrushAnimationStarted(string animName)
+	// {
+	// 	if(!animName.Contains("brush")) return;
+	// 	
+	// 	MineActions.OnBrushActionStarted?.Invoke();
+	// }
 
-	private void OnBrushAnimationEnded(string animName)
-	{
-		if(!animName.Contains("brush")) return;
-		
-		MineActions.OnBrushActionEnded?.Invoke();
-	}
+	// private void OnBrushAnimationEnded(string animName)
+	// {
+	// 	if(!animName.Contains("brush")) return;
+	// 	
+	// 	MineActions.OnBrushActionEnded?.Invoke();
+	// }
 
 	#endregion
 

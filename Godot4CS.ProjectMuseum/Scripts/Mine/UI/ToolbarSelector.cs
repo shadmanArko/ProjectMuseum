@@ -128,19 +128,6 @@ public partial class ToolbarSelector : Node
 		if(_inventory.Artifacts.Count <= 0) return;
 		foreach (var artifact in _inventory.Artifacts)
 		{
-			// var emptySlot = 0;
-			//
-			// for (var i = 0; i < _inventory.SlotsUnlocked; i++)
-			// {
-			// 	if(!_inventory.EmptySlots.Contains(i)) continue;
-			// 	emptySlot = i;
-			// }
-			//
-			// if(emptySlot == 0) continue;
-			//
-			// artifact.Slot = emptySlot;
-			// _inventory.EmptySlots.Remove(emptySlot);
-			
 			var rawArtifactFunctional =
 				_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);
 			if (rawArtifactFunctional == null)

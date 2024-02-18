@@ -1,8 +1,6 @@
-using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Items;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;

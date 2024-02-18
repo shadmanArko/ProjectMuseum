@@ -11,6 +11,10 @@
     <ProjectReference Include="..\ASP.NetCore7.ProjectMuseum\ProjectMuseum.DTOs\ProjectMuseum.DTOs.csproj" />
     <ProjectReference Include="..\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Mine\Items\" />
+    <Folder Include="Scripts\Mine\Objects\Categories\Light\" />
+  </ItemGroup>
   <!--  <ItemGroup>-->
   <!--    <ProjectReference Include="..\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />-->
   <!--  </ItemGroup>-->

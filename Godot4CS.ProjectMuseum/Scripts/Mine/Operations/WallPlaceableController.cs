@@ -1,8 +1,8 @@
 ﻿using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Items;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using ProjectMuseum.Models;
+using WallPlaceableObject = Godot4CS.ProjectMuseum.Scripts.Mine.Objects.Types.WallPlaceable.WallPlaceableObject;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 
@@ -11,8 +11,10 @@ public partial class WallPlaceableController : Node2D
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
 
-    private FireTorch _fireTorch;
-    
+    private WallPlaceableObject _wallPlaceable;
+
+    #region Initializers
+
     private void InitializeDiInstaller()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
@@ -21,14 +23,14 @@ public partial class WallPlaceableController : Node2D
     
     private void SubscribeToActions()
     {
-        MineActions.OnMouseMotionAction += ShowTorchEligibilityVisualizer;
+        MineActions.OnMouseMotionAction += ShowWallPlaceableEligibilityVisualizer;
         MineActions.OnLeftMouseClickActionStarted += PlaceWallPlaceableInMine;
         MineActions.OnRightMouseClickActionEnded += DestroyWallPlaceableAndDeselect;
     }
 
     private void UnsubscribeToActions()
     {
-        MineActions.OnMouseMotionAction -= ShowTorchEligibilityVisualizer;
+        MineActions.OnMouseMotionAction -= ShowWallPlaceableEligibilityVisualizer;
         MineActions.OnLeftMouseClickActionStarted -= PlaceWallPlaceableInMine;
         MineActions.OnRightMouseClickActionEnded -= DestroyWallPlaceableAndDeselect;
     }
@@ -37,40 +39,44 @@ public partial class WallPlaceableController : Node2D
     {
         InitializeDiInstaller();
     }
-    
+
+    #endregion
+
+    #region Select and Deselect
+
     public void OnSelectWallPlaceableFromInventory(string scenePath)
     {
+        _wallPlaceable = InstantiateTorch(scenePath, Vector2I.Zero);
         SubscribeToActions();
-        _fireTorch = InstantiateTorch(scenePath, Vector2I.Zero);
     }
 
     private void OnDeselectedWallPlaceableFromInventory()
     {
         UnsubscribeToActions();
-        _fireTorch = null;
+        _wallPlaceable = null;
     }
 
     private void DestroyWallPlaceableAndDeselect()
     {
         UnsubscribeToActions();
-        _fireTorch.QueueFree();
+        _wallPlaceable.QueueFree();
     }
 
-    private void ShowTorchEligibilityVisualizer(double value)
+    #endregion
+
+    private void ShowWallPlaceableEligibilityVisualizer(double value)
     {
         var eligibility = CheckEligibility();
-
         if (eligibility)
-            _fireTorch.SetSpriteColorToGreen();
+            _wallPlaceable.SetSpriteColorToGreen();
         else
-            _fireTorch.SetSpriteColorToRed();
+            _wallPlaceable.SetSpriteColorToRed();
         
         var cell = GetTargetCell();
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var offset = new Vector2(cellSize / 2f, cellSize / 4f);
-        _fireTorch.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+        _wallPlaceable.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
     }
-
     private void PlaceWallPlaceableInMine()
     {
         var checkEligibility = CheckEligibility();
@@ -80,8 +86,8 @@ public partial class WallPlaceableController : Node2D
             var cell = GetTargetCell();
             var cellPos = new Vector2(cellSize * cell.PositionX, cellSize * cell.PositionY);
             var offset = new Vector2(cellSize /2f, cellSize/4f);
-            _fireTorch.Position = cellPos + offset;
-            _fireTorch.SetSpriteColorToDefault();
+            _wallPlaceable.Position = cellPos + offset;
+            _wallPlaceable.SetSpriteColorToDefault();
             OnDeselectedWallPlaceableFromInventory();
         }
     }
@@ -98,13 +104,13 @@ public partial class WallPlaceableController : Node2D
         return cell;
     }
     
-    private FireTorch InstantiateTorch(string scenePath, Vector2 pos)
+    private WallPlaceableObject InstantiateTorch(string scenePath, Vector2 pos)
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
         var cellSize = mineGenerationVariables.Mine.CellSize;
         var offset = new Vector2(cellSize /2f, cellSize/4f);
-        var torch = SceneInstantiator.InstantiateScene(scenePath, mineGenerationVariables.MineGenView, pos + offset) as FireTorch;
-        return torch;
+        var wallPlaceableObject = SceneInstantiator.InstantiateScene(scenePath, mineGenerationVariables.MineGenView, pos + offset) as WallPlaceableObject;
+        return wallPlaceableObject;
     }
     
     private bool CheckEligibility()

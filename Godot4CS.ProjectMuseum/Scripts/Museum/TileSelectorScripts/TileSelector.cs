@@ -15,7 +15,7 @@ public partial class TileSelector : Node2D
     private MuseumTileContainer _museumTileContainer;
     private bool _canEditTiles = true;
 
-    private int _tileSourceId = 13;
+    private int _tileSourceId = 14;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=51 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="PackedScene" uid="uid://cfyphwktlmmhb" path="res://Scenes/Museum/Museum Ui/concept_ending_ui.tscn" id="22_o4gbe"]
-[ext_resource type="PackedScene" uid="uid://dkmj5hwnu0jy8" path="res://Scenes/Museum/Museum Ui/zone_creation_ui.tscn" id="23_fbwo8"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
 [ext_resource type="PackedScene" uid="uid://2nxthrd3s2eh" path="res://Scenes/Museum/Sub Scenes/Emily.tscn" id="24_vxlv2"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
@@ -46,7 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://cadij7xn0trfq" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK .png" id="35_mega3"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
-[ext_resource type="PackedScene" uid="uid://cb7ama7in1m88" path="res://Scenes/Museum/Sub Scenes/TileSelector/TileSelector.tscn" id="47_fc536"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2lj4t"]
@@ -66,7 +65,6 @@ y_sort_enabled = true
 script = ExtResource("1_3ql1b")
 
 [node name="TileMap" parent="museum" node_paths=PackedStringArray("_wallsParent") instance=ExtResource("2_2v5tj")]
-layer_0/tile_data = PackedInt32Array()
 script = ExtResource("3_txjx3")
 _wallRight = ExtResource("10_xt14w")
 _wallLeft = ExtResource("6_plrwf")
@@ -137,12 +135,6 @@ z_index = 10
 visible = false
 _popUpUi = NodePath("Town Ui/TownWarning")
 _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
-
-[node name="Zone Creation Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_zoneName", "_colorPickerButton", "_createZoneButton", "_cancelZoneButton") instance=ExtResource("23_fbwo8")]
-_zoneName = NodePath("Panel/Zone Name")
-_colorPickerButton = NodePath("Panel/Zone Name2/LineEdit")
-_createZoneButton = NodePath("Panel/Create Zone Button")
-_cancelZoneButton = NodePath("Panel/Cancel Zone Button")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
 position = Vector2(55, -11)
@@ -390,5 +382,6 @@ script = ExtResource("23_md2ii")
 script = ExtResource("46_uujue")
 _backgroundObject = NodePath("../museum/Background Foresnt")
 
-[node name="TileSelector" parent="." instance=ExtResource("47_fc536")]
-position = Vector2(-194, -125)
+[node name="ControllersContainer" type="Node2D" parent="." node_paths=PackedStringArray("_controllersParent")]
+script = ExtResource("48_dpvlv")
+_controllersParent = NodePath(".")

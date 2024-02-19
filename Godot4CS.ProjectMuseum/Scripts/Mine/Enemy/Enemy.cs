@@ -18,6 +18,11 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     protected AnimationNodeStateMachinePlayback StateMachine;
     protected Vector2 MoveDirection;
     
+    [Export] public bool IsGoingToStartingPosition;
+    [Export] public bool IsGoingToEndingPosition;
+    protected Vector2 StartingMovementPosition;
+    protected Vector2 EndingMovementPosition;
+    
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;
     [Export] public bool IsAggro;

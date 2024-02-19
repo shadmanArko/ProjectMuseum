@@ -22,9 +22,6 @@ public partial class EnemySpawner : Node2D
     
     [Export] private double _time;
     
-    // private bool _autoMoveToPos;
-    // private bool _jumpIntoMine;
-    
     private Vector2 _newPos = new(560,-60);
 
     [Export] private int[] _cellBreakTargetCount;
@@ -93,9 +90,8 @@ public partial class EnemySpawner : Node2D
 
         GD.Print("Spawning Enemy");
         _newEnemy = enemy;
-        //_autoMoveToPos = false;
-        //_jumpIntoMine = true;
         enemy.Position = new Vector2(730, -58);
+        enemy.SetProcess(false);
         SetProcess(true);
     }
 
@@ -152,18 +148,5 @@ public partial class EnemySpawner : Node2D
         return r;
     }
     
-    #endregion
-
-    
-    #region For Testing
-
-    public override void _Input(InputEvent @event)
-    {
-        // if (@event.IsActionReleased("Enemy"))
-        // {
-        //     OnTimeEndSpawnEnemy();
-        // }
-    }
-
     #endregion
 }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://5qvktys7gi0"]
 
 [ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="1_tdkjj"]
-[ext_resource type="Script" path="res://Scripts/Mine/Items/FireTorch.cs" id="1_wobj7"]
+[ext_resource type="Script" path="res://Scripts/Mine/Objects/Variants/FireTorch.cs" id="1_wobj7"]
 [ext_resource type="Texture2D" uid="uid://dslbx4gvrw6vg" path="res://Assets/2D/Animations/Mine Animations/Torch/Torch.png" id="2_6yh75"]
 
 [sub_resource type="Animation" id="Animation_c5n70"]

@@ -11,7 +11,6 @@ public partial class Slime : Enemy
 {
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
-    //[Export] private EnemyAnimationController _enemyAnimationController;
 
     #region Animation Parameter Conditions
 
@@ -21,7 +20,8 @@ public partial class Slime : Enemy
     private const string DeathCondition = "parameters/conditions/is_dead";
 
     #endregion
-    
+
+    private EnemyAi _enemyAi = new();
     [Export] private Timer _stateChangeTimer;
     
 
@@ -37,11 +37,12 @@ public partial class Slime : Enemy
     {
         InitializeDiReferences();
         SubscribeToActions();
-        Spawn();
+        _enemyAi = new EnemyAi();
         IsDead = false;
         Health = 100;
         StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
-        IsAggro = true;
+        IsGoingToStartingPosition = true;
+        IsGoingToEndingPosition = false;
     }
 
     private void InitializeDiReferences()
@@ -61,46 +62,58 @@ public partial class Slime : Enemy
 
     private void OnTrackTimerTimeOut()
     {
-        NavAgent.TargetPosition = IsAggro ? _playerControllerVariables.Position : MoveDirection;
+        // NavAgent.TargetPosition = IsAggro ? _playerControllerVariables.Position : MoveDirection;
+        // if (IsAggro)
+        // {
+        //     NavAgent.TargetPosition = _playerControllerVariables.Position;
+        // }
+        // else if (IsGoingToStartingPosition)
+        // {
+        //     NavAgent.TargetPosition = StartingMovementPosition;
+        //     IsGoingToEndingPosition = false;
+        // }
+        // else if(IsGoingToEndingPosition)
+        // {
+        //     NavAgent.TargetPosition = EndingMovementPosition;
+        //     IsGoingToStartingPosition = false;
+        // }
     }
 
     private void OnStateChangeTimeOut()
     {
+        GD.Print("On State change time out is being called");
         MoveDirection = GetRandomDirection();
-
-        State = State switch
-        {
-            EnemyState.Idle => IsAggro ? EnemyState.Chase : EnemyState.Move,
-            EnemyState.Move or EnemyState.Chase => EnemyState.Idle,
-            _ => State
-        };
+        var tuple = _enemyAi.HorizontalMovement(Position);
+        StartingMovementPosition = tuple.Item1;
+        EndingMovementPosition = tuple.Item2;
+        State = EnemyState.Move;
+        // State = State switch
+        // {
+        //     EnemyState.Idle => IsAggro ? EnemyState.Chase : EnemyState.Move,
+        //     EnemyState.Move or EnemyState.Chase => EnemyState.Idle,
+        //     _ => State
+        // };
 
         //GD.Print($"State changed to {State}");
     }
 
     #endregion
 
+    [Export] private bool IsTakingMovement;
+
     public override void _PhysicsProcess(double delta)
     {
-        // CheckPlayerAggro();
-
-        switch (State)
+        if (IsTakingMovement)
         {
-            case EnemyState.Move:
-                Move();
-                break;
-            case EnemyState.Chase:
-                Chase();
-                break;
-            case EnemyState.Idle:
-                Idle();
-                break;
-            // case EnemyState.Attack:
-            //     Attack();
-            //     break;
-            
+            var tuple = _enemyAi.HorizontalMovement(Position);
+            StartingMovementPosition = tuple.Item1;
+            EndingMovementPosition = tuple.Item2;
+            IsTakingMovement = false;
         }
-
+        // CheckPlayerAggro();
+        SwitchState();
+        
+        
         var collisionBool = MoveAndSlide();
         if(IsAffectedByGravity) ApplyGravity(collisionBool, (float) delta);
     }
@@ -114,6 +127,25 @@ public partial class Slime : Enemy
             var velocity = Velocity;
             velocity.Y += _gravity * delta;
             Velocity = velocity;
+        }
+    }
+
+    private void SwitchState()
+    {
+        switch (State)
+        {
+            case EnemyState.Move:
+                Move();
+                break;
+            // case EnemyState.Chase:
+            //     Chase();
+            //     break;
+            case EnemyState.Idle:
+                Idle();
+                break;
+            default:
+                Move();
+                break;
         }
     }
 
@@ -210,7 +242,20 @@ public partial class Slime : Enemy
 
     public void Move()
     {
-        NavAgent.TargetPosition = MoveDirection;
+        if (Position.X -10 <= StartingMovementPosition.X)
+        {
+            IsGoingToStartingPosition = false;
+            IsGoingToEndingPosition = true;
+            NavAgent.TargetPosition = EndingMovementPosition;
+        }
+        else if (Position.X +10 >= EndingMovementPosition.X)
+        {
+            IsGoingToEndingPosition = false;
+            IsGoingToStartingPosition = true;
+            NavAgent.TargetPosition = StartingMovementPosition;
+        }
+        
+        //NavAgent.TargetPosition = MoveDirection;
         var direction = ToLocal(NavAgent.GetNextPathPosition()).Normalized();
         var directionBool = NavAgent.TargetPosition.X > Position.X;
         AnimationController.Sprite.FlipH = directionBool;
@@ -285,9 +330,10 @@ public partial class Slime : Enemy
         
         if (Health <= 0)
         {
-            AnimTree.Set(DeathCondition,true);
-            StateMachine.Travel("death");
-            State = EnemyState.Death;
+            // AnimTree.Set(DeathCondition,true);
+            // StateMachine.Travel("death");
+            // State = EnemyState.Death;
+            Death();
         }
         else
         {
@@ -300,6 +346,7 @@ public partial class Slime : Enemy
     public override void Death()
     {
         if(Health > 0) return;
+        AnimTree.Set(MovingCondition,false);
         AnimTree.Set(DeathCondition,true);
         StateMachine.Travel("death");
         GD.Print("Slime Death Called");

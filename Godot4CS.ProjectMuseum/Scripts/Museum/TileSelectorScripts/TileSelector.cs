@@ -14,7 +14,7 @@ public partial class TileSelector : Node2D
     private int _tileSize;
     private MuseumTileContainer _museumTileContainer;
     private bool _canEditTiles = true;
-
+    private Vector2I _atlasCoordinates = new Vector2I(8, 0);
     private int _tileSourceId = 14;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
@@ -31,10 +31,10 @@ public partial class TileSelector : Node2D
     private Vector2 _dragStartPosition;
     private Vector2I _selectedTile;
     private Rect2 _selectionRect;
+    
     public override void _Input(InputEvent @event)
     {
         if (!_canEditTiles) return;
-        
         if (@event is InputEventMouseButton mouseEvent)
         {
            
@@ -87,14 +87,20 @@ public partial class TileSelector : Node2D
                          y <= Math.Max(_selectedTile.Y, endTile.Y);
                          y++)
                     {
-                        _tileMap.SetCell(1, new Vector2I(x, y), _tileSourceId, Vector2I.Zero);
+                        SetTile(x, y);
                         // _tileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
-                        
                     }
                 }
             }
         }
     }
+
+    private void SetTile(int x, int y)
+    {
+        
+        _tileMap.SetCell(1, new Vector2I(x, y), _tileSourceId, _atlasCoordinates);
+    }
+
     private void OnSelectionComplete(List<Vector2I> tilePositions)
     {            
         GD.Print("final Selection");
@@ -102,7 +108,7 @@ public partial class TileSelector : Node2D
         List<string> tileIds = new List<string>();
         foreach (var tilePosition in tilePositions)
         {
-            _tileMap.SetCell(1, tilePosition, _tileSourceId, Vector2I.Zero);
+            SetTile(tilePosition.X, tilePosition.Y);
             foreach (var museumTile in _museumTileContainer.MuseumTiles)
             {
                 if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
@@ -116,21 +122,34 @@ public partial class TileSelector : Node2D
         {
             MuseumActions.OnSelectTilesForZone?.Invoke(tileIds);
         }
+        else
+        {
+            // _tileMap.ClearLayer(1);
+            // MuseumActions.OnNotSelectingEnoughTiles?.Invoke();
+        }
     }
     private void OnZoneCreationUiClosed()
     {
         _tileMap.ClearLayer(1);
     }
+    private void OnZoneColorChanged(Color color)
+    {
+        _tileMap.SetLayerModulate(1, color);
+    }
     public override void _EnterTree()
     {
         base._EnterTree();
         MuseumActions.OnZoneCreationUiClosed += OnZoneCreationUiClosed;
+        MuseumActions.OnZoneColorChanged += OnZoneColorChanged;
     }
+
+   
 
     public override void _ExitTree()
     {
         base._ExitTree();
         MuseumActions.OnZoneCreationUiClosed -= OnZoneCreationUiClosed;
+        MuseumActions.OnZoneColorChanged -= OnZoneColorChanged;
 
     }
 

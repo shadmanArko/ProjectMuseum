@@ -89,6 +89,8 @@ public partial class MuseumActions : Node
     #region MuseumZone
 
     public static Action<List<string>> OnSelectTilesForZone;
+    public static Action OnNotSelectingEnoughTiles;
+    public static Action<Color> OnZoneColorChanged;
     public static Action OnZoneCreationUiClosed;
     
     #endregion

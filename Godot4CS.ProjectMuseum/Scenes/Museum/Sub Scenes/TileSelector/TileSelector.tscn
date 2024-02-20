@@ -10,10 +10,15 @@ script = ExtResource("1_me733")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Zone Creation Ui" parent="CanvasLayer" node_paths=PackedStringArray("_zoneName", "_colorPickerButton", "_createZoneButton", "_cancelZoneButton") instance=ExtResource("2_b1jgp")]
-_zoneName = NodePath("Panel/Zone Name")
-_colorPickerButton = NodePath("Panel/Zone Name2/LineEdit")
+_zoneName = NodePath("Panel/Zone Name/LineEdit")
+_colorPickerButton = NodePath("Panel/Zone Name2/colorPicker")
 _createZoneButton = NodePath("Panel/Create Zone Button")
 _cancelZoneButton = NodePath("Panel/Cancel Zone Button")
 
 [node name="TileAtlasCreator" type="Node2D" parent="."]
 script = ExtResource("3_tca7n")
+_texturePath = "res://Assets/2D/Sprites/Floorings/tile selection .png"
+_numberOfColumn = 9
+_numberOfRow = 1
+_tileHeight = 16
+_tileWidth = 32

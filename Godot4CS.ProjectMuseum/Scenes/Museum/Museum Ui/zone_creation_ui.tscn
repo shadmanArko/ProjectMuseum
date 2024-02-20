@@ -12,8 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1drct")
-_zoneName = NodePath("Panel/Zone Name")
-_colorPickerButton = NodePath("Panel/Zone Name2/LineEdit")
+_zoneName = NodePath("Panel/Zone Name/LineEdit")
+_colorPickerButton = NodePath("Panel/Zone Name2/colorPicker")
 _createZoneButton = NodePath("Panel/Create Zone Button")
 _cancelZoneButton = NodePath("Panel/Cancel Zone Button")
 
@@ -65,7 +65,7 @@ offset_bottom = 133.0
 theme = ExtResource("1_fcwny")
 text = "Color"
 
-[node name="LineEdit" type="ColorPickerButton" parent="Panel/Zone Name2"]
+[node name="colorPicker" type="ColorPickerButton" parent="Panel/Zone Name2"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0

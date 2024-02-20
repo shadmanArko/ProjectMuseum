@@ -137,6 +137,9 @@ public partial class Slime : Enemy
             case EnemyState.Move:
                 Move();
                 break;
+            case EnemyState.Death:
+                Death();
+                break;
             // case EnemyState.Chase:
             //     Chase();
             //     break;
@@ -318,22 +321,20 @@ public partial class Slime : Enemy
         GD.Print("Enemy taking damage");
         
         Velocity = new Vector2(0, Velocity.Y);
+        KnockBack();
         HealthSystem.ReduceEnemyHealth(10, 100, this);
+        ReferenceStorage.Instance.DamageSystem.ShowDamageValue(10, Position);
     }
     
     private void OnTakeDamageAnimationFinished(string animName)
     {
         if(animName != "damage") return;
         
-        AnimTree.Set(TakingDamageCondition,false);
-        AnimTree.Set(AttackCondition,false);
-        
         if (Health <= 0)
         {
-            // AnimTree.Set(DeathCondition,true);
-            // StateMachine.Travel("death");
-            // State = EnemyState.Death;
-            Death();
+            AnimTree.Set(DeathCondition,true);
+            StateMachine.Travel("death");
+            State = EnemyState.Death;
         }
         else
         {
@@ -341,14 +342,20 @@ public partial class Slime : Enemy
             StateMachine.Travel("move");
             State = EnemyState.Move;
         }
+        
+        AnimTree.Set(TakingDamageCondition,false);
+        AnimTree.Set(AttackCondition,false);
+        // AnimTree.Set(MovingCondition,false);
+        // AnimTree.Set(DeathCondition,false);
+        
     }
 
     public override void Death()
     {
-        if(Health > 0) return;
-        AnimTree.Set(MovingCondition,false);
-        AnimTree.Set(DeathCondition,true);
-        StateMachine.Travel("death");
+        // if(Health > 0) return;
+        // AnimTree.Set(MovingCondition,false);
+        // AnimTree.Set(DeathCondition,true);
+        // StateMachine.Travel("death");
         GD.Print("Slime Death Called");
         _ExitTree();
     }
@@ -370,4 +377,12 @@ public partial class Slime : Enemy
     }
 
     #endregion
+
+    private void KnockBack()
+    {
+        var playerDirection = _playerControllerVariables.PlayerDirection;
+        var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
+        Velocity = knockBackDirection;
+        MoveAndSlide();
+    }
 }

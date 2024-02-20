@@ -31,6 +31,7 @@ window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=2
+mouse_cursor/custom_image="res://Assets/2D/Sprites/cursor icon .png"
 
 [dotnet]
 

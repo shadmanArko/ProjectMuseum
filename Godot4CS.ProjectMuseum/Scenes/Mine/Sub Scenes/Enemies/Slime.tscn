@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=39 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
@@ -252,7 +252,6 @@ advance_mode = 2
 advance_condition = &"is_moving"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_780lb"]
-priority = 0
 advance_mode = 2
 advance_condition = &"is_taking_damage"
 
@@ -271,6 +270,16 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_dead"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ujrmc"]
+priority = 0
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7l4tb"]
+priority = 0
+advance_mode = 2
+advance_condition = &"is_dead"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k6wic"]
 states/End/position = Vector2(677, 188)
 states/Start/position = Vector2(110, 188)
@@ -282,7 +291,7 @@ states/death/node = SubResource("AnimationNodeAnimation_dn1ai")
 states/death/position = Vector2(453, 188)
 states/move/node = SubResource("AnimationNodeBlendSpace2D_4o61f")
 states/move/position = Vector2(271, 188)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_ups56"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_atu1o"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_3ju6y"), "move", "damage", SubResource("AnimationNodeStateMachineTransition_780lb"), "damage", "move", SubResource("AnimationNodeStateMachineTransition_ognbc"), "death", "End", SubResource("AnimationNodeStateMachineTransition_bqoxk"), "damage", "death", SubResource("AnimationNodeStateMachineTransition_y8457")]
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_ups56"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_atu1o"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_3ju6y"), "move", "damage", SubResource("AnimationNodeStateMachineTransition_780lb"), "damage", "move", SubResource("AnimationNodeStateMachineTransition_ognbc"), "death", "End", SubResource("AnimationNodeStateMachineTransition_bqoxk"), "damage", "death", SubResource("AnimationNodeStateMachineTransition_y8457"), "move", "death", SubResource("AnimationNodeStateMachineTransition_ujrmc"), "attack", "death", SubResource("AnimationNodeStateMachineTransition_7l4tb")]
 graph_offset = Vector2(0, -13.7009)
 
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_stateChangeTimer", "NavAgent", "TrackTimer", "AnimTree", "HealthBar", "AnimationController")]
@@ -376,15 +385,15 @@ parameters/move/blend_position = Vector2(0, 0)
 
 [connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="AttackPlayer"]
 [connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="OnCollideWithWallEntered"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
 [connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]
 [connection signal="timeout" from="Attack Cooldown" to="Enemy Collision Detector" method="OnEnemyAttackCooldownTimeOut"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="OnDeathAnimationFinished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="OnAttackAnimationFinished"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnDeathAnimationFinished"]

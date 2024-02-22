@@ -452,7 +452,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_m5pbq"]
 resource_name = "run"
-length = 0.35
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

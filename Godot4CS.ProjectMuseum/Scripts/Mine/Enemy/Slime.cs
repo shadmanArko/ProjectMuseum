@@ -357,7 +357,6 @@ public partial class Slime : Enemy
         // AnimTree.Set(DeathCondition,true);
         // StateMachine.Travel("death");
         GD.Print("Slime Death Called");
-        _ExitTree();
     }
 
     private void OnDeathAnimationFinished(string animeName)
@@ -365,6 +364,7 @@ public partial class Slime : Enemy
         if(animeName != "death") return;
         IsDead = true;
         SetPhysicsProcess(false);
+        _ExitTree();
         QueueFree();
     }
     

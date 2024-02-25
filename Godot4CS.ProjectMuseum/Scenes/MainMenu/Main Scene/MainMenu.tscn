@@ -32,4 +32,3 @@ LoadingPanel = NodePath("Loading Panel")
 
 [node name="MainMenuMiscellaneousDataManager" type="Node2D" parent="."]
 script = ExtResource("3_y8duy")
-_languageKey = "fr"

@@ -24,18 +24,18 @@ public class MuseumZoneService : IMuseumZoneService
     public async Task<MuseumZone> CreateNewZone(MuseumZone museumZone)
     {
         museumZone = await _museumZoneRepository.Insert(museumZone);
-        // museumZone = await InsertTilesIntoZone(museumZone.OccupiedMuseumTileIds, museumZone.Id);
+        museumZone = await InsertTilesIntoZone(museumZone.OccupiedMuseumTileIds, museumZone.Id);
         return museumZone;
     }
 
     public async Task<MuseumZone> InsertTilesIntoZone(List<string> tileIds, string zoneId)
     {
         
-        // await SetIsInZone(tileIds, true);
         foreach (var museumZone in (await _museumZoneRepository.GetAll())!)
         {
             await ReleaseTilesFromZone(tileIds, museumZone.Id);
         }
+        await SetIsInZone(tileIds, true);
         var zone = await GetZone(zoneId);
         if (zone != null) zone.OccupiedMuseumTileIds = (List<string>)zone.OccupiedMuseumTileIds.Union(tileIds);
         zone = await EditZone(zoneId, zone);

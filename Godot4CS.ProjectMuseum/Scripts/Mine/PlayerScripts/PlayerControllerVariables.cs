@@ -1,5 +1,4 @@
 using Godot;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 
@@ -47,22 +46,22 @@ public class PlayerControllerVariables
         get => _isAttacking;
         set
         {
-            if(_isAttacking != value && _isAttacking == false && CurrentEquippedItem == Equipables.Sword)
+            if(_isAttacking != value && _isAttacking == false && CurrentEquippedItemSlot == 1)
                 MineActions.OnMeleeAttackActionEnded?.Invoke();
             
             _isAttacking = value;
             if (_isAttacking)
             {
                 if (!CanMove) return;
-                switch (_currentEquippedItem)
+                switch (_currentEquippedItemSlot)
                 {
-                    case Equipables.PickAxe:
+                    case 2:
                         if(!CanDig) return;
                         MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnDigActionStarted?.Invoke();
                         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
                         break;
-                    case Equipables.Sword:
+                    case 1:
                         if(!CanAttack) return;
                         MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnMeleeAttackActionStarted?.Invoke();
@@ -113,20 +112,19 @@ public class PlayerControllerVariables
 
     #region Other Variables
 
-    private Equipables _currentEquippedItem;
+    private int _currentEquippedItemSlot;
 
-    public Equipables CurrentEquippedItem
+    public int CurrentEquippedItemSlot
     {
-        get => _currentEquippedItem;
+        get => _currentEquippedItemSlot;
         set
         {
-            _currentEquippedItem = value;
-            MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItem);
-            if(_currentEquippedItem == Equipables.Sword)
+            _currentEquippedItemSlot = value;
+            MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItemSlot);
+            
+            if(_currentEquippedItemSlot == 1)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SwordSelected");
-            // else if(_currentEquippedItem == Equipables.Brush)
-            //     MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("BrushSelected");
-            else if(_currentEquippedItem == Equipables.PickAxe)
+            else if(_currentEquippedItemSlot == 2)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
         }       
     }

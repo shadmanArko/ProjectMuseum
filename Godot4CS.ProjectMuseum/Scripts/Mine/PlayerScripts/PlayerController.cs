@@ -32,7 +32,7 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		_playerControllerVariables.Player = this;
 		_playerControllerVariables.PlayerHealth = 200;
 		_playerControllerVariables.PlayerEnergy = 200;
-		_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
+		_playerControllerVariables.CurrentEquippedItemSlot = 1;
 	}
 
 	private void InitializeDiReferences()

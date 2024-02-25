@@ -42,12 +42,31 @@ public partial class PlayerInputHandler : Node2D
 	private void SwitchEquipables(InputEvent inputEvent)
 	{
 		if(inputEvent is not InputEventKey) return;
-		if (inputEvent.IsActionReleased("Equipment1"))
-			_playerControllerVariables.CurrentEquippedItem = Equipables.Sword;
-		else if(inputEvent.IsActionReleased("Equipment2"))
-			_playerControllerVariables.CurrentEquippedItem = Equipables.PickAxe;
-		// else if(inputEvent.IsActionReleased("Equipment3"))
-		// 	_playerControllerVariables.CurrentEquippedItem = Equipables.Brush;
+		if (inputEvent.IsActionReleased("eq1"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 0;
+		else if(inputEvent.IsActionReleased("eq2"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 1;
+		else if(inputEvent.IsActionReleased("eq3"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 2;
+		else if(inputEvent.IsActionReleased("eq4"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 3;
+		else if(inputEvent.IsActionReleased("eq5"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 4;
+		else if(inputEvent.IsActionReleased("eq6"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 5;
+		else if(inputEvent.IsActionReleased("eq7"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 6;
+		else if(inputEvent.IsActionReleased("eq8"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 7;
+		else if(inputEvent.IsActionReleased("eq9"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 8;
+		else if(inputEvent.IsActionReleased("eq10"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 9;
+		else if(inputEvent.IsActionReleased("eq11"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 10;
+		else if(inputEvent.IsActionReleased("eq12"))
+			_playerControllerVariables.CurrentEquippedItemSlot = 11;
+		
 	}
 
 	// private void MouseMotion(InputEvent @event)
@@ -84,13 +103,13 @@ public partial class PlayerInputHandler : Node2D
 	// 	// scene.PlayTorchAnimation();
 	// }
 
-	private void SetTorchInMine(InputEvent inputEvent)
-	{
-			if(inputEvent is not InputEventKey) return;
-			if (!inputEvent.IsActionReleased("Lamp")) return;
-		var inventoryTorchInit = new InventoryTorchInitializer();
-		// inventoryTorchInit.OnSelectWallPlaceableFromInventory(TorchScenePath);
-	}
+	// private void SetTorchInMine(InputEvent inputEvent)
+	// {
+	// 		if(inputEvent is not InputEventKey) return;
+	// 		if (!inputEvent.IsActionReleased("Lamp")) return;
+	// 	var inventoryTorchInit = new InventoryTorchInitializer();
+	// 	// inventoryTorchInit.OnSelectWallPlaceableFromInventory(TorchScenePath);
+	// }
 
 	#endregion
 

@@ -1,6 +1,5 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -10,18 +9,18 @@ public partial class AnimationController : AnimationPlayer
 	private PlayerControllerVariables _playerControllerVariables;
 
 	[Export] private Sprite2D _sprite;
-	
+
+	#region Initializers
+
 	public override void _Ready()
 	{
 		InitializeDiReferences();
 		SubscribeToActions();
 	}
-
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 	}
-
 	private void SubscribeToActions()
 	{
 		MineActions.OnDigActionStarted += PlayDigAnimation;
@@ -34,6 +33,9 @@ public partial class AnimationController : AnimationPlayer
 
 		_sprite.FrameChanged += OnDigAnimationStrikeStarted;
 	}
+
+	#endregion
+	
 	public void SetAnimation(bool isAttacking)
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
@@ -43,7 +45,6 @@ public partial class AnimationController : AnimationPlayer
 		else
 			PlayMovementAnimations(tempVelocity);
 	}
-
 	private void PlayMovementAnimations(Vector2 velocity)
 	{
 		switch (velocity.X)
@@ -62,7 +63,6 @@ public partial class AnimationController : AnimationPlayer
 				break;
 		}
 	}
-
 	private void PlayHangingAnimations(Vector2 velocity)
 	{
 		switch (velocity.X)
@@ -83,43 +83,7 @@ public partial class AnimationController : AnimationPlayer
 		
 		PlayAnimation(velocity.Y is > 0 or < 0 ? "climb_vertical" : "climb_idle");
 	}
-
-	private void PlayMeleeAttackAnimation()
-	{
-		PlayAnimation("attack");
-	}
-
-	#region Brush Animation
-
-	private void PlayBrushAnimation()
-	{
-		if (_playerControllerVariables.State == MotionState.Hanging)
-		{
-			var mouseDirection = _playerControllerVariables.MouseDirection;
-			PlayAnimation(mouseDirection == Vector2I.Up ? "climb_brush_up" : "climb_brush_horizontal");
-		}
-		else
-		{
-			PlayAnimation("brush");
-		}
-	}
-
-	// private void OnBrushAnimationStarted(string animName)
-	// {
-	// 	if(!animName.Contains("brush")) return;
-	// 	
-	// 	MineActions.OnBrushActionStarted?.Invoke();
-	// }
-
-	// private void OnBrushAnimationEnded(string animName)
-	// {
-	// 	if(!animName.Contains("brush")) return;
-	// 	
-	// 	MineActions.OnBrushActionEnded?.Invoke();
-	// }
-
-	#endregion
-
+    
 	#region Dig Animation
 
 	private void PlayDigAnimation()
@@ -151,26 +115,22 @@ public partial class AnimationController : AnimationPlayer
 
 	#region Melee Attack Animation
 
-	private void PlayAttackAnimation()
+	private void PlayMeleeAttackAnimation()
 	{
 		var mouseDirection = _playerControllerVariables.MouseDirection;
-		switch (_playerControllerVariables.CurrentEquippedItem)
+		var isHanging = _playerControllerVariables.State == MotionState.Hanging;
+
+		if (isHanging)
 		{
-			case Equipables.Sword:
-				PlayAnimation("attack");
-				break;
-			case Equipables.PickAxe:
-				if (mouseDirection == Vector2I.Up)
-					PlayAnimation("mining_up");
-				else if (mouseDirection == Vector2I.Down)
-					PlayAnimation("mining_down");
-				else
-					PlayAnimation("mining_horizontal");
-				break;
-			case Equipables.Brush:
-				PlayAnimation("brush");
-				break;
+			if(mouseDirection == Vector2I.Up)
+				PlayAnimation("climb_attack_up");
+			else if(mouseDirection == Vector2I.Down)
+				PlayAnimation("climb_attack_down");
+			else
+				PlayAnimation("climb_attack_horizontal");
 		}
+		else
+			PlayAnimation("attack");
 	}
 
 	private void OnMeleeAttackAnimationStarted(string animName)

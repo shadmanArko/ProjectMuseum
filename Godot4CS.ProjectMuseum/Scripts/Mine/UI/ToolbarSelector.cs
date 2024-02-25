@@ -7,7 +7,6 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
-using Equipables = Godot4CS.ProjectMuseum.Scripts.Mine.Enum.Equipables;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
@@ -148,10 +147,10 @@ public partial class ToolbarSelector : Node
 
 	#endregion
     
-	private void SelectItem(Equipables equipable)
+	private void SelectItem(int itemNumber)
 	{
 		DeselectAllItems();
-		_toolbarSlots[(int) equipable].SetItemAsSelected();
+		_toolbarSlots[itemNumber].SetItemAsSelected();
 	}
 
 

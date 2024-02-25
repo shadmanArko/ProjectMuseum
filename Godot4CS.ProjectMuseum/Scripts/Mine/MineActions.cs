@@ -1,6 +1,5 @@
 using System;
 using Godot;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using ProjectMuseum.Models;
 using Equipables = Godot4CS.ProjectMuseum.Scripts.Mine.Enum.Equipables;
 
@@ -8,32 +7,54 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineActions : Node
 {
+	#region Spawn Death Actions
+
 	public static Action OnPlayerSpawned;
 	public static Action OnPlayerDead;
 
-	#region Mouse Click Actions
+	#endregion
+
+	#region Mouse Actions
 
 	public static Action OnLeftMouseClickActionStarted;
 	public static Action OnLeftMouseClickActionEnded;
 	
 	public static Action OnRightMouseClickActionStarted;
 	public static Action OnRightMouseClickActionEnded;
+	
+	public static Action<double> OnMouseMotionAction;
 
 	#endregion
-	
+
+	#region Dig Actions
+
 	public static Action OnDigActionStarted;
 	public static Action OnDigActionEnded;
-	
+
+	#endregion
+
+	#region Melee Attack Actions
+
 	public static Action OnMeleeAttackActionStarted;
 	public static Action OnMeleeAttackActionEnded;
-	
-    public static Action OnRangedAttackActionStarted;
-    public static Action OnRangedAttackActionEnded;
+
+	#endregion
+
+	#region Ranged Attack Actions
+
+	public static Action OnRangedAttackActionStarted;
+	public static Action OnRangedAttackActionEnded;
+
+	#endregion
+
+    #region Roll Actions
 
     public static Action OnRollStarted;
     public static Action OnRollEnded;
 
-    public static Action OnMineCellBroken;	//Called every time a mine cell is successfully broken 
+    #endregion
+
+    public static Action OnMineCellBroken; 
 
     //for starting the enemy damage at the right moment
     // public static Action OnPlayerAttackAnimationStarted; 
@@ -41,39 +62,65 @@ public partial class MineActions : Node
 
     public static Action OnSuccessfulDigActionCompleted;
 
+    #region Health and Energy Actions
+
     public static Action OnPlayerHealthValueChanged;
     public static Action OnPlayerEnergyValueChanged;
 
-    public static Action<Equipables> OnToolbarSlotChanged;
+    #endregion
+
+    
+    #region Mini Game Actions
 
     public static Action<Vector2I> OnMiniGameLoad;
     public static Action OnMiniGameWon;
     public static Action OnMiniGameLost;
+
+    #endregion
+
+    #region Artifact Actions
+
     public static Action<Vector2I> OnArtifactCellBroken;
     public static Action<Artifact> OnArtifactSuccessfullyRetrieved;
+
+    #endregion
+    
     public static Action OnPlayerReachBackToCamp;
 
     public static Action OnPlayerReachFirstWarning;
 
+    #region Inventory Actions
+
+    public static Action<int> OnToolbarSlotChanged;
     public static Action OnInventoryUpdate;
 
+    #endregion
+
 	public static Action<KinematicCollision2D> OnPlayerCollisionDetection;
+    
+	#region Time System Actions
 
-	public static Action<double> OnMouseMotionAction;
-
-	/// <summary>
-	/// Mine Time System
-	/// </summary>
 	public static Action<int> OnTenMinutesPassed;
 	public static Action<int> OnOneHourPassed;
 	public static Action<int> OnOneDayPassed;
+	public static Action<int, int, int, int, int> OnTimeUpdated;
+
+	#endregion
+
+	#region Grab Actions
 
 	public static Action OnPlayerGrabActionStarted;
 	public static Action OnPlayerGrabActionEnded;
+
+	#endregion
 	
-	public static Action<int, int, int, int, int> OnTimeUpdated;
+
+	#region Position and Velocity Actions
+
 	public static Action OnPlayerPositionUpdated;
 	public static Action OnPlayerVelocityUpdated;
+
+	#endregion
 	
 	public static Action OnRawArtifactDTOInitialized;	//TODO: has to be changed later
 }

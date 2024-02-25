@@ -50,7 +50,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
         GD.Print($"body entered is null {enemy == null}");
         if(enemy is null) return;
         if(!_playerControllerVariables.IsAttacking) return;
-        if(_playerControllerVariables.CurrentEquippedItem != Equipables.Sword) return;
+        if(_playerControllerVariables.CurrentEquippedItemSlot != 1) return;
         enemy.TakeDamage();
         GD.Print("PLAYER ATTACKING ENEMY");
     }

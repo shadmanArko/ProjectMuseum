@@ -1,6 +1,9 @@
-﻿using Godot;
+﻿using System.Text;
+using System.Text.Json;
+using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 using WallPlaceableObject = Godot4CS.ProjectMuseum.Scripts.Mine.Objects.Types.WallPlaceable.WallPlaceableObject;
 
@@ -8,19 +11,29 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 
 public partial class WallPlaceableController : Node2D
 {
+    private HttpRequest _sendWallPlaceableFromInventoryToMineHttpRequest;
+    
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
 
-    private WallPlaceableObject _wallPlaceable;
+    private WallPlaceableObject _wallPlaceableObject;
 
     #region Initializers
 
     private void InitializeDiInstaller()
     {
+        CreateHttpRequests();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
     }
-    
+
+    private void CreateHttpRequests()
+    {
+        _sendWallPlaceableFromInventoryToMineHttpRequest = new HttpRequest();
+        AddChild(_sendWallPlaceableFromInventoryToMineHttpRequest);
+        _sendWallPlaceableFromInventoryToMineHttpRequest.RequestCompleted += OnSendWallPlaceableFromInventoryToMineHttpRequestComplete;
+    }
+
     private void SubscribeToActions()
     {
         MineActions.OnMouseMotionAction += ShowWallPlaceableEligibilityVisualizer;
@@ -46,20 +59,37 @@ public partial class WallPlaceableController : Node2D
 
     public void OnSelectWallPlaceableFromInventory(string scenePath)
     {
-        _wallPlaceable = InstantiateTorch(scenePath, Vector2I.Zero);
+        _wallPlaceableObject = InstantiateWallPlaceable(scenePath, Vector2I.Zero);
         SubscribeToActions();
     }
 
     private void OnDeselectedWallPlaceableFromInventory()
     {
         UnsubscribeToActions();
-        _wallPlaceable = null;
+        _wallPlaceableObject = null;
     }
 
     private void DestroyWallPlaceableAndDeselect()
     {
         UnsubscribeToActions();
-        _wallPlaceable.QueueFree();
+        _wallPlaceableObject.QueueFree();
+    }
+
+    #endregion
+
+    #region Remove Wall Placeable from Mine
+
+    private void SendWallPlaceableFromInventoryToMine(InventoryItem inventoryItem)
+    {
+        var url = ApiAddress.MineApiPath+"SendWallPlaceableFromInventoryToMine/"+inventoryItem;
+        _sendWallPlaceableFromInventoryToMineHttpRequest.Request(url);
+    }
+    
+    private void OnSendWallPlaceableFromInventoryToMineHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
+    {
+        var jsonStr = Encoding.UTF8.GetString(body);
+        var wallPlaceable = JsonSerializer.Deserialize<WallPlaceable>(jsonStr);
+        //todo: convert wall placeable into a wall placeable object;
     }
 
     #endregion
@@ -68,14 +98,14 @@ public partial class WallPlaceableController : Node2D
     {
         var eligibility = CheckEligibility();
         if (eligibility)
-            _wallPlaceable.SetSpriteColorToGreen();
+            _wallPlaceableObject.SetSpriteColorToGreen();
         else
-            _wallPlaceable.SetSpriteColorToRed();
+            _wallPlaceableObject.SetSpriteColorToRed();
         
         var cell = GetTargetCell();
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var offset = new Vector2(cellSize / 2f, cellSize / 4f);
-        _wallPlaceable.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+        _wallPlaceableObject.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
     }
     private void PlaceWallPlaceableInMine()
     {
@@ -86,8 +116,8 @@ public partial class WallPlaceableController : Node2D
             var cell = GetTargetCell();
             var cellPos = new Vector2(cellSize * cell.PositionX, cellSize * cell.PositionY);
             var offset = new Vector2(cellSize /2f, cellSize/4f);
-            _wallPlaceable.Position = cellPos + offset;
-            _wallPlaceable.SetSpriteColorToDefault();
+            _wallPlaceableObject.Position = cellPos + offset;
+            _wallPlaceableObject.SetSpriteColorToDefault();
             OnDeselectedWallPlaceableFromInventory();
         }
     }
@@ -104,7 +134,7 @@ public partial class WallPlaceableController : Node2D
         return cell;
     }
     
-    private WallPlaceableObject InstantiateTorch(string scenePath, Vector2 pos)
+    private WallPlaceableObject InstantiateWallPlaceable(string scenePath, Vector2 pos)
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
         var cellSize = mineGenerationVariables.Mine.CellSize;

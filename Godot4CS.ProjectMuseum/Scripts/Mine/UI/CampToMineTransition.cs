@@ -51,8 +51,9 @@ public partial class CampToMineTransition : Button
 
     private void OnGetTimeHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
     {
-        string jsonStr = Encoding.UTF8.GetString(body);
+        var jsonStr = Encoding.UTF8.GetString(body);
         var time = JsonSerializer.Deserialize<Time>(jsonStr);
+        time.Days++;
         UpdateTime(time);
     }
     

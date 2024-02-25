@@ -12,7 +12,7 @@ public partial class FireTorch : Types.WallPlaceable.WallPlaceableObject
 		PlayAnimation();
 	}
 
-	public void PlayAnimation()
+	private void PlayAnimation()
 	{
 		_animationPlayer.Play("fireTorch");
 	}

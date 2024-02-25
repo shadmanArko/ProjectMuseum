@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=51 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://cadij7xn0trfq" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK .png" id="35_mega3"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2lj4t"]
@@ -64,7 +65,6 @@ y_sort_enabled = true
 script = ExtResource("1_3ql1b")
 
 [node name="TileMap" parent="museum" node_paths=PackedStringArray("_wallsParent") instance=ExtResource("2_2v5tj")]
-layer_0/tile_data = PackedInt32Array()
 script = ExtResource("3_txjx3")
 _wallRight = ExtResource("10_xt14w")
 _wallLeft = ExtResource("6_plrwf")
@@ -381,3 +381,7 @@ script = ExtResource("23_md2ii")
 [node name="DayNightCycleController" type="Node2D" parent="." node_paths=PackedStringArray("_backgroundObject")]
 script = ExtResource("46_uujue")
 _backgroundObject = NodePath("../museum/Background Foresnt")
+
+[node name="ControllersContainer" type="Node2D" parent="." node_paths=PackedStringArray("_controllersParent")]
+script = ExtResource("48_dpvlv")
+_controllersParent = NodePath(".")

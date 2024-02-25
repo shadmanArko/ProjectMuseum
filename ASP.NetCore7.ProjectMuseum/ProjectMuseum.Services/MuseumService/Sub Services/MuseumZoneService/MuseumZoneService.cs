@@ -23,20 +23,29 @@ public class MuseumZoneService : IMuseumZoneService
 
     public async Task<MuseumZone> CreateNewZone(MuseumZone museumZone)
     {
+        await RemoveTilesFromZone(museumZone.OccupiedMuseumTileIds);
         museumZone = await _museumZoneRepository.Insert(museumZone);
         return museumZone;
+    }
+    private async Task RemoveTilesFromZone(List<string> tileIds)
+    {
+        await SetIsInZone(tileIds, false);
+        foreach (var museumZone in (await _museumZoneRepository.GetAll())!)
+        {
+            await ReleaseTilesFromZone(tileIds, museumZone.Id);
+        }
     }
 
     public async Task<MuseumZone> InsertTilesIntoZone(List<string> tileIds, string zoneId)
     {
         
-        await SetIsInZone(tileIds, true);
         foreach (var museumZone in (await _museumZoneRepository.GetAll())!)
         {
             await ReleaseTilesFromZone(tileIds, museumZone.Id);
         }
+        await SetIsInZone(tileIds, true);
         var zone = await GetZone(zoneId);
-        if (zone != null) zone.OccupiedMuseumTileIds = (List<string>)zone.OccupiedMuseumTileIds.Concat(tileIds);
+        if (zone != null) zone.OccupiedMuseumTileIds = (List<string>)zone.OccupiedMuseumTileIds.Union(tileIds);
         zone = await EditZone(zoneId, zone);
         return zone;
     }
@@ -46,16 +55,30 @@ public class MuseumZoneService : IMuseumZoneService
         foreach (var tileId in tileIds)
         {
             var tile = await _museumTileRepository.GetById(tileId);
-            tile!.IsInZone = isInZone;
-            await _museumTileRepository.Update(tileId, tile);
+            if (tile != null)
+            {
+                tile!.IsInZone = isInZone;
+                await _museumTileRepository.Update(tileId, tile);
+            } 
+            
         }
     }
 
     public async Task<MuseumZone> ReleaseTilesFromZone(List<string> tileIds, string zoneId)
     {
-        await SetIsInZone(tileIds, false);
         var zone = await GetZone(zoneId);
-        if (zone != null) zone.OccupiedMuseumTileIds = new List<string>(zone.OccupiedMuseumTileIds.RemoveAll(tileIds.Contains));
+        var listOfTileIds = new List<string>();
+        foreach (var occupiedMuseumTileId in zone.OccupiedMuseumTileIds)
+        {
+            if (tileIds.Contains(occupiedMuseumTileId)) continue;
+            listOfTileIds.Add(occupiedMuseumTileId);
+        }
+        // if (zone != null) zone.OccupiedMuseumTileIds = new List<string>(zone.OccupiedMuseumTileIds.RemoveAll(tileIds.Contains));
+        if (listOfTileIds.Count < 1)
+        {
+            return (await DeleteZone(zoneId))!;
+        }
+        zone.OccupiedMuseumTileIds = listOfTileIds;
         zone = await EditZone(zoneId, zone);
         return zone;
     }

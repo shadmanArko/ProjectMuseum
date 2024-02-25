@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb7ama7in1m88"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/TileSelectorScripts/TileSelector.cs" id="1_me733"]
+[ext_resource type="PackedScene" uid="uid://dkmj5hwnu0jy8" path="res://Scenes/Museum/Museum Ui/zone_creation_ui.tscn" id="2_b1jgp"]
+[ext_resource type="Script" path="res://Scripts/Museum/TileMap/TileAtlasCreator.cs" id="3_tca7n"]
+
+[node name="TileSelector" type="Node2D"]
+script = ExtResource("1_me733")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Zone Creation Ui" parent="CanvasLayer" node_paths=PackedStringArray("_zoneName", "_colorPickerButton", "_createZoneButton", "_cancelZoneButton") instance=ExtResource("2_b1jgp")]
+_zoneName = NodePath("Panel/Zone Name/LineEdit")
+_colorPickerButton = NodePath("Panel/Zone Name2/colorPicker")
+_createZoneButton = NodePath("Panel/Create Zone Button")
+_cancelZoneButton = NodePath("Panel/Cancel Zone Button")
+
+[node name="TileAtlasCreator" type="Node2D" parent="."]
+script = ExtResource("3_tca7n")
+_texturePath = "res://Assets/2D/Sprites/Floorings/tile selection .png"
+_numberOfColumn = 9
+_numberOfRow = 1
+_tileHeight = 16
+_tileWidth = 32

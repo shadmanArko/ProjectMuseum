@@ -13,6 +13,7 @@ public class MuseumZoneRepository : IMuseumZoneRepository
     public async Task<MuseumZone> Insert(MuseumZone museumZone)
     {
         var museums = await _museumDatabase.ReadDataAsync();
+        museumZone.Id = Guid.NewGuid().ToString();
         museums?[0].MuseumZones?.Add(museumZone);
         if (museums != null) await _museumDatabase.WriteDataAsync(museums);
         return museumZone;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 using ProjectMuseum.Models;
@@ -84,5 +85,13 @@ public partial class MuseumActions : Node
     public static Action OnClinkStartNewGameButton;
 
 
+    #endregion
+    #region MuseumZone
+
+    public static Action<List<string>> OnSelectTilesForZone;
+    public static Action OnNotSelectingEnoughTiles;
+    public static Action<Color> OnZoneColorChanged;
+    public static Action OnZoneCreationUiClosed;
+    
     #endregion
 }

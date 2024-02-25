@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=28 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Scripts/Mine/ReferenceStorage.cs" id="5_yk3pc"]
 [ext_resource type="PackedScene" uid="uid://veekhqh7bm57" path="res://Scenes/Mine/Sub Scenes/UI/SceneTransition.tscn" id="6_1bas2"]
 [ext_resource type="Script" path="res://Scripts/Mine/AutoAnimationController.cs" id="7_5sphp"]
+[ext_resource type="PackedScene" uid="uid://cmjtexcfmbaxm" path="res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageSystem.tscn" id="7_x8k1i"]
+[ext_resource type="Script" path="res://Scripts/Mine/UI/DamageSystem/DamageSystem.cs" id="8_4crix"]
 [ext_resource type="PackedScene" uid="uid://ccshgryravaf2" path="res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn" id="8_mppk2"]
 [ext_resource type="PackedScene" uid="uid://p4pp1nmkb44s" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_uross"]
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
@@ -35,7 +37,7 @@ _rootNode = NodePath("..")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -45,10 +47,12 @@ MineTutorial = NodePath("../MineTutorial")
 CameraController = NodePath("../CameraController")
 MineTimeSystem = NodePath("../MineUI/TimeSystem")
 SceneLoader = NodePath("../SceneLoader")
+DamageSystem = NodePath("../DamageSystem")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
 MinePopUp = NodePath("../MineUI/MinePopUp")
+MineUiController = NodePath("../MineUI")
 DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
 Tooltip = NodePath("../MineUI/Tooltip4")
 
@@ -58,6 +62,10 @@ Tooltip = NodePath("../MineUI/Tooltip4")
 _tutorialSystem = NodePath("Tutorial System")
 
 [node name="MineGameConditions" parent="." instance=ExtResource("12_i3nvu")]
+
+[node name="DamageSystem" parent="." instance=ExtResource("7_x8k1i")]
+script = ExtResource("8_4crix")
+_damageVisualizerPath = "res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageVisualizer.tscn"
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_xj3qh")]
 _parentNode = NodePath("../MineSceneInitializer")

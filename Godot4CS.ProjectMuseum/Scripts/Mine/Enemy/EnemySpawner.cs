@@ -127,7 +127,7 @@ public partial class EnemySpawner : Node2D
         if(enemy == null) return;
         if(enemy.Position.X > _newPos.X)
         {
-            enemy.Translate(new Vector2(-0.1f,0));
+            enemy.Translate(new Vector2(-0.2f,0));
             enemy.AnimationController.Play("move");
         }
         else

@@ -35,9 +35,16 @@ public partial class PlayerInputHandler : Node2D
 	public override void _Input(InputEvent inputEvent)
 	{
 		// MouseMotion(inputEvent);
+		// MouseLeftClick();
 		SwitchEquipables(inputEvent);
 		// SetTorchInMine(inputEvent);
 	}
+
+	// private void MouseLeftClick()
+	// {
+	// 	if(Input.IsActionJustReleased("ui_left_click"))
+	// 		MineActions.OnLeftMouseClickActionStarted?.Invoke();
+	// }
 
 	private void SwitchEquipables(InputEvent inputEvent)
 	{

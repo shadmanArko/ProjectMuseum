@@ -37,4 +37,10 @@ public class WallPlaceableService : IWallPlaceableService
             removedWallPlaceable.Variant, removedWallPlaceable.PngPath);
         return inventoryItem;
     }
+
+    public async Task<WallPlaceable> GetWallPlaceableByVariant(string variant)
+    {
+        var wallPlaceable = await _wallPlaceableRepository.GetWallPlaceableByVariant(variant);
+        return wallPlaceable;
+    }
 }

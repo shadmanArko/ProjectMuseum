@@ -1,9 +1,11 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -14,6 +16,7 @@ public partial class GuestsController : Node2D
 {
 	[Export] private PackedScene _guestScene;
 	[Export] private Vector2I _spawnAtTile;
+	[Export] private Array<Vector2I> _sceneEntryPositions;
 	private MuseumTileContainer _museumTileContainer;
 	private string _testString;
 	private HttpRequest _httpRequestForGettingMuseumTiles;
@@ -70,9 +73,9 @@ public partial class GuestsController : Node2D
 		{
 			if (!_isMuseumGateOpen || _numberOfGuestsInMuseum >= _maxNumberGuests || _isGamePaused) return;
 			var guest = _guestScene.Instantiate();
-			guest.GetNode<Guest>(".").Position = GameManager.TileMap.MapToLocal(_spawnAtTile);
+			guest.GetNode<Guest>(".").Position = GameManager.tileMap.MapToLocal(_sceneEntryPositions[GD.RandRange(0, _sceneEntryPositions.Count-1)]);
 			AddChild(guest);
-			guest.GetNode<Guest>(".").Initialize();
+			guest.GetNode<Guest>(".").Initialize(_sceneEntryPositions.ToList());
 			_numberOfGuestsInMuseum++;
 			MuseumActions.OnMuseumBalanceAdded?.Invoke(_ticketPrice);
 			MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMuseum);
@@ -97,4 +100,5 @@ public partial class GuestsController : Node2D
 		MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
 		MuseumActions.OnGuestExitMuseum -= OnGuestExitMuseum;
 	}
+	
 }

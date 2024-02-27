@@ -24,6 +24,6 @@ public partial class TileAtlasCreator : Node
             }
         }
 
-        GameManager.TileMap.TileSet.AddSource(atlasSource) ;
+        GameManager.tileMap.TileSet.AddSource(atlasSource) ;
     }
 }

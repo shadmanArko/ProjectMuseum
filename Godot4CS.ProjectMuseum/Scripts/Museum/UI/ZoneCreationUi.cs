@@ -46,7 +46,7 @@ public partial class ZoneCreationUi : Control
 		string jsonStr = Encoding.UTF8.GetString(body);
 		// GD.Print($"Updated Museum Zone{jsonStr}");
 		var museumZones = JsonSerializer.Deserialize<List<MuseumZone>>(jsonStr);
-		var tileMap = GameManager.TileMap;
+		var tileMap = GameManager.tileMap;
 		int layerCount = 2;
 		foreach (var museumZone in museumZones)
 		{

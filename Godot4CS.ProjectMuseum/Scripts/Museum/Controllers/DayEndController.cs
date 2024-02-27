@@ -18,7 +18,7 @@ public partial class DayEndController : Node2D
 
 	private void SetDayEndCell()
 	{
-		GameManager.TileMap.SetCell(0, _dayEndTileCoord, _saveSpotTileSourceId, new Vector2I(0, 0));
+		GameManager.tileMap.SetCell(0, _dayEndTileCoord, _saveSpotTileSourceId, new Vector2I(0, 0));
 	}
 
 	private void PlayerEnteredNewTile(Vector2I playerEnteredTile)

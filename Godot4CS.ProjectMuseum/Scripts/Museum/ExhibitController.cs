@@ -87,7 +87,7 @@ public partial class ExhibitController : Node2D
         instance.GetNode<ExhibitItem>(".").SpawnFromDatabase(exhibit, _displayArtifacts);
         _itemsParent.AddChild(instance);
         instance.GetNode<Node2D>(".").Position =
-            GameManager.TileMap.MapToLocal(new Vector2I(exhibit.XPosition, exhibit.YPosition));
+            GameManager.tileMap.MapToLocal(new Vector2I(exhibit.XPosition, exhibit.YPosition));
         // instance.GetNode<Node2D>(".").Position += new Vector2(0, 9);
         MuseumActions.OnItemUpdated?.Invoke();
     }

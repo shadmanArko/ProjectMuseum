@@ -40,6 +40,8 @@ public partial class Guest : CharacterBody2D
     [Export] private Vector2I _targetTileCoordinate;
     [Export] private int _currentExhibitIndex = 0;
     private bool _gamePaused = false;
+    private bool _insideMuseum = false;
+    private List<Vector2I> _listOfSceneExitPoints;
     public Guest()
     {
         
@@ -74,8 +76,9 @@ public partial class Guest : CharacterBody2D
         _decisionChangingInterval = GD.RandRange(_decisionChangingIntervalMin, _decisionChangingIntervalMax);
     }
 
-    public void Initialize()
+    public void Initialize(List<Vector2I> sceneExitPoints)
     {
+        _listOfSceneExitPoints = sceneExitPoints;
         SetPath();
         // MoveLeft();
     }
@@ -100,13 +103,40 @@ public partial class Guest : CharacterBody2D
     }
     public void SetPath()
     {
-        _startTileCoordinate = GameManager.TileMap.LocalToMap(Position);
-        // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
-        _targetTileCoordinate =  GetTargetExhibitViewingLocation();
-        if (_targetTileCoordinate != new Vector2I(1000, 1000))
+        _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
+        if (_insideMuseum)
         {
-            var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
-            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
+            // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
+            _targetTileCoordinate =  GetTargetExhibitViewingLocation();
+            if (_targetTileCoordinate != new Vector2I(1000, 1000))
+            {
+                var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
+                List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
+                if (path == null)
+                {
+                    //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
+                }
+                _path = path;
+                _currentPathIndex = 0; // Start from the beginning of the path
+                _canMove = true;
+                MoveToNextPathNode();
+            }
+            else
+            {
+                if (!_exitingMuseum)
+                {
+                    //GD.Print($"Exhibits finished for {Name}");
+                    ExitMuseum();
+                }
+            
+            }
+        }
+        else
+        {
+            _targetTileCoordinate =  _listOfSceneExitPoints[GD.RandRange(0, _listOfSceneExitPoints.Count-1)];
+            
+            var aStarPathfinding = new AStarPathfinding(GameManager.outSideMuseumNodes.GetLength(0), GameManager.outSideMuseumNodes.GetLength(1), false);
+            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, GameManager.outSideMuseumNodes);
             if (path == null)
             {
                 //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
@@ -116,16 +146,6 @@ public partial class Guest : CharacterBody2D
             _canMove = true;
             MoveToNextPathNode();
         }
-        else
-        {
-            if (!_exitingMuseum)
-            {
-                //GD.Print($"Exhibits finished for {Name}");
-                ExitMuseum();
-            }
-            
-            
-        }
         
     }
 
@@ -133,7 +153,7 @@ public partial class Guest : CharacterBody2D
     private void ExitMuseum()
     {
         _exitingMuseum = true;
-        _startTileCoordinate = GameManager.TileMap.LocalToMap(Position);
+        _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
         // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
         _targetTileCoordinate = _exitTile;
         if (_targetTileCoordinate != new Vector2I(1000, 1000))
@@ -172,7 +192,7 @@ public partial class Guest : CharacterBody2D
         if (_currentPathIndex < _path.Count )
         {
             _currentTargetNode = _path[_currentPathIndex];
-            _direction = _currentTargetNode - GameManager.TileMap.LocalToMap(Position);
+            _direction = _currentTargetNode - GameManager.tileMap.LocalToMap(Position);
             _currentPathIndex++;
             ControlAnimation();
         }
@@ -206,8 +226,8 @@ public partial class Guest : CharacterBody2D
             motion = CartesianToIsometric(motion);
             MoveAndCollide(motion);
             // Check if the character has reached the current path node
-            Vector2 currentTargetPosition = GameManager.TileMap.MapToLocal(_currentTargetNode);
-            _currentNode = GameManager.TileMap.LocalToMap(Position);
+            Vector2 currentTargetPosition = GameManager.tileMap.MapToLocal(_currentTargetNode);
+            _currentNode = GameManager.tileMap.LocalToMap(Position);
             if (Position.DistanceTo(currentTargetPosition) < 1f || _currentNode == _currentTargetNode)
             {
                 MoveToNextPathNode();
@@ -273,7 +293,7 @@ public partial class Guest : CharacterBody2D
     private bool _lastCheckedResult = false;
     private bool CheckIfNextPositionIsEmpty(Vector2 nextPosition)
     {
-        Vector2I tilePosition = GameManager.TileMap.LocalToMap(nextPosition);
+        Vector2I tilePosition = GameManager.tileMap.LocalToMap(nextPosition);
         if (_lastCheckedPosition == tilePosition)
         {
             return _lastCheckedResult;

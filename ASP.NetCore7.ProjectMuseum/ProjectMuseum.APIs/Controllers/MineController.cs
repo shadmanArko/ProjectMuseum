@@ -142,4 +142,10 @@ public class MineController : ControllerBase
         return Ok(wallPlaceable);
     }
 
+    [HttpGet("GetWallPlaceableByVariant/{variant}")]
+    public async Task<IActionResult> GetWallPlaceableByVariant(string variant)
+    {
+        var wallPlaceable = await _wallPlaceableService.GetWallPlaceableByVariant(variant);
+        return Ok(wallPlaceable);
+    }
 }

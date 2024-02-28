@@ -9,8 +9,8 @@
     "Type": "WallPlaceable",
     "Category": "Light",
     "Variant": "FireTorch",
-    "ScenePath": "/scenes/room1.json",
-    "PngPath": "/scenes/room1.json"
+    "ScenePath": "res://Scenes/Mine/Sub Scenes/Props/FireTorch.tscn",
+    "PngPath": "res://Assets/firetorch.png"
   },
   {
     "Id": "2",

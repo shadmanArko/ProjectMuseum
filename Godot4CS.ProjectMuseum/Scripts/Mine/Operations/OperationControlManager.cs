@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Collections.Generic;
+using Godot;
 using System.Text;
 using System.Text.Json;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -13,12 +14,15 @@ public partial class OperationControlManager : Node2D
 
     private Inventory _inventory = new();
     private int _slot;
+    
     private HttpRequest _getPlayerInventoryHttpRequest;
+    private HttpRequest _getWallPlaceableByVariantHttpRequest;
 
     #region Initializers
 
     public override void _Ready()
     {
+        _inventory.InventoryItems = new List<InventoryItem>();
         CreateHttpRequest();
         SubscribeToActions();
     }
@@ -28,7 +32,12 @@ public partial class OperationControlManager : Node2D
         _getPlayerInventoryHttpRequest = new HttpRequest();
         AddChild(_getPlayerInventoryHttpRequest);
         _getPlayerInventoryHttpRequest.RequestCompleted += OnGetPlayerInventoryHttpRequestComplete;
+        
+        _getWallPlaceableByVariantHttpRequest = new HttpRequest();
+        AddChild(_getWallPlaceableByVariantHttpRequest);
+        _getWallPlaceableByVariantHttpRequest.RequestCompleted += OnGetWallPlaceableByVariantHttpRequestComplete;
     }
+
     private void SubscribeToActions()
     {
         MineActions.OnToolbarSlotChanged += ActivateControllerBasedInItemType;
@@ -39,7 +48,7 @@ public partial class OperationControlManager : Node2D
     private void ActivateControllerBasedInItemType(int slot)
     {
         _slot = slot;
-        GetPlayerInventory();
+        // GetPlayerInventory();
     }
 
     #region Get Inventory
@@ -50,19 +59,55 @@ public partial class OperationControlManager : Node2D
         _getPlayerInventoryHttpRequest.CancelRequest();
         _getPlayerInventoryHttpRequest.Request(url);
     }
-	
+	   
     private void OnGetPlayerInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
         _inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-        var inventoryItem = GetInventoryItem();
-        ActivateController(inventoryItem);
+
+        if(_inventory == null)
+            GD.Print("INVENTORY IS NULL");
+        else
+        {
+            var inventoryItem = _inventory.InventoryItems[_slot];
+            if(inventoryItem == null)
+                GD.Print("inventoryItem is null");
+            else
+            {
+                if(inventoryItem.Type == "WallPlaceable")
+                    _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
+            }
+        }
     }
+    
+    #endregion
+
+    #region Get Wall Placeable API
+
+    private void GetWallPlaceableByVariant(string variant)
+    {
+        var url = ApiAddress.MineApiPath+"GetWallPlaceableByVariant/"+variant;
+        _getWallPlaceableByVariantHttpRequest.Request(url);
+    }
+    
+    private void OnGetWallPlaceableByVariantHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
+    {
+        var jsonStr = Encoding.UTF8.GetString(body);
+        var wallPlaceable = JsonSerializer.Deserialize<WallPlaceable>(jsonStr);
+        
+        // _wallPlaceableController.OnSelectWallPlaceableFromInventory(GetInventoryItem());
+    }
+
+    #endregion
 
     private void ActivateController(InventoryItem inventoryItem)
     {
-        // if(inventoryItem.Type == "WallPlaceable")
-        //     _wallPlaceableController.OnSelectWallPlaceableFromInventory();
+        switch (inventoryItem.Type)
+        {
+            case "WallPlaceable":
+                GetWallPlaceableByVariant(inventoryItem.Variant);
+                break;
+        }
     }
 
     private InventoryItem GetInventoryItem()
@@ -73,13 +118,13 @@ public partial class OperationControlManager : Node2D
             return null;
         }
 
-        var inventoryItem = _inventory.InventoryItems[_slot];
+        var inventoryItem = _inventory.InventoryItems[5];
         GD.PrintErr($"inventory item is null: {inventoryItem == null}");
 
         return inventoryItem;
     }
 
-    #endregion
+    
 
     #region Input Test
 
@@ -99,8 +144,14 @@ public partial class OperationControlManager : Node2D
         
         if (inputEvent.IsActionReleased("Lamp"))
         {
-            _wallPlaceableController.OnSelectWallPlaceableFromInventory(TorchScenePath);
+            // _wallPlaceableController.OnSelectWallPlaceableFromInventory(TorchScenePath);
+            // GetWallPlaceableByVariant("FireTorch");
+            GetPlayerInventory();
         }
+        
+        if(inputEvent.IsActionReleased("ui_left_click"))
+            MineActions.OnLeftMouseClickActionEnded?.Invoke();
+        
         if(inputEvent.IsActionReleased("ui_right_click"))
             MineActions.OnRightMouseClickActionEnded?.Invoke();
     }

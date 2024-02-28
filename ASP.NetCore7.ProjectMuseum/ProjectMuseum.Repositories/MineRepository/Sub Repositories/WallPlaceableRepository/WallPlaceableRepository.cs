@@ -5,10 +5,12 @@ namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.WallPlaceab
 public class WallPlaceableRepository : IWallPlaceableRepository
 {
     private readonly JsonFileDatabase<Mine> _mineDatabase;
+    private readonly JsonFileDatabase<WallPlaceable> _wallPlaceableDatabase;
 
-    public WallPlaceableRepository(JsonFileDatabase<Mine> mineDatabase)
+    public WallPlaceableRepository(JsonFileDatabase<Mine> mineDatabase, JsonFileDatabase<WallPlaceable> wallPlaceableDatabase)
     {
         _mineDatabase = mineDatabase;
+        _wallPlaceableDatabase = wallPlaceableDatabase;
     }
 
     public async Task<WallPlaceable> AddWallPlaceable(WallPlaceable wallPlaceable)
@@ -50,5 +52,12 @@ public class WallPlaceableRepository : IWallPlaceableRepository
         if (mine != null) await _mineDatabase.WriteDataAsync(mines!);
 
         return wallPlaceableToRemove;
+    }
+
+    public async Task<WallPlaceable> GetWallPlaceableByVariant(string variant)
+    {
+        var wallPlaceables = await _wallPlaceableDatabase.ReadDataAsync();
+        var wallPlaceable = wallPlaceables!.FirstOrDefault(tempWallPlaceable => tempWallPlaceable.Variant == variant);
+        return wallPlaceable!;
     }
 }

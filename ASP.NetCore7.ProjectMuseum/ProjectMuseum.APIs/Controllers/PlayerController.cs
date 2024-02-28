@@ -111,7 +111,7 @@ public class PlayerController : ControllerBase
         return Ok(inventory);
     }
 
-    [HttpGet("SendWallPlaceableFromInventoryToMine/{inventoryItemId}")]
+    [HttpPost("SendWallPlaceableFromInventoryToMine/{inventoryItemId}")]
     public async Task<IActionResult> SendWallPlaceableFromInventoryToMine(string inventoryItemId, [FromBody] List<string> cellIds)
     {
         var wallPlaceable = await _inventoryService.SendWallPlaceableFromInventoryToMine(inventoryItemId, cellIds);

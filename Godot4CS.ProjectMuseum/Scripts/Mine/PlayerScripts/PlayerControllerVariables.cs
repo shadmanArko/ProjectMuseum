@@ -46,7 +46,7 @@ public class PlayerControllerVariables
         get => _isAttacking;
         set
         {
-            if(_isAttacking != value && _isAttacking == false && CurrentEquippedItemSlot == 1)
+            if(_isAttacking != value && _isAttacking == false && CurrentEquippedItemSlot == 0)
                 MineActions.OnMeleeAttackActionEnded?.Invoke();
             
             _isAttacking = value;
@@ -55,22 +55,22 @@ public class PlayerControllerVariables
                 if (!CanMove) return;
                 switch (_currentEquippedItemSlot)
                 {
-                    case 2:
+                    case 1:
                         if(!CanDig) return;
                         MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnDigActionStarted?.Invoke();
                         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
                         break;
-                    case 1:
+                    case 0:
                         if(!CanAttack) return;
                         MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnMeleeAttackActionStarted?.Invoke();
                         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
                         break;
-                    default:
-                        MineActions.OnLeftMouseClickActionStarted?.Invoke();
-                        MineActions.OnMeleeAttackActionStarted?.Invoke();
-                        break;
+                    // default:
+                    //     MineActions.OnLeftMouseClickActionStarted?.Invoke();
+                    //     MineActions.OnMeleeAttackActionStarted?.Invoke();
+                    //     break;
                 }
             }
         }
@@ -122,9 +122,9 @@ public class PlayerControllerVariables
             _currentEquippedItemSlot = value;
             MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItemSlot);
             
-            if(_currentEquippedItemSlot == 1)
+            if(_currentEquippedItemSlot == 0)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SwordSelected");
-            else if(_currentEquippedItemSlot == 2)
+            else if(_currentEquippedItemSlot == 1)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
         }       
     }

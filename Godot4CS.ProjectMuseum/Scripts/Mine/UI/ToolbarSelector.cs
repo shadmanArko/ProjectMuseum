@@ -149,6 +149,7 @@ public partial class ToolbarSelector : Node
     
 	private void SelectItem(int itemNumber)
 	{
+		GD.Print($"current item selected in toolbar: {itemNumber}");
 		DeselectAllItems();
 		_toolbarSlots[itemNumber].SetItemAsSelected();
 	}

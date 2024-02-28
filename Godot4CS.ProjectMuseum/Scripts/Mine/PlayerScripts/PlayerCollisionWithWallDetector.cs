@@ -215,6 +215,33 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
+
+            #region Cave Code
+
+            Cave cave = null;
+            foreach (var cell1 in cells)
+            {
+                if (cell1.HasCave)
+                {
+                    foreach (var mineCave in _mineGenerationVariables.Mine.Caves)
+                    {
+                        if (mineCave.CellIds.Contains(cell1.Id))
+                            cave = mineCave;
+                    }
+                }
+            }
+
+            if (cave != null)
+            {
+                foreach (var cellId in cave.CellIds)
+                {
+                    var caveCell = _mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell => tempCell.Id == cellId);
+                    var caveCellPos = new Vector2I(caveCell!.PositionX, caveCell.PositionY);
+                    MineCellDestroyer.DestroyCellByPosition(caveCellPos, _mineGenerationVariables);
+                }
+            }
+
+            #endregion
             
             if (_playerControllerVariables.MouseDirection == Vector2I.Down)
             {

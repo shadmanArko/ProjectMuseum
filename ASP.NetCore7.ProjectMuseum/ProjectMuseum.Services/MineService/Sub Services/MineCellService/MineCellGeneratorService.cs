@@ -64,7 +64,7 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         }
 
         mine.Cells = cells;
-
+        CreateCave(mine);
         return await _mineRepository.Update(mine);
     }
 
@@ -93,12 +93,27 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         cell.HitPoint = 4;
     }
 
-    private void CreateArtifactCell(Cell cell)
+    private void CreateCave(Mine mine)
     {
-        cell.IsBreakable = true;
-        cell.IsInstantiated = true;
-        cell.IsRevealed = false;
-        cell.HasArtifact = true;
-        cell.HitPoint = 3;
+        var caveCellIds = new List<string>();
+        for (int i = 20; i < 30; i++)
+        {
+            for (int j = 10; j < 15; j++)
+            {
+                var cell = mine.Cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
+                if(cell == null) continue;
+                cell.HasCave = true;
+                cell.IsBroken = true;
+                caveCellIds.Add(cell.Id!);
+            }
+        }
+
+        var cave = new Cave
+        {
+            Id = Guid.NewGuid().ToString(),
+            CellIds = caveCellIds
+        };
+
+        mine.Caves.Add(cave);
     }
 }

@@ -162,7 +162,6 @@ public partial class MineGenerationController : Node2D
 	}
 	private void OnSaveGeneratedMineHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
 	{
-		// GD.Print("ON SAVE GENERATED MINE HTTP REQUEST COMPLETE method called");
 		_savingCanvas.Visible = false;
 	}
 
@@ -199,7 +198,6 @@ public partial class MineGenerationController : Node2D
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
         
 		AssignResourcesToMine();
-		// GenerateGridFromMineData(mine);
 	}
 
 	#endregion

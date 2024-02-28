@@ -154,11 +154,9 @@ public partial class WallPlaceableController : Node2D
 
     private void SetSpriteColorToRed()
     {
-        
         _wallPlaceableSprite.Modulate = Colors.Red;
     }
     
-
     #region Utilities
 
     private Cell GetTargetCell()

@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
@@ -12,9 +13,10 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
 public partial class ToolbarSelector : Node
 {
+	private PlayerControllerVariables _playerControllerVariables;
+	
 	private RawArtifactDTO _rawArtifactDto;
-	
-	
+    
 	private Inventory _inventory;
 	private HttpRequest _getPlayerInventoryHttpRequest;
 
@@ -36,6 +38,7 @@ public partial class ToolbarSelector : Node
 	
 	private void InitializeDiReferences()
 	{
+		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
 	}
 
@@ -73,6 +76,7 @@ public partial class ToolbarSelector : Node
 		CreateInventorySlots();
 		SetArtifactsOnInventorySlots();
 		SetInventoryItemSlots();
+		SelectItem(_playerControllerVariables.CurrentEquippedItemSlot);
 	}
 
 	#endregion

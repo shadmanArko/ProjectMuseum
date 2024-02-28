@@ -100,6 +100,7 @@ public partial class WallPlaceableController : Node2D
         var body = JsonConvert.SerializeObject(list);
         
         var url = ApiAddress.PlayerApiPath + "SendWallPlaceableFromInventoryToMine/" + inventoryItem.Id;
+        _sendWallPlaceableFromInventoryToMineHttpRequest.CancelRequest();
         _sendWallPlaceableFromInventoryToMineHttpRequest.Request(url, headers, HttpClient.Method.Post, body);
     }
 
@@ -108,13 +109,14 @@ public partial class WallPlaceableController : Node2D
     {
         var jsonStr = Encoding.UTF8.GetString(body);
         var wallPlaceable = JsonSerializer.Deserialize<WallPlaceable>(jsonStr);
-        
+        GD.Print($"Wall placeable from inventory to mine completed. wallPlaceable: {wallPlaceable.Id} {wallPlaceable.Variant}");
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var cell = GetTargetCell();
         var cellPos = new Vector2(cellSize * cell.PositionX, cellSize * cell.PositionY);
         InstantiateWallPlaceable(wallPlaceable.ScenePath, cellPos);
         OnDeselectedWallPlaceableFromInventory();
         MineActions.OnInventoryUpdate?.Invoke();
+        cell.HasWallPlaceable = true;
     }
 
     #endregion

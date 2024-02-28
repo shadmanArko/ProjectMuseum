@@ -1,7 +1,5 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -34,17 +32,33 @@ public partial class PlayerInputHandler : Node2D
 
 	public override void _Input(InputEvent inputEvent)
 	{
-		// MouseMotion(inputEvent);
-		// MouseLeftClick();
+		MouseActivities(inputEvent);
 		SwitchEquipables(inputEvent);
-		// SetTorchInMine(inputEvent);
 	}
 
-	// private void MouseLeftClick()
-	// {
-	// 	if(Input.IsActionJustReleased("ui_left_click"))
-	// 		MineActions.OnLeftMouseClickActionStarted?.Invoke();
-	// }
+	private void MouseActivities(InputEvent inputEvent)
+	{
+		var totalSlots = 12;
+		
+		if(inputEvent.IsActionReleased("ui_left_click"))
+			MineActions.OnLeftMouseClickActionEnded?.Invoke();
+        
+		if(inputEvent.IsActionReleased("ui_right_click"))
+			MineActions.OnRightMouseClickActionEnded?.Invoke();
+
+		if (inputEvent.IsActionReleased("ui_wheel_up"))
+		{
+			var currentSlot = (_playerControllerVariables.CurrentEquippedItemSlot +1) % totalSlots;
+			_playerControllerVariables.CurrentEquippedItemSlot = currentSlot;
+		}
+        
+		if (inputEvent.IsActionReleased("ui_wheel_down"))
+		{
+			var currentSlot = _playerControllerVariables.CurrentEquippedItemSlot -1;
+			var newSlotNumber = currentSlot < 0 ? currentSlot + totalSlots : currentSlot;
+			_playerControllerVariables.CurrentEquippedItemSlot = newSlotNumber;
+		}
+	}
 
 	private void SwitchEquipables(InputEvent inputEvent)
 	{

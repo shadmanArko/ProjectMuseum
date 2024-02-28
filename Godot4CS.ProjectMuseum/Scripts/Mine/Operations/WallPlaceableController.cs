@@ -77,6 +77,7 @@ public partial class WallPlaceableController : Node2D
     private void OnDeselectedWallPlaceableFromInventory()
     {
         _wallPlaceableSprite.Visible = false;
+        _wallPlaceableSprite.Position = new Vector2(0, 0);
         UnsubscribeToActions();
     }
 

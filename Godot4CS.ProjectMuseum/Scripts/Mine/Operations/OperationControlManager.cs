@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Godot;
 using System.Text;
 using System.Text.Json;
@@ -10,15 +9,13 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 
 public partial class OperationControlManager : Node2D
 {
+    private HttpRequest _getPlayerInventoryHttpRequest;
+    
     [Export] private WallPlaceableController _wallPlaceableController;
     
-
     private Inventory _inventory;
     private int _slot;
     
-    private HttpRequest _getPlayerInventoryHttpRequest;
-    private HttpRequest _getWallPlaceableByVariantHttpRequest;
-
     #region Initializers
 
     public override void _Ready()
@@ -32,10 +29,6 @@ public partial class OperationControlManager : Node2D
         _getPlayerInventoryHttpRequest = new HttpRequest();
         AddChild(_getPlayerInventoryHttpRequest);
         _getPlayerInventoryHttpRequest.RequestCompleted += OnGetPlayerInventoryHttpRequestComplete;
-        
-        _getWallPlaceableByVariantHttpRequest = new HttpRequest();
-        AddChild(_getWallPlaceableByVariantHttpRequest);
-        _getWallPlaceableByVariantHttpRequest.RequestCompleted += OnGetWallPlaceableByVariantHttpRequestComplete;
     }
 
     private void SubscribeToActions()
@@ -45,11 +38,25 @@ public partial class OperationControlManager : Node2D
 
     #endregion
 
+    #region Controller Activation
+
     private void ActivateControllerBasedInItemType(int slot)
     {
         _slot = slot;
         GetPlayerInventory();
     }
+    
+    private void ActivateController(InventoryItem inventoryItem)
+    {
+        switch (inventoryItem.Type)
+        {
+            case "WallPlaceable":
+                _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
+                break;
+        }
+    }
+
+    #endregion
 
     #region Get Inventory
 
@@ -66,8 +73,6 @@ public partial class OperationControlManager : Node2D
         var jsonStr = Encoding.UTF8.GetString(body);
         _inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
         
-        GD.Print("get player inventory request completed");
-        
         if (_inventory == null)
         {
             GD.Print("INVENTORY IS NULL");
@@ -75,63 +80,16 @@ public partial class OperationControlManager : Node2D
         }
         
         GD.Print($"inventory item count = {_inventory.InventoryItems.Count}");
-        if (_inventory.InventoryItems.Count > 0)
+        if (_inventory.InventoryItems.Count <= 0)
         {
-            foreach (var item in _inventory.InventoryItems)
-            {
-                GD.Print(item.Variant);
-            }
-        }
-        else
-        {
-            GD.Print($"inventory item count is 0");
+            GD.Print("Inventory empty");
+            return;
         }
 
         var inventoryItem = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);
-        
-        if (inventoryItem == null)
-        {
-            GD.Print("inventory item is null");
-        }
-        else
-        {
-            GD.Print("inventory item not null");
-            ActivateController(inventoryItem);
-            // if (inventoryItem.Type == "WallPlaceable")
-            // {
-            //     GD.Print($"inventory item is not null {inventoryItem.Variant}");
-            //     _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
-            // }
-        }
+        if (inventoryItem == null) return;
+        ActivateController(inventoryItem);
     }
     
     #endregion
-
-    #region Get Wall Placeable API
-
-    private void GetWallPlaceableByVariant(string variant)
-    {
-        var url = ApiAddress.MineApiPath+"GetWallPlaceableByVariant/"+variant;
-        _getWallPlaceableByVariantHttpRequest.Request(url);
-    }
-    
-    private void OnGetWallPlaceableByVariantHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var wallPlaceable = JsonSerializer.Deserialize<WallPlaceable>(jsonStr);
-        
-        // _wallPlaceableController.OnSelectWallPlaceableFromInventory(GetInventoryItem());
-    }
-
-    #endregion
-
-    private void ActivateController(InventoryItem inventoryItem)
-    {
-        switch (inventoryItem.Type)
-        {
-            case "WallPlaceable":
-                _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
-                break;
-        }
-    }
 }

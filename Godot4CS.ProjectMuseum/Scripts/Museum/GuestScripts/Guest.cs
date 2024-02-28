@@ -133,13 +133,13 @@ public partial class Guest : CharacterBody2D
         }
         else
         {
-            _targetTileCoordinate =  _listOfSceneExitPoints[GD.RandRange(0, _listOfSceneExitPoints.Count-1)];
+            _targetTileCoordinate =  GetTargetTargetTileCoordinateOutsideMuseum();
             
             var aStarPathfinding = new AStarPathfinding(GameManager.outSideMuseumNodes.GetLength(0), GameManager.outSideMuseumNodes.GetLength(1), false);
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, GameManager.outSideMuseumNodes);
             if (path == null)
             {
-                //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
+                GD.PrintErr($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
             }
             _path = path;
             _currentPathIndex = 0; // Start from the beginning of the path
@@ -147,6 +147,17 @@ public partial class Guest : CharacterBody2D
             MoveToNextPathNode();
         }
         
+    }
+
+    private Vector2I GetTargetTargetTileCoordinateOutsideMuseum()
+    {
+        var target = _listOfSceneExitPoints[GD.RandRange(0, _listOfSceneExitPoints.Count-1)];
+        while (target.DistanceTo(_startTileCoordinate) < 5)
+        {
+            target = _listOfSceneExitPoints[GD.RandRange(0, _listOfSceneExitPoints.Count-1)];
+        }
+
+        return target;
     }
 
     private bool _exitingMuseum = false;
@@ -195,6 +206,16 @@ public partial class Guest : CharacterBody2D
             _direction = _currentTargetNode - GameManager.tileMap.LocalToMap(Position);
             _currentPathIndex++;
             ControlAnimation();
+        }
+        else if (!_insideMuseum)
+        {
+            // Visible = false;
+            // await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
+            // Visible = true;
+            // SetPath();
+            _canMove = false;
+            MuseumActions.OnGuestExitScene?.Invoke();
+            QueueFree();
         }
         else
         {

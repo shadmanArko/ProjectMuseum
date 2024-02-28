@@ -16,6 +16,7 @@ public partial class MuseumActions : Node
     public static Action<BuilderCardType, string> OnClickBuilderCard;
     public static Action OnMuseumTilesUpdated;
     public static Action OnGuestExitMuseum;
+    public static Action OnGuestExitScene;
     public static Action<float> OnMuseumBalanceUpdated;
     public static Action<float> OnMuseumBalanceReduced;
     public static Action<float> OnMuseumBalanceAdded;

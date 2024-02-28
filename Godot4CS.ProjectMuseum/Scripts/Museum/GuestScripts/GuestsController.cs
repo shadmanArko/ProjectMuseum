@@ -41,6 +41,7 @@ public partial class GuestsController : Node2D
 		MuseumActions.OnClickMuseumGateToggle += OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
 		MuseumActions.OnGuestExitMuseum += OnGuestExitMuseum;
+		MuseumActions.OnGuestEnterMuseum += OnGuestEnterMuseum;
 		MuseumActions.OnGuestExitScene += OnGuestExitScene;
 		await Task.Delay(500);
 		_httpRequestForGettingMuseumTiles.Request(ApiAddress.MuseumApiPath + "GetAllMuseumTiles");
@@ -56,6 +57,12 @@ public partial class GuestsController : Node2D
 	{
 		_numberOfGuestsInMuseum--;
 		MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMuseum);
+	}
+	private void OnGuestEnterMuseum()
+	{
+		_numberOfGuestsInMuseum++;
+		MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMuseum);
+		MuseumActions.OnMuseumBalanceAdded?.Invoke(_ticketPrice);
 	}
 
 	private double _timer;
@@ -82,10 +89,11 @@ public partial class GuestsController : Node2D
 	private void OnClickMuseumGateToggle(bool gateOpen)
 	{
 		_isMuseumGateOpen = gateOpen;
-		if (gateOpen)
-		{
-			SpawnGuests(10 -_numberOfGuestsInMuseum, 5);
-		}
+		GameManager.isMuseumGateOpen = gateOpen;
+		// if (gateOpen)
+		// {
+		// 	SpawnGuests(10 -_numberOfGuestsInMuseum, 5);
+		// }
 	}
 
 	private async void SpawnGuests(int numberOfGuests , float delayBetweenSpawningGuests)
@@ -126,6 +134,7 @@ public partial class GuestsController : Node2D
 		MuseumActions.OnClickMuseumGateToggle -= OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
 		MuseumActions.OnGuestExitMuseum -= OnGuestExitMuseum;
+		MuseumActions.OnGuestEnterMuseum -= OnGuestEnterMuseum;
 		MuseumActions.OnGuestExitScene -= OnGuestExitScene;
 
 	}

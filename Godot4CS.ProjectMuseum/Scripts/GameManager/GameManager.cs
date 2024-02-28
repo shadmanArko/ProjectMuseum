@@ -7,4 +7,5 @@ public static class GameManager
 {
     public static TileMap tileMap;
     public static AStarNode[,] outSideMuseumNodes;
+    public static bool isMuseumGateOpen;
 }

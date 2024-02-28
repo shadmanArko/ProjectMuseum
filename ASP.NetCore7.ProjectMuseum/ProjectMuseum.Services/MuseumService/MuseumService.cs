@@ -16,6 +16,11 @@ public class MuseumService : IMuseumService
         return await _museumRepository.GetMuseumBalance(id);
     }
 
+    public async Task<MuseumTicketCounter> UpdateMuseumTicketCounter(MuseumTicketCounter museumTicketCounter)
+    {
+        return await _museumRepository.UpdateMuseumTicketCounter(museumTicketCounter);
+    }
+
     public async Task<Museum> AddToMuseumBalance(string id, float amount)
     {
         return await _museumRepository.AddToMuseumBalance(id, amount);

@@ -68,6 +68,7 @@ script = ExtResource("1_3ql1b")
 _outsideWalkableArea = {
 Vector2i(-83, 3): Vector2i(3, 2),
 Vector2i(-3, 18): Vector2i(2, 4),
+Vector2i(0, -2): Vector2i(1, -2),
 Vector2i(2, 1): Vector2i(3, -83),
 Vector2i(18, 3): Vector2i(4, -4)
 }
@@ -192,7 +193,7 @@ _characterSprite = NodePath("Sprite2D")
 y_sort_enabled = true
 script = ExtResource("18_iea1i")
 _guestScene = ExtResource("17_4it67")
-_spawnAtTile = Vector2i(-83, 1)
+_spawnAtTile = Vector2i(0, -2)
 _spawnInterval = 1.0
 _sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 2), Vector2i(-83, 3), Vector2i(2, -83), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
 

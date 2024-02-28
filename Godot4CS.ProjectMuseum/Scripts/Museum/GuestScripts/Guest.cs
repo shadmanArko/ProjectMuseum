@@ -16,10 +16,12 @@ using ProjectMuseum.Models;
 
 public partial class Guest : CharacterBody2D
 {
-	[Export] private float _displacementSpeed = 30;
+	[Export] private float _minDisplacementSpeed = 20;
+	[Export] private float _maxDisplacementSpeed = 30;
+	private float _displacementSpeed = 30;
 	[Export] private float _lookAheadDistance = 2;
     private Vector2 motion = Vector2.Zero;
-    [Export] private Vector2I _exitTile = new (0, -2);
+    [Export] private Vector2I _museumGateTile = new (0, -2);
     [Export] private AnimationPlayer _animationPlayer;
     private AnimationPlayer _animationPlayerInstance;
     [Export] private Sprite2D _characterSprite;
@@ -41,6 +43,7 @@ public partial class Guest : CharacterBody2D
     [Export] private int _currentExhibitIndex = 0;
     private bool _gamePaused = false;
     private bool _insideMuseum = false;
+    private bool _wantsToEnterMuseum = false;
     private List<Vector2I> _listOfSceneExitPoints;
     public Guest()
     {
@@ -79,6 +82,7 @@ public partial class Guest : CharacterBody2D
     public void Initialize(List<Vector2I> sceneExitPoints)
     {
         _listOfSceneExitPoints = sceneExitPoints;
+        _displacementSpeed =  (float)GD.RandRange(_minDisplacementSpeed, _maxDisplacementSpeed);
         SetPath();
         // MoveLeft();
     }
@@ -133,8 +137,16 @@ public partial class Guest : CharacterBody2D
         }
         else
         {
-            _targetTileCoordinate =  GetTargetTargetTileCoordinateOutsideMuseum();
-            
+            var probability = GD.RandRange(0, 100);
+            if (probability < 20 && !_exitingMuseum && GameManager.isMuseumGateOpen)
+            {
+                _targetTileCoordinate =  _museumGateTile;
+                _wantsToEnterMuseum = true;
+            }
+            else
+            {
+                _targetTileCoordinate =  GetTargetTargetTileCoordinateOutsideMuseum();
+            }
             var aStarPathfinding = new AStarPathfinding(GameManager.outSideMuseumNodes.GetLength(0), GameManager.outSideMuseumNodes.GetLength(1), false);
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, GameManager.outSideMuseumNodes);
             if (path == null)
@@ -166,7 +178,7 @@ public partial class Guest : CharacterBody2D
         _exitingMuseum = true;
         _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
         // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
-        _targetTileCoordinate = _exitTile;
+        _targetTileCoordinate = _museumGateTile;
         if (_targetTileCoordinate != new Vector2I(1000, 1000))
         {
             var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
@@ -213,17 +225,32 @@ public partial class Guest : CharacterBody2D
             // await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
             // Visible = true;
             // SetPath();
-            _canMove = false;
-            MuseumActions.OnGuestExitScene?.Invoke();
-            QueueFree();
+            if (_wantsToEnterMuseum)
+            {
+                _insideMuseum = true;
+                MuseumActions.OnGuestEnterMuseum?.Invoke();
+                _canMove = true;
+                SetPath();
+            }
+            else
+            {
+                _canMove = false;
+                MuseumActions.OnGuestExitScene?.Invoke();
+                QueueFree(); 
+            }
+            
         }
         else
         {
             if (_exitingMuseum)
             {
-                _canMove = false;
+                // _canMove = false;
                 MuseumActions.OnGuestExitMuseum?.Invoke();
-                QueueFree();
+                // QueueFree();
+                _insideMuseum = false;
+                _wantsToEnterMuseum = false;
+                SetPath();
+                _exitingMuseum = false;
             }
             else
             {

@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
-[ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
+[ext_resource type="PackedScene" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="PackedScene" uid="uid://cfyphwktlmmhb" path="res://Scenes/Museum/Museum Ui/concept_ending_ui.tscn" id="22_o4gbe"]

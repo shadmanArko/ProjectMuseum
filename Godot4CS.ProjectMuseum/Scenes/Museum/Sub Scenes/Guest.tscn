@@ -116,6 +116,7 @@ size = Vector2(15, 38)
 
 [node name="Guest" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
 z_index = 1
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_qipow")
 _animationPlayer = NodePath("PlayerAnimation")

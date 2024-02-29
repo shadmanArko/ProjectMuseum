@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4i8s4cu8x86h"
-path="res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"
+uid="uid://joc2s31s5jrh"
+path="res://.godot/imported/street lamp.png-25b56aa04f345cb4bd5d22c647db53de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png"
-dest_files=["res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"]
+source_file="res://Assets/2D/Sprites/Backgrounds/Road Chunks/street lamp.png"
+dest_files=["res://.godot/imported/street lamp.png-25b56aa04f345cb4bd5d22c647db53de.ctex"]
 
 [params]
 

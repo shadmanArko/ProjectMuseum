@@ -1,8 +1,7 @@
-[gd_scene load_steps=52 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=53 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
-[ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_65y6i"]
 [ext_resource type="PackedScene" uid="uid://baf5s8ygn03sp" path="res://Scenes/Museum/Town/town.tscn" id="2_pnteo"]
 [ext_resource type="Script" path="res://Scenes/Museum/Main Scene/MuseumSceneDiInstaller.cs" id="2_yr8uh"]
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
@@ -28,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://b4h8rdtln0hvn" path="res://Scenes/Museum/Sub Scenes/Guest.tscn" id="17_4it67"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
-[ext_resource type="PackedScene" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
+[ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
 [ext_resource type="Texture2D" uid="uid://cpinyxd6v3m0g" path="res://Assets/2D/Sprites/Doors/entry gate old.png" id="21_6abge"]
 [ext_resource type="PackedScene" uid="uid://cfyphwktlmmhb" path="res://Scenes/Museum/Museum Ui/concept_ending_ui.tscn" id="22_o4gbe"]
@@ -40,6 +39,8 @@
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
+[ext_resource type="PackedScene" uid="uid://bd1a4uy1iu32u" path="res://Scenes/Museum/Sub Scenes/street_lamp_and_fire_hydrant.tscn" id="30_x0exq"]
+[ext_resource type="PackedScene" uid="uid://jti4s8awkj3r" path="res://Scenes/Museum/Sub Scenes/street_lamp_and_fire_hydrant_right.tscn" id="31_umwqs"]
 [ext_resource type="Texture2D" uid="uid://bmihve30b011m" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/traffic light 2.png" id="32_e4370"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
@@ -63,20 +64,24 @@ load_path = "res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b452
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
 
-[node name="LoadingScene" parent="." instance=ExtResource("2_65y6i")]
-
 [node name="museum" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("1_3ql1b")
+_outsideWalkableArea = {
+Vector2i(-83, 3): Vector2i(3, 2),
+Vector2i(-3, 18): Vector2i(2, 4),
+Vector2i(0, -2): Vector2i(1, -2),
+Vector2i(2, 1): Vector2i(3, -83),
+Vector2i(18, 3): Vector2i(4, -4)
+}
 
-[node name="TileMap" parent="museum" node_paths=PackedStringArray("_wallsParent", "_loadingBarManager") instance=ExtResource("2_2v5tj")]
+[node name="TileMap" parent="museum" node_paths=PackedStringArray("_wallsParent") instance=ExtResource("2_2v5tj")]
 script = ExtResource("3_txjx3")
 _wallRight = ExtResource("10_xt14w")
 _wallLeft = ExtResource("6_plrwf")
 _dirtyWallProbability = 0
 _dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_bhbr7"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
 _wallsParent = NodePath("../WallsParent")
-_loadingBarManager = NodePath("../../LoadingScene")
 
 [node name="Camera2D" type="Camera2D" parent="museum"]
 position = Vector2(50, -210)
@@ -191,6 +196,20 @@ y_sort_enabled = true
 script = ExtResource("18_iea1i")
 _guestScene = ExtResource("17_4it67")
 _spawnAtTile = Vector2i(0, -2)
+_spawnInterval = 0.1
+_sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 2), Vector2i(-83, 3), Vector2i(2, -83), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
+
+[node name="StreetLamp" parent="museum/GuestsController" instance=ExtResource("30_x0exq")]
+position = Vector2(-423, -151.5)
+
+[node name="StreetLamp2" parent="museum/GuestsController" instance=ExtResource("30_x0exq")]
+position = Vector2(-967, -422)
+
+[node name="StreetLamp3" parent="museum/GuestsController" instance=ExtResource("31_umwqs")]
+position = Vector2(424, -141)
+
+[node name="StreetLamp4" parent="museum/GuestsController" instance=ExtResource("31_umwqs")]
+position = Vector2(1011, -435)
 
 [node name="ItemParents" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -211,11 +230,10 @@ y_sort_enabled = true
 script = ExtResource("11_uydor")
 _tileSourceId = 5
 
-[node name="ExhibitController" type="Node2D" parent="museum" node_paths=PackedStringArray("_exhibitEditorUi", "_itemsParent", "_loadingBarManager")]
+[node name="ExhibitController" type="Node2D" parent="museum" node_paths=PackedStringArray("_exhibitEditorUi", "_itemsParent")]
 script = ExtResource("12_k33tk")
 _exhibitEditorUi = NodePath("../CanvasLayer/Exhibit Editor Ui")
 _itemsParent = NodePath("../ItemParents")
-_loadingBarManager = NodePath("../../LoadingScene")
 
 [node name="ManualSorting" type="Node2D" parent="museum"]
 script = ExtResource("18_rds1y")
@@ -308,25 +326,26 @@ texture = SubResource("CompressedTexture2D_2lj4t")
 
 [node name="Road" type="Node2D" parent="museum/Background Foresnt"]
 y_sort_enabled = true
+position = Vector2(0, 23)
 
 [node name="RoadChunk" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(664, -188)
+position = Vector2(665, -187)
 texture = SubResource("CompressedTexture2D_vpg7c")
 
 [node name="RoadChunk5" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(-635, -188)
+position = Vector2(-634, -187)
 texture = SubResource("CompressedTexture2D_5oh1h")
 
 [node name="RoadChunk6" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(-971, -356)
+position = Vector2(-971, -355)
 texture = SubResource("CompressedTexture2D_5oh1h")
 
 [node name="RoadChunk7" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(-1302, -522)
+position = Vector2(-1303, -521)
 texture = SubResource("CompressedTexture2D_5oh1h")
 
 [node name="RoadChunk2" type="Sprite2D" parent="museum/Background Foresnt/Road"]

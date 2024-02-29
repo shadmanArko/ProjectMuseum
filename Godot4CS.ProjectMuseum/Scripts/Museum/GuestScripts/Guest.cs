@@ -227,10 +227,18 @@ public partial class Guest : CharacterBody2D
             // SetPath();
             if (_wantsToEnterMuseum)
             {
-                _insideMuseum = true;
-                MuseumActions.OnGuestEnterMuseum?.Invoke();
-                _canMove = true;
-                SetPath();
+                if (GameManager.isMuseumGateOpen)
+                {
+                    _insideMuseum = true;
+                    MuseumActions.OnGuestEnterMuseum?.Invoke();
+                    _canMove = true;
+                    SetPath();
+                }
+                else
+                {
+                    _wantsToEnterMuseum = false;
+                    SetPath();
+                }
             }
             else
             {

@@ -74,6 +74,7 @@ public partial class GuestsController : Node2D
 			_timer = 0;
 			SpawnGuest();
 			_numberOfPeopleInScene++;
+			// GD.Print($"Fps {Engine.GetFramesPerSecond()} for {_numberOfPeopleInScene} ");
 		}
 	}
 

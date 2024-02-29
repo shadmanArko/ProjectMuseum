@@ -37,7 +37,7 @@ _rootNode = NodePath("..")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -47,12 +47,10 @@ MineTutorial = NodePath("../MineTutorial")
 CameraController = NodePath("../CameraController")
 MineTimeSystem = NodePath("../MineUI/TimeSystem")
 SceneLoader = NodePath("../SceneLoader")
-DamageSystem = NodePath("../DamageSystem")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
 MinePopUp = NodePath("../MineUI/MinePopUp")
-MineUiController = NodePath("../MineUI")
 DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
 Tooltip = NodePath("../MineUI/Tooltip4")
 
@@ -96,7 +94,8 @@ _camera = NodePath("Camera2D")
 
 [node name="FrameRate" parent="." instance=ExtResource("15_v858d")]
 
-[node name="OperationControllerManager" parent="." instance=ExtResource("16_ot1vu")]
+[node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_wallPlaceableController") instance=ExtResource("16_ot1vu")]
+_wallPlaceableController = NodePath("WallPlaceableController")
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates") instance=ExtResource("3_ambmn")]
 _healthBar = NodePath("Health Bar")

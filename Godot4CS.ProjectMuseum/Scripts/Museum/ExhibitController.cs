@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -23,9 +24,11 @@ public partial class ExhibitController : Node2D
     private PackedScene item4;
     private List<Artifact> _displayArtifacts;
     private MuseumTileContainer _museumTileContainer;
+
+    [Export] private LoadingBarManager _loadingBarManager;
     public override void _Ready()
     {
-        
+        _loadingBarManager.EmitSignal("IncreaseRegisteredTask");
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
         item2 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_2.tscn");
         item3 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_3.tscn");
@@ -55,6 +58,8 @@ public partial class ExhibitController : Node2D
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         _museumTileContainer.Exhibits = exhibits;
         SpawnExhibits(exhibits);
+        _loadingBarManager.EmitSignal("IncreaseCompletedTask");
+        //EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
         //GD.Print($"Number of exhibits {exhibits.Count}");
     }
 

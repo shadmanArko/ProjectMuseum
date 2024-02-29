@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ public partial class TileSpawner : TileMap
 	[Export] private int _dirtyWallProbability = 10;
 	[Export] private Array<Texture2D> _dirtyWallTextures;
 	[Export] private Node2D _wallsParent;
+	[Export] private LoadingBarManager _loadingBarManager;
 	private string _basicWallsId = "basic_red_wallpaper";
 	[Export] private Vector2I _originOfExpansion = new Vector2I(0, -20);
 	private HttpRequest _httpRequestForGettingMuseumTiles;
@@ -27,6 +29,10 @@ public partial class TileSpawner : TileMap
 	// [Export] private Array<int> _dirtyTilesIndex;
 	public override async void  _Ready()
 	{
+		_loadingBarManager.EmitSignal("IncreaseRegisteredTask");
+		_loadingBarManager.EmitSignal("IncreaseRegisteredTask");
+		//EmitSignal("IncreaseRegisteredTask");
+		GD.Print("GG");
 		_httpRequestForGettingMuseumTiles = new HttpRequest();
 		_httpRequestForExpandingMuseumTiles = new HttpRequest();
 		_httpRequestForUpdatingMuseumWalls = new HttpRequest();
@@ -49,6 +55,8 @@ public partial class TileSpawner : TileMap
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		_museumTileContainer.MuseumTiles = museumTiles;
 		SpawnWalls(museumTiles);
+		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
+		//EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
 	}
 
 	private void SpawnWalls(List<MuseumTile> museumTiles)
@@ -76,6 +84,7 @@ public partial class TileSpawner : TileMap
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		SpawnTilesAndWalls(museumTiles);
+		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
 	}
 
 	private void OnRequestCompletedForGettingMuseumTiles(long result, long responseCode, string[] headers, byte[] body)

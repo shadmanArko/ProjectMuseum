@@ -64,6 +64,7 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         }
 
         mine.Cells = cells;
+        mine.Caves = new List<Cave>();
         CreateCave(mine);
         return await _mineRepository.Update(mine);
     }

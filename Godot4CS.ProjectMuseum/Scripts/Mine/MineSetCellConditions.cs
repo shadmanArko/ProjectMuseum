@@ -51,8 +51,24 @@ public static class MineSetCellConditions
                 SetUnbreakableCell(mineGenerationView, tilePos);
             else
             {
-                if (cell.IsRevealed) SetBreakableCell(mineGenerationVariables, cell, cellCrackMaterial, tilePos, mouseDir);
-                else SetUnrevealedCell(mineGenerationView, tilePos);
+                if (cell.IsRevealed)
+                {
+                    SetBreakableCell(mineGenerationVariables, cell, cellCrackMaterial, tilePos, mouseDir);
+                }
+                else
+                {
+                    SetUnrevealedCell(mineGenerationView, tilePos);
+                }
+            }
+        }
+        else if (cell.IsInstantiated && cell.IsBroken)
+        {
+            if (cell.HasCave)
+            {
+                if(!cell.IsRevealed)
+                    SetUnrevealedCell(mineGenerationView, tilePos);
+                else
+                    SetBrokenCell(mineGenerationVariables, tilePos);
             }
         }
     }
@@ -68,6 +84,13 @@ public static class MineSetCellConditions
     {
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(UnrevealedCellLayer, tilePos,mineGenerationView.TileSourceId, new Vector2I(2,3));
+    }
+
+    private static void SetBrokenCell(MineGenerationVariables mineGenerationVariables, Vector2I tilePos)
+    {
+        var mineGenerationView = mineGenerationVariables.MineGenView;
+        EraseCellsOnAllLayers(mineGenerationView,tilePos);
+        //MineCellDestroyer.DestroyCellByPosition(tilePos, mineGenerationVariables);
     }
 
     private static void SetBreakableCell(MineGenerationVariables mineGenerationVariables, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I tilePos, Vector2I mouseDir)

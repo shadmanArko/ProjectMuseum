@@ -14,17 +14,10 @@
         "Slot": 1,
         "Type": "Shield",
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
-      },
-      {
-        "Id": "eqp3",
-        "Name": "Leather Boots",
-        "Slot": 2,
-        "Type": "Armor",
-        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Brush.png"
       }
     ],
     "Artifacts": [],
-    "OccupiedSlots": [0,1,2],
+    "OccupiedSlots": [0,1],
     "SlotsUnlocked": 12
   }
 ]

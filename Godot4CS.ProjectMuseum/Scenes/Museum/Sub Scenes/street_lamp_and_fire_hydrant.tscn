@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd1a4uy1iu32u"]
+
+[ext_resource type="Texture2D" uid="uid://joc2s31s5jrh" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/street lamp.png" id="1_o65nu"]
+[ext_resource type="Texture2D" uid="uid://co1i6b80nuosq" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/fire hydrant.png" id="2_up8s6"]
+
+[node name="StreetLamp" type="Sprite2D"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(-419, -153.5)
+texture = ExtResource("1_o65nu")
+offset = Vector2(0, -41)
+
+[node name="FireHydrant" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(18, 4.5)
+texture = ExtResource("2_up8s6")
+offset = Vector2(0, -12.82)

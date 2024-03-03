@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0v4vn5txh23p"]
+
+[ext_resource type="Texture2D" uid="uid://dve4eewrak4r8" path="res://Assets/2D/Sprites/Mine Sprites/Stalagmites/Stalactite.png" id="1_0acq5"]
+
+[node name="Stalactite" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_0acq5")
+hframes = 5
+vframes = 3

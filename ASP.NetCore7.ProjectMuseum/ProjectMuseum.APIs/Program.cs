@@ -7,6 +7,7 @@ using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.DecorationShopRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MineRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
@@ -62,6 +63,7 @@ string settingsMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDi
 string museumMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MuseumMiscellaneousData", "MuseumMiscellaneousData.json");
 string mineMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MineMiscellaneousData", "MineMiscellaneousData.json");
 string wallPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "WallPlaceableData", "WallPlaceable.json");
+string caveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CaveData.json");
 
 
 
@@ -109,6 +111,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<MainMenuMiscellaneousData>(ma
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumMiscellaneousData>(museumMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SettingsMiscellaneousData>(settingsMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<MineMiscellaneousData>(mineMiscellaneousDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Cave>(caveDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -159,6 +162,7 @@ builder.Services.AddScoped<IWallPlaceableRepository, WallPlaceableRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 builder.Services.AddScoped<IMiscellaneousDataRepository, MiscellaneousDataRepository>();
 builder.Services.AddScoped<IMuseumZoneRepository, MuseumZoneRepository>();
+builder.Services.AddScoped<ICaveRepository, CaveRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();

@@ -1,5 +1,7 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.MIne;
 using ProjectMuseum.Repositories.MineRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 
@@ -9,11 +11,13 @@ public class MineCellGeneratorService : IMineCellGeneratorService
     public int YSize = 64;
     public int cellSize = 20;
     private readonly IMineRepository _mineRepository;
+    private readonly ICaveRepository _caveRepository;
 
 
-    public MineCellGeneratorService(IMineRepository mineRepository)
+    public MineCellGeneratorService(IMineRepository mineRepository, ICaveRepository caveRepository)
     {
         _mineRepository = mineRepository;
+        _caveRepository = caveRepository;
     }
 
     public async Task<Mine> GenerateMineCellData()
@@ -22,7 +26,12 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         {
             CellSize = cellSize,
             GridWidth = XSize,
-            GridLength = YSize
+            GridLength = YSize,
+            Caves = new List<Cave>(),
+            WallPlaceables = new List<WallPlaceable>(),
+            CellPlaceables = new List<CellPlaceable>(),
+            SpecialBackdropPngInformations = new List<SpecialBackdropPngInformation>(),
+            Resources = new List<Resource>()
         };
         var cells = new List<Cell>();
 
@@ -65,7 +74,8 @@ public class MineCellGeneratorService : IMineCellGeneratorService
 
         mine.Cells = cells;
         mine.Caves = new List<Cave>();
-        CreateCave(mine);
+        // CreateCave(mine);
+        
         return await _mineRepository.Update(mine);
     }
 
@@ -94,7 +104,7 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         cell.HitPoint = 4;
     }
 
-    private void CreateCave(Mine mine)
+    private async Task CreateCave(Mine mine)
     {
         var caveCellIds = new List<string>();
         for (int i = 20; i < 30; i++)
@@ -108,13 +118,14 @@ public class MineCellGeneratorService : IMineCellGeneratorService
                 caveCellIds.Add(cell.Id!);
             }
         }
+        
+        // var cave = new Cave
+        // {
+        //     Id = Guid.NewGuid().ToString(),
+        //     CellIds = caveCellIds
+        // };
+        //
+        // mine.Caves.Add(cave);
 
-        var cave = new Cave
-        {
-            Id = Guid.NewGuid().ToString(),
-            CellIds = caveCellIds
-        };
-
-        mine.Caves.Add(cave);
     }
 }

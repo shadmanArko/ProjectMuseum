@@ -59,6 +59,7 @@ public partial class ExhibitController : Node2D
         _museumTileContainer.Exhibits = exhibits;
         SpawnExhibits(exhibits);
         _loadingBarManager.EmitSignal("IncreaseCompletedTask");
+        GD.Print("Exhibits request completed");
         //EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
         //GD.Print($"Number of exhibits {exhibits.Count}");
     }

@@ -55,7 +55,7 @@ public partial class TileSpawner : TileMap
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		_museumTileContainer.MuseumTiles = museumTiles;
 		SpawnWalls(museumTiles);
-		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
+		
 		//EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
 	}
 
@@ -76,6 +76,8 @@ public partial class TileSpawner : TileMap
 				}
 			}
 		}
+		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
+		GD.Print("museum walls request complete");
 		MuseumActions.OnMuseumTilesUpdated?.Invoke();
 	}
 
@@ -84,7 +86,7 @@ public partial class TileSpawner : TileMap
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		SpawnTilesAndWalls(museumTiles);
-		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
+
 	}
 
 	private void OnRequestCompletedForGettingMuseumTiles(long result, long responseCode, string[] headers, byte[] body)
@@ -94,6 +96,8 @@ public partial class TileSpawner : TileMap
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		_museumTileContainer.MuseumTiles = museumTiles;
 		SpawnTilesAndWalls(museumTiles);
+		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
+		GD.Print("museum tiles request complete");
 	}
 
 	public override void _Input(InputEvent @event)

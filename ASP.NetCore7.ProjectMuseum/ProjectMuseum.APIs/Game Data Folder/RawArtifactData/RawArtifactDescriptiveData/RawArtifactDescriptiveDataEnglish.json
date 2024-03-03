@@ -48,5 +48,75 @@
     "Id": "MedievalNativeAmericanWarShield",
     "ArtifactName": "Medieval Native American War Shield",
     "Description": "Plains Indians considered their shield as their most precious possession."
+  },
+  {
+    "Id": "AncientNativeAmericanBowl",
+    "ArtifactName": "Ancient Native American Bowl",
+    "Description": "NA"
+  },
+  {
+    "Id": "ClassicalNativeAmericanBowl",
+    "ArtifactName": "Classical Native American Bowl",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanBowl",
+    "ArtifactName": "Medieval Native American Bowl",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceAmericanBowl",
+    "ArtifactName": "Renaissance American Bowl",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanLeatherChestplate",
+    "ArtifactName": "MedievalNative American Leather Chestplate",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceAmericanIronChestplate",
+    "ArtifactName": "Renaissance American Iron Chestplate",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanInfantryGear",
+    "ArtifactName": "Industrial American Infantry Gear",
+    "Description": "NA"
+  },
+  {
+    "Id": "AncientNativeAmericanWampumBeadCurrency",
+    "ArtifactName": "Ancient Native American Wampum Bead Currency",
+    "Description": "NA"
+  },
+  {
+    "Id": "ClassicalNativeAmericanShellCurrency",
+    "ArtifactName": "Classical Native American Shell Currency",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanWampumBeadCurrency",
+    "ArtifactName": "Medieval Native American Wampum Bead Currency",
+    "Description": "NA"
+  },
+  {
+    "Id": "AncientNativeAmericanVase",
+    "ArtifactName": "Ancient Native American Vase",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanVase",
+    "ArtifactName": "Medieval Native American Vase",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceAmericanPorcelainVase",
+    "ArtifactName": "Renaissance American Porcelain Vase",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanPorcelainVase",
+    "ArtifactName": "IndustrialAmericanPorcelainVase",
+    "Description": "NA"
   }
 ]

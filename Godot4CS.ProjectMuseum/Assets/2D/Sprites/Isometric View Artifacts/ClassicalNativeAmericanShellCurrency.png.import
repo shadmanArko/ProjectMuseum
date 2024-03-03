@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hwpvedybggb8"
-path="res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"
+uid="uid://cpuk6svdaho3c"
+path="res://.godot/imported/ClassicalNativeAmericanShellCurrency.png-fb3206055371a1fff808a272b9dbdd75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanTomahawk.png"
-dest_files=["res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanShellCurrency.png"
+dest_files=["res://.godot/imported/ClassicalNativeAmericanShellCurrency.png-fb3206055371a1fff808a272b9dbdd75.ctex"]
 
 [params]
 

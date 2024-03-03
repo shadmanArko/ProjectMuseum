@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hwpvedybggb8"
-path="res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"
+uid="uid://dkvfh4dik88lm"
+path="res://.godot/imported/MedievalNativeAmericanBowl.png-10f84ba103ed77e31845a6972868bee0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanTomahawk.png"
-dest_files=["res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/MedievalNativeAmericanBowl.png"
+dest_files=["res://.godot/imported/MedievalNativeAmericanBowl.png-10f84ba103ed77e31845a6972868bee0.ctex"]
 
 [params]
 

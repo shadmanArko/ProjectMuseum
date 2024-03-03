@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hwpvedybggb8"
-path="res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"
+uid="uid://ybig8cnw7ti4"
+path="res://.godot/imported/MedievalNativeAmericanLeatherChestplate.png-e10a7bed27fffec08fbf54908e4d8177.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanTomahawk.png"
-dest_files=["res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/MedievalNativeAmericanLeatherChestplate.png"
+dest_files=["res://.godot/imported/MedievalNativeAmericanLeatherChestplate.png-e10a7bed27fffec08fbf54908e4d8177.ctex"]
 
 [params]
 

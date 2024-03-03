@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://235ihakig27s"
-path="res://.godot/imported/enaissance American Bowl.png-ffd1b0a5bebea25efbe23a2d24e5744d.ctex"
+uid="uid://capkvma1srxl3"
+path="res://.godot/imported/Classical Native American Shell Currency.png-9b257046813ea0b663ad512f144685a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/enaissance American Bowl.png"
-dest_files=["res://.godot/imported/enaissance American Bowl.png-ffd1b0a5bebea25efbe23a2d24e5744d.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Shell Currency.png"
+dest_files=["res://.godot/imported/Classical Native American Shell Currency.png-9b257046813ea0b663ad512f144685a6.ctex"]
 
 [params]
 

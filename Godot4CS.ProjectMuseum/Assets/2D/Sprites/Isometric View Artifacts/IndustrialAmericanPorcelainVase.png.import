@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nm84stfr8gj1"
-path="res://.godot/imported/Medieval Native American War Shield.png-49e68a37e1ed3351829d00953e18218c.ctex"
+uid="uid://c601nl10chwq3"
+path="res://.godot/imported/IndustrialAmericanPorcelainVase.png-e01ff649ee7a9cb5a3b0c8caaccc2c6c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Medieval Native American War Shield.png"
-dest_files=["res://.godot/imported/Medieval Native American War Shield.png-49e68a37e1ed3351829d00953e18218c.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/IndustrialAmericanPorcelainVase.png"
+dest_files=["res://.godot/imported/IndustrialAmericanPorcelainVase.png-e01ff649ee7a9cb5a3b0c8caaccc2c6c.ctex"]
 
 [params]
 

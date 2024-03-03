@@ -108,5 +108,159 @@
     "ObjectSize": "Medium",
     "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American War Shield.png",
     "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "AncientNativeAmericanBowl",
+    "Era": "Ancient",
+    "Region": "American",
+    "Object": "Bowl",
+    "Materials": ["Clay"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Ancient Native American Bowl.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "ClassicalNativeAmericanBowl",
+    "Era": "Classical",
+    "Region": "American",
+    "Object": "Bowl",
+    "Materials": ["Wood"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Bowl.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "MedievalNativeAmericanBowl",
+    "Era": "Medieval",
+    "Region": "American",
+    "Object": "Bowl",
+    "Materials": ["Clay"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Bowl.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "RenaissanceAmericanBowl",
+    "Era": "Renaissance",
+    "Region": "American",
+    "Object": "Bowl",
+    "Materials": ["Wood"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Renaissance American Bowl.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "MedievalNativeAmericanLeatherChestplate",
+    "Era": "Medieval",
+    "Region": "American",
+    "Object": "Chestplate",
+    "Materials": ["Leather"],
+    "ObjectClass": "Armor",
+    "ObjectSize": "Large",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Leather Chestplate.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "RenaissanceAmericanIronChestplate",
+    "Era": "Renaissance",
+    "Region": "American",
+    "Object": "Chestplate",
+    "Materials": ["Iron"],
+    "ObjectClass": "Armor",
+    "ObjectSize": "Large",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Renaissance American Iron Chestplate.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "IndustrialAmericanInfantryGear",
+    "Era": "Industrial",
+    "Region": "American",
+    "Object": "Infantry Gear",
+    "Materials": ["Varied"],
+    "ObjectClass": "Armor",
+    "ObjectSize": "Large",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Industrial American Infantry Gear.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "AncientNativeAmericanWampumBeadCurrency",
+    "Era": "Ancient",
+    "Region": "American",
+    "Object": "Coin",
+    "Materials": ["Shell"],
+    "ObjectClass": "Economic",
+    "ObjectSize": "Tiny",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Ancient Native American Wampum Bead Currency.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "ClassicalNativeAmericanShellCurrency",
+    "Era": "Classical",
+    "Region": "American",
+    "Object": "Coin",
+    "Materials": ["Shell"],
+    "ObjectClass": "Economic",
+    "ObjectSize": "Tiny",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Shell Currency.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "MedievalNativeAmericanWampumBeadCurrency",
+    "Era": "Medieval",
+    "Region": "American",
+    "Object": "Coin",
+    "Materials": ["Beads"],
+    "ObjectClass": "Economic",
+    "ObjectSize": "Tiny",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Wampum Bead Currency.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "AncientNativeAmericanVase",
+    "Era": "Ancient",
+    "Region": "American",
+    "Object": "Vase",
+    "Materials": ["Clay"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Medium",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Ancient Native American Vase.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "MedievalNativeAmericanVase",
+    "Era": "Medieval",
+    "Region": "American",
+    "Object": "Vase",
+    "Materials": ["Clay"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Medium",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Vase.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "RenaissanceAmericanPorcelainVase",
+    "Era": "Renaissance",
+    "Region": "American",
+    "Object": "Vase",
+    "Materials": ["Porcelain"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Medium",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Renaissance American Porcelain Vase.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "IndustrialAmericanPorcelainVase",
+    "Era": "Industrial",
+    "Region": "American",
+    "Object": "Vase",
+    "Materials": ["Porcelain"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Medium",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Industrial American Porcelain Vase.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   }
 ]

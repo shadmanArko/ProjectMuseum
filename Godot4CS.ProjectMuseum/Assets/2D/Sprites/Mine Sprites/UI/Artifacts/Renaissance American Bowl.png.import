@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hwpvedybggb8"
-path="res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"
+uid="uid://dvttk5t7gma2q"
+path="res://.godot/imported/Renaissance American Bowl.png-77267e5205c83c445243a20d7b533f28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanTomahawk.png"
-dest_files=["res://.godot/imported/ClassicalNativeAmericanTomahawk.png-7cde4696a21bffa1a5324d7bc52df782.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Renaissance American Bowl.png"
+dest_files=["res://.godot/imported/Renaissance American Bowl.png-77267e5205c83c445243a20d7b533f28.ctex"]
 
 [params]
 

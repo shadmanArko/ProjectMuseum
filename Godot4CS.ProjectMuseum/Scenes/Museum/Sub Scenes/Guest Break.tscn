@@ -1,9 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://ce06jigsukwk2"]
+[gd_scene load_steps=21 format=3 uid="uid://ce06jigsukwk2"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/Guest.cs" id="1_22k32"]
-[ext_resource type="Texture2D" uid="uid://cucrmmbj1hw8l" path="res://Assets/2D/Animations/Museum Character Animations/Guests/Guest_1.png" id="2_wqf0d"]
-[ext_resource type="Texture2D" uid="uid://b00u3a2fykavy" path="res://Assets/2D/Animations/Museum Character Animations/Guests/Guest_2.png" id="3_hhi25"]
-[ext_resource type="Texture2D" uid="uid://byectc7a7rtd5" path="res://Assets/2D/Animations/Museum Character Animations/Guests/Guest_3.png" id="4_dl7oi"]
 [ext_resource type="Texture2D" uid="uid://bgi4ka4ba1j4l" path="res://Assets/2D/Animations/Museum Character Animations/Guest Break/SKIN.png" id="5_0na6j"]
 [ext_resource type="Texture2D" uid="uid://3y2l6jf4sdk8" path="res://Assets/2D/Animations/Museum Character Animations/Guest Break/SKIN_SHADOW.png" id="6_ed054"]
 [ext_resource type="Texture2D" uid="uid://brlswfvp3wjeg" path="res://Assets/2D/Animations/Museum Character Animations/Guest Break/SKIN_OUTLINE.png" id="7_i8r5y"]
@@ -21,7 +18,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Skin:frame")
+tracks/0/path = NodePath("Character Parts/Skin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -33,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SkinShadow:frame")
+tracks/1/path = NodePath("Character Parts/SkinShadow:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -45,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SkinOutline:frame")
+tracks/2/path = NodePath("Character Parts/SkinOutline:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -57,7 +54,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("EyeBall:frame")
+tracks/3/path = NodePath("Character Parts/EyeBall:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -69,7 +66,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Pupil:frame")
+tracks/4/path = NodePath("Character Parts/Pupil:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -81,7 +78,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Hair base:frame")
+tracks/5/path = NodePath("Character Parts/Hair base:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -93,7 +90,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Hair:frame")
+tracks/6/path = NodePath("Character Parts/Hair:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -105,7 +102,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("HairOutline:frame")
+tracks/7/path = NodePath("Character Parts/HairOutline:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -117,7 +114,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Shoe:frame")
+tracks/8/path = NodePath("Character Parts/Shoe:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -129,7 +126,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Pant:frame")
+tracks/9/path = NodePath("Character Parts/Pant:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -141,7 +138,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("TShirt:frame")
+tracks/10/path = NodePath("Character Parts/TShirt:frame")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -153,7 +150,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Shirt:frame")
+tracks/11/path = NodePath("Character Parts/Shirt:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -168,7 +165,7 @@ resource_name = "RESET_BACK"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Skin:frame")
+tracks/0/path = NodePath("Character Parts/Skin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -184,7 +181,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Skin:frame")
+tracks/0/path = NodePath("Character Parts/Skin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -200,7 +197,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Skin:frame")
+tracks/0/path = NodePath("Character Parts/Skin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -217,7 +214,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Skin:frame")
+tracks/0/path = NodePath("Character Parts/Skin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -229,7 +226,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SkinShadow:frame")
+tracks/1/path = NodePath("Character Parts/SkinShadow:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -246,7 +243,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Skin:frame")
+tracks/0/path = NodePath("Character Parts/Skin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -258,7 +255,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SkinShadow:frame")
+tracks/1/path = NodePath("Character Parts/SkinShadow:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -270,7 +267,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SkinOutline:frame")
+tracks/2/path = NodePath("Character Parts/SkinOutline:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -282,7 +279,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("EyeBall:frame")
+tracks/3/path = NodePath("Character Parts/EyeBall:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -294,7 +291,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Pupil:frame")
+tracks/4/path = NodePath("Character Parts/Pupil:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -306,7 +303,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Hair base:frame")
+tracks/5/path = NodePath("Character Parts/Hair base:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -318,7 +315,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Hair:frame")
+tracks/6/path = NodePath("Character Parts/Hair:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -330,7 +327,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("HairOutline:frame")
+tracks/7/path = NodePath("Character Parts/HairOutline:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -342,7 +339,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Shoe:frame")
+tracks/8/path = NodePath("Character Parts/Shoe:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -354,7 +351,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Pant:frame")
+tracks/9/path = NodePath("Character Parts/Pant:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -366,7 +363,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("TShirt:frame")
+tracks/10/path = NodePath("Character Parts/TShirt:frame")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -378,7 +375,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Shirt:frame")
+tracks/11/path = NodePath("Character Parts/Shirt:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -401,135 +398,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p6y7"]
 size = Vector2(15, 38)
 
-[node name="Guest" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterSprite")]
+[node name="Guest" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer")]
 z_index = 1
 texture_filter = 1
 script = ExtResource("1_22k32")
 _animationPlayer = NodePath("PlayerAnimation")
-_characterSprite = NodePath("Skin")
-_guestTextures = Array[Texture2D]([ExtResource("2_wqf0d"), ExtResource("3_hhi25"), ExtResource("4_dl7oi")])
-
-[node name="Skin" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = -3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("5_0na6j")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="SkinShadow" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = -3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("6_ed054")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="SkinOutline" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = -3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("7_i8r5y")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="EyeBall" type="Sprite2D" parent="."]
-modulate = Color(0.976471, 0.678431, 0.447059, 1)
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = -3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("8_ttnxf")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="Pupil" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = -3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("9_qvkid")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="Hair base" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = -3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("10_vm28v")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="Hair" type="Sprite2D" parent="."]
-self_modulate = Color(0.976471, 0.678431, 0.447059, 1)
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = -3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("10_vm28v")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="HairOutline" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("11_nwsii")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="Shoe" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("12_hmbjx")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="Pant" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("13_7u5k7")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="TShirt" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("14_oncbm")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
-
-[node name="Shirt" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 6)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("15_27hfw")
-offset = Vector2(0, -24.38)
-hframes = 8
-vframes = 2
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -540,3 +413,127 @@ libraries = {
 position = Vector2(-1.5, -19)
 shape = SubResource("RectangleShape2D_4p6y7")
 disabled = true
+
+[node name="Character Parts" type="Node2D" parent="."]
+
+[node name="Skin" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("5_0na6j")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="SkinShadow" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("6_ed054")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="SkinOutline" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("7_i8r5y")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="EyeBall" type="Sprite2D" parent="Character Parts"]
+modulate = Color(0.976471, 0.678431, 0.447059, 1)
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("8_ttnxf")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="Pupil" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("9_qvkid")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="Hair base" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("10_vm28v")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="Hair" type="Sprite2D" parent="Character Parts"]
+self_modulate = Color(0.976471, 0.678431, 0.447059, 1)
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = -3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("10_vm28v")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="HairOutline" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("11_nwsii")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="Shoe" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("12_hmbjx")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="Pant" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("13_7u5k7")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="TShirt" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("14_oncbm")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2
+
+[node name="Shirt" type="Sprite2D" parent="Character Parts"]
+texture_filter = 1
+position = Vector2(0, 6)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("15_27hfw")
+offset = Vector2(0, -24.38)
+hframes = 8
+vframes = 2

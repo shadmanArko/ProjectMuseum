@@ -24,13 +24,29 @@ public partial class Guest : CharacterBody2D
     [Export] private Vector2I _museumGateTile = new (0, -2);
     [Export] private AnimationPlayer _animationPlayer;
     private AnimationPlayer _animationPlayerInstance;
-    [Export] private Sprite2D _characterSprite;
+    [Export] private Node2D _characterPartsParent;
+    [Export] private Sprite2D _characterShadow;
+    [Export] private Sprite2D _characterSkin;
+    [Export] private Sprite2D _characterEye;
+    [Export] private Sprite2D _characterHair;
+    [Export] private Sprite2D _characterShoe;
+    [Export] private Sprite2D _characterPant;
+    [Export] private Sprite2D _characterShirt;
+    [Export] private Sprite2D _characterOverCloth;
+    [Export] private Array<Texture2D> _shadowTextures;
+    [Export] private Array<Texture2D> _skinTextures;
+    [Export] private Array<Texture2D> _eyeTextures;
+    [Export] private Array<Texture2D> _hairTextures;
+    [Export] private Array<Texture2D> _shoeTextures;
+    [Export] private Array<Texture2D> _pantTextures;
+    [Export] private Array<Texture2D> _shirtTextures;
+    [Export] private Array<Texture2D> _overClothTextures;
+
     private bool _playerFacingTheFront = true;
     private double _timer = 0f;
     private double _decisionChangingInterval = 5f;
     private double _decisionChangingIntervalMin = 2f;
     private double _decisionChangingIntervalMax = 5f;
-    [Export] private Array<Texture2D> _guestTextures;
     private string _testString;
     private MuseumTileContainer _museumTileContainer;
     private bool _canMove = false;
@@ -88,7 +104,14 @@ public partial class Guest : CharacterBody2D
     }
     private void LoadRandomCharacterSprite()
     {
-        _characterSprite.Texture = _guestTextures[GD.RandRange(0, _guestTextures.Count -1)];
+        _characterShadow.Texture = _shadowTextures[GD.RandRange(0, _shadowTextures.Count -1)];
+        _characterSkin.Texture = _skinTextures[GD.RandRange(0, _skinTextures.Count -1)];
+        _characterEye.Texture = _eyeTextures[GD.RandRange(0, _eyeTextures.Count -1)];
+        _characterHair.Texture = _hairTextures[GD.RandRange(0, _hairTextures.Count -1)];
+        _characterShoe.Texture = _shoeTextures[GD.RandRange(0, _shoeTextures.Count -1)];
+        _characterPant.Texture = _pantTextures[GD.RandRange(0, _pantTextures.Count -1)];
+        _characterShirt.Texture = _shirtTextures[GD.RandRange(0, _shirtTextures.Count -1)];
+        _characterOverCloth.Texture = _overClothTextures[GD.RandRange(0, _overClothTextures.Count -1)];
         
     }
 
@@ -376,7 +399,7 @@ public partial class Guest : CharacterBody2D
     private void MoveRight()
     {
         
-        _characterSprite.Scale = new Vector2(1, 1);
+       _characterPartsParent.Scale = new Vector2(1, 1);
         _animationPlayerInstance.Play("walk_forward");
         _playerFacingTheFront = true;
     }
@@ -384,7 +407,7 @@ public partial class Guest : CharacterBody2D
     private void MoveLeft()
     {
         
-        _characterSprite.Scale = new Vector2(1, 1);
+       _characterPartsParent.Scale = new Vector2(1, 1);
         _animationPlayerInstance.Play("walk_backward");
         _playerFacingTheFront = false;
     }
@@ -392,7 +415,7 @@ public partial class Guest : CharacterBody2D
     private void MoveDown()
     {
         
-        _characterSprite.Scale = new Vector2(-1, 1);
+       _characterPartsParent.Scale = new Vector2(-1, 1);
         _animationPlayerInstance.Play("walk_forward");
         _playerFacingTheFront = true;
     }
@@ -400,7 +423,7 @@ public partial class Guest : CharacterBody2D
     private void MoveUp()
     {
         
-        _characterSprite.Scale = new Vector2(-1, 1);
+       _characterPartsParent.Scale = new Vector2(-1, 1);
         _animationPlayerInstance.Play("walk_backward");
         _playerFacingTheFront = false;
     }

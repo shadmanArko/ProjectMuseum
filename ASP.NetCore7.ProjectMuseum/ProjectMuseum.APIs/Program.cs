@@ -32,6 +32,7 @@ using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
+using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
@@ -190,6 +191,7 @@ builder.Services.AddScoped<IWallPlaceableService, WallPlaceableService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
 builder.Services.AddScoped<IMiscellaneousDataService, MiscellaneousDataService>();
 builder.Services.AddScoped<IMuseumZoneService, MuseumZoneService>();
+builder.Services.AddScoped<ICaveService, CaveService>();
 
 
 

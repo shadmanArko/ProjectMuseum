@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
+using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
@@ -23,8 +24,9 @@ public class MineController : ControllerBase
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
     private readonly IResourceService _resourceService;
     private readonly IWallPlaceableService _wallPlaceableService;
+    private readonly ICaveService _caveService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveService caveService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -34,6 +36,7 @@ public class MineController : ControllerBase
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
         _resourceService = resourceService;
         _wallPlaceableService = wallPlaceableService;
+        _caveService = caveService;
     }
 
     [HttpGet("GetMineData")]
@@ -146,5 +149,12 @@ public class MineController : ControllerBase
     {
         var wallPlaceable = await _wallPlaceableService.GetWallPlaceableByVariant(variant);
         return Ok(wallPlaceable);
+    }
+    
+    [HttpGet("GenerateCave")]
+    public async Task<IActionResult> GenerateCave()
+    {
+        var cave = await _caveService.GenerateCave(20,25,10,15);
+        return Ok(cave);
     }
 }

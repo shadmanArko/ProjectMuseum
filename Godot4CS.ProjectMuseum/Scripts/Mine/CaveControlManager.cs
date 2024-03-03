@@ -13,7 +13,12 @@ public class CaveControlManager
         foreach (var cell in cells)
         {
             if(!cell.HasCave) continue;
-            Cave requiredCave = null;
+            var requiredCave = new Cave
+            {
+                CellIds = new List<string>(),
+                StalagmiteCellIds = new List<string>(),
+                StalactiteCellIds = new List<string>()
+            };
             foreach (var cave in mineGenerationVariables.Mine.Caves)
             {
                 if (cave.CellIds.Contains(cell.Id))
@@ -39,6 +44,35 @@ public class CaveControlManager
                     {
                         if(totalCellsToReveal.Contains(revealedCaveCell)) continue;
                         totalCellsToReveal.Add(revealedCaveCell);
+                    }
+                }
+                
+                var cellSize = mineGenerationVariables.Mine.CellSize;
+                if (requiredCave.StalagmiteCellIds.Count > 0)
+                {
+                    foreach (var stalagmiteCellId in requiredCave.StalagmiteCellIds)
+                    {
+                        var stalagmiteCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell =>
+                            tempCell.Id == stalagmiteCellId);
+                        var cellPos = new Vector2(stalagmiteCell!.PositionX, stalagmiteCell.PositionY)*cellSize;
+                        var offset = new Vector2(cellSize / 2f, cellSize / 2f);
+                        var scene = SceneInstantiator.InstantiateScene(
+                            "res://Scenes/Mine/Sub Scenes/Props/Stalagmite.tscn",
+                            mineGenerationVariables.MineGenView, cellPos + offset);
+                    }
+                }
+                
+                if (requiredCave.StalactiteCellIds.Count > 0)
+                {
+                    foreach (var stalactiteCellId in requiredCave.StalactiteCellIds)
+                    {
+                        var stalactiteCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell =>
+                            tempCell.Id == stalactiteCellId);
+                        var cellPos = new Vector2(stalactiteCell!.PositionX, stalactiteCell.PositionY)*cellSize;
+                        var offset = new Vector2(cellSize / 2f, cellSize / 2f);
+                        var scene = SceneInstantiator.InstantiateScene(
+                            "res://Scenes/Mine/Sub Scenes/Props/Stalactite.tscn",
+                            mineGenerationVariables.MineGenView, cellPos + offset);
                     }
                 }
             }

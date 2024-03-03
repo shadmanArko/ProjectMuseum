@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://x50lecphhu1"]
+[gd_scene load_steps=2 format=3 uid="uid://x50lecphhu1"]
+
+[ext_resource type="Texture2D" uid="uid://dd6g6abjju1u8" path="res://Assets/2D/Sprites/Mine Sprites/Stalagmites/Stalagmite.png" id="1_3utpw"]
 
 [node name="Stalagmite" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_3utpw")
+hframes = 5
+vframes = 2
+frame = 5

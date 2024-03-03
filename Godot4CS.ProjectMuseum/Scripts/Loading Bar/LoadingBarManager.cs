@@ -6,6 +6,7 @@ public partial class LoadingBarManager : Node
 {
     public int registeredTask = 0;
     public int completedTask = 0;
+    [Export] private HSlider _hSlider;
 
     public double TaskCompleted = 0;
 
@@ -36,6 +37,7 @@ public partial class LoadingBarManager : Node
         completedTask++;
         TaskCompleted = (double)completedTask / registeredTask * 100.0;
         GD.Print(TaskCompleted);
+        _hSlider.Value = TaskCompleted;
     }
 
 }

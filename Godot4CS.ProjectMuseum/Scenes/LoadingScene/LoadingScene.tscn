@@ -9,8 +9,10 @@ _hSlider = NodePath("CanvasLayer/Control/Panel/ColorRect/HSlider")
 _canvasLayer = NodePath("CanvasLayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 4
 
 [node name="Control" type="Control" parent="CanvasLayer"]
+z_index = 20
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,9 +35,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.212305, 0.212305, 0.212305, 1)
 
 [node name="HSlider" type="HSlider" parent="CanvasLayer/Control/Panel/ColorRect"]
-self_modulate = Color(0, 0, 0, 1)
 clip_contents = true
 layout_mode = 1
 anchors_preset = 12

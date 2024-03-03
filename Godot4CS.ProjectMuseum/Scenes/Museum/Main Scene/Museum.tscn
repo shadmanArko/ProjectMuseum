@@ -65,7 +65,9 @@ load_path = "res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b452
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
 
-[node name="LoadingScene" parent="." instance=ExtResource("2_apv3a")]
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("_hSlider", "_canvasLayer") instance=ExtResource("2_apv3a")]
+_hSlider = NodePath("CanvasLayer/Control/Panel/ColorRect/HSlider")
+_canvasLayer = NodePath("CanvasLayer")
 
 [node name="museum" type="Node2D" parent="."]
 y_sort_enabled = true

@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.MIne;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
@@ -10,6 +11,8 @@ public class ResourceService : IResourceService
     private readonly IInventoryRepository _inventoryRepository;
     private readonly IResourceRepository _resourceRepository;
     private readonly IMineRepository _mineRepository;
+
+    private Random _rand = new();
 
     public ResourceService(IResourceRepository resourceRepository, IInventoryRepository inventoryRepository, IMineRepository mineRepository)
     {
@@ -43,5 +46,80 @@ public class ResourceService : IResourceService
 
         await _mineRepository.Update(mine);
         return mine;
+    }
+
+    public async Task<List<Resource>> GenerateResources()
+    {
+        var variants = new List<string> { "Coal", "Iron" };
+        var mine = await _mineRepository.Get();
+
+        foreach (var mineCell in mine.Cells)
+            mineCell.HasResource = false;
+        mine.Resources.Clear();
+        
+        var cells = mine.Cells;
+        var numberOfRootNodes = _rand.Next(20,30);
+
+        for (var i = 0; i < numberOfRootNodes; i++)
+        {
+            var resourceCells = new List<Cell>();
+            var cell = new Cell();
+            while (cell.HasResource || cell.HasCave || cell.HasArtifact || !cell.IsInstantiated || cell.IsBroken || !cell.IsBreakable)
+                cell = GetRandomCell(cells);
+            resourceCells.Add(cell);
+            
+            var rootNodeVariant = variants[_rand.Next(0, variants.Count)];
+            await _resourceRepository.AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY);
+
+            var resourceBranches = rootNodeVariant.Equals("Iron") ? _rand.Next(3, 5) : _rand.Next(5, 8);
+            var currentBranchCell = cell;
+            for (var j = 0; j <= resourceBranches; j++)
+            {
+                currentBranchCell = GetRandomAdjacentCell(cells, currentBranchCell);
+                if(resourceCells.Contains(currentBranchCell)) continue;
+                resourceCells.Add(currentBranchCell);
+                Console.WriteLine($"Added {rootNodeVariant} Resource Cell {currentBranchCell.PositionX}, {currentBranchCell.PositionY}");
+            }
+            
+            foreach (var resourceCell in resourceCells)
+            {
+                var resource = await _resourceRepository.AddResourceToMine(rootNodeVariant, resourceCell.PositionX,
+                    resourceCell.PositionY);
+                mine.Resources.Add(resource);
+            }
+        }
+
+        await _mineRepository.Update(mine);
+        return mine.Resources;
+    }
+
+    private Cell GetRandomCell(List<Cell> cells)
+    {
+        return cells[_rand.Next(0,cells.Count)];
+    }
+
+    private Cell GetRandomAdjacentCell(List<Cell> cells, Cell currentCell)
+    {
+        var xMin = currentCell.PositionX - 1;
+        var xMax = currentCell.PositionX + 1;
+        var yMin = currentCell.PositionY - 1;
+        var yMax = currentCell.PositionY + 1;
+
+        var adjacentCells = new List<Cell>();
+        
+        for (var i = xMin; i <= xMax; i++)
+        {
+            for (var j = yMin; j <= yMax; j++)
+            {
+                var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
+                if(cell == null) continue;
+                if(cell == currentCell) continue;
+                if (cell.HasResource || cell.HasCave || cell.HasArtifact
+                    || !cell.IsInstantiated || cell.IsBroken || !cell.IsBreakable) continue;
+                adjacentCells.Add(cell);
+            }
+        }
+
+        return adjacentCells[_rand.Next(0, adjacentCells.Count - 1)];
     }
 }

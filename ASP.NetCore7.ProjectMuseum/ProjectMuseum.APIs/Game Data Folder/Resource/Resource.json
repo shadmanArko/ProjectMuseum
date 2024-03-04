@@ -2,16 +2,16 @@
   {
     "Id": "1",
     "Name": "Coal",
-    "Category": "Category A",
+    "Category": "Forgeable",
     "Variant": "Coal",
-    "PNGPath": "/path/to/resource1.png"
+    "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/coal.png"
   },
   {
     "Id": "2",
     "Name": "Iron",
-    "Category": "Category B",
+    "Category": "Forgeable",
     "Variant": "Iron",
-    "PNGPath": "/path/to/resource2.png"
+    "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/iron.png"
   },
   {
     "Id": "3",

@@ -64,6 +64,7 @@ public class MineController : ControllerBase
     public async Task<IActionResult> GenerateMine()
     {
         var mine = await _mineCellGeneratorService.GenerateMineCellData();
+        var cave = await _caveService.GenerateCave(20, 30, 10, 15);
         return Ok(mine);
     }
 
@@ -156,5 +157,12 @@ public class MineController : ControllerBase
     {
         var cave = await _caveService.GenerateCave(20,25,10,15);
         return Ok(cave);
+    }
+    
+    [HttpGet("GenerateResources")]
+    public async Task<IActionResult> GenerateResources()
+    {
+        var mine = await _resourceService.GenerateResources();
+        return Ok(mine);
     }
 }

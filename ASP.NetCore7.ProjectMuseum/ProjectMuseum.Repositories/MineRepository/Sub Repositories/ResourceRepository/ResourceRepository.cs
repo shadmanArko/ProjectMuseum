@@ -14,13 +14,15 @@ public class ResourceRepository : IResourceRepository
         _resourceDatabase = resourceDatabase;
     }
 
-    public async Task<Resource> AddResourceToMine(string variant)
+    public async Task<Resource> AddResourceToMine(string variant, int posX, int posY)
     {
         var mines = await _mineDatabase.ReadDataAsync();
         var mine = mines?[0];
         var resources = await _resourceDatabase.ReadDataAsync();
         var resource = resources?.FirstOrDefault(resource1 => resource1.Variant == variant);
         resource!.Id = Guid.NewGuid().ToString();
+        resource.PositionX = posX;
+        resource.PositionY = posY;
         mine?.Resources.Add(resource);
         if (mine != null) await _mineDatabase.WriteDataAsync(mines!);
         return resource;

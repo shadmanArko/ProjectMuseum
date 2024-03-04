@@ -1,10 +1,60 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0v4vn5txh23p"]
+[gd_scene load_steps=5 format=3 uid="uid://d0v4vn5txh23p"]
 
 [ext_resource type="Texture2D" uid="uid://dve4eewrak4r8" path="res://Assets/2D/Sprites/Mine Sprites/Stalagmites/Stalactite.png" id="1_0acq5"]
 
-[node name="Stalactite" type="Node2D"]
+[sub_resource type="Animation" id="Animation_utx6u"]
+resource_name = "Stalactite_Fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_cwjrl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x00eb"]
+_data = {
+"RESET": SubResource("Animation_cwjrl"),
+"Stalactite_Fall": SubResource("Animation_utx6u")
+}
+
+[node name="Stalactite" type="RigidBody2D"]
+collision_mask = 3
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_0acq5")
 hframes = 5
 vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x00eb")
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 3.14159
+polygon = PackedVector2Array(10, 10, 8, -7, 6, 0.999999, 5, -4, -2, 8, -4, -5, -7, 3, -8, -9, -10, 3, -10, 10)
+one_way_collision = true

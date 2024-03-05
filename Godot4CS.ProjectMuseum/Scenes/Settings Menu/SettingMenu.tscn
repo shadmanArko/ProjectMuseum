@@ -1,0 +1,379 @@
+[gd_scene load_steps=2 format=3 uid="uid://rp4letc3x850"]
+
+[ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="1_q5rr7"]
+
+[node name="SettingMenu" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Exit"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Settings"
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+
+[node name="Interface" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="UI Scaling" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/UI Scaling"]
+layout_mode = 2
+text = "UI Scaling"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/UI Scaling"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Language" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/Language"]
+layout_mode = 2
+text = "Language"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/Language"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Bangla"
+popup/item_1/id = 1
+
+[node name="Audio" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Master Volume" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer/Master Volume"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer/Master Volume"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="SFX Volume" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer/SFX Volume"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer/SFX Volume"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Music Volume" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer/Music Volume"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer/Music Volume"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Gameplay" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Edge Scrolling" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Edge Scrolling"]
+layout_mode = 2
+text = "Edge Scrolling"
+
+[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Edge Scrolling"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Mouse Wheel Speed" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Speed"]
+layout_mode = 2
+text = "Mouse Wheel Speed"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Speed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Bangla"
+popup/item_1/id = 1
+
+[node name="Mouse Wheel Acceleration" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Acceleration"]
+layout_mode = 2
+text = "Mouse Wheel Acceleration"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Acceleration"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Bangla"
+popup/item_1/id = 1
+
+[node name="Graphics" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer" node_paths=PackedStringArray("optionButton")]
+visible = false
+layout_mode = 2
+script = ExtResource("1_q5rr7")
+optionButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Window Mode/OptionButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Aspect Ratio" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Aspect Ratio"]
+layout_mode = 2
+text = "Aspect Ratio"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Aspect Ratio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Bangla"
+popup/item_1/id = 1
+
+[node name="Frame Rate Cap" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Frame Rate Cap"]
+layout_mode = 2
+text = "Frame Rate Cap"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Frame Rate Cap"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Bangla"
+popup/item_1/id = 1
+
+[node name="Window Mode" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Window Mode"]
+layout_mode = 2
+text = "Window Mode"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Window Mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Post-Processing" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Post-Processing"]
+layout_mode = 2
+text = "Post-Processing"
+
+[node name="CheckBox2" type="CheckBox" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Post-Processing"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Keybinds" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "GP1"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "GP2"
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "GP3"
+
+[node name="Label4" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "123456789"
+
+[node name="Label5" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "123456789"
+
+[node name="Label6" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "123456789"
+
+[node name="Label7" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "123456789"
+
+[node name="Label8" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "123456789"
+
+[node name="Label9" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "123456789"
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Save"
+
+[connection signal="item_selected" from="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Window Mode/OptionButton" to="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics" method="OnWindowModeSelected"]

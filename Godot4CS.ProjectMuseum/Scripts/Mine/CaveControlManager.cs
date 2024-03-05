@@ -12,7 +12,7 @@ public class CaveControlManager
         var totalCellsToReveal = new List<Cell>();
         foreach (var cell in cells)
         {
-            if(!cell.HasCave) continue;
+            if (!cell.HasCave) continue;
             var requiredCave = new Cave
             {
                 CellIds = new List<string>(),
@@ -27,53 +27,56 @@ public class CaveControlManager
                     requiredCave = cave;
                 }
             }
-
-            if (requiredCave != null)
+            
+            if(requiredCave.IsRevealed) continue;
+            requiredCave.IsRevealed = true;
+            foreach (var cellId in requiredCave.CellIds)
             {
-                foreach (var cellId in requiredCave.CellIds)
-                {
-                    var caveCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(temp => temp.Id == cellId);
-                    if (caveCell == null) continue;
-                    
-                    caveCell.IsBroken = true;
-                    caveCell.IsRevealed = true;
-                    var revealedCaveCells = MineCellDestroyer.DestroyCellByPosition(new Vector2I(caveCell.PositionX, caveCell.PositionY),
-                        mineGenerationVariables);
+                var caveCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(temp => temp.Id == cellId);
+                if (caveCell == null) continue;
 
-                    foreach (var revealedCaveCell in revealedCaveCells)
-                    {
-                        if(totalCellsToReveal.Contains(revealedCaveCell)) continue;
-                        totalCellsToReveal.Add(revealedCaveCell);
-                    }
-                }
-                
-                var cellSize = mineGenerationVariables.Mine.CellSize;
-                if (requiredCave.StalagmiteCellIds.Count > 0)
+                cell.HasCave = true;
+                caveCell.IsBroken = true;
+                caveCell.IsRevealed = true;
+                var revealedCaveCells = MineCellDestroyer.DestroyCellByPosition(
+                    new Vector2I(caveCell.PositionX, caveCell.PositionY),
+                    mineGenerationVariables);
+
+                foreach (var revealedCaveCell in revealedCaveCells)
                 {
-                    foreach (var stalagmiteCellId in requiredCave.StalagmiteCellIds)
-                    {
-                        var stalagmiteCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell =>
-                            tempCell.Id == stalagmiteCellId);
-                        var cellPos = new Vector2(stalagmiteCell!.PositionX, stalagmiteCell.PositionY)*cellSize;
-                        var offset = new Vector2(cellSize / 2f, cellSize / 2f);
-                        var scene = SceneInstantiator.InstantiateScene(
-                            "res://Scenes/Mine/Sub Scenes/Props/Stalagmite.tscn",
-                            mineGenerationVariables.MineGenView, cellPos + offset);
-                    }
+                    if (totalCellsToReveal.Contains(revealedCaveCell)) continue;
+                    totalCellsToReveal.Add(revealedCaveCell);
                 }
-                
-                if (requiredCave.StalactiteCellIds.Count > 0)
+            }
+
+            var cellSize = mineGenerationVariables.Mine.CellSize;
+            if (requiredCave.StalagmiteCellIds.Count > 0)
+            {
+                foreach (var stalagmiteCellId in requiredCave.StalagmiteCellIds)
                 {
-                    foreach (var stalactiteCellId in requiredCave.StalactiteCellIds)
-                    {
-                        var stalactiteCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell =>
-                            tempCell.Id == stalactiteCellId);
-                        var cellPos = new Vector2(stalactiteCell!.PositionX, stalactiteCell.PositionY)*cellSize;
-                        var offset = new Vector2(cellSize / 2f, cellSize / 2f);
-                        var scene = SceneInstantiator.InstantiateScene(
-                            "res://Scenes/Mine/Sub Scenes/Props/Stalactite.tscn",
-                            mineGenerationVariables.MineGenView, cellPos + offset);
-                    }
+                    var stalagmiteCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell =>
+                        tempCell.Id == stalagmiteCellId);
+                    var cellPos = new Vector2(stalagmiteCell!.PositionX, stalagmiteCell.PositionY) * cellSize;
+                    var offset = new Vector2(cellSize / 2f, cellSize / 2f);
+                    var scene = SceneInstantiator.InstantiateScene(
+                        "res://Scenes/Mine/Sub Scenes/Props/Stalagmite.tscn",
+                        mineGenerationVariables.MineGenView, cellPos + offset);
+                    GD.Print($"Stalagmite instantiated {stalagmiteCell.PositionX},{stalagmiteCell.PositionY}");
+                }
+            }
+
+            if (requiredCave.StalactiteCellIds.Count > 0)
+            {
+                foreach (var stalactiteCellId in requiredCave.StalactiteCellIds)
+                {
+                    var stalactiteCell = mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell =>
+                        tempCell.Id == stalactiteCellId);
+                    var cellPos = new Vector2(stalactiteCell!.PositionX, stalactiteCell.PositionY) * cellSize;
+                    var offset = new Vector2(cellSize / 2f, cellSize / 2f);
+                    var scene = SceneInstantiator.InstantiateScene(
+                        "res://Scenes/Mine/Sub Scenes/Props/Stalactite.tscn",
+                        mineGenerationVariables.MineGenView, cellPos + offset);
+                    GD.Print($"Stalactite instantiated {stalactiteCell.PositionX},{stalactiteCell.PositionY}");
                 }
             }
         }

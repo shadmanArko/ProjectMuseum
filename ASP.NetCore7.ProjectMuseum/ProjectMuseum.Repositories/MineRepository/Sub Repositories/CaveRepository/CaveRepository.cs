@@ -35,6 +35,11 @@ public class CaveRepository : ICaveRepository
                 
                 cell.HasCave = true;
                 cell.IsBroken = true;
+                cell.TopBrokenSide = true;
+                cell.BottomBrokenSide = true;
+                cell.LeftBrokenSide = true;
+                cell.RightBrokenSide = true;
+                
                 if(caveCellIds.Contains(cell.Id)) continue;
                 caveCellIds.Add(cell.Id);
                 Console.WriteLine($"cell Y:{cell.PositionY}, yMin:{yMin}");

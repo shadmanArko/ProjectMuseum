@@ -15,10 +15,6 @@ public class SpecialBackdropService : ISpecialBackdropService
     public async Task<List<SpecialBackdropPngInformation>> SetSpecialBackdropFromDatabase()
     {
         var specialBackdrops = await _specialBackdropRepository.SetSpecialBackdrops();
-        foreach (var specialBackdrop in specialBackdrops)
-        {
-            Console.WriteLine($"backdrop id: {specialBackdrop.SourceId}");
-        }
         return specialBackdrops;
     }
 }

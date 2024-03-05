@@ -75,7 +75,7 @@ public partial class Stalactite : Node2D
 				QueueFree();
 		}
 
-		if (body is MineGenerationController)
+		if (body == _mineGenerationVariables.MineGenView.TileMap)
 		{
 			GD.Print("Collided with tilemap");
 			if(!_isFalling) return;

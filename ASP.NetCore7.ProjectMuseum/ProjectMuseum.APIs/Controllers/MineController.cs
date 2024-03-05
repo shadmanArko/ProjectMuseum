@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBackdropRepository;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
@@ -8,6 +9,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
+using ProjectMuseum.Services.MineService.Sub_Services.SpecialRepositoryService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -25,8 +27,9 @@ public class MineController : ControllerBase
     private readonly IResourceService _resourceService;
     private readonly IWallPlaceableService _wallPlaceableService;
     private readonly ICaveService _caveService;
+    private readonly ISpecialBackdropService _specialBackdropService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveService caveService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveService caveService, ISpecialBackdropService specialBackdropService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -37,6 +40,7 @@ public class MineController : ControllerBase
         _resourceService = resourceService;
         _wallPlaceableService = wallPlaceableService;
         _caveService = caveService;
+        _specialBackdropService = specialBackdropService;
     }
 
     [HttpGet("GetMineData")]
@@ -164,5 +168,12 @@ public class MineController : ControllerBase
     {
         var mine = await _resourceService.GenerateResources();
         return Ok(mine);
+    }
+    
+    [HttpGet("SetSpecialBackdropsInMine")]
+    public async Task<IActionResult> SetSpecialBackdropsInMine()
+    {
+        var specialBackdrops = await _specialBackdropService.SetSpecialBackdropFromDatabase();
+        return Ok(specialBackdrops);
     }
 }

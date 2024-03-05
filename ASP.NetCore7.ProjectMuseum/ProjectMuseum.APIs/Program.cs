@@ -13,6 +13,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMa
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBackdropRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.WallPlaceableRepository;
 using ProjectMuseum.Repositories.MiscellaneousDataRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
@@ -38,6 +39,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
+using ProjectMuseum.Services.MineService.Sub_Services.SpecialRepositoryService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
@@ -65,6 +67,7 @@ string museumMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDire
 string mineMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MineMiscellaneousData", "MineMiscellaneousData.json");
 string wallPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "WallPlaceableData", "WallPlaceable.json");
 string caveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CaveData.json");
+string specialBackdropDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "SpecialBackdropData", "SpecialBackdropPngInformation.json");
 
 
 
@@ -113,6 +116,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<MuseumMiscellaneousData>(muse
 builder.Services.AddSingleton(new JsonFileDatabase<SettingsMiscellaneousData>(settingsMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<MineMiscellaneousData>(mineMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Cave>(caveDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<SpecialBackdropPngInformation>(specialBackdropDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -164,6 +168,7 @@ builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 builder.Services.AddScoped<IMiscellaneousDataRepository, MiscellaneousDataRepository>();
 builder.Services.AddScoped<IMuseumZoneRepository, MuseumZoneRepository>();
 builder.Services.AddScoped<ICaveRepository, CaveRepository>();
+builder.Services.AddScoped<ISpecialBackdropRepository, SpecialBackdropRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -192,6 +197,7 @@ builder.Services.AddScoped<ITimeService, TimeService>();
 builder.Services.AddScoped<IMiscellaneousDataService, MiscellaneousDataService>();
 builder.Services.AddScoped<IMuseumZoneService, MuseumZoneService>();
 builder.Services.AddScoped<ICaveService, CaveService>();
+builder.Services.AddScoped<ISpecialBackdropService, SpecialBackdropService>();
 
 
 

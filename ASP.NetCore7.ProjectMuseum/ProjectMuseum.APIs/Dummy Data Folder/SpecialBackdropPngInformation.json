@@ -1,0 +1,23 @@
+[
+  {
+    "SourceId": 4,
+    "SizeX": 7,
+    "SizeY": 7,
+    "TilePositionX": 10,
+    "TilePositionY": 10
+  },
+  {
+    "SourceId": 5,
+    "SizeX": 9,
+    "SizeY": 5,
+    "TilePositionX": 24,
+    "TilePositionY": 15
+  },
+  {
+    "SourceId": 6,
+    "SizeX": 9,
+    "SizeY": 5,
+    "TilePositionX": 35,
+    "TilePositionY": 12
+  }
+]

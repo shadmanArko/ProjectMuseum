@@ -30,4 +30,8 @@
 
 
 
+  <ItemGroup>
+    <Folder Include="Game Data Folder\SpecialBackdropData\" />
+  </ItemGroup>
+
 </Project>

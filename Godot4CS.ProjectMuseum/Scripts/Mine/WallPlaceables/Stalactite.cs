@@ -66,7 +66,7 @@ public partial class Stalactite : Node2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (body is PlayerController)
+		if (body == _playerControllerVariables.Player)
 		{
 			GD.Print("Collided with player");
 			if(_playerControllerVariables.IsDead) return;

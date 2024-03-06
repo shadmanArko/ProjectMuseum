@@ -23,7 +23,7 @@ public partial class EnemyCollisionDetector : Area2D
     
     private void OnEnemyAttackCooldownTimeOut()
     {
-        GD.Print("Enemy cooldown is false");
+        // GD.Print("Enemy cooldown is false");
         _enemyCooldown = false;
     }
 
@@ -34,14 +34,14 @@ public partial class EnemyCollisionDetector : Area2D
         if(_playerControllerVariables.IsDead) return;
         
 
-        if (_enemy!.State != EnemyState.DigIn && !_enemyCooldown)
-        {
-            _enemy!.State = EnemyState.Attack;
-            _enemy.Attack();
-            _enemyCooldown = true;
-            GD.Print("Enemy cooldown is true");
-            GD.Print("ENEMY ATTACKING PLAYER");
-        }
+        // if (_enemy!.State != EnemyState.DigIn && !_enemyCooldown)
+        // {
+        //     _enemy!.State = EnemyState.Attack;
+        //     _enemy.Attack();
+        //     _enemyCooldown = true;
+        //     GD.Print("Enemy cooldown is true");
+        //     GD.Print("ENEMY ATTACKING PLAYER");
+        // }
     }
 
     #region Wall Collision

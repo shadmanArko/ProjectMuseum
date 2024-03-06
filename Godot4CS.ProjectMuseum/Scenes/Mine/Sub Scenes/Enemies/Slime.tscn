@@ -307,7 +307,6 @@ floor_max_angle = 3.14159
 floor_snap_length = 0.0
 script = ExtResource("1_pkl74")
 _stateChangeTimer = NodePath("State Change TImer")
-_gravity = 1500.0
 NavAgent = NodePath("NavigationAgent2D")
 TrackTimer = NodePath("Track Timer")
 AnimTree = NodePath("AnimationTree")
@@ -383,17 +382,17 @@ parameters/conditions/is_moving = false
 parameters/conditions/is_taking_damage = true
 parameters/move/blend_position = Vector2(0, 0)
 
-[connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="AttackPlayer"]
 [connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="OnCollideWithWallEntered"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
+[connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="AttackPlayer"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
 [connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]
 [connection signal="timeout" from="Attack Cooldown" to="Enemy Collision Detector" method="OnEnemyAttackCooldownTimeOut"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="OnAttackAnimationFinished"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="OnDeathAnimationFinished"]

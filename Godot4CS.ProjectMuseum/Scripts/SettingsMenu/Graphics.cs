@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Graphics : TabBar
 {
@@ -10,13 +11,18 @@ public partial class Graphics : TabBar
 	//
 	[Export] private OptionButton optionButton;
 	// //private OptionMenu optionMenu;
-
+	Vector2I resolution = new Vector2I(500, 1000);
 	public enum WindowMode
 	{
 		FullScreen,
 		Windowed,
 		// BorderlessWindow,
 		// BorderlessFullScreen,
+	}
+	
+	public enum Resolution
+	{
+		
 	}
 
 	public override void _Ready()
@@ -29,7 +35,11 @@ public partial class Graphics : TabBar
 		{
 			optionButton.AddItem(mode.ToString());
 		}
+
 		
+		GD.Print(DisplayServer.ScreenGetSize());
+		DisplayServer.WindowSetSize(resolution);
+
 		//optionButton.ItemSelected += _on_window_mode_selected(optionButton.GetItemIndex())
 
 		// Set initial selection and window mode
@@ -58,6 +68,7 @@ public partial class Graphics : TabBar
 				//OS.WindowFullscreen = false;
 				DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
 				DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
+				DisplayServer.WindowSetSize(resolution);
 				//OS.WindowSize = new Vector2(800, 600); // Adjust default window size as needed
 				break;
 			// case WindowMode.BorderlessWindow:

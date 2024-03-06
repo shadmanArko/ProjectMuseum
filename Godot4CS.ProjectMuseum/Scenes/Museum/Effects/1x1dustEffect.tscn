@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://qulr4wwpgjqv"]
+
+[ext_resource type="Texture2D" uid="uid://dwcq6gfjq33i5" path="res://Assets/2D/Sprites/Effects/exhibit_1X1_dust.png" id="1_vks86"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(-176, -120)
+texture = ExtResource("1_vks86")
+hframes = 7

@@ -424,5 +424,8 @@ _controllersParent = NodePath(".")
 
 [node name="ItemPlacementController" type="Node2D" parent="."]
 script = ExtResource("50_roy6j")
+_placementEffect1X1 = ExtResource("51_k8r31")
 
-[node name="Sprite2D" parent="." instance=ExtResource("51_k8r31")]
+[node name="Sprite2D" parent="." node_paths=PackedStringArray("_animationPlayer") instance=ExtResource("51_k8r31")]
+visible = true
+_animationPlayer = NodePath("AnimationPlayer")

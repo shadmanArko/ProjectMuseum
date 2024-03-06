@@ -266,7 +266,10 @@ public partial class Item : Sprite2D, IComparable<Item>
         return null;
     }
 
-
+    protected void OnItemPlacedOnTile(Vector2 position)
+    {
+        MuseumActions.OnItemPlacedOnTile?.Invoke(this, position);
+    }
     public override void _ExitTree()
     {
         

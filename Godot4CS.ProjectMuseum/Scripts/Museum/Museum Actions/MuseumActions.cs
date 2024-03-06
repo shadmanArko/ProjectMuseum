@@ -23,6 +23,7 @@ public partial class MuseumActions : Node
     public static Action<float> OnMuseumBalanceAdded;
     public static Action OnItemUpdated;
     public static Action OnItemPlaced;
+    public static Action<Item, Vector2> OnItemPlacedOnTile;
     public static Action<string> OnBottomPanelButtonClicked;
     public static Action<BuilderCardType> OnBottomPanelBuilderCardToggleClicked;
     public static Action<Artifact, int> ArtifactDroppedOnSlot;

@@ -37,7 +37,7 @@ public static class TileHelpers
     private static bool _lastCheckedResult = false;
     public static bool CheckIfNextPositionIsEmpty(this List<MuseumTile> museumTiles, Vector2 nextPosition)
     {
-        Vector2I tilePosition = GameManager.TileMap.LocalToMap(nextPosition);
+        Vector2I tilePosition = GameManager.tileMap.LocalToMap(nextPosition);
         if (_lastCheckedPosition == tilePosition)
         {
             return _lastCheckedResult;

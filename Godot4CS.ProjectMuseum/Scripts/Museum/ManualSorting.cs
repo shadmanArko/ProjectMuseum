@@ -36,8 +36,8 @@ public partial class ManualSorting : Node2D
 			{
 				if (item != item1 && Math.Abs(item.Position.Y - item1.Position.Y) < 0.1f)
 				{
-					var item1TilePosition = GameManager.TileMap.LocalToMap(item1.Position);
-					var itemTilePosition = GameManager.TileMap.LocalToMap(item.Position);
+					var item1TilePosition = GameManager.tileMap.LocalToMap(item1.Position);
+					var itemTilePosition = GameManager.tileMap.LocalToMap(item.Position);
 					if (Math.Abs(item.Position.X - item1.Position.X) < 40f && item.Position.X > item1.Position.X)
 					{
 						if (itemTilePosition.X > item1TilePosition.X && item.numberOfTilesItTakes < 2)

@@ -59,6 +59,8 @@ public partial class Item : Sprite2D, IComparable<Item>
     protected ItemTypes _itemType;
     protected int _currentFrame;
     protected int _maxFrame = 4;
+    private float _offsetBeforeItemPlacement = 10;
+
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
@@ -111,9 +113,24 @@ public partial class Item : Sprite2D, IComparable<Item>
         }
     }
 
-    
-    
-    
+
+
+    public void MakeObjectsFloating()
+    {
+        Offset = new  Vector2(Offset.X, Offset.Y - _offsetBeforeItemPlacement);
+        if (_glass != null)
+        {
+            _glass.Offset = new Vector2(_glass.Offset.X, _glass.Offset.Y - _offsetBeforeItemPlacement);
+        }
+    }
+    public void MakeObjectsGrounded()
+    {
+        Offset = new  Vector2(Offset.X, Offset.Y + _offsetBeforeItemPlacement);
+        if (_glass != null)
+        {
+            _glass.Offset = new Vector2(_glass.Offset.X, _glass.Offset.Y + _offsetBeforeItemPlacement);
+        }
+    }
 
     private void httpRequestForExhibitPlacementConditionsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
@@ -139,13 +156,13 @@ public partial class Item : Sprite2D, IComparable<Item>
     public override void _PhysicsProcess(double delta)
     {
         if (!selectedItem) return;
-        Vector2I mouseTile = GameManager.TileMap.LocalToMap(GetGlobalMousePosition());
+        Vector2I mouseTile = GameManager.tileMap.LocalToMap(GetGlobalMousePosition());
         
         // Check if the tile is eligible for this item placement
         if (_lastCheckedTile != mouseTile)
         {
-            Vector2 localPos = GameManager.TileMap.MapToLocal(mouseTile);
-            Vector2 worldPos = GameManager.TileMap.ToGlobal(localPos);
+            Vector2 localPos = GameManager.tileMap.MapToLocal(mouseTile);
+            Vector2 worldPos = GameManager.tileMap.ToGlobal(localPos);
             _eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
             Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
             // GD.Print($"{eligibleForItemPlacementInTile}");
@@ -266,7 +283,10 @@ public partial class Item : Sprite2D, IComparable<Item>
         return null;
     }
 
-
+    protected void OnItemPlacedOnTile(Vector2 position)
+    {
+        MuseumActions.OnItemPlacedOnTile?.Invoke(this, position);
+    }
     public override void _ExitTree()
     {
         

@@ -29,6 +29,14 @@ public class MuseumRepository : IMuseumRepository
         throw new NotImplementedException();
     }
 
+    public async Task<MuseumTicketCounter> UpdateMuseumTicketCounter(MuseumTicketCounter museumTicketCounter)
+    {
+        var museums = await _museumDatabase.ReadDataAsync();
+        museums![0].MuseumTicketCounter = museumTicketCounter;
+        await _museumDatabase.WriteDataAsync(museums);
+        return museums[0].MuseumTicketCounter;
+    }
+
     public async Task<float> GetMuseumBalance(string id)
     {
         var museums = await _museumDatabase.ReadDataAsync();

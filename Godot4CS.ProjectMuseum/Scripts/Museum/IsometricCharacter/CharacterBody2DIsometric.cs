@@ -103,7 +103,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         if (_museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
         {
             // Move only if the next position is within the TileMap bounds
-            var newTile = GameManager.TileMap.LocalToMap(Position);
+            var newTile = GameManager.tileMap.LocalToMap(Position);
             if ( newTile != _lastPlayerTile)
             {
                 _lastPlayerTile = newTile;
@@ -118,7 +118,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         base._Input(@event);
         if (@event.IsActionPressed("Interact"))
         {
-            var tile = GameManager.TileMap.LocalToMap(Position);
+            var tile = GameManager.tileMap.LocalToMap(Position);
             var directions = GetPlayerDirectionsEnum();
             MuseumActions.OnPlayerInteract?.Invoke(tile, directions);
         }

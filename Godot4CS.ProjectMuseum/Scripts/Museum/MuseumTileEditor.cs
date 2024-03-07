@@ -29,7 +29,7 @@ public partial class MuseumTileEditor : Node2D
     public override async void _Ready()
     {
         base._Ready();
-        _tileMap = GameManager.TileMap;
+        _tileMap = GameManager.tileMap;
         _museumTileVariationsApiPath = ApiAddress.MuseumApiPath + "GetAllTileVariations";
         _httpRequestForGettingTileVariations = new HttpRequest();
         _httpRequestForUpdatingTilesSourceId = new HttpRequest();
@@ -106,15 +106,15 @@ public partial class MuseumTileEditor : Node2D
             if (Input.IsActionJustPressed("ui_left_click"))
             {
                 // Left mouse button pressed
-                _tileSize = GameManager.TileMap.CellQuadrantSize;
+                _tileSize = GameManager.tileMap.CellQuadrantSize;
                 _dragStartPosition = GetGlobalMousePosition();
-                _selectedTile = GameManager.TileMap.LocalToMap(_dragStartPosition);
+                _selectedTile = GameManager.tileMap.LocalToMap(_dragStartPosition);
             }
             else if (Input.IsActionJustReleased("ui_left_click"))
             {
                 // Left mouse button released
                 Vector2 dragEndPosition = GetGlobalMousePosition();
-                Vector2I endTile = GameManager.TileMap.LocalToMap(dragEndPosition);
+                Vector2I endTile = GameManager.tileMap.LocalToMap(dragEndPosition);
                 List<Vector2I> tilePositions = new List<Vector2I>(); 
                 // Iterate over the tiles in the box
                 for (int x = Math.Min(_selectedTile.X, endTile.X); x <= Math.Max(_selectedTile.X, endTile.X); x++)
@@ -123,11 +123,11 @@ public partial class MuseumTileEditor : Node2D
                          y <= Math.Max(_selectedTile.Y, endTile.Y);
                          y++)
                     {
-                        GameManager.TileMap.ClearLayer(1);
+                        GameManager.tileMap.ClearLayer(1);
                         var spawnTilePos = new Vector2I(x, y);
                         if (!spawnTilePos.IsTilePositionInsideTileMap()) continue;
                         tilePositions.Add(spawnTilePos);
-                        GameManager.TileMap.SetCell(0, spawnTilePos, _tileSourceId, Vector2I.Zero);
+                        GameManager.tileMap.SetCell(0, spawnTilePos, _tileSourceId, Vector2I.Zero);
                         // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
                         
                     }
@@ -139,8 +139,8 @@ public partial class MuseumTileEditor : Node2D
         }else if (@event is InputEventMouseMotion mouseMotion)
         {
             // Update the selection rectangle during mouse motion
-            GameManager.TileMap.ClearLayer(1);
-            Vector2I endTile = GameManager.TileMap.LocalToMap(GetGlobalMousePosition());
+            GameManager.tileMap.ClearLayer(1);
+            Vector2I endTile = GameManager.tileMap.LocalToMap(GetGlobalMousePosition());
             if (Input.IsActionPressed("ui_left_click"))
             {
                 for (int x = Math.Min(_selectedTile.X, endTile.X); x <= Math.Max(_selectedTile.X, endTile.X); x++)
@@ -149,7 +149,7 @@ public partial class MuseumTileEditor : Node2D
                          y <= Math.Max(_selectedTile.Y, endTile.Y);
                          y++)
                     {
-                        GameManager.TileMap.SetCell(1, new Vector2I(x, y), _tileSourceId, Vector2I.Zero);
+                        GameManager.tileMap.SetCell(1, new Vector2I(x, y), _tileSourceId, Vector2I.Zero);
                         // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
                         
                     }

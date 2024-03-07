@@ -420,6 +420,7 @@ script = ExtResource("46_uujue")
 _backgroundObject = NodePath("../museum/Background Foresnt")
 
 [node name="ControllersContainer" type="Node2D" parent="." node_paths=PackedStringArray("_controllersParent")]
+process_mode = 4
 script = ExtResource("48_dpvlv")
 _controllersParent = NodePath(".")
 

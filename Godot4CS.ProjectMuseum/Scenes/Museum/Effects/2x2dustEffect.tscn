@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://qulr4wwpgjqv"]
+[gd_scene load_steps=6 format=3 uid="uid://4hojolkc2kn"]
 
-[ext_resource type="Texture2D" uid="uid://dwcq6gfjq33i5" path="res://Assets/2D/Sprites/Effects/exhibit_1X1_dust.png" id="1_vks86"]
-[ext_resource type="Script" path="res://Scripts/Museum/Effects/ItemPlacementEffect.cs" id="2_boyrv"]
+[ext_resource type="Texture2D" uid="uid://dxye6uu1tjrhx" path="res://Assets/2D/Sprites/Effects/exhibit_4X4_dust.png" id="1_o15h6"]
+[ext_resource type="Script" path="res://Scripts/Museum/Effects/ItemPlacementEffect.cs" id="2_pf1cf"]
 
 [sub_resource type="Animation" id="Animation_21e88"]
 length = 0.001
@@ -53,11 +53,12 @@ _data = {
 }
 
 [node name="Sprite2D" type="Sprite2D" node_paths=PackedStringArray("_animationPlayer")]
+visible = false
 texture_filter = 1
 position = Vector2(-176, -120)
-texture = ExtResource("1_vks86")
+texture = ExtResource("1_o15h6")
 hframes = 7
-script = ExtResource("2_boyrv")
+script = ExtResource("2_pf1cf")
 _animationPlayer = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

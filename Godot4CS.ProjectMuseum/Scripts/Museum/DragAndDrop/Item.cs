@@ -59,6 +59,8 @@ public partial class Item : Sprite2D, IComparable<Item>
     protected ItemTypes _itemType;
     protected int _currentFrame;
     protected int _maxFrame = 4;
+    private float _offsetBeforeItemPlacement = 10;
+
     public Item()
     {
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
@@ -111,9 +113,24 @@ public partial class Item : Sprite2D, IComparable<Item>
         }
     }
 
-    
-    
-    
+
+
+    public void MakeObjectsFloating()
+    {
+        Offset = new  Vector2(Offset.X, Offset.Y - _offsetBeforeItemPlacement);
+        if (_glass != null)
+        {
+            _glass.Offset = new Vector2(_glass.Offset.X, _glass.Offset.Y - _offsetBeforeItemPlacement);
+        }
+    }
+    public void MakeObjectsGrounded()
+    {
+        Offset = new  Vector2(Offset.X, Offset.Y + _offsetBeforeItemPlacement);
+        if (_glass != null)
+        {
+            _glass.Offset = new Vector2(_glass.Offset.X, _glass.Offset.Y + _offsetBeforeItemPlacement);
+        }
+    }
 
     private void httpRequestForExhibitPlacementConditionsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {

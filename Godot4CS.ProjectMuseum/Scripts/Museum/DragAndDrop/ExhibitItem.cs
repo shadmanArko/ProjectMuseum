@@ -14,7 +14,6 @@ public partial class ExhibitItem : Item
 {
 	[Export] private Array<Sprite2D> _artifactSlots;
 	private HttpRequest _httpRequestForGettingExhibitVariation;
-	private float _offsetBeforeItemPlacement = 10;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -44,8 +43,8 @@ public partial class ExhibitItem : Item
 		_itemType = ItemTypes.Exhibit;
 		_httpRequestForGettingExhibitVariation.Request(ApiAddress.MuseumApiPath +
 		                                               $"GetExhibitVariation/variationName?variationName={exhibitVariationName}");
+		MakeObjectsFloating();
 		//GD.Print("Item Initialized");
-		Offset = new  Vector2(Offset.X, Offset.Y - _offsetBeforeItemPlacement);
 	}
 	public void SpawnFromDatabase(Exhibit exhibit, List<Artifact> displayArtifacts)
 	{
@@ -84,7 +83,7 @@ public partial class ExhibitItem : Item
 			// OnItemPlaced?.Invoke(ItemPrice);
 			selectedItem = false;
 			OnItemPlacedOnTile(GlobalPosition);
-			Offset = new  Vector2(Offset.X, Offset.Y + _offsetBeforeItemPlacement);
+			// Offset = new  Vector2(Offset.X, Offset.Y + _offsetBeforeItemPlacement);
 			Modulate = _originalColor;
 		}
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))

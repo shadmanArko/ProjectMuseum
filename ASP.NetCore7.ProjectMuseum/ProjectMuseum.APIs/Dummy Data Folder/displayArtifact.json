@@ -1,1 +1,5 @@
-[{"Artifacts":[{"Id":"4","RawArtifactId":"ClassicalNativeAmericanTomahawk","PositionX":22,"PositionY":6,"Slot":0},{"Id":"8","RawArtifactId":"RenaissanceAmericanCutlass","PositionX":18,"PositionY":8,"Slot":6},{"Id":"11","RawArtifactId":"AncientNativeAmericanClub","PositionX":22,"PositionY":13,"Slot":7},{"Id":"3","RawArtifactId":"MedievalNativeAmericanTomahawk","PositionX":24,"PositionY":2,"Slot":3}]}]
+[
+  {
+    "Artifacts": []
+  }
+]

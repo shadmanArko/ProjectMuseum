@@ -48,6 +48,7 @@ public partial class DecorationItem : Item
 	public void Initialize(string cardName)
 	{
 		selectedItem = true;
+		MakeObjectsFloating();
 	}
 	private new void HandleItemPlacement()
 	{
@@ -65,5 +66,6 @@ public partial class DecorationItem : Item
 		// GD.Print("Handling exhibit placement");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
+		OnItemPlacedOnTile(GlobalPosition);
 	}
 }

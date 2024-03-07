@@ -428,6 +428,3 @@ _controllersParent = NodePath(".")
 script = ExtResource("50_roy6j")
 _placementEffect1X1 = ExtResource("51_k8r31")
 _placementEffect2X2 = ExtResource("52_syimh")
-
-[node name="Sprite2D" parent="." node_paths=PackedStringArray("_animationPlayer") instance=ExtResource("51_k8r31")]
-_animationPlayer = NodePath("AnimationPlayer")

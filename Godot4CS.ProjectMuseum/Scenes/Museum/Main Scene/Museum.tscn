@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=57 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -49,6 +49,9 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/ItemPlacementController.cs" id="50_roy6j"]
+[ext_resource type="PackedScene" uid="uid://qulr4wwpgjqv" path="res://Scenes/Museum/Effects/1x1dustEffect.tscn" id="51_k8r31"]
+[ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2lj4t"]
 load_path = "res://.godot/imported/isomatric forest chunk.png-39e4fad63e208a2655db8d51e4c382bd.ctex"
@@ -417,5 +420,11 @@ script = ExtResource("46_uujue")
 _backgroundObject = NodePath("../museum/Background Foresnt")
 
 [node name="ControllersContainer" type="Node2D" parent="." node_paths=PackedStringArray("_controllersParent")]
+process_mode = 4
 script = ExtResource("48_dpvlv")
 _controllersParent = NodePath(".")
+
+[node name="ItemPlacementController" type="Node2D" parent="."]
+script = ExtResource("50_roy6j")
+_placementEffect1X1 = ExtResource("51_k8r31")
+_placementEffect2X2 = ExtResource("52_syimh")

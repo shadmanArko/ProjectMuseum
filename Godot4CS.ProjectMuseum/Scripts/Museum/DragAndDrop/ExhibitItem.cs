@@ -43,6 +43,7 @@ public partial class ExhibitItem : Item
 		_itemType = ItemTypes.Exhibit;
 		_httpRequestForGettingExhibitVariation.Request(ApiAddress.MuseumApiPath +
 		                                               $"GetExhibitVariation/variationName?variationName={exhibitVariationName}");
+		MakeObjectsFloating();
 		//GD.Print("Item Initialized");
 	}
 	public void SpawnFromDatabase(Exhibit exhibit, List<Artifact> displayArtifacts)
@@ -81,6 +82,8 @@ public partial class ExhibitItem : Item
 			HandleItemPlacement();
 			// OnItemPlaced?.Invoke(ItemPrice);
 			selectedItem = false;
+			OnItemPlacedOnTile(GlobalPosition);
+			// Offset = new  Vector2(Offset.X, Offset.Y + _offsetBeforeItemPlacement);
 			Modulate = _originalColor;
 		}
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))

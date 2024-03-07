@@ -235,11 +235,12 @@ popup/item_0/id = 0
 popup/item_1/text = "Bangla"
 popup/item_1/id = 1
 
-[node name="Graphics" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer" node_paths=PackedStringArray("optionButton")]
+[node name="Graphics" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer" node_paths=PackedStringArray("_windowModeOptionButton", "_resolutionOptionButton")]
 visible = false
 layout_mode = 2
 script = ExtResource("1_q5rr7")
-optionButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Window Mode/OptionButton")
+_windowModeOptionButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Window Mode/OptionButton")
+_resolutionOptionButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Resolution/OptionButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics"]
 layout_mode = 1
@@ -259,22 +260,17 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer"]
 layout_mode = 2
 
-[node name="Aspect Ratio" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="Resolution" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Aspect Ratio"]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
 layout_mode = 2
-text = "Aspect Ratio"
+text = "Resolution"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Aspect Ratio"]
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-item_count = 2
-popup/item_0/text = "English"
-popup/item_0/id = 0
-popup/item_1/text = "Bangla"
-popup/item_1/id = 1
 
 [node name="Frame Rate Cap" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -381,4 +377,5 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Save"
 
+[connection signal="item_selected" from="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Resolution/OptionButton" to="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics" method="OnResolutionSelected"]
 [connection signal="item_selected" from="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Window Mode/OptionButton" to="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Graphics" method="OnWindowModeSelected"]

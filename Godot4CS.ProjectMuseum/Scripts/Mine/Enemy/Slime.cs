@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -61,6 +63,8 @@ public partial class Slime : Enemy
             State = EnemyState.Idle;
             AnimationController.PlayAnimation("idle");
         }
+        if(@event.IsActionReleased("randomMovement"))
+            DecideMoveTargetPosition();
     }
 
     public override void _Ready()
@@ -74,6 +78,7 @@ public partial class Slime : Enemy
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
         State = EnemyState.Idle;
+        CanMove = true;
     }
 
     private void InitializeDiReferences()
@@ -92,6 +97,8 @@ public partial class Slime : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
+        if(IsAggro)
+            Chase();
         switch (State)
         {
             case EnemyState.Loiter:
@@ -102,6 +109,8 @@ public partial class Slime : Enemy
 
     #region Phases
 
+    #region Loiter
+
     private void DecideMoveTargetPosition()
     {
         var tuple = _enemyAi.HorizontalMovement(Position);
@@ -109,44 +118,42 @@ public partial class Slime : Enemy
         _leftPos = tuple.Item1;
         _rightPos = tuple.Item2;
 
-        _targetPos = (_targetPos.X - Position.X) switch
-        {
-            < 0 => _rightPos,
-            > 0 => _leftPos,
-            _ => _targetPos
-        };
-
-        if (_targetPos == _leftPos)
-            MoveDirection = _leftPos;
-        else if (_targetPos == _rightPos)
-            MoveDirection = _rightPos;
+        _targetPos = _leftPos;
+        MoveDirection = Vector2.Left;
+        _isMovingLeft = true;
+        _isMovingRight = false;
     }
     
     private void Loiter()
     {
-        // For Random Loitering
-        // if (_targetPos == Vector2.Zero || _targetPos.X - Position.X < 0 && MoveDirection == Vector2.Left ||
-        //     _targetPos.X - Position.X > 0 && MoveDirection == Vector2.Right)
-        // {
-        //     _targetPos = _enemyAi.HorizontalMovement(Position);
-        //     GD.Print($"target pos: {_targetPos.X},{_targetPos.Y}");
-        //     MoveDirection = (_targetPos.X - Position.X) switch
-        //     {
-        //         < 0 => Vector2.Left,
-        //         > 0 => Vector2.Right,
-        //         _ => MoveDirection
-        //     };
-        // }
+        if (_isMovingLeft)
+        {
+            if (_targetPos.X > Position.X)
+            {
+                Velocity = new Vector2(0, Velocity.Y);
+                _isMovingLeft = false;
+                _isMovingRight = true;
+                _targetPos = _rightPos;
+                MoveDirection = Vector2.Right;
+            }
+        }
 
+        if (_isMovingRight)
+        {
+            if (_targetPos.X < Position.X)
+            {
+                Velocity = new Vector2(0, Velocity.Y);
+                _isMovingRight = false;
+                _isMovingLeft = true;
+                _targetPos = _leftPos;
+                MoveDirection = Vector2.Left;
+            }
+        }
         
-
-        if (_targetPos == _rightPos)
-            MoveDirection = Vector2.Right;
-        else if(_targetPos == _leftPos)
-            MoveDirection = Vector2.Left;
-            
         Move();
     }
+
+    #endregion
     
     private void Teleport()
     {
@@ -157,10 +164,18 @@ public partial class Slime : Enemy
 
     private void Move()
     {
-        GD.Print($"leftPos:{_leftPos.X}, rightPos:{_rightPos.X}, pos:{Position.X}");
-        if(_targetPos.X - Position.X < 0)
-            DecideMoveTargetPosition();
-        Velocity = new Vector2(MoveDirection == Vector2.Left ? -_moveVelocity : _moveVelocity, 0);
+        AnimationController.PlayAnimation("move");
+        if (_isMovingLeft)
+        {
+            Velocity = new Vector2(-_moveVelocity, Velocity.Y);
+            AnimationController.MoveDirection(Vector2.Left);
+        }
+        else if (_isMovingRight)
+        {
+            Velocity = new Vector2(_moveVelocity, Velocity.Y);
+            AnimationController.MoveDirection(Vector2.Right);
+        }
+        
         MoveAndSlide();
     }
 
@@ -189,8 +204,39 @@ public partial class Slime : Enemy
     private void OnDigOutAnimationFinished(string animName)
     {
         if(animName != "digOut") return;
-        // AnimationController.PlayAnimation("idle");
         State = EnemyState.Loiter;
+    }
+
+    #endregion
+
+    #region Chase
+
+    override 
+    public void Chase()
+    {
+        var posToGo = _enemyAi.ChasePlayer(Position);
+        if (posToGo == Vector2.Zero)
+            DigIn();
+        else
+        {
+            _targetPos = posToGo;
+        }
+    }
+
+    #endregion
+
+    #region Idle
+
+    private void Idle()
+    {
+        AnimationController.PlayAnimation("idle");
+    }
+
+    private void OnIdleAnimationFinished(string animName)
+    {
+        if(animName != "idle") return;
+        CanMove = true;
+        //todo: check if player is in chase range. if in range then chase or else loiter
     }
 
     #endregion

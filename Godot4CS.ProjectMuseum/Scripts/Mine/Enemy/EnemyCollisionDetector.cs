@@ -23,7 +23,6 @@ public partial class EnemyCollisionDetector : Area2D
     
     private void OnEnemyAttackCooldownTimeOut()
     {
-        // GD.Print("Enemy cooldown is false");
         _enemyCooldown = false;
     }
 
@@ -44,59 +43,18 @@ public partial class EnemyCollisionDetector : Area2D
         // }
     }
 
-    #region Wall Collision
+    #region Chase Area
 
-    private void OnCollideWithWallEntered(Node body)
+    private void OnPlayerEnteredIntoRange()
     {
-        var tilemap = body as TileMap;
-        if (tilemap == null)
-        {
-            GD. Print("tilemap is null");
-            return;
-        }
-
-        // if (tilemap == _mineGenerationVariables.MineGenView.TileMap)
-        // {
-        //     GD.Print("TileMAPS ARE MATCH");
-        //     var currentTilePos = _mineGenerationVariables.MineGenView.LocalToMap(_character.Position);
-        //     
-        //     var cell = _mineGenerationVariables.GetCell(currentTilePos);
-        //     var leftCell = _mineGenerationVariables.GetCell(new Vector2I(cell.PositionX - 1, cell.PositionY));
-        //     var rightCell = _mineGenerationVariables.GetCell(new Vector2I(cell.PositionX + 1, cell.PositionY));
-        //
-        //     if (leftCell != null)
-        //     {
-        //         if (!leftCell.IsBreakable && !leftCell.IsBroken)
-        //         {
-        //             var cellSize = _mineGenerationVariables.Mine.CellSize;
-        //             _character.NavAgent.TargetPosition =
-        //                 new Vector2(leftCell.PositionX * cellSize, leftCell.PositionY * cellSize);
-        //             GD.Print("Setting left cell as target");
-        //             return;
-        //         }
-        //     }
-        //     
-        //     if(rightCell != null)
-        //     {
-        //         if (!rightCell.IsBreakable && !rightCell.IsBroken)
-        //         {
-        //             var cellSize = _mineGenerationVariables.Mine.CellSize;
-        //             _character.NavAgent.TargetPosition =
-        //                 new Vector2(rightCell.PositionX * cellSize, rightCell.PositionY * cellSize);
-        //             GD.Print("Setting right cell as target");
-        //             return;
-        //         }
-        //     }
-        //
-        //
-        // }
-        GD.Print("Colliding with wall");
+        _enemy.IsAggro = true;
     }
-    
-    private void OnCollideWithWallExited(Node body)
+
+    private void OnPlayerExitedFromRange()
     {
-        GD.Print("Colliding with wall");
+        _enemy.IsAggro = false;
     }
 
     #endregion
+    
 }

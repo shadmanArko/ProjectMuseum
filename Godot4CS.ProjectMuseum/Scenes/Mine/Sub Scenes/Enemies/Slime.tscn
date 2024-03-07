@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=40 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
@@ -7,11 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bsn0ka4exkaib" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarUnder.png" id="4_xjuh4"]
 [ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="5_5ggxd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x33fy"]
-size = Vector2(16, 11)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n0m43"]
-size = Vector2(10, 7)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0lmqb"]
+radius = 3.0
+height = 10.0
 
 [sub_resource type="Animation" id="Animation_tn46b"]
 length = 0.001
@@ -294,41 +292,31 @@ states/move/position = Vector2(271, 188)
 transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_ups56"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_atu1o"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_3ju6y"), "move", "damage", SubResource("AnimationNodeStateMachineTransition_780lb"), "damage", "move", SubResource("AnimationNodeStateMachineTransition_ognbc"), "death", "End", SubResource("AnimationNodeStateMachineTransition_bqoxk"), "damage", "death", SubResource("AnimationNodeStateMachineTransition_y8457"), "move", "death", SubResource("AnimationNodeStateMachineTransition_ujrmc"), "attack", "death", SubResource("AnimationNodeStateMachineTransition_7l4tb")]
 graph_offset = Vector2(0, -13.7009)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ik61w"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o0ghe"]
+radius = 80.0
+
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("_stateChangeTimer", "NavAgent", "TrackTimer", "AnimTree", "HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
 z_index = 10
 collision_layer = 4
-slide_on_ceiling = false
-wall_min_slide_angle = 0.0
-floor_stop_on_slope = false
-floor_block_on_wall = false
-floor_max_angle = 3.14159
-floor_snap_length = 0.0
 script = ExtResource("1_pkl74")
-_stateChangeTimer = NodePath("State Change TImer")
+_stateChangeTimer = NodePath("")
+_moveVelocity = 20.0
 NavAgent = NodePath("NavigationAgent2D")
-TrackTimer = NodePath("Track Timer")
+TrackTimer = NodePath("")
 AnimTree = NodePath("AnimationTree")
 HealthBar = NodePath("Health Bar")
 AnimationController = NodePath("AnimationPlayer")
 
-[node name="Enemy Collision Detector" type="Area2D" parent="." node_paths=PackedStringArray("_enemy", "_enemyCooldownTimer")]
-position = Vector2(0, 3)
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("2_4f4sl")
-_enemy = NodePath("..")
-_enemyCooldownTimer = NodePath("../Attack Cooldown")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy Collision Detector"]
-texture_filter = 1
-position = Vector2(0, -2.5)
-shape = SubResource("RectangleShape2D_x33fy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
-shape = SubResource("RectangleShape2D_n0m43")
+[node name="BodyCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0lmqb")
+debug_color = Color(1, 1, 0.101961, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -344,21 +332,20 @@ libraries = {
 script = ExtResource("3_5dxjc")
 Sprite = NodePath("../Sprite2D")
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../Sprite2D")
+tree_root = SubResource("AnimationNodeStateMachine_k6wic")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_attacking = false
+parameters/conditions/is_dead = true
+parameters/conditions/is_moving = false
+parameters/conditions/is_taking_damage = true
+parameters/move/blend_position = Vector2(0, 0)
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 10.0
 path_postprocessing = 1
 avoidance_enabled = true
-
-[node name="Track Timer" type="Timer" parent="."]
-wait_time = 0.1
-autostart = true
-
-[node name="State Change TImer" type="Timer" parent="."]
-wait_time = 50.0
-
-[node name="Attack Cooldown" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
 
 [node name="Health Bar" type="TextureProgressBar" parent="."]
 texture_filter = 1
@@ -372,27 +359,28 @@ rounded = true
 texture_under = ExtResource("4_xjuh4")
 texture_progress = ExtResource("5_5ggxd")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath("../Sprite2D")
-tree_root = SubResource("AnimationNodeStateMachine_k6wic")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/is_attacking = false
-parameters/conditions/is_dead = true
-parameters/conditions/is_moving = false
-parameters/conditions/is_taking_damage = true
-parameters/move/blend_position = Vector2(0, 0)
+[node name="Area2D Nodes" type="Node2D" parent="."]
 
-[connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="OnCollideWithWallEntered"]
-[connection signal="body_entered" from="Enemy Collision Detector" to="Enemy Collision Detector" method="AttackPlayer"]
+[node name="AttackArea" type="Area2D" parent="Area2D Nodes" node_paths=PackedStringArray("_enemyCooldownTimer")]
+position = Vector2(0, 3)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("2_4f4sl")
+_enemyCooldownTimer = NodePath("")
+
+[node name="AttackCollider" type="CollisionShape2D" parent="Area2D Nodes/AttackArea"]
+texture_filter = 1
+shape = SubResource("CircleShape2D_ik61w")
+debug_color = Color(0, 0.976471, 0.0117647, 0.419608)
+
+[node name="ChaseArea" type="Area2D" parent="Area2D Nodes"]
+position = Vector2(0, 3)
+
+[node name="ChaseCollider" type="CollisionShape2D" parent="Area2D Nodes/ChaseArea"]
+shape = SubResource("CircleShape2D_o0ghe")
+debug_color = Color(0, 0.164706, 0.701961, 0.419608)
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAttackAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnTakeDamageAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
-[connection signal="timeout" from="Track Timer" to="." method="OnTrackTimerTimeOut"]
-[connection signal="timeout" from="State Change TImer" to="." method="OnStateChangeTimeOut"]
-[connection signal="timeout" from="Attack Cooldown" to="Enemy Collision Detector" method="OnEnemyAttackCooldownTimeOut"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="OnAttackAnimationFinished"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="OnTakeDamageAnimationFinished"]
-[connection signal="animation_finished" from="AnimationTree" to="." method="OnDeathAnimationFinished"]
+[connection signal="body_entered" from="Area2D Nodes/AttackArea" to="Area2D Nodes/AttackArea" method="OnCollideWithWallEntered"]
+[connection signal="body_entered" from="Area2D Nodes/AttackArea" to="Area2D Nodes/AttackArea" method="AttackPlayer"]

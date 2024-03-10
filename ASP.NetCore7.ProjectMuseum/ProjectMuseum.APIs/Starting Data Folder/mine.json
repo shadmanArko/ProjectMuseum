@@ -72130,7 +72130,602 @@
         "ArtifactMaterial": null
       }
     ],
-    "Resources": [],
+    "Resources": [
+      {
+        "Id": "1",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 7,
+        "PositionY": 3,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "2",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 8,
+        "PositionY": 3,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "3",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 9,
+        "PositionY": 3,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "4",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 26,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "5",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 27,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "6",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 28,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "7",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 28,
+        "PositionY": 5,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "8",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 39,
+        "PositionY": 3,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "9",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 39,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "10",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 39,
+        "PositionY": 5,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "11",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 39,
+        "PositionY": 6,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "12",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 40,
+        "PositionY": 6,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "13",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 33,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "14",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 32,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "15",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 31,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "16",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 19,
+        "PositionY": 15,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "17",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 20,
+        "PositionY": 15,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "18",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 20,
+        "PositionY": 16,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "19",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 4,
+        "PositionY": 16,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "20",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 5,
+        "PositionY": 16,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "21",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 6,
+        "PositionY": 16,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "22",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 7,
+        "PositionY": 16,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "23",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 7,
+        "PositionY": 17,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "24",
+        "Name": "Iron",
+        "Category": "Forgeable",
+        "Variant": "Iron",
+        "PositionX": 8,
+        "PositionY": 17,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+      },
+      {
+        "Id": "25",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 20,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "26",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 21,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "27",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 22,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "28",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 23,
+        "PositionY": 4,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "29",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 19,
+        "PositionY": 5,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "30",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 20,
+        "PositionY": 5,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "31",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 21,
+        "PositionY": 5,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "32",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 12,
+        "PositionY": 7,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "33",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 13,
+        "PositionY": 7,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "34",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 13,
+        "PositionY": 8,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "35",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 13,
+        "PositionY": 9,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "36",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 13,
+        "PositionY": 10,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "37",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 14,
+        "PositionY": 10,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "38",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 14,
+        "PositionY": 11,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "39",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 15,
+        "PositionY": 11,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "40",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 31,
+        "PositionY": 7,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "41",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 32,
+        "PositionY": 7,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "42",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 32,
+        "PositionY": 8,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "43",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 33,
+        "PositionY": 8,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "44",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 33,
+        "PositionY": 9,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "45",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 34,
+        "PositionY": 9,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "46",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 38,
+        "PositionY": 17,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "47",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 38,
+        "PositionY": 18,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "48",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 38,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "49",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 39,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "50",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 40,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "51",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 17,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "52",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 18,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "53",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 19,
+        "PositionY": 19,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "54",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 19,
+        "PositionY": 20,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "55",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 20,
+        "PositionY": 20,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "56",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 17,
+        "PositionY": 30,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "57",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 17,
+        "PositionY": 31,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "58",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 17,
+        "PositionY": 32,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "59",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 17,
+        "PositionY": 33,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "60",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 17,
+        "PositionY": 34,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "61",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 17,
+        "PositionY": 35,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "62",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 18,
+        "PositionY": 33,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "63",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 18,
+        "PositionY": 34,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "64",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 18,
+        "PositionY": 35,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "65",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 18,
+        "PositionY": 36,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      },
+      {
+        "Id": "66",
+        "Name": "Coal",
+        "Category": "Forgeable",
+        "Variant": "Coal",
+        "PositionX": 18,
+        "PositionY": 37,
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+      }
+    ],
     "SpecialBackdropPngInformations": [
       {
         "SourceId": 4,

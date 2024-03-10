@@ -1,52 +1,187 @@
 using System;
+using System.Collections.Generic;
 using Godot;
+using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
 public class EnemyAi
 {
-    private const int TileRange = 3;
+    private Random _rand = new();
     
-    public Tuple<Vector2, Vector2> HorizontalMovement(Vector2 enemyPos)
+    #region Loitering Range
+
+    private const int LeftLoiteringRange = -3;
+    private const int RightLoiteringRange = 3;
+
+    #endregion
+
+    #region Dig In and Dig Out Range
+
+    private const int InitialPosRange = -3;
+    private const int FinalPosRange = 3;
+
+    #endregion
+    
+    /// <summary>
+    /// returns null if loitering path cannot be determined else
+    /// returns starting and ending position position for loitering
+    /// </summary>
+    /// <param name="currentPos"></param>
+    /// <returns></returns>
+    public Tuple<Vector2, Vector2> DetermineLoiteringPath(Vector2 currentPos)
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
-        var offset = mineGenerationVariables.Mine.CellSize / 4f;
+        var cellSize = mineGenerationVariables.Mine.CellSize;
+        var offset = new Vector2(cellSize /2f, cellSize * (3f/4f));
         
-        var currentTilePos = mineGenerationVariables.MineGenView.LocalToMap(enemyPos);
-        var startingPos = new Vector2(currentTilePos.X, currentTilePos.Y) * mineGenerationVariables.Mine.CellSize;
-        var endingPos = new Vector2(currentTilePos.X, currentTilePos.Y) * mineGenerationVariables.Mine.CellSize;
+        var currentTilePos = mineGenerationVariables.MineGenView.LocalToMap(currentPos);
 
-        var leftTilePosRangeX = Mathf.Clamp(currentTilePos.X - TileRange, 1, mineGenerationVariables.Mine.GridWidth - 1);
-        var rightTilePosRangeX = Mathf.Clamp(currentTilePos.X + TileRange, 1, mineGenerationVariables.Mine.GridWidth - 1);
-        var bottomTilePosRangeY = Mathf.Clamp(currentTilePos.Y + 1, 1, mineGenerationVariables.Mine.GridLength);
-        
-        for (var i = currentTilePos.X; i > leftTilePosRangeX; i--)
+        var cellsToLoiter = new List<Cell>();
+        for (var i = currentTilePos.X + LeftLoiteringRange; i <= currentTilePos.X+ RightLoiteringRange; i++)
         {
             var cell = mineGenerationVariables.GetCell(new Vector2I(i, currentTilePos.Y));
-            var immediateBottomCell = mineGenerationVariables.GetCell(new Vector2I(i, bottomTilePosRangeY));
+            if(cell == null) continue;
+            if(!cell.IsBroken || !cell.IsInstantiated || cell.HasCellPlaceable) continue;
             
-            if (cell.IsBroken && !immediateBottomCell.IsBroken)
+            var bottomCell = mineGenerationVariables.GetCell(new Vector2I(i, currentTilePos.Y+1));
+            if(bottomCell == null) continue;
+            if (bottomCell.IsBroken || !bottomCell.IsInstantiated)
             {
-                startingPos = new Vector2(i, currentTilePos.Y) * mineGenerationVariables.Mine.CellSize + new Vector2(offset,0);
-                continue;
+                if (cell.PositionX < currentTilePos.X)
+                {
+                    cellsToLoiter.Clear();
+                    continue;
+                }
+                
+                if(cell.PositionX > currentTilePos.X)
+                    break;
             }
-            break;
-        }
-        
-        for (var i = currentTilePos.X; i < rightTilePosRangeX; i++)
-        {
-            var cell = mineGenerationVariables.GetCell(new Vector2I(i, currentTilePos.Y));
-            var immediateBottomCell = mineGenerationVariables.GetCell(new Vector2I(i, bottomTilePosRangeY));
-            if (cell.IsBroken && !immediateBottomCell.IsBroken)
-            {
-                endingPos = new Vector2(i, currentTilePos.Y) * mineGenerationVariables.Mine.CellSize - new Vector2(offset,0);
-                continue;
-            }
-            break;
+            
+            var cellPos = new Vector2I(cell.PositionX, cell.PositionY);
+            if(cellPos == currentTilePos) continue;
+            if(cellsToLoiter.Contains(cell)) continue;
+            cellsToLoiter.Add(cell);
         }
 
-        var tuple = new Tuple<Vector2, Vector2>(startingPos, endingPos);
-        GD.Print($"selected positions are: {tuple.Item1} and {tuple.Item2}");
-        return tuple;
+        GD.Print($"loiter cell count: {cellsToLoiter.Count}");
+        if (cellsToLoiter.Count <= 0) return null;
+
+        var rightMostPos = new Vector2(100000,10000);
+        var leftMostPos = new Vector2(0,0);
+        foreach (var cell in cellsToLoiter)
+        {
+            if (cell.PositionX < rightMostPos.X)
+                rightMostPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
+            if(cell.PositionX > leftMostPos.X)
+                leftMostPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
+        }
+
+        GD.Print($"Loiter positions left:{leftMostPos}, right:{rightMostPos}");
+        leftMostPos += new Vector2(cellSize / 2f, 0);
+        rightMostPos += new Vector2(-cellSize / 2f, 0);
+        GD.Print($"left cell: ({cellsToLoiter[0].PositionX},{cellsToLoiter[0].PositionY})  right cell: ({cellsToLoiter[^1].PositionX},{cellsToLoiter[^1].PositionY})");
+        return new Tuple<Vector2, Vector2>(leftMostPos, rightMostPos);
     }
+
+    public Vector2 DetermineDigOutPosition(Vector2I currentMapPos)
+    {
+        var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
+        var playerControllerVariables = ReferenceStorage.Instance.PlayerControllerVariables;
+        var cellSize = mineGenerationVariables.Mine.CellSize;
+        
+        var playerPosInMap = mineGenerationVariables.MineGenView.LocalToMap(playerControllerVariables.Position);
+        var cellsToSpawn = new List<Cell>();
+        for (var i = playerPosInMap.X + InitialPosRange; i <= playerPosInMap.X+FinalPosRange; i++)
+        {
+            for (var j = playerPosInMap.Y+InitialPosRange; j <= playerPosInMap.Y+FinalPosRange; j++)
+            {
+                var cell = mineGenerationVariables.GetCell(new Vector2I(i, j));
+                if (cell == null)
+                {
+                    GD.Print("Cell is null");
+                    continue;
+                }
+                
+                if (cell.IsInstantiated && cell.IsBreakable && cell.IsBroken && cell.IsRevealed && !cell.HasCellPlaceable)
+                {
+                    var bottomCell = mineGenerationVariables.GetCell(new Vector2I(i, j+1));
+                    if (bottomCell == null) continue;
+                    
+                    if ((!bottomCell.IsBroken || !bottomCell.IsBreakable) && bottomCell.IsRevealed && bottomCell.IsInstantiated)
+                    {
+                        if (!cellsToSpawn.Contains(cell))
+                        {
+                            var cellPos = new Vector2I(cell.PositionX, cell.PositionY);
+                            if(cellPos == currentMapPos) continue;
+                            cellsToSpawn.Add(cell);
+                        }
+                    }
+                }
+            }
+        }
+
+        GD.Print($"Cell count is: {cellsToSpawn.Count}");
+        
+        var randomCell = cellsToSpawn[_rand.Next(0, cellsToSpawn.Count)];
+        var offset = new Vector2(cellSize / 2f, cellSize * (3f/ 4f));
+        var targetPos =
+            new Vector2(randomCell.PositionX, randomCell.PositionY) * mineGenerationVariables.Mine.CellSize + offset;
+        return targetPos;
+    }
+
+    /// <summary>
+    /// returns a vector if valid path and zero vector for invalid path
+    /// </summary>
+    /// <param name="currentPos"></param>
+    /// <returns></returns>
+    public Vector2 CheckForPathValidity(Vector2 currentPos)
+    {
+        var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
+        var playerControllerVariables = ReferenceStorage.Instance.PlayerControllerVariables;
+        
+        var enemyCell = GetTargetCell(currentPos);
+        var playerCell = GetTargetCell(playerControllerVariables.Position);
+
+        if (enemyCell.PositionY != playerCell.PositionY) return Vector2.Zero;
+        int initialCellPos;
+        int finalCellPos;
+
+        if (playerCell.PositionX > enemyCell.PositionX)
+        {
+            initialCellPos = enemyCell.PositionX;
+            finalCellPos = playerCell.PositionX;
+        }
+        else
+        {
+            initialCellPos = playerCell.PositionX;
+            finalCellPos = enemyCell.PositionX;
+        }
+        
+        for (var i = initialCellPos; i <= finalCellPos; i++)
+        {
+            var cell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY));
+            if(cell == null) continue;
+            if(!cell.IsBroken || !cell.IsInstantiated) continue;
+            if(cell.PositionX == enemyCell.PositionX && cell.PositionY == enemyCell.PositionY) continue;
+            
+            var bottomCell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY+1));
+            if(bottomCell == null) continue;
+            if (bottomCell.IsBroken || !bottomCell.IsInstantiated) return Vector2.Zero;
+        }
+        GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
+        return new Vector2(playerCell.PositionX, playerCell.PositionY) * mineGenerationVariables.Mine.CellSize;
+    }
+
+    #region Utilities
+
+    private Cell GetTargetCell(Vector2 pos)
+    {
+        var mineGenVar = ReferenceStorage.Instance.MineGenerationVariables;
+        var currentCellPos = mineGenVar.MineGenView.LocalToMap(pos);
+        var cell = mineGenVar.GetCell(currentCellPos);
+        return cell;
+    }
+
+    #endregion
 }

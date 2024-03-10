@@ -8,6 +8,7 @@ public partial class EnemyAnimationController : AnimationPlayer
 
     public void PlayAnimation(string animName)
     {
+        if(animName == CurrentAnimation) return;
         if(animName == "death" && CurrentAnimation == "") Play(animName);
         else if(animName == "damage" && CurrentAnimation != "death") 
             Play(animName);
@@ -19,5 +20,8 @@ public partial class EnemyAnimationController : AnimationPlayer
             Play(animName);
     }
 
-    
+    public void MoveDirection(Vector2 direction)
+    {
+        Sprite.FlipH = direction != Vector2.Left;
+    }
 }

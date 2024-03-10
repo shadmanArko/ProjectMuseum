@@ -1,1 +1,23 @@
-[{"InventoryItems":[{"Id":"eqp1","Name":"Sword of Valor","Type":"Weapon","Variant":null,"IsStackable":false,"Stack":0,"Slot":0,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"},{"Id":"eqp2","Name":"Iron Shield","Type":"Shield","Variant":null,"IsStackable":false,"Stack":0,"Slot":1,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"},{"Id":"fireTorch","Name":"Fire Torch","Type":"WallPlaceable","Variant":"FireTorch","IsStackable":true,"Stack":44,"Slot":2,"PngPath":"res://Assets/firetorch.png"},{"Id":"9b734f17-1b0f-465a-895e-72ede0d2c7d5","Name":"Iron","Type":"Resource","Variant":"Iron","IsStackable":true,"Stack":1,"Slot":3,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/iron.png"},{"Id":"04224a9d-bd57-4cc8-963b-2b313beb11d8","Name":"Coal","Type":"Resource","Variant":"Coal","IsStackable":true,"Stack":4,"Slot":4,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/coal.png"}],"Artifacts":[],"OccupiedSlots":[0,1,2,3,4],"SlotsUnlocked":12}]
+[
+  {
+    "InventoryItems": [
+      {
+        "Id": "eqp1",
+        "Name": "Sword of Valor",
+        "Slot": 0,
+        "Type": "Weapon",
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
+      },
+      {
+        "Id": "eqp2",
+        "Name": "Iron Shield",
+        "Slot": 1,
+        "Type": "Shield",
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
+      }
+    ],
+    "Artifacts": [],
+    "OccupiedSlots": [0,1],
+    "SlotsUnlocked": 12
+  }
+]

@@ -1,7 +1,6 @@
-[gd_scene load_steps=52 format=3 uid="uid://bf3cyd5cug7da"]
+[gd_scene load_steps=51 format=3 uid="uid://bf3cyd5cug7da"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/Guest.cs" id="1_lo1i4"]
-[ext_resource type="Texture2D" uid="uid://deomhfxfdccu6" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SKIN/GUEST_SKIN_2.png" id="4_lxjru"]
 [ext_resource type="Texture2D" uid="uid://dk1d1xvxvbwgo" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SKIN/GUEST_SKIN_3.png" id="5_7evfx"]
 [ext_resource type="Texture2D" uid="uid://dq2jyoehxogkj" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHADOW/GUEST_SHADOW.png" id="5_vi3tq"]
 [ext_resource type="Texture2D" uid="uid://m4wwudgbtu1v" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SKIN/GUEST_SKIN_4.png" id="6_2m0ho"]
@@ -2504,7 +2503,7 @@ _characterPant = NodePath("Node2D/Pant")
 _characterShirt = NodePath("Node2D/Shirt")
 _characterOverCloth = NodePath("Node2D/Over Cloth")
 _shadowTextures = Array[Texture2D]([ExtResource("5_vi3tq")])
-_skinTextures = Array[Texture2D]([ExtResource("6_768cx"), ExtResource("4_lxjru"), ExtResource("5_7evfx"), ExtResource("6_2m0ho")])
+_skinTextures = Array[Texture2D]([ExtResource("6_768cx"), ExtResource("5_7evfx"), ExtResource("6_2m0ho")])
 _eyeTextures = Array[Texture2D]([ExtResource("7_vfamt"), ExtResource("8_x0g80"), ExtResource("9_4uui3"), ExtResource("10_4h4nd"), ExtResource("11_endxw")])
 _hairTextures = Array[Texture2D]([ExtResource("8_24vay"), ExtResource("13_rb1ir")])
 _shoeTextures = Array[Texture2D]([ExtResource("9_kfq7l"), ExtResource("15_fdrdm")])

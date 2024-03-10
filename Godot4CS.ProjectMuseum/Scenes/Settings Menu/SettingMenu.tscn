@@ -53,7 +53,6 @@ size_flags_vertical = 3
 tab_alignment = 1
 
 [node name="Interface" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Interface"]

@@ -23,7 +23,13 @@ public class EnemyAi
 
     #endregion
     
-    public Tuple<Vector2, Vector2> HorizontalMovement(Vector2 currentPos)
+    /// <summary>
+    /// returns null if loitering path cannot be determined else
+    /// returns starting and ending position position for loitering
+    /// </summary>
+    /// <param name="currentPos"></param>
+    /// <returns></returns>
+    public Tuple<Vector2, Vector2> DetermineLoiteringPath(Vector2 currentPos)
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
         var cellSize = mineGenerationVariables.Mine.CellSize;
@@ -78,7 +84,7 @@ public class EnemyAi
         return new Tuple<Vector2, Vector2>(leftMostPos, rightMostPos);
     }
 
-    public Vector2 SlimeDigOut(Vector2I currentMapPos)
+    public Vector2 DetermineDigOutPosition(Vector2I currentMapPos)
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
         var playerControllerVariables = ReferenceStorage.Instance.PlayerControllerVariables;
@@ -124,7 +130,12 @@ public class EnemyAi
         return targetPos;
     }
 
-    public Vector2 ChasePlayer(Vector2 currentPos)
+    /// <summary>
+    /// returns a vector if valid path and zero vector for invalid path
+    /// </summary>
+    /// <param name="currentPos"></param>
+    /// <returns></returns>
+    public Vector2 CheckForPathValidity(Vector2 currentPos)
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
         var playerControllerVariables = ReferenceStorage.Instance.PlayerControllerVariables;
@@ -158,7 +169,7 @@ public class EnemyAi
             if(bottomCell == null) continue;
             if (bottomCell.IsBroken || !bottomCell.IsInstantiated) return Vector2.Zero;
         }
-        GD.Print($"current chase cell: {playerCell.PositionX}, {playerCell.PositionY}");
+        GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
         return new Vector2(playerCell.PositionX, playerCell.PositionY) * mineGenerationVariables.Mine.CellSize;
     }
 

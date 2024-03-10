@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -22,9 +20,6 @@ public partial class Slime : Enemy
     #endregion
 
     private EnemyAi _enemyAi = new();
-    // [Export] private Timer _stateChangeTimer;
-
-    // [Export] private bool _isTest;
 
     #region Loitering Variables
 
@@ -72,13 +67,18 @@ public partial class Slime : Enemy
         InitializeDiReferences();
         SubscribeToActions();
         _enemyAi = new EnemyAi();
-        IsDead = false;
-        Health = 100;
         StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
         State = EnemyState.Idle;
         CanMove = true;
+    }
+
+    private void SetValuesOnSpawn()
+    {
+        IsDead = false;
+        Health = 100;
+        
         SetPhysicsProcess(false);
     }
 
@@ -90,6 +90,7 @@ public partial class Slime : Enemy
 
     private void SubscribeToActions()
     {
+        OnSpawn += SetValuesOnSpawn;
     }
 
     #endregion
@@ -97,13 +98,11 @@ public partial class Slime : Enemy
     public override void _PhysicsProcess(double delta)
     {
         if (IsAggro)
-        {
             Chase();
-        }
         else
-        {
             Loiter();
-        }
+        
+        // ApplyGravity((float) delta);
     }
 
     #region Phases
@@ -154,11 +153,15 @@ public partial class Slime : Enemy
 
     #endregion
 
+    #region Teleport
+
     private void Teleport()
     {
         if (AnimationController.CurrentAnimation is "digIn" or "digOut") return;
         DigIn();
     }
+
+    #endregion
 
     #endregion
     
@@ -168,7 +171,6 @@ public partial class Slime : Enemy
 
     private void Move()
     {
-
         AnimationController.PlayAnimation("move");
         if (_isMovingLeft)
         {
@@ -278,9 +280,58 @@ public partial class Slime : Enemy
 
     #region Gravity
 
-    private void ApplyGravity()
+    [Export] private bool _isGrounded;
+    private void ApplyGravity(float delta)
     {
-        
+        if(_isGrounded) return;
+        var velocity = Velocity;
+        velocity.X = 0f;
+        velocity.Y += _gravity * delta;
+        Velocity = velocity;
+
+        MoveAndSlide();
+    }
+    
+    private void OnCellBlockEnter(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        GD.Print($"enemy collided with mine: {hasCollidedWithMine})");
+        if (hasCollidedWithMine)
+        {
+            _isGrounded = true;
+            GD.Print("is Grounded");
+        }
+    }
+    
+    private void OnCellBlockExit(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        GD.Print($"enemy NOT collided with mine: {hasCollidedWithMine})");
+        if (hasCollidedWithMine)
+        {
+            _isGrounded = false;
+            GD.Print("is Falling");
+        }
+    }
+    
+    [Export] private float _gravity;
+
+    private void ApplyGravity(bool collisionBool, float delta)
+
+    {
+
+        if (!collisionBool)
+
+        {
+
+            var velocity = Velocity;
+
+            velocity.Y += _gravity * delta;
+
+            Velocity = velocity;
+
+        }
+
     }
 
     #endregion
@@ -321,25 +372,15 @@ public partial class Slime : Enemy
 
     #endregion
     
-    #region Attack Range
+    #endregion
 
-    private void OnPlayerEnterAttackRange(Node2D body)
+    private void UnsubscribeToActions()
     {
-        var player = body as PlayerController;
-        if(player == null) return;
-        IsAttacking = true;
-        GD.Print($"Player entered ATTACK region, isAttacking:{IsAttacking}");
+        OnSpawn -= SetValuesOnSpawn;
     }
 
-    private void OnPlayerExitAttackRange(Node2D body)
+    public override void _ExitTree()
     {
-        var player = body as PlayerController;
-        if(player == null) return;
-        IsAttacking = false;
-        GD.Print($"Player exited ATTACK region, isAttacking:{IsAttacking}");
+        UnsubscribeToActions();
     }
-
-    #endregion
-    
-    #endregion
 }

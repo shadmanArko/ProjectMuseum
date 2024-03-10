@@ -53,7 +53,12 @@ public partial class MineActions : Node
 
     #endregion
 
-    public static Action OnMineCellBroken; 
+    #region Mine Actions
+
+    public static Action OnMineGenerated;
+    public static Action OnMineCellBroken;
+
+    #endregion 
 
     //for starting the enemy damage at the right moment
     // public static Action OnPlayerAttackAnimationStarted; 

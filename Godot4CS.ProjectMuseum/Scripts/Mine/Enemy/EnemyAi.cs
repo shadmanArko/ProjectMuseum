@@ -99,7 +99,7 @@ public class EnemyAi
                 var cell = mineGenerationVariables.GetCell(new Vector2I(i, j));
                 if (cell == null)
                 {
-                    GD.Print("Cell is null");
+                    // GD.Print("Cell is null");
                     continue;
                 }
                 
@@ -169,7 +169,7 @@ public class EnemyAi
             if(bottomCell == null) continue;
             if (bottomCell.IsBroken || !bottomCell.IsInstantiated) return Vector2.Zero;
         }
-        GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
+        // GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
         return new Vector2(playerCell.PositionX, playerCell.PositionY) * mineGenerationVariables.Mine.CellSize;
     }
 

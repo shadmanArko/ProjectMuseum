@@ -246,6 +246,7 @@ public partial class MineGenerationController : Node2D
 		}
 
 		MineSetCellConditions.SetBackdropDuringMineGeneration(_mineGenerationVariables);
+		MineActions.OnMineGenerated?.Invoke();
 	}
     
 	#endregion

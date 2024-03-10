@@ -116,6 +116,7 @@ public partial class EnemySpawner : Node2D
         if(!_enemies.Contains(_newEnemy))
             _enemies.Add(_newEnemy);
         _newEnemy.IsAffectedByGravity = true;
+        _newEnemy.OnSpawn?.Invoke();
         _newEnemy.State = EnemyState.Move;
         _newEnemy = null;
     }

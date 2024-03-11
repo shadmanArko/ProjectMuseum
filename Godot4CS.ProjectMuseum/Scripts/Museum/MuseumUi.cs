@@ -63,6 +63,11 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         {
             _diggingPermitsButton.Visible = true;
         }
+
+        if (obj =="15a")
+        {
+            _museumGateCheckButton.Visible = true;
+        }
     }
 
     private bool _conceptStoryCompleted = false;

@@ -11,6 +11,7 @@ using ProjectMuseum.Models;
 public partial class BuilderCardSlotsController : ColorRect
 {
 	[Export] private PackedScene _builderCardScene;
+	[Export] private Button _buildersCardClosingButton;
 	[Export] private GridContainer _builderCardContainer;
 
 	private List<ExhibitVariation> _exhibitVariations = new List<ExhibitVariation>();
@@ -47,8 +48,13 @@ public partial class BuilderCardSlotsController : ColorRect
 		_httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
 		_httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
 		_httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
-
+		_buildersCardClosingButton.Pressed += BuildersCardClosingButtonOnPressed;
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked += ReInitialize;
+	}
+
+	private void BuildersCardClosingButtonOnPressed()
+	{
+		Visible = false;
 	}
 
 	private void HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -191,6 +197,8 @@ public partial class BuilderCardSlotsController : ColorRect
 		_httpRequestForGettingTileVariations.RequestCompleted -= HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingWallpaperVariations.RequestCompleted -= HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked -= ReInitialize;
+		_buildersCardClosingButton.Pressed -= BuildersCardClosingButtonOnPressed;
+
 
 	}
 }

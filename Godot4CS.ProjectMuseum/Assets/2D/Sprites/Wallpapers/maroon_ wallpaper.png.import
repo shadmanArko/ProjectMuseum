@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v7plrsjmv4dm"
-path="res://.godot/imported/basic_red_wallpaper.png-ec2e1bcdebdda32821721d6d7390c2ed.ctex"
+uid="uid://cq2ci21hy8sgu"
+path="res://.godot/imported/maroon_ wallpaper.png-6e2992b3ee51ddba5f63e597cbcac4c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Wallpapers/basic_red_wallpaper.png"
-dest_files=["res://.godot/imported/basic_red_wallpaper.png-ec2e1bcdebdda32821721d6d7390c2ed.ctex"]
+source_file="res://Assets/2D/Sprites/Wallpapers/maroon_ wallpaper.png"
+dest_files=["res://.godot/imported/maroon_ wallpaper.png-6e2992b3ee51ddba5f63e597cbcac4c5.ctex"]
 
 [params]
 

@@ -136,7 +136,7 @@ public partial class EnemySpawner : Node2D
             _p2 = enemy.Position + new Vector2(-60, 0);
             _p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
             //_autoMoveToPos = true;
-            SetProcess(false);
+            // SetProcess(false);
             SetPhysicsProcess(true);
         }
     }

@@ -47,6 +47,7 @@ theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 5
 
-[node name="Builder Card" parent="ColorRect/MarginContainer/GridContainer" instance=ExtResource("3_w1uyk")]
+[node name="Builder Card" parent="ColorRect/MarginContainer/GridContainer" node_paths=PackedStringArray("textureButton") instance=ExtResource("3_w1uyk")]
 visible = false
 layout_mode = 2
+textureButton = NodePath("Builder Button With Texture")

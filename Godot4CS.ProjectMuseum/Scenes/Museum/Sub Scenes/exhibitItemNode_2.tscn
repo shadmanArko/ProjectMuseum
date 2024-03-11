@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dstn0yvcl70w0"]
 
-[ext_resource type="Texture2D" uid="uid://d0datpe31y0sg" path="res://Assets/2D/Sprites/Exhibits/Basic Exhibit  4x4 .png" id="1_xhxdn"]
+[ext_resource type="Texture2D" uid="uid://d0datpe31y0sg" path="res://Assets/2D/Sprites/Exhibits/BasicExhibit4x4.png" id="1_5ypaq"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/ExhibitItem.cs" id="2_03tb0"]
 [ext_resource type="Texture2D" uid="uid://oe4a6wlvfrj5" path="res://Assets/2D/Sprites/Exhibits/New Bordered/2x2 glass.png" id="3_calhw"]
 [ext_resource type="Texture2D" uid="uid://bxmbe80ewgym1" path="res://Assets/2D/Sprites/Effects/4X4_tile_shadow.png" id="4_3cxyn"]
@@ -12,7 +12,7 @@ size = Vector2(18.6951, 8.3301)
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-texture = ExtResource("1_xhxdn")
+texture = ExtResource("1_5ypaq")
 offset = Vector2(0, -11)
 hframes = 4
 script = ExtResource("2_03tb0")

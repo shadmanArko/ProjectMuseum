@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u6qef034ll7k"
-path="res://.godot/imported/Basic Exhibit 1x1 .png-9dcb9f52de5fb423e06ac5581946f5e6.ctex"
+uid="uid://d0datpe31y0sg"
+path="res://.godot/imported/BasicExhibit4x4.png-68cfa0d3b5556079cba2ff92bdf7bd6f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Exhibits/Basic Exhibit 1x1 .png"
-dest_files=["res://.godot/imported/Basic Exhibit 1x1 .png-9dcb9f52de5fb423e06ac5581946f5e6.ctex"]
+source_file="res://Assets/2D/Sprites/Exhibits/BasicExhibit4x4.png"
+dest_files=["res://.godot/imported/BasicExhibit4x4.png-68cfa0d3b5556079cba2ff92bdf7bd6f.ctex"]
 
 [params]
 

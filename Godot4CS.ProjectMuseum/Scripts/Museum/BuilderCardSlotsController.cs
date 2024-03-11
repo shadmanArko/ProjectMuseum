@@ -116,7 +116,8 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var decorationOtherVariation in _decorationOtherVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationOtherVariation.VariationName);
+			GD.Print($"other dec {decorationOtherVariation.NumberOfFrames}");
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationOtherVariation.VariationName, decorationOtherVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -128,7 +129,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var wallpaperVariation in _wallpaperVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, wallpaperVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, wallpaperVariation.VariationName, wallpaperVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -140,7 +141,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var tileVariation in _tileVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, tileVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, tileVariation.VariationName, tileVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -160,7 +161,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var decorationShopVariation in _decorationShopVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationShopVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationShopVariation.VariationName, decorationShopVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -178,7 +179,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var exhibitVariation in _exhibitVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, exhibitVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, exhibitVariation.VariationName, exhibitVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}

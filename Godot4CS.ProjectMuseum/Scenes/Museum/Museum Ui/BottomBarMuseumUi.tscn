@@ -372,7 +372,7 @@ anchors_preset = -1
 anchor_top = -3.86
 anchor_right = 1.0
 anchor_bottom = 0.04
-offset_top = 33.0
+offset_top = -96.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -411,7 +411,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="GridContainer" type="GridContainer" parent="Builder card panel/Objects Panel/MarginContainer"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(100, 90)
 layout_mode = 2
 theme = ExtResource("6_hulbe")
 theme_override_constants/h_separation = 15

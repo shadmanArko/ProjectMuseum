@@ -2,21 +2,25 @@
   {
     "VariationName": "Wood 1",
     "Price": 1,
+    "NumberOfFrames": 1,
     "SourceId": 4
   },
   {
     "VariationName": "Wood 2",
     "Price": 1,
+    "NumberOfFrames": 1,
     "SourceId": 5
   },
   {
     "VariationName": "Wood 3",
     "Price": 1,
+    "NumberOfFrames": 1,
     "SourceId": 6
   },
   {
     "VariationName": "Wood 4",
     "Price": 1,
+    "NumberOfFrames": 1,
     "SourceId": 7
   }
 ]

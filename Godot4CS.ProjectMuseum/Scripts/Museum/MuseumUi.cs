@@ -158,7 +158,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
 
     private void HandleExhibitItemPlacement(string cardName)
     {
-        if (cardName == "SmallWoodenExhibitBasic")
+        if (cardName == "BasicExhibit1x1")
         {
             OnExhibit0Pressed();
         }
@@ -166,7 +166,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         {
             OnExhibit1Pressed();
         }
-        else if (cardName == "LargeWoodenExhibitBasic")
+        else if (cardName == "BasicExhibit4x4")
         {
             OnExhibit3Pressed();
         }

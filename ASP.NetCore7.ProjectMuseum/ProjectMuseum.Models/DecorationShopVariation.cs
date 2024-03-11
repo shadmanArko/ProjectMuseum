@@ -10,6 +10,7 @@ public class DecorationShopVariation
     public float BasePricePerItem { get; set; }
     public int LengthInTiles { get; set; }
     public int WidthInTiles { get; set; }
+    public int NumberOfFrames { get; set; }
     public int BeautyRating { get; set; }
     public float PlacementCost { get; set; }
 }

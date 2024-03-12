@@ -173,6 +173,17 @@ public class EnemyAi
         return new Vector2(playerCell.PositionX, playerCell.PositionY) * mineGenerationVariables.Mine.CellSize;
     }
 
+    public bool CheckAttackEligibility(Vector2 currentPos)
+    {
+        var playerControllerVariables = ReferenceStorage.Instance.PlayerControllerVariables;
+        var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
+        var targetTilePos = mineGenerationVariables.MineGenView.LocalToMap(playerControllerVariables.Position);
+        var enemyTilePos = mineGenerationVariables.MineGenView.LocalToMap(currentPos);
+        if (enemyTilePos.Y != targetTilePos.Y) return false;
+        var playerPosX = targetTilePos.X;
+        return enemyTilePos.X == playerPosX || enemyTilePos.X == playerPosX - 1 || enemyTilePos.X == playerPosX + 1;
+    }
+
     #region Utilities
 
     private Cell GetTargetCell(Vector2 pos)

@@ -4,5 +4,5 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 
 public interface IAttack
 {
-    public Task Attack();
+    public void Attack();
 }

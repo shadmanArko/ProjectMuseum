@@ -237,9 +237,9 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
 	}
 
-	public Task Attack()
+	public void Attack()
 	{
-		return null;
+		
 	}
 
 	public void Death()

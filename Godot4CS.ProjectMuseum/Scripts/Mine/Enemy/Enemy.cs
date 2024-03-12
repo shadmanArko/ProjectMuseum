@@ -15,6 +15,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     [Export] protected AnimationTree AnimTree;
     
     public EnemyPhase Phase { get; set; }
+    public EnemyState State { get; set; }
     public bool IsAffectedByGravity { get; set; }
     
     protected AnimationNodeStateMachinePlayback StateMachine;
@@ -132,9 +133,9 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
         return null;
     }
 
-    public virtual Task Attack()
+    public virtual void Attack()
     {
-        return null;
+        
     }
 
     public virtual void TakeDamage()

@@ -8,3 +8,14 @@ public enum EnemyPhase
     Hurt,
     Combat
 }
+
+public enum EnemyState
+{
+    Move,
+    Idle,
+    DigIn,
+    DigOut,
+    Attack,
+    TakeDamage,
+    Death
+}

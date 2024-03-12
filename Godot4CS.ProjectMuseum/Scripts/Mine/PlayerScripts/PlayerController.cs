@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
@@ -236,9 +237,9 @@ public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, ID
 		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
 	}
 
-	public void Attack()
+	public Task Attack()
 	{
-		
+		return null;
 	}
 
 	public void Death()

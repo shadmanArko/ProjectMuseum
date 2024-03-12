@@ -396,12 +396,13 @@ _enemy = NodePath("..")
 wait_time = 3.0
 autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="body_entered" from="Area2D Nodes/AttackArea" to="." method="OnPlayerEnterAttackRange"]
-[connection signal="body_exited" from="Area2D Nodes/AttackArea" to="." method="OnPlayerExitAttackRange"]
-[connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="." method="OnPlayerEnterChaseRange"]
-[connection signal="body_exited" from="Area2D Nodes/ChaseArea" to="." method="OnPlayerExitChaseRange"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
+[connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
+[connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]
+[connection signal="body_exited" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerExitChaseRange"]
 [connection signal="body_entered" from="Area2D Nodes/GravityArea" to="." method="OnCellBlockEnter"]
 [connection signal="body_exited" from="Area2D Nodes/GravityArea" to="." method="OnCellBlockExit"]
 [connection signal="timeout" from="EnemyAttackInitiator/AttackCooldownTimer" to="EnemyAttackInitiator" method="OnEnemyAttackCooldownTimeOut"]

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -33,6 +34,8 @@ public partial class Slime : Enemy
     [Export] private float _moveVelocity = 2;
 
     #endregion
+
+    private bool _isMoving;
     
     #region Initializers
 
@@ -45,15 +48,15 @@ public partial class Slime : Enemy
     {
         if (@event.IsActionReleased("Test"))
         {
-            State = EnemyState.Teleport;
+            Phase = EnemyPhase.Teleport;
             Teleport();
         }
 
         if (@event.IsActionReleased("Lamp"))
-            State = EnemyState.Loiter;
+            Phase = EnemyPhase.Loiter;
         if (@event.IsActionReleased("Idle"))
         {
-            State = EnemyState.Idle;
+            Phase = EnemyPhase.Loiter;
             AnimationController.PlayAnimation("idle");
             SetPhysicsProcess(true);
         }
@@ -70,8 +73,9 @@ public partial class Slime : Enemy
         StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
-        State = EnemyState.Idle;
+        Phase = EnemyPhase.Loiter;
         CanMove = true;
+        _isMoving = true;
     }
 
     private void SetValuesOnSpawn()
@@ -91,18 +95,14 @@ public partial class Slime : Enemy
     private void SubscribeToActions()
     {
         OnSpawn += SetValuesOnSpawn;
+        OnAttackChanged += () => Attack();
     }
 
     #endregion
     
-    public override void _PhysicsProcess(double delta)
+    public override async void _PhysicsProcess(double delta)
     {
-        if (IsAggro)
-            Chase();
-        else
-            Loiter();
-        
-        // ApplyGravity((float) delta);
+        Loiter();
     }
 
     #region Phases
@@ -122,13 +122,13 @@ public partial class Slime : Enemy
         _isMovingRight = false;
     }
 
-    private void Loiter()
+    private async void Loiter()
     {
         if (_isMovingLeft)
         {
             if (_targetPos.X > Position.X)
             {
-                Velocity = new Vector2(0, Velocity.Y);
+                _isMoving = false;
                 _isMovingLeft = false;
                 _isMovingRight = true;
                 _targetPos = _rightPos;
@@ -140,7 +140,7 @@ public partial class Slime : Enemy
         {
             if (_targetPos.X < Position.X)
             {
-                Velocity = new Vector2(0, Velocity.Y);
+                _isMoving = false;
                 _isMovingRight = false;
                 _isMovingLeft = true;
                 _targetPos = _leftPos;
@@ -148,7 +148,7 @@ public partial class Slime : Enemy
             }
         }
 
-        Move();
+        await Move();
     }
 
     #endregion
@@ -169,30 +169,48 @@ public partial class Slime : Enemy
 
     #region Move
 
-    private void Move()
+    private async Task Move()
     {
-        AnimationController.PlayAnimation("move");
-        if (_isMovingLeft)
+        if (_isMoving)
         {
-            Velocity = new Vector2(-_moveVelocity, Velocity.Y);
-            AnimationController.MoveDirection(Vector2.Left);
+            AnimationController.PlayAnimation("move");
+            if (_isMovingLeft)
+            {
+                Velocity = new Vector2(-_moveVelocity, Velocity.Y);
+                MoveAndSlide();
+                AnimationController.MoveDirection(Vector2.Left);
+            }
+            else if (_isMovingRight)
+            {
+                Velocity = new Vector2(_moveVelocity, Velocity.Y);
+                MoveAndSlide();
+                AnimationController.MoveDirection(Vector2.Right);
+            }
         }
-        else if (_isMovingRight)
+        else
         {
-            Velocity = new Vector2(_moveVelocity, Velocity.Y);
-            AnimationController.MoveDirection(Vector2.Right);
+            Velocity = new Vector2(0, Velocity.Y);
+            MoveAndSlide();
+            AnimationController.PlayAnimation("idle");
+            await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+            _isMoving = true;
         }
-
-        MoveAndSlide();
     }
 
     #endregion
     
     #region Attack
 
-    public override void Attack()
+    public override async Task Attack()
     {
+        if(!IsAttacking) return;
+        _isMoving = false;
         AnimationController.PlayAnimation("attack");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        IsAttacking = false;
+        AnimationController.PlayAnimation("idle");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        _isMoving = true;
     }
 
     #endregion
@@ -229,7 +247,7 @@ public partial class Slime : Enemy
     #region Chase
 
     override
-        public void Chase()
+        public async Task Chase()
     {
         var posToGo = _enemyAi.CheckForPathValidity(Position);
         if (posToGo == Vector2.Zero)
@@ -252,7 +270,7 @@ public partial class Slime : Enemy
                 MoveDirection = Vector2.Right;
             }
 
-            Move();
+            await Move();
         }
     }
 
@@ -260,7 +278,7 @@ public partial class Slime : Enemy
 
     #region Idle
 
-    private void Idle()
+    private async Task Idle()
     {
         AnimationController.PlayAnimation("idle");
     }
@@ -269,6 +287,7 @@ public partial class Slime : Enemy
     {
         if (animName != "idle") return;
         CanMove = true;
+        _isMoving = true;
         //todo: check if player is in chase range. if in range then chase or else loiter
     }
 
@@ -348,30 +367,6 @@ public partial class Slime : Enemy
 
     #endregion
 
-    #endregion
-
-    #region Utitlies
-
-    #region Chase Range
-
-    private void OnPlayerEnterChaseRange(Node2D body)
-    {
-        var player = body as PlayerController;
-        if(player == null) return;
-        IsAggro = true;
-        GD.Print($"Player entered chase region, isAggro:{IsAggro}");
-    }
-
-    private void OnPlayerExitChaseRange(Node2D body)
-    {
-        var player = body as PlayerController;
-        if(player == null) return;
-        IsAggro = false;
-        GD.Print($"Player exited chase region, isAggro:{IsAggro}");
-    }
-
-    #endregion
-    
     #endregion
 
     private void UnsubscribeToActions()

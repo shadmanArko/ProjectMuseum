@@ -48,6 +48,7 @@ public partial class MiniGameController : Node2D
 
 	private void LoadAlternateTapMiniGame(Vector2I cellPos)
 	{
+		CeasePlayerMovementDuringMiniGame();
 		_artifactCellPos = cellPos;
 		var scene =
 		    ResourceLoader.Load<PackedScene>(_alternateMiniGameScenePath).Instantiate() as
@@ -63,22 +64,35 @@ public partial class MiniGameController : Node2D
 	
 	private void MiniGameWon()
 	{
-		GD.Print("Successfully Extracted Artifact");
-		var discoveredArtifactVisualizer = ReferenceStorage.Instance.DiscoveredArtifactVisualizer;
+		_playerControllerVariables.Player.animationController.PlayAnimation("celebrate");
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
-		GD.Print($"ARTIFACT CELL IS : ({cell.PositionX},{cell.PositionY}), {cell.ArtifactId}");
-		//discoveredArtifactVisualizer.ShowDiscoveredArtifactVisualizerUi(cell.ArtifactId);
 		SendArtifactToInventory(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
-		_playerControllerVariables.CanMove = true;
+		ContinuePlayerMovementAfterMiniGame();
 	}
 	
 	private void MiniGameLost()
 	{
-		GD.Print("Failed to Extract Artifact");
+		_playerControllerVariables.Player.animationController.PlayAnimation("idle");
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
-		//TODO: Show A Popup that says artifact lost
+		ContinuePlayerMovementAfterMiniGame();
+	}
+	
+	private void CeasePlayerMovementDuringMiniGame()
+	{
+		_playerControllerVariables.CanMove = false;
+		_playerControllerVariables.CanToggleClimb = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.Player.animationController.PlayAnimation("brush");
+	}
+
+	private void ContinuePlayerMovementAfterMiniGame()
+	{
 		_playerControllerVariables.CanMove = true;
+		_playerControllerVariables.CanToggleClimb = true;
+		_playerControllerVariables.CanAttack = true;
+		_playerControllerVariables.CanDig = true;
 	}
 	
 	#region Send Artifact To Inventory

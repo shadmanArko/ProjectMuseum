@@ -62,7 +62,7 @@ public partial class MineActions : Node
 
     //for starting the enemy damage at the right moment
     // public static Action OnPlayerAttackAnimationStarted; 
-    // public static Action OnPlayerAttackAnimationEnded; 
+    // public static Action OnPlayerAttackAnimationEnded;
 
     public static Action OnSuccessfulDigActionCompleted;
 

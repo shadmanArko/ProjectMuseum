@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
@@ -13,7 +14,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     [Export] public Timer TrackTimer { get; set; }
     [Export] protected AnimationTree AnimTree;
     
-    public EnemyState State { get; set; }
+    public EnemyPhase Phase { get; set; }
     public bool IsAffectedByGravity { get; set; }
     
     protected AnimationNodeStateMachinePlayback StateMachine;
@@ -126,14 +127,14 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
 
     #endregion
     
-    public virtual void Chase()
+    public virtual Task Chase()
     {
-        
+        return null;
     }
 
-    public virtual void Attack()
+    public virtual Task Attack()
     {
-        
+        return null;
     }
 
     public virtual void TakeDamage()

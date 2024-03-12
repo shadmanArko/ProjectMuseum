@@ -1,11 +1,10 @@
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 
-public enum EnemyState
+public enum EnemyPhase
 {
     Loiter,
     Chase,
     Teleport,
     Hurt,
-    Move,
-    Idle
+    Combat
 }

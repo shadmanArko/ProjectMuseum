@@ -11,6 +11,7 @@ public class MuseumTile
     public int Layer { get; set; }
     public bool IsInZone { get; set; }
     public string WallId { get; set; }
+    public bool Walkable { get; set; }
     public string ExhibitId { get; set; }
     public string HangingLightId { get; set; }
 

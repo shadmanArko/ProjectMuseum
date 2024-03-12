@@ -93,6 +93,7 @@ public class MuseumTileRepository : IMuseumTileRepository
         var museumTiles = await _museumTileDatabase.ReadDataAsync();
         var museumTile = museumTiles!.FirstOrDefault(tile => tile.Id == tileId);
         if (museumTile != null) museumTile.ExhibitId = exhibitId;
+        if (museumTile != null) museumTile.Walkable = false;
         if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTile;
     }
@@ -104,6 +105,7 @@ public class MuseumTileRepository : IMuseumTileRepository
             if (tileIds.Contains(tile.Id))
             {
                 tile.ExhibitId = exhibitId;
+                tile.Walkable = false;
             }
         }
         await _museumTileDatabase.WriteDataAsync(museumTiles);

@@ -9,5 +9,6 @@ public class ExhibitVariation
     public int NumberOfTilesNeeded { get; set; }
     public string TilesExtendInDirection { get; set; }
     public bool IsHangingExhibit { get; set; }
+    public int NumberOfFrames { get; set; }
     public bool IsWallExhibit { get; set; }
 }

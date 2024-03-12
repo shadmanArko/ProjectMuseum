@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://qulr4wwpgjqv"]
+
+[ext_resource type="Texture2D" uid="uid://dwcq6gfjq33i5" path="res://Assets/2D/Sprites/Effects/exhibit_1X1_dust.png" id="1_vks86"]
+[ext_resource type="Script" path="res://Scripts/Museum/Effects/ItemPlacementEffect.cs" id="2_boyrv"]
+
+[sub_resource type="Animation" id="Animation_21e88"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5phme"]
+resource_name = "placement"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ka36"]
+_data = {
+"RESET": SubResource("Animation_21e88"),
+"placement": SubResource("Animation_5phme")
+}
+
+[node name="Sprite2D" type="Sprite2D" node_paths=PackedStringArray("_animationPlayer")]
+texture_filter = 1
+position = Vector2(-176, -120)
+texture = ExtResource("1_vks86")
+hframes = 7
+script = ExtResource("2_boyrv")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4ka36")
+}

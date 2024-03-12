@@ -43,6 +43,7 @@ public partial class ExhibitItem : Item
 		_itemType = ItemTypes.Exhibit;
 		_httpRequestForGettingExhibitVariation.Request(ApiAddress.MuseumApiPath +
 		                                               $"GetExhibitVariation/variationName?variationName={exhibitVariationName}");
+		MakeObjectsFloating();
 		//GD.Print("Item Initialized");
 	}
 	public void SpawnFromDatabase(Exhibit exhibit, List<Artifact> displayArtifacts)
@@ -55,13 +56,13 @@ public partial class ExhibitItem : Item
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!selectedItem) return;
-		Vector2I mouseTile = GameManager.TileMap.LocalToMap(GetGlobalMousePosition());
+		Vector2I mouseTile = GameManager.tileMap.LocalToMap(GetGlobalMousePosition());
         
 		// Check if the tile is eligible for this item placement
 		if (_lastCheckedTile != mouseTile)
 		{
-			Vector2 localPos = GameManager.TileMap.MapToLocal(mouseTile);
-			Vector2 worldPos = GameManager.TileMap.ToGlobal(localPos);
+			Vector2 localPos = GameManager.tileMap.MapToLocal(mouseTile);
+			Vector2 worldPos = GameManager.tileMap.ToGlobal(localPos);
 			_eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
 			Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
 			// GD.Print($"{eligibleForItemPlacementInTile}");
@@ -81,6 +82,8 @@ public partial class ExhibitItem : Item
 			HandleItemPlacement();
 			// OnItemPlaced?.Invoke(ItemPrice);
 			selectedItem = false;
+			OnItemPlacedOnTile(GlobalPosition);
+			// Offset = new  Vector2(Offset.X, Offset.Y + _offsetBeforeItemPlacement);
 			Modulate = _originalColor;
 		}
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))

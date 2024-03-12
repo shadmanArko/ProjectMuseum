@@ -35,7 +35,7 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
     private void OnPlayerInteract(Vector2I playerPosition, PlayerDirectionsEnum playerDirection)
     {
         //GD.Print("player interact call");
-        var myPosition = GameManager.TileMap.LocalToMap(Position);
+        var myPosition = GameManager.tileMap.LocalToMap(Position);
         var myDirection = GetPlayerDirectionsEnum();
 
         //GD.Print($"me {Name} player direction { playerDirection}, my direction {myDirection}, player pos {playerPosition}, my pos {myPosition}");

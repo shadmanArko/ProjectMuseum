@@ -365,20 +365,21 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Builder card panel" type="ColorRect" parent="." node_paths=PackedStringArray("_builderCardContainer")]
+[node name="Builder card panel" type="ColorRect" parent="." node_paths=PackedStringArray("_buildersCardClosingButton", "_builderCardContainer")]
 visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = -3.86
 anchor_right = 1.0
 anchor_bottom = 0.04
-offset_top = 33.0
+offset_top = -96.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.686275, 0.65098, 0.607843, 1)
 script = ExtResource("4_egqqe")
 _builderCardScene = ExtResource("5_fc6vt")
+_buildersCardClosingButton = NodePath("Top Bar/Button")
 _builderCardContainer = NodePath("Objects Panel/MarginContainer/GridContainer")
 
 [node name="Objects Panel" type="Panel" parent="Builder card panel"]
@@ -410,16 +411,17 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="GridContainer" type="GridContainer" parent="Builder card panel/Objects Panel/MarginContainer"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(100, 90)
 layout_mode = 2
 theme = ExtResource("6_hulbe")
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 5
 
-[node name="Builder Card" parent="Builder card panel/Objects Panel/MarginContainer/GridContainer" instance=ExtResource("5_fc6vt")]
+[node name="Builder Card" parent="Builder card panel/Objects Panel/MarginContainer/GridContainer" node_paths=PackedStringArray("textureButton") instance=ExtResource("5_fc6vt")]
 visible = false
 layout_mode = 2
+textureButton = NodePath("Builder Button With Texture")
 
 [node name="Top Bar" type="Panel" parent="Builder card panel"]
 layout_mode = 1

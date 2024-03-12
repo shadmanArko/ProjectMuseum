@@ -53,8 +53,10 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             _openSet = new List<AStarNode>();
             _closedSet = new HashSet<AStarNode>();
 
-            AStarNode startNode = grid[startTileCoordinates.X, startTileCoordinates.Y];
-            AStarNode goalNode = grid[goalTileCoordinates.X, goalTileCoordinates.Y];
+            // AStarNode startNode = grid[startTileCoordinates.X, startTileCoordinates.Y];
+            // AStarNode goalNode = grid[goalTileCoordinates.X, goalTileCoordinates.Y];
+            AStarNode startNode = GetNode(grid, startTileCoordinates.X, startTileCoordinates.Y);
+            AStarNode goalNode = GetNode(grid, goalTileCoordinates.X, goalTileCoordinates.Y);
             
             startNode.GCost = 0; // Set GCost of the start node to zero
             startNode.HCost = GetDistance(startNode, goalNode); // Set HCost using the heuristic
@@ -131,13 +133,22 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
                         int neighborX = aStarNode.TileCoordinateX + xOffset;
                         int neighborY = aStarNode.TileCoordinateY + yOffset;
 
-                        if (neighborX >= 0 && neighborX < _gridSizeX && neighborY >= 0 && neighborY < _gridSizeY)
+                        // if (neighborX >= 0 && neighborX < _gridSizeX && neighborY >= 0 && neighborY < _gridSizeY)
+                        // {
+                        //     AStarNode neighbor = grid[neighborX, neighborY];
+                        //     // Adjust the movement cost for diagonal neighbors to be higher
+                        //     int movementCost = xOffset != 0 && yOffset != 0 ? 14 : 10; // 14 for diagonals, 10 for straight
+                        //     neighbor.GCost = aStarNode.GCost + movementCost;
+                        //     neighbors.Add(neighbor);
+                        // }
+                        foreach (var starNode in grid)
                         {
-                            AStarNode neighbor = grid[neighborX, neighborY];
-                            // Adjust the movement cost for diagonal neighbors to be higher
-                            int movementCost = xOffset != 0 && yOffset != 0 ? 14 : 10; // 14 for diagonals, 10 for straight
-                            neighbor.GCost = aStarNode.GCost + movementCost;
-                            neighbors.Add(neighbor);
+                            if (starNode.TileCoordinateX == neighborX && starNode.TileCoordinateY == neighborY)
+                            {
+                                int movementCost = xOffset != 0 && yOffset != 0 ? 14 : 10; // 14 for diagonals, 10 for straight
+                                starNode.GCost = aStarNode.GCost + movementCost;
+                                neighbors.Add(starNode);
+                            }
                         }
                     }
                 }
@@ -146,6 +157,17 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             return neighbors;
         }
 
+        AStarNode GetNode(AStarNode[,] grid, int xPos, int yPos)
+        {
+            foreach (var starNode in grid)
+            {
+                if (starNode.TileCoordinateX == xPos && starNode.TileCoordinateY == yPos)
+                {
+                    return starNode;
+                }
+            }
+            return null;
+        }
         
         private List<Vector2I> RetracePath(AStarNode startAStarNode, AStarNode endAStarNode)
         {

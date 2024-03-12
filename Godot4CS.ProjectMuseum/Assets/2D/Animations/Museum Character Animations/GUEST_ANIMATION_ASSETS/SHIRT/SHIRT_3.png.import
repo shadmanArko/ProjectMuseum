@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0datpe31y0sg"
-path="res://.godot/imported/Basic Exhibit  4x4 .png-6f9a6067b6337c7b9283470b49998e90.ctex"
+uid="uid://sowj2a817463"
+path="res://.godot/imported/SHIRT_3.png-76e8f4487cff65a1b49efeea603dcca1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Exhibits/Basic Exhibit  4x4 .png"
-dest_files=["res://.godot/imported/Basic Exhibit  4x4 .png-6f9a6067b6337c7b9283470b49998e90.ctex"]
+source_file="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHIRT/SHIRT_3.png"
+dest_files=["res://.godot/imported/SHIRT_3.png-76e8f4487cff65a1b49efeea603dcca1.ctex"]
 
 [params]
 

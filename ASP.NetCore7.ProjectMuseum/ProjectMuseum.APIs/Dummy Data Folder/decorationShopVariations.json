@@ -8,6 +8,7 @@
     "BasePricePerItem": 5,
     "LengthInTiles": 1,
     "WidthInTiles": 1,
+    "NumberOfFrames": 4,
     "BeautyRating": 4,
     "PlacementCost": 100.0
   },
@@ -21,6 +22,7 @@
     "LengthInTiles": 1,
     "WidthInTiles": 1,
     "BeautyRating": 4,
-    "PlacementCost": 75.0
+    "PlacementCost": 75.0,
+    "NumberOfFrames": 4
   }
 ]

@@ -11,6 +11,7 @@ using ProjectMuseum.Models;
 public partial class BuilderCardSlotsController : ColorRect
 {
 	[Export] private PackedScene _builderCardScene;
+	[Export] private Button _buildersCardClosingButton;
 	[Export] private GridContainer _builderCardContainer;
 
 	private List<ExhibitVariation> _exhibitVariations = new List<ExhibitVariation>();
@@ -47,8 +48,13 @@ public partial class BuilderCardSlotsController : ColorRect
 		_httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
 		_httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
 		_httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
-
+		_buildersCardClosingButton.Pressed += BuildersCardClosingButtonOnPressed;
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked += ReInitialize;
+	}
+
+	private void BuildersCardClosingButtonOnPressed()
+	{
+		Visible = false;
 	}
 
 	private void HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -110,7 +116,8 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var decorationOtherVariation in _decorationOtherVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationOtherVariation.VariationName);
+			GD.Print($"other dec {decorationOtherVariation.NumberOfFrames}");
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationOtherVariation.VariationName, decorationOtherVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -122,7 +129,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var wallpaperVariation in _wallpaperVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, wallpaperVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, wallpaperVariation.VariationName, wallpaperVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -134,7 +141,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var tileVariation in _tileVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, tileVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, tileVariation.VariationName, tileVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -154,7 +161,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var decorationShopVariation in _decorationShopVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationShopVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, decorationShopVariation.VariationName, decorationShopVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -172,7 +179,7 @@ public partial class BuilderCardSlotsController : ColorRect
 		foreach (var exhibitVariation in _exhibitVariations)
 		{
 			var card = _builderCardScene.Instantiate();
-			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, exhibitVariation.VariationName);
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, exhibitVariation.VariationName, exhibitVariation.NumberOfFrames);
 			_builderCardContainer.AddChild(card);
 		}
 	}
@@ -191,6 +198,8 @@ public partial class BuilderCardSlotsController : ColorRect
 		_httpRequestForGettingTileVariations.RequestCompleted -= HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingWallpaperVariations.RequestCompleted -= HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked -= ReInitialize;
+		_buildersCardClosingButton.Pressed -= BuildersCardClosingButtonOnPressed;
+
 
 	}
 }

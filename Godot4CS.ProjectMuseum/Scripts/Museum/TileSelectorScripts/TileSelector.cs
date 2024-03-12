@@ -19,7 +19,7 @@ public partial class TileSelector : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
-        _tileMap = GameManager.TileMap;
+        _tileMap = GameManager.tileMap;
         await Task.Delay(1000);
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 	}

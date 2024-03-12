@@ -277,4 +277,10 @@ public class MuseumController : ControllerBase
         var zone = await _museumZoneService.GetAll();
         return Ok(zone);
     }
+    [HttpPut("UpdateMuseumTicketCounter")]
+    public async Task<IActionResult> UpdateMuseumTicketCounter(MuseumTicketCounter museumTicketCounter)
+    {
+        var zone = await _museumService.UpdateMuseumTicketCounter(museumTicketCounter);
+        return Ok(zone);
+    }
 }

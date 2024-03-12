@@ -11,13 +11,13 @@ public partial class DecorationItem : Item
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!selectedItem) return;
-		Vector2I mouseTile = GameManager.TileMap.LocalToMap(GetGlobalMousePosition());
+		Vector2I mouseTile = GameManager.tileMap.LocalToMap(GetGlobalMousePosition());
         
 		// Check if the tile is eligible for this item placement
 		if (_lastCheckedTile != mouseTile)
 		{
-			Vector2 localPos = GameManager.TileMap.MapToLocal(mouseTile);
-			Vector2 worldPos = GameManager.TileMap.ToGlobal(localPos);
+			Vector2 localPos = GameManager.tileMap.MapToLocal(mouseTile);
+			Vector2 worldPos = GameManager.tileMap.ToGlobal(localPos);
 			_eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
 			Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
 			// GD.Print($"{eligibleForItemPlacementInTile}");
@@ -48,6 +48,7 @@ public partial class DecorationItem : Item
 	public void Initialize(string cardName)
 	{
 		selectedItem = true;
+		MakeObjectsFloating();
 	}
 	private new void HandleItemPlacement()
 	{
@@ -65,5 +66,6 @@ public partial class DecorationItem : Item
 		// GD.Print("Handling exhibit placement");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
+		OnItemPlacedOnTile(GlobalPosition);
 	}
 }

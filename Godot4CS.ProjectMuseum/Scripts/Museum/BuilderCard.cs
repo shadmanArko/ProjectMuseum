@@ -26,10 +26,13 @@ public partial class BuilderCard : Control
 		
 	}
 
-	public void SetUpBuilderCard(BuilderCardType builderCardType, string cardName)
+	public void SetUpBuilderCard(BuilderCardType builderCardType, string cardName, int numberOfFrames)
 	{
 		Texture2D texture = GD.Load<Texture2D>($"res://Assets/2D/Sprites/{builderCardType}s/{cardName}.png");
-		textureButton.Icon = texture;
+		AtlasTexture atlasTexture = new AtlasTexture();
+		atlasTexture.Atlas = texture;
+		atlasTexture.Region = new Rect2(0, 0, texture.GetWidth()/numberOfFrames, texture.GetHeight());
+		textureButton.Icon = atlasTexture;
 		_builderCardType = builderCardType;
 		_cardName = cardName;
 	}

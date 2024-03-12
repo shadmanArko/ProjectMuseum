@@ -92,7 +92,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
     }
     public void SetPath( Vector2I targetTileCoordinate)
     {
-        _startTileCoordinate = GameManager.TileMap.LocalToMap(Position);
+        _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
         // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
         _targetTileCoordinate =  targetTileCoordinate;
         if (_targetTileCoordinate != new Vector2I(1000, 1000))
@@ -122,7 +122,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         if (_currentPathIndex < _path.Count )
         {
             _currentTargetNode = _path[_currentPathIndex];
-            _direction = _currentTargetNode - GameManager.TileMap.LocalToMap(Position);
+            _direction = _currentTargetNode - GameManager.tileMap.LocalToMap(Position);
             _currentPathIndex++;
             ControlAnimation();
         }
@@ -145,8 +145,8 @@ public partial class PathNavigatorCharacter: CharacterBody2D
             motion = CartesianToIsometric(motion);
             MoveAndCollide(motion);
             // Check if the character has reached the current path node
-            Vector2 currentTargetPosition = GameManager.TileMap.MapToLocal(_currentTargetNode);
-            _currentNode = GameManager.TileMap.LocalToMap(Position);
+            Vector2 currentTargetPosition = GameManager.tileMap.MapToLocal(_currentTargetNode);
+            _currentNode = GameManager.tileMap.LocalToMap(Position);
             if (Position.DistanceTo(currentTargetPosition) < 1f || _currentNode == _currentTargetNode)
             {
                 MoveToNextPathNode();
@@ -195,7 +195,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
     private bool _lastCheckedResult = false;
     private bool CheckIfNextPositionIsEmpty(Vector2 nextPosition)
     {
-        Vector2I tilePosition = GameManager.TileMap.LocalToMap(nextPosition);
+        Vector2I tilePosition = GameManager.tileMap.LocalToMap(nextPosition);
         if (_lastCheckedPosition == tilePosition)
         {
             return _lastCheckedResult;

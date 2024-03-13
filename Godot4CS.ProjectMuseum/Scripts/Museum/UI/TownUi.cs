@@ -6,6 +6,7 @@ public partial class TownUi : Panel
 {
 	[Export] private Control _popUpUi;
 	[Export] private Sprite2D _indicatorForHouseOfBuddy;
+	[Export] private AnimationPlayer _indicatorAnimationPlayer;
 	private Timer _timer;
 
 	// Called when the node enters the scene tree for the first time.
@@ -38,7 +39,7 @@ public partial class TownUi : Panel
 		_timer.Start(1);
 		_popUpUi.Visible = true;
 		_indicatorForHouseOfBuddy.Visible = true;
-		
+		_indicatorAnimationPlayer.Play("indicate");
 	}
 
 	

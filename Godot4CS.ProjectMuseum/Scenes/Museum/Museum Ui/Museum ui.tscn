@@ -39,13 +39,8 @@ mouse_filter = 1
 _closePanelButton = NodePath("PanelContainer/Container/Top Panel/Button")
 _subcontinentButton = NodePath("PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
 
-[node name="BottomBarMuseumUi" parent="." node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsOtherButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel") instance=ExtResource("3_xtoc7")]
+[node name="BottomBarMuseumUi2" parent="." node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsOtherButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel") instance=ExtResource("3_xtoc7")]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.954
-offset_top = -0.320068
-offset_right = 0.00012207
-mouse_filter = 1
 _newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/New Exhibit Button")
 _decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/Food and Drinks Button")
 _decorationsOtherButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/Souvenirs Button")
@@ -339,7 +334,6 @@ offset_top = 104.0
 offset_right = 409.0
 offset_bottom = 459.0
 grow_vertical = 1
-mouse_filter = 1
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

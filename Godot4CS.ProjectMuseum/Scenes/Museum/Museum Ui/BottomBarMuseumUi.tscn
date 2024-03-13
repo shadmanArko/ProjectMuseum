@@ -365,7 +365,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Builder card panel" type="ColorRect" parent="." node_paths=PackedStringArray("_buildersCardClosingButton", "_builderCardContainer")]
+[node name="Builder card panel" type="ColorRect" parent="." node_paths=PackedStringArray("_buildersPanelClosingButton", "_builderCardContainer")]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -379,7 +379,7 @@ grow_vertical = 2
 color = Color(0.686275, 0.65098, 0.607843, 1)
 script = ExtResource("4_egqqe")
 _builderCardScene = ExtResource("5_fc6vt")
-_buildersCardClosingButton = NodePath("Top Bar/Button")
+_buildersPanelClosingButton = NodePath("Top Bar/closing button")
 _builderCardContainer = NodePath("Objects Panel/MarginContainer/GridContainer")
 
 [node name="Objects Panel" type="Panel" parent="Builder card panel"]
@@ -389,10 +389,10 @@ anchor_left = 0.107
 anchor_top = 0.137
 anchor_right = 0.781
 anchor_bottom = 0.962
-offset_left = 0.559982
-offset_top = 0.079998
-offset_right = 0.47998
-offset_bottom = 0.0799866
+offset_left = 8.56
+offset_top = -7.59299
+offset_right = 8.47998
+offset_bottom = 6.85699
 
 [node name="MarginContainer" type="MarginContainer" parent="Builder card panel/Objects Panel"]
 layout_mode = 1
@@ -429,31 +429,34 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 2.0
 offset_right = -2.0
-offset_bottom = 16.0
+offset_bottom = 27.535
 grow_horizontal = 2
 
 [node name="LineEdit" type="LineEdit" parent="Builder card panel/Top Bar"]
 layout_mode = 0
 offset_left = 1395.0
-offset_right = 1597.0
-offset_bottom = 31.0
+offset_right = 1615.63
+offset_bottom = 50.865
 scale = Vector2(0.5, 0.5)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 32
 alignment = 3
 clear_button_enabled = true
 
-[node name="Button" type="Button" parent="Builder card panel/Top Bar"]
+[node name="closing button" type="Button" parent="Builder card panel/Top Bar"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -8.0
-offset_bottom = 8.0
+offset_left = -29.0
+offset_top = -13.7675
+offset_right = -0.555054
+offset_bottom = 12.9675
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_font_sizes/font_size = 11
+text = "X"
 
 [node name="Filters Panel" type="Panel" parent="Builder card panel"]
 layout_mode = 1

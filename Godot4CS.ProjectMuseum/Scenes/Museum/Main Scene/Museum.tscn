@@ -149,10 +149,11 @@ _noButton = NodePath("ColorRect/No Button")
 visible = false
 z_index = 10
 
-[node name="Town Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_popUpUi", "_indicatorForHouseOfBuddy") instance=ExtResource("2_pnteo")]
+[node name="Town Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_popUpUi", "_indicatorForHouseOfBuddy", "_indicatorAnimationPlayer") instance=ExtResource("2_pnteo")]
 visible = false
 _popUpUi = NodePath("Town Ui/TownWarning")
 _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
+_indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
 position = Vector2(48, -87)
@@ -224,7 +225,7 @@ y_sort_enabled = true
 [node name="TicketCounter" type="Sprite2D" parent="museum/ItemParents"]
 z_index = 1
 texture_filter = 1
-position = Vector2(65, -32)
+position = Vector2(64, -41)
 texture = ExtResource("48_piabe")
 hframes = 4
 frame = 1

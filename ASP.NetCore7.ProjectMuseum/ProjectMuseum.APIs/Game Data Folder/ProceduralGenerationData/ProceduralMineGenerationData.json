@@ -1,1 +1,15 @@
-[{}]
+[
+  {
+    "MineSizeX": 49,
+    "MineSizeY": 64,
+    "CellSize": 20,
+    "BossCaveSizeX": 12,
+    "BossCaveSizeY": 5,
+    "NumberOfMaxCaves": 2,
+    "CaveMinSizeX": 3,
+    "CaveMinSizeY": 3,
+    "CaveMaxSizeX": 7,
+    "CaveMaxSizeY": 5,
+    "MinDistanceBetweenCaves": 10
+  }
+]

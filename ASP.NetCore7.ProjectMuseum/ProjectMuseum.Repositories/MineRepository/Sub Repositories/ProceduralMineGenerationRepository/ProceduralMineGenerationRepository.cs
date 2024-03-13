@@ -10,4 +10,12 @@ public class ProceduralMineGenerationRepository : IProceduralMineGenerationRepos
     {
         _proceduralMineGenerationDatabase = proceduralMineGenerationDatabase;
     }
+
+
+    public async Task<ProceduralMineGenerationData> GetProceduralMineGenerationData()
+    {
+        var proceduralMineGenerationDataList = await _proceduralMineGenerationDatabase.ReadDataAsync();
+        var proceduralMineGenerationData = proceduralMineGenerationDataList?[0];
+        return proceduralMineGenerationData!;
+    }
 }

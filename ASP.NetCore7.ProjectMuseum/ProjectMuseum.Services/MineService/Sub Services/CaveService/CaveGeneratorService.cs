@@ -1,19 +1,21 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.MineRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
 
-namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
+namespace ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 
-public class CaveRepository : ICaveRepository
+public class CaveGeneratorService : ICaveGeneratorService
 {
     private readonly IMineRepository _mineRepository;
-    private readonly JsonFileDatabase<Cave> _caveDatabase;
+    private readonly ICaveGeneratorRepository _caveGeneratorRepository;
 
-    public CaveRepository(IMineRepository mineRepository, JsonFileDatabase<Cave> caveDatabase)
+    public CaveGeneratorService(ICaveGeneratorRepository caveGeneratorRepository, IMineRepository mineRepository)
     {
+        _caveGeneratorRepository = caveGeneratorRepository;
         _mineRepository = mineRepository;
-        _caveDatabase = caveDatabase;
     }
-
-    public async Task<Cave> GenerateCave(int xMin, int xMax, int yMin, int yMax)
+    
+    public async Task<Cave> GenerateCave(int xMin, int xMax, int yMin, int yMax, int stalagmiteCount, int stalactiteCount)
     {
         var mine = await _mineRepository.Get();
         foreach (var cell in mine.Cells)
@@ -54,12 +56,16 @@ public class CaveRepository : ICaveRepository
         var newCave = new Cave
         {
             Id = Guid.NewGuid().ToString(),
+            LeftBound = xMin,
+            RightBound = xMax,
+            TopBound = yMin,
+            BottomBound = yMax,
             CellIds = caveCellIds,
             StalagmiteCellIds = new List<string>(),
             StalactiteCellIds = new List<string>()
         };
         var rand = new Random();
-        for (var numberOfStalagmites = rand.Next(0, possibleStalagmiteCells.Count); numberOfStalagmites > 0; numberOfStalagmites--)
+        for (var numberOfStalagmites = stalagmiteCount; numberOfStalagmites > 0; numberOfStalagmites--)
         {
             Console.WriteLine($"stalagmite cell count: {possibleStalagmiteCells.Count}");
             var cell = possibleStalagmiteCells[rand.Next(0, possibleStalagmiteCells.Count)];
@@ -67,16 +73,15 @@ public class CaveRepository : ICaveRepository
             newCave.StalagmiteCellIds.Add(cell.Id);
         }
         
-        for (var numberOfStalactites = rand.Next(0,possibleStalactiteCells.Count); numberOfStalactites > 0; numberOfStalactites--)
+        for (var numberOfStalactites = stalactiteCount; numberOfStalactites > 0; numberOfStalactites--)
         {
             Console.WriteLine($"stalactite cell count: {possibleStalactiteCells.Count}");
             var cell = possibleStalactiteCells[rand.Next(0, possibleStalactiteCells.Count)];
             if(newCave.StalactiteCellIds.Contains(cell.Id)) continue;
             newCave.StalactiteCellIds.Add(cell.Id);
         }
-        
-        mine.Caves.Add(newCave);
-        await _mineRepository.Update(mine);
-        return newCave;
+
+        var cave = await _caveGeneratorRepository.AddCave(newCave);
+        return cave;
     }
 }

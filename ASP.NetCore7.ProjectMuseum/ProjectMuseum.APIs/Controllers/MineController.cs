@@ -6,6 +6,7 @@ using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
+using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService.MineOrdinaryCellGeneratorService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
@@ -20,26 +21,26 @@ public class MineController : ControllerBase
 {
     private readonly IMineService _mineService;
     private readonly IMineArtifactService _mineArtifactService;
-    private readonly IMineCellGeneratorService _mineCellGeneratorService;
+    private readonly IMineOrdinaryCellGeneratorService _mineOrdinaryCellGeneratorService;
     private readonly IMineCellCrackMaterialService _mineCellCrackMaterialService;
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
     private readonly IResourceService _resourceService;
     private readonly IWallPlaceableService _wallPlaceableService;
-    private readonly ICaveService _caveService;
+    private readonly ICaveGeneratorService _caveGeneratorService;
     private readonly ISpecialBackdropService _specialBackdropService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineCellGeneratorService mineCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveService caveService, ISpecialBackdropService specialBackdropService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
-        _mineCellGeneratorService = mineCellGeneratorService;
+        _mineOrdinaryCellGeneratorService = mineOrdinaryCellGeneratorService;
         _mineCellCrackMaterialService = mineCellCrackMaterialService;
         _rawArtifactDescriptiveService = rawArtifactDescriptiveService;
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
         _resourceService = resourceService;
         _wallPlaceableService = wallPlaceableService;
-        _caveService = caveService;
+        _caveGeneratorService = caveGeneratorService;
         _specialBackdropService = specialBackdropService;
     }
 
@@ -64,12 +65,12 @@ public class MineController : ControllerBase
         return Ok(artifact);
     }
 
-    [HttpGet("GenerateMine")]
-    public async Task<IActionResult> GenerateMine()
-    {
-        var mine = await _mineCellGeneratorService.GenerateMineCellData();
-        return Ok(mine);
-    }
+    // [HttpGet("GenerateMine")]
+    // public async Task<IActionResult> GenerateMine()
+    // {
+    //     var mine = await _mineOrdinaryCellGeneratorService.GenerateMineCellData();
+    //     return Ok(mine);
+    // }
 
     [HttpGet("AssignArtifactsToMine")]
     public async Task<IActionResult> AssignArtifactsToMine()
@@ -155,10 +156,10 @@ public class MineController : ControllerBase
         return Ok(wallPlaceable);
     }
     
-    [HttpGet("GenerateCave")]
+    [HttpGet("AddCave")]
     public async Task<IActionResult> GenerateCave()
     {
-        var cave = await _caveService.GenerateCave(20,30,10,15);
+        var cave = await _caveGeneratorService.GenerateCave(20,30,10,15, 5, 5);
         return Ok(cave);
     }
     

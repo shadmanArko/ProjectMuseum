@@ -74,7 +74,6 @@ public class MineCellGeneratorService : IMineCellGeneratorService
 
         mine.Cells = cells;
         mine.Caves = new List<Cave>();
-        // CreateCave(mine);
         
         return await _mineRepository.Update(mine);
     }
@@ -82,50 +81,31 @@ public class MineCellGeneratorService : IMineCellGeneratorService
     private void CreateBlankCell(Cell cell)
     {
         cell.IsBreakable = false;
+        cell.IsBroken = false;
         cell.IsInstantiated = false;
         cell.HasArtifact = false;
+        cell.HasCave = false;
         cell.HitPoint = 10000;
     }
 
     private void CreateUnbreakableCell(Cell cell)
     {
         cell.IsBreakable = false;
+        cell.IsBroken = false;
         cell.IsInstantiated = true;
         cell.HasArtifact = false;
+        cell.HasCave = false;
         cell.HitPoint = 10000;
     }
 
     private void CreateBreakableCell(Cell cell)
     {
         cell.IsBreakable = true;
+        cell.IsBroken = false;
         cell.IsInstantiated = true;
         cell.IsRevealed = false;
         cell.HasArtifact = false;
+        cell.HasCave = false;
         cell.HitPoint = 4;
-    }
-
-    private async Task CreateCave(Mine mine)
-    {
-        var caveCellIds = new List<string>();
-        for (int i = 20; i < 30; i++)
-        {
-            for (int j = 10; j < 15; j++)
-            {
-                var cell = mine.Cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
-                if(cell == null) continue;
-                cell.HasCave = true;
-                cell.IsBroken = true;
-                caveCellIds.Add(cell.Id!);
-            }
-        }
-        
-        // var cave = new Cave
-        // {
-        //     Id = Guid.NewGuid().ToString(),
-        //     CellIds = caveCellIds
-        // };
-        //
-        // mine.Caves.Add(cave);
-
     }
 }

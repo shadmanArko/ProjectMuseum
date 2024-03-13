@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
@@ -13,6 +14,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     [Export] public Timer TrackTimer { get; set; }
     [Export] protected AnimationTree AnimTree;
     
+    public EnemyPhase Phase { get; set; }
     public EnemyState State { get; set; }
     public bool IsAffectedByGravity { get; set; }
     
@@ -27,16 +29,13 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;
     [Export] public float KnockBackPower = 500f;
-    // [Export] public bool IsAggro;
-    // [Export] public bool IsAttacking;
-    // [Export] public bool CanMove;
     
     [Export] public TextureProgressBar HealthBar;
     [Export] public EnemyAnimationController AnimationController;
 
     #region Actions
 
-    public Action OnInstantiate;
+    public Action OnSpawn;
     public Action OnDeath;
     public Action OnAggroChanged;
     public Action OnAttackChanged;
@@ -129,9 +128,9 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
 
     #endregion
     
-    public virtual void Chase()
+    public virtual Task Chase()
     {
-        
+        return null;
     }
 
     public virtual void Attack()

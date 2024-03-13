@@ -99,7 +99,7 @@ public class EnemyAi
                 var cell = mineGenerationVariables.GetCell(new Vector2I(i, j));
                 if (cell == null)
                 {
-                    GD.Print("Cell is null");
+                    // GD.Print("Cell is null");
                     continue;
                 }
                 
@@ -169,8 +169,19 @@ public class EnemyAi
             if(bottomCell == null) continue;
             if (bottomCell.IsBroken || !bottomCell.IsInstantiated) return Vector2.Zero;
         }
-        GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
+        // GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
         return new Vector2(playerCell.PositionX, playerCell.PositionY) * mineGenerationVariables.Mine.CellSize;
+    }
+
+    public bool CheckAttackEligibility(Vector2 currentPos)
+    {
+        var playerControllerVariables = ReferenceStorage.Instance.PlayerControllerVariables;
+        var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
+        var targetTilePos = mineGenerationVariables.MineGenView.LocalToMap(playerControllerVariables.Position);
+        var enemyTilePos = mineGenerationVariables.MineGenView.LocalToMap(currentPos);
+        if (enemyTilePos.Y != targetTilePos.Y) return false;
+        var playerPosX = targetTilePos.X;
+        return enemyTilePos.X == playerPosX || enemyTilePos.X == playerPosX - 1 || enemyTilePos.X == playerPosX + 1;
     }
 
     #region Utilities

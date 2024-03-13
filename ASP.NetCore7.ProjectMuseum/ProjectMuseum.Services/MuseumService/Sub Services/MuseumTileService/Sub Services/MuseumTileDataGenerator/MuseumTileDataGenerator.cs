@@ -39,9 +39,14 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     TileAtlasCoOrdinateY = 0,
                     Layer = 0,
                     WallId = "string",
+                    Walkable = true,
                     ExhibitId = "string",
                     HangingLightId = "string"
                 };
+                if ((x== 0 || y==0 ) && !(x ==0 && y== -2))
+                {
+                    museumTile.Walkable = false;
+                }
                 await _museumTileRepository.Insert(museumTile);
             }
         }

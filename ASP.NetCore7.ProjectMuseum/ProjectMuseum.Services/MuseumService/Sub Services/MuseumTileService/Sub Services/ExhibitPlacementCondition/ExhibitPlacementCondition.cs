@@ -90,10 +90,11 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
                 
             }
         }
-        await _museumTileRepository.UpdateExhibitToMuseumTiles(tileIds, exhibit.Id);
+        museumTiles = await _museumTileRepository.UpdateExhibitToMuseumTiles(tileIds, exhibit.Id);
         tilesWithExhibitDto.Exhibit = exhibit;
         var exhibits = await _exhibitRepository.GetAllExhibits();
         tilesWithExhibitDto.Exhibits = exhibits;
+        if (museumTiles != null) tilesWithExhibitDto.MuseumTiles = museumTiles;
         return tilesWithExhibitDto;
     }
 }

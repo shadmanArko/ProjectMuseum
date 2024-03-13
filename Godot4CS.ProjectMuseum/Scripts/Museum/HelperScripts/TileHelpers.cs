@@ -48,7 +48,7 @@ public static class TileHelpers
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {
-                if (museumTile.ExhibitId == "string" || museumTile.ExhibitId == "")
+                if ((museumTile.ExhibitId == "string" || museumTile.ExhibitId == "") && museumTile.Walkable)
                 {
                     _lastCheckedResult = true;
                     return true;

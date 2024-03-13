@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhvmy3u7d83qr"
-path="res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"
+uid="uid://bmx3pixltpcm7"
+path="res://.godot/imported/Front_wall (3).png-5303447cd63687c9c976904b8a6f39d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png"
-dest_files=["res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"]
+source_file="res://Assets/2D/Sprites/Wallpapers/Front_wall (3).png"
+dest_files=["res://.godot/imported/Front_wall (3).png-5303447cd63687c9c976904b8a6f39d8.ctex"]
 
 [params]
 

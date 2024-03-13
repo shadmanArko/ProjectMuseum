@@ -68,7 +68,7 @@ public partial class ExhibitController : Node2D
     {
         foreach (var exhibit in exhibits)
         {
-            if (exhibit.ExhibitVariationName == "SmallWoodenExhibitBasic")
+            if (exhibit.ExhibitVariationName == "BasicExhibit1x1")
             {
                 SpawnExhibit(exhibit, item1);
             }
@@ -80,7 +80,7 @@ public partial class ExhibitController : Node2D
             {
                 SpawnExhibit(exhibit, item4);
             }
-            else if (exhibit.ExhibitVariationName == "LargeWoodenExhibitBasic")
+            else if (exhibit.ExhibitVariationName == "BasicExhibit4x4")
             {
                 SpawnExhibit(exhibit, item2);
             }

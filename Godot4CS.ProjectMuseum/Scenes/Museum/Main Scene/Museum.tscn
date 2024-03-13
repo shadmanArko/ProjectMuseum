@@ -155,7 +155,7 @@ _popUpUi = NodePath("Town Ui/TownWarning")
 _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(55, -11)
+position = Vector2(48, -87)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
@@ -203,7 +203,7 @@ y_sort_enabled = true
 script = ExtResource("18_iea1i")
 _guestScene = ExtResource("30_4n4bn")
 _spawnAtTile = Vector2i(0, -2)
-_spawnInterval = 0.1
+_spawnInterval = 2.0
 _sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 2), Vector2i(-83, 3), Vector2i(2, -83), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
 
 [node name="StreetLamp" parent="museum/GuestsController" instance=ExtResource("30_x0exq")]
@@ -373,7 +373,7 @@ position = Vector2(15, -7)
 texture = SubResource("CompressedTexture2D_rxu60")
 
 [node name="FrontWalls" type="Node2D" parent="museum"]
-modulate = Color(1, 1, 1, 0.584314)
+modulate = Color(1, 1, 1, 0.235294)
 y_sort_enabled = true
 position = Vector2(0, -2)
 
@@ -759,7 +759,7 @@ script = ExtResource("26_vw67d")
 
 [node name="DayEndController" type="Node2D" parent="."]
 script = ExtResource("27_mm5mn")
-_dayEndTileCoord = Vector2i(0, -1)
+_dayEndTileCoord = Vector2i(-1, -1)
 
 [node name="StoryController" type="Node2D" parent="."]
 script = ExtResource("29_6vdgp")

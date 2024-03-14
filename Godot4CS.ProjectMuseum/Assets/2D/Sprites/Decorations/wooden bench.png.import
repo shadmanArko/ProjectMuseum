@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://23336ohioufw"
-path="res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"
+uid="uid://dmmsxb8jxs57x"
+path="res://.godot/imported/wooden bench.png-094acd405850f650257524c65d884f79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png"
-dest_files=["res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"]
+source_file="res://Assets/2D/Sprites/Decorations/wooden bench.png"
+dest_files=["res://.godot/imported/wooden bench.png-094acd405850f650257524c65d884f79.ctex"]
 
 [params]
 

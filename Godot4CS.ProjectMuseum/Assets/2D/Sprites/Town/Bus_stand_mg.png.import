@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://23336ohioufw"
-path="res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"
+uid="uid://d252pbd34bbt6"
+path="res://.godot/imported/Bus_stand_mg.png-e747be5978f76de69a7753bcf060b8af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png"
-dest_files=["res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"]
+source_file="res://Assets/2D/Sprites/Town/Bus_stand_mg.png"
+dest_files=["res://.godot/imported/Bus_stand_mg.png-e747be5978f76de69a7753bcf060b8af.ctex"]
 
 [params]
 

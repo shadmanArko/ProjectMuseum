@@ -4,31 +4,31 @@ namespace ProjectMuseum.Services.LoadAndSaveService;
 
 public class NewGameDataLoaderService
 {
-     string _artifactStorageStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "artifactStorage.json");
-    string _displayArtifactStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "displayArtifact.json");
-    string _decorationShopStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "decorationShop.json");
-    string _decorationShopVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "decorationShopVariations.json");
-    string _decorationOtherStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "decorationOther.json");
-    string _decorationOtherVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "decorationOtherVariations.json");
-    string _exhibitStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "exhibit.json");
-    string _exhibitVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "exhibitVariations.json");
-    string _inventoryStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "inventory.json");
-    string _mineArtifactsStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "mineArtifact.json");
-    string _mineStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "mine.json");
-    string _museumStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "museum.json");
-    string _museumTileStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "museumTile.json");
-    string _playerInfoStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "PlayerInfo.json");
-    string _saveStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "save.json");
-    string _storySceneStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "StoryScene.json");
-    string _tileVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "tileVariations.json");
-    string _timeStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "time.json");
-    string _tradingArtifactsStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "tradingArtifacts.json");
-    string _tutorialStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "Tutorials.json");
-    string _wallpaperVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "wallpaperVariations.json");
-    string _wallVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "wallVariations.json");
+     string _artifactStorageStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "artifactStorage.json");
+    string _displayArtifactStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "displayArtifact.json");
+    string _decorationShopStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "decorationShop.json");
+    string _decorationShopVariationStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "decorationShopVariations.json");
+    string _decorationOtherStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "decorationOther.json");
+    string _decorationOtherVariationStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "decorationOtherVariations.json");
+    string _exhibitStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "exhibit.json");
+    string _exhibitVariationStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "exhibitVariations.json");
+    string _inventoryStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "inventory.json");
+    string _mineArtifactsStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "mineArtifact.json");
+    string _mineStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "mine.json");
+    string _museumStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "museum.json");
+    string _museumTileStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "museumTile.json");
+    string _playerInfoStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "PlayerInfo.json");
+    string _saveStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "save.json");
+    string _storySceneStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "StoryScene.json");
+    string _tileVariationStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "tileVariations.json");
+    string _timeStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "time.json");
+    string _tradingArtifactsStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "tradingArtifacts.json");
+    string _tutorialStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "Tutorials.json");
+    string _wallpaperVariationStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "wallpaperVariations.json");
+    string _wallVariationStartingDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Starting Data Folder", "wallVariations.json");
     
     //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
-    //string dataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for deployment
+    //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
 
     public async Task LoadDataForNewGame()
     {

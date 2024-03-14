@@ -3,6 +3,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
@@ -74,8 +75,8 @@ public partial class Slime : Enemy
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
         Phase = EnemyPhase.Loiter;
-        CanMove = true;
-        _isMoving = true;
+        CanMove = false;
+        _isMoving = false;
         SetPhysicsProcess(false);
     }
 
@@ -83,6 +84,7 @@ public partial class Slime : Enemy
     {
         IsDead = false;
         Health = 100;
+        SetPhysicsProcess(true);
     }
 
     private void InitializeDiReferences()
@@ -94,7 +96,7 @@ public partial class Slime : Enemy
     private void SubscribeToActions()
     {
         OnSpawn += SetValuesOnSpawn;
-        OnAttackChanged += () => Attack();
+        // OnAttackChanged += () => Attack();
     }
 
     #endregion
@@ -102,9 +104,37 @@ public partial class Slime : Enemy
     public override async void _PhysicsProcess(double delta)
     {
         if (IsAggro)
-            await Chase();
+        {
+            if (Phase != EnemyPhase.Hurt)
+            {
+                if (Phase != EnemyPhase.Combat)
+                {
+                    var validPos = _enemyAi.CheckForPathValidity(Position);
+                    Phase = validPos != Vector2.Zero ? EnemyPhase.Chase : EnemyPhase.Teleport;
+                }
+            }
+        }
         else
-            await Loiter();
+            Phase = EnemyPhase.Loiter;
+
+        switch (Phase)
+        {
+            case EnemyPhase.Loiter:
+                await Loiter();
+                break;
+            case EnemyPhase.Chase:
+                await Chase();
+                break;
+            case EnemyPhase.Teleport:
+                Teleport();
+                break;
+            case EnemyPhase.Combat:
+                GD.Print($"isAttacking: {IsAttacking}");
+                GD.Print($"Phase: {Phase}");
+                GD.Print();
+                await Attack();
+                break;
+        }
         
         ApplyGravity();
     }
@@ -237,16 +267,51 @@ public partial class Slime : Enemy
     
     #region Attack
 
-    public override async void Attack()
+    public override async Task Attack()
     {
+        if(!IsInAttackRange) return;
         if(!IsAttacking) return;
         _isMoving = false;
-        AnimationController.PlayAnimation("attack");
-        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsAttacking = false;
+        GD.Print("Inside attack method");
+        var lookAtPlayer = new Vector2(_playerControllerVariables.Position.X - Position.X, 0).Normalized();
+        AnimationController.MoveDirection(lookAtPlayer);
+        AnimationController.PlayAnimation("attack");
+        _playerControllerVariables.Player.TakeDamage();
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        GD.Print("attack animation complete");
         AnimationController.PlayAnimation("idle");
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         _isMoving = true;
+    }
+
+    #endregion
+
+    #region Take Damage
+
+    public override void TakeDamage()
+    {
+        if (IsTakingDamage) return;
+        _isMoving = false;
+        
+        AnimationController.PlayAnimation("damage");
+        HealthSystem.ReduceEnemyHealth(10, 100, this);
+        Velocity = new Vector2(0, Velocity.Y);
+        MoveAndSlide();
+        KnockBack();
+        _isMoving = true;
+    }
+
+    #endregion
+
+    #region Death
+
+    public override async void Death()
+    {
+        AnimationController.PlayAnimation("death");
+        await Task.Delay((int)AnimationController.CurrentAnimationLength * 1000);
+        QueueFree();
+        GD.Print("ENEMY DYING");
     }
 
     #endregion
@@ -257,10 +322,7 @@ public partial class Slime : Enemy
     {
         _isMoving = false;
         AnimationController.PlayAnimation("digIn");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         
-        // await DigOut();
-        // _isMoving = true;
     }
 
     private void OnDigInAnimationFinished(string animName)
@@ -276,15 +338,13 @@ public partial class Slime : Enemy
         if (digOutPos.Equals(Vector2.Zero)) return;
         Position = digOutPos;
         AnimationController.PlayAnimation("digOut");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-        //
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        DecideMoveTargetPosition();
     }
 
     private void OnDigOutAnimationFinished(string animName)
     {
         if (animName != "digOut") return;
-        AnimationController.PlayAnimation("idle");
+        _isMoving = true;
     }
 
     #endregion
@@ -294,7 +354,7 @@ public partial class Slime : Enemy
     private void Idle()
     {
         AnimationController.PlayAnimation("idle");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        
     }
 
     private void OnIdleAnimationFinished(string animName)
@@ -309,7 +369,7 @@ public partial class Slime : Enemy
     #endregion
 
     #region Physics
-
+    
     #region Gravity
 
     [Export] private bool _isGrounded;
@@ -338,11 +398,11 @@ public partial class Slime : Enemy
     private void OnCellBlockExit(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
-        GD.Print($"enemy NOT collided with mine: {hasCollidedWithMine})");
+        // GD.Print($"enemy NOT collided with mine: {hasCollidedWithMine})");
         if (hasCollidedWithMine)
         {
             _isGrounded = false;
-            GD.Print("is Falling");
+            // GD.Print("is Falling");
         }
     }
     
@@ -374,7 +434,7 @@ public partial class Slime : Enemy
     {
         var playerDirection = _playerControllerVariables.PlayerDirection;
         var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
-        Velocity = knockBackDirection;
+        Velocity = Velocity.Lerp(knockBackDirection, 0.2f);
         MoveAndSlide();
     }
 

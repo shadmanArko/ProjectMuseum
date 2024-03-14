@@ -6,6 +6,7 @@ using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
+using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService.MineOrdinaryCellGeneratorService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
@@ -29,8 +30,9 @@ public class MineController : ControllerBase
     private readonly IWallPlaceableService _wallPlaceableService;
     private readonly ICaveGeneratorService _caveGeneratorService;
     private readonly ISpecialBackdropService _specialBackdropService;
+    private readonly IProceduralMineGenerationService _proceduralMineGenerationService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService, IProceduralMineGenerationService proceduralMineGenerationService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -42,6 +44,7 @@ public class MineController : ControllerBase
         _wallPlaceableService = wallPlaceableService;
         _caveGeneratorService = caveGeneratorService;
         _specialBackdropService = specialBackdropService;
+        _proceduralMineGenerationService = proceduralMineGenerationService;
     }
 
     [HttpGet("GetMineData")]
@@ -71,6 +74,13 @@ public class MineController : ControllerBase
     //     var mine = await _mineOrdinaryCellGeneratorService.GenerateMineCellData();
     //     return Ok(mine);
     // }
+    
+    [HttpGet("GenerateProceduralMine")]
+    public async Task<IActionResult> GenerateProceduralMine()
+    {
+        var mine = await _proceduralMineGenerationService.GenerateProceduralMine();
+        return Ok(mine);
+    }
 
     [HttpGet("AssignArtifactsToMine")]
     public async Task<IActionResult> AssignArtifactsToMine()

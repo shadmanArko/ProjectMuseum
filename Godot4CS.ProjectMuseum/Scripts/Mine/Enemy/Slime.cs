@@ -74,7 +74,7 @@ public partial class Slime : Enemy
         StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
-        Phase = EnemyPhase.Loiter;
+        Phase = EnemyPhase.Teleport;
         CanMove = false;
         _isMoving = false;
         SetPhysicsProcess(false);
@@ -84,6 +84,8 @@ public partial class Slime : Enemy
     {
         IsDead = false;
         Health = 100;
+        DecideMoveTargetPosition();
+        CanMove = true;
         SetPhysicsProcess(true);
     }
 
@@ -115,7 +117,9 @@ public partial class Slime : Enemy
             }
         }
         else
+        {
             Phase = EnemyPhase.Loiter;
+        }
 
         switch (Phase)
         {
@@ -146,9 +150,11 @@ public partial class Slime : Enemy
     private void DecideMoveTargetPosition()
     {
         var tuple = _enemyAi.DetermineLoiteringPath(Position);
+        GD.Print($"tuple is null: {tuple == null}");
         if (tuple == null) return;
         _leftPos = tuple.Item1;
         _rightPos = tuple.Item2;
+        GD.Print($"leftPos: {_leftPos}, rightPos: {_rightPos}");
 
         _targetPos = _leftPos;
         MoveDirection = Vector2.Left;

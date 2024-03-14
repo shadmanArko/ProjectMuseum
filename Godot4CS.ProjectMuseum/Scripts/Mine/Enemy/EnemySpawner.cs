@@ -117,7 +117,7 @@ public partial class EnemySpawner : Node2D
             _enemies.Add(_newEnemy);
         _newEnemy.IsAffectedByGravity = true;
         _newEnemy.OnSpawn?.Invoke();
-        _newEnemy.Phase = EnemyPhase.Loiter;
+        _newEnemy.Phase = EnemyPhase.Teleport;
         _newEnemy = null;
     }
     
@@ -134,8 +134,9 @@ public partial class EnemySpawner : Node2D
         else
         {
             var targetCell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
+            var offset = new Vector2(_mineGenerationVariables.Mine.CellSize / 2f,0);
             _p0 = enemy.Position;
-            _p2 = new Vector2(targetCell.PositionX,targetCell.PositionY) * _mineGenerationVariables.Mine.CellSize;
+            _p2 = new Vector2(targetCell.PositionX,targetCell.PositionY) * _mineGenerationVariables.Mine.CellSize + offset;
             _p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 50);
             
             SetPhysicsProcess(true);

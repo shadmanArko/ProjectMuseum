@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
@@ -30,6 +31,7 @@ public partial class MineGenerationController : Node2D
 
 	[Export] private CanvasLayer _savingCanvas;
 	[Export] private Node2D _mineBackGround;
+	private LoadingBarManager _loadingBarManager;
 
 	public override void _EnterTree()
 	{
@@ -44,10 +46,12 @@ public partial class MineGenerationController : Node2D
 	public override void _Ready()
 	{
 		_mineGenerationView = GetNode<MineGenerationView>("Mine");
+		_loadingBarManager = ReferenceStorage.Instance.LoadingBarManager;
 		_mineGenerationVariables.MineGenView = _mineGenerationView;
 		_savingCanvas.Visible = false;
 		
 		_mineBackGround.Position = new Vector2(482, -107);
+		_loadingBarManager.EmitSignal("IncreaseRegisteredTask");
 	}
 
 	#region Http Requests
@@ -246,6 +250,8 @@ public partial class MineGenerationController : Node2D
 		}
 
 		MineSetCellConditions.SetBackdropDuringMineGeneration(_mineGenerationVariables);
+		MineActions.OnMineGenerated?.Invoke();
+		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
 	}
     
 	#endregion

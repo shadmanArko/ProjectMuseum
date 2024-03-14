@@ -5,14 +5,14 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
-public partial class EnemyCollisionDetector : Area2D
+public partial class EnemyCollisionDetector : Node2D
 {
     [Export] private Enemy _enemy;
     
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     
-    [Export] private Timer _enemyCooldownTimer;
+    [Export] private Timer _attackCooldownTimer;
     [Export] private bool _enemyCooldown;
 
     public override void _Ready()
@@ -24,37 +24,53 @@ public partial class EnemyCollisionDetector : Area2D
     private void OnEnemyAttackCooldownTimeOut()
     {
         _enemyCooldown = false;
+        if (_enemy.IsInAttackRange && _enemy.Phase == EnemyPhase.Combat)
+            _enemy.IsAttacking = true;
     }
+    
+    #region Attack Range
 
-    public void AttackPlayer(Node2D body)
+    private void OnPlayerEnterAttackRange(Node2D body)
     {
         var player = body as PlayerController;
         if(player == null) return;
-        if(_playerControllerVariables.IsDead) return;
-        
-
-        // if (_enemy!.State != EnemyState.DigIn && !_enemyCooldown)
-        // {
-        //     _enemy!.State = EnemyState.Attack;
-        //     _enemy.Attack();
-        //     _enemyCooldown = true;
-        //     GD.Print("Enemy cooldown is true");
-        //     GD.Print("ENEMY ATTACKING PLAYER");
-        // }
+        if(_enemyCooldown) return;
+        _enemy.IsInAttackRange = true;
+        _enemy.Phase = EnemyPhase.Combat;
+        _enemy.IsAttacking = true;
+        _enemyCooldown = true;
     }
 
-    #region Chase Area
-
-    private void OnPlayerEnteredIntoRange()
+    private void OnPlayerExitAttackRange(Node2D body)
     {
-        _enemy.IsAggro = true;
-    }
-
-    private void OnPlayerExitedFromRange()
-    {
-        _enemy.IsAggro = false;
+        var player = body as PlayerController;
+        if(player == null) return;
+        _enemy.IsInAttackRange = false;
+        _enemy.IsAttacking = false;
+        _enemy.Phase = EnemyPhase.Chase;
+        GD.Print($"Player exited ATTACK region, isAttacking:{_enemy.IsAttacking}");
     }
 
     #endregion
     
+    #region Chase Range
+
+    private void OnPlayerEnterChaseRange(Node2D body)
+    {
+        var player = body as PlayerController;
+        if(player == null) return;
+        _enemy.IsAggro = true;
+        GD.Print($"Player entered chase region, enemy.IsAggro:{_enemy.IsAggro}");
+    }
+
+    private void OnPlayerExitChaseRange(Node2D body)
+    {
+        var player = body as PlayerController;
+        if(player == null) return;
+        _enemy.IsAggro = false;
+        GD.Print($"Player exited chase region, enemy.IsAggro:{_enemy.IsAggro}");
+    }
+
+    #endregion
+
 }

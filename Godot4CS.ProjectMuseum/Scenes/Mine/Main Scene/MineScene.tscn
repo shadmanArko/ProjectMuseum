@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=29 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
+[ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
 [ext_resource type="PackedScene" uid="uid://bqltyu2fgvmyp" path="res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn" id="3_ambmn"]
 [ext_resource type="PackedScene" uid="uid://bojefr3ulps6k" path="res://Scenes/Mine/Sub Scenes/Enemies/EnemySpawner.tscn" id="4_xj3qh"]
@@ -31,13 +32,17 @@
 [node name="MineScene" type="Node2D"]
 script = ExtResource("1_rq1hl")
 
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("_hSlider", "_canvasLayer") instance=ExtResource("2_deqi7")]
+_hSlider = NodePath("CanvasLayer/Control/Panel/ColorRect/HSlider")
+_canvasLayer = NodePath("CanvasLayer")
+
 [node name="MineSceneInitializer" type="Node" parent="." node_paths=PackedStringArray("_rootNode")]
 script = ExtResource("2_t7o23")
 _rootNode = NodePath("..")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -48,6 +53,7 @@ CameraController = NodePath("../CameraController")
 MineTimeSystem = NodePath("../MineUI/TimeSystem")
 SceneLoader = NodePath("../SceneLoader")
 DamageSystem = NodePath("../DamageSystem")
+LoadingBarManager = NodePath("../LoadingScene")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")

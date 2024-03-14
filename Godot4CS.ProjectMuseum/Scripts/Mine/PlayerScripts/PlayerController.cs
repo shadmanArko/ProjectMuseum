@@ -1,7 +1,6 @@
 using System;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
@@ -9,7 +8,7 @@ using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
-public partial class PlayerController : CharacterBody2D, IDamagable, IAttack, IDeath
+public partial class PlayerController : CharacterBody2D, IDeath
 {
 	[Export] public AnimationController animationController;
 

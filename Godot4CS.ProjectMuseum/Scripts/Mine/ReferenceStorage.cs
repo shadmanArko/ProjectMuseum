@@ -1,5 +1,6 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
@@ -26,6 +27,7 @@ public partial class ReferenceStorage : Node
     [Export] public Plugins.Time_System.MineTimeSystem.Scripts.MineTimeSystem MineTimeSystem;
     [Export] public SceneLoader SceneLoader;
     [Export] public DamageSystem DamageSystem;
+    [Export] public LoadingBarManager LoadingBarManager;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;

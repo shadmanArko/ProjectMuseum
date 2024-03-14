@@ -1,10 +1,11 @@
-[gd_scene load_steps=39 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=41 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/EnemyAnimationController.cs" id="3_5dxjc"]
 [ext_resource type="Texture2D" uid="uid://bsn0ka4exkaib" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarUnder.png" id="4_xjuh4"]
 [ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="5_5ggxd"]
+[ext_resource type="Script" path="res://Scripts/Mine/Enemy/EnemyCollisionDetector.cs" id="6_u3wtp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0lmqb"]
 radius = 3.0
@@ -296,6 +297,9 @@ graph_offset = Vector2(0, -13.7009)
 [sub_resource type="CircleShape2D" id="CircleShape2D_o0ghe"]
 radius = 60.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rtna"]
+size = Vector2(8, 3)
+
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("NavAgent", "AnimTree", "HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
@@ -303,6 +307,7 @@ z_index = 10
 collision_layer = 4
 script = ExtResource("1_pkl74")
 _moveVelocity = 20.0
+_gravity = 20.0
 NavAgent = NodePath("NavigationAgent2D")
 AnimTree = NodePath("AnimationTree")
 HealthBar = NodePath("Health Bar")
@@ -376,9 +381,29 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_o0ghe")
 debug_color = Color(0, 0.164706, 0.701961, 0.419608)
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[node name="GravityArea" type="Area2D" parent="Area2D Nodes"]
+position = Vector2(0, 16)
+collision_layer = 4
+
+[node name="GravityCollision" type="CollisionShape2D" parent="Area2D Nodes/GravityArea"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_0rtna")
+
+[node name="EnemyAttackInitiator" type="Node2D" parent="." node_paths=PackedStringArray("_enemy")]
+script = ExtResource("6_u3wtp")
+_enemy = NodePath("..")
+
+[node name="AttackCooldownTimer" type="Timer" parent="EnemyAttackInitiator"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
-[connection signal="body_entered" from="Area2D Nodes/AttackArea" to="." method="OnPlayerEnterAttackRange"]
-[connection signal="body_exited" from="Area2D Nodes/AttackArea" to="." method="OnPlayerExitAttackRange"]
-[connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="." method="OnPlayerEnterChaseRange"]
-[connection signal="body_exited" from="Area2D Nodes/ChaseArea" to="." method="OnPlayerExitChaseRange"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
+[connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
+[connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]
+[connection signal="body_exited" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerExitChaseRange"]
+[connection signal="body_entered" from="Area2D Nodes/GravityArea" to="." method="OnCellBlockEnter"]
+[connection signal="body_exited" from="Area2D Nodes/GravityArea" to="." method="OnCellBlockExit"]
+[connection signal="timeout" from="EnemyAttackInitiator/AttackCooldownTimer" to="EnemyAttackInitiator" method="OnEnemyAttackCooldownTimeOut"]

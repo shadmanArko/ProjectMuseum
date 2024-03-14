@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
@@ -6,12 +7,28 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces.Movement;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
-public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamagable, IDeath
+public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
 {
     public string Id { get; set; }
     [Export] public NavigationAgent2D NavAgent { get; set; }
     [Export] public Timer TrackTimer { get; set; }
     [Export] protected AnimationTree AnimTree;
+
+    #region Phase
+
+    private EnemyPhase _phase;
+    public EnemyPhase Phase 
+    { 
+        get=> _phase;
+        set
+        {
+            if(_phase != value)
+                GD.Print($"Phase changed to: {value}");
+            _phase = value;
+        }
+    }
+
+    #endregion
     
     public EnemyState State { get; set; }
     public bool IsAffectedByGravity { get; set; }
@@ -21,22 +38,19 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
     
     [Export] public bool IsGoingToStartingPosition;
     [Export] public bool IsGoingToEndingPosition;
-    protected Vector2 StartingMovementPosition;
-    protected Vector2 EndingMovementPosition;
+    // protected Vector2 StartingMovementPosition;
+    // protected Vector2 EndingMovementPosition;
     
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;
     [Export] public float KnockBackPower = 500f;
-    // [Export] public bool IsAggro;
-    // [Export] public bool IsAttacking;
-    // [Export] public bool CanMove;
     
     [Export] public TextureProgressBar HealthBar;
     [Export] public EnemyAnimationController AnimationController;
 
     #region Actions
 
-    public Action OnInstantiate;
+    public Action OnSpawn;
     public Action OnDeath;
     public Action OnAggroChanged;
     public Action OnAttackChanged;
@@ -58,6 +72,18 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
             _isDead = value;
             OnDeath?.Invoke();
         }
+    }
+
+    #endregion
+
+    #region Is Taking Damage
+
+    [Export] private bool _isTakingDamage;
+
+    public bool IsTakingDamage
+    {
+        get => _isTakingDamage;
+        set => _isTakingDamage = value;
     }
 
     #endregion
@@ -110,6 +136,28 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
 
     #endregion
 
+    #region Is Idle
+
+    [Export] private bool _isIdle;
+
+    public bool IsIdle
+    {
+        get => _isIdle;
+        set => _isIdle = value;
+    }
+
+    #endregion
+    
+    #region Is In Attack Range
+
+    [Export] private bool _isInAttackRange;
+    public bool IsInAttackRange {
+        get=> _isInAttackRange;
+        set => _isInAttackRange = value;
+    }
+
+    #endregion
+
     #region Health
 
     private int _health;
@@ -129,14 +177,14 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
 
     #endregion
     
-    public virtual void Chase()
+    public virtual Task Chase()
     {
-        
+        return null;
     }
 
-    public virtual void Attack()
+    public virtual Task Attack()
     {
-        
+        return null;
     }
 
     public virtual void TakeDamage()
@@ -146,6 +194,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IAttack, IDamaga
 
     public virtual void Death()
     {
+        
         GD.Print("Enemy Death Called");
     }
 }

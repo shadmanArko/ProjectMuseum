@@ -26,19 +26,12 @@ public partial class AutoAnimationController : Node2D
 	public override void _EnterTree()
 	{
 		InitializeDiReferences();
+		SubscribeToActions();
 	}
-	
+
 	public override void _Ready()
 	{
-		_animationController = _playerControllerVariables.Player.animationController;
-		_playerController = _playerControllerVariables.Player;
-		_playerControllerVariables.Player.Position = new Vector2(250, -58);
-		_playerControllerVariables.CanMove = false;
-		_playerControllerVariables.IsAffectedByGravity = false;
-		_time = 0;
-		_playerControllerVariables.Gravity = 0;
-		_playerControllerVariables.State = MotionState.Grounded;
-		SetProcess(true);
+		SetProcess(false);
 		SetPhysicsProcess(false);
 	}
 
@@ -49,6 +42,13 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 	}
+	
+	private void SubscribeToActions()
+	{
+		MineActions.OnMineGenerated += SetPlayerRun;
+	}
+
+	#region Processes
 
 	public override void _Process(double delta)
 	{
@@ -63,8 +63,24 @@ public partial class AutoAnimationController : Node2D
 		if(_playerControllerVariables.Position.Y < _p2.Y+10) return;
 		ActionsToPerformAfterPlayerLandsIntoTheMine();
 	}
+
+	#endregion
     
 	#region Auto Animations
+	
+	public void SetPlayerRun()
+	{
+		_animationController = _playerControllerVariables.Player.animationController;
+		_playerController = _playerControllerVariables.Player;
+		_playerControllerVariables.Player.Position = new Vector2(250, -58);
+		_playerControllerVariables.CanMove = false;
+		_playerControllerVariables.IsAffectedByGravity = false;
+		_time = 0;
+		_playerControllerVariables.Gravity = 0;
+		_playerControllerVariables.State = MotionState.Grounded;
+		SetProcess(true);
+		SetPhysicsProcess(false);
+	}
 
 	private void AutoMoveToPosition(float delta)
 	{
@@ -104,12 +120,10 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.IsAffectedByGravity = true;
 		_playerControllerVariables.Gravity = 30f;
 		_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
-	
-		//TODO: TURN ON THIS IF YOU WANT TUTORIALS
+        
 		var isTutorialPlaying = ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying();
 		var firstDayPassed = ReferenceStorage.Instance.MineTimeSystem.GetTime().Days > 1;
-		
-		//TODO: For testing purposes turn off tutorial and turn these on
+        
 		if (isTutorialPlaying && !firstDayPassed)
 			await ReferenceStorage.Instance.MineTutorial.PlayMineTutorials();
 		else
@@ -122,5 +136,15 @@ public partial class AutoAnimationController : Node2D
 		}
         
 		ReferenceStorage.Instance.MineTimeSystem.PlayTimer();
+	}
+
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnMineGenerated -= SetPlayerRun;
+	}
+
+	public override void _ExitTree()
+	{
+		UnsubscribeToActions();
 	}
 }

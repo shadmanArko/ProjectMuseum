@@ -43,7 +43,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     ExhibitId = "string",
                     HangingLightId = "string"
                 };
-                if ((x== 0 || y==0 ) && !(x ==0 && y== -2))
+                if ((x== 0 || y==0 ) && !((x ==0 && y== -7) || (x ==0 && y== -8)))
                 {
                     museumTile.Walkable = false;
                 }

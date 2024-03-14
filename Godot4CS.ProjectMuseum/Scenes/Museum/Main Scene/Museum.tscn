@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=62 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -50,7 +50,8 @@
 [ext_resource type="Texture2D" uid="uid://dmmsxb8jxs57x" path="res://Assets/2D/Sprites/Decorations/wooden bench.png" id="39_vhpcv"]
 [ext_resource type="Texture2D" uid="uid://23336ohioufw" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png" id="39_yuyho"]
 [ext_resource type="Texture2D" uid="uid://c5d4q1m13dh1v" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_Stop_Bench.png" id="41_8xrmn"]
-[ext_resource type="Texture2D" uid="uid://cf0xub5wtlxnw" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_Stop_Wall.png" id="42_3bnw5"]
+[ext_resource type="Texture2D" uid="uid://dkqp1nebj8a5" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_stop_sign.png" id="42_2k8e8"]
+[ext_resource type="Texture2D" uid="uid://sf3r714lt6yh" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_Stop_Walls.png" id="42_fq60h"]
 [ext_resource type="Texture2D" uid="uid://b3crx3sxcjcmp" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_open.png" id="42_pnn6c"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
@@ -158,7 +159,7 @@ _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/Trai
 _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(-85, -151)
+position = Vector2(98, -44)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
@@ -166,7 +167,7 @@ _characterSprite = NodePath("Sprite2D")
 
 [node name="Emily" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("24_vxlv2")]
 position = Vector2(132, -52)
-_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -7), Vector2i(-5, -8)])
 _museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_back_facing"
 _counterCoordinate = Vector2i(-1, -11)
@@ -176,7 +177,7 @@ _characterSprite = NodePath("Sprite2D")
 
 [node name="Alex" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("25_qfbsa")]
 position = Vector2(132, -49)
-_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-6, -5)])
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -7), Vector2i(-6, -8)])
 _museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_front_facing"
 _animationPlayer = NodePath("PlayerAnimation")
@@ -184,7 +185,7 @@ _characterSprite = NodePath("Sprite2D")
 
 [node name="Player_Uncontrolled" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_1kq7h")]
 position = Vector2(128, -44)
-_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -4)])
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -7), Vector2i(-5, -8)])
 _museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_back_facing"
 _animationPlayer = NodePath("PlayerAnimation")
@@ -192,7 +193,7 @@ _characterSprite = NodePath("Sprite2D")
 
 [node name="Professor" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_yibo3")]
 position = Vector2(118, -52)
-_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -6)])
+_professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -7), Vector2i(-5, -9)])
 _museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_front_facing"
 _lookAheadDistance = 1.0
@@ -225,7 +226,7 @@ y_sort_enabled = true
 [node name="TicketCounter" type="Sprite2D" parent="museum/ItemParents"]
 z_index = 1
 texture_filter = 1
-position = Vector2(154, -80)
+position = Vector2(147, -86)
 texture = ExtResource("48_piabe")
 hframes = 4
 frame = 1
@@ -393,11 +394,62 @@ z_index = 1
 position = Vector2(-319, -207)
 texture = ExtResource("41_8xrmn")
 
-[node name="BusStopWall" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+[node name="BusStopSign" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
 z_index = 1
-position = Vector2(-287, -183)
-texture = ExtResource("42_3bnw5")
-offset = Vector2(-21.87, -47.28)
+position = Vector2(-379, -201)
+texture = ExtResource("42_2k8e8")
+offset = Vector2(0, -31.61)
+
+[node name="walls" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+y_sort_enabled = true
+position = Vector2(0, -9)
+
+[node name="BusStopWall" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
+z_index = 1
+position = Vector2(-343.34, -195)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -27.495)
+hframes = 6
+
+[node name="BusStopWall2" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
+z_index = 1
+position = Vector2(-327.665, -196)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -27.12)
+hframes = 6
+frame = 1
+
+[node name="BusStopWall3" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
+z_index = 1
+position = Vector2(-312, -191.34)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -31.825)
+hframes = 6
+frame = 2
+
+[node name="BusStopWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
+z_index = 1
+position = Vector2(-297, -188)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -35.125)
+hframes = 6
+frame = 3
+
+[node name="BusStopWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
+z_index = 1
+position = Vector2(-282, -179)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -44.085)
+hframes = 6
+frame = 4
+
+[node name="BusStopWall6" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
+z_index = 1
+position = Vector2(-267, -175)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -48.08)
+hframes = 6
+frame = 5
 
 [node name="FrontWalls" type="Node2D" parent="museum"]
 modulate = Color(1, 1, 1, 0.235294)
@@ -773,7 +825,7 @@ script = ExtResource("26_vw67d")
 
 [node name="DayEndController" type="Node2D" parent="."]
 script = ExtResource("27_mm5mn")
-_dayEndTileCoord = Vector2i(-1, -1)
+_dayEndTileCoord = Vector2i(-1, -5)
 
 [node name="StoryController" type="Node2D" parent="."]
 script = ExtResource("29_6vdgp")

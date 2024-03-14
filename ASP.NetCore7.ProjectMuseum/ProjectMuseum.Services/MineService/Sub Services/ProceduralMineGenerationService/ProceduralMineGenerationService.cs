@@ -1,4 +1,5 @@
 using System.Numerics;
+using ProjectMuseum.Models;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineGenerationRepository;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
@@ -19,6 +20,19 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         _mineOrdinaryCellGeneratorService = mineOrdinaryCellGeneratorService;
         _caveGeneratorService = caveGeneratorService;
         _mineRepository = mineRepository;
+    }
+
+    public async Task<Mine> GenerateProceduralMine()
+    {
+        await GenerateMineOrdinaryCells();
+        await GenerateBossCave();
+        await GenerateCaves();
+        await GenerateSpecialBackdrops();
+        await GenerateArtifacts();
+        await GenerateResources();
+        await GenerateUnbreakableRocks();
+        var mine = await _mineRepository.Get();
+        return mine;
     }
     
     public async Task GenerateMineOrdinaryCells()

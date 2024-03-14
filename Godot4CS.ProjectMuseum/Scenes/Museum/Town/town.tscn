@@ -22,6 +22,21 @@
 [ext_resource type="Texture2D" uid="uid://bctxfkps1ledr" path="res://Assets/2D/Sprites/Town/grass.png" id="17_pei67"]
 [ext_resource type="Texture2D" uid="uid://bwa5xyu1hry00" path="res://Assets/2D/Sprites/Museum Ui/town map pointer.png" id="21_04t4b"]
 
+[sub_resource type="Animation" id="Animation_xtnbv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-45.95, 26)]
+}
+
 [sub_resource type="Animation" id="Animation_yc8nh"]
 resource_name = "indicate"
 length = 0.6
@@ -37,21 +52,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-45.95, 26), Vector2(-78.03, 26)]
-}
-
-[sub_resource type="Animation" id="Animation_xtnbv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-45.95, 26)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wcxd2"]

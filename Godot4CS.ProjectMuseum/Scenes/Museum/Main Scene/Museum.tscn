@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=61 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -47,6 +47,11 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Texture2D" uid="uid://dqxxlhwk73rf0" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2 .png" id="38_0ce5p"]
 [ext_resource type="Texture2D" uid="uid://dte0ud6xw186v" path="res://Assets/2D/Sprites/Wallpapers/Front_walls_TRIAL.png" id="39_gbjs6"]
+[ext_resource type="Texture2D" uid="uid://dmmsxb8jxs57x" path="res://Assets/2D/Sprites/Decorations/wooden bench.png" id="39_vhpcv"]
+[ext_resource type="Texture2D" uid="uid://23336ohioufw" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png" id="39_yuyho"]
+[ext_resource type="Texture2D" uid="uid://c5d4q1m13dh1v" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_Stop_Bench.png" id="41_8xrmn"]
+[ext_resource type="Texture2D" uid="uid://cf0xub5wtlxnw" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_Stop_Wall.png" id="42_3bnw5"]
+[ext_resource type="Texture2D" uid="uid://b3crx3sxcjcmp" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_open.png" id="42_pnn6c"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
@@ -60,9 +65,6 @@ load_path = "res://.godot/imported/isomatric forest chunk.png-39e4fad63e208a2655
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rxu60"]
-load_path = "res://.godot/imported/ROAD CHUNK 3.png-1a349ae25255dbc405c1d150b45243d6.ctex"
-
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
 
@@ -74,10 +76,10 @@ _canvasLayer = NodePath("CanvasLayer")
 y_sort_enabled = true
 script = ExtResource("1_3ql1b")
 _outsideWalkableArea = {
-Vector2i(-83, 3): Vector2i(3, 2),
+Vector2i(-83, 3): Vector2i(3, 3),
 Vector2i(-3, 18): Vector2i(2, 4),
-Vector2i(0, -2): Vector2i(1, -2),
-Vector2i(2, 1): Vector2i(3, -83),
+Vector2i(0, -7): Vector2i(2, -8),
+Vector2i(3, 1): Vector2i(3, -83),
 Vector2i(18, 3): Vector2i(4, -4)
 }
 
@@ -156,44 +158,42 @@ _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/Trai
 _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(48, -87)
+position = Vector2(-85, -151)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Emily" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("24_vxlv2")]
-position = Vector2(54, -14)
+position = Vector2(132, -52)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -5)])
-_museumExitingCoordinate = Vector2i(0, -2)
+_museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_back_facing"
-_counterCoordinate = Vector2i(0, -5)
+_counterCoordinate = Vector2i(-1, -11)
 _animationNameAfterStandingInCounter = "idle_front_facing"
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Alex" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("25_qfbsa")]
-position = Vector2(54, -11)
+position = Vector2(132, -49)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-6, -5)])
-_museumExitingCoordinate = Vector2i(0, -2)
+_museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_front_facing"
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Player_Uncontrolled" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_1kq7h")]
-visible = false
-position = Vector2(50, -6)
+position = Vector2(128, -44)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -4)])
-_museumExitingCoordinate = Vector2i(0, -2)
+_museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_back_facing"
 _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Professor" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_yibo3")]
-visible = false
-position = Vector2(40, -14)
+position = Vector2(118, -52)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -3), Vector2i(-5, -6)])
-_museumExitingCoordinate = Vector2i(0, -2)
+_museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_front_facing"
 _lookAheadDistance = 1.0
 _animationPlayer = NodePath("PlayerAnimation")
@@ -204,8 +204,8 @@ y_sort_enabled = true
 script = ExtResource("18_iea1i")
 _guestScene = ExtResource("30_4n4bn")
 _spawnAtTile = Vector2i(0, -2)
-_spawnInterval = 2.0
-_sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 2), Vector2i(-83, 3), Vector2i(2, -83), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
+_spawnInterval = 1.0
+_sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 3), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
 
 [node name="StreetLamp" parent="museum/GuestsController" instance=ExtResource("30_x0exq")]
 position = Vector2(-423, -151.5)
@@ -225,7 +225,7 @@ y_sort_enabled = true
 [node name="TicketCounter" type="Sprite2D" parent="museum/ItemParents"]
 z_index = 1
 texture_filter = 1
-position = Vector2(64, -41)
+position = Vector2(154, -80)
 texture = ExtResource("48_piabe")
 hframes = 4
 frame = 1
@@ -248,6 +248,7 @@ _loadingBarManager = NodePath("../../LoadingScene")
 script = ExtResource("18_rds1y")
 
 [node name="EntryGateOld" type="Sprite2D" parent="museum"]
+visible = false
 z_index = 1
 texture_filter = 1
 position = Vector2(58, -1)
@@ -339,17 +340,17 @@ position = Vector2(0, 23)
 
 [node name="RoadChunk" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(665, -188)
+position = Vector2(663, -187)
 texture = SubResource("CompressedTexture2D_vpg7c")
 
 [node name="RoadChunk5" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(-634, -187)
+position = Vector2(-633, -187)
 texture = ExtResource("38_0ce5p")
 
 [node name="RoadChunk6" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(-971, -355)
+position = Vector2(-970, -355)
 texture = ExtResource("38_0ce5p")
 
 [node name="RoadChunk7" type="Sprite2D" parent="museum/Background Foresnt/Road"]
@@ -359,19 +360,44 @@ texture = ExtResource("38_0ce5p")
 
 [node name="RoadChunk2" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(1001, -356)
+position = Vector2(999, -355)
 texture = SubResource("CompressedTexture2D_vpg7c")
 
 [node name="RoadChunk4" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 texture_filter = 1
-position = Vector2(1339, -524)
+position = Vector2(1335, -523)
 texture = SubResource("CompressedTexture2D_vpg7c")
 
 [node name="RoadChunk3" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 z_index = 1
+y_sort_enabled = true
 texture_filter = 1
-position = Vector2(15, -7)
-texture = SubResource("CompressedTexture2D_rxu60")
+position = Vector2(15, 54)
+texture = ExtResource("39_yuyho")
+
+[node name="WoodenBench" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(-213, -157)
+texture = ExtResource("39_vhpcv")
+hframes = 4
+frame = 1
+
+[node name="WoodenBench2" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(301, -200)
+texture = ExtResource("39_vhpcv")
+hframes = 4
+
+[node name="BusStopBench" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(-319, -207)
+texture = ExtResource("41_8xrmn")
+
+[node name="BusStopWall" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(-287, -183)
+texture = ExtResource("42_3bnw5")
+offset = Vector2(-21.87, -47.28)
 
 [node name="FrontWalls" type="Node2D" parent="museum"]
 modulate = Color(1, 1, 1, 0.235294)
@@ -428,6 +454,15 @@ offset = Vector2(0, -49)
 hframes = 3
 frame = 2
 
+[node name="FrontWall10" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
+position = Vector2(46, -46)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("39_gbjs6")
+offset = Vector2(0, -49)
+hframes = 3
+frame = 2
+
 [node name="FrontWall8" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
 position = Vector2(78, -62)
 rotation = 3.14159
@@ -439,33 +474,6 @@ frame = 2
 
 [node name="FrontWall9" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
 position = Vector2(94, -70)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("39_gbjs6")
-offset = Vector2(0, -49)
-hframes = 3
-frame = 2
-
-[node name="FrontWall10" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
-position = Vector2(110, -78)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("39_gbjs6")
-offset = Vector2(0, -49)
-hframes = 3
-frame = 2
-
-[node name="FrontWall11" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
-position = Vector2(126, -86)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("39_gbjs6")
-offset = Vector2(0, -49)
-hframes = 3
-frame = 2
-
-[node name="FrontWall12" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
-position = Vector2(142, -94)
 rotation = 3.14159
 scale = Vector2(1, -1)
 texture = ExtResource("39_gbjs6")
@@ -571,6 +579,11 @@ texture = ExtResource("39_gbjs6")
 offset = Vector2(0, -49)
 hframes = 3
 frame = 2
+
+[node name="EntryGateClose" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
+position = Vector2(127, -87)
+texture = ExtResource("42_pnn6c")
+offset = Vector2(0, -49)
 
 [node name="Left_front_wall" type="Node2D" parent="museum/FrontWalls"]
 z_index = 1

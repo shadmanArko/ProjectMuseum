@@ -43,7 +43,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
-[ext_resource type="Texture2D" uid="uid://dqxxlhwk73rf0" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2 .png" id="38_0ce5p"]
+[ext_resource type="Texture2D" uid="uid://dlovykj6658ca" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2 .png" id="38_0ce5p"]
 [ext_resource type="Texture2D" uid="uid://dte0ud6xw186v" path="res://Assets/2D/Sprites/Wallpapers/Front_walls_TRIAL.png" id="39_gbjs6"]
 [ext_resource type="Texture2D" uid="uid://dmmsxb8jxs57x" path="res://Assets/2D/Sprites/Decorations/wooden bench.png" id="39_vhpcv"]
 [ext_resource type="Texture2D" uid="uid://23336ohioufw" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png" id="39_yuyho"]

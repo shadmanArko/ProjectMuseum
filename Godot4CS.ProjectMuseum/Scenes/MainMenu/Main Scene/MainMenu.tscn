@@ -31,4 +31,5 @@ _warningPanel = NodePath("Panel/Warning UI")
 LoadingPanel = NodePath("Loading Panel")
 
 [node name="MainMenuMiscellaneousDataManager" type="Node2D" parent="."]
+process_mode = 4
 script = ExtResource("3_y8duy")

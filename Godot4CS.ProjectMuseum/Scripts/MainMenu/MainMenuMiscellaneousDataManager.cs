@@ -39,7 +39,7 @@ public partial class MainMenuMiscellaneousDataManager : Node2D
 	{
 		
 
-		TraverseSceneTree(GetTree().Root);
+		// TraverseSceneTree(GetTree().Root);
 	}
 	private void TraverseSceneTree(Node node)
 	{

@@ -1,1 +1,13 @@
-[{"Artifacts":[{"Id":"3","RawArtifactId":"MedievalNativeAmericanTomahawk","PositionX":24,"PositionY":2,"Slot":2}]}]
+[
+  {
+    "Artifacts": [
+      {
+        "Id": "4",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0
+      }
+    ]
+  }
+]

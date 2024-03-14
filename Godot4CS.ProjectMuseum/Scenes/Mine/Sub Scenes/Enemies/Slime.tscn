@@ -298,7 +298,7 @@ graph_offset = Vector2(0, -13.7009)
 radius = 60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rtna"]
-size = Vector2(8, 10)
+size = Vector2(8, 3)
 
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("NavAgent", "AnimTree", "HealthBar", "AnimationController")]
 light_mask = 3
@@ -307,6 +307,7 @@ z_index = 10
 collision_layer = 4
 script = ExtResource("1_pkl74")
 _moveVelocity = 20.0
+_gravity = 20.0
 NavAgent = NodePath("NavigationAgent2D")
 AnimTree = NodePath("AnimationTree")
 HealthBar = NodePath("Health Bar")
@@ -381,11 +382,11 @@ shape = SubResource("CircleShape2D_o0ghe")
 debug_color = Color(0, 0.164706, 0.701961, 0.419608)
 
 [node name="GravityArea" type="Area2D" parent="Area2D Nodes"]
-position = Vector2(0, 18)
+position = Vector2(0, 16)
 collision_layer = 4
 
 [node name="GravityCollision" type="CollisionShape2D" parent="Area2D Nodes/GravityArea"]
-position = Vector2(0, -5)
+position = Vector2(0, -8.5)
 shape = SubResource("RectangleShape2D_0rtna")
 
 [node name="EnemyAttackInitiator" type="Node2D" parent="." node_paths=PackedStringArray("_enemy")]
@@ -397,8 +398,8 @@ wait_time = 3.0
 autostart = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
 [connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
 [connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]

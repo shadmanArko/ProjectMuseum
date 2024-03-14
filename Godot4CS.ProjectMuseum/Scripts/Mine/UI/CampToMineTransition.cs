@@ -89,7 +89,7 @@ public partial class CampToMineTransition : Button
             ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
             HealthSystem.RestorePlayerFullHealth(200, _playerControllerVariables);
             EnergySystem.RestoreFullEnergy(200, _playerControllerVariables);
-            _autoAnimationController._Ready();
+            _autoAnimationController.SetPlayerRun();
         }
         else
             ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
@@ -97,7 +97,7 @@ public partial class CampToMineTransition : Button
 
     private void TransitionFromCampToMineOnTheSameDay()
     {
-        _autoAnimationController._Ready();
+        _autoAnimationController.SetPlayerRun();
     }
 
     private async void TransitFromCampToMuseum()

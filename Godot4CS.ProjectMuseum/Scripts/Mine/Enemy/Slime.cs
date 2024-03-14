@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -45,7 +44,7 @@ public partial class Slime : Enemy
         _targetPos = Vector2.Zero;
     }
 
-    public override async void _Input(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
         if (@event.IsActionReleased("Test"))
         {
@@ -77,14 +76,13 @@ public partial class Slime : Enemy
         Phase = EnemyPhase.Loiter;
         CanMove = true;
         _isMoving = true;
+        SetPhysicsProcess(false);
     }
 
     private void SetValuesOnSpawn()
     {
         IsDead = false;
         Health = 100;
-        
-        SetPhysicsProcess(false);
     }
 
     private void InitializeDiReferences()
@@ -103,24 +101,12 @@ public partial class Slime : Enemy
     
     public override async void _PhysicsProcess(double delta)
     {
-        await Chase();
-        // switch (Phase)
-        // {
-        //     case EnemyPhase.Loiter:
-        //         await Loiter();
-        //         break;
-        //     case EnemyPhase.Chase:
-        //         await Chase();
-        //         break;
-        //     case EnemyPhase.Teleport:
-        //         break;
-        //     case EnemyPhase.Hurt:
-        //         break;
-        //     case EnemyPhase.Combat:
-        //         break;
-        //     default:
-        //         throw new ArgumentOutOfRangeException();
-        // }
+        if (IsAggro)
+            await Chase();
+        else
+            await Loiter();
+        
+        ApplyGravity();
     }
 
     #region Phases
@@ -212,8 +198,7 @@ public partial class Slime : Enemy
     }
 
     #endregion
-
-
+    
     #endregion
     
     #region States
@@ -303,8 +288,7 @@ public partial class Slime : Enemy
     }
 
     #endregion
-
-
+    
     #region Idle
 
     private void Idle()
@@ -329,14 +313,14 @@ public partial class Slime : Enemy
     #region Gravity
 
     [Export] private bool _isGrounded;
-    private void ApplyGravity(float delta)
+    private void ApplyGravity()
     {
-        if(_isGrounded) return;
-        var velocity = Velocity;
-        velocity.X = 0f;
-        velocity.Y += _gravity * delta;
-        Velocity = velocity;
-
+        if (_isGrounded)
+        {
+            Velocity = new Vector2(Velocity.X, 0);
+            return;
+        }
+        Velocity = new Vector2(0, Velocity.Y + _gravity);
         MoveAndSlide();
     }
     

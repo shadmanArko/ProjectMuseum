@@ -36,7 +36,7 @@ public partial class EnemyCollisionDetector : Node2D
         var lookAtPlayer = new Vector2(_playerControllerVariables.Position.X - Position.X, 0).Normalized();
         _enemy.IsAttacking = true;
         _enemy.AnimationController.MoveDirection(lookAtPlayer);
-        // _enemy.AnimationController.PlayAnimation("attack");
+        _enemy.AnimationController.PlayAnimation("attack");
         player.TakeDamage();
         _enemyCooldown = true;
         GD.Print($"Player entered ATTACK region, isAttacking:{_enemy.IsAttacking}");

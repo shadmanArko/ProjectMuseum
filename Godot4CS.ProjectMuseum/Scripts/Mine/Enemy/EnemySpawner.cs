@@ -133,11 +133,11 @@ public partial class EnemySpawner : Node2D
         }
         else
         {
+            var targetCell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
             _p0 = enemy.Position;
-            _p2 = enemy.Position + new Vector2(-60, 0);
+            _p2 = enemy.Position + new Vector2(targetCell.PositionX,targetCell.PositionY) * _mineGenerationVariables.Mine.CellSize;
             _p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
-            //_autoMoveToPos = true;
-            // SetProcess(false);
+            
             SetPhysicsProcess(true);
         }
     }

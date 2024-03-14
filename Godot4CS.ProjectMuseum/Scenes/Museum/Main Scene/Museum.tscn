@@ -40,8 +40,6 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
 [ext_resource type="PackedScene" uid="uid://bf3cyd5cug7da" path="res://Scenes/Museum/Sub Scenes/GuestWithLayers.tscn" id="30_4n4bn"]
-[ext_resource type="PackedScene" path="res://Scenes/Museum/Sub Scenes/street_lamp_and_fire_hydrant.tscn" id="30_x0exq"]
-[ext_resource type="PackedScene" path="res://Scenes/Museum/Sub Scenes/street_lamp_and_fire_hydrant_right.tscn" id="31_umwqs"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
@@ -59,6 +57,8 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ItemPlacementController.cs" id="50_roy6j"]
 [ext_resource type="PackedScene" uid="uid://qulr4wwpgjqv" path="res://Scenes/Museum/Effects/1x1dustEffect.tscn" id="51_k8r31"]
 [ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
+[ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
+[ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2lj4t"]
 load_path = "res://.godot/imported/isomatric forest chunk.png-39e4fad63e208a2655db8d51e4c382bd.ctex"
@@ -207,18 +207,6 @@ _guestScene = ExtResource("30_4n4bn")
 _spawnAtTile = Vector2i(0, -2)
 _spawnInterval = 1.0
 _sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 3), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
-
-[node name="StreetLamp" parent="museum/GuestsController" instance=ExtResource("30_x0exq")]
-position = Vector2(-423, -151.5)
-
-[node name="StreetLamp2" parent="museum/GuestsController" instance=ExtResource("30_x0exq")]
-position = Vector2(-967, -422)
-
-[node name="StreetLamp3" parent="museum/GuestsController" instance=ExtResource("31_umwqs")]
-position = Vector2(424, -141)
-
-[node name="StreetLamp4" parent="museum/GuestsController" instance=ExtResource("31_umwqs")]
-position = Vector2(1011, -435)
 
 [node name="ItemParents" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -383,9 +371,41 @@ texture = ExtResource("39_vhpcv")
 hframes = 4
 frame = 1
 
+[node name="WoodenBench8" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(-543, -320)
+texture = ExtResource("39_vhpcv")
+hframes = 4
+frame = 1
+
+[node name="WoodenBench10" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(-877, -486)
+texture = ExtResource("39_vhpcv")
+hframes = 4
+frame = 1
+
 [node name="WoodenBench2" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
 z_index = 1
 position = Vector2(301, -200)
+texture = ExtResource("39_vhpcv")
+hframes = 4
+
+[node name="WoodenBench3" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(539, -323)
+texture = ExtResource("39_vhpcv")
+hframes = 4
+
+[node name="WoodenBench5" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(882, -492)
+texture = ExtResource("39_vhpcv")
+hframes = 4
+
+[node name="WoodenBench7" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
+position = Vector2(1213, -654)
 texture = ExtResource("39_vhpcv")
 hframes = 4
 
@@ -862,3 +882,26 @@ _controllersParent = NodePath(".")
 script = ExtResource("50_roy6j")
 _placementEffect1X1 = ExtResource("51_k8r31")
 _placementEffect2X2 = ExtResource("52_syimh")
+
+[node name="lamps and firehydrents" type="Node2D" parent="."]
+
+[node name="FireHydrant" parent="lamps and firehydrents" instance=ExtResource("58_d7sol")]
+z_index = 1
+position = Vector2(234, -87)
+
+[node name="StreetLamp" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
+
+[node name="StreetLamp2" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(583, -261)
+
+[node name="StreetLamp3" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(857, -397)
+
+[node name="StreetLamp4" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(-111, -35)
+
+[node name="StreetLamp5" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(-560, -261)
+
+[node name="StreetLamp6" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(-894, -428)

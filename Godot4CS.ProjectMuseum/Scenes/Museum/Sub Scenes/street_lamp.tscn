@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ukhmjsk0jnjt"]
+
+[ext_resource type="Texture2D" uid="uid://joc2s31s5jrh" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/street lamp.png" id="1_4nvq2"]
+
+[node name="StreetLamp" type="Sprite2D"]
+z_index = 1
+position = Vector2(344, -144)
+texture = ExtResource("1_4nvq2")
+offset = Vector2(0, -35.665)

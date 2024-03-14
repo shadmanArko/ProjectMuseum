@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=15 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="2_3c32r"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/LargeWoodenExhibitBasic.png" id="7_lgtob"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/DateTimeUi.cs" id="10_6y0pe"]
+[ext_resource type="Texture2D" uid="uid://cdttskiu31lta" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Digging_and_permits_button.png" id="11_7rcfi"]
 [ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="11_n0rbh"]
+[ext_resource type="Texture2D" uid="uid://xkttu35op33w" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Town_map_button.png" id="12_v8uf8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
@@ -294,6 +296,7 @@ offset_top = 78.0
 offset_right = -15.0
 offset_bottom = 142.0
 grow_horizontal = 0
+icon = ExtResource("11_7rcfi")
 
 [node name="TownMap Button" type="Button" parent="Right Panel"]
 layout_mode = 1
@@ -305,19 +308,19 @@ offset_top = -6.0
 offset_right = -15.0
 offset_bottom = 58.0
 grow_horizontal = 0
+icon = ExtResource("12_v8uf8")
 
 [node name="CheckButton" type="CheckButton" parent="Right Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -328.5
-offset_right = -19.0
-offset_bottom = -297.5
+offset_left = -92.0
+offset_top = -137.5
+offset_right = -7.0
+offset_bottom = -106.5
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)

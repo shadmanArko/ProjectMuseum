@@ -28,9 +28,9 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         await GenerateBossCave();
         await GenerateCaves();
         await GenerateSpecialBackdrops();
-        await GenerateArtifacts();
-        await GenerateResources();
-        await GenerateUnbreakableRocks();
+        // await GenerateArtifacts();
+        // await GenerateResources();
+        // await GenerateUnbreakableRocks();
         var mine = await _mineRepository.Get();
         return mine;
     }
@@ -109,12 +109,22 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
                 }
             }
 
-            foreach (var caveCell in possibleCaveCells)
+            for (int i = possibleCaveCells.Count - 1; i >= 0; i--)
             {
-                if (caveCell.X != 0 && (int)caveCell.X != mineGenData.MineSizeX - 1 &&
-                    caveCell.Y != 0 && (int)caveCell.Y != mineGenData.MineSizeY - 1) continue;
-                possibleCaveCells.Remove(caveCell);
-                if (occupiedCaveCells.Contains(caveCell)) continue;
+                var caveCell = possibleCaveCells[i];
+                if (caveCell.X != 0 && caveCell.X != mineGenData.MineSizeX - 1 &&
+                    caveCell.Y != 0 && caveCell.Y != mineGenData.MineSizeY - 1)
+                {
+                    continue;
+                }
+
+                possibleCaveCells.RemoveAt(i);
+
+                if (occupiedCaveCells.Contains(caveCell))
+                {
+                    continue;
+                }
+
                 occupiedCaveCells.Add(caveCell);
             }
         }
@@ -166,9 +176,51 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         #endregion
     }
 
-    public Task GenerateSpecialBackdrops()
+    public async Task GenerateSpecialBackdrops()
     {
-        throw new NotImplementedException();
+        
+        
+        //
+        // // Define the dimensions of the tile set
+        // int rows = 49;
+        // int cols = 64;
+        //
+        // // Define the number of zones to divide the tile set into
+        // int zoneInXAxis = 3;
+        // int zoneInYAxis = 3;
+        //
+        // List<Vector2> zonePositions = new List<Vector2>(zoneInXAxis * zoneInYAxis);
+        // // Calculate the number of rows and columns for each zone
+        // int rowsPerZone = rows / (int)Math.Sqrt(numZones);
+        // int colsPerZone = cols / (int)Math.Sqrt(numZones);
+        //
+        // // Loop through each zone
+        // for (int zoneRow = 0; zoneRow < Math.Sqrt(numZones); zoneRow++)
+        // {
+        //     for (int zoneCol = 0; zoneCol < Math.Sqrt(numZones); zoneCol++)
+        //     {
+        //         // Calculate the starting row and column for the current zone
+        //         int startRow = zoneRow * rowsPerZone;
+        //         int startCol = zoneCol * colsPerZone;
+        //
+        //         // Calculate the ending row and column for the current zone
+        //         int endRow = startRow + rowsPerZone;
+        //         int endCol = startCol + colsPerZone;
+        //
+        //         // Calculate the center tile position (average of start and end positions)
+        //         int centerX = (startCol + endCol) / 2;
+        //         int centerY = (startRow + endRow) / 2;
+        //
+        //         // Output the zone information including the center tile position
+        //         Console.WriteLine($"Zone {zoneRow * (int)Math.Sqrt(numZones) + zoneCol + 1}:");
+        //         Console.WriteLine($"Center Tile Position: ({centerX}, {centerY})");
+        //         Console.WriteLine();
+        //
+        //         // You can also output start and end positions if needed
+        //         // Console.WriteLine($"Start Row: {startRow}, End Row: {endRow}");
+        //         // Console.WriteLine($"Start Col: {startCol}, End Col: {endCol}");
+        //     }
+        // }
     }
 
     public Task GenerateArtifacts()

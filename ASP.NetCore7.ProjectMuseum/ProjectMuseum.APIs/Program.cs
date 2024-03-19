@@ -73,6 +73,8 @@ string caveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game 
 string specialBackdropDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "SpecialBackdropData", "SpecialBackdropPngInformation.json");
 string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
     "ProceduralGenerationData", "ProceduralMineGenerationData.json");
+string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
+    "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
 
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev

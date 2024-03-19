@@ -142,6 +142,8 @@ public class EnemyAi
         
         var enemyCell = GetTargetCell(currentPos);
         var playerCell = GetTargetCell(playerControllerVariables.Position);
+        if (enemyCell == null || playerCell == null)
+            return Vector2.Zero;
 
         if (enemyCell.PositionY != playerCell.PositionY) return Vector2.Zero;
         int initialCellPos;

@@ -11,7 +11,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationSe
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
-using ProjectMuseum.Services.MineService.Sub_Services.SpecialRepositoryService;
+using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 
 namespace ASP.NetCore7.ProjectMuseum.Controllers;
@@ -180,10 +180,10 @@ public class MineController : ControllerBase
         return Ok(mine);
     }
     
-    [HttpGet("SetSpecialBackdropsInMine")]
-    public async Task<IActionResult> SetSpecialBackdropsInMine()
-    {
-        var specialBackdrops = await _specialBackdropService.SetSpecialBackdropFromDatabase();
-        return Ok(specialBackdrops);
-    }
+    // [HttpGet("SetSpecialBackdropsInMine")]
+    // public async Task<IActionResult> SetSpecialBackdropsInMine()
+    // {
+    //     var specialBackdrops = await _specialBackdropService.SetSpecialBackdrops();
+    //     return Ok(specialBackdrops);
+    // }
 }

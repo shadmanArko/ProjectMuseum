@@ -13,12 +13,11 @@ public class SpecialBackdropRepository : ISpecialBackdropRepository
         _mineRepository = mineRepository;
     }
 
-    public async Task<List<SpecialBackdropPngInformation>> SetSpecialBackdrops()
+    public async Task<List<SpecialBackdropPngInformation>> SetSpecialBackdrops(List<SpecialBackdropPngInformation> specialBackdrops)
     {
-        var specialBackdrops = await _specialBackdropDatabase.ReadDataAsync();
         var mine = await _mineRepository.Get();
-        mine.SpecialBackdropPngInformations = specialBackdrops!;
+        mine.SpecialBackdropPngInformations = specialBackdrops;
         await _mineRepository.Update(mine);
-        return specialBackdrops!;
+        return specialBackdrops;
     }
 }

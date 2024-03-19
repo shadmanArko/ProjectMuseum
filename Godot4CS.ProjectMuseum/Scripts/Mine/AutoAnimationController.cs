@@ -68,7 +68,7 @@ public partial class AutoAnimationController : Node2D
     
 	#region Auto Animations
 	
-	private void SetPlayerRun()
+	public void SetPlayerRun()
 	{
 		_animationController = _playerControllerVariables.Player.animationController;
 		_playerController = _playerControllerVariables.Player;

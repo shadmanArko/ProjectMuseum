@@ -4,5 +4,5 @@ namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBack
 
 public interface ISpecialBackdropRepository
 {
-    Task<List<SpecialBackdropPngInformation>> SetSpecialBackdrops();
+    Task<List<SpecialBackdropPngInformation>> SetSpecialBackdrops(List<SpecialBackdropPngInformation> specialBackdrops);
 }

@@ -1,7 +1,7 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBackdropRepository;
 
-namespace ProjectMuseum.Services.MineService.Sub_Services.SpecialRepositoryService;
+namespace ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
 
 public class SpecialBackdropService : ISpecialBackdropService
 {
@@ -12,9 +12,9 @@ public class SpecialBackdropService : ISpecialBackdropService
         _specialBackdropRepository = specialBackdropRepository;
     }
 
-    public async Task<List<SpecialBackdropPngInformation>> SetSpecialBackdropFromDatabase()
+    public async Task<List<SpecialBackdropPngInformation>> SetSpecialBackdrops(List<SpecialBackdropPngInformation> specialBackdropPngInformations)
     {
-        var specialBackdrops = await _specialBackdropRepository.SetSpecialBackdrops();
+        var specialBackdrops = await _specialBackdropRepository.SetSpecialBackdrops(specialBackdropPngInformations);
         return specialBackdrops;
     }
 }

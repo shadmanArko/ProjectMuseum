@@ -32,7 +32,7 @@ public class CaveGeneratorService : ICaveGeneratorService
             for (var j = yMin; j <= yMax; j++)
             {
                 var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
-                Console.WriteLine($"cells is null: {cell == null}");
+                // Console.WriteLine($"cells is null: {cell == null}");
                 if(cell == null) continue;
                 
                 cell.HasCave = true;
@@ -44,8 +44,8 @@ public class CaveGeneratorService : ICaveGeneratorService
                 
                 if(caveCellIds.Contains(cell.Id)) continue;
                 caveCellIds.Add(cell.Id);
-                Console.WriteLine($"cell Y:{cell.PositionY}, yMin:{yMin}");
-                Console.WriteLine($"cell Y:{cell.PositionY}, yMax:{yMax}");
+                // Console.WriteLine($"cell Y:{cell.PositionY}, yMin:{yMin}");
+                // Console.WriteLine($"cell Y:{cell.PositionY}, yMax:{yMax}");
                 if (cell.PositionY == yMin)
                     possibleStalactiteCells.Add(cell);
                 else if(cell.PositionY == yMax)

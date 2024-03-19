@@ -1,9 +1,11 @@
 using System.Numerics;
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineGenerationRepository;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService.MineOrdinaryCellGeneratorService;
+using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
 
@@ -13,13 +15,20 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
     private readonly IProceduralMineGenerationRepository _proceduralMineGenerationRepository;
     private readonly IMineOrdinaryCellGeneratorService _mineOrdinaryCellGeneratorService;
     private readonly ICaveGeneratorService _caveGeneratorService;
+
+    private readonly ISpecialBackdropService _specialBackdropService;
+
+    private readonly JsonFileDatabase<SpecialBackdropPngInformation> _specialBackdropPngInformationDatabase;
     
-    public ProceduralMineGenerationService(IProceduralMineGenerationRepository proceduralMineGenerationRepository, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, ICaveGeneratorService caveGeneratorService, IMineRepository mineRepository)
+    public ProceduralMineGenerationService(IProceduralMineGenerationRepository proceduralMineGenerationRepository, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, ICaveGeneratorService caveGeneratorService, IMineRepository mineRepository, ISpecialBackdropService specialBackdropService, JsonFileDatabase<SpecialBackdropPngInformation> specialBackdropPngInformationDatabase)
     {
         _proceduralMineGenerationRepository = proceduralMineGenerationRepository;
         _mineOrdinaryCellGeneratorService = mineOrdinaryCellGeneratorService;
         _caveGeneratorService = caveGeneratorService;
         _mineRepository = mineRepository;
+        _specialBackdropService = specialBackdropService;
+        _specialBackdropPngInformationDatabase = specialBackdropPngInformationDatabase;
+        Console.WriteLine("Generating CAVE");
     }
 
     public async Task<Mine> GenerateProceduralMine()
@@ -70,66 +79,64 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var caves = mine.Caves;
         var mineX = mine.GridWidth;
         var mineY = mine.GridLength;
-        var occupiedCaveCells = new List<Vector2>();
-        var possibleCaveCells = new List<Vector2>();
+        // var occupiedCaveCells = new List<Vector2>();
+        // var possibleCaveCells = new List<Vector2>();
 
-        #region Populating possible cave cells with all mine cells
-
-        for (var i = 0; i < mine.GridWidth -1; i++)
-        {
-            for (var j = 0; j < mine.GridLength; j++)
-            {
-                var cellPos = new Vector2(i, j);
-                if(possibleCaveCells.Contains(cellPos)) continue;
-                possibleCaveCells.Add(cellPos);
-            }
-        }
-
-        #endregion   
+        // #region Populating possible cave cells with all mine cells
+        //
+        // for (var i = 0; i < mine.GridWidth -1; i++)
+        // {
+        //     for (var j = 0; j < mine.GridLength; j++)
+        //     {
+        //         var cellPos = new Vector2(i, j);
+        //         if(possibleCaveCells.Contains(cellPos)) continue;
+        //         possibleCaveCells.Add(cellPos);
+        //     }
+        // }
+        //
+        // #endregion
         
         var minCaveDistance = mineGenData.MinDistanceBetweenCaves/2;
 
-        #region Filter possible cave cells by removing occupied cells (including cave distance and border)
-
-        foreach (var cave in caves)
-        {
-            var leftBound = cave.LeftBound - minCaveDistance;
-            var rightBound = cave.RightBound + minCaveDistance;
-            var topBound = cave.TopBound - minCaveDistance;
-            var bottomBound = cave.BottomBound + minCaveDistance;
-
-            for (var i = leftBound; i <= rightBound; i++)
-            {
-                for (var j = topBound; j < bottomBound; j++)
-                {
-                    var tempCellPos = new Vector2(i, j);
-                    possibleCaveCells.Remove(tempCellPos);
-                    if(!occupiedCaveCells.Contains(tempCellPos))
-                        occupiedCaveCells.Add(tempCellPos);
-                }
-            }
-
-            for (int i = possibleCaveCells.Count - 1; i >= 0; i--)
-            {
-                var caveCell = possibleCaveCells[i];
-                if (caveCell.X != 0 && caveCell.X != mineGenData.MineSizeX - 1 &&
-                    caveCell.Y != 0 && caveCell.Y != mineGenData.MineSizeY - 1)
-                {
-                    continue;
-                }
-
-                possibleCaveCells.RemoveAt(i);
-
-                if (occupiedCaveCells.Contains(caveCell))
-                {
-                    continue;
-                }
-
-                occupiedCaveCells.Add(caveCell);
-            }
-        }
-
-        #endregion
+        // #region Filter possible cave cells by removing occupied cells (including cave distance and border)
+        //
+        // foreach (var cave in caves)
+        // {
+        //     var leftBound = cave.LeftBound - minCaveDistance;
+        //     var rightBound = cave.RightBound + minCaveDistance;
+        //     var topBound = cave.TopBound - minCaveDistance;
+        //     var bottomBound = cave.BottomBound + minCaveDistance;
+        //
+        //     for (var i = leftBound; i <= rightBound; i++)
+        //     {
+        //         for (var j = topBound; j < bottomBound; j++)
+        //         {
+        //             var tempCellPos = new Vector2(i, j);
+        //             possibleCaveCells.Remove(tempCellPos);
+        //             if(!occupiedCaveCells.Contains(tempCellPos))
+        //                 occupiedCaveCells.Add(tempCellPos);
+        //         }
+        //     }
+        //
+        //     for (int i = possibleCaveCells.Count - 1; i >= 0; i--)
+        //     {
+        //         var caveCell = possibleCaveCells[i];
+        //         if (caveCell.X != 0 && caveCell.X != mineGenData.MineSizeX - 1 &&
+        //             caveCell.Y != 0 && caveCell.Y != mineGenData.MineSizeY - 1)
+        //             continue;
+        //
+        //         possibleCaveCells.RemoveAt(i);
+        //
+        //         if (occupiedCaveCells.Contains(caveCell))
+        //         {
+        //             continue;
+        //         }
+        //
+        //         occupiedCaveCells.Add(caveCell);
+        //     }
+        // }
+        //
+        // #endregion
 
         #region cavesToGenerate contains list of cave dimensions tha has to be generated
 
@@ -140,37 +147,61 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             var tempX = rand.Next(mineGenData.CaveMinSizeX, mineGenData.CaveMaxSizeX);
             var tempY = rand.Next(mineGenData.CaveMinSizeY, mineGenData.CaveMaxSizeY);
             var caveDimension = new Vector2(tempX, tempY);
+            Console.WriteLine($"cave: {caveDimension}");
             cavesToGenerate.Add(caveDimension);
         }
 
         #endregion
 
-        #region Sorting Caves from highest to lowest
+        #region Creating Slots
 
-        var sortedCavesToGenerate = cavesToGenerate.OrderBy(cave => cave.X * cave.Y).ToList();
-        sortedCavesToGenerate.Reverse();
+        var noOfSlotsX = 3;
+        var noOfSlotsY = 3;
+        
+        var caveSlotPosX = mineX / noOfSlotsX;
+        var caveSlotPosY = mineY / noOfSlotsY;
+        
+        var offsetX = mineX / noOfSlotsX / 2;
+        var offsetY = mineY / noOfSlotsY / 2;
+
+        var listOfCoords = new List<Vector2>();
+        for (var i = 0; i < noOfSlotsX*noOfSlotsY; i++)
+        {
+            var xPos = Math.Clamp(caveSlotPosX * i - offsetX, 1, mineX -1);
+            var yPos = Math.Clamp(caveSlotPosY * i - offsetY, 1, mineY - 2);
+
+            // var arbitraryX = xPos + rand.Next(-xPos / 2, xPos / 2);
+            // var arbitraryY = yPos + rand.Next(-yPos / 2, yPos / 2);
+            
+            var coord = new Vector2(xPos, yPos);
+            if (listOfCoords.Contains(coord))
+            {
+                i--;
+                continue;
+            }
+            listOfCoords.Add(coord);
+            Console.WriteLine($"coord added: x={xPos}, y={yPos}");
+        }
 
         #endregion
 
-        #region Utilities
-
-        List<Vector4> DeterminePossibleContinuedCells()
+        #region Create Cave
+        
+        foreach (var tempCave in cavesToGenerate)
         {
-            var continuedCells = new List<Vector4>();
-            foreach (var caveCell in possibleCaveCells)
-            {
-                var tempCell = continuedCells.FirstOrDefault(temp =>
-                    caveCell.X >= temp.X && caveCell.X <= temp.Z && caveCell.Y >= temp.Y && caveCell.Y <= temp.W);
-                if(continuedCells.Contains(tempCell)) continue;
-                var initialPos = caveCell;
-                var initialX = (int)initialPos.X;
-                var initialY = (int)initialPos.Y;
-                var finalX = (int)occupiedCaveCells!.FirstOrDefault(occupied => (int)occupied.Y == initialY).X - 1;
-                var finalY = (int)occupiedCaveCells!.FirstOrDefault(occupied => (int)occupied.X == finalX).Y - 1;
-                continuedCells.Add(new Vector4(initialX,initialY, finalX, finalY));
-            }
+            var coord = listOfCoords[rand.Next(0, listOfCoords.Count)];
+            var xMin = Math.Clamp((int) coord.X, 1, mineX -1);
+            var yMin = Math.Clamp((int) coord.Y, 1, mineY - 2);
+            var xMax = Math.Clamp((int)(coord.X + tempCave.X), 1, mineX - 1);
+            var yMax = Math.Clamp((int) (coord.Y + tempCave.Y), 1, mineY - 2);
 
-            return continuedCells;
+            Console.WriteLine($"xMin: {xMin}, xMax:{xMax}");
+            var stalagmites = rand.Next(2, xMax - xMin);
+            var stalactites = rand.Next(2, xMax - xMin);
+
+            var cave = await _caveGeneratorService.GenerateCave(xMin, xMax, yMin, yMax, stalagmites, stalactites);
+            Console.WriteLine($"Cave generated xMin:{cave.LeftBound}, xMax:{cave.RightBound}. yMin:{cave.TopBound}, yMax:{cave.BottomBound}");
+            
         }
 
         #endregion
@@ -178,49 +209,55 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
     public async Task GenerateSpecialBackdrops()
     {
-        
-        
-        //
-        // // Define the dimensions of the tile set
-        // int rows = 49;
-        // int cols = 64;
-        //
-        // // Define the number of zones to divide the tile set into
-        // int zoneInXAxis = 3;
-        // int zoneInYAxis = 3;
-        //
-        // List<Vector2> zonePositions = new List<Vector2>(zoneInXAxis * zoneInYAxis);
-        // // Calculate the number of rows and columns for each zone
-        // int rowsPerZone = rows / (int)Math.Sqrt(numZones);
-        // int colsPerZone = cols / (int)Math.Sqrt(numZones);
-        //
-        // // Loop through each zone
-        // for (int zoneRow = 0; zoneRow < Math.Sqrt(numZones); zoneRow++)
-        // {
-        //     for (int zoneCol = 0; zoneCol < Math.Sqrt(numZones); zoneCol++)
-        //     {
-        //         // Calculate the starting row and column for the current zone
-        //         int startRow = zoneRow * rowsPerZone;
-        //         int startCol = zoneCol * colsPerZone;
-        //
-        //         // Calculate the ending row and column for the current zone
-        //         int endRow = startRow + rowsPerZone;
-        //         int endCol = startCol + colsPerZone;
-        //
-        //         // Calculate the center tile position (average of start and end positions)
-        //         int centerX = (startCol + endCol) / 2;
-        //         int centerY = (startRow + endRow) / 2;
-        //
-        //         // Output the zone information including the center tile position
-        //         Console.WriteLine($"Zone {zoneRow * (int)Math.Sqrt(numZones) + zoneCol + 1}:");
-        //         Console.WriteLine($"Center Tile Position: ({centerX}, {centerY})");
-        //         Console.WriteLine();
-        //
-        //         // You can also output start and end positions if needed
-        //         // Console.WriteLine($"Start Row: {startRow}, End Row: {endRow}");
-        //         // Console.WriteLine($"Start Col: {startCol}, End Col: {endCol}");
-        //     }
-        // }
+        var backdropSlotsX = 3;
+        var backdropSlotsY = 3;
+        var noOfBackdrops = 2;
+            
+        var mine = await _mineRepository.Get();
+        var mineSizeX = mine.GridLength;
+        var mineSizeY = mine.GridWidth;
+        var offsetX = mineSizeX / backdropSlotsX / 2;
+        var offsetY = mineSizeY / backdropSlotsY / 2;
+
+        var listOfCoords = new List<Vector2>();
+
+        for (var i = 0; i < backdropSlotsX; i++)
+        {
+            for (int j = 0; j < backdropSlotsY; j++)
+            {
+                var xPos = i * mineSizeX + offsetX;
+                var yPos = j * mineSizeY + offsetY;
+                var coord = new Vector2(xPos, yPos);
+                if(listOfCoords.Contains(coord)) continue;
+                listOfCoords.Add(coord);
+            }
+        }
+
+        var listOfBackdrops = await _specialBackdropPngInformationDatabase.ReadDataAsync();
+        if(listOfBackdrops == null) return;
+
+        var rand = new Random();
+        var listOfAddedBackdrops = new List<SpecialBackdropPngInformation>();
+
+        for (var i = 0; i < noOfBackdrops; i++)
+        {
+            var tempBackdrop = listOfBackdrops[rand.Next(0, listOfBackdrops.Count)];
+            var tempCoord = listOfCoords[rand.Next(0, listOfCoords.Count)];
+            
+            tempBackdrop.TilePositionX = (int) tempCoord.X;
+            tempBackdrop.TilePositionY = (int) tempCoord.Y;
+            
+            if (listOfAddedBackdrops.Contains(tempBackdrop))
+            {
+                i--;
+                continue;
+            }
+            listOfAddedBackdrops.Add(tempBackdrop);
+            listOfBackdrops.Remove(tempBackdrop);
+            listOfCoords.Remove(tempCoord);
+        }
+
+        await _specialBackdropService.SetSpecialBackdrops(listOfAddedBackdrops);
     }
 
     public Task GenerateArtifacts()

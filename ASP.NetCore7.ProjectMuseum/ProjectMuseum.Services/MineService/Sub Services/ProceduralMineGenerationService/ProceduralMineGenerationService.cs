@@ -55,7 +55,12 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
     public async Task GenerateBossCave()
     {
         var mineGenData = await _proceduralMineGenerationRepository.GetProceduralMineGenerationData();
+        var mine = await _mineService.GetMineData();
 
+        foreach (var cell in mine.Cells)
+            cell.HasCave = false;
+        mine.Caves = new List<Cave>();
+        
         var bossCaveSizeX = mineGenData.BossCaveSizeX;
         var bossCaveSizeY = mineGenData.BossCaveSizeY;
 
@@ -115,17 +120,16 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
                 var xPos = Math.Clamp(caveSlotPosX * i + offsetX, 1, mineX - 1);
                 var yPos = Math.Clamp(caveSlotPosY * j + offsetY, 1, mineY - 2);
 
-                var arbitraryX = xPos + rand.Next(-xPos / 2, xPos / 2);
-                var arbitraryY = yPos + rand.Next(-yPos / 2, yPos / 2);
+                // var arbitraryX = xPos + rand.Next(-xPos / 2, xPos / 2);
+                // var arbitraryY = yPos + rand.Next(-yPos / 2, yPos / 2);
 
-                var coord = new Vector2(arbitraryX, arbitraryY);
+                var coord = new Vector2(xPos, yPos);
                 if (listOfCoords.Contains(coord))
                 {
                     i--;
                     continue;
                 }
                 listOfCoords.Add(coord);
-                // Console.WriteLine($"coord added: x={xPos}, y={yPos}");
             }
         }
 
@@ -142,8 +146,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             var yMax = Math.Clamp((int)(coord.Y + tempCave.Y), 1, mineY - 2);
             listOfCoords.Remove(coord);
 
-            var stalagmites = rand.Next(2, xMax - xMin);
-            var stalactites = rand.Next(2, xMax - xMin);
+            var stalagmites = rand.Next(2, xMax - xMin -1);
+            var stalactites = rand.Next(2, xMax - xMin -1);
 
             Console.WriteLine($"cave dim: ({tempCave.X},{tempCave.Y})");
             var cave = await _caveGeneratorService.GenerateCave(xMin, xMax, yMin, yMax, stalagmites, stalactites);

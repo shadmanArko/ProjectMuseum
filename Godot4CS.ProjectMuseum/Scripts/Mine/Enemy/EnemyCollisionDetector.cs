@@ -1,5 +1,6 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
@@ -23,6 +24,8 @@ public partial class EnemyCollisionDetector : Node2D
     private void OnEnemyAttackCooldownTimeOut()
     {
         _enemyCooldown = false;
+        if (_enemy.IsInAttackRange && _enemy.Phase == EnemyPhase.Combat)
+            _enemy.IsAttacking = true;
     }
     
     #region Attack Range
@@ -32,21 +35,19 @@ public partial class EnemyCollisionDetector : Node2D
         var player = body as PlayerController;
         if(player == null) return;
         if(_enemyCooldown) return;
+        _enemy.IsInAttackRange = true;
+        _enemy.Phase = EnemyPhase.Combat;
         _enemy.IsAttacking = true;
-        var lookAtPlayer = new Vector2(_playerControllerVariables.Position.X - Position.X, 0).Normalized();
-        _enemy.IsAttacking = true;
-        _enemy.AnimationController.MoveDirection(lookAtPlayer);
-        // _enemy.AnimationController.PlayAnimation("attack");
-        player.TakeDamage();
         _enemyCooldown = true;
-        GD.Print($"Player entered ATTACK region, isAttacking:{_enemy.IsAttacking}");
     }
 
     private void OnPlayerExitAttackRange(Node2D body)
     {
         var player = body as PlayerController;
         if(player == null) return;
+        _enemy.IsInAttackRange = false;
         _enemy.IsAttacking = false;
+        _enemy.Phase = EnemyPhase.Chase;
         GD.Print($"Player exited ATTACK region, isAttacking:{_enemy.IsAttacking}");
     }
 

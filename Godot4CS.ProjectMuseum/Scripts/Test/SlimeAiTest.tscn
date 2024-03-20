@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlvpibw1a6c8h"]
+[gd_scene load_steps=3 format=3 uid="uid://dtink3bkq016r"]
 
 [ext_resource type="PackedScene" uid="uid://b0ugdi15r3d7" path="res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn" id="1_pvk05"]
 

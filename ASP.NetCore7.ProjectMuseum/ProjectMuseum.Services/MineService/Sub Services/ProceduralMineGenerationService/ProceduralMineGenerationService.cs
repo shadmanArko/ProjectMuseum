@@ -111,8 +111,11 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             {
                 var xPos = Math.Clamp(caveSlotPosX * i + offsetX, 1, mineX -1);
                 var yPos = Math.Clamp(caveSlotPosY * j + offsetY, 1, mineY -2);
+                
+                var arbitraryX = xPos + rand.Next(-xPos / 2, xPos / 2);
+                var arbitraryY = yPos + rand.Next(-yPos / 2, yPos / 2);
             
-                var coord = new Vector2(xPos, yPos);
+                var coord = new Vector2(arbitraryX, arbitraryY);
                 if (listOfCoords.Contains(coord))
                 {
                     i--;

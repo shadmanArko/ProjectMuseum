@@ -12,6 +12,7 @@ namespace ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerati
 public class ProceduralMineGenerationService : IProceduralMineGenerationService
 {
     private readonly IMineRepository _mineRepository;
+    private readonly IMineService _mineService;
     private readonly IProceduralMineGenerationRepository _proceduralMineGenerationRepository;
     private readonly IMineOrdinaryCellGeneratorService _mineOrdinaryCellGeneratorService;
     private readonly ICaveGeneratorService _caveGeneratorService;
@@ -20,7 +21,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
     private readonly JsonFileDatabase<SpecialBackdropPngInformation> _specialBackdropPngInformationDatabase;
     
-    public ProceduralMineGenerationService(IProceduralMineGenerationRepository proceduralMineGenerationRepository, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, ICaveGeneratorService caveGeneratorService, IMineRepository mineRepository, ISpecialBackdropService specialBackdropService, JsonFileDatabase<SpecialBackdropPngInformation> specialBackdropPngInformationDatabase)
+    public ProceduralMineGenerationService(IProceduralMineGenerationRepository proceduralMineGenerationRepository, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, ICaveGeneratorService caveGeneratorService, IMineRepository mineRepository, ISpecialBackdropService specialBackdropService, JsonFileDatabase<SpecialBackdropPngInformation> specialBackdropPngInformationDatabase, IMineService mineService)
     {
         _proceduralMineGenerationRepository = proceduralMineGenerationRepository;
         _mineOrdinaryCellGeneratorService = mineOrdinaryCellGeneratorService;
@@ -28,6 +29,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         _mineRepository = mineRepository;
         _specialBackdropService = specialBackdropService;
         _specialBackdropPngInformationDatabase = specialBackdropPngInformationDatabase;
+        _mineService = mineService;
         Console.WriteLine("Generating CAVE");
     }
 
@@ -260,9 +262,26 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         await _specialBackdropService.SetSpecialBackdrops(listOfAddedBackdrops);
     }
 
-    public Task GenerateArtifacts()
+    public async Task GenerateArtifacts()
     {
-        throw new NotImplementedException();
+        var mine = await _mineService.GetMineData();
+        var listOfCells = mine.Cells;
+
+        foreach (var cell in listOfCells)
+        {
+            if (cell.IsBroken)
+            {
+                listOfCells.Remove(cell);
+            }
+        }
+
+        foreach (var cell in listOfCells)
+        {
+            if (cell.HasCave)
+            {
+                listOfCells.Remove(cell);
+            }
+        }
     }
 
     public Task GenerateResources()

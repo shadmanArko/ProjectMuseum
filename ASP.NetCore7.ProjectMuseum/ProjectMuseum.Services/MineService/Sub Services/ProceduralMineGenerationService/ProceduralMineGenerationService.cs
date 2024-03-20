@@ -28,7 +28,6 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         _mineRepository = mineRepository;
         _specialBackdropService = specialBackdropService;
         _specialBackdropPngInformationDatabase = specialBackdropPngInformationDatabase;
-        Console.WriteLine("Generating CAVE");
     }
 
     public async Task<Mine> GenerateProceduralMine()
@@ -76,68 +75,10 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var rand = new Random();
         var mine = await _mineRepository.Get();
         var mineGenData = await _proceduralMineGenerationRepository.GetProceduralMineGenerationData();
-        var caves = mine.Caves;
+        
         var mineX = mine.GridWidth;
         var mineY = mine.GridLength;
-        // var occupiedCaveCells = new List<Vector2>();
-        // var possibleCaveCells = new List<Vector2>();
-
-        // #region Populating possible cave cells with all mine cells
-        //
-        // for (var i = 0; i < mine.GridWidth -1; i++)
-        // {
-        //     for (var j = 0; j < mine.GridLength; j++)
-        //     {
-        //         var cellPos = new Vector2(i, j);
-        //         if(possibleCaveCells.Contains(cellPos)) continue;
-        //         possibleCaveCells.Add(cellPos);
-        //     }
-        // }
-        //
-        // #endregion
         
-        var minCaveDistance = mineGenData.MinDistanceBetweenCaves/2;
-
-        // #region Filter possible cave cells by removing occupied cells (including cave distance and border)
-        //
-        // foreach (var cave in caves)
-        // {
-        //     var leftBound = cave.LeftBound - minCaveDistance;
-        //     var rightBound = cave.RightBound + minCaveDistance;
-        //     var topBound = cave.TopBound - minCaveDistance;
-        //     var bottomBound = cave.BottomBound + minCaveDistance;
-        //
-        //     for (var i = leftBound; i <= rightBound; i++)
-        //     {
-        //         for (var j = topBound; j < bottomBound; j++)
-        //         {
-        //             var tempCellPos = new Vector2(i, j);
-        //             possibleCaveCells.Remove(tempCellPos);
-        //             if(!occupiedCaveCells.Contains(tempCellPos))
-        //                 occupiedCaveCells.Add(tempCellPos);
-        //         }
-        //     }
-        //
-        //     for (int i = possibleCaveCells.Count - 1; i >= 0; i--)
-        //     {
-        //         var caveCell = possibleCaveCells[i];
-        //         if (caveCell.X != 0 && caveCell.X != mineGenData.MineSizeX - 1 &&
-        //             caveCell.Y != 0 && caveCell.Y != mineGenData.MineSizeY - 1)
-        //             continue;
-        //
-        //         possibleCaveCells.RemoveAt(i);
-        //
-        //         if (occupiedCaveCells.Contains(caveCell))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         occupiedCaveCells.Add(caveCell);
-        //     }
-        // }
-        //
-        // #endregion
-
         #region cavesToGenerate contains list of cave dimensions tha has to be generated
 
         var noOfCaves = rand.Next(mineGenData.NumberOfMaxCaves / 2, mineGenData.NumberOfMaxCaves);
@@ -147,7 +88,6 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             var tempX = rand.Next(mineGenData.CaveMinSizeX, mineGenData.CaveMaxSizeX);
             var tempY = rand.Next(mineGenData.CaveMinSizeY, mineGenData.CaveMaxSizeY);
             var caveDimension = new Vector2(tempX, tempY);
-            Console.WriteLine($"cave: {caveDimension}");
             cavesToGenerate.Add(caveDimension);
         }
 
@@ -165,22 +105,22 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var offsetY = mineY / noOfSlotsY / 2;
 
         var listOfCoords = new List<Vector2>();
-        for (var i = 0; i < noOfSlotsX*noOfSlotsY; i++)
+        for (var i = 0; i < noOfSlotsX; i++)
         {
-            var xPos = Math.Clamp(caveSlotPosX * i - offsetX, 1, mineX -1);
-            var yPos = Math.Clamp(caveSlotPosY * i - offsetY, 1, mineY - 2);
-
-            // var arbitraryX = xPos + rand.Next(-xPos / 2, xPos / 2);
-            // var arbitraryY = yPos + rand.Next(-yPos / 2, yPos / 2);
-            
-            var coord = new Vector2(xPos, yPos);
-            if (listOfCoords.Contains(coord))
+            for (var j = 0; j < noOfSlotsY; j++)
             {
-                i--;
-                continue;
+                var xPos = Math.Clamp(caveSlotPosX * i + offsetX, 1, mineX -1);
+                var yPos = Math.Clamp(caveSlotPosY * j + offsetY, 1, mineY -2);
+            
+                var coord = new Vector2(xPos, yPos);
+                if (listOfCoords.Contains(coord))
+                {
+                    i--;
+                    continue;
+                }
+                listOfCoords.Add(coord);
+                // Console.WriteLine($"coord added: x={xPos}, y={yPos}");
             }
-            listOfCoords.Add(coord);
-            Console.WriteLine($"coord added: x={xPos}, y={yPos}");
         }
 
         #endregion
@@ -194,16 +134,17 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             var yMin = Math.Clamp((int) coord.Y, 1, mineY - 2);
             var xMax = Math.Clamp((int)(coord.X + tempCave.X), 1, mineX - 1);
             var yMax = Math.Clamp((int) (coord.Y + tempCave.Y), 1, mineY - 2);
-
-            Console.WriteLine($"xMin: {xMin}, xMax:{xMax}");
+            listOfCoords.Remove(coord);
+            
             var stalagmites = rand.Next(2, xMax - xMin);
             var stalactites = rand.Next(2, xMax - xMin);
-
+        
+            Console.WriteLine($"cave dim: ({tempCave.X},{tempCave.Y})");
             var cave = await _caveGeneratorService.GenerateCave(xMin, xMax, yMin, yMax, stalagmites, stalactites);
             Console.WriteLine($"Cave generated xMin:{cave.LeftBound}, xMax:{cave.RightBound}. yMin:{cave.TopBound}, yMax:{cave.BottomBound}");
             
         }
-
+        
         #endregion
     }
 

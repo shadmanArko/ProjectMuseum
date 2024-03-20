@@ -6,21 +6,18 @@ namespace ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 
 public class CaveGeneratorService : ICaveGeneratorService
 {
-    private readonly IMineRepository _mineRepository;
+    private readonly IMineService _mineService;
     private readonly ICaveGeneratorRepository _caveGeneratorRepository;
 
-    public CaveGeneratorService(ICaveGeneratorRepository caveGeneratorRepository, IMineRepository mineRepository)
+    public CaveGeneratorService(ICaveGeneratorRepository caveGeneratorRepository, IMineService mineService)
     {
         _caveGeneratorRepository = caveGeneratorRepository;
-        _mineRepository = mineRepository;
+        _mineService = mineService;
     }
     
     public async Task<Cave> GenerateCave(int xMin, int xMax, int yMin, int yMax, int stalagmiteCount, int stalactiteCount)
     {
-        var mine = await _mineRepository.Get();
-        foreach (var cell in mine.Cells)
-            cell.HasCave = false;
-        mine.Caves.Clear();
+        var mine = await _mineService.GetMineData();
         
         var cells = mine.Cells;
         var caveCellIds = new List<string>();
@@ -32,7 +29,6 @@ public class CaveGeneratorService : ICaveGeneratorService
             for (var j = yMin; j <= yMax; j++)
             {
                 var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
-                // Console.WriteLine($"cells is null: {cell == null}");
                 if(cell == null) continue;
                 
                 cell.HasCave = true;
@@ -44,8 +40,6 @@ public class CaveGeneratorService : ICaveGeneratorService
                 
                 if(caveCellIds.Contains(cell.Id)) continue;
                 caveCellIds.Add(cell.Id);
-                // Console.WriteLine($"cell Y:{cell.PositionY}, yMin:{yMin}");
-                // Console.WriteLine($"cell Y:{cell.PositionY}, yMax:{yMax}");
                 if (cell.PositionY == yMin)
                     possibleStalactiteCells.Add(cell);
                 else if(cell.PositionY == yMax)
@@ -67,21 +61,22 @@ public class CaveGeneratorService : ICaveGeneratorService
         var rand = new Random();
         for (var numberOfStalagmites = stalagmiteCount; numberOfStalagmites > 0; numberOfStalagmites--)
         {
-            Console.WriteLine($"stalagmite cell count: {possibleStalagmiteCells.Count}");
             var cell = possibleStalagmiteCells[rand.Next(0, possibleStalagmiteCells.Count)];
             if(newCave.StalagmiteCellIds.Contains(cell.Id)) continue;
             newCave.StalagmiteCellIds.Add(cell.Id);
         }
+        Console.WriteLine($"stalagmite cell count: {possibleStalagmiteCells.Count}");
         
         for (var numberOfStalactites = stalactiteCount; numberOfStalactites > 0; numberOfStalactites--)
         {
-            Console.WriteLine($"stalactite cell count: {possibleStalactiteCells.Count}");
             var cell = possibleStalactiteCells[rand.Next(0, possibleStalactiteCells.Count)];
             if(newCave.StalactiteCellIds.Contains(cell.Id)) continue;
             newCave.StalactiteCellIds.Add(cell.Id);
         }
-
-        var cave = await _caveGeneratorRepository.AddCave(newCave);
-        return cave;
+        Console.WriteLine($"stalactite cell count: {possibleStalactiteCells.Count}");
+        
+        mine.Caves.Add(newCave);
+        await _mineService.UpdateMine(mine);
+        return newCave;
     }
 }

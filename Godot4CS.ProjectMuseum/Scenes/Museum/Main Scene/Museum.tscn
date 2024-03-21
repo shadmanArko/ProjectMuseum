@@ -51,7 +51,7 @@
 [ext_resource type="Texture2D" uid="uid://dvkuu3tjahrog" path="res://Assets/2D/Sprites/Decorations/Front_walls_TRIAL3 (1).png" id="42_8t46q"]
 [ext_resource type="Texture2D" uid="uid://sf3r714lt6yh" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_Stop_Walls.png" id="42_fq60h"]
 [ext_resource type="Texture2D" uid="uid://b3crx3sxcjcmp" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_open.png" id="42_pnn6c"]
-[ext_resource type="Texture2D" uid="uid://dshqykk624sh8" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_close (2).png" id="43_pclsp"]
+[ext_resource type="Texture2D" uid="uid://3j81gf62i4jm" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_open (4).png" id="43_ucw5y"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
@@ -656,7 +656,7 @@ frame = 3
 position = Vector2(110, -79)
 rotation = 3.14159
 scale = Vector2(-1, -1)
-texture = ExtResource("43_pclsp")
+texture = ExtResource("43_ucw5y")
 offset = Vector2(0, -48.5)
 hframes = 3
 
@@ -664,7 +664,7 @@ hframes = 3
 position = Vector2(126, -87)
 rotation = 3.14159
 scale = Vector2(-1, -1)
-texture = ExtResource("43_pclsp")
+texture = ExtResource("43_ucw5y")
 offset = Vector2(0, -48.5)
 hframes = 3
 frame = 1
@@ -673,7 +673,7 @@ frame = 1
 position = Vector2(142, -95)
 rotation = 3.14159
 scale = Vector2(-1, -1)
-texture = ExtResource("43_pclsp")
+texture = ExtResource("43_ucw5y")
 offset = Vector2(0, -48.5)
 hframes = 3
 frame = 2

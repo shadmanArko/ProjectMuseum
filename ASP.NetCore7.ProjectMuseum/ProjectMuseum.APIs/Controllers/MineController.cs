@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
-using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBackdropRepository;
 using ProjectMuseum.Services.MineService;
-using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
-using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService.MineOrdinaryCellGeneratorService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;

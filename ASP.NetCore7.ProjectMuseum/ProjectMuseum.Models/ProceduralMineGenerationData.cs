@@ -18,4 +18,7 @@ public class ProceduralMineGenerationData
     public int CaveMaxSizeX { get; set; }
     public int CaveMaxSizeY { get; set; }
     public int MinDistanceBetweenCaves { get; set; }
+    public string Region { get; set; }
+    public string Site { get; set; }
+    public int TotalNoOfArtifacts { get; set; }
 }

@@ -37,10 +37,10 @@ public class MineService : IMineService
 
         if (artifacts != null)
         {
-            foreach (var cell in mine.Cells)
-            {
-                cell.HasArtifact = false;
-            }
+            // foreach (var cell in mine.Cells)
+            // {
+            //     cell.HasArtifact = false;
+            // }
             
             foreach (var artifact in artifacts)
             {
@@ -64,10 +64,6 @@ public class MineService : IMineService
                                 }
                             }
                         }
-                        
-                        // var rawArtifactMaterial =
-                        //     temp.FirstOrDefault(mat => mat.Id == artifact.RawArtifactId).Materials[0];
-                        // cell.ArtifactMaterial = rawArtifactMaterial;
                     }
                 }
             }

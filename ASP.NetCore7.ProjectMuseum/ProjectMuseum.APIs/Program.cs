@@ -14,6 +14,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineG
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SiteArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBackdropRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.WallPlaceableRepository;
 using ProjectMuseum.Repositories.MiscellaneousDataRepository;
@@ -35,6 +36,7 @@ using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
@@ -42,6 +44,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationSe
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
+using ProjectMuseum.Services.MineService.Sub_Services.SiteArtifactChanceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 using ProjectMuseum.Services.MiscellaneousDataService;
@@ -124,6 +127,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<MineMiscellaneousData>(mineMi
 builder.Services.AddSingleton(new JsonFileDatabase<Cave>(caveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SpecialBackdropPngInformation>(specialBackdropDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ProceduralMineGenerationData>(proceduralMineGenerationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<SiteArtifactChanceData>(siteArtifactChanceFunctionalDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -177,6 +181,7 @@ builder.Services.AddScoped<IMuseumZoneRepository, MuseumZoneRepository>();
 builder.Services.AddScoped<ICaveGeneratorRepository, CaveGeneratorRepository>();
 builder.Services.AddScoped<ISpecialBackdropRepository, SpecialBackdropRepository>();
 builder.Services.AddScoped<IProceduralMineGenerationRepository, ProceduralMineGenerationRepository>();
+builder.Services.AddScoped<ISiteArtifactChanceRepository, SiteArtifactChanceRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -207,6 +212,7 @@ builder.Services.AddScoped<IMuseumZoneService, MuseumZoneService>();
 builder.Services.AddScoped<ICaveGeneratorService, CaveGeneratorService>();
 builder.Services.AddScoped<ISpecialBackdropService, SpecialBackdropService>();
 builder.Services.AddScoped<IProceduralMineGenerationService, ProceduralMineGenerationService>();
+builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService>();
 
 
 

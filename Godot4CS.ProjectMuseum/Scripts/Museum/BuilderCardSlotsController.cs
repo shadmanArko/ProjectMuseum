@@ -8,7 +8,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
 
-public partial class BuilderCardSlotsController : ColorRect
+public partial class BuilderCardSlotsController : Control
 {
 	[Export] private PackedScene _builderCardScene;
 	[Export] private Button _buildersPanelClosingButton;

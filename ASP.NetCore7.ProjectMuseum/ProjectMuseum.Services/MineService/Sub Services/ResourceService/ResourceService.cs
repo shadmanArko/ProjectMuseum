@@ -51,21 +51,24 @@ public class ResourceService : IResourceService
     public async Task<List<Resource>> GenerateResources(List<string> variants)
     {
         var mine = await _mineRepository.Get();
-
+        var cells = new List<Cell>();
         foreach (var mineCell in mine.Cells)
+        {
             mineCell.HasResource = false;
+            if(mineCell.HasCave || mineCell.HasArtifact || !mineCell.IsInstantiated || mineCell.IsBroken || !mineCell.IsBreakable) continue;
+            cells.Add(mineCell);
+        }
         mine.Resources.Clear();
         
-        var cells = mine.Cells;
+        
         var numberOfRootNodes = _rand.Next(20,30);
 
         for (var i = 0; i < numberOfRootNodes; i++)
         {
             var resourceCells = new List<Cell>();
-            var cell = new Cell();
-            while (cell.HasResource || cell.HasCave || cell.HasArtifact || !cell.IsInstantiated || cell.IsBroken || !cell.IsBreakable)
-                cell = GetRandomCell(cells);
+            var cell = GetRandomCell(cells);
             resourceCells.Add(cell);
+            cells.Remove(cell);
             
             var rootNodeVariant = variants[_rand.Next(0, variants.Count)];
             await _resourceRepository.AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY);
@@ -85,6 +88,7 @@ public class ResourceService : IResourceService
                 var resource = await _resourceRepository.AddResourceToMine(rootNodeVariant, resourceCell.PositionX,
                     resourceCell.PositionY);
                 mine.Resources.Add(resource);
+                FormResourceDistanceOfFourTiles(cells, resourceCell);
             }
         }
 
@@ -120,5 +124,25 @@ public class ResourceService : IResourceService
         }
 
         return adjacentCells[_rand.Next(0, adjacentCells.Count - 1)];
+    }
+
+    private void FormResourceDistanceOfFourTiles(List<Cell> cells, Cell currentCell)
+    {
+        var xMin = currentCell.PositionX - 4;
+        var xMax = currentCell.PositionX + 4;
+        var yMin = currentCell.PositionY - 4;
+        var yMax = currentCell.PositionY + 4;
+        
+        for (var i = xMin; i <= xMax; i++)
+        {
+            for (var j = yMin; j <= yMax; j++)
+            {
+                var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
+                if(cell == null) continue;
+                if(cell != currentCell) continue;
+                cells.Remove(cell);
+            }
+        }
+
     }
 }

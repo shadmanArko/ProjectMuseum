@@ -91,6 +91,11 @@ public class InventoryRepository : IInventoryRepository
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
         var newEmptySlot = await GetNextEmptySlot();
+        if (newEmptySlot == -1)
+        {
+            Console.WriteLine("ERROR!! item slot number is NEGATIVE");
+            return artifact;
+        }
         artifact.Slot = newEmptySlot;
         inventory?.OccupiedSlots.Add(newEmptySlot);
         var artifacts = inventory?.Artifacts;

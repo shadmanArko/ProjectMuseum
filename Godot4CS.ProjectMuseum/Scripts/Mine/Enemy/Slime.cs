@@ -455,6 +455,7 @@ public partial class Slime : Enemy
 
     public override void _ExitTree()
     {
+        SetPhysicsProcess(false);
         UnsubscribeToActions();
     }
 }

@@ -97,6 +97,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var noOfStalagmites = Math.Clamp(mineGenData.StalagmiteCount, 0, bossCaveSizeX);
 
         var cave = await _caveGeneratorService.GenerateCave(xMin, xMax, yMin, yMax, noOfStalagmites, noOfStalactites);
+        Console.WriteLine($"Boss Cave Location Top:{yMin}, Bottom:{yMax}, Left:{xMin}, Right:{xMax}");
     }
 
     public async Task GenerateCaves()
@@ -183,24 +184,24 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
     public async Task GenerateSpecialBackdrops()
     {
-        var backdropSlotsX = 3;
-        var backdropSlotsY = 3;
+        var noOfSlotsX = 3;
+        var noOfSlotsY = 4;
         var noOfBackdrops = 2;
 
         var mine = await _mineRepository.Get();
-        var mineSizeX = mine.GridLength;
-        var mineSizeY = mine.GridWidth;
-        var offsetX = mineSizeX / backdropSlotsX / 2;
-        var offsetY = mineSizeY / backdropSlotsY / 2;
+        var slotUnitValueX = mine.GridLength / noOfSlotsX;
+        var slotUnitValueY = mine.GridWidth / noOfSlotsY;
+        var offsetX = slotUnitValueX / 2;
+        var offsetY = slotUnitValueY / 2;
 
         var listOfCoords = new List<Vector2>();
 
-        for (var i = 0; i < backdropSlotsX; i++)
+        for (var i = 0; i < noOfSlotsX; i++)
         {
-            for (int j = 0; j < backdropSlotsY; j++)
+            for (int j = 0; j < noOfSlotsY; j++)
             {
-                var xPos = i * mineSizeX + offsetX;
-                var yPos = j * mineSizeY + offsetY;
+                var xPos = i * slotUnitValueX + offsetX;
+                var yPos = j * slotUnitValueY + offsetY;
                 var coord = new Vector2(xPos, yPos);
                 if (listOfCoords.Contains(coord)) continue;
                 listOfCoords.Add(coord);
@@ -231,6 +232,10 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             listOfBackdrops.Remove(tempBackdrop);
             listOfCoords.Remove(tempCoord);
         }
+
+        Console.WriteLine($"Backdrop Position");
+        foreach (var backdrop in listOfAddedBackdrops)
+            Console.WriteLine($"X:{backdrop.TilePositionX}, Y:{backdrop.TilePositionY}");
 
         await _specialBackdropService.SetSpecialBackdrops(listOfAddedBackdrops);
     }

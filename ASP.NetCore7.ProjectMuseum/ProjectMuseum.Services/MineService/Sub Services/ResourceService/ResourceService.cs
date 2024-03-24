@@ -61,7 +61,7 @@ public class ResourceService : IResourceService
         mine.Resources.Clear();
         
         
-        var numberOfRootNodes = _rand.Next(20,30);
+        var numberOfRootNodes = _rand.Next(30,40);
 
         for (var i = 0; i < numberOfRootNodes; i++)
         {
@@ -80,7 +80,7 @@ public class ResourceService : IResourceService
                 currentBranchCell = GetRandomAdjacentCell(cells, currentBranchCell);
                 if(resourceCells.Contains(currentBranchCell)) continue;
                 resourceCells.Add(currentBranchCell);
-                Console.WriteLine($"Added {rootNodeVariant} Resource Cell {currentBranchCell.PositionX}, {currentBranchCell.PositionY}");
+                // Console.WriteLine($"Added {rootNodeVariant} Resource Cell {currentBranchCell.PositionX}, {currentBranchCell.PositionY}");
             }
             
             foreach (var resourceCell in resourceCells)
@@ -91,6 +91,23 @@ public class ResourceService : IResourceService
                 FormResourceDistanceOfFourTiles(cells, resourceCell);
             }
         }
+
+        #region Test
+
+        int coals = 0;
+        int irons = 0;
+        foreach (var resource in mine.Resources)
+        {
+            if (resource.Variant == "Coal")
+                coals++;
+            else if (resource.Variant == "Iron")
+                irons++;
+        }
+            
+        Console.WriteLine($"no of root nodes: {numberOfRootNodes}");
+        Console.WriteLine($"Iron:{irons}, Coal:{coals}");
+
+        #endregion
 
         await _mineRepository.Update(mine);
         return mine.Resources;
@@ -128,10 +145,10 @@ public class ResourceService : IResourceService
 
     private void FormResourceDistanceOfFourTiles(List<Cell> cells, Cell currentCell)
     {
-        var xMin = currentCell.PositionX - 4;
-        var xMax = currentCell.PositionX + 4;
-        var yMin = currentCell.PositionY - 4;
-        var yMax = currentCell.PositionY + 4;
+        var xMin = currentCell.PositionX - 3;
+        var xMax = currentCell.PositionX + 3;
+        var yMin = currentCell.PositionY - 3;
+        var yMax = currentCell.PositionY + 3;
         
         for (var i = xMin; i <= xMax; i++)
         {

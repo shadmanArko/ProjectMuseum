@@ -43,12 +43,12 @@ _subcontinentButton = NodePath("PanelContainer/Container/Location Selector Panel
 
 [node name="BottomBarMuseumUi2" parent="." node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsOtherButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel") instance=ExtResource("3_xtoc7")]
 layout_mode = 1
-_newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/New Exhibit Button")
-_decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/Food and Drinks Button")
-_decorationsOtherButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/Souvenirs Button")
-_flooringButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Flooring Button")
-_wallpapersButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Wallpaper Button")
-_exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button")
+_newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
+_decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/food and drinks button parent/Food and Drinks Button")
+_decorationsOtherButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/suvenirs button parent/Souvenirs Button")
+_flooringButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/flooring parent/Flooring Button")
+_wallpapersButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/wallpaper parent/Wallpaper Button")
+_exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit parent/Exhibit Button")
 _museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Text Holder")
 _museumAddedMoneyAmountTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Adding Amount")
 _museumGuestNumberTextField = NodePath("Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Count")

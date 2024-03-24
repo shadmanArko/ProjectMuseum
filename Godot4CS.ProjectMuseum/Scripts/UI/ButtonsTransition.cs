@@ -7,7 +7,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.UI;
 
 public partial class ButtonsTransition : HBoxContainer
 {
-	[Export] private Array<Button> _buttonNodes;
+	[Export] private Array<Control> _buttonHolders;
 	
 	//[Export] private HBoxContainer _mainButtonContainer;
 	[Export] private HBoxContainer _subButtonContainer;
@@ -76,7 +76,7 @@ public partial class ButtonsTransition : HBoxContainer
 
 	private void TurnOnMainContainerButtons()
 	{
-		foreach (var button in _buttonNodes)
+		foreach (var button in _buttonHolders)
 		{
 			//var button = node as Button;
 			if (button == null) GD.PrintErr("Button found Null");
@@ -86,13 +86,18 @@ public partial class ButtonsTransition : HBoxContainer
 
 	private void TurnOffMainContainerButtons(string str)
 	{
-		foreach (var button in _buttonNodes)
+		foreach (var buttonHolder in _buttonHolders)
 		{
 			//var button = node as Button;
-			if (button == null) GD.PrintErr("Button found Null");
+			var button = buttonHolder.GetChild(0).GetNode<Button>(".");
+			if (button == null)
+			{
+				GD.PrintErr("Button found Null");
+				return;
+			}
 			GD.Print(button.Text+" "+str);
 			if(button!.Text.Equals(str)) continue;
-			button.Visible = false;
+			buttonHolder.Visible = false;
 		}
 	}
 

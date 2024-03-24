@@ -42,6 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://bf3cyd5cug7da" path="res://Scenes/Museum/Sub Scenes/GuestWithLayers.tscn" id="30_4n4bn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
+[ext_resource type="Texture2D" uid="uid://c78tucptefcji" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="36_hg2i6"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Texture2D" uid="uid://dlovykj6658ca" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2 .png" id="38_0ce5p"]
 [ext_resource type="Texture2D" uid="uid://dmmsxb8jxs57x" path="res://Assets/2D/Sprites/Decorations/wooden bench.png" id="39_vhpcv"]
@@ -60,9 +61,6 @@
 [ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2lj4t"]
-load_path = "res://.godot/imported/isomatric forest chunk.png-39e4fad63e208a2655db8d51e4c382bd.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -252,77 +250,77 @@ y_sort_enabled = true
 [node name="IsomatricForestChunk" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(360.285, -334.5)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk2" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-243, -314.955)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk3" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(76, -478)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk8" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(127, -787)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk6" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(695, -502)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk7" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(414, -645.5)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk4" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-532, -458.955)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk5" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-206.715, -621.5)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk9" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-161, -931.5)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk12" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(464, -955)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk13" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(1032, -669)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk14" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(751, -813.5)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk15" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(176, -1099.5)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk10" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-820, -602.455)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="IsomatricForestChunk11" type="Sprite2D" parent="museum/Background Foresnt"]
 texture_filter = 1
 position = Vector2(-494.715, -766)
-texture = SubResource("CompressedTexture2D_2lj4t")
+texture = ExtResource("36_hg2i6")
 
 [node name="Road" type="Node2D" parent="museum/Background Foresnt"]
 y_sort_enabled = true

@@ -10,6 +10,9 @@
     "CaveMinSizeY": 4,
     "CaveMaxSizeX": 7,
     "CaveMaxSizeY": 5,
-    "MinDistanceBetweenCaves": 10
+    "MinDistanceBetweenCaves": 10,
+    "Region": "American",
+    "Site": "Battle Site",
+    "TotalNoOfArtifacts": 36
   }
 ]

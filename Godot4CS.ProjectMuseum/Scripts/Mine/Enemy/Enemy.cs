@@ -38,8 +38,6 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     
     [Export] public bool IsGoingToStartingPosition;
     [Export] public bool IsGoingToEndingPosition;
-    // protected Vector2 StartingMovementPosition;
-    // protected Vector2 EndingMovementPosition;
     
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://70xubhgxm5i3"]
+[gd_scene load_steps=51 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.cs" id="1_26dxj"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://d4ehoky215c4n" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_bracket.png" id="5_73e00"]
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_hulbe"]
-[ext_resource type="Texture2D" uid="uid://c6wth67qrvtwr" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_full.png" id="6_qpqcv"]
 [ext_resource type="Texture2D" uid="uid://dn3q2drhtqr3f" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/marble bg.png" id="7_lgch0"]
 [ext_resource type="Texture2D" uid="uid://cuy4hn1owyvmh" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/money_bar.png" id="7_tkekb"]
 [ext_resource type="Texture2D" uid="uid://cjjyg0qbnjwg4" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_half.png" id="7_v3soj"]
@@ -136,7 +135,7 @@ expand_mode = 3
 [node name="Guest Count Holder" type="HBoxContainer" parent="Left Panel/Guest Count Holder Panel"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 40
 
 [node name="Guest Icon and Text" type="HBoxContainer" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
@@ -148,7 +147,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="Guest Icon" type="TextureRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
-custom_minimum_size = Vector2(9.41, 0)
+custom_minimum_size = Vector2(3.01, 0)
 layout_mode = 2
 expand_mode = 4
 
@@ -161,9 +160,12 @@ text = "GUESTS"
 [node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
 theme = ExtResource("6_hulbe")
-text = "0"
+text = "0
+"
+horizontal_alignment = 2
 
 [node name="Star Rating Panel" type="TextureRect" parent="Left Panel"]
+texture_filter = 1
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 texture = ExtResource("5_73e00")
@@ -182,41 +184,38 @@ offset_right = 58.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 15
 alignment = 1
 
 [node name="Star" type="TextureRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("6_qpqcv")
+texture = ExtResource("7_v3soj")
 expand_mode = 3
 
 [node name="Star2" type="TextureRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("6_qpqcv")
 expand_mode = 3
 
 [node name="Star3" type="TextureRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("6_qpqcv")
 expand_mode = 3
 
 [node name="Star4" type="TextureRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("6_qpqcv")
 expand_mode = 3
 
 [node name="Star5" type="TextureRect" parent="Left Panel/Star Rating Panel/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-texture = ExtResource("7_v3soj")
 expand_mode = 3
 
 [node name="Buttons Panel" type="HBoxContainer" parent="Left Panel"]

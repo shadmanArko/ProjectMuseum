@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=64 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -59,6 +59,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ItemPlacementController.cs" id="50_roy6j"]
 [ext_resource type="PackedScene" uid="uid://qulr4wwpgjqv" path="res://Scenes/Museum/Effects/1x1dustEffect.tscn" id="51_k8r31"]
 [ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
+[ext_resource type="Texture2D" uid="uid://b1t1t30fukf1k" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_close.png" id="55_wsurx"]
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
 
@@ -891,8 +892,11 @@ script = ExtResource("37_vwmma")
 _camera2D = NodePath("../museum/Camera2D")
 _townScene = NodePath("../museum/CanvasLayer/Town Ui")
 
-[node name="WallController" type="Node2D" parent="."]
+[node name="WallController" type="Node2D" parent="." node_paths=PackedStringArray("_gateWalls")]
 script = ExtResource("23_md2ii")
+_gateWalls = [NodePath("../museum/FrontWalls/Right_front_wall/FrontWall24"), NodePath("../museum/FrontWalls/Right_front_wall/FrontWall25"), NodePath("../museum/FrontWalls/Right_front_wall/FrontWall26")]
+_openedGateTexture = ExtResource("43_ucw5y")
+_closedGateTexture = ExtResource("55_wsurx")
 
 [node name="DayNightCycleController" type="Node2D" parent="." node_paths=PackedStringArray("_backgroundObject")]
 script = ExtResource("46_uujue")

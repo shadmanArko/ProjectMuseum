@@ -12,7 +12,6 @@ _canvasLayer = NodePath("CanvasLayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 4
-visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 z_index = 20

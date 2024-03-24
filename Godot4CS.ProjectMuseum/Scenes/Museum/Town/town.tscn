@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=25 format=3 uid="uid://baf5s8ygn03sp"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/TownUi.cs" id="1_18m7k"]
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
@@ -22,7 +22,45 @@
 [ext_resource type="Texture2D" uid="uid://bctxfkps1ledr" path="res://Assets/2D/Sprites/Town/grass.png" id="17_pei67"]
 [ext_resource type="Texture2D" uid="uid://bwa5xyu1hry00" path="res://Assets/2D/Sprites/Museum Ui/town map pointer.png" id="21_04t4b"]
 
-[node name="Panel" type="Panel" node_paths=PackedStringArray("_popUpUi", "_indicatorForHouseOfBuddy")]
+[sub_resource type="Animation" id="Animation_xtnbv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-45.95, 26)]
+}
+
+[sub_resource type="Animation" id="Animation_yc8nh"]
+resource_name = "indicate"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-45.95, 26), Vector2(-78.03, 26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wcxd2"]
+_data = {
+"RESET": SubResource("Animation_xtnbv"),
+"indicate": SubResource("Animation_yc8nh")
+}
+
+[node name="Panel" type="Panel" node_paths=PackedStringArray("_popUpUi", "_indicatorForHouseOfBuddy", "_indicatorAnimationPlayer")]
 self_modulate = Color(1, 1, 1, 0.388235)
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,6 +71,7 @@ mouse_filter = 2
 script = ExtResource("1_18m7k")
 _popUpUi = NodePath("Town Ui/TownWarning")
 _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
+_indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
 
 [node name="Town Ui" type="Control" parent="." node_paths=PackedStringArray("_sprite2D", "_townClosingButton")]
 clip_contents = true
@@ -166,9 +205,14 @@ _hasDiggingBuddy = true
 [node name="indicator" type="Sprite2D" parent="Town Ui/Town Ground With roads/Houses/TrailerHome5"]
 visible = false
 texture_filter = 1
-position = Vector2(-58.4999, 26)
+position = Vector2(-45.95, 26)
 scale = Vector2(2, 2)
 texture = ExtResource("21_04t4b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator"]
+libraries = {
+"": SubResource("AnimationLibrary_wcxd2")
+}
 
 [node name="TrailerHome6" parent="Town Ui/Town Ground With roads/Houses" instance=ExtResource("3_2ledy")]
 position = Vector2(514.5, 352)

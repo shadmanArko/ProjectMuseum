@@ -16,10 +16,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MainMenu" parent="CanvasLayer" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton") instance=ExtResource("1_yi0a2")]
-ContinueButton = NodePath("MarginContainer/VBoxContainer/Continue")
-NewGameButton = NodePath("MarginContainer/VBoxContainer/New Game")
-OptionsButton = NodePath("MarginContainer/VBoxContainer/Options")
-ExitButton = NodePath("MarginContainer/VBoxContainer/Exit")
+ContinueButton = NodePath("TextureRect2/MarginContainer/VBoxContainer/Continue")
+NewGameButton = NodePath("TextureRect2/MarginContainer/VBoxContainer/New Game")
+OptionsButton = NodePath("TextureRect2/MarginContainer/VBoxContainer/Options")
+ExitButton = NodePath("TextureRect2/MarginContainer/VBoxContainer/Exit")
 
 [node name="NewGameSetupUi" parent="CanvasLayer" node_paths=PackedStringArray("StartButton", "LineEdit", "OptionButton", "CheckButton", "_warningPanel", "LoadingPanel") instance=ExtResource("2_nx8bi")]
 visible = false
@@ -31,4 +31,5 @@ _warningPanel = NodePath("Panel/Warning UI")
 LoadingPanel = NodePath("Loading Panel")
 
 [node name="MainMenuMiscellaneousDataManager" type="Node2D" parent="."]
+process_mode = 4
 script = ExtResource("3_y8duy")

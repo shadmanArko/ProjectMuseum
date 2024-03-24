@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwcubnjyh77t2"]
+
+[ext_resource type="Texture2D" uid="uid://co1i6b80nuosq" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/fire hydrant.png" id="1_3ja8s"]
+
+[node name="FireHydrant" type="Sprite2D"]
+position = Vector2(425, -195)
+texture = ExtResource("1_3ja8s")
+offset = Vector2(0, -8.855)

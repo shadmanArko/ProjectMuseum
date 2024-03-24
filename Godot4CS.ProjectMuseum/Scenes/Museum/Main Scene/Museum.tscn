@@ -428,14 +428,14 @@ position = Vector2(0, -9)
 z_index = 1
 position = Vector2(-343.34, -195)
 texture = ExtResource("42_fq60h")
-offset = Vector2(0, -27.495)
+offset = Vector2(0, -28.175)
 hframes = 6
 
 [node name="BusStopWall2" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
 z_index = 1
 position = Vector2(-327.665, -196)
 texture = ExtResource("42_fq60h")
-offset = Vector2(0, -27.12)
+offset = Vector2(0, -27.165)
 hframes = 6
 frame = 1
 
@@ -449,25 +449,25 @@ frame = 2
 
 [node name="BusStopWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
 z_index = 1
-position = Vector2(-297, -188)
+position = Vector2(-297, -189)
 texture = ExtResource("42_fq60h")
-offset = Vector2(0, -35.125)
+offset = Vector2(0.67, -34.175)
 hframes = 6
 frame = 3
 
 [node name="BusStopWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
 z_index = 1
-position = Vector2(-282, -179)
+position = Vector2(-280, -179)
 texture = ExtResource("42_fq60h")
-offset = Vector2(0, -44.085)
+offset = Vector2(-0.66, -44.175)
 hframes = 6
 frame = 4
 
 [node name="BusStopWall6" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
 z_index = 1
-position = Vector2(-267, -175)
+position = Vector2(-264, -175)
 texture = ExtResource("42_fq60h")
-offset = Vector2(0, -48.08)
+offset = Vector2(-0.98, -48.155)
 hframes = 6
 frame = 5
 

@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.MIne;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
 
@@ -10,6 +11,6 @@ public interface IProceduralMineGenerationService
     Task GenerateCaves();
     Task GenerateSpecialBackdrops();
     Task GenerateArtifacts();
-    Task GenerateResources();
+    Task<List<Resource>> GenerateResources();
     Task GenerateUnbreakableRocks();
 }

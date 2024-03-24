@@ -48,9 +48,8 @@ public class ResourceService : IResourceService
         return mine;
     }
 
-    public async Task<List<Resource>> GenerateResources()
+    public async Task<List<Resource>> GenerateResources(List<string> variants)
     {
-        var variants = new List<string> { "Coal", "Iron" };
         var mine = await _mineRepository.Get();
 
         foreach (var mineCell in mine.Cells)

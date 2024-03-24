@@ -171,12 +171,12 @@ public class MineController : ControllerBase
         return Ok(cave);
     }
     
-    [HttpGet("GenerateResources")]
-    public async Task<IActionResult> GenerateResources()
-    {
-        var mine = await _resourceService.GenerateResources();
-        return Ok(mine);
-    }
+    // [HttpGet("GenerateResources")]
+    // public async Task<IActionResult> GenerateResources()
+    // {
+    //     var mine = await _resourceService.GenerateResources();
+    //     return Ok(mine);
+    // }
     
     // [HttpGet("SetSpecialBackdropsInMine")]
     // public async Task<IActionResult> SetSpecialBackdropsInMine()

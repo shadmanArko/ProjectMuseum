@@ -1,5 +1,6 @@
 using System.Numerics;
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.MIne;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineGenerationRepository;
@@ -7,6 +8,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService.MineOrdinaryCellGeneratorService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
+using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SiteArtifactChanceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
 
@@ -22,6 +24,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     private readonly IMineArtifactService _mineArtifactService;
     private readonly ISiteArtifactChanceService _siteArtifactChanceService;
+    private readonly IResourceService _resourceService;
 
 
     private readonly ISpecialBackdropService _specialBackdropService;
@@ -33,7 +36,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         IMineRepository mineRepository, ISpecialBackdropService specialBackdropService,
         JsonFileDatabase<SpecialBackdropPngInformation> specialBackdropPngInformationDatabase, IMineService mineService,
         IRawArtifactFunctionalService rawArtifactFunctionalService, IMineArtifactService mineArtifactService,
-        ISiteArtifactChanceService siteArtifactChanceService)
+        ISiteArtifactChanceService siteArtifactChanceService, IResourceService resourceService)
     {
         _proceduralMineGenerationRepository = proceduralMineGenerationRepository;
         _mineOrdinaryCellGeneratorService = mineOrdinaryCellGeneratorService;
@@ -45,7 +48,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
         _mineArtifactService = mineArtifactService;
         _siteArtifactChanceService = siteArtifactChanceService;
-        Console.WriteLine("Generating CAVE");
+        _resourceService = resourceService;
     }
 
     public async Task<Mine> GenerateProceduralMine()
@@ -55,7 +58,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         await GenerateCaves();
         await GenerateSpecialBackdrops();
         await GenerateArtifacts();
-        // await GenerateResources();
+        await GenerateResources();
         // await GenerateUnbreakableRocks();
         var mine = await _mineRepository.Get();
         return mine;
@@ -234,6 +237,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
     #endregion
 
+    #region Generate Artifacts
+
     public async Task GenerateArtifacts()
     {
         var mineGenData = await _proceduralMineGenerationRepository.GetProceduralMineGenerationData();
@@ -274,9 +279,12 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             .OrderBy(x => rand.Next()).Take(ceremonialCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Legendary").ToList()
             .OrderBy(x => rand.Next()).Take(legendaryCount));
+        
+        Console.WriteLine($"raw artifact functional: {rawArtifactFunctionals!.Count}");
+        Console.WriteLine($"list of raw artifacts: {listOfRawArtifacts.Count}");
 
         var listOfArtifacts = new List<Artifact>();
-        foreach (var artifactFunctional in rawArtifactFunctionals!)
+        foreach (var artifactFunctional in listOfRawArtifacts)
         {
             var artifact = new Artifact
             {
@@ -306,6 +314,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             var cell = cells[rand.Next(0, cells.Count)];
             artifact.PositionX = cell.PositionX;
             artifact.PositionY = cell.PositionY;
+            cells.Remove(cell);
         }
         
         var artifacts = await _mineArtifactService.GenerateNewArtifacts(listOfArtifacts);
@@ -315,9 +324,13 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         await _mineService.AssignArtifactsToMine();
     }
 
-    public Task GenerateResources()
+    #endregion
+
+    public async Task<List<Resource>> GenerateResources()
     {
-        throw new NotImplementedException();
+        var mineGenData = await _proceduralMineGenerationRepository.GetProceduralMineGenerationData();
+        var resources = await _resourceService.GenerateResources(mineGenData.ResourceVariants);
+        return resources;
     }
 
     public Task GenerateUnbreakableRocks()

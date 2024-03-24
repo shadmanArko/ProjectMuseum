@@ -21,4 +21,5 @@ public class ProceduralMineGenerationData
     public string Region { get; set; }
     public string Site { get; set; }
     public int TotalNoOfArtifacts { get; set; }
+    public List<string> ResourceVariants { get; set; }
 }

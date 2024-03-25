@@ -397,6 +397,8 @@ public partial class Guest : GuestAi
         return false;
     }
 
+    
+
     private void MoveRight()
     {
         

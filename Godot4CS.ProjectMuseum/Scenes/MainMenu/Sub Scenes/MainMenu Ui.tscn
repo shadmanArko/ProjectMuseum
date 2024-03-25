@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenu.cs" id="1_quodl"]
 [ext_resource type="Texture2D" uid="uid://bufddhwhsu3n7" path="res://Assets/2D/Sprites/Museum Ui/logo 1.png" id="2_wr5bl"]
 [ext_resource type="Texture2D" uid="uid://dfp1u5tyu523a" path="res://Assets/2D/Sprites/UI/Main menu/main_menu_18.png" id="3_bexmm"]
-[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="3_uware"]
+[ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="5_fnjy7"]
 [ext_resource type="Texture2D" uid="uid://dr000m1goscjo" path="res://Assets/2D/Sprites/UI/Main menu/LOGO for mainmenu.png" id="5_g2t5h"]
 [ext_resource type="Texture2D" uid="uid://curg8go0y87rp" path="res://Assets/2D/Sprites/UI/Main menu/Tempo menu box.png" id="6_hdi3s"]
 
@@ -76,7 +76,7 @@ theme_override_constants/separation = 10
 [node name="Continue" type="Button" parent="BG/Buttons MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(381, 96)
 layout_mode = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 disabled = true
 icon = ExtResource("6_hdi3s")
 
@@ -87,7 +87,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 theme_override_colors/font_color = Color(0.0980392, 0.0352941, 0.192157, 1)
 theme_override_font_sizes/font_size = 32
 text = "Continue"
@@ -97,7 +97,7 @@ vertical_alignment = 1
 [node name="New Game" type="Button" parent="BG/Buttons MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(381, 96)
 layout_mode = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 icon = ExtResource("6_hdi3s")
 
 [node name="Label" type="Label" parent="BG/Buttons MarginContainer/VBoxContainer/New Game"]
@@ -107,7 +107,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 theme_override_colors/font_color = Color(0.0980392, 0.0352941, 0.192157, 1)
 theme_override_font_sizes/font_size = 32
 text = "New Game"
@@ -117,7 +117,7 @@ vertical_alignment = 1
 [node name="Options" type="Button" parent="BG/Buttons MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(381, 96)
 layout_mode = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 icon = ExtResource("6_hdi3s")
 
 [node name="Label" type="Label" parent="BG/Buttons MarginContainer/VBoxContainer/Options"]
@@ -127,7 +127,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 theme_override_colors/font_color = Color(0.0980392, 0.0352941, 0.192157, 1)
 theme_override_font_sizes/font_size = 32
 text = "Options"
@@ -137,7 +137,7 @@ vertical_alignment = 1
 [node name="Exit" type="Button" parent="BG/Buttons MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(381, 96)
 layout_mode = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 icon = ExtResource("6_hdi3s")
 
 [node name="Label" type="Label" parent="BG/Buttons MarginContainer/VBoxContainer/Exit"]
@@ -147,7 +147,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 theme_override_colors/font_color = Color(0.0980392, 0.0352941, 0.192157, 1)
 theme_override_font_sizes/font_size = 32
 text = "Exit"
@@ -165,7 +165,7 @@ offset_left = -168.0
 offset_top = -25.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = ExtResource("3_uware")
+theme = ExtResource("5_fnjy7")
 theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
 theme_override_font_sizes/font_size = 16
 text = "Proof of Concept."

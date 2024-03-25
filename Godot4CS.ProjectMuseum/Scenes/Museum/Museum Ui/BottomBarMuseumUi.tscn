@@ -1,15 +1,16 @@
-[gd_scene load_steps=51 format=3 uid="uid://70xubhgxm5i3"]
+[gd_scene load_steps=52 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.cs" id="1_26dxj"]
 [ext_resource type="Texture2D" uid="uid://e4kkuk5wqoef" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/Bottom_bar_base.png" id="2_12hgw"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/ButtonPress.cs" id="2_1850m"]
+[ext_resource type="Texture2D" uid="uid://cv0a1gr5b7pn1" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button_base.png" id="3_7gysw"]
 [ext_resource type="Texture2D" uid="uid://btc7tmyyk7wql" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button.png" id="3_lvt4l"]
 [ext_resource type="Texture2D" uid="uid://dwui552mmvmeq" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/guest_bar.png" id="3_vneh1"]
 [ext_resource type="Script" path="res://Scripts/Museum/BuilderCardSlotsController.cs" id="4_egqqe"]
+[ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="4_uca33"]
 [ext_resource type="Texture2D" uid="uid://d4ehoky215c4n" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_bracket.png" id="5_73e00"]
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
-[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="6_hulbe"]
 [ext_resource type="Texture2D" uid="uid://dn3q2drhtqr3f" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/marble bg.png" id="7_lgch0"]
 [ext_resource type="Texture2D" uid="uid://cuy4hn1owyvmh" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/money_bar.png" id="7_tkekb"]
 [ext_resource type="Texture2D" uid="uid://cjjyg0qbnjwg4" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_half.png" id="7_v3soj"]
@@ -115,6 +116,14 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_12hgw")
 
+[node name="buttons bg" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_left = 474.0
+offset_right = 1507.33
+offset_bottom = 50.0
+texture = ExtResource("3_7gysw")
+expand_mode = 3
+
 [node name="Left Panel" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -153,13 +162,13 @@ expand_mode = 4
 
 [node name="Guest Text" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
 layout_mode = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "GUESTS"
 
 [node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 text = "0
 "
 horizontal_alignment = 2
@@ -223,12 +232,13 @@ custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel" node_paths=PackedStringArray("_buttonHolders", "_subButtonContainer", "_adminContainer", "_exhibitsContainer", "_decorationContainer", "_roomContainer", "_staffContainer")]
+[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel" node_paths=PackedStringArray("_buttonHolders", "_mainButtonsBg", "_subButtonContainer", "_adminContainer", "_exhibitsContainer", "_decorationContainer", "_roomContainer", "_staffContainer")]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 5
 script = ExtResource("1_8vmjs")
 _buttonHolders = [NodePath("Administration parent"), NodePath("Exhibit parent"), NodePath("Decoration parent"), NodePath("Room Parent"), NodePath("Staff Parent")]
+_mainButtonsBg = NodePath("../../../Background/buttons bg")
 _subButtonContainer = NodePath("../Sub Buttons Panel")
 _adminContainer = NodePath("../Sub Buttons Panel/Administration Button Container")
 _exhibitsContainer = NodePath("../Sub Buttons Panel/Exhibit Button Container")
@@ -250,7 +260,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -278,7 +288,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -306,7 +316,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -334,7 +344,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -362,7 +372,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -404,7 +414,7 @@ offset_left = 3.0
 offset_right = -3.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -432,7 +442,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -458,7 +468,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -488,7 +498,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -516,7 +526,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -544,7 +554,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -576,7 +586,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -604,7 +614,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -632,7 +642,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -660,7 +670,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -688,7 +698,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -701,7 +711,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_mqoxg")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a5r8s")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
-text = "Food and Drinks"
+text = "Food & Drinks"
 
 [node name="Room Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
@@ -720,7 +730,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -748,7 +758,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -776,7 +786,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -804,7 +814,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -832,7 +842,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -864,7 +874,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -892,7 +902,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -920,7 +930,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -948,7 +958,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
 theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -1001,7 +1011,7 @@ alignment = 1
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0.780392, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "+$5"
@@ -1009,7 +1019,7 @@ horizontal_alignment = 1
 
 [node name="Money Text Holder" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1300.99"
 
@@ -1026,21 +1036,21 @@ visible = false
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 
 [node name="Screenshot Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 
 [node name="Help Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 
 [node name="Builder card panel" type="TextureRect" parent="." node_paths=PackedStringArray("_buildersPanelClosingButton", "_builderCardContainer")]
 visible = false
@@ -1092,7 +1102,7 @@ theme_override_constants/margin_bottom = 10
 [node name="GridContainer" type="GridContainer" parent="Builder card panel/Objects Panel/MarginContainer"]
 custom_minimum_size = Vector2(100, 90)
 layout_mode = 2
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 5
@@ -1191,7 +1201,7 @@ offset_left = 22.0
 offset_top = 23.552
 offset_right = 80.0
 offset_bottom = 49.552
-theme = ExtResource("6_hulbe")
+theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Details:"
 

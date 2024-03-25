@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c5rlbqjmqq834"]
+
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_cgxev"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="1_wsifr"]
+
+[resource]
+Button/constants/outline_size = 0
+Button/fonts/font = ExtResource("1_wsifr")
+Label/fonts/font = ExtResource("1_cgxev")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 0)
+RichTextLabel/fonts/bold_font = ExtResource("1_cgxev")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_cgxev")
+RichTextLabel/fonts/italics_font = ExtResource("1_cgxev")
+RichTextLabel/fonts/mono_font = ExtResource("1_cgxev")
+RichTextLabel/fonts/normal_font = ExtResource("1_cgxev")

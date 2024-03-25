@@ -184,7 +184,7 @@ _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Player_Uncontrolled" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_1kq7h")]
-position = Vector2(128, -44)
+position = Vector2(130, -48)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -7), Vector2i(-5, -8)])
 _museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_back_facing"
@@ -470,6 +470,31 @@ texture = ExtResource("42_fq60h")
 offset = Vector2(-0.98, -48.155)
 hframes = 6
 frame = 5
+
+[node name="lamps and firehydrents" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+y_sort_enabled = true
+position = Vector2(-15, -77)
+
+[node name="FireHydrant" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("58_d7sol")]
+z_index = 1
+position = Vector2(358, -149)
+
+[node name="StreetLamp" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
+
+[node name="StreetLamp2" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(583, -261)
+
+[node name="StreetLamp3" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(857, -397)
+
+[node name="StreetLamp4" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(-111, -35)
+
+[node name="StreetLamp5" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(-560, -261)
+
+[node name="StreetLamp6" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(-894, -428)
 
 [node name="FrontWalls" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -911,26 +936,3 @@ _controllersParent = NodePath(".")
 script = ExtResource("50_roy6j")
 _placementEffect1X1 = ExtResource("51_k8r31")
 _placementEffect2X2 = ExtResource("52_syimh")
-
-[node name="lamps and firehydrents" type="Node2D" parent="."]
-
-[node name="FireHydrant" parent="lamps and firehydrents" instance=ExtResource("58_d7sol")]
-z_index = 1
-position = Vector2(358, -149)
-
-[node name="StreetLamp" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
-
-[node name="StreetLamp2" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
-position = Vector2(583, -261)
-
-[node name="StreetLamp3" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
-position = Vector2(857, -397)
-
-[node name="StreetLamp4" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
-position = Vector2(-111, -35)
-
-[node name="StreetLamp5" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
-position = Vector2(-560, -261)
-
-[node name="StreetLamp6" parent="lamps and firehydrents" instance=ExtResource("59_42wpc")]
-position = Vector2(-894, -428)

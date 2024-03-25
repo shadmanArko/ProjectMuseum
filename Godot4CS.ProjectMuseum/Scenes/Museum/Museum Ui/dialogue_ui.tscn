@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://crl7j8x5ieqw"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Dialogue System/DialogueSystem.cs" id="1_60ayo"]
-[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_7vfjw"]
 [ext_resource type="Texture2D" uid="uid://b7h8h52nhfaw1" path="res://Assets/2D/Sprites/Illustrations/01.png" id="2_wt1gy"]
+[ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="3_aesdw"]
 [ext_resource type="Texture2D" uid="uid://dgtxslbhioje4" path="res://Assets/2D/Sprites/Dialogue Box/Dialogue box marble wood.png" id="4_hr58x"]
 [ext_resource type="Texture2D" uid="uid://ds2i1skim46bp" path="res://Assets/2D/Sprites/Dialogue Box/Portrait frame wood 2.png" id="5_4fifc"]
 [ext_resource type="Texture2D" uid="uid://bhe5ebi8gghxj" path="res://Assets/2D/Sprites/Dialogue Box/Portrait frame base 2.png" id="6_km2up"]
@@ -191,7 +191,7 @@ anchor_bottom = 1.0
 offset_right = -420.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_7vfjw")
+theme = ExtResource("3_aesdw")
 texture = ExtResource("4_hr58x")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/Dialogue and Potrait Panel/ColorRect"]
@@ -209,7 +209,7 @@ theme_override_constants/margin_bottom = 25
 [node name="Dialogue" type="RichTextLabel" parent="Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer"]
 modulate = Color(0.00784314, 0.00784314, 0.00784314, 1)
 layout_mode = 2
-theme = ExtResource("2_7vfjw")
+theme = ExtResource("3_aesdw")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 32
 text = "Welcome To The Museum.
@@ -225,7 +225,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_7vfjw")
+theme = ExtResource("3_aesdw")
 disabled = true
 text = "
 "

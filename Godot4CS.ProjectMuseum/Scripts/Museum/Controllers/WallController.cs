@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
@@ -21,6 +22,9 @@ public partial class WallController : Node2D
 
 	private bool _listenForWallPaperUpdates = false;
 
+	[Export] private Array<Sprite2D> _gateWalls;
+	[Export] private Texture2D _openedGateTexture;
+	[Export] private Texture2D _closedGateTexture;
 	private string _currentCardName;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
@@ -32,6 +36,17 @@ public partial class WallController : Node2D
 		_httpRequestForUpdatingWalls.RequestCompleted += HttpRequestForUpdatingWallsOnRequestCompleted;
 		MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
 		MuseumActions.OnClickWallForUpdatingWallPaper += OnClickWallForUpdatingWallPaper;
+		MuseumActions.OnClickMuseumGateToggle += OnClickMuseumGateToggle;
+	}
+
+	private void OnClickMuseumGateToggle(bool gateOpen)
+	{
+		
+		foreach (var gateWall in _gateWalls)
+		{
+			gateWall.Texture = gateOpen? _openedGateTexture : _closedGateTexture;
+		}
+		
 	}
 
 	private void OnClickWallForUpdatingWallPaper(string wallTileId)
@@ -123,5 +138,7 @@ public partial class WallController : Node2D
 		_httpRequestForUpdatingWalls.RequestCompleted -= HttpRequestForUpdatingWallsOnRequestCompleted;
 		MuseumActions.OnClickBuilderCard -= OnClickBuilderCard;
 		MuseumActions.OnClickWallForUpdatingWallPaper -= OnClickWallForUpdatingWallPaper;
+		MuseumActions.OnClickMuseumGateToggle -= OnClickMuseumGateToggle;
+
 	}
 }

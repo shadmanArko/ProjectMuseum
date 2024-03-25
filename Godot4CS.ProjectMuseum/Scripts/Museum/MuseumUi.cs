@@ -55,6 +55,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard;
         MuseumActions.OnTimeUpdated += OnTimeUpdated;
         MuseumActions.StorySceneEntryEnded += StorySceneEnded;
+        _museumGateCheckButton.ButtonPressed = true;
     }
 
     private void StorySceneEnded(string obj)

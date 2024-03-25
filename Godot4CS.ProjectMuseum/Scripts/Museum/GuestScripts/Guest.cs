@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Plugins.AStarPathFinding;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
 
-public partial class Guest : CharacterBody2D
+public partial class Guest : GuestAi
 {
 	[Export] private float _minDisplacementSpeed = 20;
 	[Export] private float _maxDisplacementSpeed = 30;
@@ -395,6 +396,8 @@ public partial class Guest : CharacterBody2D
         _lastCheckedResult = false;
         return false;
     }
+
+    
 
     private void MoveRight()
     {

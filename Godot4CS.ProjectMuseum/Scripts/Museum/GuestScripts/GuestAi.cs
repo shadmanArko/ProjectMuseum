@@ -13,6 +13,14 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 
 public partial class GuestAi : CharacterBody2D
 {
+    private float _wantOfFood;
+    private float _wantOfInterestedArtifacts;
+    private float _wantOfDrink;
+    private float _wantOfCharge;
+    private float _wantOfRest;
+    private float _wantOfRestSouvenirs;
+    
+    //Guest Ai selection
     [Export] private Sprite2D _collisionShape2D;
     [Export] private Sprite2D _selectionIndicator;
     [Export] private Sprite2D _selectionIndicatorBottom;

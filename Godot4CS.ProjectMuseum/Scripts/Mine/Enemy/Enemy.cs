@@ -16,7 +16,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
 
     #region Phase
 
-    private EnemyPhase _phase;
+    [Export] private EnemyPhase _phase;
     public EnemyPhase Phase 
     { 
         get=> _phase;

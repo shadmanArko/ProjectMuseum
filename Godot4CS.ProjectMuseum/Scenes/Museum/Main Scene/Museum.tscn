@@ -477,9 +477,10 @@ position = Vector2(-15, -77)
 
 [node name="FireHydrant" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("58_d7sol")]
 z_index = 1
-position = Vector2(358, -149)
+position = Vector2(354, -148)
 
 [node name="StreetLamp" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
+position = Vector2(341, -140)
 
 [node name="StreetLamp2" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("59_42wpc")]
 position = Vector2(583, -261)

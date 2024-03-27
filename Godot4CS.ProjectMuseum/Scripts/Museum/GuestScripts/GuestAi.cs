@@ -13,8 +13,17 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 
 public partial class GuestAi : CharacterBody2D
 {
+    private float _wantOfFood;
+    private float _wantOfInterestedArtifacts;
+    private float _wantOfDrink;
+    private float _wantOfCharge;
+    private float _wantOfRest;
+    private float _wantOfRestSouvenirs;
+    
+    //Guest Ai selection
     [Export] private Sprite2D _collisionShape2D;
     [Export] private Sprite2D _selectionIndicator;
+    [Export] private Sprite2D _selectionIndicatorBottom;
     public override void _Input(InputEvent @event)
     {
         if (Input.IsActionJustReleased("ui_left_click"))
@@ -22,7 +31,7 @@ public partial class GuestAi : CharacterBody2D
             
             if ( _collisionShape2D.GetRect().HasPoint(GetLocalMousePosition()))
             {
-                GD.Print($"Clicked on guest {Name}");
+                // GD.Print($"Clicked on guest {Name}");
                 MuseumActions.OnClickGuestAi?.Invoke(this);
             }
         }
@@ -31,6 +40,7 @@ public partial class GuestAi : CharacterBody2D
     private void OnClickGuestAi(GuestAi guestAi)
     {
         _selectionIndicator.Visible = guestAi == this;
+        _selectionIndicatorBottom.Visible = guestAi == this;
     }
     public override void _EnterTree()
     {

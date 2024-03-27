@@ -65,13 +65,6 @@ public class MineController : ControllerBase
         var artifact = await _mineArtifactService.SendArtifactToInventory(id);
         return Ok(artifact);
     }
-
-    // [HttpGet("GenerateMine")]
-    // public async Task<IActionResult> GenerateMine()
-    // {
-    //     var mine = await _mineOrdinaryCellGeneratorService.GenerateMineCellData();
-    //     return Ok(mine);
-    // }
     
     [HttpGet("GenerateProceduralMine")]
     public async Task<IActionResult> GenerateProceduralMine()

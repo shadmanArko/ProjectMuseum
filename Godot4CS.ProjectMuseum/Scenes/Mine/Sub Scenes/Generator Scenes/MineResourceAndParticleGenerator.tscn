@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ogfqgrxxdwn0"]
-
-[ext_resource type="Script" path="res://Scripts/Mine/Object Generators/MineResourceAndParticleGenerator.cs" id="1_svr5t"]
-
-[node name="MineResourceAndParticleGenerator" type="Node2D"]
-script = ExtResource("1_svr5t")

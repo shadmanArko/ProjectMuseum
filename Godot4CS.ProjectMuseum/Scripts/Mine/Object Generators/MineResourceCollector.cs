@@ -1,21 +1,28 @@
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+
+using ProjectMuseum.Models;
 using Resource = ProjectMuseum.Models.MIne.Resource;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Object_Generators;
 
-public partial class MineResourceAndParticleGenerator : Node
+public partial class MineResourceCollector : Node
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 
 	private HttpRequest _sendResourceFromMineToInventoryHttpRequest;
+	private HttpRequest _getInventoryHttpRequest;
 	
 	private RandomNumberGenerator _randomNumberGenerator;
+	
+	private Inventory _inventory;
 	
 	public override void _Ready()
 	{
@@ -30,9 +37,11 @@ public partial class MineResourceAndParticleGenerator : Node
 		_sendResourceFromMineToInventoryHttpRequest = new HttpRequest();
 		AddChild(_sendResourceFromMineToInventoryHttpRequest);
 		_sendResourceFromMineToInventoryHttpRequest.RequestCompleted += OnSendResourceFromMineToInventoryHttpRequestCompleted;
+		
+		_getInventoryHttpRequest = new HttpRequest();
+		AddChild(_getInventoryHttpRequest);
+		_getInventoryHttpRequest.RequestCompleted += OnGetInventoryHttpRequestCompleted;
 	}
-
-	
 
 	private void InitializeDiInstaller()
 	{
@@ -42,55 +51,12 @@ public partial class MineResourceAndParticleGenerator : Node
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnSuccessfulDigActionCompleted += MakeMineWallDepletedParticleEffect;
-		MineActions.OnSuccessfulDigActionCompleted += CollectResources;
+		MineActions.OnSuccessfulDigActionCompleted += CheckResourceCollectionValidity;
 	}
-
-	#region Wall Particle Effects
-
-	private void MakeMineWallDepletedParticleEffect()
-	{
-		var particleEffectPath = ReferenceStorage.Instance.DepletedParticleExplosion;
-		var particle = ResourceLoader.Load<PackedScene>(particleEffectPath).Instantiate() as DepletedParticleExplosion;
-		if (particle == null) return;
-
-		var position = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
-		position += _playerControllerVariables.MouseDirection;
-		particle.Position = position * _mineGenerationVariables.Mine.CellSize;
-        
-		var cellSize = _mineGenerationVariables.Mine.CellSize;
-		var rand = _randomNumberGenerator.RandfRange(cellSize / 4f,cellSize);
-        
-		switch (_playerControllerVariables.MouseDirection)
-		{
-			case (1, 0):
-				particle.Position += new Vector2(0, rand);
-				particle.EmitParticle(_playerControllerVariables.MouseDirection);
-				break;
-			case (-1, 0):
-				particle.Position += new Vector2(cellSize, rand);
-				particle.EmitParticle(_playerControllerVariables.MouseDirection);
-				break;
-			case (0, -1):
-				particle.Position += new Vector2(rand, cellSize);
-				particle.EmitParticle(_playerControllerVariables.MouseDirection);
-				break;
-			case (0, 1):
-				particle.Position += new Vector2(rand, 0);
-				particle.EmitParticle(_playerControllerVariables.MouseDirection);
-				break;
-		}
-
-		_mineGenerationVariables.MineGenView.AddChild(particle);
-		var direction = _playerControllerVariables.MouseDirection * -1;
-		particle.EmitParticle(direction);
-	}
-
-	#endregion
 	
-	#region Instantiate Resource Objects
+	#region Check Resource Collection Validity
 
-	private void CollectResources()
+	private void CheckResourceCollectionValidity()
 	{
 		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
 		tilePos += _playerControllerVariables.MouseDirection;
@@ -98,13 +64,50 @@ public partial class MineResourceAndParticleGenerator : Node
 		
 		if(cell.HitPoint > 0) return;
 		if(!cell.HasResource) return;
+		
+		var url = ApiAddress.PlayerApiPath+"GetInventory";
+		_getInventoryHttpRequest.CancelRequest();
+		_getInventoryHttpRequest.Request(url);
+	}
+	   
+	private async void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		var jsonStr = Encoding.UTF8.GetString(body);
+		_inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
+        
+		if (_inventory == null)
+		{
+			GD.Print("INVENTORY IS NULL");
+			return;
+		}
+        
+		if (_inventory.OccupiedSlots.Count >= _inventory.SlotsUnlocked)
+		{
+			GD.PrintErr("No empty slots in inventory");
+			await ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
+		}
+		else
+		{
+			GD.Print("adding resource to inventory");
+			CollectResources();
+		}
+	}
+    
+	#endregion
+    
+	#region Instantiate Resource Objects
+
+	private void CollectResources()
+	{
+		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
+		tilePos += _playerControllerVariables.MouseDirection;
+		var cell = _mineGenerationVariables.GetCell(tilePos);
 		var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
 			tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
 
 		if (resource == null) return;
 		SendResourceFromMineToInventory(resource.Id);
 		cell.HasResource = false;
-		
 	}
 
 	#endregion
@@ -124,10 +127,8 @@ public partial class MineResourceAndParticleGenerator : Node
 
 	#endregion
 
-
 	public override void _ExitTree()
 	{
-		MineActions.OnSuccessfulDigActionCompleted -= MakeMineWallDepletedParticleEffect;
 		MineActions.OnSuccessfulDigActionCompleted += CollectResources;
 	}
 }

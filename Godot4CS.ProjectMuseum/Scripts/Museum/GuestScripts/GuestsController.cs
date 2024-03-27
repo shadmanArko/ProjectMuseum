@@ -24,7 +24,7 @@ public partial class GuestsController : Node2D
 	[Export] private int _maxNumberGuests = 10;
 	private int _numberOfGuestsInMuseum;
 	private int _numberOfPeopleInScene;
-	private int _maxNumberOfPeopleInTheScene = 50;
+	private int _maxNumberOfPeopleInTheScene = 5000;
 	private bool _isMuseumGateOpen = false;
 	private bool _isGamePaused = false;
 	private float _ticketPrice = 5;

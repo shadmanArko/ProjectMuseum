@@ -25,7 +25,7 @@ public partial class Slime : Enemy
 
     #region Loitering Variables
 
-    private Vector2 _targetPos;
+    [Export] private Vector2 _targetPos;
     private Vector2 _leftPos;
     private Vector2 _rightPos;
 
@@ -151,7 +151,11 @@ public partial class Slime : Enemy
     {
         var tuple = _enemyAi.DetermineLoiteringPath(Position);
         GD.Print($"tuple is null: {tuple == null}");
-        if (tuple == null) return;
+        if (tuple == null)
+        {
+            Phase = EnemyPhase.Teleport;
+            return;
+        }
         _leftPos = tuple.Item1;
         _rightPos = tuple.Item2;
         GD.Print($"leftPos: {_leftPos}, rightPos: {_rightPos}");
@@ -164,6 +168,9 @@ public partial class Slime : Enemy
 
     private async Task Loiter()
     {
+        if (_targetPos == Vector2.Zero)
+            DecideMoveTargetPosition();
+        
         if (_isMovingLeft)
         {
             if (_targetPos.X > Position.X)
@@ -187,7 +194,7 @@ public partial class Slime : Enemy
                 MoveDirection = Vector2.Left;
             }
         }
-
+        
         await Move();
     }
 
@@ -455,6 +462,7 @@ public partial class Slime : Enemy
 
     public override void _ExitTree()
     {
+        SetPhysicsProcess(false);
         UnsubscribeToActions();
     }
 }

@@ -109,7 +109,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var mineX = mine.GridWidth;
         var mineY = mine.GridLength;
 
-        #region cavesToGenerate contains list of cave dimensions tha has to be generated
+        #region cavesToGenerate contains list of cave dimensions that has to be generated
 
         var noOfCaves = rand.Next(mineGenData.NumberOfMaxCaves / 2, mineGenData.NumberOfMaxCaves);
         var cavesToGenerate = new List<Vector2>();

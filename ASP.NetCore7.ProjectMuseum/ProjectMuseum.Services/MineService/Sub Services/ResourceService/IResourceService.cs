@@ -7,5 +7,5 @@ public interface IResourceService
 {
     Task<InventoryItem?> SendResourceFromMineToInventory(string resourceId);
     Task<Mine> AssignResourcesToMine();
-    Task<List<Resource>> GenerateResources();
+    Task<List<Resource>> GenerateResources(List<string> variants);
 }

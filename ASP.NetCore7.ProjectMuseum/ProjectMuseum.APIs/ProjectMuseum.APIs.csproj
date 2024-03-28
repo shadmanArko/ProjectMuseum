@@ -31,6 +31,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Game Data Folder\ProceduralGenerationData\SiteArtifactChanceData\SiteArtifactChanceDescriptiveData\" />
     <Folder Include="Game Data Folder\SpecialBackdropData\" />
   </ItemGroup>
 

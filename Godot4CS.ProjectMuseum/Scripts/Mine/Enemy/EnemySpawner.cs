@@ -28,12 +28,14 @@ public partial class EnemySpawner : Node2D
     [Export] private int[] _enemySpawnCount;
     [Export] private int _counter;
     [Export] private bool _enemyMovingIntoMine;
+    
+    #region Initializers
 
     public override void _EnterTree()
     {
         InitializeDiInstallers();
     }
-
+    
     public override void _Ready()
     {
         _enemies = new List<Enemy>();
@@ -47,6 +49,8 @@ public partial class EnemySpawner : Node2D
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
     }
+
+    #endregion
 
     private void OnTimeEndSpawnEnemy()
     {
@@ -97,6 +101,41 @@ public partial class EnemySpawner : Node2D
 
     private Enemy _newEnemy;
     
+    #region Auto Animations
+    
+    private void AutoMoveToPosition(Enemy enemy)
+    {
+        if(enemy == null) return;
+        if(enemy.Position.X > _newPos.X)
+        {
+            enemy.Translate(new Vector2(-0.2f,0));
+            enemy.AnimationController.Play("move");
+        }
+        else
+        {
+            var targetCell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
+            var offset = new Vector2(_mineGenerationVariables.Mine.CellSize / 2f,0);
+            _p0 = enemy.Position;
+            _p2 = new Vector2(targetCell.PositionX, targetCell.PositionY) * _mineGenerationVariables.Mine.CellSize + offset;
+            _p1 = new Vector2(_p2.X, _p0.Y - 20);
+            _time = 0;
+            
+            SetProcess(false);
+            SetPhysicsProcess(true);
+        }
+    }
+    private Vector2 AutoJumpIntoMine(float t)
+    {
+        var q0 = _p0.Lerp(_p1, t);
+        var q1 = _p1.Lerp(_p2, t);
+        var r = q0.Lerp(q1, t);
+        return r;
+    }
+    
+    #endregion
+    
+    #region Processes
+
     public override void _Process(double delta)
     {
         AutoMoveToPosition(_newEnemy);
@@ -120,35 +159,6 @@ public partial class EnemySpawner : Node2D
         _newEnemy.Phase = EnemyPhase.Teleport;
         _newEnemy = null;
     }
-    
-    #region Auto Animations
-    
-    private void AutoMoveToPosition(Enemy enemy)
-    {
-        if(enemy == null) return;
-        if(enemy.Position.X > _newPos.X)
-        {
-            enemy.Translate(new Vector2(-0.2f,0));
-            enemy.AnimationController.Play("move");
-        }
-        else
-        {
-            var targetCell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
-            var offset = new Vector2(_mineGenerationVariables.Mine.CellSize / 2f,0);
-            _p0 = enemy.Position;
-            _p2 = new Vector2(targetCell.PositionX,targetCell.PositionY) * _mineGenerationVariables.Mine.CellSize + offset;
-            _p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 50);
-            
-            SetPhysicsProcess(true);
-        }
-    }
-    private Vector2 AutoJumpIntoMine(float t)
-    {
-        var q0 = _p0.Lerp(_p1, t);
-        var q1 = _p1.Lerp(_p2, t);
-        var r = q0.Lerp(q1, t);
-        return r;
-    }
-    
+
     #endregion
 }

@@ -20,6 +20,15 @@ public class MineArtifactRepository : IMineArtifactRepository
         return artifact;
     }
 
+    public async Task<List<Artifact>> GenerateNewArtifacts(List<Artifact> listOfArtifacts)
+    {
+        var mineArtifacts = await _mineArtifactDatabase.ReadDataAsync();
+        var mineArtifact = mineArtifacts?[0];
+        mineArtifact!.Artifacts = listOfArtifacts;
+        await _mineArtifactDatabase.WriteDataAsync(mineArtifacts!);
+        return listOfArtifacts;
+    }
+
     public async Task<Artifact> RemoveArtifactById(string id)
     {
         var listOfMineArtifacts = await _mineArtifactDatabase.ReadDataAsync();
@@ -36,7 +45,7 @@ public class MineArtifactRepository : IMineArtifactRepository
         var listOfMineArtifacts = await _mineArtifactDatabase.ReadDataAsync();
         var mineArtifacts = listOfMineArtifacts?[0];
         var artifacts = mineArtifacts?.Artifacts;
-        var artifact = artifacts.FirstOrDefault(artifact1 => artifact1.Id == id);
+        var artifact = artifacts!.FirstOrDefault(artifact1 => artifact1.Id == id);
         return artifact;
     }
 

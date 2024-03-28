@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-03-07T10:46:03.961Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="lTIuLwF7iIFocaEy89Ee" version="23.1.5" type="device" pages="6">
+<mxfile host="Electron" modified="2024-03-24T05:15:59.147Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="Ojjzp7BiAFerk3uCuXYf" version="23.1.5" type="device" pages="6">
   <diagram name="Page-1" id="Rsqe3miHvsEEF8SDIFzU">
     <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -652,8 +652,14 @@
         <mxCell id="e2QP666xEID8vaJzs-23-7" value="Shop souvenirs" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1210" y="440" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="yljYfGS2vmBWbZgRSDrc-1" value="Go to Restroom" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="yljYfGS2vmBWbZgRSDrc-1" value="Go to Restroom" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1210" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M7pHu8a7cbh5Qw5lF_B5-1" value="Rechange Phone" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="613" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M7pHu8a7cbh5Qw5lF_B5-2" value="Take Rest" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="708" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

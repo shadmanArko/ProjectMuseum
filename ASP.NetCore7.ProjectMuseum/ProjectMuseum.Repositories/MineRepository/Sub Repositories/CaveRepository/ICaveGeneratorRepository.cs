@@ -2,7 +2,7 @@ using ProjectMuseum.Models;
 
 namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
 
-public interface ICaveRepository
+public interface ICaveGeneratorRepository
 {
-    Task<Cave> GenerateCave(int xMin, int xMax, int yMin, int yMax);
+    Task<Cave> AddCave(Cave cave);
 }

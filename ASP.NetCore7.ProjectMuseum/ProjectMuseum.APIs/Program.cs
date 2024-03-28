@@ -1,4 +1,3 @@
-using System.Net.Mime;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
 using ProjectMuseum.Repositories;
@@ -11,9 +10,11 @@ using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineGenerationRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SiteArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBackdropRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.WallPlaceableRepository;
 using ProjectMuseum.Repositories.MiscellaneousDataRepository;
@@ -35,12 +36,16 @@ using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
+using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
+using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService.MineOrdinaryCellGeneratorService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArtifactDescriptiveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
-using ProjectMuseum.Services.MineService.Sub_Services.SpecialRepositoryService;
+using ProjectMuseum.Services.MineService.Sub_Services.SiteArtifactChanceService;
+using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
@@ -69,11 +74,14 @@ string mineMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirect
 string wallPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "WallPlaceableData", "WallPlaceable.json");
 string caveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CaveData.json");
 string specialBackdropDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "SpecialBackdropData", "SpecialBackdropPngInformation.json");
-
+string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
+    "ProceduralGenerationData", "ProceduralMineGenerationData.json");
+string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
+    "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
 
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
-//string dataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for deployment
+//string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
 
 
 // Add services to the container.
@@ -118,6 +126,8 @@ builder.Services.AddSingleton(new JsonFileDatabase<SettingsMiscellaneousData>(se
 builder.Services.AddSingleton(new JsonFileDatabase<MineMiscellaneousData>(mineMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Cave>(caveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SpecialBackdropPngInformation>(specialBackdropDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ProceduralMineGenerationData>(proceduralMineGenerationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<SiteArtifactChanceData>(siteArtifactChanceFunctionalDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -168,12 +178,14 @@ builder.Services.AddScoped<IWallPlaceableRepository, WallPlaceableRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
 builder.Services.AddScoped<IMiscellaneousDataRepository, MiscellaneousDataRepository>();
 builder.Services.AddScoped<IMuseumZoneRepository, MuseumZoneRepository>();
-builder.Services.AddScoped<ICaveRepository, CaveRepository>();
+builder.Services.AddScoped<ICaveGeneratorRepository, CaveGeneratorRepository>();
 builder.Services.AddScoped<ISpecialBackdropRepository, SpecialBackdropRepository>();
+builder.Services.AddScoped<IProceduralMineGenerationRepository, ProceduralMineGenerationRepository>();
+builder.Services.AddScoped<ISiteArtifactChanceRepository, SiteArtifactChanceRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
-builder.Services.AddScoped<IMineCellGeneratorService, MineCellGeneratorService>();
+builder.Services.AddScoped<IMineOrdinaryCellGeneratorService, MineOrdinaryCellGeneratorService>();
 builder.Services.AddScoped<IMuseumTileService, MuseumTileService>();
 builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddScoped<IExhibitService, ExhibitService>();
@@ -197,8 +209,10 @@ builder.Services.AddScoped<IWallPlaceableService, WallPlaceableService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
 builder.Services.AddScoped<IMiscellaneousDataService, MiscellaneousDataService>();
 builder.Services.AddScoped<IMuseumZoneService, MuseumZoneService>();
-builder.Services.AddScoped<ICaveService, CaveService>();
+builder.Services.AddScoped<ICaveGeneratorService, CaveGeneratorService>();
 builder.Services.AddScoped<ISpecialBackdropService, SpecialBackdropService>();
+builder.Services.AddScoped<IProceduralMineGenerationService, ProceduralMineGenerationService>();
+builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService>();
 
 
 

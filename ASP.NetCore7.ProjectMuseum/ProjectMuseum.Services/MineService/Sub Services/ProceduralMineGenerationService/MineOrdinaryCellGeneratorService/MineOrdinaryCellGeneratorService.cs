@@ -3,30 +3,30 @@ using ProjectMuseum.Models.MIne;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
 
-namespace ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
+namespace ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService.MineOrdinaryCellGeneratorService;
 
-public class MineCellGeneratorService : IMineCellGeneratorService
+public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorService
 {
-    public int XSize = 49;
-    public int YSize = 64;
-    public int cellSize = 20;
+    // public int XSize = 49;
+    // public int YSize = 64;
+    // public int cellSize = 20;
     private readonly IMineRepository _mineRepository;
-    private readonly ICaveRepository _caveRepository;
+    private readonly ICaveGeneratorRepository _caveGeneratorRepository;
 
 
-    public MineCellGeneratorService(IMineRepository mineRepository, ICaveRepository caveRepository)
+    public MineOrdinaryCellGeneratorService(IMineRepository mineRepository, ICaveGeneratorRepository caveGeneratorRepository)
     {
         _mineRepository = mineRepository;
-        _caveRepository = caveRepository;
+        _caveGeneratorRepository = caveGeneratorRepository;
     }
 
-    public async Task<Mine> GenerateMineCellData()
+    public async Task<Mine> GenerateMineCellData(int xSize, int ySize, int cellSize)
     {
         var mine = new Mine
         {
             CellSize = cellSize,
-            GridWidth = XSize,
-            GridLength = YSize,
+            GridWidth = xSize,
+            GridLength = ySize,
             Caves = new List<Cave>(),
             WallPlaceables = new List<WallPlaceable>(),
             CellPlaceables = new List<CellPlaceable>(),
@@ -35,9 +35,9 @@ public class MineCellGeneratorService : IMineCellGeneratorService
         };
         var cells = new List<Cell>();
 
-        for (int x = 0; x < XSize; x++)
+        for (int x = 0; x < xSize; x++)
         {
-            for (int y = 0; y < YSize; y++)
+            for (int y = 0; y < ySize; y++)
             {
                 var cell = new Cell
                 {
@@ -45,9 +45,9 @@ public class MineCellGeneratorService : IMineCellGeneratorService
                     PositionX = x,
                     PositionY = y
                 };
-                if (y == 0 || y == YSize-1)
+                if (y == 0 || y == ySize-1)
                 {
-                    if (y == 0 && x == XSize / 2)
+                    if (y == 0 && x == xSize / 2)
                     {
                         CreateBlankCell(cell);
                         cells.Add(cell);
@@ -57,7 +57,7 @@ public class MineCellGeneratorService : IMineCellGeneratorService
                     CreateUnbreakableCell(cell);
                     cells.Add(cell);
                 }
-                else if (x == 0 || x == XSize -1)
+                else if (x == 0 || x == xSize -1)
                 {
                     CreateUnbreakableCell(cell);
                     cells.Add(cell);
@@ -66,7 +66,7 @@ public class MineCellGeneratorService : IMineCellGeneratorService
                 {
                     CreateBreakableCell(cell);
                     cells.Add(cell);
-                    if (y == 1 && x == XSize / 2)
+                    if (y == 1 && x == xSize / 2)
                         cell.IsRevealed = true;
                 }
             }

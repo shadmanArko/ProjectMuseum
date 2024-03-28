@@ -2,7 +2,7 @@ using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
 
-namespace ProjectMuseum.Services.MineService.Sub_Services;
+namespace ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 
 public class MineArtifactService : IMineArtifactService
 {
@@ -33,10 +33,11 @@ public class MineArtifactService : IMineArtifactService
         return artifact;
     }
 
-    public async Task<List<Artifact>> GenerateNewArtifacts()
+    public async Task<List<Artifact>> GenerateNewArtifacts(List<Artifact> listOfArtifacts)
     {
-        var listOfArtifacts = new List<Artifact>();
-        return listOfArtifacts;
+        
+        var artifacts = await _mineArtifactRepository.GenerateNewArtifacts(listOfArtifacts); 
+        return artifacts;
     }
 
     public async Task<Artifact?> GetArtifactById(string id)

@@ -13,12 +13,21 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 
 public partial class GuestAi : CharacterBody2D
 {
-    private float _wantOfFood;
-    private float _wantOfInterestedArtifacts;
-    private float _wantOfDrink;
-    private float _wantOfCharge;
-    private float _wantOfRest;
-    private float _wantOfRestSouvenirs;
+    protected float hungerLevel;
+    protected float interestInArtifactLevel;
+    protected float thirstLevel;
+    protected float bladderLevel;
+    protected float chargeLevel;
+    protected float energyLevel;
+    protected float entertainmentLevel;
+    
+    protected float hungerDecayRate;
+    protected float interestInArtifactDecayRate;
+    protected float thirstDecayRate;
+    protected float bladderDecayRate;
+    protected float chargeDecayRate;
+    protected float energyDecayRate;
+    protected float entertainmentDecayRate;
     
     //Guest Ai selection
     [Export] private Sprite2D _collisionShape2D;
@@ -46,12 +55,26 @@ public partial class GuestAi : CharacterBody2D
     {
         base._EnterTree();
         MuseumActions.OnClickGuestAi += OnClickGuestAi;
+        MuseumActions.OnTimeUpdated += OnTimeUpdated;
     }
-    
+
+    private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
+    {
+
+        hungerLevel += hungerDecayRate;
+        thirstLevel += thirstDecayRate;
+        bladderLevel += bladderDecayRate;
+        chargeLevel += chargeDecayRate;
+        energyLevel += energyDecayRate;
+        interestInArtifactLevel += interestInArtifactDecayRate;
+        entertainmentLevel += entertainmentDecayRate;
+    }
+
     public override void _ExitTree()
     {
         base._ExitTree();
         MuseumActions.OnClickGuestAi -= OnClickGuestAi;
+        MuseumActions.OnTimeUpdated -= OnTimeUpdated;
 
     }
 }

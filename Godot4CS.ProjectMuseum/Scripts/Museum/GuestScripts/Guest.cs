@@ -83,7 +83,29 @@ public partial class Guest : GuestAi
         LoadRandomCharacterSprite();
         _animationPlayerInstance.Play("idle_front_facing");
     }
-
+    public void Initialize(GuestBuildingParameter guestBuildingParameter, List<Vector2I> sceneExitPoints)
+    {
+        hungerLevel = guestBuildingParameter.HungerLevelRange.GetRandom();
+        thirstLevel = guestBuildingParameter.ThirstLevelRange.GetRandom();
+        chargeLevel = guestBuildingParameter.ChargeLevelRange.GetRandom();
+        interestInArtifactLevel = guestBuildingParameter.InterestInArtifactLevelRange.GetRandom();
+        entertainmentLevel = guestBuildingParameter.EntertainmentLevelRange.GetRandom();
+        bladderLevel = guestBuildingParameter.BladderLevelRange.GetRandom();
+        energyLevel = guestBuildingParameter.EnergyLevelRange.GetRandom();
+        
+        hungerDecayRate = guestBuildingParameter.HungerDecayRange.GetRandom();
+        thirstDecayRate = guestBuildingParameter.ThirstDecayRange.GetRandom();
+        chargeDecayRate = guestBuildingParameter.ChargeDecayRange.GetRandom();
+        interestInArtifactDecayRate = guestBuildingParameter.InterestInArtifactDecayRange.GetRandom();
+        entertainmentDecayRate = guestBuildingParameter.EntertainmentDecayRange.GetRandom();
+        bladderDecayRate = guestBuildingParameter.BladderDecayRange.GetRandom();
+        energyDecayRate = guestBuildingParameter.EnergyDecayRange.GetRandom();
+        _listOfSceneExitPoints = sceneExitPoints;
+        _displacementSpeed =  (float)GD.RandRange(_minDisplacementSpeed, _maxDisplacementSpeed);
+        SetPath();
+        GD.Print($"{Name} food: {hungerLevel}, drink: {thirstLevel}, charge: {chargeLevel}");
+        // MoveLeft();
+    }
     private void OnTimePauseValueUpdated(bool obj)
     {
         _gamePaused = obj;
@@ -96,13 +118,7 @@ public partial class Guest : GuestAi
         _decisionChangingInterval = GD.RandRange(_decisionChangingIntervalMin, _decisionChangingIntervalMax);
     }
 
-    public void Initialize(List<Vector2I> sceneExitPoints)
-    {
-        _listOfSceneExitPoints = sceneExitPoints;
-        _displacementSpeed =  (float)GD.RandRange(_minDisplacementSpeed, _maxDisplacementSpeed);
-        SetPath();
-        // MoveLeft();
-    }
+    
     private void LoadRandomCharacterSprite()
     {
         _characterShadow.Texture = _shadowTextures[GD.RandRange(0, _shadowTextures.Count -1)];

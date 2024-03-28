@@ -21,6 +21,7 @@ using ProjectMuseum.Repositories.MiscellaneousDataRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifactRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.GuestBuildingParameterRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.MuseumZoneRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifactRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
@@ -51,6 +52,7 @@ using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
@@ -108,6 +110,9 @@ builder.Services.AddSingleton(new JsonFileDatabase<StoryScene>(Const.storySceneD
 builder.Services.AddSingleton(new JsonFileDatabase<Tutorial>(Const.tutorialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(Const.playerInfoDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Museum>(Const.museumDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<GuestBuildingParameter>(Const.guestBuilderParameterDataFolderPath));
+
+
 builder.Services.AddSingleton(new JsonFileDatabase<Mine>(Const.mineDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Inventory>(Const.inventoryDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<MineArtifacts>(Const.mineArtifactsDataFolderPath));
@@ -182,6 +187,7 @@ builder.Services.AddScoped<ICaveGeneratorRepository, CaveGeneratorRepository>();
 builder.Services.AddScoped<ISpecialBackdropRepository, SpecialBackdropRepository>();
 builder.Services.AddScoped<IProceduralMineGenerationRepository, ProceduralMineGenerationRepository>();
 builder.Services.AddScoped<ISiteArtifactChanceRepository, SiteArtifactChanceRepository>();
+builder.Services.AddScoped<IGuestBuildingParameterRepository, GuestBuildingParameterRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -213,6 +219,7 @@ builder.Services.AddScoped<ICaveGeneratorService, CaveGeneratorService>();
 builder.Services.AddScoped<ISpecialBackdropService, SpecialBackdropService>();
 builder.Services.AddScoped<IProceduralMineGenerationService, ProceduralMineGenerationService>();
 builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService>();
+builder.Services.AddScoped<IGuestBuilderParameterService, GuestBuilderParameterService>();
 
 
 

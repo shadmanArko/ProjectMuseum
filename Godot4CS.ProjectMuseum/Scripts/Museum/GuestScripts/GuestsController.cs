@@ -28,7 +28,10 @@ public partial class GuestsController : Node2D
 	private bool _isMuseumGateOpen = false;
 	private bool _isGamePaused = false;
 	private float _ticketPrice = 5;
-    
+	private bool _canSpawnGuests = false;
+	private GuestBuildingParameter _guestBuildingParameter;
+
+	private HttpRequest _httpRequestForGettingGuestBuildingParameter;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
@@ -36,8 +39,11 @@ public partial class GuestsController : Node2D
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 		
 		_httpRequestForGettingMuseumTiles = new HttpRequest();
+		_httpRequestForGettingGuestBuildingParameter = new HttpRequest();
 		AddChild(_httpRequestForGettingMuseumTiles);
+		AddChild(_httpRequestForGettingGuestBuildingParameter);
 		_httpRequestForGettingMuseumTiles.RequestCompleted += HttpRequestForGettingMuseumTilesOnRequestCompleted;
+		_httpRequestForGettingGuestBuildingParameter.RequestCompleted += HttpRequestForGettingGuestBuildingParameterOnRequestCompleted;
 		MuseumActions.OnClickMuseumGateToggle += OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
 		MuseumActions.OnGuestExitMuseum += OnGuestExitMuseum;
@@ -45,7 +51,15 @@ public partial class GuestsController : Node2D
 		MuseumActions.OnGuestExitScene += OnGuestExitScene;
 		await Task.Delay(500);
 		_httpRequestForGettingMuseumTiles.Request(ApiAddress.MuseumApiPath + "GetAllMuseumTiles");
+		_httpRequestForGettingGuestBuildingParameter.Request(ApiAddress.MuseumApiPath + "GetGuestBuilderParameter");
 
+	}
+
+	private void HttpRequestForGettingGuestBuildingParameterOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		_guestBuildingParameter = JsonSerializer.Deserialize<GuestBuildingParameter>(jsonStr);
+		_canSpawnGuests = true;
 	}
 
 	private void OnGuestExitScene()
@@ -69,7 +83,7 @@ public partial class GuestsController : Node2D
 	public override void _Process(double delta)
 	{
 		_timer += delta;
-		if (_numberOfPeopleInScene < _maxNumberOfPeopleInTheScene && _timer>= _spawnInterval)
+		if (_canSpawnGuests && _numberOfPeopleInScene < _maxNumberOfPeopleInTheScene && _timer>= _spawnInterval)
 		{
 			_timer = 0;
 			SpawnGuest();
@@ -115,7 +129,7 @@ public partial class GuestsController : Node2D
 		var guest = _guestScene.Instantiate();
 		guest.GetNode<Guest>(".").Position = GameManager.tileMap.MapToLocal(_sceneEntryPositions[GD.RandRange(0, _sceneEntryPositions.Count-1)]);
 		AddChild(guest);
-		guest.GetNode<Guest>(".").Initialize(_sceneEntryPositions.ToList());
+		guest.GetNode<Guest>(".").Initialize(_guestBuildingParameter, _sceneEntryPositions.ToList());
 	}
 
 	private void HttpRequestForGettingMuseumTilesOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)

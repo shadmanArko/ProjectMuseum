@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://dve4eewrak4r8" path="res://Assets/2D/Sprites/Mine Sprites/Stalagmites/Stalactite.png" id="1_0acq5"]
 [ext_resource type="Script" path="res://Scripts/Mine/WallPlaceables/Stalactite.cs" id="1_c6scm"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xaqwf"]
+size = Vector2(20, 7)
+
 [sub_resource type="Animation" id="Animation_cwjrl"]
 length = 0.001
 tracks/0/type = "value"
@@ -57,18 +60,20 @@ _data = {
 "stalactite_fall": SubResource("Animation_pofqc")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0dw6d"]
-size = Vector2(20, 9)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ihvj8"]
-size = Vector2(20, 9.5)
+size = Vector2(20, 11.5)
 
 [node name="Stalactite" type="RigidBody2D" node_paths=PackedStringArray("_animationPlayer")]
+collision_layer = 5
 collision_mask = 3
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_c6scm")
 _animationPlayer = NodePath("AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_xaqwf")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, 0.5)
@@ -82,17 +87,11 @@ libraries = {
 "": SubResource("AnimationLibrary_x00eb")
 }
 
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.14083e-05, -4.5)
-rotation = 3.14159
-shape = SubResource("RectangleShape2D_0dw6d")
-disabled = true
-one_way_collision = true
-
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.09278e-07, 4.75)
+position = Vector2(2.64446e-06, 3.75)
 rotation = -3.14159
 shape = SubResource("RectangleShape2D_ihvj8")
 

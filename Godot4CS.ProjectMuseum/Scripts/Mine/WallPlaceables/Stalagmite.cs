@@ -23,7 +23,7 @@ public partial class Stalagmite : Node2D, IDamagable
 	{
 		InitializeDiReferences();
 		SubscribeToActions();
-		_hitPoint = 3;
+		_hitPoint = 1;
 		_isBroken = false;
 	}
 	
@@ -95,7 +95,5 @@ public partial class Stalagmite : Node2D, IDamagable
 			_hitPoint--;
 			GD.Print($"Stalagmite damaged. hit point: {_hitPoint}");
 		}
-		
-        
 	}
 }

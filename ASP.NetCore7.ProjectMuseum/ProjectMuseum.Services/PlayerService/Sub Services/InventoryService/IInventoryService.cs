@@ -9,5 +9,6 @@ public interface IInventoryService
     Task SendAllArtifactsToArtifactStorage();
     Task<Inventory?> GetInventory();
     Task<WallPlaceable> SendWallPlaceableFromInventoryToMine(string inventoryItemId, List<string> cellIds);
+    Task<Consumable> SendConsumableFromInventoryToMine(string inventoryItemId);
 
 }

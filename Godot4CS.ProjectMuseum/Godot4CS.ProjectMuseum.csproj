@@ -14,6 +14,7 @@
   <ItemGroup>
     <Folder Include="Scripts\Mine\Items\" />
     <Folder Include="Scripts\Mine\Objects\Categories\Light\" />
+    <Folder Include="Scripts\Mine\Objects\Types\WallPlaceable\" />
   </ItemGroup>
   <!--  <ItemGroup>-->
   <!--    <ProjectReference Include="..\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />-->

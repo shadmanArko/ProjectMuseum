@@ -8,6 +8,7 @@ using ProjectMuseum.Repositories.DecorationShopRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MineRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ConsumableRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineGenerationRepository;
@@ -36,6 +37,7 @@ using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.ConsumableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
@@ -78,6 +80,8 @@ string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurren
     "ProceduralGenerationData", "ProceduralMineGenerationData.json");
 string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
     "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
+string consumableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
+    "ConsumableData", "Consumable.json");
 
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
@@ -128,6 +132,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<Cave>(caveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SpecialBackdropPngInformation>(specialBackdropDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ProceduralMineGenerationData>(proceduralMineGenerationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SiteArtifactChanceData>(siteArtifactChanceFunctionalDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Consumable>(consumableDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -182,6 +187,7 @@ builder.Services.AddScoped<ICaveGeneratorRepository, CaveGeneratorRepository>();
 builder.Services.AddScoped<ISpecialBackdropRepository, SpecialBackdropRepository>();
 builder.Services.AddScoped<IProceduralMineGenerationRepository, ProceduralMineGenerationRepository>();
 builder.Services.AddScoped<ISiteArtifactChanceRepository, SiteArtifactChanceRepository>();
+builder.Services.AddScoped<IConsumableRepository, ConsumableRepository>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -213,6 +219,7 @@ builder.Services.AddScoped<ICaveGeneratorService, CaveGeneratorService>();
 builder.Services.AddScoped<ISpecialBackdropService, SpecialBackdropService>();
 builder.Services.AddScoped<IProceduralMineGenerationService, ProceduralMineGenerationService>();
 builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService>();
+builder.Services.AddScoped<IConsumableService, ConsumableService>();
 
 
 

@@ -147,6 +147,8 @@ public partial class WallPlaceableController : Node2D
         }
     }
 
+    #region Set Sprite Color
+
     private void SetSpriteColorToGreen()
     {
         _wallPlaceableSprite.Modulate = Colors.Green;
@@ -156,6 +158,8 @@ public partial class WallPlaceableController : Node2D
     {
         _wallPlaceableSprite.Modulate = Colors.Red;
     }
+
+    #endregion
     
     #region Utilities
 

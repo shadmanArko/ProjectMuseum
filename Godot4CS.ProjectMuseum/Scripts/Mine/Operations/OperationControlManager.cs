@@ -12,6 +12,7 @@ public partial class OperationControlManager : Node2D
     private HttpRequest _getPlayerInventoryHttpRequest;
     
     [Export] private WallPlaceableController _wallPlaceableController;
+    [Export] private ConsumableController _consumableController;
     
     private Inventory _inventory;
     private int _slot;
@@ -52,6 +53,9 @@ public partial class OperationControlManager : Node2D
         {
             case "WallPlaceable":
                 _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
+                break;
+            case "Consumable":
+                _consumableController.OnSelectConsumableFromInventory(inventoryItem);
                 break;
         }
     }

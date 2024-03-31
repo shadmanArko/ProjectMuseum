@@ -68,6 +68,7 @@ public partial class GuestAi : CharacterBody2D
         energyLevel += energyDecayRate;
         interestInArtifactLevel += interestInArtifactDecayRate;
         entertainmentLevel += entertainmentDecayRate;
+        GD.Print($"{Name}: hunger: {hungerLevel}, thirst: {thirstLevel}, bladder: {bladderLevel}, charge:{chargeLevel}, energy: {energyLevel}, interest{interestInArtifactLevel}, entert: {entertainmentLevel}");
     }
 
     public override void _ExitTree()

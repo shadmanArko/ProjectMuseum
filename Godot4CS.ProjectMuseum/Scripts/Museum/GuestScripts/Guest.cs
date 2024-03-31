@@ -103,7 +103,7 @@ public partial class Guest : GuestAi
         _listOfSceneExitPoints = sceneExitPoints;
         _displacementSpeed =  (float)GD.RandRange(_minDisplacementSpeed, _maxDisplacementSpeed);
         SetPath();
-        GD.Print($"{Name} food: {hungerLevel}, drink: {thirstLevel}, charge: {chargeLevel}");
+        // GD.Print($"{Name} food: {hungerLevel}, drink: {thirstLevel}, charge: {chargeLevel}");
         // MoveLeft();
     }
     private void OnTimePauseValueUpdated(bool obj)

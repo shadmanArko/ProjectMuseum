@@ -107,7 +107,7 @@ public partial class ExhibitItem : Item
 		//GD.Print($"Handling exhibit placement for price {ItemPrice}");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
-		
+		DisableItemPlacementShadow();
 	}
 	public void SetUpArtifacts(List<Artifact> displayArtifact)
     {

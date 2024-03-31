@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(18.6951, 8.3301)
 
-[node name="Item2" type="Sprite2D" node_paths=PackedStringArray("_artifactSlots", "_glass")]
+[node name="Item2" type="Sprite2D" node_paths=PackedStringArray("_artifactSlots", "_glass", "_shadow")]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -20,6 +20,7 @@ _artifactSlots = [NodePath("Artifact Slot 1"), NodePath("Artifact Slot 2")]
 ItemPrice = 90.25
 numberOfTilesItTakes = 4
 _glass = NodePath("glass")
+_shadow = NodePath("Sprite2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -64)
@@ -46,6 +47,7 @@ position = Vector2(9, 0)
 offset = Vector2(0, -23.06)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 z_index = -1
 position = Vector2(0, 8)
 texture = ExtResource("4_3cxyn")

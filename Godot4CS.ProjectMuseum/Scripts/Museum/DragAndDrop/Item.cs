@@ -41,6 +41,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     [Export] public int numberOfTilesItTakes = 1;
     [Export] public string TileExtentsInDirection = "Both";
     [Export] private Sprite2D _glass;
+    [Export] private Sprite2D _shadow;
     protected List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
     protected List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
@@ -117,6 +118,7 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     public void MakeObjectsFloating()
     {
+        EnableItemPlacementShadow();
         Offset = new  Vector2(Offset.X, Offset.Y - _offsetBeforeItemPlacement);
         if (_glass != null)
         {
@@ -130,6 +132,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         {
             _glass.Offset = new Vector2(_glass.Offset.X, _glass.Offset.Y + _offsetBeforeItemPlacement);
         }
+        DisableItemPlacementShadow();
     }
 
     private void httpRequestForExhibitPlacementConditionsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -283,6 +286,14 @@ public partial class Item : Sprite2D, IComparable<Item>
         return null;
     }
 
+    protected void DisableItemPlacementShadow()
+    {
+        _shadow.Visible = false;
+    }
+    protected void EnableItemPlacementShadow()
+    {
+        _shadow.Visible = true;
+    }
     protected void OnItemPlacedOnTile(Vector2 position)
     {
         MuseumActions.OnItemPlacedOnTile?.Invoke(this, position);

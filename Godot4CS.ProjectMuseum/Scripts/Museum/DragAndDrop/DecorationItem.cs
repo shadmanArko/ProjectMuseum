@@ -101,6 +101,7 @@ public partial class DecorationItem : Item
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 		OnItemPlacedOnTile(GlobalPosition);
+		DisableItemPlacementShadow();
 	}
 
 	public override void _ExitTree()

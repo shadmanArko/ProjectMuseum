@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3g6we5d6r048"]
+[gd_scene load_steps=5 format=3 uid="uid://d3g6we5d6r048"]
 
 [ext_resource type="Texture2D" uid="uid://gon63saer8ki" path="res://Assets/2D/Sprites/DecorationShops/vendingmachine1.png" id="1_1y1bq"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/DecorationItem.cs" id="2_lb2ok"]
+[ext_resource type="Texture2D" uid="uid://bcsig3t8yhnkf" path="res://Assets/2D/Sprites/Effects/1X1_tile_shadow.png" id="3_p148x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(9.97071, 5.26112)
 
-[node name="Decoration Item" type="Sprite2D" groups=["Exhibit"]]
+[node name="Decoration Item" type="Sprite2D" node_paths=PackedStringArray("_shadow") groups=["Exhibit"]]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -14,6 +15,7 @@ texture = ExtResource("1_1y1bq")
 offset = Vector2(0, -16)
 hframes = 4
 script = ExtResource("2_lb2ok")
+_shadow = NodePath("Sprite2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-17, -55)
@@ -24,3 +26,8 @@ scale = Vector2(3.2094, 4.56177)
 shape = SubResource("RectangleShape2D_6rwst")
 one_way_collision_margin = 0.0
 debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+texture = ExtResource("3_p148x")

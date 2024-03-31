@@ -68,7 +68,7 @@ public partial class Stalagmite : Node2D, IDamagable
 		var player = body as PlayerController;
 		if(player == null) return;
 		if(_playerControllerVariables.IsDead) return;
-		HealthSystem.ReducePlayerHealth(10, 100, _playerControllerVariables);
+		HealthSystem.ReducePlayerHealth(10, _playerControllerVariables);
 	}
 
 	private void UnsubscribeToActions()

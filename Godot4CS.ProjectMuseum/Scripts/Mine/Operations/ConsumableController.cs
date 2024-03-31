@@ -111,18 +111,4 @@ public partial class ConsumableController : Node2D
     {
         OnDeselectConsumableFromInventory();
     }
-    
-    #region Utilities
-
-    private Cell GetTargetCell()
-    {
-        var mouseDirection = _playerControllerVariables.MouseDirection;
-        var cellPos =
-            _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
-        cellPos += mouseDirection;
-        var cell = _mineGenerationVariables.GetCell(cellPos);
-        return cell;
-    }
-    
-    #endregion
 }

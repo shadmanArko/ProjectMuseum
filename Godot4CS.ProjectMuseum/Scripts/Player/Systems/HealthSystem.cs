@@ -7,24 +7,24 @@ namespace Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 public class HealthSystem
 {
-	public static void RestorePlayerFullHealth(int maxValue, PlayerControllerVariables playerControllerVariables)
+	public static void RestorePlayerFullHealth(PlayerControllerVariables playerControllerVariables)
 	{
-		playerControllerVariables.PlayerHealth = maxValue;
+		playerControllerVariables.PlayerHealth = 200;
 	}
 
-	public static void RestorePlayerHealth(int partialValue, int maxValue, PlayerControllerVariables playerControllerVariables)
+	public static void RestorePlayerHealth(int partialValue, PlayerControllerVariables playerControllerVariables)
 	{
 		var health = playerControllerVariables.PlayerHealth;
 		health += partialValue;
-		health = Math.Clamp(health, 0, maxValue);
+		health = Math.Clamp(health, 0, 200);
 		playerControllerVariables.PlayerHealth = health;
 	}
 
-	public static void ReducePlayerHealth(int reduceValue, int maxValue, PlayerControllerVariables playerControllerVariables)
+	public static void ReducePlayerHealth(int reduceValue, PlayerControllerVariables playerControllerVariables)
 	{
 		var health = playerControllerVariables.PlayerHealth;
 		health -= reduceValue;
-		health = health <= 0 ? 0 : Math.Clamp(health, 0, maxValue);
+		health = health <= 0 ? 0 : Math.Clamp(health, 0, 200);
 		playerControllerVariables.PlayerHealth = health;
 	}
 

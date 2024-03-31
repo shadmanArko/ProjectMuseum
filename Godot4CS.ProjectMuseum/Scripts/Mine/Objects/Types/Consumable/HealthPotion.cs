@@ -37,8 +37,17 @@ public partial class HealthPotion : Node2D, IConsumable
 		IncreasePlayerHealth();
 	}
 	
-	private void IncreasePlayerHealth()
+	private async void IncreasePlayerHealth()
 	{
-		HealthSystem.RestorePlayerHealth(50, 100, _playerControllerVariables);
+		var eligibility = CheckEligibility();
+		if (eligibility)
+		{
+			HealthSystem.RestorePlayerHealth(50, _playerControllerVariables);
+			await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health increased by 50 Hp");
+		}
+		else
+		{
+			await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health is already full");
+		}
 	}
 }

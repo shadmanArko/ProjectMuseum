@@ -76,7 +76,7 @@ public partial class Stalactite : Node2D, IDamagable
 		{
 			GD.Print("Collided with player");
 			if(_playerControllerVariables.IsDead) return;
-			HealthSystem.ReducePlayerHealth(10, 100, _playerControllerVariables);
+			HealthSystem.ReducePlayerHealth(10, _playerControllerVariables);
 			if(_isFalling)
 				QueueFree();
 		}

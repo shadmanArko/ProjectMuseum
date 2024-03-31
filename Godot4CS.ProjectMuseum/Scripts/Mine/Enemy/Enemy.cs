@@ -155,7 +155,17 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     }
 
     #endregion
+    
+    #region Is Moving
 
+    [Export] private bool _isMoving;
+    public bool IsMoving {
+        get=> _isMoving;
+        set => _isMoving = value;
+    }
+
+    #endregion
+    
     #region Health
 
     private int _health;

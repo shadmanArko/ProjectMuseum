@@ -397,8 +397,8 @@ _enemy = NodePath("..")
 wait_time = 3.0
 autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationComplete"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]

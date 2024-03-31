@@ -32,7 +32,7 @@ public class DecorationShopService : IDecorationShopService
 
     public async Task<List<DecorationShop>?> GetAllDecorationShops()
     {
-        return await _decorationShopRepository.GetAllDecorationShops();
+        return await _decorationShopRepository.GetAll();
 
     }
 }

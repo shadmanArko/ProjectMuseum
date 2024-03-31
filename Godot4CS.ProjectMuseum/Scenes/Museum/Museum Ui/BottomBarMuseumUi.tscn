@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://btc7tmyyk7wql" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button.png" id="3_lvt4l"]
 [ext_resource type="Texture2D" uid="uid://dwui552mmvmeq" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/guest_bar.png" id="3_vneh1"]
 [ext_resource type="Script" path="res://Scripts/Museum/BuilderCardSlotsController.cs" id="4_egqqe"]
-[ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="4_uca33"]
+[ext_resource type="Theme" path="res://Themes/Museum ui bold Text.tres" id="4_uca33"]
 [ext_resource type="Texture2D" uid="uid://d4ehoky215c4n" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_bracket.png" id="5_73e00"]
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
 [ext_resource type="Texture2D" uid="uid://dn3q2drhtqr3f" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/marble bg.png" id="7_lgch0"]

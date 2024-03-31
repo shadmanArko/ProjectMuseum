@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://baf5s8ygn03sp"]
+[gd_scene load_steps=26 format=3 uid="uid://baf5s8ygn03sp"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/TownUi.cs" id="1_18m7k"]
 [ext_resource type="Texture2D" uid="uid://rpm1c6cv6x6g" path="res://Assets/2D/Sprites/Town/town road.png" id="1_d0pjk"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cqjcidbxx76of" path="res://Assets/2D/Sprites/Town/street lamp.png" id="9_xmybg"]
 [ext_resource type="Texture2D" uid="uid://de5xlvon7v3r6" path="res://Assets/2D/Sprites/Town/tree 2.png" id="14_1x5o7"]
 [ext_resource type="Texture2D" uid="uid://yluxww6pnckx" path="res://Assets/2D/Sprites/Town/tree 3.png" id="15_3yjas"]
+[ext_resource type="Texture2D" uid="uid://yw4vya4p4lks" path="res://Assets/2D/Sprites/Town/beginner museum.png" id="15_d8gwn"]
 [ext_resource type="Texture2D" uid="uid://cto1evuud5now" path="res://Assets/2D/Sprites/Town/tree 1.png" id="16_ogrck"]
 [ext_resource type="Texture2D" uid="uid://dg3fk2x43213h" path="res://Assets/2D/Sprites/Town/fences v1.png" id="17_1d4jb"]
 [ext_resource type="Texture2D" uid="uid://bctxfkps1ledr" path="res://Assets/2D/Sprites/Town/grass.png" id="17_pei67"]
@@ -180,7 +181,7 @@ vertical_alignment = 1
 [node name="Town Ground With roads" type="Sprite2D" parent="Town Ui"]
 z_index = 5
 texture_filter = 1
-position = Vector2(625, 538)
+position = Vector2(625, 537)
 texture = ExtResource("1_d0pjk")
 
 [node name="Houses" type="Node2D" parent="Town Ui/Town Ground With roads"]
@@ -270,8 +271,15 @@ position = Vector2(390, -35)
 texture = ExtResource("6_b5787")
 
 [node name="BusStand" type="Sprite2D" parent="Town Ui/Town Ground With roads/Shops and Institutions"]
+z_index = 2
 position = Vector2(-266, -337)
 texture = ExtResource("7_1kqxn")
+
+[node name="BeginnerMuseum" type="Sprite2D" parent="Town Ui/Town Ground With roads/Shops and Institutions"]
+z_index = 1
+position = Vector2(-163, -319)
+texture = ExtResource("15_d8gwn")
+offset = Vector2(0, -97)
 
 [node name="StreetLamps" type="Node2D" parent="Town Ui/Town Ground With roads"]
 
@@ -434,11 +442,11 @@ texture = ExtResource("15_3yjas")
 y_sort_enabled = true
 
 [node name="Tree1" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
-position = Vector2(-278, -419)
+position = Vector2(-278, -436)
 texture = ExtResource("16_ogrck")
 
 [node name="Tree2" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]
-position = Vector2(-281, -472)
+position = Vector2(-281, -473)
 texture = ExtResource("16_ogrck")
 
 [node name="Tree3" type="Sprite2D" parent="Town Ui/Town Ground With roads/Trees/Pine trees (tree 1)"]

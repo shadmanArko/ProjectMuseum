@@ -4,10 +4,12 @@ using ProjectMuseum.Models;
 
 namespace ProjectMuseum.Services.MuseumTileService;
 
-public interface IExhibitPlacementCondition
+public interface IItemPlacementCondition
 {
      Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitVariationName);
      Task<bool> PlaceExhibitOnTile(string tileId, string exhibitVariationName);
      Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds,
           string exhibitVariationName, int rotationFrame);
+     Task<List<MuseumTile>> PlaceShopOnTiles(string originTileId, List<string> tileIds,
+         string shopVariationName, int rotationFrame);
 }

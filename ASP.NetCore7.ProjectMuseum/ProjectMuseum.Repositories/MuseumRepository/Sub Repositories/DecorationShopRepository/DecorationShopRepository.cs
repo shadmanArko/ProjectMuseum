@@ -31,9 +31,10 @@ public class DecorationShopRepository : IDecorationShopRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<DecorationShop>?> GetAll()
+    public async Task<List<DecorationShop>?> GetAll()
     {
-        throw new NotImplementedException();
+        var decorationShop = await _decorationShopDatabase.ReadDataAsync();
+        return decorationShop;
     }
 
     public async Task<List<DecorationShopVariation>?> GetAllDecorationShopVariations()

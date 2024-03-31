@@ -1,19 +1,22 @@
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 
 namespace ProjectMuseum.Services.MuseumTileService;
 
-public class ExhibitPlacementCondition : IExhibitPlacementCondition
+public class ItemPlacementCondition : IItemPlacementCondition
 {
     private readonly IExhibitRepository _exhibitRepository;
+    private readonly IDecorationShopRepository _decorationShopRepository;
     private readonly IMuseumTileRepository _museumTileRepository;
 
-    public ExhibitPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository)
+    public ItemPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository, IDecorationShopRepository decorationShopRepository)
     {
         _exhibitRepository = exhibitRepository;
         _museumTileRepository = museumTileRepository;
+        _decorationShopRepository = decorationShopRepository;
     }
     
     public async Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
@@ -96,5 +99,32 @@ public class ExhibitPlacementCondition : IExhibitPlacementCondition
         tilesWithExhibitDto.Exhibits = exhibits;
         if (museumTiles != null) tilesWithExhibitDto.MuseumTiles = museumTiles;
         return tilesWithExhibitDto;
+    }
+    public async Task<List<MuseumTile>> PlaceShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
+    {
+        
+        DecorationShop decorationShop = new DecorationShop();
+        var museumTiles = await _museumTileRepository.GetAll();
+        
+        foreach (var tileId in tileIds)
+        {
+            if (tileId == originTileId)
+            {
+                var museumTile = await _museumTileRepository.GetById(tileId);
+                decorationShop = new DecorationShop
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ShopVariationName =  shopVariationName,
+                    XPosition = museumTile.XPosition,
+                    YPosition = museumTile.YPosition,
+                    RotationFrame = rotationFrame,
+                    
+                };
+                await _decorationShopRepository.Insert(decorationShop);
+                
+            }
+        }
+        museumTiles = await _museumTileRepository.UpdateShopToMuseumTiles(tileIds, decorationShop.Id);
+        return museumTiles;
     }
 }

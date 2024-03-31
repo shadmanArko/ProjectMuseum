@@ -1,13 +1,35 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using Newtonsoft.Json;
+using ProjectMuseum.DTOs;
+using ProjectMuseum.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 public partial class DecorationItem : Item
 {
+	private string _variationName;
+	private HttpRequest _httpRequestForPlacingDecorationItem;
+	public override void _Ready()
+	{
+		base._Ready();
+		_httpRequestForPlacingDecorationItem = new HttpRequest();
+		AddChild(_httpRequestForPlacingDecorationItem);
+		_httpRequestForPlacingDecorationItem.RequestCompleted += HttpRequestForPlacingDecorationItemOnRequestCompleted;
+	}
+
+	private void HttpRequestForPlacingDecorationItemOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		GD.Print("Http1 result " + jsonStr);
+		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		_museumTileContainer.MuseumTiles = museumTiles;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!selectedItem) return;
@@ -48,24 +70,32 @@ public partial class DecorationItem : Item
 	public void Initialize(string cardName)
 	{
 		selectedItem = true;
+		_variationName = cardName;
 		MakeObjectsFloating();
 	}
 	private new void HandleItemPlacement()
 	{
-		//GD.Print("Handled item placement from Decoration Item");
-		// List<string> tileIds = new List<string>();
-		// foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
-		// {
-		// 	tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
-		// }
-		// string[] headers = { "Content-Type: application/json"};
-		// var body = JsonConvert.SerializeObject(tileIds);
-		// string url =
-		// 	$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}";
-		// _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
-		// GD.Print("Handling exhibit placement");
+		GD.Print("Handled item placement from Decoration Item");
+		List<string> tileIds = new List<string>();
+		foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
+		{
+			tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
+		}
+		string[] headers = { "Content-Type: application/json"};
+		var body = JsonConvert.SerializeObject(tileIds);
+		string url =
+			$"{ApiAddress.MuseumApiPath}PlaceAShopOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
+		_httpRequestForPlacingDecorationItem.Request(url, headers, HttpClient.Method.Get, body);
+		 GD.Print("Handling exhibit placement");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 		OnItemPlacedOnTile(GlobalPosition);
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		_httpRequestForPlacingDecorationItem.RequestCompleted -= HttpRequestForPlacingDecorationItemOnRequestCompleted;
+
 	}
 }

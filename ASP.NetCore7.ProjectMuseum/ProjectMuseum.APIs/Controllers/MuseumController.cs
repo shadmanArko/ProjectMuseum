@@ -65,11 +65,23 @@ public class MuseumController : ControllerBase
         var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName, rotationFrame);
         return Ok(exhibitPlacementResult);
     }
+    [HttpGet("PlaceAShopOnTiles/{originTileId}/{shopVariationName}/{rotationFrame}")]
+    public async Task<IActionResult> PlaceAShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
+    {
+        var exhibitPlacementResult = await _museumTileService.PlaceShopOnTiles(originTileId, tileIds, shopVariationName, rotationFrame);
+        return Ok(exhibitPlacementResult);
+    }
     [HttpGet("GetAllExhibits")]
     public async Task<IActionResult> GetAllExhibits()
     {
         var allExhibits = await _exhibitService.GetAllExhibits();
         return Ok(allExhibits);
+    }
+    [HttpGet("GetAllShops")]
+    public async Task<IActionResult> GetAllShops()
+    {
+        var allDecorationShops = await _decorationShopService.GetAllDecorationShops();
+        return Ok(allDecorationShops);
     }
     [HttpGet("GetAllExhibitVariations")]
     public async Task<IActionResult> GetAllExhibitVariations()

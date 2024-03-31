@@ -2,6 +2,7 @@ using AutoMapper;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Repositories;
+using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
@@ -12,18 +13,20 @@ public class MuseumTileService : IMuseumTileService
 {
     private readonly IMuseumTileRepository _museumTileRepository;
     private  MuseumTileDataGenerator _museumTileDataGenerator;
-    private readonly ExhibitPlacementCondition _exhibitPlacementCondition;
+    private readonly ItemPlacementCondition _itemPlacementCondition;
     private readonly IExhibitRepository _exhibitRepository;
+    private readonly IDecorationShopRepository _decorationShopRepository;
     
     private readonly SaveDataJsonFileDatabase _saveDataJsonFileDatabase;
 
-    public MuseumTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase)
+    public MuseumTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IDecorationShopRepository decorationShopRepository)
     {
         _museumTileRepository = museumTileRepository;
         _exhibitRepository = exhibitRepository;
         _saveDataJsonFileDatabase = saveDataJsonFileDatabase;
+        _decorationShopRepository = decorationShopRepository;
         _museumTileDataGenerator = new MuseumTileDataGenerator(_museumTileRepository);
-        _exhibitPlacementCondition = new ExhibitPlacementCondition(_exhibitRepository, _museumTileRepository);
+        _itemPlacementCondition = new ItemPlacementCondition(_exhibitRepository, _museumTileRepository, _decorationShopRepository);
     }
 
     public async Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile)
@@ -53,17 +56,22 @@ public class MuseumTileService : IMuseumTileService
 
     public async Task<List<ExhibitPlacementConditionData>> GetEligibilityOfPositioningExhibit(string exhibitVariationName)
     {
-        return await _exhibitPlacementCondition.CanExhibitBePlacedOnThisTile(exhibitVariationName);
+        return await _itemPlacementCondition.CanExhibitBePlacedOnThisTile(exhibitVariationName);
     }
 
     public async Task<bool> PlaceExhibitOnTile(string tileId, string exhibitVariationName)
     {
-        return await _exhibitPlacementCondition.PlaceExhibitOnTile(tileId, exhibitVariationName);
+        return await _itemPlacementCondition.PlaceExhibitOnTile(tileId, exhibitVariationName);
     }
 
     public async Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName, int rotationFrame)
     {
-        return await _exhibitPlacementCondition.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName, rotationFrame);
+        return await _itemPlacementCondition.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName, rotationFrame);
+    }
+
+    public async Task<List<MuseumTile>> PlaceShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
+    {
+        return await _itemPlacementCondition.PlaceShopOnTiles(originTileId, tileIds, shopVariationName, rotationFrame);
     }
 
     public async Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile)

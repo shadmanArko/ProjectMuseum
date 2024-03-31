@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ck4te6vpacd7e" path="res://Assets/2D/Sprites/Exhibits/MediumWoodenExhibitBasic2.png" id="6_hu88n"]
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/LargeWoodenExhibitBasic.png" id="7_lgtob"]
-[ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="8_txj3i"]
+[ext_resource type="Theme" path="res://Themes/Museum ui bold Text.tres" id="8_txj3i"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/DateTimeUi.cs" id="10_6y0pe"]
 [ext_resource type="Texture2D" uid="uid://cdttskiu31lta" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Digging_and_permits_button.png" id="11_7rcfi"]
 [ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="11_n0rbh"]

@@ -59,9 +59,9 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ItemPlacementController.cs" id="50_roy6j"]
 [ext_resource type="PackedScene" uid="uid://qulr4wwpgjqv" path="res://Scenes/Museum/Effects/1x1dustEffect.tscn" id="51_k8r31"]
 [ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
-[ext_resource type="Texture2D" uid="uid://b1t1t30fukf1k" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_close.png" id="55_wsurx"]
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/DecorationsController.cs" id="62_bbh7l"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -205,7 +205,7 @@ y_sort_enabled = true
 script = ExtResource("18_iea1i")
 _guestScene = ExtResource("30_4n4bn")
 _spawnAtTile = Vector2i(0, -2)
-_spawnInterval = 0.001
+_spawnInterval = 2.0
 _sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 3), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
 
 [node name="ItemParents" type="Node2D" parent="museum"]
@@ -920,9 +920,7 @@ _townScene = NodePath("../museum/CanvasLayer/Town Ui")
 
 [node name="WallController" type="Node2D" parent="." node_paths=PackedStringArray("_gateWalls")]
 script = ExtResource("23_md2ii")
-_gateWalls = [NodePath("../museum/FrontWalls/Right_front_wall/FrontWall24"), NodePath("../museum/FrontWalls/Right_front_wall/FrontWall25"), NodePath("../museum/FrontWalls/Right_front_wall/FrontWall26")]
-_openedGateTexture = ExtResource("43_ucw5y")
-_closedGateTexture = ExtResource("55_wsurx")
+_gateWalls = []
 
 [node name="DayNightCycleController" type="Node2D" parent="." node_paths=PackedStringArray("_backgroundObject")]
 script = ExtResource("46_uujue")
@@ -937,3 +935,9 @@ _controllersParent = NodePath(".")
 script = ExtResource("50_roy6j")
 _placementEffect1X1 = ExtResource("51_k8r31")
 _placementEffect2X2 = ExtResource("52_syimh")
+
+[node name="DecorationsController" type="Node2D" parent="." node_paths=PackedStringArray("ItemsParent")]
+script = ExtResource("62_bbh7l")
+_decorationShopItem = ExtResource("15_j81qh")
+_decorationOtherItem = ExtResource("16_1ehrh")
+ItemsParent = NodePath("../museum/ItemParents")

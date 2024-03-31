@@ -18,8 +18,8 @@ public class EnemyAi
 
     #region Dig In and Dig Out Range
 
-    private const int InitialPosRange = -3;
-    private const int FinalPosRange = 3;
+    private const int InitialPosRange = -5;
+    private const int FinalPosRange = 5;
 
     #endregion
     

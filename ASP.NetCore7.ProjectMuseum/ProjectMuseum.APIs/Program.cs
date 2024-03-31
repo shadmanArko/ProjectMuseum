@@ -81,7 +81,7 @@ string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurren
 string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
     "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
 string consumableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
-    "ConsumableData", "Consumable.json");
+    "Consumable", "Consumable.json");
 
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev

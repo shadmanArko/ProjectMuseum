@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1",
+    "Type": "Consumable",
+    "Category": "Potion",
+    "Variant": "HealthPotion",
+    "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/Consumables/Health/HealthPotion.tscn",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Potion.png"
+  },
+  {
+    "Id": "2",
+    "Type": "Consumable",
+    "Category": "Potion",
+    "Variant": "EnergyPotion",
+    "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/Consumables/Energy/EnergyPotion.tscn",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Energy Potion.png"
+  }
+]

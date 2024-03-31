@@ -14,10 +14,20 @@
         "Slot": 1,
         "Type": "Shield",
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
+      },
+      {
+        "Id": "1",
+        "Name": "Health Potion",
+        "Type": "Consumable",
+        "Variant": "HealthPotion",
+        "IsStackable": true,
+        "Stack": 98,
+        "Slot": 2,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Potion.png"
       }
     ],
     "Artifacts": [],
-    "OccupiedSlots": [0,1],
+    "OccupiedSlots": [0,1,2],
     "SlotsUnlocked": 12
   }
 ]

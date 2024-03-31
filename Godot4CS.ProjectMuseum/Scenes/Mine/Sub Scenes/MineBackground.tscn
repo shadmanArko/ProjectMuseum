@@ -43,6 +43,22 @@ texture_filter = 1
 position = Vector2(0, 78)
 texture = ExtResource("5_v4xei")
 
+[node name="Left Terrain" type="RigidBody2D" parent="Terrain"]
+collision_mask = 7
+freeze = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/Left Terrain"]
+position = Vector2(-105, 0)
+polygon = PackedVector2Array(68, -14, 99, 27, -492, 27, -492, -16)
+
+[node name="Right Terrain" type="RigidBody2D" parent="Terrain"]
+collision_mask = 7
+freeze = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/Right Terrain"]
+position = Vector2(185, 2)
+polygon = PackedVector2Array(-160, 25, 412, 25, 412, -17, -135, -18)
+
 [node name="Tent" type="Sprite2D" parent="."]
 z_index = 10
 position = Vector2(-282, 40)

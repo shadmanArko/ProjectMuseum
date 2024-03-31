@@ -37,6 +37,7 @@ public partial class Slime : Enemy
     #endregion
 
     [Export] private bool _isMoving;
+    [Export] private bool _isInsideMine;
     
     #region Initializers
 
@@ -75,9 +76,12 @@ public partial class Slime : Enemy
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
         Phase = EnemyPhase.Teleport;
-        CanMove = false;
-        _isMoving = false;
-        SetPhysicsProcess(false);
+        // CanMove = false;
+        // _isMoving = false;
+        CanMove = true;
+        _isMoving = true;
+        SetPhysicsProcess(true);
+        // SetPhysicsProcess(false);
     }
 
     private void SetValuesOnSpawn()
@@ -102,8 +106,30 @@ public partial class Slime : Enemy
     }
 
     #endregion
-    
-    public override async void _PhysicsProcess(double delta)
+
+    #region Move Into Mine
+
+    private async Task MoveIntoTheMine()
+    {
+        if (Position.X <= _targetPos.X + 20 && Position.Y >= 0)
+        {
+            _isInsideMine = true;
+            DecideMoveTargetPosition();
+            return;
+        }
+        var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
+        var cellSize = _mineGenerationVariables.Mine.CellSize;
+        _targetPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
+        _isMovingLeft = true;
+        _isMovingRight = false;
+        await Move();
+    }
+
+    #endregion
+
+    #region Start Slime Activity
+
+    private async Task StartSlimeActivity()
     {
         if (IsAggro)
         {
@@ -139,6 +165,16 @@ public partial class Slime : Enemy
                 await Attack();
                 break;
         }
+    }
+
+    #endregion
+    
+    public override async void _PhysicsProcess(double delta)
+    {
+        if (!_isInsideMine)
+            await MoveIntoTheMine();
+        else
+            await StartSlimeActivity();
         
         ApplyGravity();
     }
@@ -153,6 +189,7 @@ public partial class Slime : Enemy
         GD.Print($"tuple is null: {tuple == null}");
         if (tuple == null)
         {
+            IsAggro = true;
             Phase = EnemyPhase.Teleport;
             return;
         }
@@ -428,13 +465,9 @@ public partial class Slime : Enemy
         if (!collisionBool)
 
         {
-
             var velocity = Velocity;
-
             velocity.Y += _gravity * delta;
-
             Velocity = velocity;
-
         }
 
     }

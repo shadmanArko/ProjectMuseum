@@ -21,10 +21,25 @@ public partial class DecorationsController : Node2D
 	public override void _Ready()
 	{
 		_httpRequestForGettingShops = new HttpRequest();
+		_httpRequestForGettingOthers = new HttpRequest();
+		
 		AddChild(_httpRequestForGettingShops);
+		AddChild(_httpRequestForGettingOthers);
 		_httpRequestForGettingShops.RequestCompleted += HttpRequestForGettingShopsOnRequestCompleted;
+		_httpRequestForGettingOthers.RequestCompleted += HttpRequestForGettingOthersOnRequestCompleted;
 		_httpRequestForGettingShops.Request(ApiAddress.MuseumApiPath + "GetAllShops");
+		_httpRequestForGettingOthers.Request(ApiAddress.MuseumApiPath + "GetAllOtherDecorations");
 	}
+
+	private void HttpRequestForGettingOthersOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		var otherDecorations = JsonSerializer.Deserialize<List<DecorationOther>>(jsonStr);
+		
+		SpawnOtherDecorations(otherDecorations);
+	}
+
+	
 
 	private void HttpRequestForGettingShopsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
@@ -33,7 +48,19 @@ public partial class DecorationsController : Node2D
 		
 		SpawnShops(shops);
 	}
-
+	private void SpawnOtherDecorations(List<DecorationOther> otherDecorations)
+	{
+		foreach (var otherDecoration in otherDecorations)
+		{
+			var instance = (Node)_decorationOtherItem.Instantiate();
+			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/DecorationOthers/{otherDecoration.VariationName}.png");
+			var sprite = instance.GetNode<Sprite2D>(".") ;
+			sprite.Texture = texture2D;
+			instance.GetNode<Node2D>(".").Position =
+				GameManager.tileMap.MapToLocal(new Vector2I(otherDecoration.XPosition, otherDecoration.YPosition));
+			ItemsParent.AddChild(instance);
+		}
+	}
 	private void SpawnShops(List<DecorationShop> shops)
 	{
 		foreach (var shop in shops)

@@ -1,5 +1,6 @@
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
+using ProjectMuseum.Repositories.DecorationOtherRepository;
 using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
@@ -10,13 +11,15 @@ public class ItemPlacementCondition : IItemPlacementCondition
 {
     private readonly IExhibitRepository _exhibitRepository;
     private readonly IDecorationShopRepository _decorationShopRepository;
+    private readonly IDecorationOtherRepository _decorationOtherRepository;
     private readonly IMuseumTileRepository _museumTileRepository;
 
-    public ItemPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository, IDecorationShopRepository decorationShopRepository)
+    public ItemPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository, IDecorationShopRepository decorationShopRepository, IDecorationOtherRepository decorationOtherRepository)
     {
         _exhibitRepository = exhibitRepository;
         _museumTileRepository = museumTileRepository;
         _decorationShopRepository = decorationShopRepository;
+        _decorationOtherRepository = decorationOtherRepository;
     }
     
     public async Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
@@ -125,6 +128,33 @@ public class ItemPlacementCondition : IItemPlacementCondition
             }
         }
         museumTiles = await _museumTileRepository.UpdateShopToMuseumTiles(tileIds, decorationShop.Id);
+        return museumTiles;
+    }
+    public async Task<List<MuseumTile>> PlaceOtherDecorationOnTiles(string originTileId, List<string> tileIds, string otherVariationName, int rotationFrame)
+    {
+        
+        DecorationOther decorationOther = new DecorationOther();
+        var museumTiles = await _museumTileRepository.GetAll();
+        
+        foreach (var tileId in tileIds)
+        {
+            if (tileId == originTileId)
+            {
+                var museumTile = await _museumTileRepository.GetById(tileId);
+                decorationOther = new DecorationOther
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    VariationName =  otherVariationName,
+                    XPosition = museumTile.XPosition,
+                    YPosition = museumTile.YPosition,
+                    RotationFrame = rotationFrame,
+                    
+                };
+                await _decorationOtherRepository.Insert(decorationOther);
+                
+            }
+        }
+        museumTiles = await _museumTileRepository.UpdateOtherDecorationToMuseumTiles(tileIds, decorationOther.Id);
         return museumTiles;
     }
 }

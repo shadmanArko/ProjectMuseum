@@ -148,7 +148,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         if (scriptInstance != null)
         {
             scriptInstance.Position = GetGlobalMousePosition();
-            scriptInstance.Initialize(_cardName);
+            scriptInstance.Initialize(_cardName, builderCardType);
             _lastSelectedItem = scriptInstance;
         }
         else

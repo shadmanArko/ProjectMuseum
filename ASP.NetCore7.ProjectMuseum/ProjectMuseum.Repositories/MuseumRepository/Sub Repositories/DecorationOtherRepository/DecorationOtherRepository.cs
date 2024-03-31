@@ -48,9 +48,10 @@ public class DecorationOtherRepository : IDecorationOtherRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<DecorationOther>?> GetAllDecorationOthers()
+    public async Task<List<DecorationOther>?> GetAllDecorationOthers()
     {
-        throw new NotImplementedException();
+        var decorationOther = await _decorationOtherDatabase.ReadDataAsync();
+        return decorationOther;
     }
 
     public Task<DecorationOther?> Delete(string id)

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -14,6 +15,7 @@ public partial class DecorationItem : Item
 {
 	private string _variationName;
 	private HttpRequest _httpRequestForPlacingDecorationItem;
+	private BuilderCardType _builderCardType;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -67,9 +69,10 @@ public partial class DecorationItem : Item
 		}
 	}
 
-	public void Initialize(string cardName)
+	public void Initialize(string cardName, BuilderCardType builderCardType)
 	{
 		selectedItem = true;
+		_builderCardType = builderCardType;
 		_variationName = cardName;
 		MakeObjectsFloating();
 	}
@@ -83,10 +86,18 @@ public partial class DecorationItem : Item
 		}
 		string[] headers = { "Content-Type: application/json"};
 		var body = JsonConvert.SerializeObject(tileIds);
-		string url =
-			$"{ApiAddress.MuseumApiPath}PlaceAShopOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
+		string url = "";
+		
+		if (_builderCardType == BuilderCardType.DecorationShop)
+		{
+			url = $"{ApiAddress.MuseumApiPath}PlaceAShopOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
+
+		}else if (_builderCardType == BuilderCardType.DecorationOther)
+		{
+			url = $"{ApiAddress.MuseumApiPath}PlaceOtherDecorationOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
+		}
 		_httpRequestForPlacingDecorationItem.Request(url, headers, HttpClient.Method.Get, body);
-		 GD.Print("Handling exhibit placement");
+		GD.Print("Handling exhibit placement");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 		OnItemPlacedOnTile(GlobalPosition);

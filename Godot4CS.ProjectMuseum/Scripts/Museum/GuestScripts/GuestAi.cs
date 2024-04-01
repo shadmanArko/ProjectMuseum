@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
@@ -13,6 +14,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 
 public partial class GuestAi : CharacterBody2D
 {
+    protected float availableMoney;
     protected float hungerLevel;
     protected float interestInArtifactLevel;
     protected float thirstLevel;
@@ -28,7 +30,11 @@ public partial class GuestAi : CharacterBody2D
     protected float chargeDecayRate;
     protected float energyDecayRate;
     protected float entertainmentDecayRate;
-    
+
+    private int _needsDecayInterval = 3;
+    private int _countForDecayInterval= 0;
+
+    private bool _executingADecision = false;
     //Guest Ai selection
     [Export] private Sprite2D _collisionShape2D;
     [Export] private Sprite2D _selectionIndicator;
@@ -60,17 +66,94 @@ public partial class GuestAi : CharacterBody2D
 
     private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
     {
+        if (_countForDecayInterval >= _needsDecayInterval)
+        {
+            hungerLevel += hungerDecayRate;
+            thirstLevel += thirstDecayRate;
+            bladderLevel += bladderDecayRate;
+            chargeLevel += chargeDecayRate;
+            energyLevel += energyDecayRate;
+            interestInArtifactLevel += interestInArtifactDecayRate;
+            entertainmentLevel += entertainmentDecayRate;
+            // GD.Print($"{Name}: " +
+            //          $"hunger: {hungerLevel}, thirst: {thirstLevel}, bladder: {bladderLevel}, charge:{chargeLevel}, " +
+            //          $"energy: {energyLevel}, interest{interestInArtifactLevel}, entert: {entertainmentLevel}");
+            
+            _countForDecayInterval = 0;
+            if (!_executingADecision)
+            {
+                CheckForFulfillingNeeds();
+            }
+        }
 
-        hungerLevel += hungerDecayRate;
-        thirstLevel += thirstDecayRate;
-        bladderLevel += bladderDecayRate;
-        chargeLevel += chargeDecayRate;
-        energyLevel += energyDecayRate;
-        interestInArtifactLevel += interestInArtifactDecayRate;
-        entertainmentLevel += entertainmentDecayRate;
-        GD.Print($"{Name}: hunger: {hungerLevel}, thirst: {thirstLevel}, bladder: {bladderLevel}, charge:{chargeLevel}, energy: {energyLevel}, interest{interestInArtifactLevel}, entert: {entertainmentLevel}");
+        _countForDecayInterval++;
     }
 
+    private void CheckForFulfillingNeeds()
+    {
+        float highestValue = Math.Max(hungerLevel, Math.Max(thirstLevel, Math.Max(interestInArtifactLevel, Math.Max(bladderLevel, Math.Max(entertainmentLevel, Math.Max(chargeLevel, energyLevel))))));
+        var tolerance = 0.01;
+        var output = "";
+        if (Math.Abs(highestValue - hungerLevel) < tolerance)
+        {
+            output = ("Find Food");
+        }
+        else if (Math.Abs(highestValue - thirstLevel) < tolerance)
+        {
+            output = ("Find Drink");
+        }
+        else if (Math.Abs(highestValue - interestInArtifactLevel) < tolerance)
+        {
+            output = ("Find Artifact");
+        }
+        else if (Math.Abs(highestValue - bladderLevel) < tolerance)
+        {
+            output = ("Find Washroom");
+        }
+        else if (Math.Abs(highestValue - entertainmentLevel) < tolerance)
+        {
+            output = ("Find Entertainment");
+        }
+        else if (Math.Abs(highestValue - chargeLevel) < tolerance)
+        {
+            output = ("Find Charge");
+        }
+        else if (Math.Abs(highestValue - energyLevel) < tolerance)
+        {
+            output = ("Find Energy");
+        }
+        GD.Print($"{Name}: {output}");
+    }
+
+    public void FillNeed(GuestNeedsEnum need, float amount)
+    {
+        switch(need)
+        {
+            case GuestNeedsEnum.Hunger:
+                hungerLevel -= amount;
+                break;
+            case GuestNeedsEnum.Thirst:
+                thirstLevel -= amount;
+                break;
+            case GuestNeedsEnum.InterestInArtifact:
+                interestInArtifactLevel -= amount;
+                break;
+            case GuestNeedsEnum.Bladder:
+                bladderLevel -= amount;
+                break;
+            case GuestNeedsEnum.Charge:
+                chargeLevel -= amount;
+                break;
+            case GuestNeedsEnum.Energy:
+                energyLevel -= amount;
+                break;
+            case GuestNeedsEnum.Entertainment:
+                entertainmentLevel -= amount;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(need), need, null);
+        }
+    }
     public override void _ExitTree()
     {
         base._ExitTree();

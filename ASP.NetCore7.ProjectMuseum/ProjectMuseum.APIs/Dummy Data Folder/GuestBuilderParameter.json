@@ -1,6 +1,10 @@
 [
   {
     "AllAvailableArtifactTags": ["Ancient", "Sword"],
+    "GuestMoneyRange": {
+      "Min": 10.0,
+      "Max": 1000.0
+    },
     "HungerLevelRange": {
       "Min": -50.0,
       "Max": 80.0

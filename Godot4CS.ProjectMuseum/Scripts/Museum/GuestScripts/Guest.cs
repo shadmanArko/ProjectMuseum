@@ -85,6 +85,7 @@ public partial class Guest : GuestAi
     }
     public void Initialize(GuestBuildingParameter guestBuildingParameter, List<Vector2I> sceneExitPoints)
     {
+        availableMoney = guestBuildingParameter.GuestMoneyRange.GetRandom();
         hungerLevel = guestBuildingParameter.HungerLevelRange.GetRandom();
         thirstLevel = guestBuildingParameter.ThirstLevelRange.GetRandom();
         chargeLevel = guestBuildingParameter.ChargeLevelRange.GetRandom();

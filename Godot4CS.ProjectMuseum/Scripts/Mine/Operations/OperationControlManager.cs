@@ -10,9 +10,11 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 public partial class OperationControlManager : Node2D
 {
     private HttpRequest _getPlayerInventoryHttpRequest;
+
+    [Export] private InventoryControllers.InventoryController[] _inventoryControllers;
     
-    [Export] private WallPlaceableController _wallPlaceableController;
-    [Export] private ConsumableController _consumableController;
+    [Export] private InventoryControllers.WallPlaceableController _wallPlaceableController;
+    [Export] private InventoryControllers.ConsumableController _consumableController;
     
     private Inventory _inventory;
     private int _slot;
@@ -35,6 +37,13 @@ public partial class OperationControlManager : Node2D
     private void SubscribeToActions()
     {
         MineActions.OnToolbarSlotChanged += ActivateControllerBasedInItemType;
+        MineActions.DeselectAllInventoryControllers += DeactivateActiveController;
+    }
+
+    private void UnsubscribeToActions()
+    {
+        MineActions.OnToolbarSlotChanged -= ActivateControllerBasedInItemType;
+        MineActions.DeselectAllInventoryControllers -= DeactivateActiveController;
     }
 
     #endregion
@@ -43,20 +52,17 @@ public partial class OperationControlManager : Node2D
 
     private void ActivateControllerBasedInItemType(int slot)
     {
+        if(_slot == slot) return;
         _slot = slot;
         GetPlayerInventory();
     }
     
-    private void ActivateController(InventoryItem inventoryItem)
+    private void DeactivateActiveController()
     {
-        switch (inventoryItem.Type)
+        foreach (var controller in _inventoryControllers)
         {
-            case "WallPlaceable":
-                _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
-                break;
-            case "Consumable":
-                _consumableController.OnSelectConsumableFromInventory(inventoryItem);
-                break;
+            if(controller.IsControllerActivated)
+                controller.DeactivateController();
         }
     }
 
@@ -92,7 +98,20 @@ public partial class OperationControlManager : Node2D
 
         var inventoryItem = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);
         if (inventoryItem == null) return;
-        ActivateController(inventoryItem);
+        ActivateRequiredController(inventoryItem);
+    }
+    
+    private void ActivateRequiredController(InventoryItem inventoryItem)
+    {
+        switch (inventoryItem.Type)
+        {
+            case "WallPlaceable":
+                _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
+                break;
+            case "Consumable":
+                _consumableController.ActivateController(inventoryItem);
+                break;
+        }
     }
     
     #endregion

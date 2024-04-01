@@ -1,20 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7xekoa5ueyf3"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/OperationControlManager.cs" id="1_0fax2"]
-[ext_resource type="Script" path="res://Scripts/Mine/Operations/WallPlaceableController.cs" id="2_crgrw"]
-[ext_resource type="Script" path="res://Scripts/Mine/Operations/ConsumableController.cs" id="3_vtfnc"]
+[ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/WallPlaceableController.cs" id="2_crgrw"]
+[ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/ConsumableController.cs" id="3_cxqsv"]
 
-[node name="OperationControllerManager" type="Node2D" node_paths=PackedStringArray("_wallPlaceableController", "_consumableController")]
+[node name="OperationControllerManager" type="Node2D" node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_healthController")]
 script = ExtResource("1_0fax2")
+_inventoryControllers = [NodePath("ConsumableController")]
 _wallPlaceableController = NodePath("WallPlaceableController")
-_consumableController = NodePath("WallPlaceableController/ConsumableController")
+_healthController = NodePath("ConsumableController")
 
 [node name="WallPlaceableController" type="Node2D" parent="." node_paths=PackedStringArray("_wallPlaceableSprite")]
 script = ExtResource("2_crgrw")
 _wallPlaceableSprite = NodePath("../Sprite2D")
 
-[node name="ConsumableController" type="Node2D" parent="WallPlaceableController"]
-script = ExtResource("3_vtfnc")
+[node name="ConsumableController" type="Node2D" parent="."]
+script = ExtResource("3_cxqsv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 8

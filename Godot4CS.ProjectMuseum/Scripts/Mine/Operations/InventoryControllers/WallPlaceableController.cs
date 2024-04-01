@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
+namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations.InventoryControllers;
 
 public partial class WallPlaceableController : Node2D
 {

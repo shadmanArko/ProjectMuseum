@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlbdy8vowfo6h"
-path="res://.godot/imported/Coal.png-1bc86a1bc661c6ae08186e2a46abe2d6.ctex"
+uid="uid://dx1e10plmrgbj"
+path="res://.godot/imported/resource_iron.png-418f22d6eb82c8ef666f54899983c86b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
-dest_files=["res://.godot/imported/Coal.png-1bc86a1bc661c6ae08186e2a46abe2d6.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
+dest_files=["res://.godot/imported/resource_iron.png-418f22d6eb82c8ef666f54899983c86b.ctex"]
 
 [params]
 

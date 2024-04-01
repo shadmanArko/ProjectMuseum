@@ -155,9 +155,9 @@ public partial class Slime : Enemy
                 Teleport();
                 break;
             case EnemyPhase.Combat:
-                GD.Print($"isAttacking: {IsAttacking}");
-                GD.Print($"Phase: {Phase}");
-                GD.Print();
+                // GD.Print($"isAttacking: {IsAttacking}");
+                // GD.Print($"Phase: {Phase}");
+                // GD.Print();
                 await Attack();
                 break;
         }

@@ -21,13 +21,23 @@
         "Type": "Consumable",
         "Variant": "HealthPotion",
         "IsStackable": true,
-        "Stack": 98,
+        "Stack": 5,
         "Slot": 2,
-        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Potion.png"
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
+      },
+      {
+        "Id": "2",
+        "Name": "Energy Potion",
+        "Type": "Consumable",
+        "Variant": "EnergyPotion",
+        "IsStackable": true,
+        "Stack": 5,
+        "Slot": 2,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
       }
     ],
     "Artifacts": [],
-    "OccupiedSlots": [0,1,2],
+    "OccupiedSlots": [0,1,2,3],
     "SlotsUnlocked": 12
   }
 ]

@@ -96,6 +96,7 @@ public partial class MineActions : Node
     #region Inventory Actions
 
     public static Action<int> OnToolbarSlotChanged;
+    public static Action DeselectAllInventoryControllers;
     public static Action OnInventoryUpdate;
 
     #endregion

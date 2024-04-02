@@ -1,0 +1,30 @@
+[
+  {
+    "Id": "1",
+    "Type": "Consumable",
+    "Category": "Potion",
+    "Variant": "HealthPotion",
+    "HealthEffectValue": 20,
+    "EnergyEffectValue": 0,
+    "MovementSpeedEffectValue": 0,
+    "AddedDamagePerHitEffectValue": 0,
+    "ClimbingSpeedEffectValue": 0,
+    "InvulnerabilityEffectValue": 0,
+    "ScenePath": "scenes/potion_small",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
+  },
+  {
+    "Id": "2",
+    "Type": "Consumable",
+    "Category": "Potion",
+    "Variant": "EnergyPotion",
+    "HealthEffectValue": 0,
+    "EnergyEffectValue": 50,
+    "MovementSpeedEffectValue": 0,
+    "AddedDamagePerHitEffectValue": 0,
+    "ClimbingSpeedEffectValue": 0,
+    "InvulnerabilityEffectValue": 0,
+    "ScenePath": "scenes/food_large",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
+  }
+]

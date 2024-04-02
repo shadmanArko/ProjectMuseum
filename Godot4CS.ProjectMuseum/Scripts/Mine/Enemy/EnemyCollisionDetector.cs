@@ -36,6 +36,7 @@ public partial class EnemyCollisionDetector : Node2D
         if(player == null) return;
         if(_enemyCooldown) return;
         _enemy.IsInAttackRange = true;
+        _enemy.IsMoving = false;
         _enemy.Phase = EnemyPhase.Combat;
         _enemy.IsAttacking = true;
         _enemyCooldown = true;
@@ -46,6 +47,7 @@ public partial class EnemyCollisionDetector : Node2D
         var player = body as PlayerController;
         if(player == null) return;
         _enemy.IsInAttackRange = false;
+        _enemy.IsMoving = true;
         _enemy.IsAttacking = false;
         _enemy.Phase = EnemyPhase.Chase;
         GD.Print($"Player exited ATTACK region, isAttacking:{_enemy.IsAttacking}");

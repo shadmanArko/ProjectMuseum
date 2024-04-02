@@ -117,4 +117,11 @@ public class PlayerController : ControllerBase
         var wallPlaceable = await _inventoryService.SendWallPlaceableFromInventoryToMine(inventoryItemId, cellIds);
         return Ok(wallPlaceable);
     }
+    
+    [HttpPost("SendConsumableFromInventoryToMine/{inventoryItemId}")]
+    public async Task<IActionResult> SendConsumableFromInventoryToMine(string inventoryItemId)
+    {
+        var consumable = await _inventoryService.SendConsumableFromInventoryToMine(inventoryItemId);
+        return Ok(consumable);
+    }
 }

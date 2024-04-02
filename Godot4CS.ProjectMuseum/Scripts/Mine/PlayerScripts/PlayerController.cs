@@ -232,7 +232,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		velocity.X = 0;
 		Velocity = velocity;
 		animationController.Play("damage1");
-		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
+		HealthSystem.ReducePlayerHealth(10, _playerControllerVariables);
 	}
 
 	public void Attack()

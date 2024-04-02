@@ -1,6 +1,5 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Enum;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -12,7 +11,9 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     [Export] private Area2D _attackDetectorArea2D;
     [Export] private CollisionShape2D _collisionShape2D;
     [Export] private AnimationPlayer _animationPlayer;
-    
+
+    #region Initializers
+
     public override void _Ready()
     {
         InitializeDiReferences();
@@ -29,6 +30,8 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
         MineActions.OnMeleeAttackActionStarted += TurnOnAttackCollider;
         MineActions.OnMeleeAttackActionEnded += TurnOffAttackCollider;
     }
+
+    #endregion
 
     private void TurnOffAttackCollider()
     {
@@ -47,12 +50,12 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     private void OnBodyEnter(Node2D body)
     {
         var enemy = body as IDamagable;
-        GD.Print($"body entered is null {enemy == null}");
         if(enemy is null) return;
+        
         if(!_playerControllerVariables.IsAttacking) return;
         if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
         enemy.TakeDamage();
-        GD.Print("PLAYER ATTACKING ENEMY");
+        GD.Print($"PLAYER ATTACKING ENEMY {enemy}");
     }
 
     private void OnBodyExit(Node2D body)

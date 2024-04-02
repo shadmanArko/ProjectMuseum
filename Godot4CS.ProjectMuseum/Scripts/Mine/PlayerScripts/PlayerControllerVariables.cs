@@ -120,6 +120,7 @@ public class PlayerControllerVariables
         set
         {
             _currentEquippedItemSlot = value;
+            MineActions.DeselectAllInventoryControllers?.Invoke();
             MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItemSlot);
             
             if(_currentEquippedItemSlot == 0)

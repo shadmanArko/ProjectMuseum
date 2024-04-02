@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4dtbfu02jps1"
-path="res://.godot/imported/iron.png-814cc442917a8584d56ed1b4433d3c39.ctex"
+uid="uid://dmoec1atv0aui"
+path="res://.godot/imported/potion_energy.png-4961a2067f0f7d40679c2d14eaa18026.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/iron.png"
-dest_files=["res://.godot/imported/iron.png-814cc442917a8584d56ed1b4433d3c39.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
+dest_files=["res://.godot/imported/potion_energy.png-4961a2067f0f7d40679c2d14eaa18026.ctex"]
 
 [params]
 

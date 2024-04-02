@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://x50lecphhu1"]
+[gd_scene load_steps=9 format=3 uid="uid://x50lecphhu1"]
 
 [ext_resource type="Texture2D" uid="uid://dd6g6abjju1u8" path="res://Assets/2D/Sprites/Mine Sprites/Stalagmites/Stalagmite.png" id="1_3utpw"]
 [ext_resource type="Script" path="res://Scripts/Mine/WallPlaceables/Stalagmite.cs" id="1_avirc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jlnv8"]
+size = Vector2(20, 6)
 
 [sub_resource type="Animation" id="Animation_yne6e"]
 length = 0.001
@@ -56,9 +59,18 @@ _data = {
 "stalagmite_intact": SubResource("Animation_0ewx6")
 }
 
-[node name="Stalagmite" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rpvio"]
+size = Vector2(20, 13)
+
+[node name="Stalagmite" type="RigidBody2D" node_paths=PackedStringArray("_animationPlayer")]
+collision_layer = 5
+collision_mask = 3
 script = ExtResource("1_avirc")
 _animationPlayer = NodePath("AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_jlnv8")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_3utpw")
@@ -72,9 +84,12 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PackedVector2Array(-10, 10, -8, -7, -7, 1, -5, -4, -3, -1, -1, 0, 2, 8, 4, -5, 6, 2, 8, -9, 10, 2, 10, 10)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_rpvio")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnBrokenAnimationComplete"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

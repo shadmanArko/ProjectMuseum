@@ -1,17 +1,21 @@
 using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.WallPlaceables;
 
-public partial class Stalactite : Node2D
+public partial class Stalactite : Node2D, IDamagable
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private AnimationPlayer _animationPlayer;
+	
+	private int _hitPoint;
+	private bool _isBroken;
 
 	private const float Gravity = 0.8f;
 	private bool _isFalling;
@@ -23,6 +27,8 @@ public partial class Stalactite : Node2D
 		InitializeDiReferences();
 		SubscribeToActions();
 		_isFalling = false;
+		_hitPoint = 1;
+		_isBroken = false;
 	}
 	
 	private void InitializeDiReferences()
@@ -70,7 +76,7 @@ public partial class Stalactite : Node2D
 		{
 			GD.Print("Collided with player");
 			if(_playerControllerVariables.IsDead) return;
-			HealthSystem.ReducePlayerHealth(10, 100, _playerControllerVariables);
+			HealthSystem.ReducePlayerHealth(10, _playerControllerVariables);
 			if(_isFalling)
 				QueueFree();
 		}
@@ -80,7 +86,6 @@ public partial class Stalactite : Node2D
 			GD.Print("Collided with tilemap");
 			if(!_isFalling) return;
 			QueueFree();
-			
 		}
 	}
 
@@ -91,6 +96,24 @@ public partial class Stalactite : Node2D
 	public override void _ExitTree()
 	{
 		UnsubscribeToActions();
-		GD.Print("Stalagmite destroyed");
+		GD.Print("Stalactite destroyed");
+	}
+
+	public void TakeDamage()
+	{
+		if(_isBroken) return;
+		if (_hitPoint <= 0)
+		{
+			_isBroken = true;
+			_isFalling = true;
+			PlayAnimation("stalactite_collapse");
+			GD.Print($"Stalagmite broken. hit point: {_hitPoint}");
+		}
+		else
+		{
+			_hitPoint--;
+			GD.Print($"Stalagmite damaged. hit point: {_hitPoint}");
+		}
+
 	}
 }

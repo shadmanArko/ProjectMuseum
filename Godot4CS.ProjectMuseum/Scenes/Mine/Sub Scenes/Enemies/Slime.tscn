@@ -399,6 +399,7 @@ autostart = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationComplete"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
 [connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]

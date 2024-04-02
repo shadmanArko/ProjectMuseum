@@ -87,8 +87,8 @@ public partial class CampToMineTransition : Button
         if (ReferenceStorage.Instance.MineTimeSystem.GetTime().Days <= 5)
         {
             ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
-            HealthSystem.RestorePlayerFullHealth(200, _playerControllerVariables);
-            EnergySystem.RestoreFullEnergy(200, _playerControllerVariables);
+            HealthSystem.RestorePlayerFullHealth(_playerControllerVariables);
+            EnergySystem.RestoreFullEnergy(_playerControllerVariables);
             _autoAnimationController.SetPlayerRun();
         }
         else

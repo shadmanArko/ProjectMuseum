@@ -10,7 +10,7 @@ public partial class MineSceneInitializer : Node
     
 	public override void _Ready()
 	{
-		GenerateMine();
+		// GenerateMine();
 		InstantiatePlayer();
 		
 	}

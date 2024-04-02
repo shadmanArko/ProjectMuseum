@@ -60,7 +60,6 @@ public class ResourceService : IResourceService
         }
         mine.Resources.Clear();
         
-        
         var numberOfRootNodes = _rand.Next(30,40);
 
         for (var i = 0; i < numberOfRootNodes; i++)
@@ -80,7 +79,6 @@ public class ResourceService : IResourceService
                 currentBranchCell = GetRandomAdjacentCell(cells, currentBranchCell);
                 if(resourceCells.Contains(currentBranchCell)) continue;
                 resourceCells.Add(currentBranchCell);
-                // Console.WriteLine($"Added {rootNodeVariant} Resource Cell {currentBranchCell.PositionX}, {currentBranchCell.PositionY}");
             }
             
             foreach (var resourceCell in resourceCells)

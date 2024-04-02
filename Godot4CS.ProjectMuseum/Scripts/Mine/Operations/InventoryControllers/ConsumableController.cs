@@ -114,9 +114,17 @@ public partial class ConsumableController : InventoryController
         GD.Print($"json string: {jsonStr}");
         var consumable = JsonSerializer.Deserialize<Consumable>(jsonStr);
         GD.Print($"consumable: {consumable}");
-        
-        HealthSystem.RestorePlayerHealth(consumable.HealthEffectValue, _playerControllerVariables);
-        EnergySystem.RestoreEnergy(consumable.EnergyEffectValue, _playerControllerVariables);
+
+        foreach (var statEffect in consumable.ConsumableStatEffects)
+        {
+            switch (statEffect.StatName)
+            {
+                case "Health":
+                    HealthSystem.EffectPlayerHealth(statEffect, _playerControllerVariables);
+                    GD.Print("health effect ");
+                    break;
+            }
+        }
         
         MineActions.OnInventoryUpdate?.Invoke();
         await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health increased by 50 Hp");

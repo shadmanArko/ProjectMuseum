@@ -107,14 +107,10 @@ _camera = NodePath("Camera2D")
 
 [node name="FrameRate" parent="." instance=ExtResource("15_v858d")]
 
-[node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_wallPlaceableController") instance=ExtResource("16_ot1vu")]
+[node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController") instance=ExtResource("16_ot1vu")]
+_inventoryControllers = [NodePath("ConsumableController")]
 _wallPlaceableController = NodePath("WallPlaceableController")
-
-[node name="OperationControllerManager2" parent="." node_paths=PackedStringArray("_wallPlaceableController") instance=ExtResource("16_ot1vu")]
-_wallPlaceableController = NodePath("WallPlaceableController")
-
-[node name="OperationControllerManager3" parent="." node_paths=PackedStringArray("_wallPlaceableController") instance=ExtResource("16_ot1vu")]
-_wallPlaceableController = NodePath("WallPlaceableController")
+_consumableController = NodePath("ConsumableController")
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates") instance=ExtResource("3_ambmn")]
 _healthBar = NodePath("Health Bar")

@@ -85,7 +85,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3f3m"]
 
-[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsOtherButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
+[node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsButton", "_flooringButton", "_wallpapersButton", "_sanitationButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 12
@@ -97,10 +97,11 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_26dxj")
 _newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
-_decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/food and drinks button parent/Food and Drinks Button")
-_decorationsOtherButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/suvenirs button parent/Souvenirs Button")
+_decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent/Food and Drinks Button")
+_decorationsButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Parent/decorations Button")
 _flooringButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/flooring parent/Flooring Button")
 _wallpapersButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/wallpaper parent/Wallpaper Button")
+_sanitationButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/sanitation button parent/Sanitation Button")
 _exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit parent/Exhibit Button")
 _museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Text Holder")
 _museumAddedMoneyAmountTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Adding Amount")
@@ -232,17 +233,17 @@ custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel" node_paths=PackedStringArray("_buttonHolders", "_mainButtonsBg", "_subButtonContainer", "_adminContainer", "_exhibitsContainer", "_decorationContainer", "_roomContainer", "_staffContainer")]
+[node name="Main Buttons Panel" type="HBoxContainer" parent="Left Panel/Buttons Panel" node_paths=PackedStringArray("_buttonHolders", "_mainButtonsBg", "_subButtonContainer", "_adminContainer", "_exhibitsContainer", "_facilitiesContainer", "_roomContainer", "_staffContainer")]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 5
 script = ExtResource("1_8vmjs")
-_buttonHolders = [NodePath("Administration parent"), NodePath("Exhibit parent"), NodePath("Decoration parent"), NodePath("Room Parent"), NodePath("Staff Parent")]
+_buttonHolders = [NodePath("Administration parent"), NodePath("Exhibit parent"), NodePath("Facilities parent"), NodePath("Room Parent"), NodePath("Staff Parent")]
 _mainButtonsBg = NodePath("../../../Background/buttons bg")
 _subButtonContainer = NodePath("../Sub Buttons Panel")
 _adminContainer = NodePath("../Sub Buttons Panel/Administration Button Container")
 _exhibitsContainer = NodePath("../Sub Buttons Panel/Exhibit Button Container")
-_decorationContainer = NodePath("../Sub Buttons Panel/Decoration Button Container")
+_facilitiesContainer = NodePath("../Sub Buttons Panel/Facilities Button Container")
 _roomContainer = NodePath("../Sub Buttons Panel/Room Button Container")
 _staffContainer = NodePath("../Sub Buttons Panel/Staff Button Container")
 _toggleMode = true
@@ -303,12 +304,12 @@ text = "Exhibit"
 script = ExtResource("2_1850m")
 _stringName = "Exhibit"
 
-[node name="Decoration parent" type="TextureRect" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
+[node name="Facilities parent" type="TextureRect" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3
 
-[node name="Decoration Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel/Decoration parent"]
+[node name="Facilities Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel/Facilities parent"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -327,9 +328,9 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_4u3p7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a28ad")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
-text = "Decoration"
+text = "Facilities"
 script = ExtResource("2_1850m")
-_stringName = "Decoration"
+_stringName = "Facilities"
 
 [node name="Room Parent" type="TextureRect" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
 layout_mode = 2
@@ -572,16 +573,16 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_yyyfd")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_b2jl3")
 text = "Edit Exhibit"
 
-[node name="Decoration Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
+[node name="Facilities Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Education button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+[node name="Education button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3
 
-[node name="Education Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/Education button parent"]
+[node name="Education Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/Education button parent"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -604,12 +605,12 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
 text = "Education"
 
-[node name="Play Areas Button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+[node name="Play Areas Button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3
 
-[node name="Play Areas Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/Play Areas Button parent"]
+[node name="Play Areas Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/Play Areas Button parent"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -632,12 +633,12 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
 text = "Play Areas"
 
-[node name="sanitation button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+[node name="sanitation button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3
 
-[node name="Sanitation Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/sanitation button parent"]
+[node name="Sanitation Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/sanitation button parent"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -660,12 +661,12 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
 text = "Sanitation"
 
-[node name="suvenirs button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+[node name="suvenirs button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3
 
-[node name="Souvenirs Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/suvenirs button parent"]
+[node name="Souvenirs Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/suvenirs button parent"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -688,12 +689,12 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
 text = "Souvenirs"
 
-[node name="food and drinks button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container"]
+[node name="food and drinks button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3
 
-[node name="Food and Drinks Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/food and drinks button parent"]
+[node name="Food and Drinks Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -864,6 +865,34 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
 text = "Flooring"
+
+[node name="decorations Parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+layout_mode = 2
+texture = ExtResource("3_lvt4l")
+expand_mode = 3
+
+[node name="decorations Button" type="Button" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Parent"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_uca33")
+theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vd1xn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+text = "Decorations"
 
 [node name="Staff Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
 layout_mode = 2
@@ -1226,6 +1255,6 @@ text = "Details:"
 
 [connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Administration parent/Administration Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Administration parent/Administration Button" method="OnButtonPressed"]
 [connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Exhibit parent/Exhibit Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Exhibit parent/Exhibit Button" method="OnButtonPressed"]
-[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Decoration parent/Decoration Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Decoration parent/Decoration Button" method="OnButtonPressed"]
+[connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Facilities parent/Facilities Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Facilities parent/Facilities Button" method="OnButtonPressed"]
 [connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Room Parent/Room Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Room Parent/Room Button" method="OnButtonPressed"]
 [connection signal="pressed" from="Left Panel/Buttons Panel/Main Buttons Panel/Staff Parent/Staff Button" to="Left Panel/Buttons Panel/Main Buttons Panel/Staff Parent/Staff Button" method="OnButtonPressed"]

@@ -31,7 +31,7 @@ public partial class GuestAi : CharacterBody2D
     protected float energyDecayRate;
     protected float entertainmentDecayRate;
 
-    private int _needsDecayInterval = 3;
+    private int _needsDecayInterval = 1;
     private int _countForDecayInterval= 0;
 
     private bool _executingADecision = false;
@@ -66,6 +66,7 @@ public partial class GuestAi : CharacterBody2D
 
     private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
     {
+        _countForDecayInterval++;
         if (_countForDecayInterval >= _needsDecayInterval)
         {
             hungerLevel += hungerDecayRate;
@@ -82,43 +83,54 @@ public partial class GuestAi : CharacterBody2D
             _countForDecayInterval = 0;
             if (!_executingADecision)
             {
-                CheckForFulfillingNeeds();
+                CheckForNeedsToFulfill();
             }
         }
 
-        _countForDecayInterval++;
+        
     }
 
-    private void CheckForFulfillingNeeds()
+    float NegativeLinear(float x)
     {
-        float highestValue = Math.Max(hungerLevel, Math.Max(thirstLevel, Math.Max(interestInArtifactLevel, Math.Max(bladderLevel, Math.Max(entertainmentLevel, Math.Max(chargeLevel, energyLevel))))));
+        return -x;
+    }
+    private void CheckForNeedsToFulfill()
+    {
+        var hungerModifier = NegativeLinear(hungerLevel);
+        var thirstModifier = NegativeLinear(thirstLevel);
+        var interestInArtifactModifier = NegativeLinear(interestInArtifactLevel);
+        var bladderModifier = NegativeLinear(bladderLevel);
+        var entertainmentModifier = NegativeLinear(entertainmentLevel);
+        var chargeModifier = NegativeLinear(chargeLevel);
+        var energyModifier = NegativeLinear(energyLevel);
+        float value = Math.Max(hungerModifier, Math.Max(thirstModifier, Math.Max(interestInArtifactModifier, Math.Max(bladderModifier, Math.Max(entertainmentModifier, Math.Max(chargeModifier, energyModifier))))));
         var tolerance = 0.01;
         var output = "";
-        if (Math.Abs(highestValue - hungerLevel) < tolerance)
+        if (Math.Abs(value - hungerModifier) < tolerance)
         {
             output = ("Find Food");
         }
-        else if (Math.Abs(highestValue - thirstLevel) < tolerance)
+        else if (Math.Abs(value - thirstModifier) < tolerance)
         {
             output = ("Find Drink");
         }
-        else if (Math.Abs(highestValue - interestInArtifactLevel) < tolerance)
+        else if (Math.Abs(value - interestInArtifactModifier) < tolerance)
         {
             output = ("Find Artifact");
         }
-        else if (Math.Abs(highestValue - bladderLevel) < tolerance)
+        else if (Math.Abs(value - bladderModifier) < tolerance)
         {
             output = ("Find Washroom");
         }
-        else if (Math.Abs(highestValue - entertainmentLevel) < tolerance)
+        else if (Math.Abs(value - entertainmentModifier) < tolerance)
         {
             output = ("Find Entertainment");
         }
-        else if (Math.Abs(highestValue - chargeLevel) < tolerance)
+        else if (Math.Abs(value - chargeModifier) < tolerance)
         {
             output = ("Find Charge");
         }
-        else if (Math.Abs(highestValue - energyLevel) < tolerance)
+        else if (Math.Abs(value - energyModifier) < tolerance)
         {
             output = ("Find Energy");
         }

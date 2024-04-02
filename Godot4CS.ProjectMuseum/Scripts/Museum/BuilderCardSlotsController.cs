@@ -107,10 +107,20 @@ public partial class BuilderCardSlotsController : Control
 			case BuilderCardType.Wallpaper:
 				ShowWallpaperCards();
 				break;
+			case BuilderCardType.Sanitation:
+				ShowSanitationCards();
+				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(builderCardType), builderCardType, null);
 		}
 		
+	}
+
+	private void ShowSanitationCards()
+	{
+		var card = _builderCardScene.Instantiate();
+		card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, "toilet", 4);
+		_builderCardContainer.AddChild(card);
 	}
 
 	private void ShowOtherDecorationCards()

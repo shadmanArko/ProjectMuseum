@@ -8,9 +8,10 @@ public partial class BottomBarMuseumUi : Control
 {
 	[Export] private Button _newExhibitButton;
 	[Export] private Button _decorationsShopButton;
-	[Export] private Button _decorationsOtherButton;
+	[Export] private Button _decorationsButton;
 	[Export] private Button _flooringButton;
 	[Export] private Button _wallpapersButton;
+	[Export] private Button _sanitationButton;
 	[Export] private Button _exhibitButton;
 	[Export] private Label _museumMoneyTextField;
 	[Export] private Label _museumAddedMoneyAmountTextField;
@@ -21,13 +22,20 @@ public partial class BottomBarMuseumUi : Control
 	{
 		_newExhibitButton.Pressed += NewExhibitButtonOnPressed;
 		_decorationsShopButton.Pressed += DecorationsShopButtonOnPressed;
-		_decorationsOtherButton.Pressed += DecorationsOtherButtonOnPressed;
+		_decorationsButton.Pressed += DecorationsButtonOnPressed;
 		_flooringButton.Pressed += FlooringButtonOnPressed;
+		_sanitationButton.Pressed += SanitationButtonOnPressed;
 		_exhibitButton.Pressed += DisableBuilderCard;
 		_wallpapersButton.Pressed += WallpapersButtonOnPressed;
 		MuseumActions.OnMuseumBalanceUpdated += OnMuseumBalanceUpdated;
 		MuseumActions.TotalGuestsUpdated += TotalGuestsUpdated;
 		MuseumActions.OnMuseumBalanceAdded += OnMuseumBalanceAdded;
+	}
+
+	private void SanitationButtonOnPressed()
+	{
+		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.Sanitation);
+		EnableBuilderCard();
 	}
 
 	private async void OnMuseumBalanceAdded(float obj)
@@ -39,7 +47,7 @@ public partial class BottomBarMuseumUi : Control
 
 	}
 
-	private void DecorationsOtherButtonOnPressed()
+	private void DecorationsButtonOnPressed()
 	{
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked?.Invoke(BuilderCardType.DecorationOther);
 		EnableBuilderCard();
@@ -98,8 +106,9 @@ public partial class BottomBarMuseumUi : Control
 	{
 		_newExhibitButton.Pressed -= NewExhibitButtonOnPressed;
 		_decorationsShopButton.Pressed -= DecorationsShopButtonOnPressed;
-		_decorationsOtherButton.Pressed -= DecorationsOtherButtonOnPressed;
+		_decorationsButton.Pressed -= DecorationsButtonOnPressed;
 		_flooringButton.Pressed -= FlooringButtonOnPressed;
+		_sanitationButton.Pressed -= SanitationButtonOnPressed;
 		_exhibitButton.Pressed -= DisableBuilderCard;
 		_wallpapersButton.Pressed -= WallpapersButtonOnPressed;
 		MuseumActions.OnMuseumBalanceUpdated -= OnMuseumBalanceUpdated;

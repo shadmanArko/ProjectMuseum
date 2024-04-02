@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=65 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -62,6 +62,7 @@
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DecorationsController.cs" id="62_bbh7l"]
+[ext_resource type="Texture2D" uid="uid://cjkd26xoig7ni" path="res://Assets/2D/Sprites/Sanitation/Toilet.png" id="63_i0nou"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -218,6 +219,14 @@ position = Vector2(147, -86)
 texture = ExtResource("48_piabe")
 hframes = 4
 frame = 1
+
+[node name="Toilet" type="Sprite2D" parent="museum/ItemParents"]
+z_index = 1
+texture_filter = 1
+position = Vector2(53, -262)
+texture = ExtResource("63_i0nou")
+offset = Vector2(0, -36.95)
+hframes = 4
 
 [node name="WallsParent" type="Node2D" parent="museum"]
 y_sort_enabled = true

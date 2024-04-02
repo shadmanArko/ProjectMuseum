@@ -45,7 +45,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         // museumMoneyTextField = GetNode<RichTextLabel>("Bottom Panel/MuseumMoney");
         //GD.Print("ready from ui being called");
         if(ExhibitPlacementConditionDatas == null) //GD.Print("Null exhibit data");
-        _diggingPermitsButton.Visible = false;
+         _diggingPermitsButton.Visible = false;
        
         
         _diggingPermitsButton.Pressed += DiggingPermitsButtonOnPressed;

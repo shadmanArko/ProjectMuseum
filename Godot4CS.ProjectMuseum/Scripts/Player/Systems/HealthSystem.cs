@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -31,43 +32,23 @@ public class HealthSystem
 		playerControllerVariables.PlayerHealth = health;
 	}
 
-	public static void EffectPlayerHealth(ConsumableStatEffect statEffect, PlayerControllerVariables playerControllerVariables)
+	public static async void EffectPlayerHealth(ConsumableStatEffect statEffect, PlayerControllerVariables playerControllerVariables)
 	{
-		switch (statEffect.AdditiveMod)
+		var effectDuration = statEffect.EffectDuration;
+		var effectRate = Mathf.CeilToInt(statEffect.EffectAmount / statEffect.EffectDuration);
+		var intervalInSeconds = statEffect.AdditiveMod switch
 		{
-			case "FlatAdditive":
-				var health = playerControllerVariables.PlayerHealth;
-				health += statEffect.EffectAmount;
-				health = health <= 0 ? 0 : Math.Clamp(health, 0, 200);
-				playerControllerVariables.PlayerHealth = health;
-				break;
-				case "StaggeredAdditive":
-					DateTime endTime = DateTime.Now.AddSeconds(statEffect.EffectDuration);
-					var intervalInSeconds = 1;
-					GD.Print("before declaring new timer");
-					timer = new Timer(state =>
-					{
-						GD.Print("Inside timer ");
-						
-						if (DateTime.Now >= endTime)
-						{
-							// Stop the timer
-							timer.Dispose();
-							GD.Print("End time reached. Timer stopped.");
-							return;
-						}
-            
-						// Call your function here
-						var effectRate = Mathf.CeilToInt(statEffect.EffectAmount / statEffect.EffectDuration);
-						RestorePlayerHealth(effectRate, playerControllerVariables);
-						GD.Print($"restoring health {playerControllerVariables.PlayerHealth}");
-					}, null, TimeSpan.Zero, TimeSpan.FromSeconds(intervalInSeconds));
-
-					// Wait for the timer to finish
-					Console.WriteLine("waiting for time to finish");
-					break;
+			"FlatAdditive" => 1,
+			"StaggeredAdditive" => 1000,
+			_=> 0
+		};
+		
+		for (var i = 0; i < effectDuration; i++)
+		{
+			await Task.Delay(intervalInSeconds);
+			RestorePlayerHealth(effectRate, playerControllerVariables);
 		}
-	}
+    }
 
 	public static void ReduceEnemyHealth(int reduceValue, int maxValue, Slime slime)
 	{

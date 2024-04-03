@@ -2,12 +2,12 @@
   {
     "Id": "1",
     "Type": "Consumable",
-    "Category": "Potion",
+    "Category": "Health",
     "Variant": "HealthPotion",
     "ConsumableStatEffects": [
       {
         "StatName": "Health",
-        "AdditiveMod": "StaggeredAdditive",
+        "AdditiveMod": "FlatAdditive",
         "EffectDuration": 20,
         "EffectAmount": 30
       }
@@ -16,13 +16,45 @@
     "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
   },
   {
-    "Id": "2",
+    "Id": "3",
     "Type": "Consumable",
-    "Category": "Potion",
-    "Variant": "EnergyPotion",
+    "Category": "Health",
+    "Variant": "HealthPotionStaggered",
     "ConsumableStatEffects": [
       {
         "StatName": "Health",
+        "AdditiveMod": "StaggeredAdditive",
+        "EffectDuration": 15,
+        "EffectAmount": 60
+      }
+    ],
+    "ScenePath": "Assets/Scenes/HealthPotionScene",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
+  },
+  {
+    "Id": "2",
+    "Type": "Consumable",
+    "Category": "Energy",
+    "Variant": "EnergyPotion",
+    "ConsumableStatEffects": [
+      {
+        "StatName": "Energy",
+        "AdditiveMod": "FlatAdditive",
+        "EffectDuration": 10,
+        "EffectAmount": 60
+      }
+    ],
+    "ScenePath": "Assets/Scenes/FireScrollScene",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
+  },
+  {
+    "Id": "4",
+    "Type": "Consumable",
+    "Category": "Energy",
+    "Variant": "EnergyPotionStaggered",
+    "ConsumableStatEffects": [
+      {
+        "StatName": "Energy",
         "AdditiveMod": "StaggeredAdditive",
         "EffectDuration": 10,
         "EffectAmount": 60

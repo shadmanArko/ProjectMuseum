@@ -1,5 +1,8 @@
 using System;
+using System.Threading.Tasks;
+using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
@@ -25,4 +28,23 @@ public class EnergySystem
 		energy = Math.Clamp(energy, 0, maxValue);
 		playerControllerVariables.PlayerEnergy = energy;
 	}
+	
+	public static async void EffectPlayerEnergy(ConsumableStatEffect statEffect, PlayerControllerVariables playerControllerVariables)
+	{
+		var effectDuration = statEffect.EffectDuration;
+		var effectRate = Mathf.CeilToInt(statEffect.EffectAmount / statEffect.EffectDuration);
+		var intervalInSeconds = statEffect.AdditiveMod switch
+		{
+			"FlatAdditive" => 1,
+			"StaggeredAdditive" => 1000,
+			_=> 0
+		};
+		
+		for (var i = 0; i < effectDuration; i++)
+		{
+			await Task.Delay(intervalInSeconds);
+			RestoreEnergy(effectRate, playerControllerVariables);
+		}
+	}
+
 }

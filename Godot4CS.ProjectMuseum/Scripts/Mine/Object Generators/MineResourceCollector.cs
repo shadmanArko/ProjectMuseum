@@ -84,7 +84,7 @@ public partial class MineResourceCollector : Node
 		if (_inventory.OccupiedSlots.Count >= _inventory.SlotsUnlocked)
 		{
 			GD.PrintErr("No empty slots in inventory");
-			await ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
+			ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
 		}
 		else
 		{

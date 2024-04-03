@@ -85,11 +85,22 @@ public partial class ConsumableController : InventoryController
 
     private async void CheckForActionEligibility()
     {
-        var eligible = _playerControllerVariables.PlayerHealth < 200;
-        GD.Print($"health potion consumption eligibility is: {eligible}");
+        var eligible = _inventoryItem.Category switch
+        {
+            "Health" => _playerControllerVariables.PlayerHealth < 200,
+            "Energy" => _playerControllerVariables.PlayerEnergy < 200,
+            _ => false
+        };
+        
         if (!eligible)
         {
-            await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Player already in full health");
+            var message = _inventoryItem.Category switch
+            {
+                "Health" => "Player is already in full health",
+                "Energy" => "Player is already in full energy",
+                _ => "An unknown error occured"
+            };
+            ReferenceStorage.Instance.MinePopUp.ShowPopUp(message);
             return;
         }
         
@@ -117,17 +128,20 @@ public partial class ConsumableController : InventoryController
 
         foreach (var statEffect in consumable.ConsumableStatEffects)
         {
-            switch (statEffect.StatName)
+            switch (consumable.Category)
             {
                 case "Health":
                     HealthSystem.EffectPlayerHealth(statEffect, _playerControllerVariables);
-                    GD.Print("health effect ");
+                    ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health increased");
+                    break;
+                case "Energy":
+                    EnergySystem.EffectPlayerEnergy(statEffect, _playerControllerVariables);
+                    ReferenceStorage.Instance.MinePopUp.ShowPopUp("Energy increased");
                     break;
             }
         }
         
         MineActions.OnInventoryUpdate?.Invoke();
-        await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health increased by 50 Hp");
     }
 
     #endregion

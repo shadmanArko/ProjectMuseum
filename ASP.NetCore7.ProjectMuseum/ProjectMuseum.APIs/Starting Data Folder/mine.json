@@ -72138,7 +72138,7 @@
         "Variant": "Iron",
         "PositionX": 7,
         "PositionY": 3,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "2",
@@ -72147,7 +72147,7 @@
         "Variant": "Iron",
         "PositionX": 8,
         "PositionY": 3,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "3",
@@ -72156,7 +72156,7 @@
         "Variant": "Iron",
         "PositionX": 9,
         "PositionY": 3,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "4",
@@ -72165,7 +72165,7 @@
         "Variant": "Iron",
         "PositionX": 26,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "5",
@@ -72174,7 +72174,7 @@
         "Variant": "Iron",
         "PositionX": 27,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "6",
@@ -72183,7 +72183,7 @@
         "Variant": "Iron",
         "PositionX": 28,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "7",
@@ -72192,7 +72192,7 @@
         "Variant": "Iron",
         "PositionX": 28,
         "PositionY": 5,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "8",
@@ -72201,7 +72201,7 @@
         "Variant": "Iron",
         "PositionX": 39,
         "PositionY": 3,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "9",
@@ -72210,7 +72210,7 @@
         "Variant": "Iron",
         "PositionX": 39,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "10",
@@ -72219,7 +72219,7 @@
         "Variant": "Iron",
         "PositionX": 39,
         "PositionY": 5,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "11",
@@ -72228,7 +72228,7 @@
         "Variant": "Iron",
         "PositionX": 39,
         "PositionY": 6,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "12",
@@ -72237,7 +72237,7 @@
         "Variant": "Iron",
         "PositionX": 40,
         "PositionY": 6,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "13",
@@ -72246,7 +72246,7 @@
         "Variant": "Iron",
         "PositionX": 33,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "14",
@@ -72255,7 +72255,7 @@
         "Variant": "Iron",
         "PositionX": 32,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "15",
@@ -72264,7 +72264,7 @@
         "Variant": "Iron",
         "PositionX": 31,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "16",
@@ -72273,7 +72273,7 @@
         "Variant": "Iron",
         "PositionX": 19,
         "PositionY": 15,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "17",
@@ -72282,7 +72282,7 @@
         "Variant": "Iron",
         "PositionX": 20,
         "PositionY": 15,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "18",
@@ -72291,7 +72291,7 @@
         "Variant": "Iron",
         "PositionX": 20,
         "PositionY": 16,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "19",
@@ -72300,7 +72300,7 @@
         "Variant": "Iron",
         "PositionX": 4,
         "PositionY": 16,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "20",
@@ -72309,7 +72309,7 @@
         "Variant": "Iron",
         "PositionX": 5,
         "PositionY": 16,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "21",
@@ -72318,7 +72318,7 @@
         "Variant": "Iron",
         "PositionX": 6,
         "PositionY": 16,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "22",
@@ -72327,7 +72327,7 @@
         "Variant": "Iron",
         "PositionX": 7,
         "PositionY": 16,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "23",
@@ -72336,7 +72336,7 @@
         "Variant": "Iron",
         "PositionX": 7,
         "PositionY": 17,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "24",
@@ -72345,7 +72345,7 @@
         "Variant": "Iron",
         "PositionX": 8,
         "PositionY": 17,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Iron.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
       },
       {
         "Id": "25",
@@ -72354,7 +72354,7 @@
         "Variant": "Coal",
         "PositionX": 20,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "26",
@@ -72363,7 +72363,7 @@
         "Variant": "Coal",
         "PositionX": 21,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "27",
@@ -72372,7 +72372,7 @@
         "Variant": "Coal",
         "PositionX": 22,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "28",
@@ -72381,7 +72381,7 @@
         "Variant": "Coal",
         "PositionX": 23,
         "PositionY": 4,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "29",
@@ -72390,7 +72390,7 @@
         "Variant": "Coal",
         "PositionX": 19,
         "PositionY": 5,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "30",
@@ -72399,7 +72399,7 @@
         "Variant": "Coal",
         "PositionX": 20,
         "PositionY": 5,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "31",
@@ -72408,7 +72408,7 @@
         "Variant": "Coal",
         "PositionX": 21,
         "PositionY": 5,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "32",
@@ -72417,7 +72417,7 @@
         "Variant": "Coal",
         "PositionX": 12,
         "PositionY": 7,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "33",
@@ -72426,7 +72426,7 @@
         "Variant": "Coal",
         "PositionX": 13,
         "PositionY": 7,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "34",
@@ -72435,7 +72435,7 @@
         "Variant": "Coal",
         "PositionX": 13,
         "PositionY": 8,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "35",
@@ -72444,7 +72444,7 @@
         "Variant": "Coal",
         "PositionX": 13,
         "PositionY": 9,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "36",
@@ -72453,7 +72453,7 @@
         "Variant": "Coal",
         "PositionX": 13,
         "PositionY": 10,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "37",
@@ -72462,7 +72462,7 @@
         "Variant": "Coal",
         "PositionX": 14,
         "PositionY": 10,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "38",
@@ -72471,7 +72471,7 @@
         "Variant": "Coal",
         "PositionX": 14,
         "PositionY": 11,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "39",
@@ -72480,7 +72480,7 @@
         "Variant": "Coal",
         "PositionX": 15,
         "PositionY": 11,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "40",
@@ -72489,7 +72489,7 @@
         "Variant": "Coal",
         "PositionX": 31,
         "PositionY": 7,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "41",
@@ -72498,7 +72498,7 @@
         "Variant": "Coal",
         "PositionX": 32,
         "PositionY": 7,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "42",
@@ -72507,7 +72507,7 @@
         "Variant": "Coal",
         "PositionX": 32,
         "PositionY": 8,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "43",
@@ -72516,7 +72516,7 @@
         "Variant": "Coal",
         "PositionX": 33,
         "PositionY": 8,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "44",
@@ -72525,7 +72525,7 @@
         "Variant": "Coal",
         "PositionX": 33,
         "PositionY": 9,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "45",
@@ -72534,7 +72534,7 @@
         "Variant": "Coal",
         "PositionX": 34,
         "PositionY": 9,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "46",
@@ -72543,7 +72543,7 @@
         "Variant": "Coal",
         "PositionX": 38,
         "PositionY": 17,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "47",
@@ -72552,7 +72552,7 @@
         "Variant": "Coal",
         "PositionX": 38,
         "PositionY": 18,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "48",
@@ -72561,7 +72561,7 @@
         "Variant": "Coal",
         "PositionX": 38,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "49",
@@ -72570,7 +72570,7 @@
         "Variant": "Coal",
         "PositionX": 39,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "50",
@@ -72579,7 +72579,7 @@
         "Variant": "Coal",
         "PositionX": 40,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "51",
@@ -72588,7 +72588,7 @@
         "Variant": "Coal",
         "PositionX": 17,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "52",
@@ -72597,7 +72597,7 @@
         "Variant": "Coal",
         "PositionX": 18,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "53",
@@ -72606,7 +72606,7 @@
         "Variant": "Coal",
         "PositionX": 19,
         "PositionY": 19,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "54",
@@ -72615,7 +72615,7 @@
         "Variant": "Coal",
         "PositionX": 19,
         "PositionY": 20,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "55",
@@ -72624,7 +72624,7 @@
         "Variant": "Coal",
         "PositionX": 20,
         "PositionY": 20,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "56",
@@ -72633,7 +72633,7 @@
         "Variant": "Coal",
         "PositionX": 17,
         "PositionY": 30,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "57",
@@ -72642,7 +72642,7 @@
         "Variant": "Coal",
         "PositionX": 17,
         "PositionY": 31,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "58",
@@ -72651,7 +72651,7 @@
         "Variant": "Coal",
         "PositionX": 17,
         "PositionY": 32,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "59",
@@ -72660,7 +72660,7 @@
         "Variant": "Coal",
         "PositionX": 17,
         "PositionY": 33,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "60",
@@ -72669,7 +72669,7 @@
         "Variant": "Coal",
         "PositionX": 17,
         "PositionY": 34,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "61",
@@ -72678,7 +72678,7 @@
         "Variant": "Coal",
         "PositionX": 17,
         "PositionY": 35,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "62",
@@ -72687,7 +72687,7 @@
         "Variant": "Coal",
         "PositionX": 18,
         "PositionY": 33,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "63",
@@ -72696,7 +72696,7 @@
         "Variant": "Coal",
         "PositionX": 18,
         "PositionY": 34,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "64",
@@ -72705,7 +72705,7 @@
         "Variant": "Coal",
         "PositionX": 18,
         "PositionY": 35,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "65",
@@ -72714,7 +72714,7 @@
         "Variant": "Coal",
         "PositionX": 18,
         "PositionY": 36,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       },
       {
         "Id": "66",
@@ -72723,7 +72723,7 @@
         "Variant": "Coal",
         "PositionX": 18,
         "PositionY": 37,
-        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Coal.png"
+        "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       }
     ],
     "SpecialBackdropPngInformations": [

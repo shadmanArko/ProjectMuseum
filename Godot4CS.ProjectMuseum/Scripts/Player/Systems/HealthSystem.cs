@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Mine;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using ProjectMuseum.Models;
@@ -32,8 +33,16 @@ public class HealthSystem
 		playerControllerVariables.PlayerHealth = health;
 	}
 
+	private static bool effectInProgress;
 	public static async void EffectPlayerHealth(ConsumableStatEffect statEffect, PlayerControllerVariables playerControllerVariables)
 	{
+		if (effectInProgress)
+		{
+			ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health generation in progress");
+			return;
+		}
+		effectInProgress = true;
+		
 		var effectDuration = statEffect.EffectDuration;
 		var effectRate = Mathf.CeilToInt(statEffect.EffectAmount / statEffect.EffectDuration);
 		var intervalInSeconds = statEffect.AdditiveMod switch
@@ -48,7 +57,9 @@ public class HealthSystem
 			await Task.Delay(intervalInSeconds);
 			RestorePlayerHealth(effectRate, playerControllerVariables);
 		}
-    }
+
+		effectInProgress = false;
+	}
 
 	public static void ReduceEnemyHealth(int reduceValue, int maxValue, Slime slime)
 	{

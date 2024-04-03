@@ -3,6 +3,7 @@ using ProjectMuseum.Models;
 using ProjectMuseum.Repositories.DecorationOtherRepository;
 using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.SanitationRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 
 namespace ProjectMuseum.Services.MuseumTileService;
@@ -11,15 +12,17 @@ public class ItemPlacementCondition : IItemPlacementCondition
 {
     private readonly IExhibitRepository _exhibitRepository;
     private readonly IDecorationShopRepository _decorationShopRepository;
+    private readonly ISanitationRepository _sanitationRepository;
     private readonly IDecorationOtherRepository _decorationOtherRepository;
     private readonly IMuseumTileRepository _museumTileRepository;
 
-    public ItemPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository, IDecorationShopRepository decorationShopRepository, IDecorationOtherRepository decorationOtherRepository)
+    public ItemPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository, IDecorationShopRepository decorationShopRepository, IDecorationOtherRepository decorationOtherRepository, ISanitationRepository sanitationRepository)
     {
         _exhibitRepository = exhibitRepository;
         _museumTileRepository = museumTileRepository;
         _decorationShopRepository = decorationShopRepository;
         _decorationOtherRepository = decorationOtherRepository;
+        _sanitationRepository = sanitationRepository;
     }
     
     public async Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
@@ -128,6 +131,33 @@ public class ItemPlacementCondition : IItemPlacementCondition
             }
         }
         museumTiles = await _museumTileRepository.UpdateShopToMuseumTiles(tileIds, decorationShop.Id);
+        return museumTiles;
+    }
+    public async Task<List<MuseumTile>> PlaceSanitationOnTiles(string originTileId, List<string> tileIds, string sanitationVariationName, int rotationFrame)
+    {
+        
+        Sanitation sanitation = new Sanitation();
+        var museumTiles = await _museumTileRepository.GetAll();
+        
+        foreach (var tileId in tileIds)
+        {
+            if (tileId == originTileId)
+            {
+                var museumTile = await _museumTileRepository.GetById(tileId);
+                sanitation = new Sanitation()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    SanitationVariationName =  sanitationVariationName,
+                    XPosition = museumTile.XPosition,
+                    YPosition = museumTile.YPosition,
+                    RotationFrame = rotationFrame,
+                    
+                };
+                await _sanitationRepository.Insert(sanitation);
+                
+            }
+        }
+        museumTiles = await _museumTileRepository.UpdateSanitationToMuseumTiles(tileIds, sanitation.Id);
         return museumTiles;
     }
     public async Task<List<MuseumTile>> PlaceOtherDecorationOnTiles(string originTileId, List<string> tileIds, string otherVariationName, int rotationFrame)

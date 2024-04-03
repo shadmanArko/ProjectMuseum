@@ -14,6 +14,7 @@ public class MuseumTile
     public bool Walkable { get; set; }
     public string ExhibitId { get; set; }
     public string ShopId { get; set; }
+    public string SanitationId { get; set; }
     public string DecorationId { get; set; }
     public string HangingLightId { get; set; }
 

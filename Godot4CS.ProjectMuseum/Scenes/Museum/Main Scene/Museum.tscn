@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bwlwmmvr5vtvc" path="res://Scenes/Museum/Museum Ui/pop_up_ui.tscn" id="13_k824c"]
 [ext_resource type="PackedScene" uid="uid://d3g6we5d6r048" path="res://Scenes/Museum/Decorations/decorationShopItem.tscn" id="15_j81qh"]
 [ext_resource type="PackedScene" uid="uid://mna3mnreah7e" path="res://Scenes/Museum/Decorations/decorationOtherItem.tscn" id="16_1ehrh"]
+[ext_resource type="PackedScene" uid="uid://cv4p4yyj4yp8u" path="res://Scenes/Museum/Sanitation/SanitationItem.tscn" id="18_78kbp"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
@@ -62,7 +63,6 @@
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DecorationsController.cs" id="62_bbh7l"]
-[ext_resource type="Texture2D" uid="uid://cjkd26xoig7ni" path="res://Assets/2D/Sprites/Sanitation/Toilet.png" id="63_i0nou"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -113,6 +113,7 @@ metadata/_edit_use_anchors_ = true
 mouse_filter = 1
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
+_sanitationItem = ExtResource("18_78kbp")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 _conceptEndingUi = NodePath("../ConceptEnding UI")
 _diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
@@ -219,14 +220,6 @@ position = Vector2(147, -86)
 texture = ExtResource("48_piabe")
 hframes = 4
 frame = 1
-
-[node name="Toilet" type="Sprite2D" parent="museum/ItemParents"]
-z_index = 1
-texture_filter = 1
-position = Vector2(53, -262)
-texture = ExtResource("63_i0nou")
-offset = Vector2(0, -36.95)
-hframes = 4
 
 [node name="WallsParent" type="Node2D" parent="museum"]
 y_sort_enabled = true
@@ -949,4 +942,5 @@ _placementEffect2X2 = ExtResource("52_syimh")
 script = ExtResource("62_bbh7l")
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
+_sanitationItem = ExtResource("18_78kbp")
 ItemsParent = NodePath("../museum/ItemParents")

@@ -17,6 +17,7 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
     private PackedScene item4;
     [Export] private PackedScene _decorationShopItem;
     [Export] private PackedScene _decorationOtherItem;
+    [Export] private PackedScene _sanitationItem;
     [Export] private RichTextLabel museumMoneyTextField;
     [Export] private Control _conceptEndingUi;
     [Export] private Button _diggingPermitsButton;
@@ -129,8 +130,37 @@ public partial class MuseumUi : Control  // Replace with the appropriate node ty
         {
             HandleDecorationCardPlacement(builderCardType, cardName, _decorationOtherItem);
         }
+        else if (builderCardType == BuilderCardType.Sanitation)
+        {
+            HandleSanitationCardPlacement(builderCardType, cardName, _sanitationItem);
+        }
     }
-    
+
+    private void HandleSanitationCardPlacement(BuilderCardType builderCardType, string cardName, PackedScene sanitationItem)
+    {
+        //GD.Print("Handling decoration placement");
+        var instance = (Node)sanitationItem.Instantiate();
+        Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/{builderCardType}s/{cardName}.png");
+        var sprite = instance.GetNode<Sprite2D>(".") ;
+        sprite.Texture = texture2D;
+        ItemsParent.AddChild(instance);
+        if (_lastSelectedItem != null && IsInstanceValid(_lastSelectedItem) && _lastSelectedItem.selectedItem)
+        {
+            _lastSelectedItem.QueueFree();
+        }
+        var scriptInstance = instance.GetNode<SanitationItem>(".");
+        if (scriptInstance != null)
+        {
+            scriptInstance.Position = GetGlobalMousePosition();
+            scriptInstance.Initialize(_cardName, builderCardType);
+            _lastSelectedItem = scriptInstance;
+        }
+        else
+        {
+            //GD.Print("Item script not found");
+        }
+    }
+
 
     private void HandleDecorationCardPlacement(BuilderCardType builderCardType, string cardName, PackedScene decorationPackedScene)
     {

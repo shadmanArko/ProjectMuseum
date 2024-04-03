@@ -9,6 +9,10 @@ public static class Const
     public static string decorationShopDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationShop.json");
     public static string decorationShopVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationShopVariations.json");
     public static string decorationOtherDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationOther.json");
+    
+    public static string sanitationVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "sanitationVariations.json");
+    public static string sanitationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "sanitation.json");
+
     public static string decorationOtherVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "decorationOtherVariations.json");
     public static string wallVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallVariations.json");
     public static string wallpaperVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "wallpaperVariations.json");

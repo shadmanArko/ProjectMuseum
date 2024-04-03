@@ -11,6 +11,7 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.SanaitationService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 
@@ -32,8 +33,9 @@ public class MuseumController : ControllerBase
     private readonly IBuilderCardService _builderCardService;
     private readonly IMuseumZoneService _museumZoneService;
     private readonly IGuestBuilderParameterService _guestBuilderParameterService;
+    private readonly ISanitationService _sanitationService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, ISanitationService sanitationService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -46,6 +48,7 @@ public class MuseumController : ControllerBase
         _decorationOtherService = decorationOtherService;
         _museumZoneService = museumZoneService;
         _guestBuilderParameterService = guestBuilderParameterService;
+        _sanitationService = sanitationService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -77,6 +80,12 @@ public class MuseumController : ControllerBase
         var exhibitPlacementResult = await _museumTileService.PlaceOtherDecorationOnTiles(originTileId, tileIds, otherVariationName, rotationFrame);
         return Ok(exhibitPlacementResult);
     }
+    [HttpGet("PlaceSanitationOnTiles/{originTileId}/{sanitationVariationName}/{rotationFrame}")]
+    public async Task<IActionResult> PlaceSanitationOnTiles(string originTileId, List<string> tileIds, string sanitationVariationName, int rotationFrame)
+    {
+        var exhibitPlacementResult = await _museumTileService.PlaceSanitationOnTiles(originTileId, tileIds, sanitationVariationName, rotationFrame);
+        return Ok(exhibitPlacementResult);
+    }
     [HttpGet("GetAllExhibits")]
     public async Task<IActionResult> GetAllExhibits()
     {
@@ -87,6 +96,12 @@ public class MuseumController : ControllerBase
     public async Task<IActionResult> GetAllShops()
     {
         var allDecorationShops = await _decorationShopService.GetAllDecorationShops();
+        return Ok(allDecorationShops);
+    }
+    [HttpGet("GetAllSanitations")]
+    public async Task<IActionResult> GetAllShGetAllSanitationsops()
+    {
+        var allDecorationShops = await _sanitationService.GetAllSanitations();
         return Ok(allDecorationShops);
     }
     [HttpGet("GetAllOtherDecorations")]
@@ -100,6 +115,12 @@ public class MuseumController : ControllerBase
     {
         var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
         return Ok(allExhibitVariations);
+    }
+    [HttpGet("GetAllSanitationVariations")]
+    public async Task<IActionResult> GetAllSanitationVariations()
+    {
+        var sanitationVariation = await _sanitationService.GetAllSanitationVariations();
+        return Ok(sanitationVariation);
     }
     [HttpGet("GetAllDecorationShopVariations")]
     public async Task<IActionResult> GetAllDecorationShopVariations()

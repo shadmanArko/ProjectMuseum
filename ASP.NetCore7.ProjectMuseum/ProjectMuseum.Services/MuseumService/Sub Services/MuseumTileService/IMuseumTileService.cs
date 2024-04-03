@@ -14,6 +14,8 @@ public interface IMuseumTileService
         string exhibitVariationName, int rotationFrame);
     Task<List<MuseumTile>> PlaceShopOnTiles(string originTileId, List<string> tileIds,
         string shopVariationName, int rotationFrame);
+    Task<List<MuseumTile>> PlaceSanitationOnTiles(string originTileId, List<string> tileIds,
+        string sanitationVariationName, int rotationFrame);
     Task<List<MuseumTile>> PlaceOtherDecorationOnTiles(string originTileId, List<string> tileIds,
         string otherVariationName, int rotationFrame);
     Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile);

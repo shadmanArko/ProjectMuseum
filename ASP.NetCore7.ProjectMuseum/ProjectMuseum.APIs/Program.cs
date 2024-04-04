@@ -187,7 +187,7 @@ builder.Services.AddScoped<ICaveGeneratorRepository, CaveGeneratorRepository>();
 builder.Services.AddScoped<ISpecialBackdropRepository, SpecialBackdropRepository>();
 builder.Services.AddScoped<IProceduralMineGenerationRepository, ProceduralMineGenerationRepository>();
 builder.Services.AddScoped<ISiteArtifactChanceRepository, SiteArtifactChanceRepository>();
-builder.Services.AddScoped<IConsumableRepository, ConsumableRepository>();
+builder.Services.AddScoped<IConsumableRepository, ConsumableRepository>() ;
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -219,7 +219,7 @@ builder.Services.AddScoped<ICaveGeneratorService, CaveGeneratorService>();
 builder.Services.AddScoped<ISpecialBackdropService, SpecialBackdropService>();
 builder.Services.AddScoped<IProceduralMineGenerationService, ProceduralMineGenerationService>();
 builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService>();
-builder.Services.AddScoped<IConsumableService, ConsumableService>();
+builder.Services.AddScoped<IConsumableService, ConsumableService>() ;
 
 
 

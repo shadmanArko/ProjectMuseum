@@ -46,11 +46,11 @@ public partial class EnergyPotion : Node2D, IConsumable
         if (eligibility)
         {
             EnergySystem.RestoreEnergy(50, _playerControllerVariables);
-            await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Energy increased by 50");
+            ReferenceStorage.Instance.MinePopUp.ShowPopUp("Energy increased by 50");
         }
         else
         {
-            await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Energy is already full");
+            ReferenceStorage.Instance.MinePopUp.ShowPopUp("Energy is already full");
         }
     }
 

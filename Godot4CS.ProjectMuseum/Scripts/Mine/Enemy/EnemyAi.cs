@@ -98,13 +98,11 @@ public class EnemyAi
             {
                 var cell = mineGenerationVariables.GetCell(new Vector2I(i, j));
                 if (cell == null)
-                {
-                    // GD.Print("Cell is null");
                     continue;
-                }
                 
                 if (cell.IsInstantiated && cell.IsBreakable && cell.IsBroken && cell.IsRevealed && !cell.HasCellPlaceable)
                 {
+                    if(cell.PositionX == playerPosInMap.X && cell.PositionY == playerPosInMap.Y) continue;
                     var bottomCell = mineGenerationVariables.GetCell(new Vector2I(i, j+1));
                     if (bottomCell == null) continue;
                     

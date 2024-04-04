@@ -7,7 +7,7 @@ public partial class MinePopUp : PanelContainer
 {
     [Export] private RichTextLabel _popUpText;
 
-    public async Task ShowPopUp(string message)
+    public async void ShowPopUp(string message)
     {
         Show();
         _popUpText.Text = message;

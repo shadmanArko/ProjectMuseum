@@ -300,12 +300,13 @@ public partial class Slime : Enemy
                 MoveAndSlide();
                 AnimationController.MoveDirection(Vector2.Right);
             }
+            
         }
         else
         {
             Velocity = new Vector2(0, Velocity.Y);
             MoveAndSlide();
-            Idle();
+            AnimationController.Play("idle");
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
             IsMoving = true;
         }

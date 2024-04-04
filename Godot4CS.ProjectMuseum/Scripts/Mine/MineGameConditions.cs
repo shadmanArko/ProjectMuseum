@@ -35,7 +35,7 @@ public partial class MineGameConditions : Node
 		if(hours != 24) return;
 		
 		_playerControllerVariables.PlayerHealth = 0;
-		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Player fainted");
+		ReferenceStorage.Instance.MinePopUp.ShowPopUp("Player fainted");
 		ReferenceStorage.Instance.SceneLoader.LoadMuseumScene();
 	}
 
@@ -49,7 +49,7 @@ public partial class MineGameConditions : Node
 	private async void PlayerFaintFirstWarning(int hours)
 	{
 		if(hours != 20) return;
-		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("It's getting late");
+		ReferenceStorage.Instance.MinePopUp.ShowPopUp("It's getting late");
 		MineActions.OnPlayerReachFirstWarning?.Invoke();
 	}
 	
@@ -67,7 +67,7 @@ public partial class MineGameConditions : Node
 	private async void PlayerFaintSecondWarning(int hours)
 	{
 		if(hours != 23) return;
-		await ReferenceStorage.Instance.MinePopUp.ShowPopUp("Feeling drowsy");
+		ReferenceStorage.Instance.MinePopUp.ShowPopUp("Feeling drowsy");
 	}
 
 	public override void _ExitTree()

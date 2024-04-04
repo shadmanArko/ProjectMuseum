@@ -83,7 +83,7 @@ public partial class GuestAi : CharacterBody2D
             _countForDecayInterval = 0;
             if (!_executingADecision)
             {
-                CheckForNeedsToFulfill();
+                // CheckForNeedsToFulfill();
             }
         }
 
@@ -94,7 +94,7 @@ public partial class GuestAi : CharacterBody2D
     {
         return -x;
     }
-    private void CheckForNeedsToFulfill()
+    protected GuestNeedsEnum CheckForNeedsToFulfill()
     {
         var hungerModifier = NegativeLinear(hungerLevel);
         var thirstModifier = NegativeLinear(thirstLevel);
@@ -103,38 +103,47 @@ public partial class GuestAi : CharacterBody2D
         var entertainmentModifier = NegativeLinear(entertainmentLevel);
         var chargeModifier = NegativeLinear(chargeLevel);
         var energyModifier = NegativeLinear(energyLevel);
+        GuestNeedsEnum guestNeed = GuestNeedsEnum.InterestInArtifact;
         float value = Math.Max(hungerModifier, Math.Max(thirstModifier, Math.Max(interestInArtifactModifier, Math.Max(bladderModifier, Math.Max(entertainmentModifier, Math.Max(chargeModifier, energyModifier))))));
         var tolerance = 0.01;
         var output = "";
         if (Math.Abs(value - hungerModifier) < tolerance)
         {
             output = ("Find Food");
+            guestNeed = GuestNeedsEnum.Hunger;
         }
         else if (Math.Abs(value - thirstModifier) < tolerance)
         {
             output = ("Find Drink");
+            guestNeed = GuestNeedsEnum.Thirst;
         }
         else if (Math.Abs(value - interestInArtifactModifier) < tolerance)
         {
             output = ("Find Artifact");
+            guestNeed = GuestNeedsEnum.InterestInArtifact;
         }
         else if (Math.Abs(value - bladderModifier) < tolerance)
         {
             output = ("Find Washroom");
+            guestNeed = GuestNeedsEnum.Bladder;
         }
         else if (Math.Abs(value - entertainmentModifier) < tolerance)
         {
             output = ("Find Entertainment");
+            guestNeed = GuestNeedsEnum.Entertainment;
         }
         else if (Math.Abs(value - chargeModifier) < tolerance)
         {
             output = ("Find Charge");
+            guestNeed = GuestNeedsEnum.Charge;
         }
         else if (Math.Abs(value - energyModifier) < tolerance)
         {
             output = ("Find Energy");
+            guestNeed = GuestNeedsEnum.Energy;
         }
         GD.Print($"{Name}: {output}");
+        return guestNeed;
     }
 
     public void FillNeed(GuestNeedsEnum need, float amount)

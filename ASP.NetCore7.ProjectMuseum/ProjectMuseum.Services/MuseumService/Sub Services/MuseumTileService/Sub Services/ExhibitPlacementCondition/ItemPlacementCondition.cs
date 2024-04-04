@@ -106,9 +106,9 @@ public class ItemPlacementCondition : IItemPlacementCondition
         if (museumTiles != null) tilesWithExhibitDto.MuseumTiles = museumTiles;
         return tilesWithExhibitDto;
     }
-    public async Task<List<MuseumTile>> PlaceShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
+    public async Task<TilesWithShopsDTO> PlaceShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
     {
-        
+        TilesWithShopsDTO tilesWithShopsDto = new TilesWithShopsDTO();
         DecorationShop decorationShop = new DecorationShop();
         var museumTiles = await _museumTileRepository.GetAll();
         
@@ -131,11 +131,14 @@ public class ItemPlacementCondition : IItemPlacementCondition
             }
         }
         museumTiles = await _museumTileRepository.UpdateShopToMuseumTiles(tileIds, decorationShop.Id);
-        return museumTiles;
+        tilesWithShopsDto.MuseumTiles = museumTiles;
+        tilesWithShopsDto.DecorationShops = await _decorationShopRepository.GetAll();
+        tilesWithShopsDto.DecorationShop = decorationShop;
+        return tilesWithShopsDto;
     }
-    public async Task<List<MuseumTile>> PlaceSanitationOnTiles(string originTileId, List<string> tileIds, string sanitationVariationName, int rotationFrame)
+    public async Task<TilesWithSanitationsDTO> PlaceSanitationOnTiles(string originTileId, List<string> tileIds, string sanitationVariationName, int rotationFrame)
     {
-        
+        TilesWithSanitationsDTO tilesWithSanitationsDto = new TilesWithSanitationsDTO();
         Sanitation sanitation = new Sanitation();
         var museumTiles = await _museumTileRepository.GetAll();
         
@@ -158,7 +161,10 @@ public class ItemPlacementCondition : IItemPlacementCondition
             }
         }
         museumTiles = await _museumTileRepository.UpdateSanitationToMuseumTiles(tileIds, sanitation.Id);
-        return museumTiles;
+        tilesWithSanitationsDto.MuseumTiles = museumTiles;
+        tilesWithSanitationsDto.Sanitations = await _sanitationRepository.GetAllSanitation();
+        tilesWithSanitationsDto.Sanitation = sanitation;
+        return tilesWithSanitationsDto;
     }
     public async Task<List<MuseumTile>> PlaceOtherDecorationOnTiles(string originTileId, List<string> tileIds, string otherVariationName, int rotationFrame)
     {

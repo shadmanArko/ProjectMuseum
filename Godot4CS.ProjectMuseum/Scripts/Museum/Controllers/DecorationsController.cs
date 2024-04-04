@@ -19,6 +19,8 @@ public partial class DecorationsController : Node2D
 	private HttpRequest _httpRequestForGettingShops;
 	private HttpRequest _httpRequestForGettingOthers;
 	private HttpRequest _httpRequestForSanitations;
+
+	private MuseumTileContainer _museumTileContainer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -41,7 +43,8 @@ public partial class DecorationsController : Node2D
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var sanitations = JsonSerializer.Deserialize<List<Sanitation>>(jsonStr);
-		
+		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumTileContainer.Sanitations = sanitations;
 		SpawnSanitation(sanitations);
 	}
 
@@ -59,7 +62,8 @@ public partial class DecorationsController : Node2D
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var shops = JsonSerializer.Deserialize<List<DecorationShop>>(jsonStr);
-		
+		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumTileContainer.DecorationShops = shops;
 		SpawnShops(shops);
 	}
 	private void SpawnOtherDecorations(List<DecorationOther> otherDecorations)

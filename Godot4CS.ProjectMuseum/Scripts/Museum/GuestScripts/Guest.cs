@@ -146,13 +146,27 @@ public partial class Guest : GuestAi
         cartPos.Y = -iso.X + cartPos.X;
         return cartPos;
     }
+
+    private GuestNeedsEnum currentNeed;
     public void SetPath()
     {
         _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
         if (_insideMuseum)
         {
             // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
-            _targetTileCoordinate =  GetTargetExhibitViewingLocation();
+            currentNeed = CheckForNeedsToFulfill();
+            if (currentNeed == GuestNeedsEnum.Hunger || currentNeed == GuestNeedsEnum.Thirst)
+            {
+                _targetTileCoordinate =  GetClosestShopLocation();
+            }
+            else if (currentNeed == GuestNeedsEnum.Bladder)
+            {
+                _targetTileCoordinate =  GetClosestWashroomLocation();
+            }else
+            {
+                _targetTileCoordinate =  GetTargetExhibitViewingLocation();
+            }
+            
             if (_targetTileCoordinate != new Vector2I(1000, 1000))
             {
                 var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
@@ -199,6 +213,37 @@ public partial class Guest : GuestAi
             _canMove = true;
             MoveToNextPathNode();
         }
+        
+    }
+
+    private Vector2I GetClosestShopLocation()
+    {
+        if (_museumTileContainer.DecorationShops.Count > 0)
+        {
+            _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
+            var shop = _museumTileContainer.DecorationShops.GetClosestShopToLocation(_startTileCoordinate);
+            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToCoordinate(new Vector2I(shop.XPosition, shop.YPosition));
+            GD.Print($"Found closest shop coordinate {coordinate}");
+            return coordinate;
+        }
+    
+    
+        return new Vector2I(1000, 1000);
+        
+    }
+    private Vector2I GetClosestWashroomLocation()
+    {
+        if (_museumTileContainer.Sanitations.Count > 0)
+        {
+            _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
+            var washroomToLocation = _museumTileContainer.Sanitations.GetClosestWashroomToLocation(_startTileCoordinate);
+            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToCoordinate(new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition));
+            GD.Print($"Found closest washroom coordinate {coordinate}");
+            return coordinate;
+        }
+    
+    
+        return new Vector2I(1000, 1000);
         
     }
 
@@ -303,6 +348,20 @@ public partial class Guest : GuestAi
             }
             else
             {
+                //Watching exhibit
+                if (currentNeed == GuestNeedsEnum.Bladder)
+                {
+                    FillNeed(currentNeed, -64);
+                }else if (currentNeed == GuestNeedsEnum.Hunger || currentNeed == GuestNeedsEnum.Thirst)
+                {
+                    FillNeed(currentNeed, -32);
+                    _animationPlayerInstance.Play("use_back");
+                }
+
+                if (currentNeed == GuestNeedsEnum.InterestInArtifact)
+                {
+                    FillNeed(currentNeed, -4);
+                }else FillNeed(currentNeed, -100);
                 _canMove = false; // Stop moving when the path is completed
                 ControlAnimation();
                 await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));

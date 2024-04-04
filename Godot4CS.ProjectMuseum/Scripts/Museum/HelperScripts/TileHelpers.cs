@@ -32,6 +32,89 @@ public static class TileHelpers
     
         return closestCoordinate;
     }
+    public static Vector2I GetClosestEmptyTileToCoordinate(this List<MuseumTile> museumTiles, Vector2I targetCoordinate)
+    {
+        Vector2I closestCoordinate = new Vector2I(museumTiles[0].XPosition, museumTiles[0].YPosition);
+        float minDistance = float.MaxValue;
+    
+        foreach (var tile in museumTiles)
+        {
+            // Skip non-empty or non-walkable tiles
+            if ( !tile.Walkable)
+                continue;
+    
+            Vector2I currentCoordinate = new Vector2I(tile.XPosition, tile.YPosition);
+            int distance = ManhattanDistance(targetCoordinate, currentCoordinate);
+    
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestCoordinate = currentCoordinate;
+            }
+        }
+    
+        return closestCoordinate;
+    }
+    public static DecorationShop GetClosestShopToLocation(this List<DecorationShop> shops, Vector2I currentPosition)
+    {
+        DecorationShop closestShop = shops[0];
+        float minDistance = float.MaxValue;
+        foreach (var shop in shops)
+        {
+            Vector2I currentClosestCoordinate = new Vector2I(closestShop.XPosition, closestShop.YPosition);
+            int distance = ManhattanDistance(currentPosition, currentClosestCoordinate);
+    
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestShop = shop;
+            }
+        }
+
+        return closestShop;
+    }
+    public static Sanitation GetClosestWashroomToLocation(this List<Sanitation> sanitations, Vector2I currentPosition)
+    {
+        Sanitation closestWashroom = sanitations[0];
+        float minDistance = float.MaxValue;
+        foreach (var shop in sanitations)
+        {
+            Vector2I currentClosestCoordinate = new Vector2I(closestWashroom.XPosition, closestWashroom.YPosition);
+            int distance = ManhattanDistance(currentPosition, currentClosestCoordinate);
+    
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestWashroom = shop;
+            }
+        }
+
+        return closestWashroom;
+    }
+    public static Vector2I GetClosestEmptyTileToClosestShop(this List<MuseumTile> museumTiles, Exhibit exhibit)
+    {
+        Vector2I closestCoordinate = new Vector2I(museumTiles[0].XPosition, museumTiles[0].YPosition);
+        Vector2I targetCoordinate = new Vector2I(exhibit.XPosition, exhibit.YPosition);
+        float minDistance = float.MaxValue;
+    
+        foreach (var tile in museumTiles)
+        {
+            // Skip non-empty or non-walkable tiles
+            if ( tile.ExhibitId != "string" && tile.ExhibitId !="")
+                continue;
+    
+            Vector2I currentCoordinate = new Vector2I(tile.XPosition, tile.YPosition);
+            int distance = ManhattanDistance(targetCoordinate, currentCoordinate);
+    
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestCoordinate = currentCoordinate;
+            }
+        }
+    
+        return closestCoordinate;
+    }
 
     private static Vector2 _lastCheckedPosition = new Vector2(1000, 1000);
     private static bool _lastCheckedResult = false;

@@ -28,8 +28,9 @@ public partial class SanitationItem : Item
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print("Http1 result " + jsonStr);
-		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-		_museumTileContainer.MuseumTiles = museumTiles;
+		var tilesWithSanitationsDto = JsonSerializer.Deserialize<TilesWithSanitationsDTO>(jsonStr);
+		_museumTileContainer.MuseumTiles = tilesWithSanitationsDto.MuseumTiles;
+		_museumTileContainer.Sanitations = tilesWithSanitationsDto.Sanitations!;
 	}
 
 	public override void _PhysicsProcess(double delta)

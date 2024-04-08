@@ -62,6 +62,8 @@ public partial class Guest : GuestAi
     private bool _insideMuseum = false;
     private bool _wantsToEnterMuseum = false;
     private List<Vector2I> _listOfSceneExitPoints;
+    private bool _usingWashroom;
+    private bool _usingShop;
     public Guest()
     {
         
@@ -295,7 +297,6 @@ public partial class Guest : GuestAi
             return new Vector2I(1000, 1000);
         }
     }
-
     private async void MoveToNextPathNode()
     {
         if (_currentPathIndex < _path.Count )
@@ -352,10 +353,12 @@ public partial class Guest : GuestAi
                 if (currentNeed == GuestNeedsEnum.Bladder)
                 {
                     FillNeed(currentNeed, -64);
+                    _usingWashroom = true;
+
                 }else if (currentNeed == GuestNeedsEnum.Hunger || currentNeed == GuestNeedsEnum.Thirst)
                 {
                     FillNeed(currentNeed, -32);
-                    _animationPlayerInstance.Play("use_back");
+                    _usingShop = true;
                 }
 
                 if (currentNeed == GuestNeedsEnum.InterestInArtifact)
@@ -365,6 +368,8 @@ public partial class Guest : GuestAi
                 _canMove = false; // Stop moving when the path is completed
                 ControlAnimation();
                 await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
+                _usingShop = false;
+                _usingWashroom = false;
                 SetPath();
             }
             
@@ -394,7 +399,7 @@ public partial class Guest : GuestAi
         
     }
 
-    private void ControlAnimation()
+    private async void ControlAnimation()
     {
         if (_gamePaused)
         {
@@ -437,7 +442,15 @@ public partial class Guest : GuestAi
             }
         }
 
-        
+        if (_usingShop)
+        {
+            _animationPlayerInstance.Play(_playerFacingTheFront? "use_front":"use_back");
+            await Task.Delay(600);
+            _animationPlayerInstance.Play(_playerFacingTheFront? "consume_front":"consume_back");
+
+        }
+
+        Visible = !_usingWashroom;
     }
 
     private void TakeNextMovementDecision()

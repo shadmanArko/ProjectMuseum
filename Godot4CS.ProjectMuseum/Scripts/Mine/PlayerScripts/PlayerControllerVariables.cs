@@ -55,22 +55,18 @@ public class PlayerControllerVariables
                 if (!CanMove) return;
                 switch (_currentEquippedItemSlot)
                 {
-                    case 1:
-                        if(!CanDig) return;
-                        MineActions.OnLeftMouseClickActionStarted?.Invoke();
-                        MineActions.OnDigActionStarted?.Invoke();
-                        MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
-                        break;
                     case 0:
                         if(!CanAttack) return;
                         MineActions.OnLeftMouseClickActionStarted?.Invoke();
                         MineActions.OnMeleeAttackActionStarted?.Invoke();
                         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
                         break;
-                    // default:
-                    //     MineActions.OnLeftMouseClickActionStarted?.Invoke();
-                    //     MineActions.OnMeleeAttackActionStarted?.Invoke();
-                    //     break;
+                    case 1:
+                        if(!CanDig) return;
+                        MineActions.OnLeftMouseClickActionStarted?.Invoke();
+                        MineActions.OnDigActionStarted?.Invoke();
+                        MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
+                        break;
                 }
             }
         }

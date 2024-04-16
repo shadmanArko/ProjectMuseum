@@ -9,7 +9,7 @@ public partial class ToolbarSlot : Node
 	[Export] private Sprite2D _highlighter;
 	[Export] private Sprite2D _itemSlot;
 	
-	[Export] private PanelContainer _itemCounter;
+	[Export] private Control _itemCounter;
 	[Export] private Label _itemCounterValue;
 
 	[Export] private Texture2D _selectedHighlighter;

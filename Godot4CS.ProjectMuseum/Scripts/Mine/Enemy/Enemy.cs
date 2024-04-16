@@ -33,7 +33,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     public EnemyState State { get; set; }
     public bool IsAffectedByGravity { get; set; }
     
-    protected AnimationNodeStateMachinePlayback StateMachine;
+    // protected AnimationNodeStateMachinePlayback StateMachine;
     protected Vector2 MoveDirection;
     
     [Export] public bool IsGoingToStartingPosition;

@@ -13,34 +13,39 @@ public partial class EnemyAnimationController : AnimationPlayer
         if(animName == "death") Play(animName);
         else if(animName == "damage" && CurrentAnimation != "death") 
             Play(animName);
-        else if (animName == "attack")
+        else if (animName == "aggro")
         {
             if(CurrentAnimation is "damage" or "death") return;
             Play(animName);
         }
+        else if (animName == "attack")
+        {
+            if(CurrentAnimation is "damage" or "death" or "aggro") return;
+            Play(animName);
+        }
         else if (animName is "move")
         {
-            if(CurrentAnimation is "attack" or "damage" or "death") return;
+            if(CurrentAnimation is "attack" or "damage" or "death" or "aggro") return;
             Play(animName);
         }
         else if (animName is "digIn")
         {
-            if(CurrentAnimation is "attack" or "damage" or "death" or "attack") return;
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack" or "aggro") return;
             Play(animName);
         }
         else if (animName is "digOut")
         {
-            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn") return;
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "aggro") return;
             Play(animName);
         }
         else if (animName == "move")
         {
-            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "digOut") return;
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "digOut" or "aggro") return;
             Play(animName);
         }
         else if (animName == "idle")
         {
-            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "digOut" or "move") return;
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "digOut" or "move" or "aggro") return;
             Play(animName);
         }
         else

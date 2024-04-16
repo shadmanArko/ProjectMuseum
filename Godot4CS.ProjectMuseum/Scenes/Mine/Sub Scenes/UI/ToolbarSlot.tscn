@@ -1,17 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://c605j4icx72b7"]
+[gd_scene load_steps=8 format=3 uid="uid://c605j4icx72b7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSlot.cs" id="1_cg1vg"]
 [ext_resource type="Texture2D" uid="uid://ci2a5cfonngv2" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Blue_Frame.png" id="2_jx65y"]
 [ext_resource type="Texture2D" uid="uid://bmum5hrbpjtpd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Yellow_Frame.png" id="3_eo1oc"]
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="4_fk7pc"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="4_jr6f4"]
 
 [sub_resource type="Theme" id="Theme_ra50t"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_th4pj"]
 
 [sub_resource type="Theme" id="Theme_gnv56"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3npy"]
 
 [node name="ToolbarSlot" type="PanelContainer" node_paths=PackedStringArray("_highlighter", "_itemSlot", "_itemCounter", "_itemCounterValue")]
 custom_minimum_size = Vector2(60, 60)
@@ -35,28 +33,37 @@ texture = ExtResource("3_eo1oc")
 texture_filter = 1
 position = Vector2(-4.19617e-06, -4.19617e-06)
 
-[node name="Item Counter" type="PanelContainer" parent="."]
-visible = false
-custom_minimum_size = Vector2(25, 25)
+[node name="Item Counter" type="Control" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 21)
+layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = SubResource("Theme_gnv56")
-theme_override_styles/panel = SubResource("StyleBoxTexture_o3npy")
-
-[node name="Background" type="ColorRect" parent="Item Counter"]
-layout_mode = 2
 
 [node name="Counter Value" type="Label" parent="Item Counter"]
 texture_filter = 1
-layout_mode = 2
-theme_override_colors/font_color = Color(0.237092, 0.0840437, 0.0250005, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_fk7pc")
-text = "10"
-horizontal_alignment = 1
-vertical_alignment = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -10.5
+offset_right = 15.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.0980392, 0.0352941, 0.192157, 1)
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_jr6f4")
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 2
+vertical_alignment = 3
 
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
 [connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

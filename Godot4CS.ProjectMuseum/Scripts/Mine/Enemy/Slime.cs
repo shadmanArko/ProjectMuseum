@@ -12,15 +12,6 @@ public partial class Slime : Enemy
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
 
-    #region Animation Parameter Conditions
-
-    private const string AttackCondition = "parameters/conditions/is_attacking";
-    private const string MovingCondition = "parameters/conditions/is_moving";
-    private const string TakingDamageCondition = "parameters/conditions/is_taking_damage";
-    private const string DeathCondition = "parameters/conditions/is_dead";
-
-    #endregion
-
     private EnemyAi _enemyAi = new();
 
     #region Loitering Variables
@@ -29,13 +20,12 @@ public partial class Slime : Enemy
     private Vector2 _leftPos;
     private Vector2 _rightPos;
 
-    private bool IsMovingRight;
-    private bool IsMovingLeft;
+    private bool _isMovingRight;
+    private bool _isMovingLeft;
 
     [Export] private float _moveVelocity = 2;
 
     #endregion
-
     
     [Export] private bool _isInsideMine;
     
@@ -46,39 +36,39 @@ public partial class Slime : Enemy
         _targetPos = Vector2.Zero;
     }
 
-    public override void _Input(InputEvent @event)
-    {
-        if (@event.IsActionReleased("Test"))
-        {
-            Phase = EnemyPhase.Teleport;
-            Teleport();
-        }
-
-        if (@event.IsActionReleased("Lamp"))
-            Phase = EnemyPhase.Loiter;
-        if (@event.IsActionReleased("Idle"))
-        {
-            Phase = EnemyPhase.Loiter;
-            AnimationController.PlayAnimation("idle");
-            SetPhysicsProcess(true);
-        }
-
-        if (@event.IsActionReleased("randomMovement"))
-            DecideMoveTargetPosition();
-    }
+    // public override void _Input(InputEvent @event)
+    // {
+    //     if (@event.IsActionReleased("Test"))
+    //     {
+    //         Phase = EnemyPhase.Teleport;
+    //         Teleport();
+    //     }
+    //
+    //     if (@event.IsActionReleased("Lamp"))
+    //         Phase = EnemyPhase.Loiter;
+    //     if (@event.IsActionReleased("Idle"))
+    //     {
+    //         Phase = EnemyPhase.Loiter;
+    //         AnimationController.PlayAnimation("idle");
+    //         SetPhysicsProcess(true);
+    //     }
+    //
+    //     if (@event.IsActionReleased("randomMovement"))
+    //         DecideMoveTargetPosition();
+    // }
 
     public override void _Ready()
     {
         InitializeDiReferences();
         SubscribeToActions();
         _enemyAi = new EnemyAi();
-        StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
+        // StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
         Phase = EnemyPhase.Teleport;
         CanMove = true;
         IsMoving = true;
-        SetPhysicsProcess(true);
+        // SetPhysicsProcess(true);
     }
 
     private void SetValuesOnSpawn()
@@ -99,6 +89,7 @@ public partial class Slime : Enemy
     private void SubscribeToActions()
     {
         OnSpawn += SetValuesOnSpawn;
+        OnAggroChanged += PlayAggroAnimation;
     }
 
     #endregion
@@ -116,8 +107,8 @@ public partial class Slime : Enemy
         var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         _targetPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
-        IsMovingLeft = true;
-        IsMovingRight = false;
+        _isMovingLeft = true;
+        _isMovingRight = false;
         await Move();
     }
 
@@ -195,8 +186,8 @@ public partial class Slime : Enemy
 
         _targetPos = _leftPos;
         MoveDirection = Vector2.Left;
-        IsMovingLeft = true;
-        IsMovingRight = false;
+        _isMovingLeft = true;
+        _isMovingRight = false;
     }
 
     private async Task Loiter()
@@ -204,25 +195,25 @@ public partial class Slime : Enemy
         if (_targetPos == Vector2.Zero)
             DecideMoveTargetPosition();
         
-        if (IsMovingLeft)
+        if (_isMovingLeft)
         {
             if (_targetPos.X > Position.X)
             {
                 IsMoving = false;
-                IsMovingLeft = false;
-                IsMovingRight = true;
+                _isMovingLeft = false;
+                _isMovingRight = true;
                 _targetPos = _rightPos;
                 MoveDirection = Vector2.Right;
             }
         }
 
-        if (IsMovingRight)
+        if (_isMovingRight)
         {
             if (_targetPos.X < Position.X)
             {
                 IsMoving = false;
-                IsMovingRight = false;
-                IsMovingLeft = true;
+                _isMovingRight = false;
+                _isMovingLeft = true;
                 _targetPos = _leftPos;
                 MoveDirection = Vector2.Left;
             }
@@ -238,6 +229,7 @@ public partial class Slime : Enemy
     private void Teleport()
     {
         if (AnimationController.CurrentAnimation is "digIn" or "digOut") return;
+        AnimationController.PlayAnimation("idle");
         DigIn();
     }
 
@@ -251,21 +243,21 @@ public partial class Slime : Enemy
         var currentAnim = AnimationController.CurrentAnimation;
         if (posToGo == Vector2.Zero && (currentAnim != "digIn" || currentAnim != "digOut" || currentAnim != "idle"))
         {
-            Teleport();
+            await Teleport();
         }
         else
         {
             _targetPos = posToGo;
             if (_targetPos.X < Position.X)
             {
-                IsMovingLeft = true;
-                IsMovingRight = false;
+                _isMovingLeft = true;
+                _isMovingRight = false;
                 MoveDirection = Vector2.Left;
             }
             else if (_targetPos.X > Position.X)
             {
-                IsMovingLeft = false;
-                IsMovingRight = true;
+                _isMovingLeft = false;
+                _isMovingRight = true;
                 MoveDirection = Vector2.Right;
             }
 
@@ -277,30 +269,32 @@ public partial class Slime : Enemy
     
     #endregion
     
-    
     #region States
-
+    
     #region Move
-
+    
     private async Task Move()
     {
         if (IsMoving && !IsAttacking)
         {
             if(IsInAttackRange) return;
             AnimationController.PlayAnimation("move");
-            if (IsMovingLeft)
+            if (_isMovingLeft)
             {
                 Velocity = new Vector2(-_moveVelocity, Velocity.Y);
                 MoveAndSlide();
                 AnimationController.MoveDirection(Vector2.Left);
+                AnimationController.PlayAnimation("idle");
+                await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
             }
-            else if (IsMovingRight)
+            else if (_isMovingRight)
             {
                 Velocity = new Vector2(_moveVelocity, Velocity.Y);
                 MoveAndSlide();
                 AnimationController.MoveDirection(Vector2.Right);
+                AnimationController.PlayAnimation("idle");
+                await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
             }
-            
         }
         else
         {
@@ -311,11 +305,11 @@ public partial class Slime : Enemy
             IsMoving = true;
         }
     }
-
+    
     #endregion
     
     #region Attack
-
+    
     public override async Task Attack()
     {
         if(!IsInAttackRange) return;
@@ -334,11 +328,11 @@ public partial class Slime : Enemy
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsMoving = true;
     }
-
+    
     #endregion
-
+    
     #region Take Damage
-
+    
     public override void TakeDamage()
     {
         if (IsTakingDamage) return;
@@ -350,11 +344,11 @@ public partial class Slime : Enemy
         KnockBack();
         IsMoving = true;
     }
-
+    
     #endregion
-
+    
     #region Death
-
+    
     public override async void Death()
     {
         AnimationController.PlayAnimation("death");
@@ -362,30 +356,31 @@ public partial class Slime : Enemy
         // QueueFree();
         GD.Print("ENEMY DYING");
     }
-
+    
     private void OnDeathAnimationComplete(string animName)
     {
         if(animName != "death") return;
         QueueFree();
     }
-
+    
     #endregion
-
+    
     #region Dig In Dig Out
-
+    
     private void DigIn()
     {
+        if(AnimationController.CurrentAnimation == "digIn") return;
         IsMoving = false;
         AnimationController.PlayAnimation("digIn");
         
     }
-
-    private void OnDigInAnimationFinished(string animName)
+    
+    private async void OnDigInAnimationFinished(string animName)
     {
         if (animName != "digIn") return;
         DigOut();
     }
-
+    
     private void DigOut()
     {
         var currentEnemyPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
@@ -393,33 +388,55 @@ public partial class Slime : Enemy
         if (digOutPos.Equals(Vector2.Zero)) return;
         Position = digOutPos;
         AnimationController.PlayAnimation("digOut");
-        DecideMoveTargetPosition();
+        // DecideMoveTargetPosition();
     }
-
-    private void OnDigOutAnimationFinished(string animName)
+    
+    private async void OnDigOutAnimationFinished(string animName)
     {
         if (animName != "digOut") return;
+        AnimationController.PlayAnimation("idle");
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        // AnimationController.PlayAnimation("idle");
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        DecideMoveTargetPosition();
         IsMoving = true;
     }
-
+    
     #endregion
     
     #region Idle
-
+    
     private void Idle()
     {
         AnimationController.PlayAnimation("idle");
     }
-
+    
     private void OnIdleAnimationFinished(string animName)
     {
         if (animName != "idle") return;
         CanMove = true;
         IsMoving = true;
     }
-
+    
     #endregion
 
+    #region Aggro
+
+    private void PlayAggroAnimation()
+    {
+        GD.Print($"IsAggro changed {IsAggro}");
+        IsMoving = false;
+        AnimationController.Play("aggro");
+    }
+
+    private void OnAggroAnimationFinished(string animName)
+    {
+        if(animName != "aggro") return;
+        IsMoving = true;
+    }
+
+    #endregion
+    
     #endregion
 
     #region Physics
@@ -441,11 +458,11 @@ public partial class Slime : Enemy
     private void OnCellBlockEnter(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
-        GD.Print($"enemy collided with mine: {hasCollidedWithMine})");
+        // GD.Print($"enemy collided with mine: {hasCollidedWithMine})");
         if (hasCollidedWithMine)
         {
             _isGrounded = true;
-            GD.Print("is Grounded");
+            // GD.Print("is Grounded");
         }
     }
     
@@ -498,6 +515,7 @@ public partial class Slime : Enemy
     private void UnsubscribeToActions()
     {
         OnSpawn -= SetValuesOnSpawn;
+        OnAggroChanged -= PlayAggroAnimation;
     }
 
     public override void _ExitTree()

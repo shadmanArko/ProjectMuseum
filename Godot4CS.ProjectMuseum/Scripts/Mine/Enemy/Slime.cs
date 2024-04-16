@@ -326,7 +326,8 @@ public partial class Slime : Enemy
         var lookAtPlayer = new Vector2(_playerControllerVariables.Position.X - Position.X, 0).Normalized();
         AnimationController.MoveDirection(lookAtPlayer);
         AnimationController.PlayAnimation("attack");
-        _playerControllerVariables.Player.TakeDamage();
+        //TODO: player taking damage must come from damage database where the damage value and status effects are registered
+        MineActions.OnTakeDamageStarted?.Invoke(10);
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         GD.Print("attack animation complete");
         AnimationController.PlayAnimation("idle");
@@ -483,7 +484,10 @@ public partial class Slime : Enemy
     {
         var playerDirection = _playerControllerVariables.PlayerDirection;
         var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
-        Velocity = Velocity.Lerp(knockBackDirection, 0.2f);
+        var knockBackVel = Mathf.Lerp(Velocity.X,knockBackDirection.X, 0.1f);
+        Velocity = Vector2.Zero;
+        Velocity = new Vector2(knockBackVel,Velocity.Y);
+        GD.Print($"getting knocked back {knockBackVel}");
         MoveAndSlide();
     }
 

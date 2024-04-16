@@ -41,7 +41,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;
-    [Export] public float KnockBackPower = 500f;
+    [Export] public float KnockBackPower = 1000f;
     
     [Export] public TextureProgressBar HealthBar;
     [Export] public EnemyAnimationController AnimationController;

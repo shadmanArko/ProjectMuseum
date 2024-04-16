@@ -25,7 +25,6 @@ public partial class AnimationController : AnimationPlayer
 	{
 		MineActions.OnDigActionStarted += PlayDigAnimation;
 		MineActions.OnMeleeAttackActionStarted += PlayMeleeAttackAnimation;
-		// MineActions.OnBrushActionStarted += PlayBrushAnimation;
 		MineActions.OnRollStarted += PlayRollAnimation;
         
 		MineActions.OnMouseMotionAction += SpriteFlipBasedOnMousePosition;
@@ -34,9 +33,21 @@ public partial class AnimationController : AnimationPlayer
 		_sprite.FrameChanged += OnDigAnimationStrikeStarted;
 	}
 
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnDigActionStarted -= PlayDigAnimation;
+		MineActions.OnMeleeAttackActionStarted -= PlayMeleeAttackAnimation;
+		MineActions.OnRollStarted -= PlayRollAnimation;
+		
+		MineActions.OnMouseMotionAction -= SpriteFlipBasedOnMousePosition;
+		MineActions.OnPlayerGrabActionStarted -= ToggleHangOnWall;
+		
+		_sprite.FrameChanged -= OnDigAnimationStrikeStarted;
+	}
+
 	#endregion
 	
-	public void SetAnimation(bool isAttacking)
+	public void SetAnimation()
 	{
 		var tempVelocity = _playerControllerVariables.Velocity;
 		
@@ -211,5 +222,10 @@ public partial class AnimationController : AnimationPlayer
 		if(_playerControllerVariables.Velocity.X != 0) return;
 		_sprite.FlipH = mousePos is < 90 and >= -90;
 		_playerControllerVariables.PlayerDirection = new Vector2I(_sprite.FlipH ? 1 : -1, 0);
+	}
+
+	public override void _ExitTree()
+	{
+		UnsubscribeToActions();
 	}
 }

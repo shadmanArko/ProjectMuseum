@@ -243,7 +243,7 @@ public partial class Slime : Enemy
         var currentAnim = AnimationController.CurrentAnimation;
         if (posToGo == Vector2.Zero && (currentAnim != "digIn" || currentAnim != "digOut" || currentAnim != "idle"))
         {
-            await Teleport();
+            Teleport();
         }
         else
         {

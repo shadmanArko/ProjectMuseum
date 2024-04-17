@@ -11,7 +11,7 @@ public class ArtifactThemeMatchingTagCountRepo : IArtifactThemeMatchingTagCountR
        _artifactThemeMatchingTagCountDatabase = artifactThemeMatchingTagCountDatabase;
     }
 
-    public Task<int> GetArtifactThemeMatchingTagCountByTheme(string theme)
+    public Task<int> GetArtifactThemeMatchingMultiplierByThemeCount(int themeMatchCount)
     {
         throw new NotImplementedException();
     }

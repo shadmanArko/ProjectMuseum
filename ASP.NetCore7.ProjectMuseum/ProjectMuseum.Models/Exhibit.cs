@@ -13,4 +13,5 @@ public class Exhibit
     public string ExhibitArtifactSlot3 { get; set; }
     public string ExhibitArtifactSlot4 { get; set; }
     public string ExhibitArtifactSlot5 { get; set; }
+    public bool IsInZone { get; set; }
 }

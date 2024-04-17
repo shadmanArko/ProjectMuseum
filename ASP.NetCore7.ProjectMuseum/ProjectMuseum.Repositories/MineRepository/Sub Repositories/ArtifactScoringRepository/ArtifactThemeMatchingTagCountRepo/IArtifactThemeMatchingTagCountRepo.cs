@@ -2,5 +2,5 @@ namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactSco
 
 public interface IArtifactThemeMatchingTagCountRepo
 {
-    Task<int> GetArtifactThemeMatchingTagCountByTheme(string theme);
+    Task<int> GetArtifactThemeMatchingMultiplierByThemeCount(int themeMatchCount);
 }

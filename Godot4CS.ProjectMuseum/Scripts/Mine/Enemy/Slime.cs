@@ -26,6 +26,13 @@ public partial class Slime : Enemy
     [Export] private float _moveVelocity = 2;
 
     #endregion
+
+    #region Exploring Variables
+
+    [Export] private bool _hasWallOnLeft; 
+    [Export] private bool _hasWallOnRight; 
+
+    #endregion
     
     [Export] private bool _isInsideMine;
     
@@ -36,39 +43,16 @@ public partial class Slime : Enemy
         _targetPos = Vector2.Zero;
     }
 
-    // public override void _Input(InputEvent @event)
-    // {
-    //     if (@event.IsActionReleased("Test"))
-    //     {
-    //         Phase = EnemyPhase.Teleport;
-    //         Teleport();
-    //     }
-    //
-    //     if (@event.IsActionReleased("Lamp"))
-    //         Phase = EnemyPhase.Loiter;
-    //     if (@event.IsActionReleased("Idle"))
-    //     {
-    //         Phase = EnemyPhase.Loiter;
-    //         AnimationController.PlayAnimation("idle");
-    //         SetPhysicsProcess(true);
-    //     }
-    //
-    //     if (@event.IsActionReleased("randomMovement"))
-    //         DecideMoveTargetPosition();
-    // }
-
     public override void _Ready()
     {
         InitializeDiReferences();
         SubscribeToActions();
         _enemyAi = new EnemyAi();
-        // StateMachine = AnimTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
         Phase = EnemyPhase.Teleport;
         CanMove = true;
         IsMoving = true;
-        // SetPhysicsProcess(true);
     }
 
     private void SetValuesOnSpawn()
@@ -131,13 +115,14 @@ public partial class Slime : Enemy
         }
         else
         {
-            Phase = EnemyPhase.Loiter;
+            Phase = EnemyPhase.Explore;
         }
 
         switch (Phase)
         {
-            case EnemyPhase.Loiter:
-                await Loiter();
+            case EnemyPhase.Explore:
+                // await Loiter();
+                await Explore();
                 break;
             case EnemyPhase.Chase:
                 await Chase();
@@ -219,6 +204,28 @@ public partial class Slime : Enemy
             }
         }
         
+        await Move();
+    }
+
+    #endregion
+
+    #region Explore
+
+    private async Task Explore()
+    {
+        if(_hasWallOnLeft && _hasWallOnRight) 
+            Teleport();
+        else if (_hasWallOnLeft)
+        {
+            _isMovingLeft = false;
+            _isMovingRight = true;
+        }
+        else if (_hasWallOnRight)
+        {
+            _isMovingLeft = true;
+            _isMovingRight = false;
+        }
+
         await Move();
     }
 
@@ -511,6 +518,38 @@ public partial class Slime : Enemy
     #endregion
 
     #endregion
+
+    private void OnLeftWallAreaCollisionEnter(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        if (!hasCollidedWithMine) return;
+        GD.Print("has wall on the left, move direction = right");
+        _hasWallOnLeft = true;
+    }
+    
+    private void OnLeftWallAreaCollisionExit(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        if (!hasCollidedWithMine) return;
+        GD.Print("has wall on the left, move direction = right");
+        _hasWallOnLeft = false;
+    }
+
+    private void OnRightWallAreaCollisionEnter(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        if (!hasCollidedWithMine) return;
+        GD.Print("has wall on the right, move direction = left");
+        _hasWallOnRight = true;
+    }
+    
+    private void OnRightWallAreaCollisionExit(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        if (!hasCollidedWithMine) return;
+        GD.Print("has wall on the right, move direction = left");
+        _hasWallOnRight = false;
+    }
 
     private void UnsubscribeToActions()
     {

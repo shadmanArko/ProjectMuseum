@@ -87,6 +87,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
                     ExhibitVariationName = exhibitVariationName,
                     XPosition = museumTile.XPosition,
                     YPosition = museumTile.YPosition,
+                    OccupiedTileIds = tileIds,
                     RotationFrame = rotationFrame,
                     ExhibitDecoration = "string",
                     ExhibitArtifactSlot1 = "string",
@@ -100,7 +101,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
             }
         }
         museumTiles = await _museumTileRepository.UpdateExhibitToMuseumTiles(tileIds, exhibit.Id);
-        exhibit.occupiedTileIds = tileIds;
+        
         tilesWithExhibitDto.Exhibit = exhibit;
         var exhibits = await _exhibitRepository.GetAllExhibits();
         tilesWithExhibitDto.Exhibits = exhibits;

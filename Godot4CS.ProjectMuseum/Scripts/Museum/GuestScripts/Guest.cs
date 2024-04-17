@@ -305,10 +305,11 @@ public partial class Guest : GuestAi
         {
             var exhibit = _museumTileContainer.Exhibits[_currentExhibitIndex];
             _currentViewingObjectOrigin = new Vector2I(exhibit.XPosition, exhibit.YPosition);
-            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToExhibit(exhibit);
+            TileHelpers.TargetWthOrigin coordinate = _museumTileContainer.MuseumTiles.GetRandomEmptyTileClosestToExhibit(exhibit);
             //GD.Print($"Found closest coordinate {coordinate}");
+            _currentViewingObjectOrigin = coordinate.origin;
             _currentExhibitIndex++;
-            return coordinate;
+            return coordinate.target;
         }
         else
         {

@@ -64,6 +64,7 @@ public partial class Guest : GuestAi
     private List<Vector2I> _listOfSceneExitPoints;
     private bool _usingWashroom;
     private bool _usingShop;
+    private Vector2I _currentViewingObjectOrigin;
     public Guest()
     {
         
@@ -224,7 +225,22 @@ public partial class Guest : GuestAi
         {
             _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
             var shop = _museumTileContainer.DecorationShops.GetClosestShopToLocation(_startTileCoordinate);
-            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToCoordinate(new Vector2I(shop.XPosition, shop.YPosition));
+            _currentViewingObjectOrigin = new Vector2I(shop.XPosition, shop.YPosition);
+            Vector2I coordinate = Vector2I.Zero;
+            if (shop.RotationFrame == 0)
+            {
+                coordinate = new Vector2I(shop.XPosition +1, shop.YPosition);
+            }else if (shop.RotationFrame == 1)
+            {
+                coordinate = new Vector2I(shop.XPosition , shop.YPosition +1);
+            }else if (shop.RotationFrame == 2)
+            {
+                coordinate = new Vector2I(shop.XPosition - 1 , shop.YPosition);
+            }else if (shop.RotationFrame == 3)
+            {
+                coordinate = new Vector2I(shop.XPosition  , shop.YPosition - 1);
+            }
+            
             GD.Print($"Found closest shop coordinate {coordinate}");
             return coordinate;
         }
@@ -239,6 +255,7 @@ public partial class Guest : GuestAi
         {
             _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
             var washroomToLocation = _museumTileContainer.Sanitations.GetClosestWashroomToLocation(_startTileCoordinate);
+            _currentViewingObjectOrigin = new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition);
             Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToCoordinate(new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition));
             GD.Print($"Found closest washroom coordinate {coordinate}");
             return coordinate;
@@ -287,6 +304,7 @@ public partial class Guest : GuestAi
         if (_currentExhibitIndex < _museumTileContainer.Exhibits.Count)
         {
             var exhibit = _museumTileContainer.Exhibits[_currentExhibitIndex];
+            _currentViewingObjectOrigin = new Vector2I(exhibit.XPosition, exhibit.YPosition);
             Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToExhibit(exhibit);
             //GD.Print($"Found closest coordinate {coordinate}");
             _currentExhibitIndex++;
@@ -350,6 +368,8 @@ public partial class Guest : GuestAi
             else
             {
                 //Watching exhibit
+               
+
                 if (currentNeed == GuestNeedsEnum.Bladder)
                 {
                     FillNeed(currentNeed, -64);
@@ -388,8 +408,11 @@ public partial class Guest : GuestAi
             MoveAndCollide(motion);
             // Check if the character has reached the current path node
             Vector2 currentTargetPosition = GameManager.tileMap.MapToLocal(_currentTargetNode);
+            var offset = new Vector2(currentTargetPosition.X < Position.X ? -16 : 16,
+                currentTargetPosition.Y < Position.Y ? 8 : -8);
+            //currentTargetPosition += offset;
             _currentNode = GameManager.tileMap.LocalToMap(Position);
-            if (Position.DistanceTo(currentTargetPosition) < 1f || _currentNode == _currentTargetNode)
+            if (Position.DistanceTo(currentTargetPosition ) < 1f && _currentNode == _currentTargetNode)
             {
                 MoveToNextPathNode();
             }
@@ -415,20 +438,7 @@ public partial class Guest : GuestAi
         }
         if (_canMove)
         {
-            if (_direction == new Vector2(1, 0))
-            {
-                MoveRight();
-            }else if (_direction == new Vector2(-1, 0))
-            {
-                MoveLeft();
-            }else if (_direction == new Vector2(0, 1))
-            {
-                MoveDown();
-            }else if (_direction == new Vector2(0, -1))
-            {
-                MoveUp();
-            }
-            
+            MoveBasedOnDirection(_direction);
         }
         else
         {
@@ -442,6 +452,27 @@ public partial class Guest : GuestAi
             }
         }
 
+        if (!_canMove)
+        {
+            if (_currentViewingObjectOrigin.X < _currentNode.X)
+            {
+                IdleLeft();
+            }
+            if (_currentViewingObjectOrigin.X > _currentNode.X)
+            {
+                IdleRight();
+            }
+            if (_currentViewingObjectOrigin.Y > _currentNode.Y)
+            {
+                IdleDown();
+            }
+            if (_currentViewingObjectOrigin.Y < _currentNode.Y)
+            {
+                IdleUp();
+            }
+            
+        }
+        
         if (_usingShop)
         {
             _animationPlayerInstance.Play(_playerFacingTheFront? "use_front":"use_back");
@@ -451,6 +482,26 @@ public partial class Guest : GuestAi
         }
 
         Visible = !_usingWashroom;
+    }
+
+    private void MoveBasedOnDirection(Vector2 direction)
+    {
+        if (direction == new Vector2(1, 0))
+        {
+            MoveRight();
+        }
+        else if (direction == new Vector2(-1, 0))
+        {
+            MoveLeft();
+        }
+        else if (direction == new Vector2(0, 1))
+        {
+            MoveDown();
+        }
+        else if (direction == new Vector2(0, -1))
+        {
+            MoveUp();
+        }
     }
 
     private void TakeNextMovementDecision()
@@ -517,6 +568,37 @@ public partial class Guest : GuestAi
         
        _characterPartsParent.Scale = new Vector2(-1, 1);
         _animationPlayerInstance.Play("walk_backward");
+        _playerFacingTheFront = false;
+    }
+    private void IdleRight()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(1, 1);
+        _animationPlayerInstance.Play("idle_front_facing");
+        _playerFacingTheFront = true;
+    }
+
+    private void IdleLeft()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(1, 1);
+        _animationPlayerInstance.Play("idle_back_facing");
+        _playerFacingTheFront = false;
+    }
+
+    private void IdleDown()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(-1, 1);
+        _animationPlayerInstance.Play("idle_front_facing");
+        _playerFacingTheFront = true;
+    }
+
+    private void IdleUp()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(-1, 1);
+        _animationPlayerInstance.Play("idle_back_facing");
         _playerFacingTheFront = false;
     }
 

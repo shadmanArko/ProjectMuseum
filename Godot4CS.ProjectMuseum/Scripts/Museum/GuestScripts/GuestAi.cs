@@ -39,6 +39,7 @@ public partial class GuestAi : CharacterBody2D
     [Export] private Sprite2D _collisionShape2D;
     [Export] private Sprite2D _selectionIndicator;
     [Export] private Sprite2D _selectionIndicatorBottom;
+    [Export] private AnimationPlayer _selectionIndicatorAnimationPlayer;
     public override void _Input(InputEvent @event)
     {
         if (Input.IsActionJustReleased("ui_left_click"))
@@ -56,6 +57,7 @@ public partial class GuestAi : CharacterBody2D
     {
         _selectionIndicator.Visible = guestAi == this;
         _selectionIndicatorBottom.Visible = guestAi == this;
+        _selectionIndicatorAnimationPlayer.Play("selected");
     }
     public override void _EnterTree()
     {

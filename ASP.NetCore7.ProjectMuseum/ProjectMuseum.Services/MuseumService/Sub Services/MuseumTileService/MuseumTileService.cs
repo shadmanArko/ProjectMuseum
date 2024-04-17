@@ -84,13 +84,12 @@ public class MuseumTileService : IMuseumTileService
     {
         return await _itemPlacementCondition.PlaceSanitationOnTiles(originTileId, tileIds, sanitationVariationName, rotationFrame);
     }
-
     public async Task<List<MuseumTile>> PlaceOtherDecorationOnTiles(string originTileId, List<string> tileIds, string otherVariationName, int rotationFrame)
     {
         return await _itemPlacementCondition.PlaceOtherDecorationOnTiles(originTileId, tileIds, otherVariationName, rotationFrame);
 
     }
-
+    
     public async Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile)
     {
         var updatedMuseumTile = await _museumTileRepository.Update(tileId, museumTile);

@@ -1,8 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://cv4p4yyj4yp8u"]
 
-[ext_resource type="Texture2D" uid="uid://cjkd26xoig7ni" path="res://Assets/2D/Sprites/Sanitations/Toilet1.png" id="1_fqku4"]
 [ext_resource type="Script" path="res://Scripts/Museum/DragAndDrop/SanitationItem.cs" id="2_vnt7g"]
 [ext_resource type="Texture2D" uid="uid://bxmbe80ewgym1" path="res://Assets/2D/Sprites/Effects/4X4_tile_shadow.png" id="3_m8v1i"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yxyoc"]
+load_path = "res://.godot/imported/Toilet1.png-3b6825d3e34015056c9e0878f49b9af1.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwst"]
 size = Vector2(9.97071, 5.26112)
@@ -12,7 +14,7 @@ z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(1, 8)
-texture = ExtResource("1_fqku4")
+texture = SubResource("CompressedTexture2D_yxyoc")
 offset = Vector2(0, -35.5)
 hframes = 4
 script = ExtResource("2_vnt7g")

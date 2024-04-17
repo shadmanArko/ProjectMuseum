@@ -161,7 +161,7 @@ _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/Trai
 _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(98, -44)
+position = Vector2(130, -49)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")

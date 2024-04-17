@@ -14,20 +14,24 @@ public static class TileHelpers
         Vector2I targetCoordinate = new Vector2I(exhibit.XPosition, exhibit.YPosition);
         float minDistance = float.MaxValue;
     
-        foreach (var tile in museumTiles)
+        foreach (var tile in museumTiles.Shuffle())
         {
             // Skip non-empty or non-walkable tiles
-            if ( tile.ExhibitId != "string" && tile.ExhibitId !="")
+            if ( !tile.Walkable)
                 continue;
-    
-            Vector2I currentCoordinate = new Vector2I(tile.XPosition, tile.YPosition);
-            int distance = ManhattanDistance(targetCoordinate, currentCoordinate);
-    
-            if (distance < minDistance)
+
+            if (tile.XPosition == targetCoordinate.X || tile.YPosition == targetCoordinate.Y)
             {
-                minDistance = distance;
-                closestCoordinate = currentCoordinate;
+                Vector2I currentCoordinate = new Vector2I(tile.XPosition, tile.YPosition);
+                int distance = ManhattanDistance(targetCoordinate, currentCoordinate);
+    
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestCoordinate = currentCoordinate;
+                }
             }
+            
         }
     
         return closestCoordinate;
@@ -58,19 +62,19 @@ public static class TileHelpers
     public static DecorationShop GetClosestShopToLocation(this List<DecorationShop> shops, Vector2I currentPosition)
     {
         DecorationShop closestShop = shops[0];
-        float minDistance = float.MaxValue;
+        float minDistance = 99999;
         foreach (var shop in shops)
         {
-            Vector2I currentClosestCoordinate = new Vector2I(closestShop.XPosition, closestShop.YPosition);
-            int distance = ManhattanDistance(currentPosition, currentClosestCoordinate);
-    
+            Vector2I currentShopCoord = new Vector2I(shop.XPosition, shop.YPosition);
+            int distance = ManhattanDistance(currentPosition, currentShopCoord);
+            GD.Print($"distance of {shop.ShopVariationName} {distance}, min dis {minDistance}");
             if (distance < minDistance)
             {
                 minDistance = distance;
                 closestShop = shop;
             }
         }
-
+        
         return closestShop;
     }
     public static Sanitation GetClosestWashroomToLocation(this List<Sanitation> sanitations, Vector2I currentPosition)

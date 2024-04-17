@@ -74,6 +74,8 @@ public partial class DecorationsController : Node2D
 			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/DecorationOthers/{otherDecoration.VariationName}.png");
 			var sprite = instance.GetNode<Sprite2D>(".") ;
 			sprite.Texture = texture2D;
+			
+			sprite.Frame = otherDecoration.RotationFrame;
 			instance.GetNode<Node2D>(".").Position =
 				GameManager.tileMap.MapToLocal(new Vector2I(otherDecoration.XPosition, otherDecoration.YPosition));
 			ItemsParent.AddChild(instance);
@@ -87,6 +89,7 @@ public partial class DecorationsController : Node2D
 			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/DecorationShops/{shop.ShopVariationName}.png");
 			var sprite = instance.GetNode<Sprite2D>(".") ;
 			sprite.Texture = texture2D;
+			sprite.Frame = shop.RotationFrame;
 			instance.GetNode<Node2D>(".").Position =
 				GameManager.tileMap.MapToLocal(new Vector2I(shop.XPosition, shop.YPosition));
 			ItemsParent.AddChild(instance);
@@ -100,6 +103,7 @@ public partial class DecorationsController : Node2D
 			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Sanitations/{sanitation.SanitationVariationName}.png");
 			var sprite = instance.GetNode<Sprite2D>(".") ;
 			sprite.Texture = texture2D;
+			sprite.Frame = sanitation.RotationFrame;
 			instance.GetNode<Node2D>(".").Position =
 				GameManager.tileMap.MapToLocal(new Vector2I(sanitation.XPosition, sanitation.YPosition));
 			ItemsParent.AddChild(instance);

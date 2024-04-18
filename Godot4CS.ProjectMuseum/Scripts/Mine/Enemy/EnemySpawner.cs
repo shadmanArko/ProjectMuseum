@@ -159,7 +159,7 @@ public partial class EnemySpawner : Node2D
             _enemies.Add(_newEnemy);
         _newEnemy.IsAffectedByGravity = true;
         _newEnemy.OnSpawn?.Invoke();
-        _newEnemy.Phase = EnemyPhase.Teleport;
+        _newEnemy.Phase = EnemyPhase.Explore;
         _newEnemy = null;
     }
 

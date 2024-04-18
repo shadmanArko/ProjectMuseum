@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -59,7 +60,7 @@ public partial class Slime : Enemy
     {
         IsDead = false;
         Health = 100;
-        DecideMoveTargetPosition();
+        IsAggro = false;
         CanMove = true;
         SetPhysicsProcess(true);
     }
@@ -113,15 +114,11 @@ public partial class Slime : Enemy
                 }
             }
         }
-        else
-        {
-            Phase = EnemyPhase.Explore;
-        }
+        else Phase = EnemyPhase.Explore;
 
         switch (Phase)
         {
             case EnemyPhase.Explore:
-                // await Loiter();
                 await Explore();
                 break;
             case EnemyPhase.Chase:
@@ -131,9 +128,6 @@ public partial class Slime : Enemy
                 Teleport();
                 break;
             case EnemyPhase.Combat:
-                // GD.Print($"isAttacking: {IsAttacking}");
-                // GD.Print($"Phase: {Phase}");
-                // GD.Print();
                 await Attack();
                 break;
         }
@@ -235,8 +229,10 @@ public partial class Slime : Enemy
 
     private void Teleport()
     {
-        if (AnimationController.CurrentAnimation is "digIn" or "digOut") return;
-        AnimationController.PlayAnimation("idle");
+        if (AnimationController.CurrentAnimation is "digIn" or "digOut" or "idle") return;
+        IsMoving = false;
+        // AnimationController.PlayAnimation("idle");
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         DigIn();
     }
 
@@ -379,10 +375,10 @@ public partial class Slime : Enemy
         if(AnimationController.CurrentAnimation == "digIn") return;
         IsMoving = false;
         AnimationController.PlayAnimation("digIn");
-        
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
     }
     
-    private async void OnDigInAnimationFinished(string animName)
+    private void OnDigInAnimationFinished(string animName)
     {
         if (animName != "digIn") return;
         DigOut();
@@ -392,20 +388,22 @@ public partial class Slime : Enemy
     {
         var currentEnemyPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
         var digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
-        if (digOutPos.Equals(Vector2.Zero)) return;
+        while (digOutPos.Equals(Vector2.Zero))
+            digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
+        var rand = new Random();
+        // await Task.Delay(rand.Next(2000, 5000));
         Position = digOutPos;
         AnimationController.PlayAnimation("digOut");
-        // DecideMoveTargetPosition();
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
     }
     
-    private async void OnDigOutAnimationFinished(string animName)
+    private void OnDigOutAnimationFinished(string animName)
     {
         if (animName != "digOut") return;
         AnimationController.PlayAnimation("idle");
         // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         // AnimationController.PlayAnimation("idle");
         // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-        DecideMoveTargetPosition();
         IsMoving = true;
     }
     

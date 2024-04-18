@@ -28,14 +28,14 @@ public partial class EnemyAnimationController : AnimationPlayer
             if(CurrentAnimation is "attack" or "damage" or "death" or "aggro") return;
             Play(animName);
         }
-        else if (animName is "digIn")
+        else if (animName is "digOut")
         {
             if(CurrentAnimation is "attack" or "damage" or "death" or "attack" or "aggro") return;
             Play(animName);
         }
-        else if (animName is "digOut")
+        else if (animName is "digIn")
         {
-            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "aggro") return;
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digOut" or "aggro") return;
             Play(animName);
         }
         else if (animName == "move")

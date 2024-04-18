@@ -14,6 +14,7 @@ public partial class Slime : Enemy
     private MineGenerationVariables _mineGenerationVariables;
 
     private EnemyAi _enemyAi = new();
+    private Random _random = new Random(); 
 
     #region Loitering Variables
 
@@ -21,8 +22,8 @@ public partial class Slime : Enemy
     private Vector2 _leftPos;
     private Vector2 _rightPos;
 
-    private bool _isMovingRight;
-    private bool _isMovingLeft;
+    [Export] private bool _isMovingRight;
+    [Export] private bool _isMovingLeft;
 
     [Export] private float _moveVelocity = 2;
 
@@ -51,7 +52,8 @@ public partial class Slime : Enemy
         _enemyAi = new EnemyAi();
         IsGoingToStartingPosition = true;
         IsGoingToEndingPosition = false;
-        Phase = EnemyPhase.Teleport;
+        Phase = EnemyPhase.Explore;
+        IsDead = false;
         CanMove = true;
         IsMoving = true;
     }
@@ -103,6 +105,7 @@ public partial class Slime : Enemy
 
     private async Task StartSlimeActivity()
     {
+        if(_isTeleporting) return;
         if (IsAggro)
         {
             if (Phase != EnemyPhase.Hurt)
@@ -125,7 +128,7 @@ public partial class Slime : Enemy
                 await Chase();
                 break;
             case EnemyPhase.Teleport:
-                Teleport();
+                await Teleport();
                 break;
             case EnemyPhase.Combat:
                 await Attack();
@@ -137,6 +140,11 @@ public partial class Slime : Enemy
     
     public override async void _PhysicsProcess(double delta)
     {
+        if (IsDead)
+        {
+            SetPhysicsProcess(false);
+            return;
+        }
         if (!_isInsideMine)
             await MoveIntoTheMine();
         else
@@ -207,8 +215,11 @@ public partial class Slime : Enemy
 
     private async Task Explore()
     {
-        if(_hasWallOnLeft && _hasWallOnRight) 
-            Teleport();
+        if (_hasWallOnLeft && _hasWallOnRight)
+        {
+            GD.Print("EXPLORE TELEPORTING");
+            await Teleport();
+        }
         else if (_hasWallOnLeft)
         {
             _isMovingLeft = false;
@@ -227,13 +238,55 @@ public partial class Slime : Enemy
 
     #region Teleport
 
-    private void Teleport()
+    private bool _isTeleporting;
+    private async Task Teleport()
     {
-        if (AnimationController.CurrentAnimation is "digIn" or "digOut" or "idle") return;
+        if(_isTeleporting) return;
+        GD.Print("INSIDE TELEPORT METHOD");
+        _isTeleporting = true;
         IsMoving = false;
-        // AnimationController.PlayAnimation("idle");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-        DigIn();
+        
+        var currentEnemyPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
+        var digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
+        if (digOutPos == Vector2.Zero)
+        {
+            AnimationController.PlayAnimation("idle");
+            await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+            IsMoving = true;
+            _isTeleporting = false;
+            return;
+        }
+        
+        if(AnimationController.CurrentAnimation != "")
+            await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        AnimationController.PlayAnimation("idle");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        AnimationController.PlayAnimation("digIn");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        TurnOffEnemyVisibility();
+        
+        await Task.Delay(3000);
+        Position = digOutPos;
+        TurnOnEnemyVisibility();
+        
+        AnimationController.PlayAnimation("digOut");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        AnimationController.PlayAnimation("idle");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+
+        if (_random.Next(1, 9999) % 2 == 0)
+        {
+            _isMovingLeft = true;
+            _isMovingRight = false;
+        }
+        else
+        {
+            _isMovingLeft = false;
+            _isMovingRight = true;
+        }
+        
+        IsMoving = true;
+        _isTeleporting = false;
     }
 
     #endregion
@@ -246,7 +299,7 @@ public partial class Slime : Enemy
         var currentAnim = AnimationController.CurrentAnimation;
         if (posToGo == Vector2.Zero && (currentAnim != "digIn" || currentAnim != "digOut" || currentAnim != "idle"))
         {
-            Teleport();
+            await Teleport();
         }
         else
         {
@@ -336,16 +389,26 @@ public partial class Slime : Enemy
     
     #region Take Damage
     
-    public override void TakeDamage()
+    public override async void TakeDamage()
     {
         if (IsTakingDamage) return;
+        IsTakingDamage = true;
         IsMoving = false;
         
         AnimationController.PlayAnimation("damage");
+        
+        var playerDirection = _playerControllerVariables.PlayerDirection;
+        var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
+        Velocity = new Vector2(knockBackDirection.X,Velocity.Y);
+        GD.Print($"getting knocked back {knockBackDirection}");
+        MoveAndSlide();
+        
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         HealthSystem.ReduceEnemyHealth(10, 100, this);
-        Velocity = new Vector2(0, Velocity.Y);
-        KnockBack();
+        // Velocity = new Vector2(0, Velocity.Y);
+        
         IsMoving = true;
+        IsTakingDamage = false;
     }
     
     #endregion
@@ -354,9 +417,9 @@ public partial class Slime : Enemy
     
     public override async void Death()
     {
+        SetPhysicsProcess(false);
         AnimationController.PlayAnimation("death");
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength * 1000));
-        // QueueFree();
         GD.Print("ENEMY DYING");
     }
     
@@ -368,46 +431,46 @@ public partial class Slime : Enemy
     
     #endregion
     
-    #region Dig In Dig Out
-    
-    private void DigIn()
-    {
-        if(AnimationController.CurrentAnimation == "digIn") return;
-        IsMoving = false;
-        AnimationController.PlayAnimation("digIn");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-    }
-    
-    private void OnDigInAnimationFinished(string animName)
-    {
-        if (animName != "digIn") return;
-        DigOut();
-    }
-    
-    private void DigOut()
-    {
-        var currentEnemyPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
-        var digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
-        while (digOutPos.Equals(Vector2.Zero))
-            digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
-        var rand = new Random();
-        // await Task.Delay(rand.Next(2000, 5000));
-        Position = digOutPos;
-        AnimationController.PlayAnimation("digOut");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-    }
-    
-    private void OnDigOutAnimationFinished(string animName)
-    {
-        if (animName != "digOut") return;
-        AnimationController.PlayAnimation("idle");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-        // AnimationController.PlayAnimation("idle");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-        IsMoving = true;
-    }
-    
-    #endregion
+    // #region Dig In Dig Out
+    //
+    // private void DigIn()
+    // {
+    //     if(AnimationController.CurrentAnimation == "digIn") return;
+    //     IsMoving = false;
+    //     AnimationController.PlayAnimation("digIn");
+    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+    // }
+    //
+    // private void OnDigInAnimationFinished(string animName)
+    // {
+    //     if (animName != "digIn") return;
+    //     // DigOut();
+    // }
+    //
+    // private void DigOut()
+    // {
+    //     // var currentEnemyPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
+    //     // var digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
+    //     // while (digOutPos.Equals(Vector2.Zero))
+    //     //     digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
+    //     // var rand = new Random();
+    //     // // await Task.Delay(rand.Next(2000, 5000));
+    //     // Position = digOutPos;
+    //     // AnimationController.PlayAnimation("digOut");
+    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+    // }
+    //
+    // private void OnDigOutAnimationFinished(string animName)
+    // {
+    //     if (animName != "digOut") return;
+    //     // AnimationController.PlayAnimation("idle");
+    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+    //     // AnimationController.PlayAnimation("idle");
+    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+    //     // IsMoving = true;
+    // }
+    //
+    // #endregion
     
     #region Idle
     
@@ -483,6 +546,7 @@ public partial class Slime : Enemy
     }
     
     [Export] private float _gravity;
+    [Export] private float _finalGravity;
 
     private void ApplyGravity(bool collisionBool, float delta)
 
@@ -493,6 +557,7 @@ public partial class Slime : Enemy
         {
             var velocity = Velocity;
             velocity.Y += _gravity * delta;
+            velocity.Y = Mathf.Clamp(velocity.Y, 0, _finalGravity);
             Velocity = velocity;
         }
 
@@ -502,14 +567,12 @@ public partial class Slime : Enemy
 
     #region Knock Back
 
-    private void KnockBack()
+    private async Task KnockBack()
     {
         var playerDirection = _playerControllerVariables.PlayerDirection;
         var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
-        var knockBackVel = Mathf.Lerp(Velocity.X,knockBackDirection.X, 0.1f);
-        Velocity = Vector2.Zero;
-        Velocity = new Vector2(knockBackVel,Velocity.Y);
-        GD.Print($"getting knocked back {knockBackVel}");
+        Velocity = new Vector2(knockBackDirection.X,Velocity.Y);
+        GD.Print($"getting knocked back {knockBackDirection}");
         MoveAndSlide();
     }
 
@@ -517,11 +580,21 @@ public partial class Slime : Enemy
 
     #endregion
 
+    private void TurnOnEnemyVisibility()
+    {
+        Visible = true;
+    }
+
+    private void TurnOffEnemyVisibility()
+    {
+        Visible = false;
+    }
+
     private void OnLeftWallAreaCollisionEnter(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the left, move direction = right");
+        GD.Print("has wall on the left enter, move direction = right");
         _hasWallOnLeft = true;
     }
     
@@ -529,7 +602,7 @@ public partial class Slime : Enemy
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the left, move direction = right");
+        GD.Print("has wall on the left exit, move direction = right");
         _hasWallOnLeft = false;
     }
 
@@ -537,7 +610,7 @@ public partial class Slime : Enemy
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the right, move direction = left");
+        GD.Print("has wall on the right enter, move direction = left");
         _hasWallOnRight = true;
     }
     
@@ -545,7 +618,7 @@ public partial class Slime : Enemy
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the right, move direction = left");
+        GD.Print("has wall on the right exit, move direction = left");
         _hasWallOnRight = false;
     }
 

@@ -75,6 +75,7 @@ public partial class Guest : GuestAi
         base._Ready();
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
+        MuseumActions.OnClickGuestAi += OnClickGuestAi;
         GetRandomInterval();
         
         // _listOfMuseumTile = ServiceRegistry.Resolve<List<MuseumTile>>();
@@ -86,6 +87,15 @@ public partial class Guest : GuestAi
         LoadRandomCharacterSprite();
         _animationPlayerInstance.Play("idle_front_facing");
     }
+
+    private void OnClickGuestAi(GuestAi obj)
+    {
+        if (obj == this)
+        {
+            GD.Print($"Clicked Guest target {_targetTileCoordinate}, need {currentNeed}");
+        }
+    }
+
     public void Initialize(GuestBuildingParameter guestBuildingParameter, List<Vector2I> sceneExitPoints)
     {
         availableMoney = guestBuildingParameter.GuestMoneyRange.GetRandom();
@@ -306,7 +316,7 @@ public partial class Guest : GuestAi
             var exhibit = _museumTileContainer.Exhibits[_currentExhibitIndex];
             _currentViewingObjectOrigin = new Vector2I(exhibit.XPosition, exhibit.YPosition);
             TileHelpers.TargetWthOrigin coordinate = _museumTileContainer.MuseumTiles.GetRandomEmptyTileClosestToExhibit(exhibit);
-            //GD.Print($"Found closest coordinate {coordinate}");
+            GD.Print($"Found Exhibit viewing coordinate {coordinate.target} origin {coordinate.origin}");
             _currentViewingObjectOrigin = coordinate.origin;
             _currentExhibitIndex++;
             return coordinate.target;
@@ -318,6 +328,10 @@ public partial class Guest : GuestAi
     }
     private async void MoveToNextPathNode()
     {
+        if (_path == null)
+        {
+            return;
+        }
         if (_currentPathIndex < _path.Count )
         {
             _currentTargetNode = _path[_currentPathIndex];
@@ -336,7 +350,7 @@ public partial class Guest : GuestAi
                 if (GameManager.isMuseumGateOpen)
                 {
                     _insideMuseum = true;
-                    MuseumActions.OnGuestEnterMuseum?.Invoke();
+                    MuseumActions.OnGuestEnterMuseum?.Invoke(this);
                     _canMove = true;
                     SetPath();
                 }
@@ -359,7 +373,7 @@ public partial class Guest : GuestAi
             if (_exitingMuseum)
             {
                 // _canMove = false;
-                MuseumActions.OnGuestExitMuseum?.Invoke();
+                MuseumActions.OnGuestExitMuseum?.Invoke(this);
                 // QueueFree();
                 _insideMuseum = false;
                 _wantsToEnterMuseum = false;
@@ -607,5 +621,7 @@ public partial class Guest : GuestAi
     {
         base._ExitTree();
         MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
+        MuseumActions.OnClickGuestAi -= OnClickGuestAi;
+
     }
 }

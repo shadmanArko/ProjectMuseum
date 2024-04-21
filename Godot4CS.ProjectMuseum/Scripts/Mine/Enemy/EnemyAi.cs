@@ -18,8 +18,8 @@ public class EnemyAi
 
     #region Dig In and Dig Out Range
 
-    private const int InitialPosRange = -5;
-    private const int FinalPosRange = 5;
+    private const int InitialPosRange = -2;
+    private const int FinalPosRange = 2;
 
     #endregion
     
@@ -65,7 +65,7 @@ public class EnemyAi
         }
 
         GD.Print($"loiter cell count: {cellsToLoiter.Count}");
-        if (cellsToLoiter.Count <= 0) return null;
+        if (cellsToLoiter.Count <= 1) return null;
 
         var rightMostPos = new Vector2(100000,10000);
         var leftMostPos = new Vector2(0,0);
@@ -92,9 +92,9 @@ public class EnemyAi
         
         var playerPosInMap = mineGenerationVariables.MineGenView.LocalToMap(playerControllerVariables.Position);
         var cellsToSpawn = new List<Cell>();
-        for (var i = playerPosInMap.X + InitialPosRange; i <= playerPosInMap.X+FinalPosRange; i++)
+        for (var i = currentMapPos.X + InitialPosRange; i <= currentMapPos.X+FinalPosRange; i++)
         {
-            for (var j = playerPosInMap.Y+InitialPosRange; j <= playerPosInMap.Y+FinalPosRange; j++)
+            for (var j = currentMapPos.Y+InitialPosRange; j <= currentMapPos.Y+FinalPosRange; j++)
             {
                 var cell = mineGenerationVariables.GetCell(new Vector2I(i, j));
                 if (cell == null)
@@ -102,7 +102,7 @@ public class EnemyAi
                 
                 if (cell.IsInstantiated && cell.IsBreakable && cell.IsBroken && cell.IsRevealed && !cell.HasCellPlaceable)
                 {
-                    if(cell.PositionX == playerPosInMap.X && cell.PositionY == playerPosInMap.Y) continue;
+                    if(cell.PositionX == currentMapPos.X && cell.PositionY == currentMapPos.Y) continue;
                     var bottomCell = mineGenerationVariables.GetCell(new Vector2I(i, j+1));
                     if (bottomCell == null) continue;
                     
@@ -112,6 +112,7 @@ public class EnemyAi
                         {
                             var cellPos = new Vector2I(cell.PositionX, cell.PositionY);
                             if(cellPos == currentMapPos) continue;
+                            if(cellPos == playerPosInMap) continue;
                             cellsToSpawn.Add(cell);
                         }
                     }
@@ -120,9 +121,23 @@ public class EnemyAi
         }
 
         GD.Print($"Cell count is: {cellsToSpawn.Count}");
+        if (cellsToSpawn.Count <= 0) return Vector2.Zero;
+        var offset = new Vector2(cellSize / 2f, cellSize * (3f/ 4f));
+        // if (isAggro)
+        // {
+        //     var closestValueX = cellsToSpawn[0].PositionX;
+        //     foreach (var cell in cellsToSpawn)
+        //     {
+        //         var cellOffset = cell.PositionX - playerPosInMap.X;
+        //         if (cellOffset < closestValueX)
+        //             closestValueX = cellOffset;
+        //     }
+        //
+        //     return new Vector2(closestValueX, currentMapPos.Y) * mineGenerationVariables.Mine.CellSize + offset;
+        // }
         
         var randomCell = cellsToSpawn[_rand.Next(0, cellsToSpawn.Count)];
-        var offset = new Vector2(cellSize / 2f, cellSize * (3f/ 4f));
+        
         var targetPos =
             new Vector2(randomCell.PositionX, randomCell.PositionY) * mineGenerationVariables.Mine.CellSize + offset;
         return targetPos;
@@ -143,34 +158,54 @@ public class EnemyAi
         if (enemyCell == null || playerCell == null)
             return Vector2.Zero;
 
-        if (enemyCell.PositionY != playerCell.PositionY) return Vector2.Zero;
-        int initialCellPos;
-        int finalCellPos;
+        if (enemyCell.PositionY > playerCell.PositionY) return Vector2.Zero;
+        int initialCellPos = enemyCell.PositionX;
+        int finalCellPos = playerCell.PositionX;
 
         if (playerCell.PositionX > enemyCell.PositionX)
         {
-            initialCellPos = enemyCell.PositionX;
-            finalCellPos = playerCell.PositionX;
+            for (var i = initialCellPos; i <= finalCellPos; i++)
+            {
+                var cell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY));
+                var cellPos = new Vector2(cell.PositionX, cell.PositionY);
+                // if(cell == null) continue;
+                // if(!cell.IsBroken || !cell.IsInstantiated) continue;
+                if(cellPos == currentPos) continue;
+            
+                // var nextCell = mineGenerationVariables.GetCell(new Vector2I(i+1, enemyCell.PositionY));
+                // if(nextCell == null) return Vector2.Zero;
+                // if (!nextCell.IsBroken || !nextCell.IsInstantiated) return Vector2.Zero;
+            }
         }
         else
         {
-            initialCellPos = playerCell.PositionX;
-            finalCellPos = enemyCell.PositionX;
+            for (var i = initialCellPos; i >= finalCellPos; i--)
+            {
+                var cell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY));
+                if(cell == null) continue;
+                // if(!cell.IsBroken || !cell.IsInstantiated) continue;
+                if(cell.PositionX == enemyCell.PositionX && cell.PositionY == enemyCell.PositionY) continue;
+            
+                // var previousCell = mineGenerationVariables.GetCell(new Vector2I(i-1, enemyCell.PositionY));
+                // if(previousCell == null) return Vector2.Zero;
+                // if (!previousCell.IsBroken || !previousCell.IsInstantiated) return Vector2.Zero;
+            }
         }
         
-        for (var i = initialCellPos; i <= finalCellPos; i++)
-        {
-            var cell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY));
-            if(cell == null) continue;
-            if(!cell.IsBroken || !cell.IsInstantiated) continue;
-            if(cell.PositionX == enemyCell.PositionX && cell.PositionY == enemyCell.PositionY) continue;
-            
-            var bottomCell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY+1));
-            if(bottomCell == null) continue;
-            if (bottomCell.IsBroken || !bottomCell.IsInstantiated) return Vector2.Zero;
-        }
-        // GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
-        return new Vector2(playerCell.PositionX, playerCell.PositionY) * mineGenerationVariables.Mine.CellSize;
+        // for (var i = initialCellPos; i <= finalCellPos; i++)
+        // {
+        //     var cell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY));
+        //     if(cell == null) continue;
+        //     if(!cell.IsBroken || !cell.IsInstantiated) continue;
+        //     if(cell.PositionX == enemyCell.PositionX && cell.PositionY == enemyCell.PositionY) continue;
+        //     
+        //     var bottomCell = mineGenerationVariables.GetCell(new Vector2I(i, enemyCell.PositionY+1));
+        //     if(bottomCell == null) continue;
+        //     if (bottomCell.IsBroken || !bottomCell.IsInstantiated) return Vector2.Zero;
+        // }
+        GD.Print($"current valid cell for chase: {playerCell.PositionX}, {playerCell.PositionY}");
+        return playerControllerVariables.Position;
+        // return new Vector2(playerCell.PositionX, playerCell.PositionY) * mineGenerationVariables.Mine.CellSize;
     }
 
     public bool CheckAttackEligibility(Vector2 currentPos)

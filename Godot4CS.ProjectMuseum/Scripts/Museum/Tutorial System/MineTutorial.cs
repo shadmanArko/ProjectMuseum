@@ -56,8 +56,8 @@ public partial class MineTutorial : Node
 		string jsonStr = Encoding.UTF8.GetString(body);
 		PlayerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		
-		if (PlayerInfo.CompletedTutorialScene < 6)
-			AddTutorialArtifactToMine();
+		// if (PlayerInfo.CompletedTutorialScene < 6)
+		// 	AddTutorialArtifactToMine();
 		
 		if(PlayerInfo.CompletedStoryScene == 10)
 			MuseumActions.PlayStoryScene?.Invoke(11);
@@ -65,14 +65,14 @@ public partial class MineTutorial : Node
 
 	#endregion
 
-	#region Add Tutorial Artifact To Mine
-
-	private void AddTutorialArtifactToMine()
-	{
-		_addTutorialArtifactToMine.Request(ApiAddress.MineApiPath + "AddTutorialArtifactToMine");
-	}
-
-	#endregion
+	// #region Add Tutorial Artifact To Mine
+	//
+	// private void AddTutorialArtifactToMine()
+	// {
+	// 	_addTutorialArtifactToMine.Request(ApiAddress.MineApiPath + "AddTutorialArtifactToMine");
+	// }
+	//
+	// #endregion
 
 	private void SubscribeToActions()
 	{

@@ -215,7 +215,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
-            GD.Print($"Revealed cells count: {cells.Count}");
+            // GD.Print($"Revealed cells count: {cells.Count}");
 
             var caveCells = CaveControlManager.RevealCave(_mineGenerationVariables, cells);
             

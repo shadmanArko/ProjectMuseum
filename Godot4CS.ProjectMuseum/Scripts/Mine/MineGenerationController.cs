@@ -192,7 +192,7 @@ public partial class MineGenerationController : Node2D
 
 	private void AssignArtifactsToMine()
 	{
-		var url = ApiAddress.MineApiPath+"AssignArtifactsToMine";
+		var url = ApiAddress.MineApiPath + "GenerateProceduralMine";//"AssignArtifactsToMine";
 		_assignArtifactsToMineHttpRequest.Request(url);
 	}
 	
@@ -200,8 +200,8 @@ public partial class MineGenerationController : Node2D
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-        
-		AssignResourcesToMine();
+		GenerateGridFromMineData(mine);
+		// AssignResourcesToMine();
 	}
 
 	#endregion
@@ -218,7 +218,7 @@ public partial class MineGenerationController : Node2D
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		GenerateGridFromMineData(mine);
+		
 		
 	}
 
@@ -228,7 +228,8 @@ public partial class MineGenerationController : Node2D
 
 	private void GenerateMineData()
 	{
-		var url = ApiAddress.MineApiPath+"GenerateMine";
+		var url = ApiAddress.MineApiPath+"GenerateProceduralMine";
+		GD.Print("generating procedural mine");
 		_generateMineHttpRequest.Request(url);
 	}
 	

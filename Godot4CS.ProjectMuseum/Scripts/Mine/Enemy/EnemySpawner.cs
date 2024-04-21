@@ -85,7 +85,7 @@ public partial class EnemySpawner : Node2D
     private void SpawnEnemy()
     {
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
-        GD.Print($"Slime Scene is null {scene is null}");
+        // GD.Print($"Slime Scene is null {scene is null}");
         _parentNode.AddChild(scene);
         var enemy = scene as Enemy;
         if (enemy == null)
@@ -159,7 +159,7 @@ public partial class EnemySpawner : Node2D
             _enemies.Add(_newEnemy);
         _newEnemy.IsAffectedByGravity = true;
         _newEnemy.OnSpawn?.Invoke();
-        _newEnemy.Phase = EnemyPhase.Teleport;
+        _newEnemy.Phase = EnemyPhase.Explore;
         _newEnemy = null;
     }
 

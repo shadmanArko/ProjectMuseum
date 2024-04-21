@@ -46,6 +46,12 @@ public partial class MineActions : Node
 
 	#endregion
 
+	#region Take Damage
+
+	public static Action<int> OnTakeDamageStarted;
+
+	#endregion
+
     #region Roll Actions
 
     public static Action OnRollStarted;

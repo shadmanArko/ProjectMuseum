@@ -37,14 +37,14 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     {
         _collisionShape2D.Disabled = true;
         _attackDetectorArea2D.Monitoring = false;
-        GD.Print("Stopped detecting collision");
+        // GD.Print("Stopped detecting collision");
     }
 
     private void TurnOnAttackCollider()
     {
         _collisionShape2D.Disabled = false;
         _attackDetectorArea2D.Monitoring = true;
-        GD.Print("Started detecting collision");
+        // GD.Print("Started detecting collision");
     }
 
     private void OnBodyEnter(Node2D body)

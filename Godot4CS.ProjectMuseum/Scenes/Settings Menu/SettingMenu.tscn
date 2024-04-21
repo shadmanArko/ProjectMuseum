@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://rp4letc3x850"]
+[gd_scene load_steps=4 format=3 uid="uid://rp4letc3x850"]
 
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/SettingMenu.cs" id="1_3llg0"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="1_q5rr7"]
+[ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="2_6jhkg"]
 
 [node name="SettingMenu" type="Node" node_paths=PackedStringArray("_settingsMenuCanvasItem", "_exitButton")]
 script = ExtResource("1_3llg0")
@@ -103,9 +104,13 @@ popup/item_0/id = 0
 popup/item_1/text = "Bangla"
 popup/item_1/id = 1
 
-[node name="Audio" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer"]
+[node name="Audio" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer" node_paths=PackedStringArray("_masterVolumeSlider", "_sfxVolumeSlider", "_musicVolumeSlider")]
 visible = false
 layout_mode = 2
+script = ExtResource("2_6jhkg")
+_masterVolumeSlider = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Master Volume/HSlider")
+_sfxVolumeSlider = NodePath("MarginContainer/ScrollContainer/VBoxContainer/SFX Volume/HSlider")
+_musicVolumeSlider = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Music Volume/HSlider")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio"]
 layout_mode = 1
@@ -138,6 +143,8 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
 
 [node name="SFX Volume" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Audio/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2

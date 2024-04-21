@@ -59,6 +59,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         await GenerateSpecialBackdrops();
         await GenerateArtifacts();
         await GenerateResources();
+        // await GenerateUnbreakableRocks();
         var mine = await _mineRepository.Get();
         return mine;
     }
@@ -320,23 +321,10 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             artifact.PositionY = cell.PositionY;
             cells.Remove(cell);
         }
-
-        var tutorialCell = cells.FirstOrDefault(tempCell => tempCell is { PositionX: 24, PositionY: 2 });
-        if (tutorialCell is { HasArtifact: false })
-        {
-            var tutorialArtifact = new Artifact
-            {
-                Id = "tutorialArtifact",
-                RawArtifactId = "ClassicalNativeAmericanTomahawk",
-                PositionX = 24,
-                PositionY = 2,
-                Slot = 0
-            };
-                
-            listOfArtifacts.Add(tutorialArtifact);
-        }
         
         var artifacts = await _mineArtifactService.GenerateNewArtifacts(listOfArtifacts);
+        foreach (var artifact in artifacts)
+            Console.WriteLine($"id: {artifact.RawArtifactId}, X: {artifact.PositionX}, Y: {artifact.PositionY}");
         
         await _mineService.AssignArtifactsToMine();
     }

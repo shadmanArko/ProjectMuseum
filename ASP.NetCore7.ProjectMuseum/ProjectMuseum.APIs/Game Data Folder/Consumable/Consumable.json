@@ -8,7 +8,7 @@
       {
         "StatName": "Health",
         "AdditiveMod": "FlatAdditive",
-        "EffectDuration": 0,
+        "EffectDuration": 20,
         "EffectAmount": 30
       }
     ],

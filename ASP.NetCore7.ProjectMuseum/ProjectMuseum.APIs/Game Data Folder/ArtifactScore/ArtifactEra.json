@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "Era": "Ancient",
+    "ScoreMultiplier": 1.05
+  },
+  {
+    "Era": "Classical",
+    "ScoreMultiplier": 1.02
+  },
+  {
+    "Era": "Medieval",
+    "ScoreMultiplier": 1.02
+  },
+  {
+    "Era": "Renaissance",
+    "ScoreMultiplier": 1.02
+  },
+  {
+    "Era": "Modern",
+    "ScoreMultiplier": 1.0
+  }
+]

@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "Condition": "Decrepit",
+    "ScoreMultiplier": 0.7
+  },
+  {
+    "Condition": "Intact",
+    "ScoreMultiplier": 1.0
+  },
+  {
+    "Condition": "Pristine",
+    "ScoreMultiplier": 1.3
+  }
+]

@@ -14,4 +14,10 @@ public class ArtifactConditionRepository : IArtifactConditionRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<List<ArtifactCondition>> GetAllArtifactConditions()
+    {
+        var artifactConditions = await _artifactConditionDataBase.ReadDataAsync();
+        return artifactConditions!;
+    }
 }

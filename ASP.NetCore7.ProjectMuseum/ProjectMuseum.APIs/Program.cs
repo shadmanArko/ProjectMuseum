@@ -59,6 +59,8 @@ using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService.ArtifactConditionService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService.ArtifactRarityService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
@@ -247,6 +249,8 @@ builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService
 builder.Services.AddScoped<IGuestBuilderParameterService, GuestBuilderParameterService>();
 builder.Services.AddScoped<IConsumableService, ConsumableService>();
 builder.Services.AddScoped<IArtifactScoringService, ArtifactScoringService>();
+builder.Services.AddScoped<IArtifactConditionService, ArtifactConditionService>();
+builder.Services.AddScoped<IArtifactRarityService, ArtifactRarityService>();
 
 
 

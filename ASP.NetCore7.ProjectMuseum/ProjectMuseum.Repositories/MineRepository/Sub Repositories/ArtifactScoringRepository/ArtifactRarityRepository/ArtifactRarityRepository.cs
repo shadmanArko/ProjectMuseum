@@ -15,4 +15,10 @@ public class ArtifactRarityRepository : IArtifactRarityRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<List<ArtifactRarity>> GetAllArtifactRarity()
+    {
+        var artifactRarities = await _artifactRarityDatabase.ReadDataAsync();
+        return artifactRarities!;
+    }
 }

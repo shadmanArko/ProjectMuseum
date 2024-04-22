@@ -11,6 +11,8 @@ using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SiteArtifactChanceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService.ArtifactConditionService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService.ArtifactRarityService;
 
 namespace ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
 
@@ -25,6 +27,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
     private readonly IMineArtifactService _mineArtifactService;
     private readonly ISiteArtifactChanceService _siteArtifactChanceService;
     private readonly IResourceService _resourceService;
+    private readonly IArtifactConditionService _artifactConditionService;
+    private readonly IArtifactRarityService _artifactRarityService;
 
 
     private readonly ISpecialBackdropService _specialBackdropService;
@@ -36,7 +40,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         IMineRepository mineRepository, ISpecialBackdropService specialBackdropService,
         JsonFileDatabase<SpecialBackdropPngInformation> specialBackdropPngInformationDatabase, IMineService mineService,
         IRawArtifactFunctionalService rawArtifactFunctionalService, IMineArtifactService mineArtifactService,
-        ISiteArtifactChanceService siteArtifactChanceService, IResourceService resourceService)
+        ISiteArtifactChanceService siteArtifactChanceService, IResourceService resourceService, IArtifactRarityService artifactRarityService, IArtifactConditionService artifactConditionService)
     {
         _proceduralMineGenerationRepository = proceduralMineGenerationRepository;
         _mineOrdinaryCellGeneratorService = mineOrdinaryCellGeneratorService;
@@ -49,6 +53,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         _mineArtifactService = mineArtifactService;
         _siteArtifactChanceService = siteArtifactChanceService;
         _resourceService = resourceService;
+        _artifactRarityService = artifactRarityService;
+        _artifactConditionService = artifactConditionService;
     }
 
     public async Task<Mine> GenerateProceduralMine()
@@ -287,17 +293,47 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         Console.WriteLine($"raw artifact functional: {rawArtifactFunctionals!.Count}");
         Console.WriteLine($"list of raw artifacts: {listOfRawArtifacts.Count}");
 
+        #region Adding duplicate artifacts in the list of artifacts
+
+        if (listOfRawArtifacts.Count < mineGenData.TotalNoOfArtifacts)
+        {
+            var duplicateArtifacts = new List<RawArtifactFunctional>();
+            var duplicateCounter = mineGenData.TotalNoOfArtifacts - listOfRawArtifacts.Count;
+            
+            for (var i = 0; i < duplicateCounter; i++)
+            {
+                var rawArtifact = listOfRawArtifacts[rand.Next(0, listOfRawArtifacts.Count)];
+                duplicateArtifacts.Add(rawArtifact);
+            }
+            
+            listOfRawArtifacts.AddRange(duplicateArtifacts);
+        }
+
+        #endregion
+
+        #region Adding Condition and Rarity to the generated artifacts
+
+        var listOfArtifactRarityConditions = await GetConditionRarityCombination(mineGenData.TotalNoOfArtifacts);
+        var rarityConditionCounter = 0;
         var listOfArtifacts = new List<Artifact>();
+        
         foreach (var artifactFunctional in listOfRawArtifacts)
         {
+            var rarityCondition = listOfArtifactRarityConditions[rarityConditionCounter];
             var artifact = new Artifact
             {
                 Id = Guid.NewGuid().ToString(),
-                RawArtifactId = artifactFunctional.Id
+                RawArtifactId = artifactFunctional.Id,
+                Condition = rarityCondition.Item1.Condition,
+                Rarity = rarityCondition.Item2.Rarity
             };
-            
+
+            rarityConditionCounter++;
             listOfArtifacts.Add(artifact);
+            Console.WriteLine($"{rarityCondition.Item1.Condition}, {rarityCondition.Item2.Rarity}");
         }
+
+        #endregion
         
         var mine = await _mineService.GetMineData();
         var cells = mine.Cells;
@@ -330,6 +366,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
                 RawArtifactId = "ClassicalNativeAmericanTomahawk",
                 PositionX = 24,
                 PositionY = 2,
+                Condition = "Decrepit",
+                Rarity = "Common",
                 Slot = 0
             };
                 
@@ -339,6 +377,47 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var artifacts = await _mineArtifactService.GenerateNewArtifacts(listOfArtifacts);
         
         await _mineService.AssignArtifactsToMine();
+    }
+
+    private async Task<List<Tuple<ArtifactCondition, ArtifactRarity>>> GetConditionRarityCombination(int artifactCount)
+    {
+        var artifactConditions = await _artifactConditionService.GetAllArtifactConditions();
+        var artifactRarities = await _artifactRarityService.GetAllArtifactRarity();
+        var conditionsRarityList = new List<Tuple<ArtifactCondition, ArtifactRarity>>();
+        
+        Console.WriteLine($"artifact conditions count {artifactConditions.Count}");
+
+        foreach (var condition in artifactConditions)
+        {
+            Console.WriteLine($"conditions is {condition.Condition}");
+        }
+
+        var rand = new Random();
+
+        for (var i = 0; i < artifactCount; i++)
+        {
+            var conditionValue = rand.Next(0, 101);
+            var rarityValue = rand.Next(0, 101);
+
+            var condition = conditionValue switch
+            {
+                <=75 => artifactConditions[0],
+                > 75 and <= 98 => artifactConditions[1],
+                > 98 => artifactConditions[2]
+            };
+
+            var rarity = rarityValue switch
+            {
+                <= 80 => artifactRarities[0],
+                > 80 and <= 99 => artifactRarities[1],
+                > 99 => artifactRarities[2]
+            };
+            
+            var tuple = new Tuple<ArtifactCondition, ArtifactRarity>(condition, rarity);
+            conditionsRarityList.Add(tuple);
+        }
+
+        return conditionsRarityList;
     }
 
     #endregion

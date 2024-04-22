@@ -29,4 +29,5 @@ public static class Const
     public static string tradingArtifactsDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "tradingArtifacts.json");
     public static string timeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "time.json");
     public static string guestBuilderParameterDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "GuestBuilderParameter.json");
+    public static string artifactScoreDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "ArtifactScore.json");
 }

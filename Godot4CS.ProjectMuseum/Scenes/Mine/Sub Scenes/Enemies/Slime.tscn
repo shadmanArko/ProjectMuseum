@@ -1,7 +1,7 @@
-[gd_scene load_steps=41 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=43 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
-[ext_resource type="Texture2D" uid="uid://c2111fhk3ptuy" path="res://Assets/2D/Animations/Enemy Animations/Slime_Animations_All(1).png" id="1_whxi4"]
+[ext_resource type="Texture2D" uid="uid://bvd8a2wh8srgq" path="res://Assets/2D/Animations/Enemy Animations/slime_Side_Animation_new.png" id="2_du8f3"]
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/EnemyAnimationController.cs" id="3_5dxjc"]
 [ext_resource type="Texture2D" uid="uid://bsn0ka4exkaib" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarUnder.png" id="4_xjuh4"]
 [ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="5_5ggxd"]
@@ -28,7 +28,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ehi5g"]
 resource_name = "aggro"
-loop_mode = 2
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -36,79 +36,14 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [9, 10, 11, 12, 13, 14, 14]
+"values": [10, 11, 12, 13, 14, 13, 12, 11, 10]
 }
 
 [sub_resource type="Animation" id="Animation_vl2k3"]
 resource_name = "attack"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [63, 64, 65, 66, 67, 68]
-}
-
-[sub_resource type="Animation" id="Animation_d7o64"]
-resource_name = "damage"
-length = 0.45
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [18, 19, 20, 21, 22, 23, 24, 25, 26]
-}
-
-[sub_resource type="Animation" id="Animation_w38ma"]
-resource_name = "death"
-length = 0.55
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [45, 46, 47, 48, 49, 50]
-}
-
-[sub_resource type="Animation" id="Animation_pxlqq"]
-resource_name = "digIn"
-length = 0.9
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [72, 73, 74, 75, 76, 77, 78, 81, 80]
-}
-
-[sub_resource type="Animation" id="Animation_54vwa"]
-resource_name = "digOut"
 length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -120,12 +55,76 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [80, 81, 82, 83, 84, 72]
+"values": [70, 71, 72, 73, 74, 75]
+}
+
+[sub_resource type="Animation" id="Animation_d7o64"]
+resource_name = "damage"
+length = 0.7
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 24, 25, 20]
+}
+
+[sub_resource type="Animation" id="Animation_w38ma"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [50, 51, 52, 53, 54, 55]
+}
+
+[sub_resource type="Animation" id="Animation_pxlqq"]
+resource_name = "digIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
+}
+
+[sub_resource type="Animation" id="Animation_54vwa"]
+resource_name = "digOut"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [90, 91, 92, 93, 94, 95, 96]
 }
 
 [sub_resource type="Animation" id="Animation_5bb7q"]
 resource_name = "fall"
-length = 0.15
+length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -137,13 +136,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [36, 37]
+"values": [40, 41]
 }
 
 [sub_resource type="Animation" id="Animation_jgk0f"]
 resource_name = "idle"
 length = 1.1
-step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -154,7 +152,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [54, 55, 56, 57, 58, 59]
+"values": [60, 61, 62, 63, 64, 65]
 }
 
 [sub_resource type="Animation" id="Animation_xfipt"]
@@ -170,7 +168,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [27, 28, 29]
+"values": [30, 31, 32]
 }
 
 [sub_resource type="Animation" id="Animation_h4tdc"]
@@ -300,6 +298,10 @@ radius = 60.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rtna"]
 size = Vector2(8, 3)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86xpv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jllxq"]
+
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("NavAgent", "AnimTree", "HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
@@ -307,9 +309,11 @@ z_index = 10
 collision_layer = 4
 script = ExtResource("1_pkl74")
 _moveVelocity = 20.0
-_gravity = 20.0
+_gravity = 5.0
+_finalGravity = 5.0
 NavAgent = NodePath("NavigationAgent2D")
 AnimTree = NodePath("AnimationTree")
+KnockBackPower = 1000.0
 HealthBar = NodePath("Health Bar")
 AnimationController = NodePath("AnimationPlayer")
 
@@ -321,8 +325,8 @@ debug_color = Color(1, 1, 0.101961, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_whxi4")
-hframes = 9
+texture = ExtResource("2_du8f3")
+hframes = 10
 vframes = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("Sprite")]
@@ -389,6 +393,20 @@ collision_layer = 4
 position = Vector2(0, -8.5)
 shape = SubResource("RectangleShape2D_0rtna")
 
+[node name="Left Wall Collision Area" type="Area2D" parent="Area2D Nodes"]
+position = Vector2(-5, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D Nodes/Left Wall Collision Area"]
+scale = Vector2(0.2, 0.2)
+shape = SubResource("RectangleShape2D_86xpv")
+
+[node name="Right Wall Collision Area" type="Area2D" parent="Area2D Nodes"]
+position = Vector2(5, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D Nodes/Right Wall Collision Area"]
+scale = Vector2(0.2, 0.2)
+shape = SubResource("RectangleShape2D_jllxq")
+
 [node name="EnemyAttackInitiator" type="Node2D" parent="." node_paths=PackedStringArray("_enemy")]
 script = ExtResource("6_u3wtp")
 _enemy = NodePath("..")
@@ -397,13 +415,19 @@ _enemy = NodePath("..")
 wait_time = 3.0
 autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationComplete"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
 [connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
 [connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]
 [connection signal="body_exited" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerExitChaseRange"]
 [connection signal="body_entered" from="Area2D Nodes/GravityArea" to="." method="OnCellBlockEnter"]
 [connection signal="body_exited" from="Area2D Nodes/GravityArea" to="." method="OnCellBlockExit"]
+[connection signal="body_entered" from="Area2D Nodes/Left Wall Collision Area" to="." method="OnLeftWallAreaCollisionEnter"]
+[connection signal="body_exited" from="Area2D Nodes/Left Wall Collision Area" to="." method="OnLeftWallAreaCollisionExit"]
+[connection signal="body_entered" from="Area2D Nodes/Right Wall Collision Area" to="." method="OnRightWallAreaCollisionEnter"]
+[connection signal="body_exited" from="Area2D Nodes/Right Wall Collision Area" to="." method="OnRightWallAreaCollisionExit"]
 [connection signal="timeout" from="EnemyAttackInitiator/AttackCooldownTimer" to="EnemyAttackInitiator" method="OnEnemyAttackCooldownTimeOut"]

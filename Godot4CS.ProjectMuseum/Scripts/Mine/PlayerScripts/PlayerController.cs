@@ -45,6 +45,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	{
 		MineActions.OnSuccessfulDigActionCompleted += ReducePlayerEnergy;
 		MineActions.OnPlayerHealthValueChanged += Death;
+		MineActions.OnTakeDamageStarted += TakeDamage;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -58,8 +59,9 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	        CheckFallTime(delta);
 	        DetectCollision();
         }
-        
-        animationController.SetAnimation(PlayerAttack());
+
+        PlayerAttack();
+        animationController.SetAnimation();
         ModifyPlayerVariables();
 	}
     
@@ -225,14 +227,14 @@ public partial class PlayerController : CharacterBody2D, IDeath
 
 	#endregion
 
-	public void TakeDamage()
+	private void TakeDamage(int damageValue)
 	{
 		if(_playerControllerVariables.IsDead) return;
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
 		animationController.Play("damage1");
-		HealthSystem.ReducePlayerHealth(10,200, _playerControllerVariables);
+		HealthSystem.ReducePlayerHealth(damageValue, _playerControllerVariables);
 	}
 
 	public void Attack()

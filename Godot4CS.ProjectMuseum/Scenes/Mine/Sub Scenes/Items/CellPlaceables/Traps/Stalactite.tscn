@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0v4vn5txh23p"]
+
+[ext_resource type="Texture2D" uid="uid://dve4eewrak4r8" path="res://Assets/2D/Sprites/Mine Sprites/Stalagmites/Stalactite.png" id="1_0acq5"]
+[ext_resource type="Script" path="res://Scripts/Mine/WallPlaceables/Stalactite.cs" id="1_c6scm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xaqwf"]
+size = Vector2(20, 7)
+
+[sub_resource type="Animation" id="Animation_cwjrl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_utx6u"]
+resource_name = "stalactite_collapse"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_pofqc"]
+resource_name = "stalactite_fall"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x00eb"]
+_data = {
+"RESET": SubResource("Animation_cwjrl"),
+"stalactite_collapse": SubResource("Animation_utx6u"),
+"stalactite_fall": SubResource("Animation_pofqc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihvj8"]
+size = Vector2(20, 11.5)
+
+[node name="Stalactite" type="RigidBody2D" node_paths=PackedStringArray("_animationPlayer")]
+collision_layer = 5
+collision_mask = 3
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_c6scm")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_xaqwf")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, 0.5)
+scale = Vector2(1, 0.95)
+texture = ExtResource("1_0acq5")
+hframes = 5
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x00eb")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.64446e-06, 3.75)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_ihvj8")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnCollapseAnimationComplete"]
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

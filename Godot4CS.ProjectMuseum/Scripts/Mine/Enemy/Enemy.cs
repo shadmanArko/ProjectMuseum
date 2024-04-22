@@ -33,7 +33,6 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     public EnemyState State { get; set; }
     public bool IsAffectedByGravity { get; set; }
     
-    protected AnimationNodeStateMachinePlayback StateMachine;
     protected Vector2 MoveDirection;
     
     [Export] public bool IsGoingToStartingPosition;
@@ -41,7 +40,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     
     [Export] public float MoveSpeed = 20;
     [Export] public float AggroRange = 140f;
-    [Export] public float KnockBackPower = 500f;
+    [Export] public float KnockBackPower = 100f;
     
     [Export] public TextureProgressBar HealthBar;
     [Export] public EnemyAnimationController AnimationController;
@@ -96,7 +95,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
         {
             if (_isAggro == value) return;
             _isAggro = value;
-            OnAggroChanged?.Invoke();
+            if(_isAggro) OnAggroChanged?.Invoke();
         }
     }
 
@@ -155,7 +154,17 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     }
 
     #endregion
+    
+    #region Is Moving
 
+    [Export] private bool _isMoving;
+    public bool IsMoving {
+        get=> _isMoving;
+        set => _isMoving = value;
+    }
+
+    #endregion
+    
     #region Health
 
     private int _health;

@@ -4,6 +4,7 @@ using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
+using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 using Godot4CS.ProjectMuseum.Scripts.Mine.UI.DamageSystem;
@@ -28,6 +29,7 @@ public partial class ReferenceStorage : Node
     [Export] public SceneLoader SceneLoader;
     [Export] public DamageSystem DamageSystem;
     [Export] public LoadingBarManager LoadingBarManager;
+    [Export] public ParticleEffectSystem ParticleEffectSystem;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;
@@ -36,7 +38,7 @@ public partial class ReferenceStorage : Node
     [Export] public MinePopUp MinePopUp;
     [Export] public MineUiController MineUiController;
     
-    //Particle Effects//
+    //Particle Effects Scene Path//
     [Export] public string DepletedParticleExplosion;
 
     [Export] public MineSceneTooltip Tooltip;

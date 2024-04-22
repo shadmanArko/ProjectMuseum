@@ -1,0 +1,22 @@
+[
+  {
+    "TagMatchedTheme": 0,
+    "ScoreMultiplier": 0.8
+  },
+  {
+    "TagMatchedTheme": 1,
+    "ScoreMultiplier": 1.0
+  },
+  {
+    "TagMatchedTheme": 2,
+    "ScoreMultiplier": 1.05
+  },
+  {
+    "TagMatchedTheme": 3,
+    "ScoreMultiplier": 1.15
+  },
+  {
+    "TagMatchedTheme": 4,
+    "ScoreMultiplier": 1.3
+  }
+]

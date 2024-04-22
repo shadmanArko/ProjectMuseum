@@ -12,6 +12,7 @@ public class MuseumTile
     public bool IsInZone { get; set; }
     public string WallId { get; set; }
     public bool Walkable { get; set; }
+    public bool HasExhibit { get; set; }
     public string ExhibitId { get; set; }
     public string ShopId { get; set; }
     public string SanitationId { get; set; }

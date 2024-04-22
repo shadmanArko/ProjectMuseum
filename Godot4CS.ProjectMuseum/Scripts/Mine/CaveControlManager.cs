@@ -59,7 +59,7 @@ public class CaveControlManager
                     var cellPos = new Vector2(stalagmiteCell!.PositionX, stalagmiteCell.PositionY) * cellSize;
                     var offset = new Vector2(cellSize / 2f, cellSize / 2f);
                     var scene = SceneInstantiator.InstantiateScene(
-                        "res://Scenes/Mine/Sub Scenes/Props/Stalagmite.tscn",
+                        "res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Traps/Stalagmite.tscn",
                         mineGenerationVariables.MineGenView, cellPos + offset);
                     GD.Print($"Stalagmite instantiated {stalagmiteCell.PositionX},{stalagmiteCell.PositionY}");
                 }
@@ -74,7 +74,7 @@ public class CaveControlManager
                     var cellPos = new Vector2(stalactiteCell!.PositionX, stalactiteCell.PositionY) * cellSize;
                     var offset = new Vector2(cellSize / 2f, cellSize / 2f);
                     var scene = SceneInstantiator.InstantiateScene(
-                        "res://Scenes/Mine/Sub Scenes/Props/Stalactite.tscn",
+                        "res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Traps/Stalactite.tscn",
                         mineGenerationVariables.MineGenView, cellPos + offset);
                     GD.Print($"Stalactite instantiated {stalactiteCell.PositionX},{stalactiteCell.PositionY}");
                 }

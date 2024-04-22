@@ -1,17 +1,21 @@
 using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.WallPlaceables;
 
-public partial class Stalagmite : Node2D
+public partial class Stalagmite : Node2D, IDamagable
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private AnimationPlayer _animationPlayer;
+
+	private int _hitPoint;
+	private bool _isBroken;
 
 	#region Initializers
 
@@ -19,6 +23,8 @@ public partial class Stalagmite : Node2D
 	{
 		InitializeDiReferences();
 		SubscribeToActions();
+		_hitPoint = 1;
+		_isBroken = false;
 	}
 	
 	private void InitializeDiReferences()
@@ -62,7 +68,7 @@ public partial class Stalagmite : Node2D
 		var player = body as PlayerController;
 		if(player == null) return;
 		if(_playerControllerVariables.IsDead) return;
-		HealthSystem.ReducePlayerHealth(10, 100, _playerControllerVariables);
+		HealthSystem.ReducePlayerHealth(10, _playerControllerVariables);
 	}
 
 	private void UnsubscribeToActions()
@@ -73,5 +79,21 @@ public partial class Stalagmite : Node2D
 	{
 		UnsubscribeToActions();
 		GD.Print("Stalagmite destroyed");
+	}
+
+	public void TakeDamage()
+	{
+		if(_isBroken) return;
+		if (_hitPoint <= 0)
+		{
+			_isBroken = true;
+			PlayAnimation("stalagmite_broken");
+			GD.Print($"Stalagmite broken. hit point: {_hitPoint}");
+		}
+		else
+		{
+			_hitPoint--;
+			GD.Print($"Stalagmite damaged. hit point: {_hitPoint}");
+		}
 	}
 }

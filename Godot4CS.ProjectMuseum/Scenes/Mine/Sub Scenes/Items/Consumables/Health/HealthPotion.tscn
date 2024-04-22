@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://yd4cn06g5tyi"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/Objects/Types/Consumable/HealthPotion.cs" id="1_rgdi4"]
+
+[node name="HealthPotion" type="Node2D"]
+script = ExtResource("1_rgdi4")

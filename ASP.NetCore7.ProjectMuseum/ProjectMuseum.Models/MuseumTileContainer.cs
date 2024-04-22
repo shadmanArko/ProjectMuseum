@@ -33,4 +33,4 @@ public class MuseumTileContainer
             AStarNodes[museumTile.XPosition *-1, museumTile.YPosition * -1] = aStarNode;
         }
     }
-}
+} 

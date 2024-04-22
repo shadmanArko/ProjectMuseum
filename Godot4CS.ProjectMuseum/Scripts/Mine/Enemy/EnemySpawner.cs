@@ -21,6 +21,7 @@ public partial class EnemySpawner : Node2D
     [Export] private Vector2 _p2;
     
     [Export] private double _time;
+    [Export] private bool _canSpawn;
     
     private Vector2 _newPos = new(560,-60);
 
@@ -42,6 +43,7 @@ public partial class EnemySpawner : Node2D
         SetProcess(false);
         SetPhysicsProcess(false);
         _counter = 0;
+        _canSpawn = true;
     }
 
     private void InitializeDiInstallers()
@@ -83,7 +85,7 @@ public partial class EnemySpawner : Node2D
     private void SpawnEnemy()
     {
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
-        GD.Print($"Slime Scene is null {scene is null}");
+        // GD.Print($"Slime Scene is null {scene is null}");
         _parentNode.AddChild(scene);
         var enemy = scene as Enemy;
         if (enemy == null)
@@ -95,8 +97,9 @@ public partial class EnemySpawner : Node2D
         GD.Print("Spawning Enemy");
         _newEnemy = enemy;
         enemy.Position = new Vector2(730, -58);
-        enemy.SetProcess(false);
-        SetProcess(true);
+        // enemy.SetProcess(false);
+        // SetProcess(true);
+        _canSpawn = false;
     }
 
     private Enemy _newEnemy;
@@ -156,9 +159,21 @@ public partial class EnemySpawner : Node2D
             _enemies.Add(_newEnemy);
         _newEnemy.IsAffectedByGravity = true;
         _newEnemy.OnSpawn?.Invoke();
-        _newEnemy.Phase = EnemyPhase.Teleport;
+        _newEnemy.Phase = EnemyPhase.Explore;
         _newEnemy = null;
     }
 
     #endregion
+    
+    [Export] private bool _isGrounded;
+    private void ApplyGravity()
+    {
+        if (_isGrounded)
+        {
+            _newEnemy.Velocity = new Vector2(_newEnemy.Velocity.X, 0);
+            return;
+        }
+        _newEnemy.Velocity = new Vector2(0, _newEnemy.Velocity.Y + 20);
+        _newEnemy.MoveAndSlide();
+    }
 }

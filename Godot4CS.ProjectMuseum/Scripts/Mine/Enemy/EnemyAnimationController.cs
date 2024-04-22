@@ -13,12 +13,36 @@ public partial class EnemyAnimationController : AnimationPlayer
         if(animName == "death") Play(animName);
         else if(animName == "damage" && CurrentAnimation != "death") 
             Play(animName);
-        else if (animName == "attack" && CurrentAnimation is not "damage" and "death")
+        else if (animName == "aggro")
+        {
+            if(CurrentAnimation is "damage" or "death") return;
             Play(animName);
-        else if(animName is "move" && CurrentAnimation is not "attack" and not "damage" and not "death")
+        }
+        else if (animName == "attack")
+        {
+            if(CurrentAnimation is "damage" or "death" or "aggro") return;
             Play(animName);
-        else if(animName == "idle")
+        }
+        else if (animName is "digOut")
+        {
+            if(CurrentAnimation is "attack" or "damage" or "death" or "aggro") return;
             Play(animName);
+        }
+        else if (animName is "digIn")
+        {
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digOut" or "aggro") return;
+            Play(animName);
+        }
+        else if (animName == "move")
+        {
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "digOut" or "aggro") return;
+            Play(animName);
+        }
+        else if (animName == "idle")
+        {
+            if(CurrentAnimation is "attack" or "damage" or "death" or "attack"or "digIn" or "digOut" or "move" or "aggro") return;
+            Play(animName);
+        }
         else
             Play(animName);
     }

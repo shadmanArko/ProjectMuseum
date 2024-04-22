@@ -91,11 +91,11 @@ public class InventoryRepository : IInventoryRepository
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
         var newEmptySlot = await GetNextEmptySlot();
-        if (newEmptySlot == -1)
-        {
-            Console.WriteLine("ERROR!! item slot number is NEGATIVE");
-            return artifact;
-        }
+        // if (newEmptySlot == -1)
+        // {
+        //     Console.WriteLine("ERROR!! item slot number is NEGATIVE");
+        //     return artifact;
+        // }
         artifact.Slot = newEmptySlot;
         inventory?.OccupiedSlots.Add(newEmptySlot);
         var artifacts = inventory?.Artifacts;
@@ -108,12 +108,12 @@ public class InventoryRepository : IInventoryRepository
     {
         var inventories = await _inventoryDatabase.ReadDataAsync();
         var inventory = inventories?[0];
-        var item = new InventoryItem();
+        InventoryItem item;
         
         if (inventory!.InventoryItems.Any(item1 => item1.Variant == variant))
         {
-            item = inventory.InventoryItems.FirstOrDefault(item1 => item1.Variant == variant);
-            item!.Stack++;
+            item = inventory.InventoryItems.FirstOrDefault(item1 => item1.Variant == variant)!;
+            item.Stack++;
         }
         else
         {

@@ -7,7 +7,13 @@ using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.DecorationShopRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MineRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactEraRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactRarityRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactScoreRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactThemeMatchingTagCountRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ConsumableRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineGenerationRepository;
@@ -29,6 +35,7 @@ using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
 using ProjectMuseum.Repositories.PlayerRepository.Sub_Repositories.TimeRepository;
 using ProjectMuseum.Repositories.StorySceneRepository;
+
 using ProjectMuseum.Services.BuilderCardService;
 using ProjectMuseum.Services.DecorationOtherService;
 using ProjectMuseum.Services.DecorationOtherServices;
@@ -38,6 +45,7 @@ using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.ConsumableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
@@ -51,6 +59,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
@@ -82,7 +91,11 @@ string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurren
     "ProceduralGenerationData", "ProceduralMineGenerationData.json");
 string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
     "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
-
+string consumableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Consumable", "Consumable.json");
+string artifactConditionDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactCondition.json");
+string artifactEraDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactEra.json");
+string artifactRarityDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactRarity.json");
+string artifactThemeMatchingTagCountDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactThemeMatchingTagCount.json");
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
@@ -115,6 +128,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<Tutorial>(Const.tutorialDataF
 builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(Const.playerInfoDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Museum>(Const.museumDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<GuestBuildingParameter>(Const.guestBuilderParameterDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ArtifactScore>(Const.artifactScoreDataFolderPath));
 
 
 builder.Services.AddSingleton(new JsonFileDatabase<Mine>(Const.mineDataFolderPath));
@@ -137,6 +151,11 @@ builder.Services.AddSingleton(new JsonFileDatabase<Cave>(caveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SpecialBackdropPngInformation>(specialBackdropDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ProceduralMineGenerationData>(proceduralMineGenerationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SiteArtifactChanceData>(siteArtifactChanceFunctionalDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Consumable>(consumableDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ArtifactCondition>(artifactConditionDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ArtifactEra>(artifactEraDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ArtifactRarity>(artifactRarityDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<ArtifactThemeMatchingTagCount>(artifactThemeMatchingTagCountDataFolderPath));
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -194,6 +213,12 @@ builder.Services.AddScoped<IProceduralMineGenerationRepository, ProceduralMineGe
 builder.Services.AddScoped<ISiteArtifactChanceRepository, SiteArtifactChanceRepository>();
 builder.Services.AddScoped<IGuestBuildingParameterRepository, GuestBuildingParameterRepository>();
 builder.Services.AddScoped<ISanitationRepository, SanitationRepository>();
+builder.Services.AddScoped<IConsumableRepository, ConsumableRepository>();
+builder.Services.AddScoped<IArtifactConditionRepository, ArtifactConditionRepository>();
+builder.Services.AddScoped<IArtifactEraRepository, ArtifactEraRepository>();
+builder.Services.AddScoped<IArtifactRarityRepository, ArtifactRarityRepository>();
+builder.Services.AddScoped<IArtifactScoreRepository, ArtifactScoreRepository>();
+builder.Services.AddScoped<IArtifactThemeMatchingTagCountRepo, ArtifactThemeMatchingTagCountRepo>();
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -227,6 +252,8 @@ builder.Services.AddScoped<IProceduralMineGenerationService, ProceduralMineGener
 builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService>();
 builder.Services.AddScoped<IGuestBuilderParameterService, GuestBuilderParameterService>();
 builder.Services.AddScoped<ISanitationService, SanitationService>();
+builder.Services.AddScoped<IConsumableService, ConsumableService>();
+builder.Services.AddScoped<IArtifactScoringService, ArtifactScoringService>();
 
 
 

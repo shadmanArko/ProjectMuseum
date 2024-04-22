@@ -26,7 +26,6 @@ public class ArtifactScoringService : IArtifactScoringService
     private readonly IExhibitService _exhibitService;
     private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
     
-
     public ArtifactScoringService(IArtifactConditionRepository artifactConditionRepository, IArtifactEraRepository artifactEraRepository, IArtifactRarityRepository artifactRarityRepository, IArtifactThemeMatchingTagCountRepo artifactThemeMatchingTagCountRepo, IMuseumZoneService zoneService, IDisplayArtifactService displayArtifactService, IArtifactScoreRepository artifactScoreRepository, IMuseumTileService museumTileService, IExhibitService exhibitService, IRawArtifactFunctionalService rawArtifactFunctionalService, IRawArtifactFunctionalRepository rawArtifactFunctionalRepository)
     {
         _artifactConditionRepository = artifactConditionRepository;
@@ -39,17 +38,15 @@ public class ArtifactScoringService : IArtifactScoringService
         _museumTileService = museumTileService;
         _exhibitService = exhibitService;
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
-        
     }
 
-    public async Task<float> GetArtifactScoreWhichIsNotInZone(Artifact artifact)
+    public async Task<float> GetArtifactScore(Artifact artifact, float zoneThemeMultiplier)
     {
         var conditionValue = await _artifactConditionRepository.GetConditionValueByCondition(artifact.Condition);
         var rarityValue = await _artifactRarityRepository.GetRarityValueByRarity(artifact.Rarity);
         var rawArtifacts = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
         var eraValue = await _artifactEraRepository.GetEraValueByEra(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Era);
-        var themeValue = await _artifactThemeMatchingTagCountRepo.GetArtifactThemeMatchingMultiplierByThemeCount(0);
-        float artifactScore = 5 * conditionValue * themeValue * rarityValue * eraValue;
+        float artifactScore = 5 * conditionValue * zoneThemeMultiplier * rarityValue * eraValue;
         return artifactScore;
     }
 
@@ -168,6 +165,7 @@ public class ArtifactScoringService : IArtifactScoringService
     public async Task RefreshArtifactScore()
     {
         var artifactScores = await _artifactScoreRepository.GetAllArtifactScore();
+        var exhibits = await _exhibitService.GetAllExhibits();
         foreach (var artifactScore in artifactScores)
         {
             artifactScore.IsInZone = false;
@@ -177,17 +175,92 @@ public class ArtifactScoringService : IArtifactScoringService
         foreach (var zone in zones)
         {
             List<string> artifactIdsInZone = new List<string>();
+            List<Artifact> artifactsInZone = new List<Artifact>();
             foreach (var tileId in zone.OccupiedMuseumTileIds)
             {
                 var tile = await _museumTileService.GetMuseumTileById(tileId);
                 if (tile.HasExhibit)
                 {
-                    var exhibits = await _exhibitService.GetAllExhibits();
-                    var exhibit = exhibits.FirstOrDefault(ex => ex.Id == tile.ExhibitId);
                     
-                    //todo get all the artifacts from the exhibits
+                    var exhibit = exhibits.FirstOrDefault(ex => ex.Id == tile.ExhibitId);
+
+                    if (exhibit.ArtifactIds != null && exhibit.ArtifactIds.Count > 0)
+                    {
+                        foreach (var artifactId in exhibit.ArtifactIds)
+                        {
+                            if (!artifactIdsInZone.Contains(artifactId))
+                            {
+                                artifactIdsInZone.Add(artifactId);
+                            }
+                        }
+                        
+                    }
                 }
+            }
+            
+            foreach (var artifactId in artifactIdsInZone)
+            {
+                var artifact = await _displayArtifactService.GetArtifactById(artifactId);
+                if (artifact != null) artifactsInZone.Add(artifact);
+            }
+
+            var zoneThemeMultiplier = await GetThemeMultiplierOfZone(artifactsInZone);
+            
+            foreach (var artifactId in artifactIdsInZone)
+            {
+                ArtifactScore? foundArtifactId = artifactScores.Find(artifact => artifact.ArtifactId == artifactId);
+
+                Artifact? artifact = await _displayArtifactService.GetArtifactById(artifactId);
+
+                float artifactScore = await GetArtifactScore(artifact, zoneThemeMultiplier);
+                
+                if (foundArtifactId != null)
+                {
+                    foundArtifactId.IsInZone = true;
+                    foundArtifactId.Score = artifactScore;
+                }
+                else
+                {
+                    var newArtifactScore = new ArtifactScore
+                    {
+                        ArtifactId = artifactId,
+                        Score = artifactScore,
+                        IsInZone = true
+                    };
+                    artifactScores.Add(newArtifactScore);
+                }
+            }
+
+            
+        }
+        
+        
+
+        var displayArtifacts = await _displayArtifactService.GetAllArtifacts();
+
+        foreach (var artifact in displayArtifacts)
+        {
+            ArtifactScore? foundArtifact = artifactScores.Find(artifact1 => artifact1.ArtifactId == artifact.Id);
+            
+            float artifactScore = await GetArtifactScore(artifact, 0.8f);
+                
+            if (foundArtifact != null)
+            {
+                foundArtifact.IsInZone = false;
+                foundArtifact.Score = artifactScore;
+            }
+            else
+            {
+                var newArtifactScore = new ArtifactScore
+                {
+                    ArtifactId = artifact.Id,
+                    Score = artifactScore,
+                    IsInZone = false
+                };
+                artifactScores.Add(newArtifactScore);
             }
         }
     }
+    
+    
 }

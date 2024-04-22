@@ -4,7 +4,9 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoring
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactRarityRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactScoreRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactThemeMatchingTagCountRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 using ProjectMuseum.Services.ExhibitService;
+using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
 using ProjectMuseum.Services.MuseumTileService;
@@ -22,8 +24,10 @@ public class ArtifactScoringService : IArtifactScoringService
     private readonly IArtifactScoreRepository _artifactScoreRepository;
     private readonly IMuseumTileService _museumTileService;
     private readonly IExhibitService _exhibitService;
+    private readonly IRawArtifactFunctionalService _rawArtifactFunctionalService;
+    
 
-    public ArtifactScoringService(IArtifactConditionRepository artifactConditionRepository, IArtifactEraRepository artifactEraRepository, IArtifactRarityRepository artifactRarityRepository, IArtifactThemeMatchingTagCountRepo artifactThemeMatchingTagCountRepo, IMuseumZoneService zoneService, IDisplayArtifactService displayArtifactService, IArtifactScoreRepository artifactScoreRepository, IMuseumTileService museumTileService, IExhibitService exhibitService)
+    public ArtifactScoringService(IArtifactConditionRepository artifactConditionRepository, IArtifactEraRepository artifactEraRepository, IArtifactRarityRepository artifactRarityRepository, IArtifactThemeMatchingTagCountRepo artifactThemeMatchingTagCountRepo, IMuseumZoneService zoneService, IDisplayArtifactService displayArtifactService, IArtifactScoreRepository artifactScoreRepository, IMuseumTileService museumTileService, IExhibitService exhibitService, IRawArtifactFunctionalService rawArtifactFunctionalService, IRawArtifactFunctionalRepository rawArtifactFunctionalRepository)
     {
         _artifactConditionRepository = artifactConditionRepository;
         _artifactEraRepository = artifactEraRepository;
@@ -34,13 +38,16 @@ public class ArtifactScoringService : IArtifactScoringService
         _artifactScoreRepository = artifactScoreRepository;
         _museumTileService = museumTileService;
         _exhibitService = exhibitService;
+        _rawArtifactFunctionalService = rawArtifactFunctionalService;
+        
     }
 
     public async Task<float> GetArtifactScoreWhichIsNotInZone(Artifact artifact)
     {
         var conditionValue = await _artifactConditionRepository.GetConditionValueByCondition(artifact.Condition);
         var rarityValue = await _artifactRarityRepository.GetRarityValueByRarity(artifact.Rarity);
-        var eraValue = await _artifactEraRepository.GetEraValueByEra(artifact.Era);
+        var rawArtifacts = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
+        var eraValue = await _artifactEraRepository.GetEraValueByEra(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Era);
         var themeValue = await _artifactThemeMatchingTagCountRepo.GetArtifactThemeMatchingMultiplierByThemeCount(0);
         float artifactScore = 5 * conditionValue * themeValue * rarityValue * eraValue;
         return artifactScore;
@@ -79,13 +86,14 @@ public class ArtifactScoringService : IArtifactScoringService
         
         foreach (var artifact in artifacts)
         {
-            IncrementTagCount(artifact.Era);
-            IncrementTagCount(artifact.Region);
-            IncrementTagCount(artifact.Object);
-            IncrementTagCount(artifact.ObjectClass);
-            IncrementTagCount(artifact.ObjectSize);
+            var rawArtifacts = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
+            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Era);
+            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Region);
+            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Object);
+            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).ObjectClass);
+            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).ObjectSize);
 
-            foreach (var material in artifact.Materials)
+            foreach (var material in rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Materials)
             {
                 IncrementTagCount(material);
             }

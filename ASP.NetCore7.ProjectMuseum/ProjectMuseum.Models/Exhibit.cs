@@ -7,6 +7,7 @@ public class Exhibit
     public int XPosition { get; set; }
     public int YPosition { get; set; }
     public int RotationFrame { get; set; }
+    public List<string> OccupiedTileIds { get; set; }
     public List<string> ArtifactIds { get; set; }
     public string ExhibitDecoration { get; set; }
     public string ExhibitArtifactSlot1 { get; set; }

@@ -88,6 +88,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
                     XPosition = museumTile.XPosition,
                     YPosition = museumTile.YPosition,
                     OccupiedTileIds = tileIds,
+                    ArtifactIds = new List<string>(),
                     RotationFrame = rotationFrame,
                     ExhibitDecoration = "string",
                     ExhibitArtifactSlot1 = "string",

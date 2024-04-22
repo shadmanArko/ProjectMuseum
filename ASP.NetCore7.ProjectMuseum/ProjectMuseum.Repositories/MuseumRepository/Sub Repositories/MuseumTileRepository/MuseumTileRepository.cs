@@ -106,6 +106,7 @@ public class MuseumTileRepository : IMuseumTileRepository
             {
                 tile.ExhibitId = exhibitId;
                 tile.Walkable = false;
+                tile.HasExhibit = true;
             }
         }
         await _museumTileDatabase.WriteDataAsync(museumTiles);

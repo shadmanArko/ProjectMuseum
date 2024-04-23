@@ -160,7 +160,7 @@ public class ArtifactScoringService : IArtifactScoringService
         
     }
 
-    public async Task RefreshArtifactScore()
+    public async Task<List<ArtifactScore>?> RefreshArtifactScore()
     {
         var artifactScores = await _artifactScoreRepository.GetAllArtifactScore();
         var exhibits = await _exhibitService.GetAllExhibits();
@@ -229,7 +229,7 @@ public class ArtifactScoringService : IArtifactScoringService
                 }
             }
 
-            _artifactScoreRepository.UpdateArtifactScore(artifactScores);
+            
         }
         
         
@@ -258,6 +258,8 @@ public class ArtifactScoringService : IArtifactScoringService
                 artifactScores.Add(newArtifactScore);
             }
         }
+        
+        return await _artifactScoreRepository.UpdateArtifactScore(artifactScores);
     }
     
     

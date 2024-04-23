@@ -7,6 +7,7 @@ using ProjectMuseum.Services.DecorationOtherServices;
 using ProjectMuseum.Services.DecorationShopServices;
 using ProjectMuseum.Services.ExhibitService;
 using ProjectMuseum.Services.MuseumService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
@@ -32,8 +33,9 @@ public class MuseumController : ControllerBase
     private readonly IBuilderCardService _builderCardService;
     private readonly IMuseumZoneService _museumZoneService;
     private readonly IGuestBuilderParameterService _guestBuilderParameterService;
+    private readonly IArtifactScoringService _artifactScoringService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, IArtifactScoringService artifactScoringService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -46,6 +48,7 @@ public class MuseumController : ControllerBase
         _decorationOtherService = decorationOtherService;
         _museumZoneService = museumZoneService;
         _guestBuilderParameterService = guestBuilderParameterService;
+        _artifactScoringService = artifactScoringService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -316,4 +319,12 @@ public class MuseumController : ControllerBase
         var guestBuildingParameter = await _guestBuilderParameterService.GetGuestBuildingParameter();
         return Ok(guestBuildingParameter);
     }
+    [HttpGet("RefreshArtifactScoringService")]
+    public async Task<IActionResult> RefreshArtifactScoringService()
+    {
+        var artifactScores = await _artifactScoringService.RefreshArtifactScore();
+        return Ok(artifactScores);
+    }
+    
+    
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=65 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -35,7 +35,6 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
 [ext_resource type="PackedScene" uid="uid://2nxthrd3s2eh" path="res://Scenes/Museum/Sub Scenes/Emily.tscn" id="24_vxlv2"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
-[ext_resource type="PackedScene" uid="uid://dkmj5hwnu0jy8" path="res://Scenes/Museum/Museum Ui/zone_creation_ui.tscn" id="25_gl5df"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
 [ext_resource type="PackedScene" uid="uid://bggrmc7dfa7d8" path="res://Scenes/Museum/Sub Scenes/Alex.tscn" id="25_qfbsa"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
@@ -64,7 +63,6 @@
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DecorationsController.cs" id="62_bbh7l"]
-[ext_resource type="Script" path="res://Scripts/Museum/TileSelectorScripts/TileSelector.cs" id="65_1vjyw"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -890,15 +888,6 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 1
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="museum"]
-layer = 2
-
-[node name="Zone Creation Ui" parent="museum/CanvasLayer2" node_paths=PackedStringArray("_zoneName", "_colorPickerButton", "_createZoneButton", "_cancelZoneButton") instance=ExtResource("25_gl5df")]
-_zoneName = NodePath("Panel/Zone Name/LineEdit")
-_colorPickerButton = NodePath("Panel/Zone Name2/colorPicker")
-_createZoneButton = NodePath("Panel/Create Zone Button")
-_cancelZoneButton = NodePath("Panel/Cancel Zone Button")
-
 [node name="Museum Time System" type="Node2D" parent="."]
 script = ExtResource("24_wpojy")
 
@@ -940,7 +929,6 @@ script = ExtResource("46_uujue")
 _backgroundObject = NodePath("../museum/Background Foresnt")
 
 [node name="ControllersContainer" type="Node2D" parent="." node_paths=PackedStringArray("_controllersParent")]
-process_mode = 4
 script = ExtResource("48_dpvlv")
 _controllersParent = NodePath(".")
 
@@ -955,6 +943,3 @@ _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
 _sanitationItem = ExtResource("18_78kbp")
 ItemsParent = NodePath("../museum/ItemParents")
-
-[node name="TileSelector" type="Node2D" parent="."]
-script = ExtResource("65_1vjyw")

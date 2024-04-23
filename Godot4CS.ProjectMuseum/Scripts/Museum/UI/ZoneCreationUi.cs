@@ -35,7 +35,7 @@ public partial class ZoneCreationUi : Control
 		AddChild(_httpRequestForGettingAllZones);
 		_httpRequestForCreatingZone.RequestCompleted += HttpRequestForCreatingZoneOnRequestCompleted;
 		_httpRequestForGettingAllZones.RequestCompleted += HttpRequestForGettingAllZonesOnRequestCompleted;
-
+		GD.Print($"zone creation ui spawned parent {GetParent().Name}");
 		await Task.Delay(1000);
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 

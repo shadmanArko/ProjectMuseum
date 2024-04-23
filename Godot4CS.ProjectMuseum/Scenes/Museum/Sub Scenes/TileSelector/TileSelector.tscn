@@ -7,9 +7,11 @@
 [node name="TileSelector" type="Node2D"]
 script = ExtResource("1_me733")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Zone creation CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Zone Creation Ui" parent="CanvasLayer" node_paths=PackedStringArray("_zoneName", "_colorPickerButton", "_createZoneButton", "_cancelZoneButton") instance=ExtResource("2_b1jgp")]
+[node name="Zone Creation Ui" parent="Zone creation CanvasLayer" node_paths=PackedStringArray("_zoneName", "_colorPickerButton", "_createZoneButton", "_cancelZoneButton") instance=ExtResource("2_b1jgp")]
+visible = false
+mouse_filter = 2
 _zoneName = NodePath("Panel/Zone Name/LineEdit")
 _colorPickerButton = NodePath("Panel/Zone Name2/colorPicker")
 _createZoneButton = NodePath("Panel/Create Zone Button")

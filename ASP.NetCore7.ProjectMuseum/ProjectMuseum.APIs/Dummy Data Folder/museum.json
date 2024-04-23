@@ -2,9 +2,8 @@
   {
     "Id": "museum0",
     "Name": "my Museum",
-    "Money": 20000.00,
-    "MuseumTicketCounter":
-    {
+    "Money": 20000,
+    "MuseumTicketCounter": {
       "Id": "abc123",
       "TicketPrice": 12.5,
       "MuseumRating": 4.3,
@@ -12,6 +11,36 @@
       "MuseumOpeningHour": 9,
       "MuseumClosingHour": 18
     },
-    "MuseumZones":[]
+    "MuseumZones": [
+      {
+        "Id": "daa11415-6862-4154-b3a7-1e7e7b95d3e4",
+        "Name": "sdfs",
+        "Type": "string",
+        "Color": "(0.9296875, 0.036315918, 0.036315918, 1)",
+        "ThemeValue": 0,
+        "OccupiedMuseumTileIds": [
+          "1888b089-190f-460e-8fa4-386a84cb33e7",
+          "6aba8db3-a0e2-4565-bf84-52432740da42",
+          "75b8e496-08df-468c-b25f-e1557efe8c54",
+          "f4797da1-a30e-4501-8f84-84a32513cc50",
+          "17402e31-8a32-481e-a249-d6cdb9fef8fd",
+          "5589bd1b-e07a-4f94-bb19-39458d176e1a",
+          "482a7d77-bf51-45ad-874a-6ac6c7469b6f",
+          "5dea8fc6-5952-4593-8bdf-b0f4c7bf37c5",
+          "ae5f0f5d-fe1c-4638-a6c1-ebbf090b5cf5",
+          "47dc2621-1b32-4332-aef6-e1d7c2236c0f",
+          "d07e0130-8427-47af-8a66-526e6f174431",
+          "a662ed3f-d12c-461e-8707-22118d74ddf8",
+          "5eff90b1-c472-47e6-943d-cde9a027bdaf",
+          "29a20bc5-1214-465a-bc35-c75a4dd6851f",
+          "de4f2d20-c609-40eb-a57d-cfd2e2a1617a",
+          "90e7a056-6af2-4854-b911-076aebbf0a33",
+          "a0d0ab7b-d17c-4381-84a5-b63f6fe5a14e",
+          "43ab9078-eb98-4a09-a4d5-96b0f7dc7833",
+          "bb18ea06-4f46-470a-9e72-c8a409b933e5",
+          "1c7f44cc-00b4-4f73-9cb5-6ee3b68259e9"
+        ]
+      }
+    ]
   }
 ]

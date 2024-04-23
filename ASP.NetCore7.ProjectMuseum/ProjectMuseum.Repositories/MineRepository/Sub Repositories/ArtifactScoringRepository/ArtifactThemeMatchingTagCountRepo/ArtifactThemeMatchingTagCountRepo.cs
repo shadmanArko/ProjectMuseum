@@ -11,8 +11,12 @@ public class ArtifactThemeMatchingTagCountRepo : IArtifactThemeMatchingTagCountR
        _artifactThemeMatchingTagCountDatabase = artifactThemeMatchingTagCountDatabase;
     }
 
-    public Task<int> GetArtifactThemeMatchingMultiplierByThemeCount(int themeMatchCount)
+    public async Task<float> GetArtifactThemeMatchingMultiplierByThemeCount(int themeMatchCount)
     {
-        throw new NotImplementedException();
+        var artifactThemeMatchingTagCounts = await _artifactThemeMatchingTagCountDatabase.ReadDataAsync();
+        var artifactThemeMatchingTagCount =
+            artifactThemeMatchingTagCounts.FirstOrDefault(count => count.TagMatchedTheme == themeMatchCount);
+        return artifactThemeMatchingTagCount.ScoreMultiplier;
+
     }
 }

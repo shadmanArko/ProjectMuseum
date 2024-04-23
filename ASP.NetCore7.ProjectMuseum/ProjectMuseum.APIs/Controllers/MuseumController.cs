@@ -38,7 +38,7 @@ public class MuseumController : ControllerBase
 
     private readonly ISanitationService _sanitationService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, ISanitationService sanitationService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, ISanitationService sanitationService, IArtifactScoringService artifactScoringService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -51,8 +51,9 @@ public class MuseumController : ControllerBase
         _decorationOtherService = decorationOtherService;
         _museumZoneService = museumZoneService;
         _guestBuilderParameterService = guestBuilderParameterService;
-        _artifactScoringService = artifactScoringService;
+       
         _sanitationService = sanitationService;
+        _artifactScoringService = artifactScoringService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()

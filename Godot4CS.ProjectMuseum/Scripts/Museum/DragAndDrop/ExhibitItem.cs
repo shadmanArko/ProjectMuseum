@@ -98,7 +98,10 @@ public partial class ExhibitItem : Item
 		foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
 		{
 			tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
+			
 		}
+
+		
 		string[] headers = { "Content-Type: application/json"};
 		var body = JsonConvert.SerializeObject(tileIds);
 		string url =

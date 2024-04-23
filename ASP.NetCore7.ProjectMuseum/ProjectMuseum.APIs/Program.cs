@@ -29,6 +29,7 @@ using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifactRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.GuestBuildingParameterRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.MuseumZoneRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.SanitationRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifactRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
@@ -65,6 +66,7 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.SanaitationService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
@@ -117,6 +119,8 @@ builder.Services.AddSingleton(new JsonFileDatabase<DecorationShop>(Const.decorat
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationShopVariation>(Const.decorationShopVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationOther>(Const.decorationOtherDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationOtherVariation>(Const.decorationOtherVariationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Sanitation>(Const.sanitationDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<SanitationVariation>(Const.sanitationVariationDataFolderPath));
 
 builder.Services.AddSingleton(new JsonFileDatabase<TileVariation>(Const.tileVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<WallVariation>(Const.wallVariationDataFolderPath));
@@ -178,7 +182,8 @@ builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
     Const.tutorialDataFolderPath,
     Const.wallVariationDataFolderPath,
     Const.tileVariationDataFolderPath,
-    Const.wallpaperVariationDataFolderPath
+    Const.wallpaperVariationDataFolderPath,
+    Const.sanitationDataFolderPath
     ));
 
 
@@ -209,6 +214,7 @@ builder.Services.AddScoped<ISpecialBackdropRepository, SpecialBackdropRepository
 builder.Services.AddScoped<IProceduralMineGenerationRepository, ProceduralMineGenerationRepository>();
 builder.Services.AddScoped<ISiteArtifactChanceRepository, SiteArtifactChanceRepository>();
 builder.Services.AddScoped<IGuestBuildingParameterRepository, GuestBuildingParameterRepository>();
+builder.Services.AddScoped<ISanitationRepository, SanitationRepository>();
 builder.Services.AddScoped<IConsumableRepository, ConsumableRepository>();
 builder.Services.AddScoped<IArtifactConditionRepository, ArtifactConditionRepository>();
 builder.Services.AddScoped<IArtifactEraRepository, ArtifactEraRepository>();
@@ -247,6 +253,7 @@ builder.Services.AddScoped<ISpecialBackdropService, SpecialBackdropService>();
 builder.Services.AddScoped<IProceduralMineGenerationService, ProceduralMineGenerationService>();
 builder.Services.AddScoped<ISiteArtifactChanceService, SiteArtifactChanceService>();
 builder.Services.AddScoped<IGuestBuilderParameterService, GuestBuilderParameterService>();
+builder.Services.AddScoped<ISanitationService, SanitationService>();
 builder.Services.AddScoped<IConsumableService, ConsumableService>();
 builder.Services.AddScoped<IArtifactScoringService, ArtifactScoringService>();
 builder.Services.AddScoped<IArtifactConditionService, ArtifactConditionService>();

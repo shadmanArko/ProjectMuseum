@@ -12,8 +12,10 @@ public interface IMuseumTileService
     Task<bool> PlaceExhibitOnTile(string tileId, string exhibitVariationName);
     Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds,
         string exhibitVariationName, int rotationFrame);
-    Task<List<MuseumTile>> PlaceShopOnTiles(string originTileId, List<string> tileIds,
+    Task<TilesWithShopsDTO> PlaceShopOnTiles(string originTileId, List<string> tileIds,
         string shopVariationName, int rotationFrame);
+    Task<TilesWithSanitationsDTO> PlaceSanitationOnTiles(string originTileId, List<string> tileIds,
+        string sanitationVariationName, int rotationFrame);
     Task<List<MuseumTile>> PlaceOtherDecorationOnTiles(string originTileId, List<string> tileIds,
         string otherVariationName, int rotationFrame);
     Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile);

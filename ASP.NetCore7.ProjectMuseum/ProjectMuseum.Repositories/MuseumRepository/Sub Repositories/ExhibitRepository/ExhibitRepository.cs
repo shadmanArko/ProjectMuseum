@@ -89,6 +89,7 @@ public class ExhibitRepository : IExhibitRepository
         {
             exhibit.ExhibitArtifactSlot2 = artifactId;
         }
+        exhibit.ArtifactIds.Add(artifactId);
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
         return exhibit;
     }
@@ -103,6 +104,8 @@ public class ExhibitRepository : IExhibitRepository
         {
             exhibit.ExhibitArtifactSlot2 = "";
         }
+        exhibit.ArtifactIds.Remove(artifactId);
+
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
         return exhibit;
     }

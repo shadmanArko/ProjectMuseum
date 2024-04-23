@@ -30,7 +30,7 @@ public partial class GuestsController : Node2D
 	private float _ticketPrice = 5;
 	private bool _canSpawnGuests = false;
 	private GuestBuildingParameter _guestBuildingParameter;
-
+	private List<Node> _allGuestsInsideMuseum = new List<Node>(); 
 	private HttpRequest _httpRequestForGettingGuestBuildingParameter;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
@@ -67,15 +67,17 @@ public partial class GuestsController : Node2D
 		_numberOfPeopleInScene--;
 	}
 
-	private void OnGuestExitMuseum()
+	private void OnGuestExitMuseum(Node guestNode)
 	{
 		_numberOfGuestsInMuseum--;
+		_allGuestsInsideMuseum.Remove(guestNode);
 		MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMuseum);
 	}
-	private void OnGuestEnterMuseum()
+	private void OnGuestEnterMuseum(Node guestNode)
 	{
 		_numberOfGuestsInMuseum++;
 		MuseumActions.TotalGuestsUpdated?.Invoke(_numberOfGuestsInMuseum);
+		_allGuestsInsideMuseum.Add(guestNode);
 		MuseumActions.OnMuseumBalanceAdded?.Invoke(_ticketPrice);
 	}
 
@@ -130,6 +132,7 @@ public partial class GuestsController : Node2D
 		guest.GetNode<Guest>(".").Position = GameManager.tileMap.MapToLocal(_sceneEntryPositions[GD.RandRange(0, _sceneEntryPositions.Count-1)]);
 		AddChild(guest);
 		guest.GetNode<Guest>(".").Initialize(_guestBuildingParameter, _sceneEntryPositions.ToList());
+		_allGuestsInsideMuseum.Add(guest);
 	}
 
 	private void HttpRequestForGettingMuseumTilesOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)

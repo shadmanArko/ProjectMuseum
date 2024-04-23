@@ -3,7 +3,8 @@
 public class GuestBuildingParameter
 {
     public List<string> AllAvailableArtifactTags { get; set; }
-    
+    public MinMaxFloat GuestMoneyRange { get; set; }
+
     public MinMaxFloat HungerLevelRange { get; set; }
     public MinMaxFloat ThirstLevelRange { get; set; }
     public MinMaxFloat ChargeLevelRange { get; set; }

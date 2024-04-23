@@ -12,6 +12,7 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.SanaitationService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 
@@ -21,7 +22,7 @@ namespace ASP.NetCore7.ProjectMuseum.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class MuseumController : ControllerBase
-{ 
+{
     private readonly IMuseumTileService _museumTileService;
     private readonly IMuseumService _museumService;
     private readonly IDisplayArtifactService _displayArtifactService;
@@ -35,7 +36,9 @@ public class MuseumController : ControllerBase
     private readonly IGuestBuilderParameterService _guestBuilderParameterService;
     private readonly IArtifactScoringService _artifactScoringService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, IArtifactScoringService artifactScoringService)
+    private readonly ISanitationService _sanitationService;
+
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, ISanitationService sanitationService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -49,15 +52,16 @@ public class MuseumController : ControllerBase
         _museumZoneService = museumZoneService;
         _guestBuilderParameterService = guestBuilderParameterService;
         _artifactScoringService = artifactScoringService;
+        _sanitationService = sanitationService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
     {
-        var museumTiles =await _museumTileService.GetAllMuseumTiles();
+        var museumTiles = await _museumTileService.GetAllMuseumTiles();
         return Ok(museumTiles);
     }
     [HttpGet("PlaceAnExhibit/{tileId}/{exhibitVariationName}")]
-    public async Task<IActionResult> PlaceAnExhibit(string tileId, string exhibitVariationName )
+    public async Task<IActionResult> PlaceAnExhibit(string tileId, string exhibitVariationName)
     {
         var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTile(tileId, exhibitVariationName);
         return Ok(exhibitPlacementResult);
@@ -80,6 +84,12 @@ public class MuseumController : ControllerBase
         var exhibitPlacementResult = await _museumTileService.PlaceOtherDecorationOnTiles(originTileId, tileIds, otherVariationName, rotationFrame);
         return Ok(exhibitPlacementResult);
     }
+    [HttpGet("PlaceSanitationOnTiles/{originTileId}/{sanitationVariationName}/{rotationFrame}")]
+    public async Task<IActionResult> PlaceSanitationOnTiles(string originTileId, List<string> tileIds, string sanitationVariationName, int rotationFrame)
+    {
+        var exhibitPlacementResult = await _museumTileService.PlaceSanitationOnTiles(originTileId, tileIds, sanitationVariationName, rotationFrame);
+        return Ok(exhibitPlacementResult);
+    }
     [HttpGet("GetAllExhibits")]
     public async Task<IActionResult> GetAllExhibits()
     {
@@ -90,6 +100,12 @@ public class MuseumController : ControllerBase
     public async Task<IActionResult> GetAllShops()
     {
         var allDecorationShops = await _decorationShopService.GetAllDecorationShops();
+        return Ok(allDecorationShops);
+    }
+    [HttpGet("GetAllSanitations")]
+    public async Task<IActionResult> GetAllShGetAllSanitationsops()
+    {
+        var allDecorationShops = await _sanitationService.GetAllSanitations();
         return Ok(allDecorationShops);
     }
     [HttpGet("GetAllOtherDecorations")]
@@ -103,6 +119,12 @@ public class MuseumController : ControllerBase
     {
         var allExhibitVariations = await _exhibitService.GetAllExhibitVariations();
         return Ok(allExhibitVariations);
+    }
+    [HttpGet("GetAllSanitationVariations")]
+    public async Task<IActionResult> GetAllSanitationVariations()
+    {
+        var sanitationVariation = await _sanitationService.GetAllSanitationVariations();
+        return Ok(sanitationVariation);
     }
     [HttpGet("GetAllDecorationShopVariations")]
     public async Task<IActionResult> GetAllDecorationShopVariations()
@@ -143,13 +165,13 @@ public class MuseumController : ControllerBase
     [HttpGet("GetAllMuseumTilesForNewGame")]
     public async Task<IActionResult> GetAllMuseumTilesForNewGame()
     {
-        var museumTiles =await _museumTileService.GenerateMuseumTileForNewGame();
+        var museumTiles = await _museumTileService.GenerateMuseumTileForNewGame();
         return Ok(museumTiles);
     }
     [HttpGet("ExpandMuseum/{originPositionX}/{originPositionY}")]
     public async Task<IActionResult> ExpandMuseum(int originPositionX, int originPositionY)
     {
-        var museumTiles =await _museumTileService.ExpandMuseumTiles(originPositionX, originPositionY);
+        var museumTiles = await _museumTileService.ExpandMuseumTiles(originPositionX, originPositionY);
         return Ok(museumTiles);
     }
     [HttpPost]
@@ -160,7 +182,7 @@ public class MuseumController : ControllerBase
     }
     //[HttpGet(ArtifactName = "GetWeatherForecast")]
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateMuseumTile(string id, [FromBody]MuseumTile museumTile)
+    public async Task<IActionResult> UpdateMuseumTile(string id, [FromBody] MuseumTile museumTile)
     {
         var updatedMuseumTile = await _museumTileService.UpdateMuseumTileById(id, museumTile);
         return Ok(updatedMuseumTile);
@@ -194,7 +216,7 @@ public class MuseumController : ControllerBase
     [HttpGet("{exhibitVariationName}")]
     public async Task<IActionResult> GetEligibilityOfPositioningExhibit(string exhibitVariationName)
     {
-        var exhibitEligibility = await _museumTileService.GetEligibilityOfPositioningExhibit( exhibitVariationName);
+        var exhibitEligibility = await _museumTileService.GetEligibilityOfPositioningExhibit(exhibitVariationName);
         return Ok(exhibitEligibility);
     }
     [HttpGet("GetMuseumBalance/{id}")]
@@ -230,11 +252,11 @@ public class MuseumController : ControllerBase
         return Ok(artifacts);
     }
     [HttpGet("AddArtifactToStorageFromExhibit/{artifactId}/{exhibitId}/{slot}")]
-    public async Task<IActionResult> AddArtifactToStorageFromExhibit(string artifactId, string exhibitId, int slot )
+    public async Task<IActionResult> AddArtifactToStorageFromExhibit(string artifactId, string exhibitId, int slot)
     {
         var exhibit = await _exhibitService.RemoveArtifactFromExhibit(exhibitId, artifactId, slot);
         var artifacts = await _artifactStorageService.GetArtifactOutOfDisplayById(artifactId);
-        
+
         return Ok(exhibit);
     }
 
@@ -244,7 +266,7 @@ public class MuseumController : ControllerBase
         var artifact = await _artifactStorageService.AddArtifact(newArtifact);
         return Ok(artifact);
     }
-    
+
     [HttpGet("AddArtifactToExhibitSlotFromStore/{artifactId}/{exhibitId}/{slot}")]
     public async Task<IActionResult> AddArtifactToExhibitSlotFromStore(string artifactId, string exhibitId, int slot)
     {
@@ -260,7 +282,7 @@ public class MuseumController : ControllerBase
     }
 
     [HttpPost("AddArtifactToTrading")]
-    public async Task<IActionResult> AddArtifactToTrading([FromBody]Artifact newArtifact)
+    public async Task<IActionResult> AddArtifactToTrading([FromBody] Artifact newArtifact)
     {
         var artifact = await _tradingArtifactsService.AddArtifact(newArtifact);
         return Ok(artifact);
@@ -325,6 +347,6 @@ public class MuseumController : ControllerBase
         var artifactScores = await _artifactScoringService.RefreshArtifactScore();
         return Ok(artifactScores);
     }
-    
-    
+
+
 }

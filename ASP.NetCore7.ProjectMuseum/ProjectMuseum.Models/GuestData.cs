@@ -4,6 +4,7 @@ public class GuestData
 {
     public string Name { get; set; }
     public int Age { get; set; }
+    public float Money { get; set; }
     public List<string> InterestedTags { get; set; }
     public float HungerDecayRate { get; set; }
     public float ThirstDecayRate { get; set; }

@@ -19,6 +19,7 @@ public partial class LoadingBarManager : Node
 
     public override void _Ready()
     {
+        _canvasLayer.Visible = true;
         IncreaseRegisteredTask += RegisteredTaskIncrease;
         IncreaseCompletedTask += CompletedTaskIncrease;
         GD.Print("Loading Manager");

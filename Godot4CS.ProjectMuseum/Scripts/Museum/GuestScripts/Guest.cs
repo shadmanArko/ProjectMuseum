@@ -62,6 +62,9 @@ public partial class Guest : GuestAi
     private bool _insideMuseum = false;
     private bool _wantsToEnterMuseum = false;
     private List<Vector2I> _listOfSceneExitPoints;
+    private bool _usingWashroom;
+    private bool _usingShop;
+    private Vector2I _currentViewingObjectOrigin;
     public Guest()
     {
         
@@ -72,6 +75,7 @@ public partial class Guest : GuestAi
         base._Ready();
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
         MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
+        MuseumActions.OnClickGuestAi += OnClickGuestAi;
         GetRandomInterval();
         
         // _listOfMuseumTile = ServiceRegistry.Resolve<List<MuseumTile>>();
@@ -83,8 +87,18 @@ public partial class Guest : GuestAi
         LoadRandomCharacterSprite();
         _animationPlayerInstance.Play("idle_front_facing");
     }
+
+    private void OnClickGuestAi(GuestAi obj)
+    {
+        if (obj == this)
+        {
+            GD.Print($"Clicked Guest target {_targetTileCoordinate}, need {currentNeed}");
+        }
+    }
+
     public void Initialize(GuestBuildingParameter guestBuildingParameter, List<Vector2I> sceneExitPoints)
     {
+        availableMoney = guestBuildingParameter.GuestMoneyRange.GetRandom();
         hungerLevel = guestBuildingParameter.HungerLevelRange.GetRandom();
         thirstLevel = guestBuildingParameter.ThirstLevelRange.GetRandom();
         chargeLevel = guestBuildingParameter.ChargeLevelRange.GetRandom();
@@ -103,7 +117,7 @@ public partial class Guest : GuestAi
         _listOfSceneExitPoints = sceneExitPoints;
         _displacementSpeed =  (float)GD.RandRange(_minDisplacementSpeed, _maxDisplacementSpeed);
         SetPath();
-        GD.Print($"{Name} food: {hungerLevel}, drink: {thirstLevel}, charge: {chargeLevel}");
+        // GD.Print($"{Name} food: {hungerLevel}, drink: {thirstLevel}, charge: {chargeLevel}");
         // MoveLeft();
     }
     private void OnTimePauseValueUpdated(bool obj)
@@ -145,13 +159,27 @@ public partial class Guest : GuestAi
         cartPos.Y = -iso.X + cartPos.X;
         return cartPos;
     }
+
+    private GuestNeedsEnum currentNeed;
     public void SetPath()
     {
         _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
         if (_insideMuseum)
         {
             // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
-            _targetTileCoordinate =  GetTargetExhibitViewingLocation();
+            currentNeed = CheckForNeedsToFulfill();
+            if (currentNeed == GuestNeedsEnum.Hunger || currentNeed == GuestNeedsEnum.Thirst)
+            {
+                _targetTileCoordinate =  GetClosestShopLocation();
+            }
+            else if (currentNeed == GuestNeedsEnum.Bladder)
+            {
+                _targetTileCoordinate =  GetClosestWashroomLocation();
+            }else
+            {
+                _targetTileCoordinate =  GetTargetExhibitViewingLocation();
+            }
+            
             if (_targetTileCoordinate != new Vector2I(1000, 1000))
             {
                 var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
@@ -201,6 +229,53 @@ public partial class Guest : GuestAi
         
     }
 
+    private Vector2I GetClosestShopLocation()
+    {
+        if (_museumTileContainer.DecorationShops.Count > 0)
+        {
+            _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
+            var shop = _museumTileContainer.DecorationShops.GetClosestShopToLocation(_startTileCoordinate);
+            _currentViewingObjectOrigin = new Vector2I(shop.XPosition, shop.YPosition);
+            Vector2I coordinate = Vector2I.Zero;
+            if (shop.RotationFrame == 0)
+            {
+                coordinate = new Vector2I(shop.XPosition +1, shop.YPosition);
+            }else if (shop.RotationFrame == 1)
+            {
+                coordinate = new Vector2I(shop.XPosition , shop.YPosition +1);
+            }else if (shop.RotationFrame == 2)
+            {
+                coordinate = new Vector2I(shop.XPosition - 1 , shop.YPosition);
+            }else if (shop.RotationFrame == 3)
+            {
+                coordinate = new Vector2I(shop.XPosition  , shop.YPosition - 1);
+            }
+            
+            GD.Print($"Found closest shop coordinate {coordinate}");
+            return coordinate;
+        }
+    
+    
+        return new Vector2I(1000, 1000);
+        
+    }
+    private Vector2I GetClosestWashroomLocation()
+    {
+        if (_museumTileContainer.Sanitations.Count > 0)
+        {
+            _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
+            var washroomToLocation = _museumTileContainer.Sanitations.GetClosestWashroomToLocation(_startTileCoordinate);
+            _currentViewingObjectOrigin = new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition);
+            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToCoordinate(new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition));
+            GD.Print($"Found closest washroom coordinate {coordinate}");
+            return coordinate;
+        }
+    
+    
+        return new Vector2I(1000, 1000);
+        
+    }
+
     private Vector2I GetTargetTargetTileCoordinateOutsideMuseum()
     {
         var target = _listOfSceneExitPoints[GD.RandRange(0, _listOfSceneExitPoints.Count-1)];
@@ -239,19 +314,24 @@ public partial class Guest : GuestAi
         if (_currentExhibitIndex < _museumTileContainer.Exhibits.Count)
         {
             var exhibit = _museumTileContainer.Exhibits[_currentExhibitIndex];
-            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToExhibit(exhibit);
-            //GD.Print($"Found closest coordinate {coordinate}");
+            _currentViewingObjectOrigin = new Vector2I(exhibit.XPosition, exhibit.YPosition);
+            TileHelpers.TargetWthOrigin coordinate = _museumTileContainer.MuseumTiles.GetRandomEmptyTileClosestToExhibit(exhibit);
+            GD.Print($"Found Exhibit viewing coordinate {coordinate.target} origin {coordinate.origin}");
+            _currentViewingObjectOrigin = coordinate.origin;
             _currentExhibitIndex++;
-            return coordinate;
+            return coordinate.target;
         }
         else
         {
             return new Vector2I(1000, 1000);
         }
     }
-
     private async void MoveToNextPathNode()
     {
+        if (_path == null)
+        {
+            return;
+        }
         if (_currentPathIndex < _path.Count )
         {
             _currentTargetNode = _path[_currentPathIndex];
@@ -270,7 +350,7 @@ public partial class Guest : GuestAi
                 if (GameManager.isMuseumGateOpen)
                 {
                     _insideMuseum = true;
-                    MuseumActions.OnGuestEnterMuseum?.Invoke();
+                    MuseumActions.OnGuestEnterMuseum?.Invoke(this);
                     _canMove = true;
                     SetPath();
                 }
@@ -293,7 +373,7 @@ public partial class Guest : GuestAi
             if (_exitingMuseum)
             {
                 // _canMove = false;
-                MuseumActions.OnGuestExitMuseum?.Invoke();
+                MuseumActions.OnGuestExitMuseum?.Invoke(this);
                 // QueueFree();
                 _insideMuseum = false;
                 _wantsToEnterMuseum = false;
@@ -302,9 +382,29 @@ public partial class Guest : GuestAi
             }
             else
             {
+                //Watching exhibit
+               
+
+                if (currentNeed == GuestNeedsEnum.Bladder)
+                {
+                    FillNeed(currentNeed, -64);
+                    _usingWashroom = true;
+
+                }else if (currentNeed == GuestNeedsEnum.Hunger || currentNeed == GuestNeedsEnum.Thirst)
+                {
+                    FillNeed(currentNeed, -32);
+                    _usingShop = true;
+                }
+
+                if (currentNeed == GuestNeedsEnum.InterestInArtifact)
+                {
+                    FillNeed(currentNeed, -4);
+                }else FillNeed(currentNeed, -100);
                 _canMove = false; // Stop moving when the path is completed
                 ControlAnimation();
                 await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
+                _usingShop = false;
+                _usingWashroom = false;
                 SetPath();
             }
             
@@ -323,8 +423,11 @@ public partial class Guest : GuestAi
             MoveAndCollide(motion);
             // Check if the character has reached the current path node
             Vector2 currentTargetPosition = GameManager.tileMap.MapToLocal(_currentTargetNode);
+            var offset = new Vector2(currentTargetPosition.X < Position.X ? -16 : 16,
+                currentTargetPosition.Y < Position.Y ? 8 : -8);
+            //currentTargetPosition += offset;
             _currentNode = GameManager.tileMap.LocalToMap(Position);
-            if (Position.DistanceTo(currentTargetPosition) < 1f || _currentNode == _currentTargetNode)
+            if (Position.DistanceTo(currentTargetPosition ) < 1f && _currentNode == _currentTargetNode)
             {
                 MoveToNextPathNode();
             }
@@ -334,7 +437,7 @@ public partial class Guest : GuestAi
         
     }
 
-    private void ControlAnimation()
+    private async void ControlAnimation()
     {
         if (_gamePaused)
         {
@@ -350,20 +453,7 @@ public partial class Guest : GuestAi
         }
         if (_canMove)
         {
-            if (_direction == new Vector2(1, 0))
-            {
-                MoveRight();
-            }else if (_direction == new Vector2(-1, 0))
-            {
-                MoveLeft();
-            }else if (_direction == new Vector2(0, 1))
-            {
-                MoveDown();
-            }else if (_direction == new Vector2(0, -1))
-            {
-                MoveUp();
-            }
-            
+            MoveBasedOnDirection(_direction);
         }
         else
         {
@@ -377,7 +467,56 @@ public partial class Guest : GuestAi
             }
         }
 
+        if (!_canMove)
+        {
+            if (_currentViewingObjectOrigin.X < _currentNode.X)
+            {
+                IdleLeft();
+            }
+            if (_currentViewingObjectOrigin.X > _currentNode.X)
+            {
+                IdleRight();
+            }
+            if (_currentViewingObjectOrigin.Y > _currentNode.Y)
+            {
+                IdleDown();
+            }
+            if (_currentViewingObjectOrigin.Y < _currentNode.Y)
+            {
+                IdleUp();
+            }
+            
+        }
         
+        if (_usingShop)
+        {
+            _animationPlayerInstance.Play(_playerFacingTheFront? "use_front":"use_back");
+            await Task.Delay(600);
+            _animationPlayerInstance.Play(_playerFacingTheFront? "consume_front":"consume_back");
+
+        }
+
+        Visible = !_usingWashroom;
+    }
+
+    private void MoveBasedOnDirection(Vector2 direction)
+    {
+        if (direction == new Vector2(1, 0))
+        {
+            MoveRight();
+        }
+        else if (direction == new Vector2(-1, 0))
+        {
+            MoveLeft();
+        }
+        else if (direction == new Vector2(0, 1))
+        {
+            MoveDown();
+        }
+        else if (direction == new Vector2(0, -1))
+        {
+            MoveUp();
+        }
     }
 
     private void TakeNextMovementDecision()
@@ -446,10 +585,43 @@ public partial class Guest : GuestAi
         _animationPlayerInstance.Play("walk_backward");
         _playerFacingTheFront = false;
     }
+    private void IdleRight()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(1, 1);
+        _animationPlayerInstance.Play("idle_front_facing");
+        _playerFacingTheFront = true;
+    }
+
+    private void IdleLeft()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(1, 1);
+        _animationPlayerInstance.Play("idle_back_facing");
+        _playerFacingTheFront = false;
+    }
+
+    private void IdleDown()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(-1, 1);
+        _animationPlayerInstance.Play("idle_front_facing");
+        _playerFacingTheFront = true;
+    }
+
+    private void IdleUp()
+    {
+        
+        _characterPartsParent.Scale = new Vector2(-1, 1);
+        _animationPlayerInstance.Play("idle_back_facing");
+        _playerFacingTheFront = false;
+    }
 
     public override void _ExitTree()
     {
         base._ExitTree();
         MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
+        MuseumActions.OnClickGuestAi -= OnClickGuestAi;
+
     }
 }

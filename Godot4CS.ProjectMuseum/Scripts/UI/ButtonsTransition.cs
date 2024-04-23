@@ -15,7 +15,7 @@ public partial class ButtonsTransition : HBoxContainer
 	
 	[Export] private HBoxContainer _adminContainer;
 	[Export] private HBoxContainer _exhibitsContainer;
-	[Export] private HBoxContainer _decorationContainer;
+	[Export] private HBoxContainer _facilitiesContainer;
 	[Export] private HBoxContainer _roomContainer;
 	[Export] private HBoxContainer _staffContainer;
 
@@ -131,8 +131,8 @@ public partial class ButtonsTransition : HBoxContainer
 			case "Exhibit":
 				_exhibitsContainer.Visible = true;
 				break;
-			case "Decoration":
-				_decorationContainer.Visible = true;
+			case "Facilities":
+				_facilitiesContainer.Visible = true;
 				break;
 			case "Room":
 				_roomContainer.Visible = true;

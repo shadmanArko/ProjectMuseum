@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Loading Bar/LoadingBarManager.cs" id="1_rhrxp"]
 [ext_resource type="Texture2D" uid="uid://bnd3vvccyp6uw" path="res://Scenes/LoadingScene/trans.png" id="2_r02bf"]
-[ext_resource type="Theme" path="res://Themes/Museum ui bold Text.tres" id="3_ah1yq"]
+[ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="3_ah1yq"]
 [ext_resource type="Script" path="res://Scripts/Loading Bar/LoadingText.cs" id="4_uvph7"]
 
 [node name="LoadingScene" type="Node" node_paths=PackedStringArray("_hSlider", "_canvasLayer")]

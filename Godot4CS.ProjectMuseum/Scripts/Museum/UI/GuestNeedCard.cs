@@ -4,7 +4,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 
 public partial class GuestNeedCard : Control
 {
-	[Export] private Slider GuestNeedSlider;
+	[Export] private ColorRect GuestNeedSlider;
 
 	[Export] private GuestNeedsEnum _guestNeedsEnum;
 	[Export] private String _needCorespondentName;

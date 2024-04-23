@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Text.Json;
 using Godot;
@@ -16,7 +17,8 @@ public partial class MiniGameController : Node2D
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 	
-	[Export] private string _alternateMiniGameScenePath;
+	[Export] private string[] _miniGameScenePaths;
+	private Random _random;
 
 	private Vector2I _artifactCellPos;
 	public override void _Ready()
@@ -24,6 +26,7 @@ public partial class MiniGameController : Node2D
 		CreateHttpRequests();
 		InitializeDiReference();
 		SubscribeToActions();
+		_random = new Random();
 	}
 
 	private void InitializeDiReference()
@@ -49,10 +52,10 @@ public partial class MiniGameController : Node2D
 	private void LoadAlternateTapMiniGame(Vector2I cellPos)
 	{
 		CeasePlayerMovementDuringMiniGame();
+		var randomMiniGamePath = _miniGameScenePaths[_random.Next(0, _miniGameScenePaths.Length)];
 		_artifactCellPos = cellPos;
 		var scene =
-		    ResourceLoader.Load<PackedScene>(_alternateMiniGameScenePath).Instantiate() as
-		        AlternateTapMiniGame;
+		    ResourceLoader.Load<PackedScene>(randomMiniGamePath).Instantiate();
 		if (scene is null)
 		{
 		    GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
@@ -64,7 +67,7 @@ public partial class MiniGameController : Node2D
 	
 	private void MiniGameWon()
 	{
-		_playerControllerVariables.Player.animationController.PlayAnimation("celebrate");
+		_playerControllerVariables.Player.animationController.Play("celebrate");
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
 		SendArtifactToInventory(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);

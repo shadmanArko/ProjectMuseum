@@ -98,7 +98,7 @@ _okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Pane
 
 [node name="MiniGameController" type="Node2D" parent="."]
 script = ExtResource("14_oqhev")
-_alternateMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn"
+_miniGameScenePaths = PackedStringArray("res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/LeftRightMouseMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/UpDownMouseMiniGame.tscn")
 
 [node name="CameraController" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("10_rax0m")]
 _camera = NodePath("Camera2D")

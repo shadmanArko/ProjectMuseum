@@ -13,6 +13,8 @@ public partial class MineUiController : CanvasLayer
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 
+	#region Initializers
+
 	public override void _Ready()
 	{
 		InitializeDiReferences();
@@ -31,6 +33,8 @@ public partial class MineUiController : CanvasLayer
 		MineActions.OnPlayerEnergyValueChanged += UpdateEnergyBar;
 		MineActions.OnPlayerPositionUpdated += SetPlayerCoordinates;
 	}
+
+	#endregion
 	
 	private void UpdateHealthBar()
 	{
@@ -49,5 +53,20 @@ public partial class MineUiController : CanvasLayer
 		var str = $"(X,Y) = ({tilePos.X},{tilePos.Y})";
 		_playerCoordinates.Text = tilePos is { X: > 0, Y: > 0 } ? str : "";
 	}
-    
+
+	#region Exit
+
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnPlayerHealthValueChanged -= UpdateHealthBar;
+		MineActions.OnPlayerEnergyValueChanged -= UpdateEnergyBar;
+		MineActions.OnPlayerPositionUpdated -= SetPlayerCoordinates;
+	}
+
+	public override void _ExitTree()
+	{
+		UnsubscribeToActions();
+	}
+
+	#endregion
 }

@@ -46,7 +46,7 @@ public class ArtifactScoringService : IArtifactScoringService
         var exhibits = await _exhibitService.GetAllExhibits();
         var zones = await _zoneService.GetAll();
         
-        SetAllIsInZoneFalseInArtifactScores(artifactScoresDataBase);
+        Clear_ArtifactScores_Database(artifactScoresDataBase);
         
         await Scan_All_The_Zones_And_Set_Score_Of_The_Artifacts_Which_Are_In_Zone(zones, exhibits, artifactScoresDataBase);
         
@@ -55,12 +55,9 @@ public class ArtifactScoringService : IArtifactScoringService
         return await _artifactScoreRepository.UpdateArtifactScore(artifactScoresDataBase);
     }
     
-    private void SetAllIsInZoneFalseInArtifactScores(List<ArtifactScore>? artifactScores)
+    private void Clear_ArtifactScores_Database(List<ArtifactScore>? artifactScores)
     {
-        foreach (var artifactScore in artifactScores)
-        {
-            artifactScore.IsInZone = false;
-        }
+        artifactScores.Clear();
     }
     
     private async Task Scan_All_The_Zones_And_Set_Score_Of_The_Artifacts_Which_Are_In_Zone(List<MuseumZone>? zones, List<Exhibit>? exhibits, List<ArtifactScore>? artifactScoresDataBase)
@@ -148,9 +145,9 @@ public class ArtifactScoringService : IArtifactScoringService
             var rawArtifacts = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
             IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Era);
             IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Region);
-            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Object);
-            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).ObjectClass);
-            IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).ObjectSize);
+            //IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Object);
+            //IncrementTagCount(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).ObjectClass);
+            //(rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).ObjectSize);
 
             foreach (var material in rawArtifacts.FirstOrDefault(functional => functional.Id == artifact.RawArtifactId).Materials)
             {
@@ -158,63 +155,6 @@ public class ArtifactScoringService : IArtifactScoringService
             }
         }
         
-        
-        
-        // foreach (var artifact in artifacts)
-        // {
-        //     if (tagCounter.ContainsKey(artifact.Era))
-        //     {
-        //         tagCounter[artifact.Era]++;
-        //     } else
-        //     {
-        //         tagCounter[artifact.Era] = 1;
-        //     }
-        //     
-        //     if (tagCounter.ContainsKey(artifact.Region))
-        //     {
-        //         tagCounter[artifact.Region]++;
-        //     } else
-        //     {
-        //         tagCounter[artifact.Region] = 1;
-        //     }
-        //     
-        //     if (tagCounter.ContainsKey(artifact.Object))
-        //     {
-        //         tagCounter[artifact.Object]++;
-        //     } else
-        //     {
-        //         tagCounter[artifact.Object] = 1;
-        //     }
-        //     
-        //     if (tagCounter.ContainsKey(artifact.ObjectClass))
-        //     {
-        //         tagCounter[artifact.ObjectClass]++;
-        //     } else
-        //     {
-        //         tagCounter[artifact.ObjectClass] = 1;
-        //     }
-        //     
-        //     if (tagCounter.ContainsKey(artifact.ObjectSize))
-        //     {
-        //         tagCounter[artifact.ObjectSize]++;
-        //     } else
-        //     {
-        //         tagCounter[artifact.ObjectSize] = 1;
-        //     }
-        //
-        //     foreach (var material in artifact.Materials)
-        //     {
-        //         if (tagCounter.ContainsKey(material))
-        //         {
-        //             tagCounter[material]++;
-        //         } else
-        //         {
-        //             tagCounter[material] = 1;
-        //         }
-        //     }
-        //     
-        //     
-        // }
         
         int commonThemeCount = tagCounter.Count(kv => kv.Value == artifacts.Count);
 
@@ -236,11 +176,14 @@ public class ArtifactScoringService : IArtifactScoringService
 
             if (foundArtifact != null)
             {
-                foundArtifact.IsInZone = false;
-                foundArtifact.Score = artifactScore;
+                if (foundArtifact.IsInZone == false)
+                {
+                    foundArtifact.Score = artifactScore;
+                }
             }
             else
             {
+                
                 var newArtifactScore = new ArtifactScore
                 {
                     ArtifactId = artifact.Id,

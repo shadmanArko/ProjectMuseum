@@ -11,9 +11,11 @@ public class ArtifactRarityRepository : IArtifactRarityRepository
         _artifactRarityDatabase = artifactRarityDatabase;
     }
 
-    public Task<float> GetRarityValueByRarity(string rarity)
+    public async Task<float> GetRarityValueByRarity(string rarity)
     {
-        throw new NotImplementedException();
+        var artifactRarities = await _artifactRarityDatabase.ReadDataAsync();
+        var artifactRarity = artifactRarities.FirstOrDefault(rarity1 => rarity1.Rarity == rarity);
+        return artifactRarity.ScoreMultiplier;
     }
 
     public async Task<List<ArtifactRarity>> GetAllArtifactRarity()

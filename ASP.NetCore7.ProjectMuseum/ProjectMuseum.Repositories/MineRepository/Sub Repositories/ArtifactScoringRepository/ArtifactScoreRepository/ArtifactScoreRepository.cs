@@ -17,8 +17,9 @@ public class ArtifactScoreRepository : IArtifactScoreRepository
         return artifactScores;
     }
 
-    public Task<List<ArtifactScore>?> UpdateArtifactScore(List<ArtifactScore> artifactScores)
+    public async Task<List<ArtifactScore>?> UpdateArtifactScore(List<ArtifactScore> artifactScores)
     {
-        throw new NotImplementedException();
+        await _artifactScoreDatabase.WriteDataAsync(artifactScores);
+        return await _artifactScoreDatabase.ReadDataAsync();
     }
 }

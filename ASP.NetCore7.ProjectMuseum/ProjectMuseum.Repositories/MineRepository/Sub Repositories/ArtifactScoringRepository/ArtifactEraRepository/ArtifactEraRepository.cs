@@ -10,8 +10,10 @@ public class ArtifactEraRepository : IArtifactEraRepository
     {
         _artifactEraDatabase = artifactEraDatabase;
     }
-    public Task<float> GetEraValueByEra(string era)
+    public async Task<float> GetEraValueByEra(string era)
     {
-        throw new NotImplementedException();
+        var artifactEras = await _artifactEraDatabase.ReadDataAsync();
+        var artifactEra = artifactEras.FirstOrDefault(era1 => era1.Era == era);
+        return artifactEra.ScoreMultiplier;
     }
 }

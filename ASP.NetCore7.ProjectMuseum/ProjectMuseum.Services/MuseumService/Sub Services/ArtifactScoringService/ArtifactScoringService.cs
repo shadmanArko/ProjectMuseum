@@ -79,8 +79,6 @@ public class ArtifactScoringService : IArtifactScoringService
             }
         }
         
-        
-        
         foreach (var artifact in artifacts)
         {
             var rawArtifacts = await _rawArtifactFunctionalService.GetAllRawArtifactFunctional();
@@ -231,7 +229,7 @@ public class ArtifactScoringService : IArtifactScoringService
                 }
             }
 
-            
+            _artifactScoreRepository.UpdateArtifactScore(artifactScores);
         }
         
         

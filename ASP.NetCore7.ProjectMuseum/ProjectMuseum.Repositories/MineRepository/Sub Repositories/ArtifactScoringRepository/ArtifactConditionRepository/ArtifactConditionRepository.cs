@@ -10,9 +10,11 @@ public class ArtifactConditionRepository : IArtifactConditionRepository
     {
         _artifactConditionDataBase = artifactConditionDataBase;
     }
-    public Task<float> GetConditionValueByCondition(string condition)
+    public async Task<float> GetConditionValueByCondition(string condition)
     {
-        throw new NotImplementedException();
+        var artifactConditions = await _artifactConditionDataBase.ReadDataAsync();
+        var artifactCondition = artifactConditions.FirstOrDefault(condition1 => condition1.Condition == condition);
+        return artifactCondition.ScoreMultiplier;
     }
 
     public async Task<List<ArtifactCondition>> GetAllArtifactConditions()

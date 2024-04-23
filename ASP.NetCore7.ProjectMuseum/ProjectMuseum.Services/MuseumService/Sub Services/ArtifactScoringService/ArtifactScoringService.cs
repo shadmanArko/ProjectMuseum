@@ -40,7 +40,7 @@ public class ArtifactScoringService : IArtifactScoringService
         _rawArtifactFunctionalService = rawArtifactFunctionalService;
     }
 
-    public async Task<float> GetArtifactScore(Artifact artifact, float zoneThemeMultiplier)
+    private async Task<float> GetArtifactScore(Artifact artifact, float zoneThemeMultiplier)
     {
         var conditionValue = await _artifactConditionRepository.GetConditionValueByCondition(artifact.Condition);
         var rarityValue = await _artifactRarityRepository.GetRarityValueByRarity(artifact.Rarity);
@@ -50,20 +50,8 @@ public class ArtifactScoringService : IArtifactScoringService
         return artifactScore;
     }
 
-    public async Task GetThemeValueOfZone(string museumZoneId)
-    {
-        // Get List of Zones
-        // Get Exhibit from all the zone
-        // Get All artifact from Each Zone
-        // Change the Artifact Score From Each Zone
-        // Store in a temp place all the artifacts which is in zone
-        // Get the artifacts which are not in zone
-        // Change the Artifact Score of those artifacts
-    }
-    
-    
 
-    public async Task<float> GetThemeMultiplierOfZone(List<Artifact> artifacts)
+    private async Task<float> GetThemeMultiplierOfZone(List<Artifact> artifacts)
     {
         Dictionary<string, int> tagCounter = new Dictionary<string, int>();
         
@@ -162,86 +150,46 @@ public class ArtifactScoringService : IArtifactScoringService
 
     public async Task<List<ArtifactScore>?> RefreshArtifactScore()
     {
-        var artifactScores = await _artifactScoreRepository.GetAllArtifactScore();
+        var artifactScoresDataBase = await _artifactScoreRepository.GetAllArtifactScore();
         var exhibits = await _exhibitService.GetAllExhibits();
-        foreach (var artifactScore in artifactScores)
-        {
-            artifactScore.IsInZone = false;
-        }
-
         var zones = await _zoneService.GetAll();
+        
+        SetAllIsInZoneFalseInArtifactScores(artifactScoresDataBase);
+        
+        await Scan_All_The_Zones_And_Set_Score_Of_The_Artifacts_Which_Are_In_Zone(zones, exhibits, artifactScoresDataBase);
+        
+        await Set_Score_Of_The_Artifacts_Which_Are_Not_In_Zone(artifactScoresDataBase);
+
+        return await _artifactScoreRepository.UpdateArtifactScore(artifactScoresDataBase);
+    }
+
+    private async Task Scan_All_The_Zones_And_Set_Score_Of_The_Artifacts_Which_Are_In_Zone(List<MuseumZone>? zones, List<Exhibit>? exhibits,
+        List<ArtifactScore>? artifactScoresDataBase)
+    {
         foreach (var zone in zones)
         {
             List<string> artifactIdsInZone = new List<string>();
             List<Artifact> artifactsInZone = new List<Artifact>();
-            foreach (var tileId in zone.OccupiedMuseumTileIds)
-            {
-                var tile = await _museumTileService.GetMuseumTileById(tileId);
-                if (tile.HasExhibit)
-                {
-                    
-                    var exhibit = exhibits.FirstOrDefault(ex => ex.Id == tile.ExhibitId);
+            await Scan_All_Tiles_In_Zone_For_Exhibits_And_Add_All_ArtifactIds_To_ArtifactIdsInZone_From_Exhibit(zone,
+                exhibits, artifactIdsInZone);
 
-                    if (exhibit.ArtifactIds != null && exhibit.ArtifactIds.Count > 0)
-                    {
-                        foreach (var artifactId in exhibit.ArtifactIds)
-                        {
-                            if (!artifactIdsInZone.Contains(artifactId))
-                            {
-                                artifactIdsInZone.Add(artifactId);
-                            }
-                        }
-                        
-                    }
-                }
-            }
-            
-            foreach (var artifactId in artifactIdsInZone)
-            {
-                var artifact = await _displayArtifactService.GetArtifactById(artifactId);
-                if (artifact != null) artifactsInZone.Add(artifact);
-            }
+            await Add_Artifacts_To_AritfactsInZone_From_DisplayArtifacts_Using_ArtifactIdsInZone(artifactIdsInZone,
+                artifactsInZone);
 
-            var zoneThemeMultiplier = await GetThemeMultiplierOfZone(artifactsInZone);
-            
-            foreach (var artifactId in artifactIdsInZone)
-            {
-                ArtifactScore? foundArtifactId = artifactScores.Find(artifact => artifact.ArtifactId == artifactId);
-
-                Artifact? artifact = await _displayArtifactService.GetArtifactById(artifactId);
-
-                float artifactScore = await GetArtifactScore(artifact, zoneThemeMultiplier);
-                
-                if (foundArtifactId != null)
-                {
-                    foundArtifactId.IsInZone = true;
-                    foundArtifactId.Score = artifactScore;
-                }
-                else
-                {
-                    var newArtifactScore = new ArtifactScore
-                    {
-                        ArtifactId = artifactId,
-                        Score = artifactScore,
-                        IsInZone = true
-                    };
-                    artifactScores.Add(newArtifactScore);
-                }
-            }
-
-            
+            await Set_Score_Of_The_Artifacts_Which_Are_In_Zone(artifactsInZone, artifactIdsInZone, artifactScoresDataBase);
         }
-        
-        
+    }
 
+    private async Task Set_Score_Of_The_Artifacts_Which_Are_Not_In_Zone(List<ArtifactScore>? artifactScores)
+    {
         var displayArtifacts = await _displayArtifactService.GetAllArtifacts();
 
         foreach (var artifact in displayArtifacts)
         {
             ArtifactScore? foundArtifact = artifactScores.Find(artifact1 => artifact1.ArtifactId == artifact.Id);
-            
+
             float artifactScore = await GetArtifactScore(artifact, 0.8f);
-                
+
             if (foundArtifact != null)
             {
                 foundArtifact.IsInZone = false;
@@ -258,9 +206,90 @@ public class ArtifactScoringService : IArtifactScoringService
                 artifactScores.Add(newArtifactScore);
             }
         }
-        
-        return await _artifactScoreRepository.UpdateArtifactScore(artifactScores);
     }
-    
-    
+
+    private async Task Scan_All_Tiles_In_Zone_For_Exhibits_And_Add_All_ArtifactIds_To_ArtifactIdsInZone_From_Exhibit(
+        MuseumZone zone, List<Exhibit>? exhibits, List<string> artifactIdsInZone)
+    {
+        foreach (var tileId in zone.OccupiedMuseumTileIds)
+        {
+            await Scan_Tiles_For_Exhibits_And_Add_All_ArtifactIds_To_ArtifactIdsInZone_From_Exhibit(tileId, exhibits,
+                artifactIdsInZone);
+        }
+    }
+
+    private async Task Set_Score_Of_The_Artifacts_Which_Are_In_Zone(List<Artifact> artifactsInZone, List<string> artifactIdsInZone,
+        List<ArtifactScore>? artifactScores)
+    {
+        var zoneThemeMultiplier = await GetThemeMultiplierOfZone(artifactsInZone);
+
+        foreach (var artifactId in artifactIdsInZone)
+        {
+            ArtifactScore? foundArtifactId = artifactScores.Find(artifact => artifact.ArtifactId == artifactId);
+
+            Artifact? artifact = await _displayArtifactService.GetArtifactById(artifactId);
+
+            float artifactScore = await GetArtifactScore(artifact, zoneThemeMultiplier);
+
+            if (foundArtifactId != null)
+            {
+                foundArtifactId.IsInZone = true;
+                foundArtifactId.Score = artifactScore;
+            }
+            else
+            {
+                var newArtifactScore = new ArtifactScore
+                {
+                    ArtifactId = artifactId,
+                    Score = artifactScore,
+                    IsInZone = true
+                };
+                artifactScores.Add(newArtifactScore);
+            }
+        }
+    }
+
+    private async Task Add_Artifacts_To_AritfactsInZone_From_DisplayArtifacts_Using_ArtifactIdsInZone(
+        List<string> artifactIdsInZone, List<Artifact> artifactsInZone)
+    {
+        foreach (var artifactId in artifactIdsInZone)
+        {
+            var artifact = await _displayArtifactService.GetArtifactById(artifactId);
+            if (artifact != null) artifactsInZone.Add(artifact);
+        }
+    }
+
+    private async Task Scan_Tiles_For_Exhibits_And_Add_All_ArtifactIds_To_ArtifactIdsInZone_From_Exhibit(string tileId,
+        List<Exhibit>? exhibits, List<string> artifactIdsInZone)
+    {
+        var tile = await _museumTileService.GetMuseumTileById(tileId);
+        if (tile.HasExhibit)
+        {
+            var exhibit = exhibits.FirstOrDefault(ex => ex.Id == tile.ExhibitId);
+
+            Add_All_ArtifactIds_To_ArtifactIdsInZone_From_Exhibit(exhibit, artifactIdsInZone);
+        }
+    }
+
+    private void Add_All_ArtifactIds_To_ArtifactIdsInZone_From_Exhibit(Exhibit? exhibit, List<string> artifactIdsInZone)
+    {
+        if (exhibit.ArtifactIds != null && exhibit.ArtifactIds.Count > 0)
+        {
+            foreach (var artifactId in exhibit.ArtifactIds)
+            {
+                if (!artifactIdsInZone.Contains(artifactId))
+                {
+                    artifactIdsInZone.Add(artifactId);
+                }
+            }
+        }
+    }
+
+    protected void SetAllIsInZoneFalseInArtifactScores(List<ArtifactScore>? artifactScores)
+    {
+        foreach (var artifactScore in artifactScores)
+        {
+            artifactScore.IsInZone = false;
+        }
+    }
 }

@@ -24,6 +24,8 @@ public partial class ToolbarSelector : Node
 	
 	private List<ToolbarSlot> _toolbarSlots;
 
+	#region Initializers
+
 	public override void _EnterTree()
 	{
 		CreateHttpRequest();
@@ -56,6 +58,8 @@ public partial class ToolbarSelector : Node
 		MineActions.OnRawArtifactDTOInitialized += GetPlayerInventory;
 	}
 
+	#endregion
+    
 	#region Player Inventory
 
 	#region Get Player Inventory
@@ -150,7 +154,9 @@ public partial class ToolbarSelector : Node
 	}
 
 	#endregion
-    
+
+	#region Select and Deselect
+
 	private void SelectItem(int itemNumber)
 	{
 		GD.Print($"current item selected in toolbar: {itemNumber}");
@@ -164,4 +170,22 @@ public partial class ToolbarSelector : Node
 		foreach (var slot in _toolbarSlots)
 			slot.SetItemAsDeselected();
 	}
+
+	#endregion
+
+	#region Exit Tree
+
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnToolbarSlotChanged -= SelectItem;
+		MineActions.OnInventoryUpdate -= UpdatePlayerInventory;
+		MineActions.OnRawArtifactDTOInitialized -= GetPlayerInventory;
+	}
+
+	public override void _ExitTree()
+	{
+		UnsubscribeToActions();
+	}
+
+	#endregion
 }

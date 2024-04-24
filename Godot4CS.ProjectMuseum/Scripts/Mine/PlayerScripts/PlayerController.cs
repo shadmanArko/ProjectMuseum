@@ -60,7 +60,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	        DetectCollision();
         }
 
-        PlayerAttack();
+        // PlayerAttack();
         animationController.SetAnimation();
         ModifyPlayerVariables();
 	}

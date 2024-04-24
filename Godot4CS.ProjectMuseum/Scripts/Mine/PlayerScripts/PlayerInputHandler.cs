@@ -41,10 +41,16 @@ public partial class PlayerInputHandler : Node2D
         var totalSlots = 12;
         
         if (inputEvent.IsActionReleased("ui_left_click"))
-            MineActions.OnLeftMouseClickActionEnded?.Invoke();
-
+            MineActions.OnLeftMouseClickAction?.Invoke();
+        
+        if(inputEvent.IsActionPressed("ui_left_click"))
+            MineActions.OnLeftMouseHeldActionStarted?.Invoke();
+        
+        if(inputEvent.IsActionReleased("ui_left_click"))
+            MineActions.OnLeftMouseHeldActionEnded?.Invoke();
+            
         if (inputEvent.IsActionReleased("ui_right_click"))
-            MineActions.OnRightMouseClickActionEnded?.Invoke();
+            MineActions.OnRightMouseClickAction?.Invoke();
 
         if (inputEvent.IsActionReleased("ui_wheel_up"))
         {

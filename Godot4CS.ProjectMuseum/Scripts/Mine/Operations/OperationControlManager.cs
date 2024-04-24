@@ -15,6 +15,7 @@ public partial class OperationControlManager : Node2D
     
     [Export] private InventoryControllers.WallPlaceableController _wallPlaceableController;
     [Export] private InventoryControllers.ConsumableController _consumableController;
+    [Export] private InventoryControllers.EquipableController _equipableController;
     
     private Inventory _inventory;
     private int _slot;
@@ -110,6 +111,9 @@ public partial class OperationControlManager : Node2D
                 break;
             case "Consumable":
                 _consumableController.ActivateController(inventoryItem);
+                break;
+            case "Equipable":
+                _equipableController.ActivateController(inventoryItem);
                 break;
         }
     }

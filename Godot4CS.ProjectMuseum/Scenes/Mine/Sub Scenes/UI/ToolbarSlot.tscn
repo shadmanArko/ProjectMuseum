@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c605j4icx72b7"]
+[gd_scene load_steps=7 format=3 uid="uid://c605j4icx72b7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSlot.cs" id="1_cg1vg"]
 [ext_resource type="Texture2D" uid="uid://ci2a5cfonngv2" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Blue_Frame.png" id="2_jx65y"]
@@ -7,33 +7,37 @@
 
 [sub_resource type="Theme" id="Theme_ra50t"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_th4pj"]
-
 [sub_resource type="Theme" id="Theme_gnv56"]
 
-[node name="ToolbarSlot" type="PanelContainer" node_paths=PackedStringArray("_highlighter", "_itemSlot", "_itemCounter", "_itemCounterValue")]
+[node name="ToolbarSlot" type="Control" node_paths=PackedStringArray("_highlighter", "_itemSlot", "_itemCounter", "_itemCounterValue")]
 custom_minimum_size = Vector2(60, 60)
+layout_mode = 3
+anchors_preset = 0
 theme = SubResource("Theme_ra50t")
-theme_override_styles/panel = SubResource("StyleBoxTexture_th4pj")
 script = ExtResource("1_cg1vg")
-_highlighter = NodePath("Highlighter")
-_itemSlot = NodePath("Highlighter/ItemSlot")
-_itemCounter = NodePath("Item Counter")
-_itemCounterValue = NodePath("Item Counter/Counter Value")
+_highlighter = NodePath("PanelContainer/Highlighter")
+_itemSlot = NodePath("PanelContainer/Highlighter/ItemSlot")
+_itemCounter = NodePath("PanelContainer/Item Counter")
+_itemCounterValue = NodePath("PanelContainer/Item Counter/Counter Value")
 _selectedHighlighter = ExtResource("2_jx65y")
 _defaultHighlighter = ExtResource("3_eo1oc")
 
-[node name="Highlighter" type="Sprite2D" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+offset_right = 60.0
+offset_bottom = 60.0
+
+[node name="Highlighter" type="Sprite2D" parent="PanelContainer"]
 texture_filter = 1
 position = Vector2(30, 30)
 scale = Vector2(2.72727, 2.72727)
 texture = ExtResource("3_eo1oc")
 
-[node name="ItemSlot" type="Sprite2D" parent="Highlighter"]
+[node name="ItemSlot" type="Sprite2D" parent="PanelContainer/Highlighter"]
 texture_filter = 1
 position = Vector2(-4.19617e-06, -4.19617e-06)
 
-[node name="Item Counter" type="Control" parent="."]
+[node name="Item Counter" type="Control" parent="PanelContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 21)
 layout_direction = 1
@@ -42,7 +46,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = SubResource("Theme_gnv56")
 
-[node name="Counter Value" type="Label" parent="Item Counter"]
+[node name="Counter Value" type="Label" parent="PanelContainer/Item Counter"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2kpw6quvatj7"]
+[gd_scene load_steps=3 format=3 uid="uid://xobfeq3cgo2r"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_q1pt4"]
 [ext_resource type="Texture2D" uid="uid://wghq5xodtlc3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/sword.png" id="2_7wesq"]

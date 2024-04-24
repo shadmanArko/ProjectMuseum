@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwou7mojgk558"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyty5"]
+size = Vector2(102, 100)
+
+[node name="InventoryDragAndDrop" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 200)
+layout_direction = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Panel/PanelContainer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Panel/PanelContainer/StaticBody2D"]
+position = Vector2(51, 50)
+shape = SubResource("RectangleShape2D_lyty5")

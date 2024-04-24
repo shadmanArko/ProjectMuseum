@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/AlternateTapMiniGame.cs" id="1_i0xcx"]
 [ext_resource type="Texture2D" uid="uid://bsn0ka4exkaib" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarUnder.png" id="2_4doy4"]
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_5tfpf"]
 [ext_resource type="Texture2D" uid="uid://drlegajgqcabr" path="res://Assets/2D/Sprites/Keyboard Letters/Keyboard Letters and Symbols.png" id="3_6jkpx"]
 [ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="3_p7y4i"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="6_j3hg0"]
 
 [node name="AlternateTapMiniGame" type="CanvasLayer" node_paths=PackedStringArray("_timerLabel", "_progressLabel", "_textureProgressBar")]
 script = ExtResource("1_i0xcx")
@@ -12,7 +12,7 @@ _initialCountDownValue = 20.0
 _countDownTimer = 20.0
 _timeReduceInterval = 0.25
 _timerLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Timer Label")
-_progressLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Progress Label")
+_progressLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container/Progress Label")
 _textureProgressBar = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container/TextureProgressBar")
 _finalValue = 100
 _successPoints = 5
@@ -37,24 +37,6 @@ size_flags_vertical = 4
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Mini Game Name" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_5tfpf")
-theme_override_font_sizes/font_size = 66
-text = "Alternate Button Tap"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Timer Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_5tfpf")
-theme_override_font_sizes/font_size = 33
-text = "Time Remaining      00:20"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Press Q and E" type="HBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
@@ -64,8 +46,8 @@ alignment = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_5tfpf")
-theme_override_font_sizes/font_size = 55
+theme_override_fonts/font = ExtResource("6_j3hg0")
+theme_override_font_sizes/font_size = 44
 text = "Press"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -87,8 +69,8 @@ region_rect = Rect2(1, 66, 13, 12)
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_5tfpf")
-theme_override_font_sizes/font_size = 55
+theme_override_fonts/font = ExtResource("6_j3hg0")
+theme_override_font_sizes/font_size = 44
 text = "and"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -110,8 +92,8 @@ region_rect = Rect2(65, 34, 13, 12)
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_5tfpf")
-theme_override_font_sizes/font_size = 55
+theme_override_fonts/font = ExtResource("6_j3hg0")
+theme_override_font_sizes/font_size = 44
 text = "alternatively"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -127,11 +109,22 @@ nine_patch_stretch = true
 texture_under = ExtResource("2_4doy4")
 texture_progress = ExtResource("3_p7y4i")
 
-[node name="Progress Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+[node name="Progress Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container"]
 texture_filter = 1
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_5tfpf")
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_j3hg0")
 theme_override_font_sizes/font_size = 33
-text = "Progress: "
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_j3hg0")
+theme_override_font_sizes/font_size = 44
+text = "00:20"
 horizontal_alignment = 1
 vertical_alignment = 1

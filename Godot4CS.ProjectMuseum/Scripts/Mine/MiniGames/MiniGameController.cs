@@ -1,5 +1,7 @@
+using System;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -16,7 +18,8 @@ public partial class MiniGameController : Node2D
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 	
-	[Export] private string _alternateMiniGameScenePath;
+	[Export] private string[] _miniGameScenePaths;
+	private Random _random;
 
 	private Vector2I _artifactCellPos;
 	public override void _Ready()
@@ -24,6 +27,7 @@ public partial class MiniGameController : Node2D
 		CreateHttpRequests();
 		InitializeDiReference();
 		SubscribeToActions();
+		_random = new Random();
 	}
 
 	private void InitializeDiReference()
@@ -49,10 +53,10 @@ public partial class MiniGameController : Node2D
 	private void LoadAlternateTapMiniGame(Vector2I cellPos)
 	{
 		CeasePlayerMovementDuringMiniGame();
+		var randomMiniGamePath = _miniGameScenePaths[_random.Next(0, _miniGameScenePaths.Length)];
 		_artifactCellPos = cellPos;
 		var scene =
-		    ResourceLoader.Load<PackedScene>(_alternateMiniGameScenePath).Instantiate() as
-		        AlternateTapMiniGame;
+		    ResourceLoader.Load<PackedScene>(randomMiniGamePath).Instantiate();
 		if (scene is null)
 		{
 		    GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
@@ -62,9 +66,11 @@ public partial class MiniGameController : Node2D
 		AddChild(scene);
 	}
 	
-	private void MiniGameWon()
+	private async void MiniGameWon()
 	{
-		_playerControllerVariables.Player.animationController.PlayAnimation("celebrate");
+		var animationController = _playerControllerVariables.Player.animationController;
+		animationController.Play("celebrate");
+		await Task.Delay(Mathf.CeilToInt(animationController.CurrentAnimationLength * 1000));
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
 		SendArtifactToInventory(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);

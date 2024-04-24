@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=66 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
 [ext_resource type="PackedScene" uid="uid://2nxthrd3s2eh" path="res://Scenes/Museum/Sub Scenes/Emily.tscn" id="24_vxlv2"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
+[ext_resource type="PackedScene" uid="uid://di3wkks16f8su" path="res://Scenes/Museum/Museum Ui/guest_pop_up_ui.tscn" id="25_jsgpp"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
 [ext_resource type="PackedScene" uid="uid://bggrmc7dfa7d8" path="res://Scenes/Museum/Sub Scenes/Alex.tscn" id="25_qfbsa"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
@@ -159,6 +160,10 @@ visible = false
 _popUpUi = NodePath("Town Ui/TownWarning")
 _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
 _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
+
+[node name="Guest Pop up Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_closingButton") instance=ExtResource("25_jsgpp")]
+visible = false
+_closingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/Name/Button")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
 position = Vector2(130, -49)
@@ -929,6 +934,7 @@ script = ExtResource("46_uujue")
 _backgroundObject = NodePath("../museum/Background Foresnt")
 
 [node name="ControllersContainer" type="Node2D" parent="." node_paths=PackedStringArray("_controllersParent")]
+process_mode = 4
 script = ExtResource("48_dpvlv")
 _controllersParent = NodePath(".")
 

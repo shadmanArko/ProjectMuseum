@@ -114,6 +114,34 @@ public partial class Guest : GuestAi
         entertainmentDecayRate = guestBuildingParameter.EntertainmentDecayRange.GetRandom();
         bladderDecayRate = guestBuildingParameter.BladderDecayRange.GetRandom();
         energyDecayRate = guestBuildingParameter.EnergyDecayRange.GetRandom();
+
+        var numberOfTags = guestBuildingParameter.NumberOfInterestedTags.GetRandom();
+        for (int i = 0; i < numberOfTags; i++)
+        {
+            var rand = GD.RandRange(1, 4);
+            var tagsPool = new List<string>();
+            switch (rand)
+            {
+                case 1:
+                    tagsPool = guestBuildingParameter.ArtifactEraTags;
+                    break;
+                case 2:
+                    tagsPool = guestBuildingParameter.ArtifactRegionTags;
+                    break;
+                case 3:
+                    tagsPool = guestBuildingParameter.ArtifactObjectTags;
+                    break;
+                case 4:
+                    tagsPool = guestBuildingParameter.ArtifactMaterialTags;
+                    break;
+                default:
+                    break;
+            }
+
+            interestedInTags.Add(tagsPool.Shuffle()[0]);
+        }
+        
+        
         _listOfSceneExitPoints = sceneExitPoints;
         _displacementSpeed =  (float)GD.RandRange(_minDisplacementSpeed, _maxDisplacementSpeed);
         SetPath();

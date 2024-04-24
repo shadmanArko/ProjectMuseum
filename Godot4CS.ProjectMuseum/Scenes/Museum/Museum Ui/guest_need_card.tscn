@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/UI/GuestNeedCard.cs" id="1_bpmed"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="1_sxgw8"]
 
-[node name="Guest need card" type="Control" node_paths=PackedStringArray("GuestNeedSlider")]
+[node name="Guest need card" type="Control" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 3
 anchors_preset = 15
@@ -12,7 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bpmed")
-GuestNeedSlider = NodePath("ColorRect/sliderhandle")
+_guestNeedSlider = NodePath("ColorRect/sliderhandle")
+_guestNeedName = NodePath("ColorRect/Label")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(340, 36)
@@ -27,21 +28,22 @@ offset_right = 84.0
 offset_bottom = 40.0
 theme = ExtResource("1_sxgw8")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Need"
+theme_override_font_sizes/font_size = 16
+text = "Entertainment"
 vertical_alignment = 1
 
 [node name="sliderbase" type="ColorRect" parent="ColorRect"]
 layout_mode = 0
-offset_left = 84.0
+offset_left = 143.0
 offset_top = 4.0
-offset_right = 334.0
+offset_right = 335.0
 offset_bottom = 35.0
 color = Color(0.518503, 0.518503, 0.518503, 1)
 
 [node name="sliderhandle" type="ColorRect" parent="ColorRect"]
 layout_mode = 0
-offset_left = 84.0
+offset_left = 143.0
 offset_top = 4.0
-offset_right = 334.0
+offset_right = 244.0
 offset_bottom = 35.0
 color = Color(0.339095, 0.339095, 0.339095, 1)

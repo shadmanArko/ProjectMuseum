@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -65,9 +66,11 @@ public partial class MiniGameController : Node2D
 		AddChild(scene);
 	}
 	
-	private void MiniGameWon()
+	private async void MiniGameWon()
 	{
-		_playerControllerVariables.Player.animationController.Play("celebrate");
+		var animationController = _playerControllerVariables.Player.animationController;
+		animationController.Play("celebrate");
+		await Task.Delay(Mathf.CeilToInt(animationController.CurrentAnimationLength * 1000));
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
 		SendArtifactToInventory(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);

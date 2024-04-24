@@ -10,7 +10,6 @@ public partial class RepeatedTapMiniGame : Node2D
     [Export] private Label _titleLabel;
     [Export] private Label _timerLabel;
     [Export] private Label _progressLabel;
-    [Export] private Label _tapCounterLabel;
     [Export] private TextureProgressBar _textureProgressBar;
 
     [Export] private int _finalValue;
@@ -44,7 +43,6 @@ public partial class RepeatedTapMiniGame : Node2D
     public override void _PhysicsProcess(double delta)
     {
         _titleLabel.Text = $"Repeatedly tap the key that appears {_currentKeyToTap}";
-        _tapCounterLabel.Text = _tapCounter.ToString();
         _timerLabel.Text =
             $"Time Remaining:   00:{Mathf.Ceil(Mathf.Clamp(_countDownTimer, 0, _initialCountDownValue)):g00}";
         if (_countDownTimer <= 0)

@@ -4,23 +4,15 @@
       {
         "Id": "eqp1",
         "Name": "Sword of Valor",
-        "Type": "Equipable",
-        "Category": "Melee",
-        "Variant": "BasicSword",
-        "IsStackable": false,
-        "Stack": 0,
         "Slot": 0,
+        "Type": "Weapon",
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
       },
       {
         "Id": "eqp2",
         "Name": "Iron Shield",
-        "Type": "Equipable",
-        "Category": "Pickaxe",
-        "Variant": "BasicPickaxe",
-        "IsStackable": false,
-        "Stack": 0,
         "Slot": 1,
+        "Type": "Shield",
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
       },
       {
@@ -41,18 +33,13 @@
         "Category": "Energy",
         "Variant": "EnergyPotion",
         "IsStackable": true,
-        "Stack": 1,
+        "Stack": 5,
         "Slot": 3,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
       }
     ],
     "Artifacts": [],
-    "OccupiedSlots": [
-      0,
-      1,
-      2,
-      3
-    ],
+    "OccupiedSlots": [0,1,2,3],
     "SlotsUnlocked": 12
   }
 ]

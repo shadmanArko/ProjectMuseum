@@ -87,7 +87,11 @@ public partial class ExhibitEditorUi : Control
 		for (int i = 0; i < numberOfSlots; i++)
 		{
 			var instance = _dropTarget.Instantiate();
-			instance.GetNode<DropTarget>(".").Initialize(i+1);
+			foreach (var child in instance.GetChildren())
+			{
+				child.GetNode<DropTarget>(".").Initialize(i+1);
+				
+			}
 			_dropTargetsParent.AddChild(instance);
 		}
 		

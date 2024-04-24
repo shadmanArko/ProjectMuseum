@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_kqmcg"]
 [ext_resource type="PackedScene" uid="uid://bwntmtbpv43ly" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn" id="3_vjpch"]
 [ext_resource type="Script" path="res://Scripts/Museum/DropTarget.cs" id="4_mx4kr"]
-[ext_resource type="PackedScene" uid="uid://crxjk410778yy" path="res://Scenes/Museum/Museum Ui/Drag And Drop/drop_target.tscn" id="5_v7dyc"]
+[ext_resource type="PackedScene" uid="uid://dfskhvya13su5" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_2x_2_grid.tscn" id="6_t65k2"]
 
 [node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton")]
 texture_filter = 1
@@ -17,7 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_5j1h5")
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/Top Panel/Button")
 _draggable = ExtResource("3_vjpch")
-_dropTarget = ExtResource("5_v7dyc")
+_dropTarget = ExtResource("6_t65k2")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer")
 _glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/CheckButton")
@@ -154,15 +154,18 @@ theme_override_constants/margin_right = 180
 [node name="GridContainer" type="GridContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer"]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
-theme_override_constants/v_separation = 45
+columns = 2
 
-[node name="DropTarget 1" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
+[node name="Exhibit Editor 2x2 Grid" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("6_t65k2")]
 layout_mode = 2
 
-[node name="DropTarget 2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
+[node name="Exhibit Editor 2x2 Grid2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("6_t65k2")]
 layout_mode = 2
 
-[node name="DropTarget 3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("5_v7dyc")]
+[node name="Exhibit Editor 2x2 Grid3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("6_t65k2")]
+layout_mode = 2
+
+[node name="Exhibit Editor 2x2 Grid4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("6_t65k2")]
 layout_mode = 2
 
 [node name="CheckButton" type="CheckButton" parent="Panel/Exhibit Editor Ui BG/Right Panel"]

@@ -2,11 +2,11 @@
 
 public class GuestBuildingParameter
 {
-    public MinMaxInt NumberOfInterestedTags;
     public List<string> ArtifactEraTags { get; set; }
     public List<string> ArtifactRegionTags { get; set; }
     public List<string> ArtifactObjectTags { get; set; }
     public List<string> ArtifactMaterialTags { get; set; }
+    public MinMaxInt NumberOfInterestedTags { get; set; }
     public MinMaxFloat GuestMoneyRange { get; set; }
 
     public MinMaxFloat HungerLevelRange { get; set; }

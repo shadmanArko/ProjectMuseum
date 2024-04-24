@@ -59,7 +59,6 @@ public partial class Guest : GuestAi
     [Export] private Vector2I _targetTileCoordinate;
     [Export] private int _currentExhibitIndex = 0;
     private bool _gamePaused = false;
-    private bool _insideMuseum = false;
     private bool _wantsToEnterMuseum = false;
     private List<Vector2I> _listOfSceneExitPoints;
     private bool _usingWashroom;
@@ -138,7 +137,13 @@ public partial class Guest : GuestAi
                     break;
             }
 
-            interestedInTags.Add(tagsPool.Shuffle()[0]);
+            var tag = tagsPool.Shuffle()[0];
+            if (interestedInTags.Contains(tag))
+            {
+                i--;
+                continue;
+            }
+            interestedInTags.Add(tag);
         }
         
         
@@ -192,7 +197,7 @@ public partial class Guest : GuestAi
     public void SetPath()
     {
         _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
-        if (_insideMuseum)
+        if (insideMuseum)
         {
             // _targetTileCoordinate =  new Vector2I(GD.RandRange(-10, -17), GD.RandRange(-10, -19));
             currentNeed = CheckForNeedsToFulfill();
@@ -367,7 +372,7 @@ public partial class Guest : GuestAi
             _currentPathIndex++;
             ControlAnimation();
         }
-        else if (!_insideMuseum)
+        else if (!insideMuseum)
         {
             // Visible = false;
             // await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));
@@ -377,7 +382,7 @@ public partial class Guest : GuestAi
             {
                 if (GameManager.isMuseumGateOpen)
                 {
-                    _insideMuseum = true;
+                    insideMuseum = true;
                     MuseumActions.OnGuestEnterMuseum?.Invoke(this);
                     _canMove = true;
                     SetPath();
@@ -403,7 +408,7 @@ public partial class Guest : GuestAi
                 // _canMove = false;
                 MuseumActions.OnGuestExitMuseum?.Invoke(this);
                 // QueueFree();
-                _insideMuseum = false;
+                insideMuseum = false;
                 _wantsToEnterMuseum = false;
                 SetPath();
                 _exitingMuseum = false;

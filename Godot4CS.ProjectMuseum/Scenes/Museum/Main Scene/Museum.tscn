@@ -161,9 +161,10 @@ _popUpUi = NodePath("Town Ui/TownWarning")
 _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
 _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
 
-[node name="Guest Pop up Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_closingButton") instance=ExtResource("25_jsgpp")]
+[node name="Guest Pop up Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_closingButton", "_guestInterestTags") instance=ExtResource("25_jsgpp")]
 visible = false
 _closingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/Name/Button")
+_guestInterestTags = NodePath("PanelContainer/VBoxContainer/interest/Interest bar/Interested Tags")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
 position = Vector2(130, -49)

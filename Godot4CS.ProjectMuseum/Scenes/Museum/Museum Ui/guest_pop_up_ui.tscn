@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://f6y7thl51tah" path="res://Scenes/Museum/Museum Ui/guest_need_card.tscn" id="1_wci1m"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_mpiid"]
 
-[node name="Guest Pop up Ui" type="Control" node_paths=PackedStringArray("_closingButton")]
+[node name="Guest Pop up Ui" type="Control" node_paths=PackedStringArray("_closingButton", "_guestInterestTags")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ grow_vertical = 2
 theme = ExtResource("2_mpiid")
 script = ExtResource("1_7msei")
 _closingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/Name/Button")
+_guestInterestTags = NodePath("PanelContainer/VBoxContainer/interest/Interest bar/Interested Tags")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(346, 500)
@@ -119,6 +120,21 @@ theme_override_constants/margin_right = 40
 [node name="Interest bar" type="ColorRect" parent="PanelContainer/VBoxContainer/interest"]
 custom_minimum_size = Vector2(260, 24)
 layout_mode = 2
+color = Color(0.393086, 0.393086, 0.393085, 1)
+
+[node name="Interested Tags" type="Label" parent="PanelContainer/VBoxContainer/interest/Interest bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_mpiid")
+text = "Interest, Interest"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 1
 
 [node name="Guest Thoughts" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

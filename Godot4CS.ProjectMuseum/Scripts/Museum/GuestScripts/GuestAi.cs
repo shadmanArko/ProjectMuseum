@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
@@ -23,7 +24,7 @@ public partial class GuestAi : CharacterBody2D
     public float energyLevel;
     public float entertainmentLevel;
     public List<string> interestedInTags = new List<string>();
-    
+    public bool insideMuseum;
     protected float hungerDecayRate;
     protected float interestInArtifactDecayRate;
     protected float thirstDecayRate;
@@ -69,8 +70,10 @@ public partial class GuestAi : CharacterBody2D
 
     private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
     {
+        if (!insideMuseum) return;
+        
         _countForDecayInterval++;
-        if (_countForDecayInterval >= _needsDecayInterval)
+        if ( _countForDecayInterval >= _needsDecayInterval)
         {
             hungerLevel = Math.Clamp(hungerLevel + hungerDecayRate, -100, 100);
             thirstLevel = Math.Clamp(thirstLevel + hungerDecayRate, -100, 100);

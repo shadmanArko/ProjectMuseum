@@ -2,7 +2,7 @@ using Godot;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
-public partial class ToolbarSlot : Node
+public partial class ToolbarSlot : Control
 {
 	private MineSceneTooltip _mineSceneTooltip;
 	
@@ -87,6 +87,23 @@ public partial class ToolbarSlot : Node
 		SetItemAsDeselected();
 		RemoveItemTexture();
 		RemoveItemData();
+	}
+
+	public override Variant _GetDragData(Vector2 atPosition)
+	{
+		GD.Print("drag started");
+		return base._GetDragData(atPosition);
+	}
+
+	public override bool _CanDropData(Vector2 atPosition, Variant data)
+	{
+		GD.Print("hovered over this node");
+		return base._CanDropData(atPosition, data);
+	}
+
+	public override void _DropData(Vector2 atPosition, Variant data)
+	{
+		base._DropData(atPosition, data);
 	}
 
 	#region Mouse Enter And Exit

@@ -26,6 +26,8 @@ public class NewGameDataLoaderService
     string _tutorialStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "Tutorials.json");
     string _wallpaperVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "wallpaperVariations.json");
     string _wallVariationStartingDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "wallVariations.json");
+    string _sanitationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "sanitation.json");
+    string _sanitationVariationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Starting Data Folder", "sanitationVariations.json");
     
     //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
     //string dataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for deployment
@@ -54,5 +56,6 @@ public class NewGameDataLoaderService
         await File.WriteAllTextAsync(Const.tutorialDataFolderPath, await File.ReadAllTextAsync(_tutorialStartingDataFolderPath));
         await File.WriteAllTextAsync(Const.wallpaperVariationDataFolderPath, await File.ReadAllTextAsync(_wallpaperVariationStartingDataFolderPath));
         await File.WriteAllTextAsync(Const.wallVariationDataFolderPath, await File.ReadAllTextAsync(_wallVariationStartingDataFolderPath));
-    }
+        await File.WriteAllTextAsync(Const.sanitationDataFolderPath, await File.ReadAllTextAsync(_sanitationDataFolderPath));
+        await File.WriteAllTextAsync(Const.sanitationVariationDataFolderPath, await File.ReadAllTextAsync(_sanitationVariationDataFolderPath));}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bf3cyd5cug7da"]
+[gd_scene load_steps=56 format=3 uid="uid://bf3cyd5cug7da"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/Guest.cs" id="1_lo1i4"]
 [ext_resource type="Texture2D" uid="uid://dk1d1xvxvbwgo" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SKIN/GUEST_SKIN_3.png" id="5_7evfx"]
@@ -23,8 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://btaxwh1limy4c" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHIRT/SHIRT_4.png" id="21_y3wyi"]
 [ext_resource type="Texture2D" uid="uid://bqv6jxl2jcs4w" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHIRT/SHIRT_5.png" id="22_3sgtj"]
 [ext_resource type="Texture2D" uid="uid://cu53lbwjs2dcc" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHIRT/SHIRT_6.png" id="23_vqvk1"]
+[ext_resource type="Texture2D" uid="uid://v8vwnt8lk4uv" path="res://Assets/2D/Animations/GuestSelection/guest_selection.png" id="24_chdmy"]
 [ext_resource type="Texture2D" uid="uid://c6wth67qrvtwr" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_full.png" id="24_man08"]
-[ext_resource type="Texture2D" uid="uid://cqfrqomw1mp8o" path="res://Assets/2D/Sprites/icon.svg" id="24_nxqxh"]
 
 [sub_resource type="Animation" id="Animation_x31cg"]
 length = 0.001
@@ -2488,7 +2488,45 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p6y7"]
 size = Vector2(15, 38)
 
-[node name="GuestWithLayers" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterPartsParent", "_characterShadow", "_characterSkin", "_characterEye", "_characterHair", "_characterShoe", "_characterPant", "_characterShirt", "_characterOverCloth", "_collisionShape2D", "_selectionIndicator", "_selectionIndicatorBottom")]
+[sub_resource type="Animation" id="Animation_jb1cn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_55vv4"]
+resource_name = "selected"
+length = 1.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_onokm"]
+_data = {
+"RESET": SubResource("Animation_jb1cn"),
+"selected": SubResource("Animation_55vv4")
+}
+
+[node name="GuestWithLayers" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer", "_characterPartsParent", "_characterShadow", "_characterSkin", "_characterEye", "_characterHair", "_characterShoe", "_characterPant", "_characterShirt", "_characterOverCloth", "_collisionShape2D", "_selectionIndicator", "_selectionIndicatorBottom", "_selectionIndicatorAnimationPlayer")]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -2516,6 +2554,7 @@ _overClothTextures = Array[Texture2D]([ExtResource("12_inmq0")])
 _collisionShape2D = NodePath("Charcter Parts/Shadow")
 _selectionIndicator = NodePath("selectionIndicator")
 _selectionIndicatorBottom = NodePath("SelectionIndicatorBottom")
+_selectionIndicatorAnimationPlayer = NodePath("SelectionIndicatorBottom/AnimationPlayer")
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -2529,8 +2568,13 @@ disabled = true
 
 [node name="SelectionIndicatorBottom" type="Sprite2D" parent="."]
 visible = false
-scale = Vector2(0.182194, -0.0653603)
-texture = ExtResource("24_nxqxh")
+texture = ExtResource("24_chdmy")
+hframes = 11
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SelectionIndicatorBottom"]
+libraries = {
+"": SubResource("AnimationLibrary_onokm")
+}
 
 [node name="Charcter Parts" type="Node2D" parent="."]
 

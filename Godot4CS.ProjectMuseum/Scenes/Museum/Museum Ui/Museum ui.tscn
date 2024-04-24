@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ck4te6vpacd7e" path="res://Assets/2D/Sprites/Exhibits/MediumWoodenExhibitBasic2.png" id="6_hu88n"]
 [ext_resource type="Texture2D" uid="uid://xulkrjechic1" path="res://Assets/2D/Sprites/Museum Ui/stars.png" id="6_uevkq"]
 [ext_resource type="Texture2D" uid="uid://eb3pcvrr7hnc" path="res://Assets/2D/Sprites/Exhibits/LargeWoodenExhibitBasic.png" id="7_lgtob"]
-[ext_resource type="Theme" path="res://Themes/Museum ui bold Text.tres" id="8_txj3i"]
+[ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="8_txj3i"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/DateTimeUi.cs" id="10_6y0pe"]
 [ext_resource type="Texture2D" uid="uid://cdttskiu31lta" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Digging_and_permits_button.png" id="11_7rcfi"]
 [ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="11_n0rbh"]
@@ -41,13 +41,14 @@ mouse_filter = 1
 _closePanelButton = NodePath("PanelContainer/Container/Top Panel/Button")
 _subcontinentButton = NodePath("PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
 
-[node name="BottomBarMuseumUi2" parent="." node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsOtherButton", "_flooringButton", "_wallpapersButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel") instance=ExtResource("3_xtoc7")]
+[node name="BottomBarMuseumUi2" parent="." node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsButton", "_flooringButton", "_wallpapersButton", "_sanitationButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel") instance=ExtResource("3_xtoc7")]
 layout_mode = 1
 _newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
-_decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/food and drinks button parent/Food and Drinks Button")
-_decorationsOtherButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Decoration Button Container/suvenirs button parent/Souvenirs Button")
+_decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent/Food and Drinks Button")
+_decorationsButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Parent/decorations Button")
 _flooringButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/flooring parent/Flooring Button")
 _wallpapersButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/wallpaper parent/Wallpaper Button")
+_sanitationButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/sanitation button parent/Sanitation Button")
 _exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit parent/Exhibit Button")
 _museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Text Holder")
 _museumAddedMoneyAmountTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Adding Amount")

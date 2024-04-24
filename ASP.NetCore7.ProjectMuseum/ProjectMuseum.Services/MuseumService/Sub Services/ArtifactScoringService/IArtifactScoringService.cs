@@ -4,5 +4,5 @@ namespace ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringServi
 
 public interface IArtifactScoringService
 {
-    Task<float> GetArtifactScoreWhichIsNotInZone(Artifact artifact);
+    Task<List<ArtifactScore>?> RefreshArtifactScore();
 }

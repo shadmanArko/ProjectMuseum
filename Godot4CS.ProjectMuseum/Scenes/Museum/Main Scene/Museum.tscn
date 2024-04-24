@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=66 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bwlwmmvr5vtvc" path="res://Scenes/Museum/Museum Ui/pop_up_ui.tscn" id="13_k824c"]
 [ext_resource type="PackedScene" uid="uid://d3g6we5d6r048" path="res://Scenes/Museum/Decorations/decorationShopItem.tscn" id="15_j81qh"]
 [ext_resource type="PackedScene" uid="uid://mna3mnreah7e" path="res://Scenes/Museum/Decorations/decorationOtherItem.tscn" id="16_1ehrh"]
+[ext_resource type="PackedScene" uid="uid://cv4p4yyj4yp8u" path="res://Scenes/Museum/Sanitation/SanitationItem.tscn" id="18_78kbp"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
@@ -34,6 +35,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
 [ext_resource type="PackedScene" uid="uid://2nxthrd3s2eh" path="res://Scenes/Museum/Sub Scenes/Emily.tscn" id="24_vxlv2"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
+[ext_resource type="PackedScene" uid="uid://di3wkks16f8su" path="res://Scenes/Museum/Museum Ui/guest_pop_up_ui.tscn" id="25_jsgpp"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
 [ext_resource type="PackedScene" uid="uid://bggrmc7dfa7d8" path="res://Scenes/Museum/Sub Scenes/Alex.tscn" id="25_qfbsa"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumBalanceController.cs" id="26_vw67d"]
@@ -112,6 +114,7 @@ metadata/_edit_use_anchors_ = true
 mouse_filter = 1
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
+_sanitationItem = ExtResource("18_78kbp")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 _conceptEndingUi = NodePath("../ConceptEnding UI")
 _diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
@@ -158,8 +161,12 @@ _popUpUi = NodePath("Town Ui/TownWarning")
 _indicatorForHouseOfBuddy = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator")
 _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/TrailerHome5/indicator/AnimationPlayer")
 
+[node name="Guest Pop up Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_closingButton") instance=ExtResource("25_jsgpp")]
+visible = false
+_closingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/Name/Button")
+
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(98, -44)
+position = Vector2(130, -49)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
@@ -940,4 +947,5 @@ _placementEffect2X2 = ExtResource("52_syimh")
 script = ExtResource("62_bbh7l")
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
+_sanitationItem = ExtResource("18_78kbp")
 ItemsParent = NodePath("../museum/ItemParents")

@@ -17,6 +17,7 @@ public partial class BuilderCardSlotsController : Control
 	private List<ExhibitVariation> _exhibitVariations = new List<ExhibitVariation>();
 	private List<DecorationShopVariation> _decorationShopVariations = new List<DecorationShopVariation>();
 	private List<DecorationOtherVariation> _decorationOtherVariations = new List<DecorationOtherVariation>();
+	private List<SanitationVariation> _sanitationVariations = new List<SanitationVariation>();
 	private List<TileVariation> _tileVariations = new List<TileVariation>();
 	private List<WallpaperVariation> _wallpaperVariations = new List<WallpaperVariation>();
 	private HttpRequest _httpRequestForGettingExhibitVariations;
@@ -24,6 +25,7 @@ public partial class BuilderCardSlotsController : Control
 	private HttpRequest _httpRequestForGettingDecorationOtherVariations;
 	private HttpRequest _httpRequestForGettingTileVariations;
 	private HttpRequest _httpRequestForGettingWallpaperVariations;
+	private HttpRequest _httpRequestForGettingSanitationVariations;
 	// Called when the node enters the scene tree for the first time.
 	private BuilderCardType _builderCardType;
 	public override void _Ready()
@@ -33,27 +35,38 @@ public partial class BuilderCardSlotsController : Control
 		_httpRequestForGettingDecorationOtherVariations = new HttpRequest();
 		_httpRequestForGettingTileVariations = new HttpRequest();
 		_httpRequestForGettingWallpaperVariations = new HttpRequest();
+		_httpRequestForGettingSanitationVariations = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitVariations);
 		AddChild(_httpRequestForGettingDecorationShopVariations);
 		AddChild(_httpRequestForGettingDecorationOtherVariations);
 		AddChild(_httpRequestForGettingTileVariations);
 		AddChild(_httpRequestForGettingWallpaperVariations);
+		AddChild(_httpRequestForGettingSanitationVariations);
 		_httpRequestForGettingExhibitVariations.RequestCompleted += HttpRequestForGettingExhibitVariationsOnRequestCompleted;
 		_httpRequestForGettingDecorationShopVariations.RequestCompleted += HttpRequestForGettingDecorationShopVariationsOnRequestCompleted;
 		_httpRequestForGettingDecorationOtherVariations.RequestCompleted += HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted;
 		_httpRequestForGettingTileVariations.RequestCompleted += HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingWallpaperVariations.RequestCompleted += HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
+		_httpRequestForGettingSanitationVariations.RequestCompleted += HttpRequestForGettingSanitationVariationsOnRequestCompleted;
 		_httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
 		_httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
 		_httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
 		_httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
 		_httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
+		_httpRequestForGettingSanitationVariations.Request(ApiAddress.MuseumApiPath + "GetAllSanitationVariations");
 		if (_buildersPanelClosingButton != null)
 		{
 			_buildersPanelClosingButton.Pressed += BuildersPanelClosingButtonOnPressed;
 		}
 
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked += ReInitialize;
+	}
+
+	private void HttpRequestForGettingSanitationVariationsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		_sanitationVariations = JsonSerializer.Deserialize<List<SanitationVariation>>(jsonStr);
+		GD.Print($"Got sanitation variations {_sanitationVariations.Count}");
 	}
 
 	private void BuildersPanelClosingButtonOnPressed()
@@ -107,8 +120,25 @@ public partial class BuilderCardSlotsController : Control
 			case BuilderCardType.Wallpaper:
 				ShowWallpaperCards();
 				break;
+			case BuilderCardType.Sanitation:
+				ShowSanitationCards();
+				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(builderCardType), builderCardType, null);
+		}
+		
+	}
+
+	private void ShowSanitationCards()
+	{
+		GD.Print("Came to show sanitation cards");
+		foreach (var sanitationVariation in _sanitationVariations)
+		{
+			GD.Print($"Came to show  cards {sanitationVariation.SanitationId}");
+
+			var card = _builderCardScene.Instantiate();
+			card.GetNode<BuilderCard>(".").SetUpBuilderCard(_builderCardType, sanitationVariation.SanitationId, 4);
+			_builderCardContainer.AddChild(card);
 		}
 		
 	}
@@ -201,6 +231,7 @@ public partial class BuilderCardSlotsController : Control
 		_httpRequestForGettingDecorationOtherVariations.RequestCompleted -= HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted;
 		_httpRequestForGettingTileVariations.RequestCompleted -= HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingWallpaperVariations.RequestCompleted -= HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
+		_httpRequestForGettingSanitationVariations.RequestCompleted -= HttpRequestForGettingSanitationVariationsOnRequestCompleted;
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked -= ReInitialize;
 		if (_buildersPanelClosingButton != null)
 		{

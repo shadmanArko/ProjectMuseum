@@ -28,8 +28,17 @@ public partial class DecorationItem : Item
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print("Http1 result " + jsonStr);
-		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-		_museumTileContainer.MuseumTiles = museumTiles;
+		if (_builderCardType == BuilderCardType.DecorationShop)
+		{
+			var tilesWithShopsDto = JsonSerializer.Deserialize<TilesWithShopsDTO>(jsonStr);
+			_museumTileContainer.MuseumTiles = tilesWithShopsDto.MuseumTiles;
+			_museumTileContainer.DecorationShops = tilesWithShopsDto.DecorationShops!;
+		}else if (_builderCardType == BuilderCardType.DecorationOther)
+		{
+			var tiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+			_museumTileContainer.MuseumTiles = tiles;
+		}
+		
 	}
 
 	public override void _PhysicsProcess(double delta)

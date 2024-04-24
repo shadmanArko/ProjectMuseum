@@ -39,4 +39,14 @@ public class DisplayArtifactRepository : IDisplayArtifactRepository
         if (displayArtifactsList != null) await _displayArtifactDatabase.WriteDataAsync(displayArtifactsList);
         return artifactToRemove;    
     }
+
+    public async Task<Artifact> GetArtifactById(string id)
+    {
+        var listOfDisplayArtifact = await _displayArtifactDatabase.ReadDataAsync();
+        var displayArtifacts = listOfDisplayArtifact?[0];
+        
+        var artifacts = displayArtifacts?.Artifacts;
+        var artifactToGet = artifacts.FirstOrDefault(artifact => artifact.Id == id);
+        return artifactToGet;
+    }
 }

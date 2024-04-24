@@ -4,7 +4,6 @@
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="1_fcwny"]
 
 [node name="Zone Creation Ui" type="Control" node_paths=PackedStringArray("_zoneName", "_colorPickerButton", "_createZoneButton", "_cancelZoneButton")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

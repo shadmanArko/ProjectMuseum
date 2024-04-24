@@ -394,16 +394,16 @@ position = Vector2(0, -8.5)
 shape = SubResource("RectangleShape2D_0rtna")
 
 [node name="Left Wall Collision Area" type="Area2D" parent="Area2D Nodes"]
-position = Vector2(-10, 0)
+position = Vector2(-5, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D Nodes/Left Wall Collision Area"]
 scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_86xpv")
 
 [node name="Right Wall Collision Area" type="Area2D" parent="Area2D Nodes"]
+position = Vector2(5, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D Nodes/Right Wall Collision Area"]
-position = Vector2(10, 0)
 scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_jllxq")
 
@@ -415,11 +415,11 @@ _enemy = NodePath("..")
 wait_time = 3.0
 autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationComplete"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
 [connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
 [connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]

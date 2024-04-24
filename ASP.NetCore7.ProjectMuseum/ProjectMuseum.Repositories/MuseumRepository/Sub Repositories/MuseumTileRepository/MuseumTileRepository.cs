@@ -106,6 +106,7 @@ public class MuseumTileRepository : IMuseumTileRepository
             {
                 tile.ExhibitId = exhibitId;
                 tile.Walkable = false;
+                tile.HasExhibit = true;
             }
         }
         await _museumTileDatabase.WriteDataAsync(museumTiles);
@@ -120,6 +121,20 @@ public class MuseumTileRepository : IMuseumTileRepository
             if (tileIds.Contains(tile.Id))
             {
                 tile.ShopId = shopId;
+                tile.Walkable = false;
+            }
+        }
+        await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTiles;
+    }
+    public async Task<List<MuseumTile>?> UpdateSanitationToMuseumTiles(List<string> tileIds, string sanitationId)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        foreach (var tile in museumTiles)
+        {
+            if (tileIds.Contains(tile.Id))
+            {
+                tile.SanitationId = sanitationId;
                 tile.Walkable = false;
             }
         }

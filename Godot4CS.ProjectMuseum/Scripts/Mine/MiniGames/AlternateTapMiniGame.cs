@@ -10,7 +10,6 @@ public partial class AlternateTapMiniGame : CanvasLayer
 	[Export] private double _timeReduceInterval;
 
 	[Export] private Label _timerLabel;
-	// [Export] private RichTextLabel _pressButtonLabel;
 	[Export] private Label _progressLabel;
 
 	[Export] private TextureProgressBar _textureProgressBar;
@@ -41,14 +40,12 @@ public partial class AlternateTapMiniGame : CanvasLayer
 			{
 				
 				_progressValue = _finalValue;
-				_progressLabel.Text =$"Progress: {_progressValue}%";
-				//_pressButtonLabel.Text = "Successfully Extracted Artifact";
+				_progressLabel.Text =$"{_progressValue}%";
 				_miniGameWon = true;
 			}
 			else
 			{
-				_progressLabel.Text = $"Progress: {_progressValue}%";
-				//_pressButtonLabel.Text = "Failed to Extract Artifact";
+				_progressLabel.Text = $"{_progressValue}%";
 				_miniGameWon = false;
 			}
 			DestroyScene();
@@ -80,10 +77,8 @@ public partial class AlternateTapMiniGame : CanvasLayer
 			_progressValue -= _failPoints;
 			_timer = _timeReduceInterval;
 		}
-
-		//_timerLabel.Text = Mathf.CeilToInt( _timer).ToString();
-		//_pressButtonLabel.Text = $"[center]Press [/center]";//_isAlternateTapOption ? "Q" : "E";
-		_progressLabel.Text = $"Progress: {Mathf.Clamp(Mathf.CeilToInt(_progressValue), 0,_finalValue)}%";
+        
+		_progressLabel.Text = $"{Mathf.Clamp(Mathf.CeilToInt(_progressValue), 0,_finalValue)}%";
 		_textureProgressBar.Value = Mathf.Clamp(Mathf.CeilToInt(_progressValue), 0, _finalValue);
 	}
 

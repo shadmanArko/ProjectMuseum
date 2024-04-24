@@ -20,7 +20,8 @@ public class DisplayArtifactService : IDisplayArtifactService
 
     public async Task<Artifact?> GetArtifactById(string id)
     {
-        throw new NotImplementedException();
+        var artifact = await _displayArtifactRepository.GetArtifactById(id);
+        return artifact;
     }
 
     public async Task<Artifact?> AddArtifact(Artifact artifact)

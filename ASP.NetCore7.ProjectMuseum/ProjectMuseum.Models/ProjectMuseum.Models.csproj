@@ -7,8 +7,6 @@
     </PropertyGroup>
 
 
-    <ItemGroup>
-      <Folder Include="Museum\" />
-    </ItemGroup>
+
 
 </Project>

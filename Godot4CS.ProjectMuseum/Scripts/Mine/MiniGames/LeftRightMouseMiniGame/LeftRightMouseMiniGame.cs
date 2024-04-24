@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames.LeftRightMouseMiniGame;
@@ -75,7 +76,7 @@ public partial class LeftRightMouseMiniGame : Node2D
         }
         else
         {
-            _progressValue -= _failPoints;
+            ReducePoints();
             _timer = _timeReduceInterval;
         }
 
@@ -83,7 +84,16 @@ public partial class LeftRightMouseMiniGame : Node2D
         _textureProgressBar.Value = Mathf.Clamp(Mathf.CeilToInt(_progressValue), 0, _finalValue);
     }
 
-    private void CheckMouseUpDownMovement()
+    private async void ReducePoints()
+    {
+        for (var i = 0; i < _failPoints; i++)
+        {
+            await Task.Delay(1);
+            _progressValue -= 1;
+        }
+    }
+
+    private async void CheckMouseUpDownMovement()
     {
         if (_isMovingLeft)
         {
@@ -91,7 +101,11 @@ public partial class LeftRightMouseMiniGame : Node2D
             {
                 GD.Print("moving right");
                 _isMovingLeft = false;
-                _progressValue += _successPoints;
+                for (var i = 0; i < _successPoints; i++)
+                {
+                    await Task.Delay(1);
+                    _progressValue += 1;
+                }
             }
             else if (GetGlobalMousePosition().X < _lastRegisteredMousePos.X)
             {
@@ -104,7 +118,11 @@ public partial class LeftRightMouseMiniGame : Node2D
             {
                 GD.Print("moving left");
                 _isMovingLeft = true;
-                _progressValue += _successPoints;
+                for (var i = 0; i < _successPoints; i++)
+                {
+                    await Task.Delay(1);
+                    _progressValue += 1;
+                }
             }
             else
             {

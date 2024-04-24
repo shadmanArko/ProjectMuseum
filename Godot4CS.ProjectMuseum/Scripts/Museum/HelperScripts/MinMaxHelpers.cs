@@ -11,4 +11,8 @@ public static class MinMaxHelpers
         Random random = new Random();
         return (float)(random.NextDouble() * (minMaxFloatValue.Max - minMaxFloatValue.Min) + minMaxFloatValue.Min);
     }
+    public static int GetRandom(this MinMaxInt minMaxIntValue)
+    {
+        return GD.RandRange(minMaxIntValue.Min, minMaxIntValue.Max);
+    }
 }

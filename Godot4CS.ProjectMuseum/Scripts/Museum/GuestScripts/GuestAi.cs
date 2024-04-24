@@ -14,14 +14,15 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 
 public partial class GuestAi : CharacterBody2D
 {
-    protected float availableMoney;
-    protected float hungerLevel;
-    protected float interestInArtifactLevel;
-    protected float thirstLevel;
-    protected float bladderLevel;
-    protected float chargeLevel;
-    protected float energyLevel;
-    protected float entertainmentLevel;
+    public float availableMoney;
+    public float hungerLevel;
+    public float interestInArtifactLevel;
+    public float thirstLevel;
+    public float bladderLevel;
+    public float chargeLevel;
+    public float energyLevel;
+    public float entertainmentLevel;
+    public List<string> interestedInTags = new List<string>();
     
     protected float hungerDecayRate;
     protected float interestInArtifactDecayRate;
@@ -71,13 +72,13 @@ public partial class GuestAi : CharacterBody2D
         _countForDecayInterval++;
         if (_countForDecayInterval >= _needsDecayInterval)
         {
-            hungerLevel += hungerDecayRate;
-            thirstLevel += thirstDecayRate;
-            bladderLevel += bladderDecayRate;
-            chargeLevel += chargeDecayRate;
-            energyLevel += energyDecayRate;
-            interestInArtifactLevel += interestInArtifactDecayRate;
-            entertainmentLevel += entertainmentDecayRate;
+            hungerLevel = Math.Clamp(hungerLevel + hungerDecayRate, -100, 100);
+            thirstLevel = Math.Clamp(thirstLevel + hungerDecayRate, -100, 100);
+            bladderLevel = Math.Clamp(bladderLevel + hungerDecayRate, -100, 100);
+            chargeLevel = Math.Clamp(chargeLevel + hungerDecayRate, -100, 100);
+            energyLevel = Math.Clamp(energyLevel + hungerDecayRate, -100, 100);
+            interestInArtifactLevel = Math.Clamp(interestInArtifactLevel + hungerDecayRate, -100, 100);
+            entertainmentLevel = Math.Clamp(entertainmentLevel + hungerDecayRate, -100, 100);
             // GD.Print($"{Name}: " +
             //          $"hunger: {hungerLevel}, thirst: {thirstLevel}, bladder: {bladderLevel}, charge:{chargeLevel}, " +
             //          $"energy: {energyLevel}, interest{interestInArtifactLevel}, entert: {entertainmentLevel}");
@@ -153,25 +154,25 @@ public partial class GuestAi : CharacterBody2D
         switch(need)
         {
             case GuestNeedsEnum.Hunger:
-                hungerLevel -= amount;
+                hungerLevel = Math.Clamp(hungerLevel - amount, -100, 100);
                 break;
             case GuestNeedsEnum.Thirst:
-                thirstLevel -= amount;
+                thirstLevel = Math.Clamp(thirstLevel - amount, -100, 100);
                 break;
             case GuestNeedsEnum.InterestInArtifact:
-                interestInArtifactLevel -= amount;
+                interestInArtifactLevel = Math.Clamp(interestInArtifactLevel - amount, -100, 100);
                 break;
             case GuestNeedsEnum.Bladder:
-                bladderLevel -= amount;
+                bladderLevel = Math.Clamp(bladderLevel - amount, -100, 100);
                 break;
             case GuestNeedsEnum.Charge:
-                chargeLevel -= amount;
+                chargeLevel = Math.Clamp(chargeLevel - amount, -100, 100);
                 break;
             case GuestNeedsEnum.Energy:
-                energyLevel -= amount;
+                energyLevel = Math.Clamp(energyLevel - amount, -100, 100);
                 break;
             case GuestNeedsEnum.Entertainment:
-                entertainmentLevel -= amount;
+                entertainmentLevel = Math.Clamp(entertainmentLevel - amount, -100, 100);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(need), need, null);

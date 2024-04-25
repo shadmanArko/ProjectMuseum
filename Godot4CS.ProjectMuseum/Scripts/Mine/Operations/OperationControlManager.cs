@@ -98,7 +98,11 @@ public partial class OperationControlManager : Node2D
         }
 
         var inventoryItem = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);
-        if (inventoryItem == null) return;
+        if (inventoryItem == null)
+        {
+            GD.Print("inventory item is NULL");
+            return;
+        }
         ActivateRequiredController(inventoryItem);
     }
     
@@ -113,6 +117,7 @@ public partial class OperationControlManager : Node2D
                 _consumableController.ActivateController(inventoryItem);
                 break;
             case "Equipable":
+                GD.Print("Selected equipable controller");
                 _equipableController.ActivateController(inventoryItem);
                 break;
         }

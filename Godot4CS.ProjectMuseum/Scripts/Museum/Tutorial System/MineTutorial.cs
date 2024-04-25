@@ -56,23 +56,11 @@ public partial class MineTutorial : Node
 		string jsonStr = Encoding.UTF8.GetString(body);
 		PlayerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		
-		// if (PlayerInfo.CompletedTutorialScene < 6)
-		// 	AddTutorialArtifactToMine();
-		
 		if(PlayerInfo.CompletedStoryScene == 10)
 			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
 	#endregion
-
-	// #region Add Tutorial Artifact To Mine
-	//
-	// private void AddTutorialArtifactToMine()
-	// {
-	// 	_addTutorialArtifactToMine.Request(ApiAddress.MineApiPath + "AddTutorialArtifactToMine");
-	// }
-	//
-	// #endregion
 
 	private void SubscribeToActions()
 	{
@@ -81,8 +69,6 @@ public partial class MineTutorial : Node
 		
 		MuseumActions.TutorialSceneEntryEnded += DigOrdinaryAndArtifactCellTutorial;
 		MuseumActions.TutorialSceneEntryEnded += SelectPickaxeTutorial;
-		// MuseumActions.TutorialSceneEntryEnded += SwitchToBrushTutorial;
-		// MuseumActions.TutorialSceneEntryEnded += BrushArtifactCellTutorial;
 		MuseumActions.TutorialSceneEntryEnded += PlayMiniGameTutorial;
 		MuseumActions.TutorialSceneEntryEnded += ToggleClimbTutorial;
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
@@ -124,17 +110,6 @@ public partial class MineTutorial : Node
 		_playerControllerVariables.CanToggleClimb = false;
 	}
 	
-	// private void DigOrdinaryAndArtifactCellTutorial(string entryNo)
-	// {
-	// 	GD.Print($"Ended scene Entry No: {entryNo}");
-	// 	if (entryNo is not "Tut6b") return;
-	// 	_playerControllerVariables.CanMoveLeftAndRight = false;
-	// 	_playerControllerVariables.CanAttack = false;
-	// 	_playerControllerVariables.CanBrush = false;
-	// 	_playerControllerVariables.CanDig = true;
-	// 	_playerControllerVariables.CanToggleClimb = false;
-	// }
-	
 	private void DigOrdinaryAndArtifactCellTutorial(string entryNo)
 	{
 		GD.Print($"Ended scene Entry No: {entryNo}");
@@ -163,7 +138,6 @@ public partial class MineTutorial : Node
 	{
 		GD.Print($"Ended scene Entry No: {entryNo}");
 		if(entryNo != "Tut6d") return;
-		
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
 		_playerControllerVariables.CanBrush = false;

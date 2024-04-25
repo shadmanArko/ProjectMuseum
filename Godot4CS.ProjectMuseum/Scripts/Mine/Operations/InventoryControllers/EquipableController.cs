@@ -48,10 +48,11 @@ public partial class EquipableController : InventoryController
             case "Pickaxe":
                 MineActions.OnLeftMouseHeldActionStarted += DigActionStart;
                 MineActions.OnLeftMouseHeldActionEnded += DigActionEnd;
+                GD.Print("subscribed to pickaxe actions");
                 break;
             case "Melee":
                 MineActions.OnLeftMouseClickAction += MeleeActionStart;
-                
+                GD.Print("subscribed to melee actions");
                 break;
             case "Ranged":
                 break;
@@ -70,6 +71,7 @@ public partial class EquipableController : InventoryController
                 break;
             case "Melee":
                 MineActions.OnLeftMouseClickAction -= MeleeActionStart;
+                // MineActions.OnMeleeAttackActionEnded -= MeleeActionEnd;
                 break;
             case "Ranged":
                 break;
@@ -80,16 +82,17 @@ public partial class EquipableController : InventoryController
 
     private void MeleeActionStart()
     {
+        if(_playerControllerVariables.IsAttacking) return;
+        GD.Print("inside melee action started");
         if(!_playerControllerVariables.CanAttack) return;
         _playerControllerVariables.IsAttacking = true;
         MineActions.OnMeleeAttackActionStarted?.Invoke();
         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
     }
 
-    
-
     private void DigActionStart()
     {
+        GD.Print("inside dig action started");
         SetProcess(true);
     }
     

@@ -50,13 +50,13 @@ public partial class ConsumableController : InventoryController
 
     private void SubscribeToActions()
     {
-        MineActions.OnLeftMouseClickActionEnded += CheckForActionEligibility;
+        MineActions.OnLeftMouseClickAction += CheckForActionEligibility;
         MineActions.DeselectAllInventoryControllers += DeactivateController;
     }
     
     private void UnsubscribeToActions()
     {
-        MineActions.OnLeftMouseClickActionEnded -= CheckForActionEligibility;
+        MineActions.OnLeftMouseClickAction -= CheckForActionEligibility;
         MineActions.DeselectAllInventoryControllers -= DeactivateController;
     }
 
@@ -119,7 +119,7 @@ public partial class ConsumableController : InventoryController
         _sendConsumableFromInventoryHttpRequest.Request(url, headers, HttpClient.Method.Post);
     }
     
-    private async void OnConsumeHealthPotionFromInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
+    private void OnConsumeHealthPotionFromInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
         GD.Print($"json string: {jsonStr}");

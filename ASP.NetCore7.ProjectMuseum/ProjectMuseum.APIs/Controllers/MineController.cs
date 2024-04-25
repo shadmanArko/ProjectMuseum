@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.EquippableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
@@ -29,8 +30,9 @@ public class MineController : ControllerBase
     private readonly ICaveGeneratorService _caveGeneratorService;
     private readonly ISpecialBackdropService _specialBackdropService;
     private readonly IProceduralMineGenerationService _proceduralMineGenerationService;
+    private readonly IEquippableService _equippableService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService, IProceduralMineGenerationService proceduralMineGenerationService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService, IProceduralMineGenerationService proceduralMineGenerationService, IEquippableService equippableService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -43,6 +45,7 @@ public class MineController : ControllerBase
         _caveGeneratorService = caveGeneratorService;
         _specialBackdropService = specialBackdropService;
         _proceduralMineGenerationService = proceduralMineGenerationService;
+        _equippableService = equippableService;
     }
 
     [HttpGet("GetMineData")]
@@ -162,6 +165,27 @@ public class MineController : ControllerBase
     {
         var cave = await _caveGeneratorService.GenerateCave(20,30,10,15, 5, 5);
         return Ok(cave);
+    }
+    
+    [HttpGet("GetMeleeByVariant/{variant}")]
+    public async Task<IActionResult> GetMeleeByVariant(string variant)
+    {
+        var melee = await _equippableService.GetMeleeByVariant(variant);
+        return Ok(melee);
+    }
+    
+    [HttpGet("GetRangeByVariant/{variant}")]
+    public async Task<IActionResult> GetRangeByVariant(string variant)
+    {
+        var range = await _equippableService.GetRangeByVariant(variant);
+        return Ok(range);
+    }
+    
+    [HttpGet("GetPickaxeByVariant/{variant}")]
+    public async Task<IActionResult> GetPickaxeByVariant(string variant)
+    {
+        var pickaxe = await _equippableService.GetPickaxeByVariant(variant);
+        return Ok(pickaxe);
     }
     
     // [HttpGet("GenerateResources")]

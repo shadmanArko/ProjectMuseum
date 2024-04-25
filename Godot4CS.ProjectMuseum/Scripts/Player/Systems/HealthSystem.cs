@@ -33,15 +33,15 @@ public class HealthSystem
 		playerControllerVariables.PlayerHealth = health;
 	}
 
-	private static bool effectInProgress;
+	private static bool _effectInProgress;
 	public static async void EffectPlayerHealth(ConsumableStatEffect statEffect, PlayerControllerVariables playerControllerVariables)
 	{
-		if (effectInProgress)
+		if (_effectInProgress)
 		{
 			ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health generation in progress");
 			return;
 		}
-		effectInProgress = true;
+		_effectInProgress = true;
 		
 		var effectDuration = statEffect.EffectDuration;
 		var effectRate = Mathf.CeilToInt(statEffect.EffectAmount / statEffect.EffectDuration);
@@ -58,7 +58,7 @@ public class HealthSystem
 			RestorePlayerHealth(effectRate, playerControllerVariables);
 		}
 
-		effectInProgress = false;
+		_effectInProgress = false;
 	}
 
 	public static void ReduceEnemyHealth(int reduceValue, int maxValue, Slime slime)

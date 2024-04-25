@@ -15,11 +15,12 @@ public partial class MineActions : Node
 
 	#region Mouse Actions
 
-	public static Action OnLeftMouseClickActionStarted;
-	public static Action OnLeftMouseClickActionEnded;
+	public static Action OnLeftMouseClickAction;
 	
-	public static Action OnRightMouseClickActionStarted;
-	public static Action OnRightMouseClickActionEnded;
+	public static Action OnLeftMouseHeldActionStarted;
+	public static Action OnLeftMouseHeldActionEnded;
+	
+	public static Action OnRightMouseClickAction;
 	
 	public static Action<double> OnMouseMotionAction;
 

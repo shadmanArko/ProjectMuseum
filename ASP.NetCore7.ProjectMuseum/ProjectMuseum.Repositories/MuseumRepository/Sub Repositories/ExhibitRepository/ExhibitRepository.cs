@@ -110,6 +110,14 @@ public class ExhibitRepository : IExhibitRepository
         {
             exhibit.ExhibitArtifactSlot2 = "";
         }
+        else if (slot == 3)
+        {
+            exhibit.ExhibitArtifactSlot3 = "";
+        }
+        else if (slot == 4)
+        {
+            exhibit.ExhibitArtifactSlot4 = "";
+        }
         exhibit.ArtifactIds.Remove(artifactId);
 
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);

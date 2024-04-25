@@ -124,6 +124,12 @@ public partial class ExhibitItem : Item
             }else if (artifact.Id == ExhibitData.ExhibitArtifactSlot2)
             {
                 AssignArtifactToSlot(artifact, 2);
+            }else if (artifact.Id == ExhibitData.ExhibitArtifactSlot3)
+            {
+	            AssignArtifactToSlot(artifact, 3);
+            }else if (artifact.Id == ExhibitData.ExhibitArtifactSlot4)
+            {
+	            AssignArtifactToSlot(artifact, 4);
             }
         }
     }
@@ -149,14 +155,15 @@ public partial class ExhibitItem : Item
 
     private void RemoveArtifactFromSlot(int slotNumber)
     {
-        if (slotNumber == 1)
-        {
-            _artifactSlots[0].Texture = null;
-        }
-        else if (slotNumber == 2)
-        {
-            _artifactSlots[1].Texture = null;
-        }
+	    _artifactSlots[slotNumber-1].Texture = null;
+	    // if (slotNumber == 1)
+     //    {
+     //        _artifactSlots[0].Texture = null;
+     //    }
+     //    else if (slotNumber == 2)
+     //    {
+     //        _artifactSlots[1].Texture = null;
+     //    }
     }
 
     private void HttpRequestForArtifactPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)

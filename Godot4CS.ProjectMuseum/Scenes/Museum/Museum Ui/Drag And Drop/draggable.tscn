@@ -32,7 +32,6 @@ offset_left = 64.0
 offset_top = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
@@ -49,6 +48,7 @@ layout_mode = 2
 [node name="ExhibitEditorArtifactTag" parent="MarginContainer/VBoxContainer/PanelContainer" node_paths=PackedStringArray("artifactTag") instance=ExtResource("4_xr50t")]
 visible = false
 layout_mode = 2
+mouse_filter = 1
 artifactTag = NodePath("MarginContainer/Label")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -68,6 +68,7 @@ layout_mode = 0
 offset_left = 71.0
 offset_right = 387.0
 offset_bottom = 17.0
+mouse_filter = 1
 
 [node name="Name Of Artifact" type="Label" parent="ColorRect"]
 layout_mode = 1
@@ -79,6 +80,7 @@ offset_top = -8.5
 offset_right = 316.0
 offset_bottom = 8.5
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("2_fqmtf")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8

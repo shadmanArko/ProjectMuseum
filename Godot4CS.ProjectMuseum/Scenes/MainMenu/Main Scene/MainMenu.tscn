@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://f7mag5o4d6ps"]
+[gd_scene load_steps=5 format=3 uid="uid://f7mag5o4d6ps"]
 
 [ext_resource type="PackedScene" uid="uid://b36m03rmoip3m" path="res://Scenes/MainMenu/Sub Scenes/MainMenu Ui.tscn" id="1_yi0a2"]
 [ext_resource type="PackedScene" uid="uid://bubw1v2o1o04u" path="res://Scenes/NewGameSetUp/NewGameSetupUi.tscn" id="2_nx8bi"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuMiscellaneousDataManager.cs" id="3_y8duy"]
+[ext_resource type="AudioStream" uid="uid://t7ctatgdpp5f" path="res://Assets/Musics/Museum/Background Musics/8bittownthemesong-59266.mp3" id="4_1iujt"]
 
 [node name="MainMenu" type="Node2D"]
 
@@ -33,3 +34,8 @@ LoadingPanel = NodePath("Loading Panel")
 [node name="MainMenuMiscellaneousDataManager" type="Node2D" parent="."]
 process_mode = 4
 script = ExtResource("3_y8duy")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1iujt")
+autoplay = true
+bus = &"Music"

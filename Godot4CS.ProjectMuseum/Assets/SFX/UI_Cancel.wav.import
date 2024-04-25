@@ -2,7 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dpjwcruomxgkk"
+uid="uid://cu5je1ye5i274"
 path="res://.godot/imported/UI_Cancel.wav-1932fd1742f03c50602ad815b48a9c2a.sample"
 
 [deps]
@@ -16,9 +16,9 @@ force/8_bit=false
 force/mono=false
 force/max_rate=false
 force/max_rate_hz=44100
-edit/trim=true
+edit/trim=false
 edit/normalize=false
-edit/loop_mode=1
+edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=0

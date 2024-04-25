@@ -98,7 +98,6 @@ _okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Pane
 
 [node name="MiniGameController" type="Node2D" parent="."]
 script = ExtResource("14_oqhev")
-_miniGameScenePaths = PackedStringArray("res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/LeftRightMouseMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/UpDownMouseMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/RepeatedTapMiniGame.tscn")
 
 [node name="CameraController" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("10_rax0m")]
 _camera = NodePath("Camera2D")
@@ -107,11 +106,10 @@ _camera = NodePath("Camera2D")
 
 [node name="FrameRate" parent="." instance=ExtResource("15_v858d")]
 
-[node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController", "_equipableController") instance=ExtResource("16_ot1vu")]
+[node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController") instance=ExtResource("16_ot1vu")]
 _inventoryControllers = [NodePath("ConsumableController")]
 _wallPlaceableController = NodePath("WallPlaceableController")
 _consumableController = NodePath("ConsumableController")
-_equipableController = NodePath("EquipableController")
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates") instance=ExtResource("3_ambmn")]
 _healthBar = NodePath("Health Bar")
@@ -129,6 +127,9 @@ _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 visible = false
+offset_top = 104.0
+offset_right = 409.0
+offset_bottom = 459.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

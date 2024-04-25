@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcm73qv2wrbhh"]
+
+[ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/Exhibit editor/ExhibitEditorArtifactTag.cs" id="1_ctulo"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_i2fp3"]
+
+[node name="ExhibitEditorArtifactTag" type="ColorRect" node_paths=PackedStringArray("artifactTag")]
+custom_minimum_size = Vector2(50, 0)
+offset_right = 60.0
+offset_bottom = 10.0
+color = Color(0.0430392, 0.0430392, 0.0430392, 1)
+script = ExtResource("1_ctulo")
+artifactTag = NodePath("MarginContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.991583, 0.934942)
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_i2fp3")
+theme_override_font_sizes/font_size = 8
+text = "Artifact Tag"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -16,7 +16,7 @@ texture = ExtResource("1_5ypaq")
 offset = Vector2(0, -11)
 hframes = 4
 script = ExtResource("2_03tb0")
-_artifactSlots = [NodePath("Artifact Slot 1"), NodePath("Artifact Slot 2")]
+_artifactSlots = [NodePath("Artifact Slot 1"), NodePath("Artifact Slot 2"), NodePath("Artifact Slot 3"), NodePath("Artifact Slot 4")]
 ItemPrice = 90.25
 numberOfTilesItTakes = 4
 _glass = NodePath("glass")
@@ -39,11 +39,18 @@ texture = ExtResource("3_calhw")
 offset = Vector2(0, -30.345)
 
 [node name="Artifact Slot 1" type="Sprite2D" parent="."]
-position = Vector2(-16.5, 0)
-offset = Vector2(0, -23.06)
+position = Vector2(-4, 0.1)
+offset = Vector2(0, -19.175)
 
 [node name="Artifact Slot 2" type="Sprite2D" parent="."]
-position = Vector2(9, 0)
+position = Vector2(-18, 0)
+offset = Vector2(0, -23.06)
+
+[node name="Artifact Slot 3" type="Sprite2D" parent="."]
+offset = Vector2(0, -31.84)
+
+[node name="Artifact Slot 4" type="Sprite2D" parent="."]
+position = Vector2(10, 0)
 offset = Vector2(0, -23.06)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -146,12 +146,15 @@ public partial class AnimationController : AnimationPlayer
 
 	private void OnMeleeAttackAnimationStarted(string animName)
 	{
-		
+		if (animName is not ("climb_attack_up" or "climb_attack_down" or "climb_attack_horizontal" or "attack")) return;
+		_playerControllerVariables.IsAttacking = true;
 	}
 	
 	private void OnMeleeAttackAnimationEnded(string animName)
 	{
-		
+		if (animName is not ("climb_attack_up" or "climb_attack_down" or "climb_attack_horizontal" or "attack")) return;
+		_playerControllerVariables.IsAttacking = false;
+		MineActions.OnMeleeAttackActionEnded?.Invoke();
 	}
 
 	#endregion

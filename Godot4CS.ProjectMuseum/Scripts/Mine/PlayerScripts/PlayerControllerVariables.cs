@@ -40,38 +40,8 @@ public class PlayerControllerVariables
     
     public bool IsDead { get; set; }
 
-    private bool _isAttacking;
-    public bool IsAttacking
-    {
-        get => _isAttacking;
-        set
-        {
-            if(_isAttacking != value && _isAttacking == false && CurrentEquippedItemSlot == 0)
-                MineActions.OnMeleeAttackActionEnded?.Invoke();
-            
-            _isAttacking = value;
-            if (_isAttacking)
-            {
-                if (!CanMove) return;
-                switch (_currentEquippedItemSlot)
-                {
-                    case 0:
-                        // if(!CanAttack) return;
-                        // MineActions.OnLeftMouseClickAction?.Invoke();
-                        // MineActions.OnMeleeAttackActionStarted?.Invoke();
-                        // MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
-                        break;
-                    case 1:
-                        // if(!CanDig) return;
-                        // MineActions.OnLeftMouseClickAction?.Invoke();
-                        // MineActions.OnDigActionStarted?.Invoke();
-                        // MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
-                        break;
-                }
-            }
-        }
-    }
-    
+    public bool IsAttacking { get; set; }
+
     #endregion
 
     #region Health Bar Variables

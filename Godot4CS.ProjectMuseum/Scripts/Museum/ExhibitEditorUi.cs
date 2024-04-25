@@ -91,6 +91,16 @@ public partial class ExhibitEditorUi : Control
 				var instance = _draggable.Instantiate();
 				_dropTargetsParent.GetChildren()[1].AddChild(instance);
 				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot3)
+			{
+				var instance = _draggable.Instantiate();
+				_dropTargetsParent.GetChildren()[2].AddChild(instance);
+				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot4)
+			{
+				var instance = _draggable.Instantiate();
+				_dropTargetsParent.GetChildren()[3].AddChild(instance);
+				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 			}
 			
 		}
@@ -109,7 +119,7 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
-		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 2;
+		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 4;
 		for (int i = 0; i < numberOfSlots; i++)
 		{
 			var instance = _dropTarget.Instantiate();

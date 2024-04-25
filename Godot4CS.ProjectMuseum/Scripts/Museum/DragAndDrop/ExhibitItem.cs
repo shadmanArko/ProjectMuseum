@@ -181,14 +181,15 @@ public partial class ExhibitItem : Item
 
     private void AssignArtifactToSlot(Artifact artifact, int slotNumber)
     {
-        if (slotNumber == 1)
-        {
-            _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-        }
-        else if (slotNumber == 2)
-        {
-            _artifactSlots[1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-        }
+	    _artifactSlots[slotNumber-1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+	    // if (slotNumber == 1)
+     //    {
+     //        _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+     //    }
+     //    else if (slotNumber == 2)
+     //    {
+     //        _artifactSlots[1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+     //    }
     }
 
 

@@ -88,6 +88,12 @@ public class ExhibitRepository : IExhibitRepository
         }else if (slot == 2)
         {
             exhibit.ExhibitArtifactSlot2 = artifactId;
+        }else if (slot == 3)
+        {
+            exhibit.ExhibitArtifactSlot3 = artifactId;
+        }else if (slot == 4)
+        {
+            exhibit.ExhibitArtifactSlot4 = artifactId;
         }
         exhibit.ArtifactIds.Add(artifactId);
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);

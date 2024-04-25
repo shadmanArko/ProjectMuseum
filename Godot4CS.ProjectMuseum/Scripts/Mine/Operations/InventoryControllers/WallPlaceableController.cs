@@ -40,15 +40,15 @@ public partial class WallPlaceableController : Node2D
     private void SubscribeToActions()
     {
         MineActions.OnMouseMotionAction += ShowWallPlaceableEligibilityVisualizer;
-        MineActions.OnLeftMouseClickActionEnded += PlaceWallPlaceableInMine;
-        MineActions.OnRightMouseClickActionEnded += DestroyWallPlaceableAndDeselect;
+        MineActions.OnLeftMouseClickAction += PlaceWallPlaceableInMine;
+        MineActions.OnRightMouseClickAction += DestroyWallPlaceableAndDeselect;
     }
 
     private void UnsubscribeToActions()
     {
         MineActions.OnMouseMotionAction -= ShowWallPlaceableEligibilityVisualizer;
-        MineActions.OnLeftMouseClickActionEnded -= PlaceWallPlaceableInMine;
-        MineActions.OnRightMouseClickActionEnded -= DestroyWallPlaceableAndDeselect;
+        MineActions.OnLeftMouseClickAction -= PlaceWallPlaceableInMine;
+        MineActions.OnRightMouseClickAction -= DestroyWallPlaceableAndDeselect;
     }
 
     public override void _Ready()

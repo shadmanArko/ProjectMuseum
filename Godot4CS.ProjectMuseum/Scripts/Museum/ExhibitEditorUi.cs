@@ -18,7 +18,10 @@ public partial class ExhibitEditorUi : Control
 	private Item _selectedItem;
 	private HttpRequest _httpRequestForGettingExhibitsInStore;
 	private HttpRequest _httpRequestForGettingExhibitsInDisplay;
-
+	private HttpRequest _httpRequestForGettingRawArtifactFunctionalData;
+	private HttpRequest _httpRequestForGettingRawArtifactDescriptiveData;
+	private static List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
+	private static List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
 	private Exhibit _selectedExhibit;
 	
     // Called when the node enters the scene tree for the first time.
@@ -26,15 +29,38 @@ public partial class ExhibitEditorUi : Control
 	{
 		_httpRequestForGettingExhibitsInStore = new HttpRequest();
 		_httpRequestForGettingExhibitsInDisplay = new HttpRequest();
+		_httpRequestForGettingRawArtifactFunctionalData = new HttpRequest();
+		_httpRequestForGettingRawArtifactDescriptiveData = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitsInStore);
 		AddChild(_httpRequestForGettingExhibitsInDisplay);
+		AddChild(_httpRequestForGettingRawArtifactFunctionalData);
+		AddChild(_httpRequestForGettingRawArtifactDescriptiveData);
 		_httpRequestForGettingExhibitsInStore.RequestCompleted += HttpRequestForGettingExhibitsInStoreOnRequestCompleted;
 		_httpRequestForGettingExhibitsInDisplay.RequestCompleted += HttpRequestForGettingExhibitsInDisplayOnRequestCompleted;
+		_httpRequestForGettingRawArtifactFunctionalData.RequestCompleted += HttpRequestForGettingRawArtifactFunctionalDataOnRequestCompleted;
+		_httpRequestForGettingRawArtifactDescriptiveData.RequestCompleted += HttpRequestForGettingRawArtifactDescriptiveDataOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnSlot += ArtifactDroppedOnSlot;
 		MuseumActions.ArtifactRemovedFromSlot += ArtifactRemovedFromSlot;
 		MuseumActions.PlayStoryScene += PlayStoryScene;
 		_exitButton.Pressed += ExitButtonOnPressed;
 		_glassCheckButton.Pressed += GlassCheckButtonOnPressed;
+		
+		_httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
+		_httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
+	}
+
+	private void HttpRequestForGettingRawArtifactDescriptiveDataOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		_rawArtifactDescriptiveDatas = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(jsonStr);
+		MuseumActions.OnRawArtifactDescriptiveDataLoaded?.Invoke(_rawArtifactDescriptiveDatas);
+	}
+
+	private void HttpRequestForGettingRawArtifactFunctionalDataOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		_rawArtifactFunctionalDatas = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
+		MuseumActions.OnRawArtifactFunctionalDataLoaded?.Invoke(_rawArtifactFunctionalDatas);
 	}
 
 	private void GlassCheckButtonOnPressed()
@@ -59,12 +85,22 @@ public partial class ExhibitEditorUi : Control
 			{
 				var instance = _draggable.Instantiate();
 				_dropTargetsParent.GetChildren()[0].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact);
+				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot2)
 			{
 				var instance = _draggable.Instantiate();
 				_dropTargetsParent.GetChildren()[1].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact);
+				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot3)
+			{
+				var instance = _draggable.Instantiate();
+				_dropTargetsParent.GetChildren()[2].AddChild(instance);
+				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot4)
+			{
+				var instance = _draggable.Instantiate();
+				_dropTargetsParent.GetChildren()[3].AddChild(instance);
+				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 			}
 			
 		}
@@ -83,11 +119,16 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
-		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 2;
+		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 4;
 		for (int i = 0; i < numberOfSlots; i++)
 		{
 			var instance = _dropTarget.Instantiate();
-			instance.GetNode<DropTarget>(".").Initialize(i+1);
+			// foreach (var child in instance.GetChildren())
+			// {
+			// 	
+			// 	
+			// }
+			instance.GetNode<DropTarget>(".").Initialize(i+1, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 			_dropTargetsParent.AddChild(instance);
 		}
 		
@@ -107,7 +148,7 @@ public partial class ExhibitEditorUi : Control
 		{
 			var instance = _draggable.Instantiate();
 			_draggablesParent.AddChild(instance);
-			instance.GetNode<Draggable>(".").Initialize(artifact);
+			instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 		}
 
 		_httpRequestForGettingExhibitsInDisplay.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
@@ -132,6 +173,8 @@ public partial class ExhibitEditorUi : Control
 		base._ExitTree();
 		_httpRequestForGettingExhibitsInStore.RequestCompleted -= HttpRequestForGettingExhibitsInStoreOnRequestCompleted;
 		_httpRequestForGettingExhibitsInDisplay.RequestCompleted -= HttpRequestForGettingExhibitsInDisplayOnRequestCompleted;
+		_httpRequestForGettingRawArtifactFunctionalData.RequestCompleted -= HttpRequestForGettingRawArtifactFunctionalDataOnRequestCompleted;
+		_httpRequestForGettingRawArtifactDescriptiveData.RequestCompleted -= HttpRequestForGettingRawArtifactDescriptiveDataOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnSlot -= ArtifactDroppedOnSlot;
 		MuseumActions.ArtifactRemovedFromSlot -= ArtifactRemovedFromSlot;
 		MuseumActions.PlayStoryScene -= PlayStoryScene;

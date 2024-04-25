@@ -99,4 +99,10 @@ public partial class MuseumActions : Node
     public static Action OnZoneCreationUiClosed;
     
     #endregion
+    #region Exhibit Editor
+
+    public static Action<List<RawArtifactDescriptive>> OnRawArtifactDescriptiveDataLoaded;
+    public static Action<List<RawArtifactFunctional>> OnRawArtifactFunctionalDataLoaded;
+
+    #endregion
 }

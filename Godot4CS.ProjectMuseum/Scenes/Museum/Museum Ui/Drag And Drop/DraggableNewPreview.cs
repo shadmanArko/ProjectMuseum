@@ -34,6 +34,7 @@ public partial class DraggableNewPreview : ColorRect
 		InstantiateArtifactTag(rawArtifactFunctional.Era);
 		InstantiateArtifactTag(rawArtifactFunctional.Region);
 		InstantiateArtifactTag(rawArtifactFunctional.Object);
+		InstantiateArtifactTag(rawArtifactFunctional.ObjectSize);
 		foreach (var material in rawArtifactFunctional.Materials)
 		{
 			InstantiateArtifactTag(material);

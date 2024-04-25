@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfskhvya13su5"]
+
+[ext_resource type="PackedScene" uid="uid://crxjk410778yy" path="res://Scenes/Museum/Museum Ui/Drag And Drop/drop_target.tscn" id="1_j8obn"]
+
+[node name="Exhibit Editor 2x2 Grid" type="GridContainer"]
+custom_minimum_size = Vector2(200, 50)
+columns = 2
+
+[node name="DropTarget 1" parent="." instance=ExtResource("1_j8obn")]
+layout_mode = 2
+
+[node name="DropTarget 2" parent="." instance=ExtResource("1_j8obn")]
+layout_mode = 2
+
+[node name="DropTarget 3" parent="." instance=ExtResource("1_j8obn")]
+layout_mode = 2
+
+[node name="DropTarget 4" parent="." instance=ExtResource("1_j8obn")]
+layout_mode = 2

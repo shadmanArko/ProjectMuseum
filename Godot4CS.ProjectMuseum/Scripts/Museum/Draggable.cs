@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using ProjectMuseum.Models;
 
@@ -12,8 +14,13 @@ public partial class Draggable : ColorRect
 	private Vector2 _customMinimumSize;
 	public int SlotAtTheStartOfDrag;
 	public Artifact Artifact;
-	[Export] private RichTextLabel _nameOfDraggable;
+	[Export] private Label _nameOfDraggable;
+	[Export] private TextureRect _artifactIcon;
 	[Export] private PackedScene _draggablePreview;
+	[Export] private Control _artifactTagParent;
+	[Export] private PackedScene _artifactTag;
+	private static List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
+	private static List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
 	public override void _Ready()
 	{
 		AddToGroup("Draggable");
@@ -44,16 +51,40 @@ public partial class Draggable : ColorRect
 		}
 	}
 
-	public void Initialize(Artifact artifact)
+	public void Initialize(Artifact artifact, List<RawArtifactDescriptive> rawArtifactDescriptives, List<RawArtifactFunctional> rawArtifactFunctionals)
 	{
 		if (artifact == null)
 		{
 			//GD.Print("No artifact");
 			return;
 		}
-		_nameOfDraggable.Text = artifact.RawArtifactId;
+
+		_rawArtifactDescriptiveDatas = rawArtifactDescriptives;
+		_rawArtifactFunctionalDatas = rawArtifactFunctionals;
+		RawArtifactDescriptive rawArtifactDescriptive =
+			rawArtifactDescriptives.FirstOrDefault(descriptive => descriptive.Id == artifact.RawArtifactId);
+		RawArtifactFunctional rawArtifactFunctional =
+			rawArtifactFunctionals.FirstOrDefault(descriptive => descriptive.Id == artifact.RawArtifactId);
+		_nameOfDraggable.Text = rawArtifactDescriptive.ArtifactName;
+		_artifactIcon.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
+		
+		InstantiateArtifactTag(rawArtifactFunctional.Era);
+		InstantiateArtifactTag(rawArtifactFunctional.Region);
+		InstantiateArtifactTag(rawArtifactFunctional.Object);
+		foreach (var material in rawArtifactFunctional.Materials)
+		{
+			InstantiateArtifactTag(material);
+		}
 		Artifact = artifact;
 	}
+
+	private void InstantiateArtifactTag(string tag)
+	{
+		var instance = _artifactTag.Instantiate();
+		_artifactTagParent.AddChild(instance);
+		instance.GetNode<ExhibitEditorArtifactTag>(".").Initialize(tag);
+	}
+
 	private void StartDrag()
 	{
 		isDragging = true;
@@ -82,7 +113,10 @@ public partial class Draggable : ColorRect
 		//GD.Print($"get_drag_data has run");
 		if (!droppedOnTarget)
 		{
-			SetDragPreview((Control)_draggablePreview.Instantiate());
+			var draggablePreviewInstance = _draggablePreview.Instantiate();
+			draggablePreviewInstance.GetNode<DraggableNewPreview>(".").Initialize(Artifact,
+				_rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			SetDragPreview((Control)draggablePreviewInstance);
 			
 			return this;
 		}

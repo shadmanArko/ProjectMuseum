@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using ProjectMuseum.Models;
 
@@ -11,16 +12,32 @@ public partial class DropTarget : Control
     // Store the original color for later restoration
     private Color originalColor;
     public int SlotNumber = 0;
+    private List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
+    private List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
     public override void _Ready()
     {
         originalColor = Modulate; // Save the original color
         MuseumActions.DragStarted += DragStarted;
         MuseumActions.DragEnded += DragEnded;
+        MuseumActions.OnRawArtifactDescriptiveDataLoaded += OnRawArtifactDescriptiveDataLoaded;
+        MuseumActions.OnRawArtifactFunctionalDataLoaded += OnRawArtifactFunctionalDataLoaded;
     }
 
-    public void Initialize(int slotNumber)
+    private void OnRawArtifactFunctionalDataLoaded(List<RawArtifactFunctional> obj)
+    {
+        _rawArtifactFunctionalDatas = obj;
+    }
+
+    private void OnRawArtifactDescriptiveDataLoaded(List<RawArtifactDescriptive> obj)
+    {
+        _rawArtifactDescriptiveDatas = obj;
+    }
+
+    public void Initialize(int slotNumber, List<RawArtifactDescriptive> rawArtifactDescriptives, List<RawArtifactFunctional> rawArtifactFunctionals)
     {
         SlotNumber = slotNumber;
+        _rawArtifactDescriptiveDatas = rawArtifactDescriptives;
+        _rawArtifactFunctionalDatas = rawArtifactFunctionals;
     }
     private void DragEnded(Draggable obj)
     {
@@ -53,7 +70,7 @@ public partial class DropTarget : Control
         Control draggableCopy = (Control)draggableScene.Instantiate();
         // draggableCopy.GetNode<Draggable>(".").canBeDragged = false;
         draggableCopy.GetNode<Draggable>(".").parentDropTarget = this;
-        draggableCopy.GetNode<Draggable>(".").Initialize(((Node)data).GetNode<Draggable>(".").Artifact);
+        draggableCopy.GetNode<Draggable>(".").Initialize(((Node)data).GetNode<Draggable>(".").Artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
         ((Node)data).GetNode<Draggable>(".").parentDropTarget.hasEmptySlot = true;
         
         GetNode<Control>(".").AddChild(draggableCopy);
@@ -85,5 +102,7 @@ public partial class DropTarget : Control
     {
         MuseumActions.DragStarted -= DragStarted;
         MuseumActions.DragEnded -= DragEnded;
+        MuseumActions.OnRawArtifactDescriptiveDataLoaded -= OnRawArtifactDescriptiveDataLoaded;
+        MuseumActions.OnRawArtifactFunctionalDataLoaded -= OnRawArtifactFunctionalDataLoaded;
     }
 }

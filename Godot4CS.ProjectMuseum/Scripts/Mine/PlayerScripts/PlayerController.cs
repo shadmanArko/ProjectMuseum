@@ -204,6 +204,13 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		MouseMotion(@event);
 		if(@event.IsActionReleased("toggle_grab"))
 			PlayerGrab();
+		if (@event.IsActionReleased("Test"))
+		{
+			GD.Print($"can move {_playerControllerVariables.CanMove}");
+			GD.Print($"can attack {_playerControllerVariables.CanAttack}");
+			GD.Print($"is attack {_playerControllerVariables.IsAttacking}");
+			GD.Print($"can dig {_playerControllerVariables.CanDig}");
+		}
 	}
     
 	private void MouseMotion(InputEvent @event)

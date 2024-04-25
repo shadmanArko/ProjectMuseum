@@ -17,16 +17,19 @@ public class EquippableRepository : IEquippableRepository
 
     public async Task<EquippableMelee> GetMeleeByVariant(string variant)
     {
-        throw new NotImplementedException();
+        var listOfEquippableMelee = await _equippableMeleeDatabase.ReadDataAsync();
+        return listOfEquippableMelee.FirstOrDefault(melee => melee.Variant == variant);
     }
 
     public async Task<EquippableRange> GetRangeByVariant(string variant)
     {
-        throw new NotImplementedException();
+        var listOfEquippableRange = await _equippableRangeDatabase.ReadDataAsync();
+        return listOfEquippableRange.FirstOrDefault(range => range.Variant == variant);
     }
 
     public async Task<EquippablePickaxe> GetPickaxeByVariant(string variant)
     {
-        throw new NotImplementedException();
+        var listOfEquippablePickaxe = await _equippablePickaxeDatabase.ReadDataAsync();
+        return listOfEquippablePickaxe.FirstOrDefault(pickaxe => pickaxe.Variant == variant);
     }
 }

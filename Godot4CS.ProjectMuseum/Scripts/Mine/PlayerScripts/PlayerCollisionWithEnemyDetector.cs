@@ -37,6 +37,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     {
         _collisionShape2D.Disabled = true;
         _attackDetectorArea2D.Monitoring = false;
+        
         // GD.Print("Stopped detecting collision");
     }
 
@@ -44,6 +45,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     {
         _collisionShape2D.Disabled = false;
         _attackDetectorArea2D.Monitoring = true;
+        
         // GD.Print("Started detecting collision");
     }
 
@@ -51,7 +53,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     {
         var enemy = body as IDamagable;
         if(enemy is null) return;
-        
+        GD.Print($"is attacking is {_playerControllerVariables.IsAttacking}");
         if(!_playerControllerVariables.IsAttacking) return;
         if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
         enemy.TakeDamage();

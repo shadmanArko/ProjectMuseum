@@ -1,5 +1,6 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
+using ProjectMuseum.Models.MIne.Equippables;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.BuilderCardsRepository;
 using ProjectMuseum.Repositories.DecorationOtherRepository;
@@ -14,6 +15,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoring
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactThemeMatchingTagCountRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ConsumableRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.EquipableRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineCellCrackMaterialRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ProceduralMineGenerationRepository;
@@ -46,6 +48,7 @@ using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.ConsumableService;
+using ProjectMuseum.Services.MineService.Sub_Services.EquippableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
@@ -89,15 +92,16 @@ string mineMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirect
 string wallPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "WallPlaceableData", "WallPlaceable.json");
 string caveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CaveData.json");
 string specialBackdropDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "SpecialBackdropData", "SpecialBackdropPngInformation.json");
-string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
-    "ProceduralGenerationData", "ProceduralMineGenerationData.json");
-string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder",
-    "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
+string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ProceduralGenerationData", "ProceduralMineGenerationData.json");
+string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
 string consumableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Consumable", "Consumable.json");
 string artifactConditionDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactCondition.json");
 string artifactEraDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactEra.json");
 string artifactRarityDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactRarity.json");
 string artifactThemeMatchingTagCountDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactThemeMatchingTagCount.json");
+string equippableMeleeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippableMelee.json");
+string equippableRangeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippableRange.json");
+string equippablePickaxeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippablePickaxe.json");
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
@@ -131,7 +135,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<PlayerInfo>(Const.playerInfoD
 builder.Services.AddSingleton(new JsonFileDatabase<Museum>(Const.museumDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<GuestBuildingParameter>(Const.guestBuilderParameterDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactScore>(Const.artifactScoreDataFolderPath));
-
+builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
 
 builder.Services.AddSingleton(new JsonFileDatabase<Mine>(Const.mineDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Inventory>(Const.inventoryDataFolderPath));
@@ -139,12 +143,13 @@ builder.Services.AddSingleton(new JsonFileDatabase<MineArtifacts>(Const.mineArti
 builder.Services.AddSingleton(new JsonFileDatabase<DisplayArtifacts>(Const.displayArtifactDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactStorage>(Const.artifactStorageDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<TradingArtifacts>(Const.tradingArtifactsDataFolderPath));
+
 builder.Services.AddSingleton(new JsonFileDatabase<CellCrackMaterial>(cellCrackMaterialDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactFunctional>(rawArtifactFunctionalDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<RawArtifactDescriptive>(rawArtifactDescriptiveDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<Resource>(resourceDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<WallPlaceable>(wallPlaceableDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<Time>(Const.timeDataFolderPath));
+
 builder.Services.AddSingleton(new JsonFileDatabase<MainMenuMiscellaneousData>(mainMenuMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<MuseumMiscellaneousData>(museumMiscellaneousDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<SettingsMiscellaneousData>(settingsMiscellaneousDataFolderPath));
@@ -158,6 +163,10 @@ builder.Services.AddSingleton(new JsonFileDatabase<ArtifactCondition>(artifactCo
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactEra>(artifactEraDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactRarity>(artifactRarityDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactThemeMatchingTagCount>(artifactThemeMatchingTagCountDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<EquippableMelee>(equippableMeleeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<EquippableRange>(equippableRangeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<EquippablePickaxe>(equippablePickaxeDataFolderPath));
+
 
 
 builder.Services.AddSingleton(new SaveDataJsonFileDatabase(
@@ -221,6 +230,8 @@ builder.Services.AddScoped<IArtifactEraRepository, ArtifactEraRepository>();
 builder.Services.AddScoped<IArtifactRarityRepository, ArtifactRarityRepository>();
 builder.Services.AddScoped<IArtifactScoreRepository, ArtifactScoreRepository>();
 builder.Services.AddScoped<IArtifactThemeMatchingTagCountRepo, ArtifactThemeMatchingTagCountRepo>();
+builder.Services.AddScoped<IEquippableRepository, EquippableRepository>();
+
 
 
 builder.Services.AddScoped<IMineService, MineService>();
@@ -258,6 +269,7 @@ builder.Services.AddScoped<IConsumableService, ConsumableService>();
 builder.Services.AddScoped<IArtifactScoringService, ArtifactScoringService>();
 builder.Services.AddScoped<IArtifactConditionService, ArtifactConditionService>();
 builder.Services.AddScoped<IArtifactRarityService, ArtifactRarityService>();
+builder.Services.AddScoped<IEquippableService, EquippableService>();
 
 
 

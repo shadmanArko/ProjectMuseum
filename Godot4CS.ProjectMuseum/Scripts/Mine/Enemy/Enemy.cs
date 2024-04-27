@@ -176,7 +176,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
             _health = value;
             HealthBar.Value = _health;
             
-            if(_health <= 0)Death();
+            if(_health <= 0 && !_isDead)Death();
         }
     }
 

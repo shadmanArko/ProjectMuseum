@@ -165,7 +165,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	private bool PlayerAttack()
 	{
 		var input = Input.IsActionJustReleased("ui_left_click") && _playerControllerVariables.PlayerEnergy > 0;
-		_playerControllerVariables.IsAttacking = input;
+		// _playerControllerVariables.IsAttacking = input;
 		return input;
 	}
 

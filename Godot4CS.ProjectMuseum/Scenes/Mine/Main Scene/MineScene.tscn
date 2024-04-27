@@ -98,7 +98,7 @@ _okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Pane
 
 [node name="MiniGameController" type="Node2D" parent="."]
 script = ExtResource("14_oqhev")
-_miniGameScenePaths = PackedStringArray("res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/LeftRightMouseMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/UpDownMouseMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/RepeatedTapMiniGame.tscn")
+_miniGameScenePaths = PackedStringArray("res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/LeftRightMouseMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/RepeatedTapMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/UpDownMouseMiniGame.tscn")
 
 [node name="CameraController" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("10_rax0m")]
 _camera = NodePath("Camera2D")
@@ -129,6 +129,9 @@ _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 visible = false
+offset_top = 41.792
+offset_right = 163.624
+offset_bottom = 183.6
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

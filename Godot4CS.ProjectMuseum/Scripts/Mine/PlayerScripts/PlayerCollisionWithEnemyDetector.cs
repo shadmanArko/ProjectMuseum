@@ -61,7 +61,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
             GD.Print("is attacking not true. returning");
             return;
         }
-        if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
+        // if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
         enemy.TakeDamage();
         GD.Print($"PLAYER ATTACKING ENEMY {enemy}");
     }

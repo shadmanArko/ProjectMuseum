@@ -390,6 +390,7 @@ public partial class Slime : Enemy
     
     public override void TakeDamage()
     {
+        if(IsDead) return;
         if (IsTakingDamage) return;
         IsTakingDamage = true;
         IsMoving = false;
@@ -408,6 +409,7 @@ public partial class Slime : Enemy
     
     public override async void Death()
     {
+        IsDead = true;
         SetPhysicsProcess(false);
         AnimationController.PlayAnimation("death");
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength * 1000));

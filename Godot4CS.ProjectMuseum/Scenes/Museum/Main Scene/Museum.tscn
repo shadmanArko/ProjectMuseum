@@ -97,6 +97,10 @@ _loadingBarManager = NodePath("../../LoadingScene")
 
 [node name="Camera2D" type="Camera2D" parent="museum"]
 position = Vector2(50, -210)
+limit_left = -2500
+limit_top = -1500
+limit_right = 2500
+limit_bottom = 800
 script = ExtResource("4_kytf8")
 zoomSpd = 0.2
 Minzoom = 1.0

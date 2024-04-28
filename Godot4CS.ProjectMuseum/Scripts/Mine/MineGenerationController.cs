@@ -86,9 +86,9 @@ public partial class MineGenerationController : Node2D
 		AddChild(_rawArtifactFunctionalHttpRequest);
 		_rawArtifactFunctionalHttpRequest.RequestCompleted += OnGetRawArtifactFunctionalHttpRequestCompleted;
 		
-		_assignResourceToMineHttpRequest = new HttpRequest();
-		AddChild(_assignResourceToMineHttpRequest);
-		_assignResourceToMineHttpRequest.RequestCompleted += OnAssignResourceToMineHttpRequestCompleted;
+		// _assignResourceToMineHttpRequest = new HttpRequest();
+		// AddChild(_assignResourceToMineHttpRequest);
+		// _assignResourceToMineHttpRequest.RequestCompleted += OnAssignResourceToMineHttpRequestCompleted;
 	}
 
 	#endregion
@@ -201,27 +201,26 @@ public partial class MineGenerationController : Node2D
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
 		GenerateGridFromMineData(mine);
-		// AssignResourcesToMine();
 	}
 
 	#endregion
 
-	#region Assign Resources To Mine
-
-	private void AssignResourcesToMine()
-	{
-		var url = ApiAddress.MineApiPath+"AssignResourcesToMine";
-		_assignResourceToMineHttpRequest.Request(url);
-	}
-	
-	private void OnAssignResourceToMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		// GenerateGridFromMineData(mine);
-	}
-
-	#endregion
+	// #region Assign Resources To Mine
+	//
+	// private void AssignResourcesToMine()
+	// {
+	// 	var url = ApiAddress.MineApiPath+"AssignResourcesToMine";
+	// 	_assignResourceToMineHttpRequest.Request(url);
+	// }
+	//
+	// private void OnAssignResourceToMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	// {
+	// 	var jsonStr = Encoding.UTF8.GetString(body);
+	// 	var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
+	// 	
+	// }
+	//
+	// #endregion
 
 	#region Mine Generator
 

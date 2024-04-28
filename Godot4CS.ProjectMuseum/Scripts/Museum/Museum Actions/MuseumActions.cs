@@ -11,6 +11,7 @@ public partial class MuseumActions : Node
 {
     public static Action<Item, Exhibit> OnClickItem;
     public static Action<GuestAi> OnClickGuestAi;
+    public static Action<GuestAi> OnGuestAiUpdated;
     public static Action<string> OnClickWallForUpdatingWallPaper;
     public static Action OnWallpaperSuccessfullyUpdated;
     public static Action<Draggable> DragStarted;

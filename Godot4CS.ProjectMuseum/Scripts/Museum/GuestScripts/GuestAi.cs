@@ -91,6 +91,7 @@ public partial class GuestAi : CharacterBody2D
             {
                 // CheckForNeedsToFulfill();
             }
+            MuseumActions.OnGuestAiUpdated?.Invoke(this);
         }
 
         
@@ -180,6 +181,7 @@ public partial class GuestAi : CharacterBody2D
             default:
                 throw new ArgumentOutOfRangeException(nameof(need), need, null);
         }
+        MuseumActions.OnGuestAiUpdated?.Invoke(this);
     }
     public override void _ExitTree()
     {

@@ -432,7 +432,7 @@ public partial class Guest : GuestAi
                 if (currentNeed == GuestNeedsEnum.InterestInArtifact)
                 {
                     FillNeed(currentNeed, -4);
-                }else FillNeed(currentNeed, -100);
+                }else FillNeed(GuestNeedsEnum.InterestInArtifact, -4);
                 _canMove = false; // Stop moving when the path is completed
                 ControlAnimation();
                 await Task.Delay((int) (GD.RandRange(_decisionChangingIntervalMin,_decisionChangingIntervalMax)*1000));

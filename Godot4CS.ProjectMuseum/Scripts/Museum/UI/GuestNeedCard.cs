@@ -11,12 +11,19 @@ public partial class GuestNeedCard : Control
 	[Export] private String _needCorespondentName;
 	[Export] private Label _guestNeedName;
 	// Called when the node enters the scene tree for the first time.
-
+	private GuestAi _selectedGuestAi;
 	public override void _Ready()
 	{
 		_guestNeedName.Text = _needCorespondentName;
 		UpdateSliderValue(50);
 		MuseumActions.OnClickGuestAi += OnClickGuestAi;
+		MuseumActions.OnGuestAiUpdated += UpdateGuestNeedsValueUi;
+	}
+
+	private void OnClickGuestAi(GuestAi obj)
+	{
+		_selectedGuestAi = obj;
+		UpdateGuestNeedsValueUi(obj);
 	}
 
 	private void UpdateSliderValue(float value)
@@ -36,8 +43,12 @@ public partial class GuestNeedCard : Control
 	public override void _Process(double delta)
 	{
 	}
-	private void OnClickGuestAi(GuestAi guest)
+	private void UpdateGuestNeedsValueUi(GuestAi guest)
 	{
+		if (_selectedGuestAi == null || guest != _selectedGuestAi)
+		{
+			return;
+		}
 		if (_guestNeedsEnum== GuestNeedsEnum.Bladder)
 		{
 			UpdateSliderValue(guest.bladderLevel);
@@ -72,6 +83,7 @@ public partial class GuestNeedCard : Control
 	{
 		base._ExitTree();
 		MuseumActions.OnClickGuestAi -= OnClickGuestAi;
+		MuseumActions.OnGuestAiUpdated -= UpdateGuestNeedsValueUi;
 
 	}
 }

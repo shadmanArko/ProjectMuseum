@@ -33,9 +33,16 @@ public partial class ArtifactScoreUi : Control
 		_httpRequestForGettingArtifactScores.RequestCompleted += HttpRequestForGettingArtifactScoresOnRequestCompleted;
 		MuseumActions.OnRawArtifactFunctionalDataLoaded += OnRawArtifactFunctionalDataLoaded;
 		MuseumActions.OnRawArtifactDescriptiveDataLoaded += OnRawArtifactDescriptiveDataLoaded;
+		MuseumActions.OnClickArtifactsLensButton += OnClickArtifactsLensButton;
 		_closingButton.Pressed += ClosingButtonOnPressed;
 		_httpRequestForGettingDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
 
+		
+	}
+
+	private void OnClickArtifactsLensButton()
+	{
+		Visible = true;
 		_httpRequestForGettingArtifactScores.Request(ApiAddress.MuseumApiPath + "RefreshArtifactScoringService");
 	}
 
@@ -65,6 +72,10 @@ public partial class ArtifactScoreUi : Control
 
 	private void UpdateArtifactScorePanelUi()
 	{
+		foreach (var child in _scoreCardsParent.GetChildren())
+		{
+			child.QueueFree();
+		}
 		foreach (var displayArtifact in _displayArtifacts)
 		{
 			var score = _artifactScores.FirstOrDefault(artifactScore => artifactScore.ArtifactId == displayArtifact.Id)
@@ -92,6 +103,7 @@ public partial class ArtifactScoreUi : Control
 		MuseumActions.OnRawArtifactFunctionalDataLoaded -= OnRawArtifactFunctionalDataLoaded;
 		MuseumActions.OnRawArtifactDescriptiveDataLoaded -= OnRawArtifactDescriptiveDataLoaded;
 		_closingButton.Pressed -= ClosingButtonOnPressed;
+		MuseumActions.OnClickArtifactsLensButton -= OnClickArtifactsLensButton;
 
 	}
 }

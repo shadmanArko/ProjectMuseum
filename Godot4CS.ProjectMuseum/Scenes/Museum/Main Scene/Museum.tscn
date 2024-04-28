@@ -172,6 +172,7 @@ _closingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/Name/But
 _guestInterestTags = NodePath("PanelContainer/VBoxContainer/interest/Interest bar/Interested Tags")
 
 [node name="Artifact Score Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_scoreCardsParent", "_closingButton") instance=ExtResource("26_waa14")]
+visible = false
 _scoreCardsParent = NodePath("Panel/MarginContainer/VBoxContainer/GridContainer")
 _closingButton = NodePath("Panel/MarginContainer/VBoxContainer/Container/Label/Button")
 

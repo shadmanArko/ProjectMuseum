@@ -69,6 +69,7 @@ public partial class MuseumActions : Node
 
     public static Action OnClickYesOfPopUpUi;
     public static Action OnClickNoOfPopUpUi;
+    public static Action OnClickArtifactsLensButton;
     public static Action<string> OnNeedOfPopUpUi;
 
     #endregion

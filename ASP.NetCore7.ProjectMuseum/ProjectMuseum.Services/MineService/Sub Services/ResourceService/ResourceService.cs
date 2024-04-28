@@ -109,6 +109,7 @@ public class ResourceService : IResourceService
         #endregion
 
         await _mineRepository.Update(mine);
+        await AssignResourcesToMine();
         return mine.Resources;
     }
 

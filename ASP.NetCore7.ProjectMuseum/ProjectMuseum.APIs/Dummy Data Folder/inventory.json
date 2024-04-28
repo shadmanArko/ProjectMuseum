@@ -30,7 +30,7 @@
         "Category": "Health",
         "Variant": "HealthPotion",
         "IsStackable": true,
-        "Stack": 5,
+        "Stack": 50,
         "Slot": 2,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
       },
@@ -41,13 +41,42 @@
         "Category": "Energy",
         "Variant": "EnergyPotion",
         "IsStackable": true,
-        "Stack": 5,
+        "Stack": 42,
         "Slot": 3,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
+      },
+      {
+        "Id": "3",
+        "Name": "Fire Torch",
+        "Type": "WallPlaceable",
+        "Category": "Torch",
+        "Variant": "FireTorch",
+        "IsStackable": true,
+        "Stack": 33,
+        "Slot": 4,
+        "PngPath": "res://Assets/firetorch.png"
+      },
+      {
+        "Id": "667f3d45-0098-42dd-a8b9-5e55a9fe5c2c",
+        "Name": "Coal",
+        "Type": "Resource",
+        "Category": null,
+        "Variant": "Coal",
+        "IsStackable": true,
+        "Stack": 4,
+        "Slot": 5,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
       }
     ],
     "Artifacts": [],
-    "OccupiedSlots": [0,1,2,3],
+    "OccupiedSlots": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
     "SlotsUnlocked": 12
   }
 ]

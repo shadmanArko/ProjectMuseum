@@ -120,7 +120,8 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.IsAffectedByGravity = true;
 		_playerControllerVariables.Gravity = 30f;
 		_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
-        
+		_playerControllerVariables.CurrentEquippedItemSlot = 1;
+		
 		var isTutorialPlaying = ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying();
 		var firstDayPassed = ReferenceStorage.Instance.MineTimeSystem.GetTime().Days > 1;
         

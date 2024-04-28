@@ -22,8 +22,6 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	[Export(PropertyHint.Range, "1,200,1")]
 	public int MovementFactor = 100;
 
-	[Export] private string _lampScenePath;
-
 	public override void _EnterTree()
 	{
 		InitializeDiReferences();
@@ -31,7 +29,6 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		_playerControllerVariables.Player = this;
 		_playerControllerVariables.PlayerHealth = 200;
 		_playerControllerVariables.PlayerEnergy = 200;
-		_playerControllerVariables.CurrentEquippedItemSlot = 0;
 	}
 
 	private void InitializeDiReferences()
@@ -240,7 +237,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		animationController.Play("damage1");
+		animationController.PlayAnimation("damage1");
 		HealthSystem.ReducePlayerHealth(damageValue, _playerControllerVariables);
 	}
 

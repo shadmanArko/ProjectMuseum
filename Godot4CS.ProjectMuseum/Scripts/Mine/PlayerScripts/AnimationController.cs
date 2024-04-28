@@ -183,35 +183,64 @@ public partial class AnimationController : AnimationPlayer
 
 	public void PlayAnimation(string state)
 	{
-		if (_playerControllerVariables.State == MotionState.Hanging)
+		if(state == CurrentAnimation) return;
+		if (state == "death") Play(state);
+		else if (state == "damage1")
 		{
-			if(state == "climb_idle")
+			if(CurrentAnimation == "death") return;
+			Play(state);
+		}
+		else if (state.Contains("celebrate"))
+		{
+			if(CurrentAnimation is "damage" or "death") return;
+			Play(state);
+		}
+		else if (state.Contains("brush"))
+		{
+			if(CurrentAnimation is "damage" or "death" or "celebrate") return;
+			Play(state);
+		}
+		else if (state.Contains("attack"))
+		{
+			if(CurrentAnimation is "damage" or "death" or "celebrate" or "brush") return;
+			Play(state);
+		}
+		else if (state.Contains("mine") || state.Contains("mining"))
+		{
+			if(CurrentAnimation is "damage" or "death" or "celebrate" or "brush" or "attack") return;
+			Play(state);
+		}
+		else
+		{
+			if (_playerControllerVariables.State == MotionState.Hanging)
 			{
-				if (CurrentAnimation == "")
+				if(state == "climb_idle")
+				{
+				
+				}
+				else
 				{
 					Play(state);
 				}
 			}
 			else
 			{
-				Play(state);
-			}
-		}
-		else
-		{
-			if (state == "idle")
-			{
-				if(CurrentAnimation == "")
+				if (state == "idle")
+				{
+					if(CurrentAnimation == "")
+						Play(state);
+				}
+				else if (state == "run")
+				{
+					if(CurrentAnimation != "attack" && !CurrentAnimation.Contains("mining") && !CurrentAnimation.Contains("brush"))
+						Play(state);
+				}
+				else
 					Play(state);
 			}
-			else if (state == "run")
-			{
-				if(CurrentAnimation != "attack" && !CurrentAnimation.Contains("mining") && !CurrentAnimation.Contains("brush"))
-					Play(state);
-			}
-			else
-				Play(state);
 		}
+		
+		
 	}
 
 	private void ToggleHangOnWall()

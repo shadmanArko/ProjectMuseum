@@ -8,8 +8,6 @@ public partial class PlayerInputHandler : Node2D
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
 
-    private const string TorchScenePath = "res://Scenes/Mine/Sub Scenes/Props/FireTorch.tscn";
-
     public override void _Ready()
     {
         InitializeDiReferences();
@@ -26,7 +24,10 @@ public partial class PlayerInputHandler : Node2D
 
     private void SubscribeToActions()
     {
+        
     }
+    
+    
 
     #endregion
 

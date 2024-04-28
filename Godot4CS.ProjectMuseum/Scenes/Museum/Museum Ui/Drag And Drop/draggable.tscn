@@ -48,7 +48,6 @@ layout_mode = 2
 [node name="ExhibitEditorArtifactTag" parent="MarginContainer/VBoxContainer/PanelContainer" node_paths=PackedStringArray("artifactTag") instance=ExtResource("4_xr50t")]
 visible = false
 layout_mode = 2
-mouse_filter = 1
 artifactTag = NodePath("MarginContainer/Label")
 
 [node name="TextureRect" type="TextureRect" parent="."]

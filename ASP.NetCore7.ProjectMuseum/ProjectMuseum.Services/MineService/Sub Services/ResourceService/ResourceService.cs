@@ -85,6 +85,7 @@ public class ResourceService : IResourceService
             {
                 var resource = await _resourceRepository.AddResourceToMine(rootNodeVariant, resourceCell.PositionX,
                     resourceCell.PositionY);
+                Console.WriteLine($"resource {resource.Variant} {resource.PositionX},{resource.PositionY}");
                 mine.Resources.Add(resource);
                 FormResourceDistanceOfFourTiles(cells, resourceCell);
             }
@@ -122,6 +123,8 @@ public class ResourceService : IResourceService
         var xMax = currentCell.PositionX + 1;
         var yMin = currentCell.PositionY - 1;
         var yMax = currentCell.PositionY + 1;
+        
+        // Console.WriteLine($"xMin:{xMin}, xMax:{xMax}, yMin:{yMin}, yMax:{yMax}");
 
         var adjacentCells = new List<Cell>();
         

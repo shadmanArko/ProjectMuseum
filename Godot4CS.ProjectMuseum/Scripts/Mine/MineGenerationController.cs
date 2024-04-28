@@ -17,7 +17,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _saveGeneratedMineHttpRequest;
 	private HttpRequest _loadGeneratedMineHttpRequest;
 	private HttpRequest _generateMineHttpRequest;
-	private HttpRequest _assignArtifactsToMineHttpRequest;
+	private HttpRequest _generateProceduralMineHttpRequest;
 	private HttpRequest _mineCrackCellMaterialHttpRequest;
 	private HttpRequest _rawArtifactDescriptiveHttpRequest;
 	private HttpRequest _rawArtifactFunctionalHttpRequest;
@@ -40,7 +40,7 @@ public partial class MineGenerationController : Node2D
 		GetMineCrackMaterialData();
 		GetAllRawArtifactDescriptiveData();
 		GetAllRawArtifactFunctionalData();
-		AssignArtifactsToMine();
+		GenerateProceduralMine();
 	}
 
 	public override void _Ready()
@@ -70,9 +70,9 @@ public partial class MineGenerationController : Node2D
 		AddChild(_generateMineHttpRequest);
 		_generateMineHttpRequest.RequestCompleted += OnGenerateMineDataHttpRequestCompleted;
 		
-		_assignArtifactsToMineHttpRequest = new HttpRequest();
-		AddChild(_assignArtifactsToMineHttpRequest);
-		_assignArtifactsToMineHttpRequest.RequestCompleted += OnAssignArtifactsToMineHttpRequestCompleted;
+		_generateProceduralMineHttpRequest = new HttpRequest();
+		AddChild(_generateProceduralMineHttpRequest);
+		_generateProceduralMineHttpRequest.RequestCompleted += OnGenerateProceduralMineHttpRequestCompleted;
 		
 		_mineCrackCellMaterialHttpRequest = new HttpRequest();
 		AddChild(_mineCrackCellMaterialHttpRequest);
@@ -190,13 +190,13 @@ public partial class MineGenerationController : Node2D
 
 	#region Assign Artifacts To Mine
 
-	private void AssignArtifactsToMine()
+	private void GenerateProceduralMine()
 	{
-		var url = ApiAddress.MineApiPath + "GenerateProceduralMine";//"AssignArtifactsToMine";
-		_assignArtifactsToMineHttpRequest.Request(url);
+		var url = ApiAddress.MineApiPath + "GenerateProceduralMine";
+		_generateProceduralMineHttpRequest.Request(url);
 	}
 	
-	private void OnAssignArtifactsToMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	private void OnGenerateProceduralMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
@@ -218,8 +218,7 @@ public partial class MineGenerationController : Node2D
 	{
 		var jsonStr = Encoding.UTF8.GetString(body);
 		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		
-		
+		// GenerateGridFromMineData(mine);
 	}
 
 	#endregion
@@ -235,7 +234,7 @@ public partial class MineGenerationController : Node2D
 	
 	private void OnGenerateMineDataHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
-		AssignArtifactsToMine();
+		GenerateProceduralMine();
 	}
 	
 	private void GenerateGridFromMineData(global::ProjectMuseum.Models.Mine mine)

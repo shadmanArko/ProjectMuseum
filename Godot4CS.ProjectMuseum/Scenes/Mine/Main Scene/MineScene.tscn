@@ -129,6 +129,9 @@ _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 visible = false
+offset_top = 41.792
+offset_right = 163.624
+offset_bottom = 183.6
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

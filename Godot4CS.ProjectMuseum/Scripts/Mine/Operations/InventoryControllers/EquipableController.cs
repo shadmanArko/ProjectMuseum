@@ -82,10 +82,10 @@ public partial class EquipableController : InventoryController
 
     private void MeleeActionStart()
     {
-        if(_playerControllerVariables.IsAttacking) return;
+        // if(_playerControllerVariables.IsAttacking) return;
         GD.Print("inside melee action started");
         if(!_playerControllerVariables.CanAttack) return;
-        _playerControllerVariables.IsAttacking = true;
+        // _playerControllerVariables.IsAttacking = true;
         MineActions.OnMeleeAttackActionStarted?.Invoke();
         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
     }
@@ -106,7 +106,7 @@ public partial class EquipableController : InventoryController
         if (_playerControllerVariables.CanDig)
         {
             MineActions.OnDigActionStarted?.Invoke();
-            GD.Print("is digging");
+            // GD.Print("is digging");
             MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
         }
     }

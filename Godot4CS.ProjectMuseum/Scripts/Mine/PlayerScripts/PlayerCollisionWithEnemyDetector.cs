@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
@@ -27,26 +28,27 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
 
     private void SubscribeToActions()
     {
-        MineActions.OnMeleeAttackActionStarted += TurnOnAttackCollider;
-        MineActions.OnMeleeAttackActionEnded += TurnOffAttackCollider;
+        // MineActions.OnMeleeAttackActionStarted += TurnOnAttackCollider;
+        // MineActions.OnMeleeAttackActionEnded += TurnOffAttackCollider;
     }
 
     #endregion
 
     private void TurnOffAttackCollider()
     {
-        _collisionShape2D.Disabled = true;
         _attackDetectorArea2D.Monitoring = false;
-        
-        // GD.Print("Stopped detecting collision");
+        _playerControllerVariables.IsAttacking = false;
+        GD.Print("Stopped detecting enemy collision");
     }
 
-    private void TurnOnAttackCollider()
+    private async void TurnOnAttackCollider()
     {
-        _collisionShape2D.Disabled = false;
         _attackDetectorArea2D.Monitoring = true;
-        
-        // GD.Print("Started detecting collision");
+        _playerControllerVariables.IsAttacking = true;
+        GD.Print("Started detecting enemy collision");
+        await Task.Delay(Mathf.CeilToInt(_playerControllerVariables.Player.animationController.CurrentAnimationLength) * 1000);
+        _playerControllerVariables.IsAttacking = false;
+        _attackDetectorArea2D.Monitoring = false;
     }
 
     private void OnBodyEnter(Node2D body)
@@ -54,8 +56,12 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
         var enemy = body as IDamagable;
         if(enemy is null) return;
         GD.Print($"is attacking is {_playerControllerVariables.IsAttacking}");
-        if(!_playerControllerVariables.IsAttacking) return;
-        if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
+        if (!_playerControllerVariables.IsAttacking)
+        {
+            GD.Print("is attacking not true. returning");
+            return;
+        }
+        // if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
         enemy.TakeDamage();
         GD.Print($"PLAYER ATTACKING ENEMY {enemy}");
     }

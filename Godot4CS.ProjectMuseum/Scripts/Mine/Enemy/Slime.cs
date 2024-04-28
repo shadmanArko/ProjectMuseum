@@ -388,24 +388,17 @@ public partial class Slime : Enemy
     
     #region Take Damage
     
-    public override async void TakeDamage()
+    public override void TakeDamage()
     {
+        if(IsDead) return;
         if (IsTakingDamage) return;
         IsTakingDamage = true;
         IsMoving = false;
         
         AnimationController.PlayAnimation("damage");
-        
-        var playerDirection = _playerControllerVariables.PlayerDirection;
-        var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
-        Velocity = new Vector2(knockBackDirection.X,Velocity.Y);
-        GD.Print($"getting knocked back {knockBackDirection}");
-        MoveAndSlide();
-        
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        _isKnockBack = true;
+        GD.Print($"from knock back is attacking {_playerControllerVariables.IsAttacking}");
         HealthSystem.ReduceEnemyHealth(10, 100, this);
-        // Velocity = new Vector2(0, Velocity.Y);
-        
         IsMoving = true;
         IsTakingDamage = false;
     }
@@ -416,6 +409,7 @@ public partial class Slime : Enemy
     
     public override async void Death()
     {
+        IsDead = true;
         SetPhysicsProcess(false);
         AnimationController.PlayAnimation("death");
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength * 1000));
@@ -565,13 +559,24 @@ public partial class Slime : Enemy
 
     #region Knock Back
 
-    private async Task KnockBack()
+    [Export] private bool _isKnockBack;
+    private async void KnockBack()
     {
+        if(!_isKnockBack) return;
+        _isKnockBack = false;
         var playerDirection = _playerControllerVariables.PlayerDirection;
         var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
-        Velocity = new Vector2(knockBackDirection.X,Velocity.Y);
-        GD.Print($"getting knocked back {knockBackDirection}");
-        MoveAndSlide();
+        await ApplyKnockBack(knockBackDirection);
+    }
+
+    private async Task ApplyKnockBack(Vector2 knockBackDirection)
+    {
+        for (var i = 0; i < 5; i++)
+        {
+            Velocity = Velocity.Lerp(new Vector2(knockBackDirection.X, Velocity.Y), 0.8f);
+            MoveAndSlide();
+            await Task.Delay(1);
+        }
     }
 
     #endregion

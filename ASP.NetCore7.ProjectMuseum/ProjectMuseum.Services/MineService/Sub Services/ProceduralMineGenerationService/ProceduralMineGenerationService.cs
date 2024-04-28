@@ -102,7 +102,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var noOfStalagmites = Math.Clamp(mineGenData.StalagmiteCount, 0, bossCaveSizeX);
 
         var cave = await _caveGeneratorService.GenerateCave(xMin, xMax, yMin, yMax, noOfStalagmites, noOfStalactites);
-        Console.WriteLine($"Boss Cave Location Top:{yMin}, Bottom:{yMax}, Left:{xMin}, Right:{xMax}");
+        // Console.WriteLine($"Boss Cave Location Top:{yMin}, Bottom:{yMax}, Left:{xMin}, Right:{xMax}");
     }
 
     public async Task GenerateCaves()
@@ -174,10 +174,10 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             var stalagmites = rand.Next(2, xMax - xMin - 1);
             var stalactites = rand.Next(2, xMax - xMin - 1);
 
-            Console.WriteLine($"cave dim: ({tempCave.X},{tempCave.Y})");
+            // Console.WriteLine($"cave dim: ({tempCave.X},{tempCave.Y})");
             var cave = await _caveGeneratorService.GenerateCave(xMin, xMax, yMin, yMax, stalagmites, stalactites);
-            Console.WriteLine(
-                $"Cave generated xMin:{cave.LeftBound}, xMax:{cave.RightBound}. yMin:{cave.TopBound}, yMax:{cave.BottomBound}");
+            // Console.WriteLine(
+            //     $"Cave generated xMin:{cave.LeftBound}, xMax:{cave.RightBound}. yMin:{cave.TopBound}, yMax:{cave.BottomBound}");
         }
 
         #endregion
@@ -238,9 +238,9 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             listOfCoords.Remove(tempCoord);
         }
 
-        Console.WriteLine($"Backdrop Position");
-        foreach (var backdrop in listOfAddedBackdrops)
-            Console.WriteLine($"X:{backdrop.TilePositionX}, Y:{backdrop.TilePositionY}");
+        // Console.WriteLine($"Backdrop Position");
+        // foreach (var backdrop in listOfAddedBackdrops)
+        //     Console.WriteLine($"X:{backdrop.TilePositionX}, Y:{backdrop.TilePositionY}");
 
         await _specialBackdropService.SetSpecialBackdrops(listOfAddedBackdrops);
     }
@@ -290,8 +290,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Legendary").ToList()
             .OrderBy(x => rand.Next()).Take(legendaryCount));
         
-        Console.WriteLine($"raw artifact functional: {rawArtifactFunctionals!.Count}");
-        Console.WriteLine($"list of raw artifacts: {listOfRawArtifacts.Count}");
+        // Console.WriteLine($"raw artifact functional: {rawArtifactFunctionals!.Count}");
+        // Console.WriteLine($"list of raw artifacts: {listOfRawArtifacts.Count}");
 
         #region Adding duplicate artifacts in the list of artifacts
 
@@ -330,7 +330,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
             rarityConditionCounter++;
             listOfArtifacts.Add(artifact);
-            Console.WriteLine($"{rarityCondition.Item1.Condition}, {rarityCondition.Item2.Rarity}");
+            // Console.WriteLine($"{rarityCondition.Item1.Condition}, {rarityCondition.Item2.Rarity}");
         }
 
         #endregion
@@ -385,12 +385,12 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var artifactRarities = await _artifactRarityService.GetAllArtifactRarity();
         var conditionsRarityList = new List<Tuple<ArtifactCondition, ArtifactRarity>>();
         
-        Console.WriteLine($"artifact conditions count {artifactConditions.Count}");
+        // Console.WriteLine($"artifact conditions count {artifactConditions.Count}");
 
-        foreach (var condition in artifactConditions)
-        {
-            Console.WriteLine($"conditions is {condition.Condition}");
-        }
+        // foreach (var condition in artifactConditions)
+        // {
+        //     Console.WriteLine($"conditions is {condition.Condition}");
+        // }
 
         var rand = new Random();
 

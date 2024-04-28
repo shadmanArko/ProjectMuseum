@@ -65,7 +65,6 @@ public class CaveGeneratorService : ICaveGeneratorService
             if(newCave.StalagmiteCellIds.Contains(cell.Id)) continue;
             newCave.StalagmiteCellIds.Add(cell.Id);
         }
-        Console.WriteLine($"stalagmite cell count: {possibleStalagmiteCells.Count}");
         
         for (var numberOfStalactites = stalactiteCount; numberOfStalactites > 0; numberOfStalactites--)
         {
@@ -73,7 +72,6 @@ public class CaveGeneratorService : ICaveGeneratorService
             if(newCave.StalactiteCellIds.Contains(cell.Id)) continue;
             newCave.StalactiteCellIds.Add(cell.Id);
         }
-        Console.WriteLine($"stalactite cell count: {possibleStalactiteCells.Count}");
         
         mine.Caves.Add(newCave);
         await _mineService.UpdateMine(mine);

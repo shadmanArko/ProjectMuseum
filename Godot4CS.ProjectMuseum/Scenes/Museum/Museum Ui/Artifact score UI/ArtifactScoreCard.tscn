@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba3b6cuenlbb8"]
+
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="1_4uhc3"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/ArtifactScoreCard.cs" id="1_55hwx"]
+[ext_resource type="Texture2D" uid="uid://be2t4f630oy5c" path="res://Assets/2D/Sprites/Isometric View Artifacts/RenaissanceNativeAmericanTomahawk.png" id="2_gjywy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6bci3"]
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.886275)
+
+[node name="Artifact Score Card" type="ColorRect" node_paths=PackedStringArray("_scoreText", "_artifactTexture")]
+custom_minimum_size = Vector2(500, 50)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+color = Color(0.699653, 0.699653, 0.699653, 1)
+script = ExtResource("1_55hwx")
+_scoreText = NodePath("HBoxContainer/Label")
+_artifactTexture = NodePath("HBoxContainer/TextureRect")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_gjywy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(443.415, 0)
+layout_mode = 2
+theme = ExtResource("1_4uhc3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Artifect name - 3.22"
+label_settings = SubResource("LabelSettings_6bci3")
+horizontal_alignment = 1
+vertical_alignment = 1

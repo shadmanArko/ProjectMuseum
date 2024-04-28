@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://ukhmjsk0jnjt"]
+[gd_scene load_steps=4 format=3 uid="uid://ukhmjsk0jnjt"]
 
 [ext_resource type="Texture2D" uid="uid://joc2s31s5jrh" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/street lamp.png" id="1_4nvq2"]
+[ext_resource type="Texture2D" uid="uid://di543djug5e1q" path="res://Assets/2D/Sprites/Mine Sprites/Light/light_mask.png" id="2_1xf2g"]
+[ext_resource type="Script" path="res://Scripts/Museum/StreetLamp.cs" id="2_bukom"]
 
-[node name="StreetLamp" type="Sprite2D"]
+[node name="StreetLamp" type="Sprite2D" node_paths=PackedStringArray("_pointLight")]
 z_index = 1
 position = Vector2(344, -144)
 texture = ExtResource("1_4nvq2")
 offset = Vector2(0, -35.665)
+script = ExtResource("2_bukom")
+_pointLight = NodePath("PointLight2D")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(3, -70)
+color = Color(1, 1, 0, 1)
+texture = ExtResource("2_1xf2g")

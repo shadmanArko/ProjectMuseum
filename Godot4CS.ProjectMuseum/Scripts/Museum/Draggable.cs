@@ -17,7 +17,8 @@ public partial class Draggable : ColorRect
 	[Export] private Label _nameOfDraggable;
 	[Export] private TextureRect _artifactIcon;
 	[Export] private PackedScene _draggablePreview;
-	[Export] private Control _artifactTagParent;
+	[Export] private Control _artifactTagParent1;
+	[Export] private Control _artifactTagParent2;
 	[Export] private PackedScene _artifactTag;
 	private static List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
 	private static List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
@@ -79,10 +80,13 @@ public partial class Draggable : ColorRect
 		Artifact = artifact;
 	}
 
+	private int _tagsCount = 0;
 	private void InstantiateArtifactTag(string tag)
 	{
+		_tagsCount++;
 		var instance = _artifactTag.Instantiate();
-		_artifactTagParent.AddChild(instance);
+		var parent = _tagsCount < 4 ? _artifactTagParent1 : _artifactTagParent2;
+		parent.AddChild(instance);
 		instance.GetNode<ExhibitEditorArtifactTag>(".").Initialize(tag);
 	}
 

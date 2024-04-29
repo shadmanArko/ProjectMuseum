@@ -117,16 +117,17 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(387, 600)
+layout_direction = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("4_mx4kr")
-_parentTarget = true
 
-[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent") instance=ExtResource("3_vjpch")]
+[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 layout_mode = 2
 _nameOfDraggable = NodePath("ColorRect/Name Of Artifact")
 _artifactIcon = NodePath("TextureRect")
-_artifactTagParent = NodePath("MarginContainer/VBoxContainer/PanelContainer")
+_artifactTagParent1 = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer2")
 
 [node name="Right Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
 modulate = Color(0.937255, 0.898039, 1, 1)
@@ -149,16 +150,16 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -150.0
-offset_right = 150.0
-offset_bottom = 104.0
+offset_left = -354.0
+offset_right = 353.0
+offset_bottom = 565.0
 grow_horizontal = 2
 theme_override_constants/margin_left = 140
 theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 180
 
 [node name="GridContainer" type="GridContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer"]
-custom_minimum_size = Vector2(300, 50)
+custom_minimum_size = Vector2(387, 50)
 layout_mode = 2
 theme_override_constants/v_separation = 35
 

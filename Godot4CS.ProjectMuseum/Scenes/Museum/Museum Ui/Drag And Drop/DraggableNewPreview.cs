@@ -8,9 +8,12 @@ public partial class DraggableNewPreview : ColorRect
 {
 	[Export] private Label _nameOfDraggable;
 	[Export] private TextureRect _artifactIcon;
-	[Export] private Control _artifactTagParent;
+	[Export] private Control _artifactTagParent1;
+	[Export] private Control _artifactTagParent2;
 	[Export] private PackedScene _artifactTag;
 	public Artifact Artifact;
+
+	private int _tagCount = 0;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -44,8 +47,10 @@ public partial class DraggableNewPreview : ColorRect
 
 	private void InstantiateArtifactTag(string tag)
 	{
+		_tagCount++;
 		var instance = _artifactTag.Instantiate();
-		_artifactTagParent.AddChild(instance);
+		var parent = _tagCount < 4 ? _artifactTagParent1 : _artifactTagParent2;
+		parent.AddChild(instance);
 		instance.GetNode<ExhibitEditorArtifactTag>(".").Initialize(tag);
 	}
 }

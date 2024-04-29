@@ -291,6 +291,11 @@ public partial class Slime : Enemy
 
     public override async Task Chase()
     {
+        if (!IsAggro)
+        {
+            AnimationController.PlayAnimation("aggro");
+            await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        }
         var posToGo = _enemyAi.CheckForPathValidity(Position);
         var currentAnim = AnimationController.CurrentAnimation;
         if (posToGo == Vector2.Zero)
@@ -355,7 +360,7 @@ public partial class Slime : Enemy
         {
             Velocity = new Vector2(0, Velocity.Y);
             MoveAndSlide();
-            AnimationController.Play("idle");
+            AnimationController.PlayAnimation("idle");
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
             IsMoving = true;
         }
@@ -483,12 +488,13 @@ public partial class Slime : Enemy
 
     #region Aggro
 
-    private async void PlayAggroAnimation()
+    private void PlayAggroAnimation()
     {
         GD.Print($"IsAggro changed {IsAggro}");
         IsMoving = false;
         AnimationController.PlayAnimation("aggro");
-        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        // IsMoving = true;
     }
 
     private void OnAggroAnimationFinished(string animName)

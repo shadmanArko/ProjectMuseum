@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -74,6 +75,7 @@ public partial class AnimationController : AnimationPlayer
 				break;
 		}
 	}
+	
 	private void PlayHangingAnimations(Vector2 velocity)
 	{
 		switch (velocity.X)
@@ -184,7 +186,10 @@ public partial class AnimationController : AnimationPlayer
 	public void PlayAnimation(string state)
 	{
 		if(state == CurrentAnimation) return;
-		if (state == "death") Play(state);
+		if (state == "death")
+		{
+			Play(state);
+		}
 		else if (state == "damage1")
 		{
 			if(CurrentAnimation == "death") return;
@@ -192,22 +197,22 @@ public partial class AnimationController : AnimationPlayer
 		}
 		else if (state.Contains("celebrate"))
 		{
-			if(CurrentAnimation is "damage" or "death") return;
+			if(CurrentAnimation is "damage1" or "death") return;
 			Play(state);
 		}
 		else if (state.Contains("brush"))
 		{
-			if(CurrentAnimation is "damage" or "death" or "celebrate") return;
+			if(CurrentAnimation is "damage1" or "death" or "celebrate") return;
 			Play(state);
 		}
 		else if (state.Contains("attack"))
 		{
-			if(CurrentAnimation is "damage" or "death" or "celebrate" or "brush") return;
+			if(CurrentAnimation is "damage1" or "death" or "celebrate" or "brush") return;
 			Play(state);
 		}
 		else if (state.Contains("mine") || state.Contains("mining"))
 		{
-			if(CurrentAnimation is "damage" or "death" or "celebrate" or "brush" or "attack") return;
+			if(CurrentAnimation is "damage1" or "death" or "celebrate" or "brush" or "attack") return;
 			Play(state);
 		}
 		else

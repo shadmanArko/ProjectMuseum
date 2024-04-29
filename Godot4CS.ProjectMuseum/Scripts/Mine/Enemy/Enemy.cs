@@ -52,6 +52,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     public Action OnAggroChanged;
     public Action OnAttackChanged;
     public Action OnCanMoveChanged;
+    public Action OnTakeDamage;
 
     #endregion
 

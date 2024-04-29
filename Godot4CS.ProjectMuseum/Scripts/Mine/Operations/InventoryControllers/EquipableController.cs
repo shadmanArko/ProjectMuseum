@@ -99,6 +99,7 @@ public partial class EquipableController : InventoryController
 
     private void DigActionStart()
     {
+        _playerControllerVariables.IsDigging = true;
         GD.Print("inside dig action started");
         SetProcess(true);
     }
@@ -106,6 +107,7 @@ public partial class EquipableController : InventoryController
     private void DigActionEnd()
     {
         SetProcess(false);
+        _playerControllerVariables.IsDigging = false;
     }
 
     #endregion
@@ -114,6 +116,7 @@ public partial class EquipableController : InventoryController
     {
         if (_playerControllerVariables.CanDig && _playerControllerVariables.PlayerEnergy > 0)
         {
+            _playerControllerVariables.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
             MineActions.OnDigActionStarted?.Invoke();
             MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
         }

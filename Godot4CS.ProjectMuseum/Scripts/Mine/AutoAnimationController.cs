@@ -70,7 +70,7 @@ public partial class AutoAnimationController : Node2D
 	
 	public void SetPlayerRun()
 	{
-		_animationController = _playerControllerVariables.Player.animationController;
+		_animationController = _playerControllerVariables.Player.AnimationController;
 		_playerController = _playerControllerVariables.Player;
 		_playerControllerVariables.Player.Position = new Vector2(250, -58);
 		_playerControllerVariables.CanMove = false;

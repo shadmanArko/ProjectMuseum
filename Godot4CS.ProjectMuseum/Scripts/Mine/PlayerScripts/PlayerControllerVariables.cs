@@ -35,12 +35,15 @@ public class PlayerControllerVariables
     #region Action Variables
     
     public MotionState State;
+
     public bool CanMove { get; set; }
+
     public bool IsAffectedByGravity { get; set; }
     
     public bool IsDead { get; set; }
 
     public bool IsAttacking { get; set; }
+    public bool IsDigging { get; set; }
 
     #endregion
 
@@ -120,6 +123,7 @@ public class PlayerControllerVariables
 
     public Vector2I MouseDirection;
     public Vector2I PlayerDirection;
+    private bool _canMove;
 
     #endregion
 }

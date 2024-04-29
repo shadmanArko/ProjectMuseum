@@ -393,19 +393,22 @@ public partial class Slime : Enemy
     
     #region Take Damage
     
-    public override void TakeDamage()
+    public override async void TakeDamage()
     {
         if(IsDead) return;
         if (IsTakingDamage) return;
-        IsTakingDamage = true;
         IsMoving = false;
-        
-        AnimationController.PlayAnimation("damage");
+        IsTakingDamage = true;
         _isKnockBack = true;
-        GD.Print($"from knock back is attacking {_playerControllerVariables.IsAttacking}");
+        
         HealthSystem.ReduceEnemyHealth(10, 100, this);
-        IsMoving = true;
+        AnimationController.PlayAnimation("damage");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        AnimationController.PlayAnimation("idle");
+        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        
         IsTakingDamage = false;
+        IsMoving = true;
     }
     
     #endregion
@@ -493,8 +496,6 @@ public partial class Slime : Enemy
         GD.Print($"IsAggro changed {IsAggro}");
         IsMoving = false;
         AnimationController.PlayAnimation("aggro");
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-        // IsMoving = true;
     }
 
     private void OnAggroAnimationFinished(string animName)

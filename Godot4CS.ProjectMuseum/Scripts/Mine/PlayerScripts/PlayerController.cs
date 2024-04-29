@@ -10,7 +10,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public partial class PlayerController : CharacterBody2D, IDeath
 {
-	[Export] public AnimationController animationController;
+	[Export] public AnimationController AnimationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -58,7 +58,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
         }
 
         PlayerAttack();
-        animationController.SetAnimation();
+        AnimationController.SetAnimation();
         ModifyPlayerVariables();
 	}
     
@@ -107,7 +107,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	private void CheckFallTime(double delta)
 	{
 		if(_fallTime >= _fallTimeThreshold)
-			animationController.PlayAnimation("fall");
+			AnimationController.PlayAnimation("fall");
 		else
 			_fallTime += (float) delta;
 	}
@@ -140,6 +140,8 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	private Vector2 GetInputKeyboard()
 	{
 		Vector2 motion;
+		// if(!_playerControllerVariables.CanMove || _playerControllerVariables.IsAttacking || _playerControllerVariables.IsDigging) return Vector2.Zero;
+		
 		if (_playerControllerVariables.State == MotionState.Hanging)
 		{
 			motion = new Vector2
@@ -178,14 +180,14 @@ public partial class PlayerController : CharacterBody2D, IDeath
 
 		if (_playerControllerVariables.State == MotionState.Hanging)
 		{
-			animationController.PlayAnimation("climb_to_idle");
+			AnimationController.PlayAnimation("climb_to_idle");
 			_playerControllerVariables.State = MotionState.Falling;
 			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed / 2;
 			MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ToggleGrab");
 		}
 		else
 		{
-			animationController.PlayAnimation("idle_to_climb");
+			AnimationController.PlayAnimation("idle_to_climb");
 			_playerControllerVariables.State = MotionState.Hanging;
 			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
 			MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ToggleGrab");
@@ -237,7 +239,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		animationController.PlayAnimation("damage1");
+		AnimationController.PlayAnimation("damage1");
 		HealthSystem.ReducePlayerHealth(damageValue, _playerControllerVariables);
 	}
 
@@ -253,7 +255,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		animationController.Play("death");
+		AnimationController.Play("death");
 		_playerControllerVariables.CanMove = false;
 	}
 

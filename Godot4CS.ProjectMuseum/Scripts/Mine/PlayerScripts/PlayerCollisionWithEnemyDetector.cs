@@ -46,7 +46,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
         _attackDetectorArea2D.Monitoring = true;
         _playerControllerVariables.IsAttacking = true;
         GD.Print("Started detecting enemy collision");
-        await Task.Delay(Mathf.CeilToInt(_playerControllerVariables.Player.animationController.CurrentAnimationLength) * 1000);
+        await Task.Delay(Mathf.CeilToInt(_playerControllerVariables.Player.AnimationController.CurrentAnimationLength) * 1000);
         _playerControllerVariables.IsAttacking = false;
         _attackDetectorArea2D.Monitoring = false;
     }

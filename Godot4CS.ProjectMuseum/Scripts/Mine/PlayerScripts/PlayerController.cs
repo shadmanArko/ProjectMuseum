@@ -91,6 +91,19 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		}
 	}
 
+	// private void ApplyGravity()
+	// {
+	// 	if (_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging)
+	// 	{
+	// 		_fallTime = 0;
+	// 		return;
+	// 	}
+ //        
+	// 	var previousVerticalVelocity = Velocity.Y;
+	// 	var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
+	// 	Velocity = new Vector2(Velocity.X, currentVerticalVelocity);
+	// }
+	
 	private void ApplyGravity()
 	{
 		if (_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging)

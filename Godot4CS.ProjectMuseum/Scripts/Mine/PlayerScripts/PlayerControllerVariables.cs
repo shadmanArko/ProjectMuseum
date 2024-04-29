@@ -28,7 +28,7 @@ public class PlayerControllerVariables
 
     #region Gravity Variables
 
-    public float Gravity = 30f;
+    public float Gravity = 1f;
     
     #endregion
 

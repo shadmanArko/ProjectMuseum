@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=46 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://caue4uc4nb88t" path="res://Scenes/Mine/Sub Scenes/Torch.tscn" id="7_s7umg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cq4yg"]
-radius = 3.5
+radius = 5.0
 height = 14.0
 
 [sub_resource type="Animation" id="Animation_t7vn8"]
@@ -557,6 +557,21 @@ _data = {
 radius = 7.0
 height = 25.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwlxh"]
+size = Vector2(4, 1.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4uxl7"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fi2ox"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v557j"]
+size = Vector2(18, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_skedj"]
+size = Vector2(18, 5)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationController")]
 light_mask = 4
 visibility_layer = 4
@@ -572,11 +587,10 @@ floor_max_angle = 0.0
 safe_margin = 0.001
 script = ExtResource("1_bhvr3")
 AnimationController = NodePath("AnimationPlayer")
-_maxVerticalVelocity = 900.0
-_fallTimeThreshold = 0.5
+_maxVerticalVelocity = 200.0
+_fallTimeThreshold = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_cq4yg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("_sprite")]
@@ -592,7 +606,6 @@ light_mask = 128
 visibility_layer = 2
 texture_filter = 1
 texture = ExtResource("2_eymdr")
-flip_h = true
 hframes = 10
 vframes = 27
 
@@ -610,6 +623,7 @@ _collisionShape2D = NodePath("../Attack Detector/Attack Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
 [node name="Attack Detector" type="Area2D" parent="."]
+visible = false
 position = Vector2(-0.173327, -2.11858)
 collision_layer = 2
 collision_mask = 4
@@ -625,8 +639,41 @@ debug_color = Color(0.649493, 0.520117, 0, 0.42)
 energy = 0.6
 range_item_cull_mask = 34
 
+[node name="Gravity Detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gravity Detector"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_wwlxh")
+
+[node name="LeftAttackDetector" type="Area2D" parent="."]
+position = Vector2(-6.25, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftAttackDetector"]
+position = Vector2(0.25, 0)
+shape = SubResource("RectangleShape2D_4uxl7")
+
+[node name="RightAttackDetector" type="Area2D" parent="."]
+position = Vector2(6, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightAttackDetector"]
+shape = SubResource("RectangleShape2D_fi2ox")
+
+[node name="UpAttackDetector" type="Area2D" parent="."]
+position = Vector2(0, -9)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpAttackDetector"]
+shape = SubResource("RectangleShape2D_v557j")
+
+[node name="DownAttackDetector" type="Area2D" parent="."]
+position = Vector2(0, 8.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownAttackDetector"]
+shape = SubResource("RectangleShape2D_skedj")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]
 [connection signal="body_entered" from="Attack Detector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
 [connection signal="body_exited" from="Attack Detector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
+[connection signal="body_entered" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockEnter"]
+[connection signal="body_exited" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockExit"]

@@ -18,7 +18,7 @@ script = ExtResource("1_5j1h5")
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/Top Panel/Button")
 _draggable = ExtResource("3_vjpch")
 _dropTarget = ExtResource("3_gbute")
-_draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer/VBoxContainer")
+_draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer")
 _glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/CheckButton")
 
@@ -91,38 +91,85 @@ self_modulate = Color(0.403922, 0.211765, 0.494118, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.083
-anchor_right = 0.465
+anchor_right = 0.324
 anchor_bottom = 1.0
 offset_top = -0.175076
-offset_right = -0.555481
+offset_right = 2.45169
 offset_bottom = -0.000854492
 grow_vertical = 2
 theme = ExtResource("2_kqmcg")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
-theme_override_constants/margin_left = 75
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(196, 28)
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Order By"
+popup/item_0/id = 0
+popup/item_1/text = "Date"
+popup/item_1/id = 1
+popup/item_2/text = "Rarity"
+popup/item_2/id = 2
+
+[node name="OptionButton2" type="OptionButton" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(196, 28)
+layout_mode = 2
+item_count = 6
+selected = 0
+popup/item_0/text = "Filter"
+popup/item_0/id = 0
+popup/item_1/text = "Object"
+popup/item_1/id = 1
+popup/item_2/text = "Coin"
+popup/item_2/id = 2
+popup/item_3/text = "Vase"
+popup/item_3/id = 3
+popup/item_4/text = "Era"
+popup/item_4/id = 4
+popup/item_4/separator = true
+popup/item_5/text = "Ancient"
+popup/item_5/id = 5
+
+[node name="LineEdit" type="LineEdit" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Search..."
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 75
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(387, 600)
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(387, 559.465)
 layout_direction = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("4_mx4kr")
+_parentTarget = true
 
-[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 layout_mode = 2
 _nameOfDraggable = NodePath("ColorRect/Name Of Artifact")
 _artifactIcon = NodePath("TextureRect")

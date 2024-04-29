@@ -9,12 +9,13 @@
 
 [node name="Draggable" type="ColorRect" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2")]
 custom_minimum_size = Vector2(387, 100)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -111.5
-offset_right = 88.5
-offset_bottom = 50.0
+anchors_preset = -1
+anchor_left = 0.393
+anchor_right = 0.595
+anchor_bottom = 0.093
+offset_left = 93.94
+offset_right = -93.9
+offset_bottom = -50.44
 grow_horizontal = 2
 color = Color(0.61339, 0.61339, 0.61339, 1)
 script = ExtResource("1_gr5ai")
@@ -93,8 +94,3 @@ size_flags_vertical = 0
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 size_flags_vertical = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0

@@ -76,14 +76,13 @@ public partial class ArtifactScoreUi : Control
 		{
 			child.QueueFree();
 		}
-		foreach (var displayArtifact in _displayArtifacts)
+		foreach (var artifactScore in _artifactScores.OrderByDescending(score => score.Score))
 		{
-			var score = _artifactScores.FirstOrDefault(artifactScore => artifactScore.ArtifactId == displayArtifact.Id)
-				.Score;
+			var displayArtifact = _displayArtifacts.FirstOrDefault(artifact => artifact.Id == artifactScore.ArtifactId);
 			var name = _rawArtifactDescriptiveDatas.FirstOrDefault(descriptive => descriptive.Id == displayArtifact.RawArtifactId)
 				.ArtifactName;
 			var instance = _artifactScoreCard.Instantiate();
-			instance.GetNode<ArtifactScoreCard>(".").UpdateScoreText(name, score, _rawArtifactFunctionalDatas.FirstOrDefault(functional => functional.Id == displayArtifact.RawArtifactId));
+			instance.GetNode<ArtifactScoreCard>(".").UpdateScoreText(name, artifactScore.Score, _rawArtifactFunctionalDatas.FirstOrDefault(functional => functional.Id == displayArtifact.RawArtifactId));
 			_scoreCardsParent.AddChild(instance);
 		}
 	}

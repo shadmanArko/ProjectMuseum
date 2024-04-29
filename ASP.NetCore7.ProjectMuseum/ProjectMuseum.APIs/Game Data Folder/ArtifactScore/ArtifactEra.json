@@ -18,5 +18,9 @@
   {
     "Era": "Modern",
     "ScoreMultiplier": 1.0
+  },
+  {
+    "Era": "Industrial",
+    "ScoreMultiplier": 1.01
   }
 ]

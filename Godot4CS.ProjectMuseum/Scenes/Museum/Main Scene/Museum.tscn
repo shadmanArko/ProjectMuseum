@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=70 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -58,8 +58,11 @@
 [ext_resource type="Texture2D" uid="uid://3j81gf62i4jm" path="res://Assets/2D/Sprites/Decorations/Entry_Gate_open (4).png" id="43_ucw5y"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayNightCycleController.cs" id="46_uujue"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/FrontWallsController.cs" id="48_p7o0e"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
+[ext_resource type="Texture2D" uid="uid://dg7vds601wvsp" path="res://Assets/2D/Sprites/Decorations/Front_walls_Mid.png" id="50_8lb2o"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ItemPlacementController.cs" id="50_roy6j"]
+[ext_resource type="Texture2D" uid="uid://txsuh51u8kvl" path="res://Assets/2D/Sprites/Decorations/Front_walls_small.png" id="51_h2g6g"]
 [ext_resource type="PackedScene" uid="uid://qulr4wwpgjqv" path="res://Scenes/Museum/Effects/1x1dustEffect.tscn" id="51_k8r31"]
 [ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
@@ -521,9 +524,17 @@ _pointLight = NodePath("PointLight2D")
 position = Vector2(-894, -428)
 _pointLight = NodePath("PointLight2D")
 
-[node name="FrontWalls" type="Node2D" parent="museum"]
+[node name="FrontWalls" type="Node2D" parent="museum" node_paths=PackedStringArray("_walls")]
 y_sort_enabled = true
 position = Vector2(0, -2)
+script = ExtResource("48_p7o0e")
+_walls = [NodePath("Left_front_wall/FrontWall4"), NodePath("Left_front_wall/FrontWall5"), NodePath("Left_front_wall/FrontWall6"), NodePath("Left_front_wall/FrontWall7"), NodePath("Left_front_wall/FrontWall8"), NodePath("Left_front_wall/FrontWall9"), NodePath("Left_front_wall/FrontWall10"), NodePath("Left_front_wall/FrontWall11"), NodePath("Left_front_wall/FrontWall12"), NodePath("Left_front_wall/FrontWall13"), NodePath("Left_front_wall/FrontWall14"), NodePath("Left_front_wall/FrontWall15"), NodePath("Left_front_wall/FrontWall16"), NodePath("Left_front_wall/FrontWall17"), NodePath("Left_front_wall/FrontWall18"), NodePath("Left_front_wall/FrontWall19"), NodePath("Left_front_wall/FrontWall20"), NodePath("Left_front_wall/FrontWall21"), NodePath("Left_front_wall/FrontWall22"), NodePath("Right_front_wall/FrontWall3"), NodePath("Right_front_wall/FrontWall4"), NodePath("Right_front_wall/FrontWall5"), NodePath("Right_front_wall/FrontWall7"), NodePath("Right_front_wall/FrontWall10"), NodePath("Right_front_wall/FrontWall8"), NodePath("Right_front_wall/FrontWall9"), NodePath("Right_front_wall/FrontWall13"), NodePath("Right_front_wall/FrontWall14"), NodePath("Right_front_wall/FrontWall15"), NodePath("Right_front_wall/FrontWall16"), NodePath("Right_front_wall/FrontWall17"), NodePath("Right_front_wall/FrontWall18"), NodePath("Right_front_wall/FrontWall19"), NodePath("Right_front_wall/FrontWall20"), NodePath("Right_front_wall/FrontWall21"), NodePath("Right_front_wall/FrontWall22"), NodePath("Right_front_wall/FrontWall23")]
+_mainWallTexture = ExtResource("42_8t46q")
+_midWallTexture = ExtResource("50_8lb2o")
+_smallWallTexture = ExtResource("51_h2g6g")
+_mainWallOffset = Vector2(0, -49)
+_midWallOffset = Vector2(0, -33.5)
+_smallWallOffset = Vector2(0, -20)
 
 [node name="Right_front_wall" type="Node2D" parent="museum/FrontWalls"]
 z_index = 1
@@ -549,16 +560,6 @@ hframes = 5
 
 [node name="FrontWall5" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
 position = Vector2(30, -38)
-rotation = 3.14159
-scale = Vector2(1, -1)
-texture = ExtResource("42_8t46q")
-offset = Vector2(0, -49)
-hframes = 5
-frame = 2
-
-[node name="FrontWall6" type="Sprite2D" parent="museum/FrontWalls/Right_front_wall"]
-visible = false
-position = Vector2(46, -46)
 rotation = 3.14159
 scale = Vector2(1, -1)
 texture = ExtResource("42_8t46q")

@@ -70,6 +70,7 @@ public partial class MuseumActions : Node
     public static Action OnClickYesOfPopUpUi;
     public static Action OnClickNoOfPopUpUi;
     public static Action OnClickArtifactsLensButton;
+    public static Action<WallHeightEnum> OnClickWallHeightChangeButton;
     public static Action<string> OnNeedOfPopUpUi;
 
     #endregion
@@ -107,4 +108,10 @@ public partial class MuseumActions : Node
     public static Action<List<RawArtifactFunctional>> OnRawArtifactFunctionalDataLoaded;
 
     #endregion
+}
+public enum WallHeightEnum
+{
+    Original,
+    Mid,
+    Small
 }

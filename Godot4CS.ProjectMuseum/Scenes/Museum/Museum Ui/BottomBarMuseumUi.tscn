@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://70xubhgxm5i3"]
+[gd_scene load_steps=55 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.cs" id="1_26dxj"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://c2x163wdvl3ts" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/filter panel.png" id="10_xrxjq"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="12_6by2m"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/LensButton.cs" id="13_ajthb"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/WallHeightButtons.cs" id="14_e2b3n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qteoa"]
 
@@ -1119,6 +1120,48 @@ text = "B"
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "C"
+
+[node name="Wall Height Buttons" type="Button" parent="Right Panel/Misc Panel/Misc Buttons" node_paths=PackedStringArray("_wallHeightButtonsPanel", "_mainWallHeightButton", "_midWallHeightButton", "_smallWallHeightButton")]
+layout_mode = 2
+theme = ExtResource("12_6by2m")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "WH"
+script = ExtResource("14_e2b3n")
+_wallHeightButtonsPanel = NodePath("Height Buttons")
+_mainWallHeightButton = NodePath("Height Buttons/Button")
+_midWallHeightButton = NodePath("Height Buttons/Button2")
+_smallWallHeightButton = NodePath("Height Buttons/Button3")
+
+[node name="Height Buttons" type="VBoxContainer" parent="Right Panel/Misc Panel/Misc Buttons/Wall Height Buttons"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -264.0
+offset_right = 24.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="Button" type="Button" parent="Right Panel/Misc Panel/Misc Buttons/Wall Height Buttons/Height Buttons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "O"
+
+[node name="Button2" type="Button" parent="Right Panel/Misc Panel/Misc Buttons/Wall Height Buttons/Height Buttons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "M"
+
+[node name="Button3" type="Button" parent="Right Panel/Misc Panel/Misc Buttons/Wall Height Buttons/Height Buttons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "S"
 
 [node name="Screenshot Button" type="TextureButton" parent="Right Panel/Misc Panel/Misc Buttons"]
 modulate = Color(1, 1, 1, 0)

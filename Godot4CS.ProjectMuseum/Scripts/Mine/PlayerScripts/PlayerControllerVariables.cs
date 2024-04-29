@@ -82,7 +82,6 @@ public class PlayerControllerVariables
     #region Other Variables
 
     private int _currentEquippedItemSlot;
-
     public int CurrentEquippedItemSlot
     {
         get => _currentEquippedItemSlot;
@@ -123,7 +122,6 @@ public class PlayerControllerVariables
 
     public Vector2I MouseDirection;
     public Vector2I PlayerDirection;
-    private bool _canMove;
 
     #endregion
 }

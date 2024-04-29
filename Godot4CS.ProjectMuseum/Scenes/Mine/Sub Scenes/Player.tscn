@@ -54,7 +54,7 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
-"method": &"TurnOnAttackCollider"
+"method": &"TurnOnRequiredAttackCollider"
 }, {
 "args": [],
 "method": &"TurnOffAttackCollider"
@@ -110,6 +110,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [210, 211, 212, 213, 214]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerEnemyCollisionDetector")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.18),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"TurnOnRequiredAttackCollider"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_wwg7t"]
 resource_name = "climb_attack_horizontal"
@@ -127,6 +141,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [190, 191, 192, 193, 194]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerEnemyCollisionDetector")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.18),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"TurnOnRequiredAttackCollider"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_q6h0o"]
 resource_name = "climb_attack_up"
@@ -143,6 +171,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [200, 201, 202, 203, 204]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerEnemyCollisionDetector")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.18),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"TurnOnRequiredAttackCollider"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_lulu4"]
@@ -606,6 +648,7 @@ light_mask = 128
 visibility_layer = 2
 texture_filter = 1
 texture = ExtResource("2_eymdr")
+flip_h = true
 hframes = 10
 vframes = 27
 
@@ -616,9 +659,12 @@ _alternateButtonPressMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames
 [node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource("5_0x0fh")
 
-[node name="PlayerEnemyCollisionDetector" type="Node2D" parent="." node_paths=PackedStringArray("_attackDetectorArea2D", "_collisionShape2D", "_animationPlayer")]
+[node name="PlayerEnemyCollisionDetector" type="Node2D" parent="." node_paths=PackedStringArray("_leftAttackDetector", "_rightAttackDetector", "_topAttackDetector", "_bottomAttackDetector", "_collisionShape2D", "_animationPlayer")]
 script = ExtResource("7_3m1a8")
-_attackDetectorArea2D = NodePath("../Attack Detector")
+_leftAttackDetector = NodePath("../LeftAttackDetector")
+_rightAttackDetector = NodePath("../RightAttackDetector")
+_topAttackDetector = NodePath("../TopAttackDetector")
+_bottomAttackDetector = NodePath("../BottomAttackDetector")
 _collisionShape2D = NodePath("../Attack Detector/Attack Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
@@ -647,6 +693,9 @@ shape = SubResource("RectangleShape2D_wwlxh")
 
 [node name="LeftAttackDetector" type="Area2D" parent="."]
 position = Vector2(-6.25, 0)
+collision_layer = 2
+collision_mask = 4
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftAttackDetector"]
 position = Vector2(0.25, 0)
@@ -654,20 +703,26 @@ shape = SubResource("RectangleShape2D_4uxl7")
 
 [node name="RightAttackDetector" type="Area2D" parent="."]
 position = Vector2(6, 0)
+collision_layer = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightAttackDetector"]
 shape = SubResource("RectangleShape2D_fi2ox")
 
-[node name="UpAttackDetector" type="Area2D" parent="."]
+[node name="TopAttackDetector" type="Area2D" parent="."]
 position = Vector2(0, -9)
+collision_layer = 2
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpAttackDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopAttackDetector"]
 shape = SubResource("RectangleShape2D_v557j")
 
-[node name="DownAttackDetector" type="Area2D" parent="."]
+[node name="BottomAttackDetector" type="Area2D" parent="."]
 position = Vector2(0, 8.5)
+collision_layer = 2
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DownAttackDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomAttackDetector"]
 shape = SubResource("RectangleShape2D_skedj")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
@@ -677,3 +732,11 @@ shape = SubResource("RectangleShape2D_skedj")
 [connection signal="body_exited" from="Attack Detector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
 [connection signal="body_entered" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockEnter"]
 [connection signal="body_exited" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockExit"]
+[connection signal="body_entered" from="LeftAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
+[connection signal="body_exited" from="LeftAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
+[connection signal="body_entered" from="RightAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
+[connection signal="body_exited" from="RightAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
+[connection signal="body_entered" from="TopAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
+[connection signal="body_exited" from="TopAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
+[connection signal="body_entered" from="BottomAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
+[connection signal="body_exited" from="BottomAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]

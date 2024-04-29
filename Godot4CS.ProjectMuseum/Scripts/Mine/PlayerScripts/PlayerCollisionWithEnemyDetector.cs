@@ -9,7 +9,11 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
 {
     private PlayerControllerVariables _playerControllerVariables;
     
-    [Export] private Area2D _attackDetectorArea2D;
+    [Export] private Area2D _leftAttackDetector;
+    [Export] private Area2D _rightAttackDetector;
+    [Export] private Area2D _topAttackDetector;
+    [Export] private Area2D _bottomAttackDetector;
+    
     [Export] private CollisionShape2D _collisionShape2D;
     [Export] private AnimationPlayer _animationPlayer;
 
@@ -34,28 +38,57 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
 
     #endregion
 
-    private void TurnOffAttackCollider()
+    private async void TurnOnRequiredAttackCollider()
     {
-        _attackDetectorArea2D.Monitoring = false;
+        GD.Print("Calling required attack collider method");
+        var mouseDirection = _playerControllerVariables.MouseDirection;
+        if (mouseDirection == Vector2I.Left)
+        {
+            GD.Print("LEFT DETECTOR turned on");
+            await TurnOnAttackCollider(_leftAttackDetector);
+        }
+        else if (mouseDirection == Vector2I.Right)
+        {
+            GD.Print("RIGHT DETECTOR turned on");
+            await TurnOnAttackCollider(_rightAttackDetector);
+        }
+        else if (mouseDirection == Vector2I.Up)
+        {
+            GD.Print("UP DETECTOR turned on");
+            await TurnOnAttackCollider(_topAttackDetector);
+        }
+        else if (mouseDirection == Vector2I.Down)
+        {
+            GD.Print("BOTTOM DETECTOR turned on");
+            await TurnOnAttackCollider(_bottomAttackDetector);
+        }
+    }
+
+    private async Task TurnOnAttackCollider(Area2D attackDetector)
+    {
+        attackDetector.Monitoring = true;
+        _playerControllerVariables.IsAttacking = true;
+        GD.Print("Started detecting enemy collision");
+        GD.Print($"is attacking: {_playerControllerVariables.IsAttacking}");
+        await Task.Delay(Mathf.CeilToInt(_playerControllerVariables.Player.AnimationController.CurrentAnimationLength) * 1000);
+        _playerControllerVariables.IsAttacking = false;
+        attackDetector.Monitoring = false;
+        GD.Print($"is attacking: {_playerControllerVariables.IsAttacking}");
+        TurnOffAttackCollider(attackDetector);
+    }
+    
+    private void TurnOffAttackCollider(Area2D attackDetector)
+    {
+        attackDetector.Monitoring = false;
         _playerControllerVariables.IsAttacking = false;
         GD.Print("Stopped detecting enemy collision");
     }
-
-    private async void TurnOnAttackCollider()
-    {
-        _attackDetectorArea2D.Monitoring = true;
-        _playerControllerVariables.IsAttacking = true;
-        GD.Print("Started detecting enemy collision");
-        await Task.Delay(Mathf.CeilToInt(_playerControllerVariables.Player.AnimationController.CurrentAnimationLength) * 1000);
-        _playerControllerVariables.IsAttacking = false;
-        _attackDetectorArea2D.Monitoring = false;
-    }
-
+    
     private void OnBodyEnter(Node2D body)
     {
         var enemy = body as IDamagable;
         if(enemy is null) return;
-        GD.Print($"is attacking is {_playerControllerVariables.IsAttacking}");
+        GD.Print($"ON BODY ENTER isAttacking:{_playerControllerVariables.IsAttacking}");
         if (!_playerControllerVariables.IsAttacking)
         {
             GD.Print("is attacking not true. returning");

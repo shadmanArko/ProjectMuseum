@@ -103,10 +103,10 @@ public partial class TileSpawner : TileMap
 	public override void _Input(InputEvent @event)
 	{
 		base._Input(@event);
-		// if (Input.IsActionPressed("Equipment1"))
-		// {
-		// 	_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/ExpandMuseum/{_originOfExpansion.X}/{_originOfExpansion.Y}");
-		// }
+		if (Input.IsActionPressed("Expand"))
+		{
+			_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/ExpandMuseum/{_originOfExpansion.X}/{_originOfExpansion.Y}");
+		}
 	}
 
 	private int _minCellIndexX;

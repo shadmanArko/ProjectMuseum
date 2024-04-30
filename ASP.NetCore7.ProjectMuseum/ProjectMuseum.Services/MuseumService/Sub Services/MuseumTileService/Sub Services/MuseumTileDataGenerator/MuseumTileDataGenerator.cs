@@ -77,6 +77,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     TileAtlasCoOrdinateY = 0,
                     Layer = 0,
                     WallId = "string",
+                    Walkable = true,
                     ExhibitId = "string",
                     HangingLightId = "string"
                 };

@@ -215,7 +215,7 @@ public partial class Guest : GuestAi
             
             if (_targetTileCoordinate != new Vector2I(1000, 1000))
             {
-                var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
+                var aStarPathfinding = new AStarPathfinding( false);
                 List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
                 if (path == null)
                 {
@@ -248,7 +248,7 @@ public partial class Guest : GuestAi
             {
                 _targetTileCoordinate =  GetTargetTargetTileCoordinateOutsideMuseum();
             }
-            var aStarPathfinding = new AStarPathfinding(GameManager.outSideMuseumNodes.GetLength(0), GameManager.outSideMuseumNodes.GetLength(1), false);
+            var aStarPathfinding = new AStarPathfinding(false);
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, GameManager.outSideMuseumNodes);
             if (path == null)
             {
@@ -329,7 +329,7 @@ public partial class Guest : GuestAi
         _targetTileCoordinate = _museumGateTile;
         if (_targetTileCoordinate != new Vector2I(1000, 1000))
         {
-            var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
+            var aStarPathfinding = new AStarPathfinding(false);
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
             if (path == null)
             {

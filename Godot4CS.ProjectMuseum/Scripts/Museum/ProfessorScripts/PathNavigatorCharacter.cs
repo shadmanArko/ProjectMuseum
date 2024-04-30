@@ -97,7 +97,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         _targetTileCoordinate =  targetTileCoordinate;
         if (_targetTileCoordinate != new Vector2I(1000, 1000))
         {
-            var aStarPathfinding = new AStarPathfinding(_museumTileContainer.AStarNodes.GetLength(0), _museumTileContainer.AStarNodes.GetLength(1), false);
+            var aStarPathfinding = new AStarPathfinding(false);
             List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
             if (path == null)
             {

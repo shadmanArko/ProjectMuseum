@@ -37,7 +37,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
             exhibitTilePlacementData.Id = museumTile.Id;
             exhibitTilePlacementData.TileXPosition = museumTile.XPosition;
             exhibitTilePlacementData.TileYPosition = museumTile.YPosition;
-            exhibitTilePlacementData.IsEligible = museumTile.ExhibitId == "string" && museumTile.Walkable;
+            exhibitTilePlacementData.IsEligible = museumTile.Walkable;
             listOfExhibitPlacementConditionData.Add(exhibitTilePlacementData);
         }
         

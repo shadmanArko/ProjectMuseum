@@ -264,6 +264,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         {
             if (!matchingData.IsEligible)
             {
+                GD.Print($"Not Eligible {matchingData.Id}");
                 return false;
             }
             

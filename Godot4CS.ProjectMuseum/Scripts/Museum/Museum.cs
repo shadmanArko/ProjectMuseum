@@ -47,18 +47,18 @@ public partial class Museum : Node2D
             
         }
 
-        var outSideMuseumNodes = new AStarNode[1, _aStarNodes.Count];
-        int nodeCount = 0;
-        for (int x = 0; x < outSideMuseumNodes.GetLength(0); x++)
-        {
-            for (int y = 0; y < outSideMuseumNodes.GetLength(1); y++)
-            {
-                outSideMuseumNodes[x, y] = _aStarNodes[nodeCount];
-                nodeCount++;
-            }
-        }
+        // var outSideMuseumNodes = new List<AStarNode>();
+        // int nodeCount = 0;
+        // for (int x = 0; x < outSideMuseumNodes.GetLength(0); x++)
+        // {
+        //     for (int y = 0; y < outSideMuseumNodes.GetLength(1); y++)
+        //     {
+        //         outSideMuseumNodes[x, y] = _aStarNodes[nodeCount];
+        //         nodeCount++;
+        //     }
+        // }
 
-        GameManager.outSideMuseumNodes = outSideMuseumNodes;
+        GameManager.outSideMuseumNodes = _aStarNodes;
 
     }
 }

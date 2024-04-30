@@ -1,1 +1,15 @@
-[{"Artifacts":[{"Id":"39a75d10-e15e-493f-a9ea-bfee82326be5","RawArtifactId":"IndustrialAmericanPorcelainVase","PositionX":23,"PositionY":7,"Slot":5,"Condition":"Decrepit","Rarity":"Common"}]}]
+[
+  {
+    "Artifacts": [
+      {
+        "Id": "4",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      }
+    ]
+  }
+]

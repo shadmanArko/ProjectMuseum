@@ -94,9 +94,9 @@ public partial class TileSpawner : TileMap
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-		_museumTileContainer.MuseumTiles = museumTiles;
 		SpawnTilesAndWalls(museumTiles);
 		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
+		_museumTileContainer.MuseumTiles = museumTiles;
 		GD.Print("museum tiles request complete");
 	}
 

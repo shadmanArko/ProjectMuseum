@@ -16,13 +16,13 @@ public class MuseumTileContainer
         }
     }
 
-    public AStarNode[,] AStarNodes { get; private set; }
+    public List<AStarNode> AStarNodes { get; private set; }
 
     private void GenerateAStarNodes()
     {
         var width = 18;
         var height = 20;
-        AStarNodes = new AStarNode[width, height];
+        AStarNodes = new List<AStarNode>();
 
         foreach (var museumTile in museumTiles)
         {
@@ -30,7 +30,7 @@ public class MuseumTileContainer
             AStarNode aStarNode = new AStarNode(museumTile.XPosition * -1, museumTile.YPosition *-1, null, 0f, 0f, isWalkable);
 
             // Assign the node to the grid
-            AStarNodes[museumTile.XPosition *-1, museumTile.YPosition * -1] = aStarNode;
+            AStarNodes.Add(aStarNode); 
         }
     }
 } 

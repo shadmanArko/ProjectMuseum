@@ -22,16 +22,16 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
         private readonly bool _canMoveDiagonally;
         //private readonly Node[,] _grid;
 
-        public AStarPathfinding(int gridSizeX, int gridSizeY , bool canMoveDiagonally/*, Node[,] grid*/)
+        public AStarPathfinding(bool canMoveDiagonally/*, Node[,] grid*/)
         {
-            _gridSizeX = gridSizeX;
-            _gridSizeY = gridSizeY;
+            // _gridSizeX = gridSizeX;
+            // _gridSizeY = gridSizeY;
             _canMoveDiagonally = canMoveDiagonally;
             //_grid = grid;
         }
 
 
-        public List<Vector2I> FindPath(Vector2I startTileCoordinates, Vector2I goalTileCoordinates, AStarNode[,] grid)
+        public List<Vector2I> FindPath(Vector2I startTileCoordinates, Vector2I goalTileCoordinates, List<AStarNode> grid)
         {
             startTileCoordinates *= -1;
             goalTileCoordinates *= -1;
@@ -112,7 +112,7 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             return lowestFCostAStarNode;
         }
         
-        private List<AStarNode> GetNeighbors(AStarNode aStarNode, AStarNode[,] grid)
+        private List<AStarNode> GetNeighbors(AStarNode aStarNode, List<AStarNode> grid)
         {
             List<AStarNode> neighbors = new List<AStarNode>();
 
@@ -157,7 +157,7 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             return neighbors;
         }
 
-        AStarNode GetNode(AStarNode[,] grid, int xPos, int yPos)
+        AStarNode GetNode(List<AStarNode> grid, int xPos, int yPos)
         {
             foreach (var starNode in grid)
             {

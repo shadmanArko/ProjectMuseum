@@ -19,34 +19,37 @@ offset_bottom = -50.44
 grow_horizontal = 2
 color = Color(0.61339, 0.61339, 0.61339, 1)
 script = ExtResource("1_gr5ai")
-_nameOfDraggable = NodePath("ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("TextureRect")
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect")
 _draggablePreview = ExtResource("2_6rpxt")
-_artifactTagParent1 = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer")
-_artifactTagParent2 = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer2")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 _artifactTag = ExtResource("4_xr50t")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.258
-anchor_bottom = 1.0
-offset_right = 0.153992
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
 texture = ExtResource("5_5n4c6")
 expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.266
-anchor_right = 0.992
-anchor_bottom = 0.26
-offset_left = 0.0579987
-offset_right = 0.0959778
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(283.82, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
 mouse_filter = 1
 
-[node name="Name Of Artifact" type="Label" parent="ColorRect"]
+[node name="Name Of Artifact" type="Label" parent="HBoxContainer/VBoxContainer/ColorRect"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -65,32 +68,19 @@ text = "Classical Native American Tomahawk"
 vertical_alignment = 1
 text_overrun_behavior = 4
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 34)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.269
-anchor_top = 0.27
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.103012
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = -1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="GridContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="GridContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 size_flags_vertical = 0

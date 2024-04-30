@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=66 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -8,12 +8,8 @@
 [ext_resource type="Script" path="res://Scripts/Museum/TileSpawner.cs" id="3_txjx3"]
 [ext_resource type="Script" path="res://Scripts/Museum/CameraPanAndZoom.cs" id="4_kytf8"]
 [ext_resource type="PackedScene" uid="uid://0v3ikej83pig" path="res://Scenes/Museum/Sub Scenes/Walls/left_wall.tscn" id="6_plrwf"]
-[ext_resource type="Texture2D" uid="uid://cuongtmbiiass" path="res://Assets/2D/Sprites/Wallpapers/1.png" id="7_5wxpw"]
 [ext_resource type="PackedScene" uid="uid://bpare5kqece4c" path="res://Scenes/Museum/Museum Ui/Museum ui.tscn" id="7_xsnwb"]
-[ext_resource type="Texture2D" uid="uid://c5gblrdjxy4i3" path="res://Assets/2D/Sprites/Wallpapers/2.png" id="8_s5qaf"]
-[ext_resource type="Texture2D" uid="uid://cfnplqomkdo4p" path="res://Assets/2D/Sprites/Wallpapers/3.png" id="9_bhbr7"]
-[ext_resource type="Texture2D" uid="uid://bt8tovq0knruf" path="res://Assets/2D/Sprites/Wallpapers/4 .png" id="9_qrxw8"]
-[ext_resource type="Texture2D" uid="uid://ddxt3f2qki8xr" path="res://Assets/2D/Sprites/Wallpapers/5.png" id="10_02o80"]
+[ext_resource type="Texture2D" uid="uid://cdsqyt407w7eu" path="res://Assets/2D/Sprites/Wallpapers/dark_purple_wallpaper.png" id="8_x3dne"]
 [ext_resource type="PackedScene" uid="uid://bjy2gyknf1lwq" path="res://Scenes/Museum/Museum Ui/Exhibit Editor Ui.tscn" id="10_c21vt"]
 [ext_resource type="PackedScene" uid="uid://ddq1yn1fawuwg" path="res://Scenes/Museum/Sub Scenes/Walls/right_wall.tscn" id="10_xt14w"]
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumTileEditor.cs" id="11_uydor"]
@@ -95,7 +91,7 @@ script = ExtResource("3_txjx3")
 _wallRight = ExtResource("10_xt14w")
 _wallLeft = ExtResource("6_plrwf")
 _dirtyWallProbability = 0
-_dirtyWallTextures = Array[Texture2D]([ExtResource("7_5wxpw"), ExtResource("8_s5qaf"), ExtResource("9_bhbr7"), ExtResource("9_qrxw8"), ExtResource("10_02o80")])
+_dirtyWallTextures = Array[Texture2D]([ExtResource("8_x3dne")])
 _wallsParent = NodePath("../WallsParent")
 _loadingBarManager = NodePath("../../LoadingScene")
 

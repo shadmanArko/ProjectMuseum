@@ -100,7 +100,7 @@ public partial class Draggable : ColorRect
 
 	public void ResetDraggableOnGettingBackToParent()
 	{
-		CustomMinimumSize = new Vector2(200, 50);
+		// CustomMinimumSize = new Vector2(387, 100);
 	}
 	private void EndDrag()
 	{

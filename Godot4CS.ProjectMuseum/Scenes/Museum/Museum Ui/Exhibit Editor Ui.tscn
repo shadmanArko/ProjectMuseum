@@ -165,16 +165,17 @@ theme_override_constants/margin_bottom = 20
 custom_minimum_size = Vector2(387, 559.465)
 layout_direction = 2
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 10
 script = ExtResource("4_mx4kr")
 _parentTarget = true
 
 [node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 layout_mode = 2
-_nameOfDraggable = NodePath("ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("TextureRect")
-_artifactTagParent1 = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer")
-_artifactTagParent2 = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer2")
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
 [node name="Right Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
 modulate = Color(0.937255, 0.898039, 1, 1)

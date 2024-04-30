@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=45 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://bvd8a2wh8srgq" path="res://Assets/2D/Animations/Enemy Animations/slime_Side_Animation_new.png" id="2_du8f3"]
@@ -316,6 +316,12 @@ size = Vector2(8, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jllxq"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uc60a"]
+size = Vector2(7, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtvpy"]
+size = Vector2(7, 9)
+
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("NavAgent", "AnimTree", "HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
@@ -340,6 +346,7 @@ debug_color = Color(1, 1, 0.101961, 0.419608)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_du8f3")
+flip_h = true
 hframes = 10
 vframes = 10
 
@@ -422,6 +429,18 @@ position = Vector2(5, 0)
 scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_jllxq")
 
+[node name="LeftAttackArea" type="Area2D" parent="Area2D Nodes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D Nodes/LeftAttackArea"]
+position = Vector2(-4.5, 3.5)
+shape = SubResource("RectangleShape2D_uc60a")
+
+[node name="RightAttackArea" type="Area2D" parent="Area2D Nodes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D Nodes/RightAttackArea"]
+position = Vector2(4.5, 3.5)
+shape = SubResource("RectangleShape2D_rtvpy")
+
 [node name="EnemyAttackInitiator" type="Node2D" parent="." node_paths=PackedStringArray("_enemy")]
 script = ExtResource("6_u3wtp")
 _enemy = NodePath("..")
@@ -430,11 +449,11 @@ _enemy = NodePath("..")
 wait_time = 3.0
 autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationComplete"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
 [connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
 [connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]

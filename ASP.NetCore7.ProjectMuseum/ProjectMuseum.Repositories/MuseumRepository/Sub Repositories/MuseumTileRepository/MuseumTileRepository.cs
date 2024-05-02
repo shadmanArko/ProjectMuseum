@@ -59,7 +59,10 @@ public class MuseumTileRepository : IMuseumTileRepository
                 {
                     if (museumTile.Id == tile.TileId)
                     {
-                        museumTile.BackLeftWallId = tile.BackLeftWallId;
+                        museumTile.BackLeftWallId = museumTile.BackLeftWallId.Length< 2? tile.BackLeftWallId:museumTile.BackLeftWallId;
+                        museumTile.BackRightWallId = museumTile.BackRightWallId.Length< 2? tile.BackRightWallId:museumTile.BackRightWallId;
+                        museumTile.FrontRightWallId = museumTile.FrontRightWallId.Length< 2? tile.FrontRightWallId:museumTile.FrontRightWallId;
+                        museumTile.FrontLeftWallId = museumTile.FrontLeftWallId.Length< 2? tile.FrontLeftWallId:museumTile.FrontLeftWallId;
                         // museumTile.BackRightWallId = tile.BackRightWallId;
                         // museumTile.FrontLeftWallId = tile.FrontLeftWallId;
                         // museumTile.FrontRightWallId = tile.FrontRightWallId;
@@ -88,6 +91,19 @@ public class MuseumTileRepository : IMuseumTileRepository
     public async Task<List<MuseumTile>?> GetAll()
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        return museumTiles;
+    }
+    public async Task<List<MuseumTile>?> ResetWalls()
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        foreach (var museumTile in museumTiles)
+        {
+            museumTile.BackLeftWallId = "";
+            museumTile.BackRightWallId = "";
+            museumTile.FrontLeftWallId = "";
+            museumTile.FrontRightWallId = "";
+        }
+        if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTiles;
     }
 

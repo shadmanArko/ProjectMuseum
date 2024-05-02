@@ -50,7 +50,7 @@ public partial class TileSpawner : TileMap
 	{
 		
 		string jsonStr = Encoding.UTF8.GetString(body);
-		GD.Print($"wall id put done {jsonStr}");
+		// GD.Print($"wall id put done {jsonStr}");
 
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		_museumTileContainer.MuseumTiles = museumTiles;
@@ -63,17 +63,14 @@ public partial class TileSpawner : TileMap
 	{
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.BackLeftWallId != "" && museumTile.BackLeftWallId != "string")
+			if (museumTile.BackLeftWallId.Length> 0)
 			{
-				if (museumTile.XPosition == _minCellIndexX)
-				{
-					InstantiateWall(museumTile, _wallLeft);
-				}
+				InstantiateWall(museumTile, _wallLeft, WallSide.BackLeft);
+			}
 
-				if (museumTile.YPosition == _minCellIndexY)
-				{
-					InstantiateWall(museumTile, _wallRight);
-				}
+			if (museumTile.BackRightWallId.Length> 0)
+			{
+				InstantiateWall(museumTile, _wallRight, WallSide.BackRight);
 			}
 		}
 		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
@@ -131,26 +128,47 @@ public partial class TileSpawner : TileMap
 		List<TileWallInfo> museumTilesToUpdateWalls = new List<TileWallInfo>();
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.XPosition == _minCellIndexX)
-			{
-				// InstantiateWall(museumTile, _wallLeft);
-				if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
-				{
-					
-					TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
-					museumTilesToUpdateWalls.Add(tileWallInfo);
-				}
-			}
 
-			if (museumTile.YPosition == _minCellIndexY)
+			if (museumTiles.Find(tile => tile.XPosition == museumTile.XPosition -1 && tile.YPosition == museumTile.YPosition) == null)
 			{
-				// InstantiateWall(museumTile, _wallRight);
-				if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
+				GD.Print($"Found null back left wall {museumTile.XPosition}, {museumTile.YPosition}");
+				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
+				if (museumTile.BackLeftWallId.Length <2)
 				{
-					TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
 					museumTilesToUpdateWalls.Add(tileWallInfo);
 				}
 			}
+			if (museumTiles.Find(tile => tile.XPosition == museumTile.XPosition && tile.YPosition == museumTile.YPosition -1) == null)
+			{
+				GD.Print($"Found null back right wall {museumTile.XPosition}, {museumTile.YPosition}");
+				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, "", _basicWallsId, "", "");
+				if (museumTile.BackRightWallId.Length <2)
+				{
+					museumTilesToUpdateWalls.Add(tileWallInfo);
+
+				}
+			}
+			
+			// if (museumTile.XPosition == _minCellIndexX)
+			// {
+			// 	// InstantiateWall(museumTile, _wallLeft);
+			// 	if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
+			// 	{
+			// 		
+			// 		TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
+			// 		museumTilesToUpdateWalls.Add(tileWallInfo);
+			// 	}
+			// }
+			//
+			// if (museumTile.YPosition == _minCellIndexY)
+			// {
+			// 	// InstantiateWall(museumTile, _wallRight);
+			// 	if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
+			// 	{
+			// 		TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
+			// 		museumTilesToUpdateWalls.Add(tileWallInfo);
+			// 	}
+			// }
 			
 		}
 
@@ -181,10 +199,10 @@ public partial class TileSpawner : TileMap
 		}
 	}
 
-	private void InstantiateWall(MuseumTile museumTile, PackedScene wall)
+	private void InstantiateWall(MuseumTile museumTile, PackedScene wall, WallSide wallSide)
 	{
 		var instance = (Node2D)wall.Instantiate();
-		instance.GetNode<Wall>(".").SetUpWall(museumTile);
+		instance.GetNode<Wall>(".").SetUpWall(museumTile, wallSide);
 		AddDirtyWallTexture(instance);
 		instance.Position = GetCellWorldPosition(museumTile.XPosition, museumTile.YPosition);
 		_wallsParent.AddChild(instance);

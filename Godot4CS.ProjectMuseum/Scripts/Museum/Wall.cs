@@ -17,9 +17,26 @@ public partial class Wall : Sprite2D
     // private string b = "text";
     private int _maxXPosition = -17;
     private int _maxYPosition = -19;
-    public void SetUpWall(MuseumTile museumTile)
+    public void SetUpWall(MuseumTile museumTile, WallSide wallSide)
     {
-        WallId = museumTile.BackLeftWallId;
+        switch (wallSide)
+        {
+            case WallSide.BackLeft:
+                WallId = museumTile.BackLeftWallId;
+                break;
+            case WallSide.BackRight:
+                WallId = museumTile.BackRightWallId;
+                break;
+            case WallSide.FrontLeft:
+                WallId = museumTile.FrontLeftWallId;
+                break;
+            case WallSide.FrontRight:
+                WallId = museumTile.FrontRightWallId;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(wallSide), wallSide, null);
+        }
+        
         TileId = museumTile.Id;
         Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Wallpapers/{WallId}.png");
         Texture = texture2D;
@@ -27,7 +44,7 @@ public partial class Wall : Sprite2D
         {
             Frame = 1;
             _wallPreview.Frame = 1;
-        }else if (museumTile.XPosition == _maxXPosition && museumTile.YPosition == _maxYPosition)
+        }else if (museumTile.BackLeftWallId!= "" && museumTile.BackRightWallId != "")
         {
             Frame = 0;
             _wallPreview.Frame = 0;

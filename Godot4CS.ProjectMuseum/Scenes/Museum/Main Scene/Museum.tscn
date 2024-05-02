@@ -94,7 +94,7 @@ _dirtyWallProbability = 0
 _dirtyWallTextures = Array[Texture2D]([ExtResource("8_x3dne")])
 _wallsParent = NodePath("../WallsParent")
 _loadingBarManager = NodePath("../../LoadingScene")
-_originOfExpansion = Vector2i(-18, 0)
+_originOfExpansion = Vector2i(-18, -20)
 
 [node name="Camera2D" type="Camera2D" parent="museum"]
 position = Vector2(50, -210)

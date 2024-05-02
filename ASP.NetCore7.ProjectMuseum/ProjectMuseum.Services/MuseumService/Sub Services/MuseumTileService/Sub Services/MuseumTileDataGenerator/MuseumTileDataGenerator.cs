@@ -38,7 +38,10 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     TileAtlasCoOrdinateX = 0,
                     TileAtlasCoOrdinateY = 0,
                     Layer = 0,
-                    BackLeftWallId = "string",
+                    BackLeftWallId = "",
+                    BackRightWallId = "",
+                    FrontLeftWallId = "",
+                    FrontRightWallId = "",
                     Walkable = true,
                     ExhibitId = "string",
                     HangingLightId = "string"
@@ -76,7 +79,10 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     TileAtlasCoOrdinateX = 0,
                     TileAtlasCoOrdinateY = 0,
                     Layer = 0,
-                    BackLeftWallId = "string",
+                    BackLeftWallId = "",
+                    BackRightWallId = "",
+                    FrontLeftWallId = "",
+                    FrontRightWallId = "",
                     Walkable = true,
                     ExhibitId = "string",
                     HangingLightId = "string"
@@ -84,6 +90,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                 await _museumTileRepository.Insert(museumTile);
             }
         }
+        await _museumTileRepository.ResetWalls();
         var museumTiles = await _museumTileRepository.GetAll();
         return museumTiles;
         

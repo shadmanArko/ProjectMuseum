@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cndkl8ntjkx8v"]
+
+[ext_resource type="Texture2D" uid="uid://bmum5hrbpjtpd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Yellow_Frame.png" id="1_o1740"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="4_8erg3"]
+[ext_resource type="Script" path="res://Scripts/Test/InventoryItemDraggable.cs" id="5_4m8mp"]
+
+[sub_resource type="Theme" id="Theme_gl71f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4vlyv"]
+
+[node name="InventoryItemSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 80.0
+offset_bottom = 80.0
+
+[node name="Frame" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_o1740")
+
+[node name="Item" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 4
+script = ExtResource("5_4m8mp")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = SubResource("Theme_gl71f")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4vlyv")
+
+[node name="Counter Value" type="Label" parent="PanelContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.0980392, 0.0352941, 0.192157, 1)
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_8erg3")
+theme_override_font_sizes/font_size = 15
+vertical_alignment = 2

@@ -105,6 +105,7 @@ public partial class MineActions : Node
     public static Action<int> OnToolbarSlotChanged;
     public static Action DeselectAllInventoryControllers;
     public static Action OnInventoryUpdate;
+    public static Action<int, Texture2D> OnInventoryItemDragged;
 
     #endregion
 

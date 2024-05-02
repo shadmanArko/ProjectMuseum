@@ -1,0 +1,124 @@
+[gd_scene load_steps=6 format=3 uid="uid://l1q2e1v3k2og"]
+
+[ext_resource type="Texture2D" uid="uid://bmum5hrbpjtpd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Yellow_Frame.png" id="1_35wwq"]
+[ext_resource type="Texture2D" uid="uid://bfxo0rfxv078c" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png" id="2_svjtm"]
+[ext_resource type="Script" path="res://Scripts/Test/InventoryItemDraggable.cs" id="3_jb2h8"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="4_cqvrj"]
+
+[sub_resource type="Theme" id="Theme_xk8w8"]
+
+[node name="InventoryDragAndDropTest" type="CanvasLayer"]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+
+[node name="Highlighter" type="Sprite2D" parent="PanelContainer"]
+texture_filter = 1
+position = Vector2(30, 30)
+scale = Vector2(2.72727, 2.72727)
+texture = ExtResource("1_35wwq")
+
+[node name="ItemSlot" type="TextureRect" parent="PanelContainer/Highlighter"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -11.0
+offset_right = -11.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_svjtm")
+expand_mode = 5
+script = ExtResource("3_jb2h8")
+
+[node name="Item Counter" type="Control" parent="PanelContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 21)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = SubResource("Theme_xk8w8")
+
+[node name="Counter Value" type="Label" parent="PanelContainer/Item Counter"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -10.5
+offset_right = 15.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.0980392, 0.0352941, 0.192157, 1)
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_cqvrj")
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 2
+vertical_alignment = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+offset_left = 443.0
+offset_right = 475.0
+offset_bottom = 21.0
+
+[node name="Highlighter" type="Sprite2D" parent="PanelContainer2"]
+texture_filter = 1
+position = Vector2(30, 30)
+scale = Vector2(2.72727, 2.72727)
+texture = ExtResource("1_35wwq")
+
+[node name="ItemSlot" type="TextureRect" parent="PanelContainer2/Highlighter"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -11.0
+offset_right = -11.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 5
+script = ExtResource("3_jb2h8")
+_isSlotEmpty = true
+_slotNumber = 1
+
+[node name="Item Counter" type="Control" parent="PanelContainer2"]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 21)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = SubResource("Theme_xk8w8")
+
+[node name="Counter Value" type="Label" parent="PanelContainer2/Item Counter"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -10.5
+offset_right = 15.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.0980392, 0.0352941, 0.192157, 1)
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_cqvrj")
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 2
+vertical_alignment = 3

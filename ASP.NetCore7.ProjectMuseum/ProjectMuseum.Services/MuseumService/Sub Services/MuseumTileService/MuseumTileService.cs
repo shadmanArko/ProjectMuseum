@@ -102,9 +102,9 @@ public class MuseumTileService : IMuseumTileService
         return updatedMuseumTile;
     }
 
-    public async Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<string> museumTilesId, string wallId)
+    public async Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<TileWallInfo> tileWallInfos)
     {
-        var updatedMuseumTile = await _museumTileRepository.UpdateMuseumTilesWallId(museumTilesId, wallId);
+        var updatedMuseumTile = await _museumTileRepository.UpdateMuseumTilesWallId(tileWallInfos);
         return updatedMuseumTile;
     }
 

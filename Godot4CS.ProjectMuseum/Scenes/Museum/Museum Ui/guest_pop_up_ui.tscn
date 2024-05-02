@@ -14,7 +14,7 @@ grow_vertical = 2
 theme = ExtResource("2_mpiid")
 script = ExtResource("1_7msei")
 _closingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/Name/Button")
-_guestInterestTags = NodePath("PanelContainer/VBoxContainer/interest/Interest bar/Interested Tags")
+_guestInterestTags = NodePath("PanelContainer/VBoxContainer/Guest Thoughts/Interest bar/ColorRect/Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(346, 500)
@@ -67,49 +67,42 @@ layout_mode = 2
 [node name="Guest need card" parent="PanelContainer/VBoxContainer/needs/Guest Needs Container" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName") instance=ExtResource("1_wci1m")]
 layout_mode = 2
 _guestNeedSlider = NodePath("ColorRect/sliderhandle")
-_needCorespondentName = "Food"
 _guestNeedName = NodePath("ColorRect/Label")
 
 [node name="Guest need card2" parent="PanelContainer/VBoxContainer/needs/Guest Needs Container" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName") instance=ExtResource("1_wci1m")]
 layout_mode = 2
 _guestNeedSlider = NodePath("ColorRect/sliderhandle")
 _guestNeedsEnum = 1
-_needCorespondentName = "Drink"
 _guestNeedName = NodePath("ColorRect/Label")
 
 [node name="Guest need card3" parent="PanelContainer/VBoxContainer/needs/Guest Needs Container" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName") instance=ExtResource("1_wci1m")]
 layout_mode = 2
 _guestNeedSlider = NodePath("ColorRect/sliderhandle")
 _guestNeedsEnum = 5
-_needCorespondentName = "Energy"
 _guestNeedName = NodePath("ColorRect/Label")
 
 [node name="Guest need card4" parent="PanelContainer/VBoxContainer/needs/Guest Needs Container" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName") instance=ExtResource("1_wci1m")]
 layout_mode = 2
 _guestNeedSlider = NodePath("ColorRect/sliderhandle")
 _guestNeedsEnum = 3
-_needCorespondentName = "Toilet"
 _guestNeedName = NodePath("ColorRect/Label")
 
 [node name="Guest need card5" parent="PanelContainer/VBoxContainer/needs/Guest Needs Container" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName") instance=ExtResource("1_wci1m")]
 layout_mode = 2
 _guestNeedSlider = NodePath("ColorRect/sliderhandle")
 _guestNeedsEnum = 4
-_needCorespondentName = "Charge"
 _guestNeedName = NodePath("ColorRect/Label")
 
 [node name="Guest need card6" parent="PanelContainer/VBoxContainer/needs/Guest Needs Container" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName") instance=ExtResource("1_wci1m")]
 layout_mode = 2
 _guestNeedSlider = NodePath("ColorRect/sliderhandle")
 _guestNeedsEnum = 2
-_needCorespondentName = "Artifacts"
 _guestNeedName = NodePath("ColorRect/Label")
 
 [node name="Guest need card7" parent="PanelContainer/VBoxContainer/needs/Guest Needs Container" node_paths=PackedStringArray("_guestNeedSlider", "_guestNeedName") instance=ExtResource("1_wci1m")]
 layout_mode = 2
 _guestNeedSlider = NodePath("ColorRect/sliderhandle")
 _guestNeedsEnum = 6
-_needCorespondentName = "Entertainment"
 _guestNeedName = NodePath("ColorRect/Label")
 
 [node name="interest" type="MarginContainer" parent="PanelContainer/VBoxContainer"]

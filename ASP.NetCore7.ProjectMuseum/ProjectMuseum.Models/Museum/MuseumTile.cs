@@ -10,7 +10,10 @@ public class MuseumTile
     public int TileAtlasCoOrdinateY { get; set; }
     public int Layer { get; set; }
     public bool IsInZone { get; set; }
-    public string WallId { get; set; }
+    public string BackLeftWallId { get; set; }
+    public string BackRightWallId { get; set; }
+    public string FrontLeftWallId { get; set; }
+    public string FrontRightWallId { get; set; }
     public bool Walkable { get; set; }
     public bool HasExhibit { get; set; }
     public string ExhibitId { get; set; }

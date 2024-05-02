@@ -169,7 +169,7 @@ _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/Trai
 [node name="Guest Pop up Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_closingButton", "_guestInterestTags") instance=ExtResource("25_jsgpp")]
 visible = false
 _closingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/Name/Button")
-_guestInterestTags = NodePath("PanelContainer/VBoxContainer/interest/Interest bar/Interested Tags")
+_guestInterestTags = NodePath("PanelContainer/VBoxContainer/Guest Thoughts/Interest bar/ColorRect/Label")
 
 [node name="Artifact Score Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_scoreCardsParent", "_closingButton") instance=ExtResource("26_waa14")]
 visible = false
@@ -525,7 +525,7 @@ _pointLight = NodePath("PointLight2D")
 y_sort_enabled = true
 position = Vector2(0, -2)
 script = ExtResource("48_p7o0e")
-_walls = [NodePath("Left_front_wall/FrontWall4"), NodePath("Left_front_wall/FrontWall5"), NodePath("Left_front_wall/FrontWall6"), NodePath("Left_front_wall/FrontWall7"), NodePath("Left_front_wall/FrontWall8"), NodePath("Left_front_wall/FrontWall9"), NodePath("Left_front_wall/FrontWall10"), NodePath("Left_front_wall/FrontWall11"), NodePath("Left_front_wall/FrontWall12"), NodePath("Left_front_wall/FrontWall13"), NodePath("Left_front_wall/FrontWall14"), NodePath("Left_front_wall/FrontWall15"), NodePath("Left_front_wall/FrontWall16"), NodePath("Left_front_wall/FrontWall17"), NodePath("Left_front_wall/FrontWall18"), NodePath("Left_front_wall/FrontWall19"), NodePath("Left_front_wall/FrontWall20"), NodePath("Left_front_wall/FrontWall21"), NodePath("Left_front_wall/FrontWall22"), NodePath("Right_front_wall/FrontWall3"), NodePath("Right_front_wall/FrontWall4"), NodePath("Right_front_wall/FrontWall5"), NodePath("Right_front_wall/FrontWall7"), NodePath("Right_front_wall/FrontWall10"), NodePath("Right_front_wall/FrontWall8"), NodePath("Right_front_wall/FrontWall9"), NodePath("Right_front_wall/FrontWall13"), NodePath("Right_front_wall/FrontWall14"), NodePath("Right_front_wall/FrontWall15"), NodePath("Right_front_wall/FrontWall16"), NodePath("Right_front_wall/FrontWall17"), NodePath("Right_front_wall/FrontWall18"), NodePath("Right_front_wall/FrontWall19"), NodePath("Right_front_wall/FrontWall20"), NodePath("Right_front_wall/FrontWall21"), NodePath("Right_front_wall/FrontWall22"), NodePath("Right_front_wall/FrontWall23")]
+_walls = []
 _mainWallTexture = ExtResource("42_8t46q")
 _midWallTexture = ExtResource("50_8lb2o")
 _smallWallTexture = ExtResource("51_h2g6g")

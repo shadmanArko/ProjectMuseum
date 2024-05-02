@@ -38,7 +38,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     TileAtlasCoOrdinateX = 0,
                     TileAtlasCoOrdinateY = 0,
                     Layer = 0,
-                    WallId = "string",
+                    BackLeftWallId = "string",
                     Walkable = true,
                     ExhibitId = "string",
                     HangingLightId = "string"
@@ -76,7 +76,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     TileAtlasCoOrdinateX = 0,
                     TileAtlasCoOrdinateY = 0,
                     Layer = 0,
-                    WallId = "string",
+                    BackLeftWallId = "string",
                     Walkable = true,
                     ExhibitId = "string",
                     HangingLightId = "string"

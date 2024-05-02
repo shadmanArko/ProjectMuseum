@@ -19,7 +19,7 @@ public partial class Wall : Sprite2D
     private int _maxYPosition = -19;
     public void SetUpWall(MuseumTile museumTile)
     {
-        WallId = museumTile.WallId;
+        WallId = museumTile.BackLeftWallId;
         TileId = museumTile.Id;
         Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Wallpapers/{WallId}.png");
         Texture = texture2D;

@@ -48,9 +48,9 @@ public partial class TileSpawner : TileMap
 
 	private void HttpRequestForUpdatingMuseumWallsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
-		//GD.Print("wall id put done");
 		
 		string jsonStr = Encoding.UTF8.GetString(body);
+		GD.Print($"wall id put done {jsonStr}");
 
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		_museumTileContainer.MuseumTiles = museumTiles;
@@ -63,7 +63,7 @@ public partial class TileSpawner : TileMap
 	{
 		foreach (var museumTile in museumTiles)
 		{
-			if (museumTile.WallId != "" && museumTile.WallId != "string")
+			if (museumTile.BackLeftWallId != "" && museumTile.BackLeftWallId != "string")
 			{
 				if (museumTile.XPosition == _minCellIndexX)
 				{
@@ -128,24 +128,27 @@ public partial class TileSpawner : TileMap
 			SetCell(0, new Vector2I(museumTile.XPosition, museumTile.YPosition), museumTile.TileSetNumber, Vector2I.Zero);
 		}
 
-		List<MuseumTile> museumTilesToUpdateWalls = new List<MuseumTile>();
+		List<TileWallInfo> museumTilesToUpdateWalls = new List<TileWallInfo>();
 		foreach (var museumTile in museumTiles)
 		{
 			if (museumTile.XPosition == _minCellIndexX)
 			{
 				// InstantiateWall(museumTile, _wallLeft);
-				if (museumTile.WallId == "" || museumTile.WallId == "string")
+				if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
 				{
-					museumTilesToUpdateWalls.Add(museumTile);
+					
+					TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
+					museumTilesToUpdateWalls.Add(tileWallInfo);
 				}
 			}
 
 			if (museumTile.YPosition == _minCellIndexY)
 			{
 				// InstantiateWall(museumTile, _wallRight);
-				if (museumTile.WallId == "" || museumTile.WallId == "string")
+				if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
 				{
-					museumTilesToUpdateWalls.Add(museumTile);
+					TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
+					museumTilesToUpdateWalls.Add(tileWallInfo);
 				}
 			}
 			
@@ -159,21 +162,21 @@ public partial class TileSpawner : TileMap
 		//GD.Print($"Min x {_minCellIndexX}, Min y {_minCellIndexY}");
 	}
 
-	private void UpdateMuseumTilesToDatabase(List<MuseumTile> museumTilesToUpdateWalls)
+	private void UpdateMuseumTilesToDatabase(List<TileWallInfo> museumTilesToUpdateWalls)
 	{
 		if (museumTilesToUpdateWalls.Count > 0)
 		{
-			List<string> tileIds = new List<string>();
-			foreach (var museumTile in museumTilesToUpdateWalls)
-			{
-				tileIds.Add(museumTile.Id);
-				
-			}
+			// List<MuseumTile> tiles = new List<MuseumTile>();
+			// foreach (var museumTile in museumTilesToUpdateWalls)
+			// {
+			// 	tiles.Add(museumTile);
+			// 	
+			// }
 			// MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
 			string[] headers = { "Content-Type: application/json"};
-			var body = JsonConvert.SerializeObject(tileIds);
+			var body = JsonConvert.SerializeObject(museumTilesToUpdateWalls);
 			//GD.Print(body);
-			Error error = _httpRequestForUpdatingMuseumWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?wallId={_basicWallsId}", headers,
+			Error error = _httpRequestForUpdatingMuseumWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId", headers,
 				HttpClient.Method.Post, body);
 		}
 	}

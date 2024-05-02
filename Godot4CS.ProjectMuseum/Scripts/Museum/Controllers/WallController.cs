@@ -100,14 +100,15 @@ public partial class WallController : Node2D
 	{
 		if (_listenForWallPaperUpdates && _wallTileIds.Count > 0)
 		{
-			var validWallTileIds = new List<string>();
+			var validWallTileIds = new List<TileWallInfo>();
 			foreach (var wallTileId in _wallTileIds)
 			{
 				foreach (var museumTile in _museumTileContainer.MuseumTiles)
 				{
-					if (museumTile.Id == wallTileId && museumTile.WallId != _currentCardName)
+					if (museumTile.Id == wallTileId && museumTile.BackLeftWallId != _currentCardName)
 					{
-						validWallTileIds.Add(wallTileId);
+						TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _currentCardName, "", "", "");
+						validWallTileIds.Add(tileWallInfo);
 					}
 				}
 			}
@@ -118,7 +119,7 @@ public partial class WallController : Node2D
 				string[] headers = { "Content-Type: application/json"};
 				var body = JsonConvert.SerializeObject(validWallTileIds);
 				//GD.Print(body);
-				Error error = _httpRequestForUpdatingWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId?wallId={_currentCardName}", headers,
+				Error error = _httpRequestForUpdatingWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId", headers,
 					HttpClient.Method.Post, body);
 			}
 			else

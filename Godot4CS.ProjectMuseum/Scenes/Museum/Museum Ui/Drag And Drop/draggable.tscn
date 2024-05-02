@@ -1,13 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwntmtbpv43ly"]
+[gd_scene load_steps=6 format=3 uid="uid://bwntmtbpv43ly"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Draggable.cs" id="1_gr5ai"]
 [ext_resource type="PackedScene" uid="uid://cx232cil6w0p0" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggablePreviewNew.tscn" id="2_6rpxt"]
-[ext_resource type="PackedScene" uid="uid://dcm73qv2wrbhh" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_artifact_tag.tscn" id="4_xr50t"]
 [ext_resource type="Texture2D" uid="uid://dqa8gf5sasbp6" path="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png" id="5_5n4c6"]
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="5_ptbc1"]
 [ext_resource type="FontFile" uid="uid://bwsjyoc8ldclp" path="res://Assets/Fonts/PixelOperator.ttf" id="6_4l1nu"]
 
-[node name="Draggable" type="ColorRect" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2")]
+[node name="Draggable" type="ColorRect" node_paths=PackedStringArray("_nameOfDraggable")]
 custom_minimum_size = Vector2(387, 100)
 anchors_preset = -1
 anchor_left = 0.393
@@ -20,11 +19,7 @@ grow_horizontal = 2
 color = Color(0.61339, 0.61339, 0.61339, 1)
 script = ExtResource("1_gr5ai")
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect")
 _draggablePreview = ExtResource("2_6rpxt")
-_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
-_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
-_artifactTag = ExtResource("4_xr50t")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0

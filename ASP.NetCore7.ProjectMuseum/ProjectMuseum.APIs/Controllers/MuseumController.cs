@@ -195,9 +195,9 @@ public class MuseumController : ControllerBase
         return Ok(updatedMuseumTile);
     }
     [HttpPost("UpdateMuseumTilesWallId")]
-    public async Task<IActionResult> UpdateMuseumTilesWallId(List<string> ids, string wallId)
+    public async Task<IActionResult> UpdateMuseumTilesWallId(List<TileWallInfo> tileWallInfos)
     {
-        var updatedMuseumTile = await _museumTileService.UpdateMuseumTilesWallId(ids, wallId);
+        var updatedMuseumTile = await _museumTileService.UpdateMuseumTilesWallId(tileWallInfos);
         return Ok(updatedMuseumTile);
     }
     [HttpDelete("{id}")]

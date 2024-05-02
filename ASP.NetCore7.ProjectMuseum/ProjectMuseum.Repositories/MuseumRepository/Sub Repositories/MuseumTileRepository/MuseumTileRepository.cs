@@ -48,24 +48,27 @@ public class MuseumTileRepository : IMuseumTileRepository
         return museumTiles;
     }
 
-    public async Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<string> ids, string wallId)
+    public async Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<TileWallInfo> tileWallInfos)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();
         
-        foreach (var id in ids)
+        foreach (var tile in tileWallInfos)
         {
             if (museumTiles != null)
                 foreach (var museumTile in museumTiles)
                 {
-                    if (museumTile.Id == id)
+                    if (museumTile.Id == tile.TileId)
                     {
-                        museumTile.WallId = wallId;
+                        museumTile.BackLeftWallId = tile.BackLeftWallId;
+                        // museumTile.BackRightWallId = tile.BackRightWallId;
+                        // museumTile.FrontLeftWallId = tile.FrontLeftWallId;
+                        // museumTile.FrontRightWallId = tile.FrontRightWallId;
                     }
                 }
         }
         
         if (museumTiles != null) await _museumTileDatabase.WriteDataAsync(museumTiles);
-        return museumTiles;
+        return await _museumTileDatabase.ReadDataAsync();
     }
 
     public async Task<MuseumTile?> GetById(string id)

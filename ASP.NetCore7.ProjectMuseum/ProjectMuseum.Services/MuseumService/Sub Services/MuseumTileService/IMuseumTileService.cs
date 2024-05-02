@@ -20,7 +20,7 @@ public interface IMuseumTileService
         string otherVariationName, int rotationFrame);
     Task<MuseumTile> UpdateMuseumTileById(string tileId, MuseumTile museumTile);
     Task<List<MuseumTile>?> UpdateMuseumTilesSourceId(List<string> museumTilesId, int sourceId);
-    Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<string> museumTilesId, string wallId);
+    Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<TileWallInfo> tileWallInfos);
     Task<MuseumTile?> DeleteMuseumTileById(string tileId);
     Task<List<MuseumTile>?> DeleteAllMuseumTiles();
     Task<List<MuseumTile>?> GenerateMuseumTileForNewGame();

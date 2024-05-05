@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bmum5hrbpjtpd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Yellow_Frame.png" id="1_35wwq"]
 [ext_resource type="Texture2D" uid="uid://bfxo0rfxv078c" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png" id="2_svjtm"]
-[ext_resource type="Script" path="res://Scripts/Test/InventoryItemDraggable.cs" id="3_jb2h8"]
+[ext_resource type="Script" path="res://Scripts/Test/InventorySlot.cs" id="3_jb2h8"]
 [ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="4_cqvrj"]
 
 [sub_resource type="Theme" id="Theme_xk8w8"]
@@ -31,6 +31,9 @@ grow_vertical = 2
 texture = ExtResource("2_svjtm")
 expand_mode = 5
 script = ExtResource("3_jb2h8")
+_isSlotEmpty = null
+_slotNumber = null
+_isDragging = null
 
 [node name="Item Counter" type="Control" parent="PanelContainer"]
 texture_filter = 1
@@ -90,6 +93,7 @@ expand_mode = 5
 script = ExtResource("3_jb2h8")
 _isSlotEmpty = true
 _slotNumber = 1
+_isDragging = null
 
 [node name="Item Counter" type="Control" parent="PanelContainer2"]
 texture_filter = 1

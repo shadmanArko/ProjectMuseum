@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bmum5hrbpjtpd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Yellow_Frame.png" id="1_bocqi"]
 [ext_resource type="Texture2D" uid="uid://bfxo0rfxv078c" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png" id="2_ilh17"]
-[ext_resource type="Script" path="res://Scripts/Test/InventoryDragAndDropTest.cs" id="3_fbjqp"]
+[ext_resource type="Script" path="res://Scripts/Test/InventoryItemDraggable.cs" id="3_fbjqp"]
 [ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="4_u0h7q"]
 
 [sub_resource type="Theme" id="Theme_sjl2v"]

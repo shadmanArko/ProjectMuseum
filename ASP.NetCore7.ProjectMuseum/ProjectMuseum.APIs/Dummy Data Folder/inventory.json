@@ -1,1 +1,105 @@
-[{"InventoryItems":[{"Id":"eqp1","Name":"Sword","Type":"Equipable","Category":"Melee","Variant":"BasicSword","IsStackable":false,"Stack":1,"Slot":0,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"},{"Id":"eqp2","Name":"Pickaxe","Type":"Equipable","Category":"Pickaxe","Variant":"BasicPickaxe","IsStackable":false,"Stack":1,"Slot":1,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"},{"Id":"1","Name":"Health Potion","Type":"Consumable","Category":"Health","Variant":"HealthPotion","IsStackable":true,"Stack":37,"Slot":2,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"},{"Id":"2","Name":"Energy Potion","Type":"Consumable","Category":"Energy","Variant":"EnergyPotion","IsStackable":true,"Stack":35,"Slot":3,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"},{"Id":"3","Name":"Fire Torch","Type":"WallPlaceable","Category":"Torch","Variant":"FireTorch","IsStackable":true,"Stack":33,"Slot":4,"PngPath":"res://Assets/firetorch.png"},{"Id":"667f3d45-0098-42dd-a8b9-5e55a9fe5c2c","Name":"Coal","Type":"Resource","Category":null,"Variant":"Coal","IsStackable":true,"Stack":6,"Slot":5,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"},{"Id":"0aff74fe-0f53-44f3-9a1c-24fcd3bba9dc","Name":"Iron","Type":"Resource","Category":null,"Variant":"Iron","IsStackable":true,"Stack":6,"Slot":6,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"}],"Artifacts":[{"Id":"tutorialArtifact","RawArtifactId":"ClassicalNativeAmericanTomahawk","PositionX":24,"PositionY":2,"Slot":7,"Condition":"Decrepit","Rarity":"Common"}],"OccupiedSlots":[0,1,2,3,4,5,6,7],"SlotsUnlocked":12}]
+[
+  {
+    "InventoryItems": [
+      {
+        "Id": "eqp1",
+        "Name": "Sword",
+        "Type": "Equipable",
+        "Category": "Melee",
+        "Variant": "BasicSword",
+        "IsStackable": false,
+        "Stack": 1,
+        "Slot": 0,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
+      },
+      {
+        "Id": "eqp2",
+        "Name": "Pickaxe",
+        "Type": "Equipable",
+        "Category": "Pickaxe",
+        "Variant": "BasicPickaxe",
+        "IsStackable": false,
+        "Stack": 1,
+        "Slot": 1,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
+      },
+      {
+        "Id": "1",
+        "Name": "Health Potion",
+        "Type": "Consumable",
+        "Category": "Health",
+        "Variant": "HealthPotion",
+        "IsStackable": true,
+        "Stack": 37,
+        "Slot": 2,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
+      },
+      {
+        "Id": "2",
+        "Name": "Energy Potion",
+        "Type": "Consumable",
+        "Category": "Energy",
+        "Variant": "EnergyPotion",
+        "IsStackable": true,
+        "Stack": 35,
+        "Slot": 3,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
+      },
+      {
+        "Id": "3",
+        "Name": "Fire Torch",
+        "Type": "WallPlaceable",
+        "Category": "Torch",
+        "Variant": "FireTorch",
+        "IsStackable": true,
+        "Stack": 33,
+        "Slot": 4,
+        "PngPath": "res://Assets/firetorch.png"
+      },
+      {
+        "Id": "667f3d45-0098-42dd-a8b9-5e55a9fe5c2c",
+        "Name": "Coal",
+        "Type": "Resource",
+        "Category": null,
+        "Variant": "Coal",
+        "IsStackable": true,
+        "Stack": 6,
+        "Slot": 5,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png"
+      },
+      {
+        "Id": "0aff74fe-0f53-44f3-9a1c-24fcd3bba9dc",
+        "Name": "Iron",
+        "Type": "Resource",
+        "Category": null,
+        "Variant": "Iron",
+        "IsStackable": true,
+        "Stack": 6,
+        "Slot": 6,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
+      }
+    ],
+    "Artifacts": [
+      {
+        "Id": "tutorialArtifact",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 7,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      }
+    ],
+    "OccupiedSlots": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "SlotsUnlocked": 12
+  }
+]

@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwou7mojgk558"]
+[gd_scene load_steps=11 format=3 uid="uid://dwou7mojgk558"]
 
 [ext_resource type="PackedScene" uid="uid://cndkl8ntjkx8v" path="res://Scenes/Test Scenes/InventoryItemSlot.tscn" id="1_mher3"]
 [ext_resource type="Texture2D" uid="uid://c001v71x5j733" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Tomahawk.png" id="2_emj8r"]
+[ext_resource type="Texture2D" uid="uid://bfxo0rfxv078c" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png" id="2_xpbgp"]
+[ext_resource type="PackedScene" uid="uid://wq7j3y20sfmm" path="res://Scenes/Mine/Sub Scenes/Managers/InventoryManager.tscn" id="4_7r1tx"]
+[ext_resource type="PackedScene" uid="uid://dtvk4ujsdo5dg" path="res://Scenes/Test Scenes/CursorFollowSlot.tscn" id="5_80l0k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb2kb"]
 
@@ -30,195 +33,113 @@ offset_bottom = 400.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="InventoryPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel/MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="InventorySlotsContainer" type="PanelContainer" parent="InventoryPanel/VBoxContainer"]
+[node name="InventorySlotsContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qb2kb")
 
-[node name="InventorySlots" type="VBoxContainer" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer"]
+[node name="InventorySlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer"]
 custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
 theme = SubResource("Theme_bv6w0")
-theme_override_constants/separation = 20
 
-[node name="ToolbarContainer" type="PanelContainer" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots"]
+[node name="ToolbarContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3fyoa")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme = SubResource("Theme_hvqhd")
 theme_override_constants/separation = 20
-alignment = 1
 
-[node name="InventoryItemSlot" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
 layout_mode = 2
 
-[node name="InventoryItemSlot2" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
+[node name="Item" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot" index="1" node_paths=PackedStringArray("_inventoryManager", "_textureRect", "_itemCounter")]
+texture = ExtResource("2_xpbgp")
+_inventoryManager = NodePath("../../../../../../../../../InventoryManager")
+_textureRect = NodePath(".")
+_itemCounter = NodePath("../PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot3" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot4" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot5" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot6" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot7" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot8" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot9" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot10" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot11" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot12" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryContainer" type="PanelContainer" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots"]
+[node name="InventoryContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_85utp")
 
-[node name="BagPackSlots" type="VBoxContainer" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer"]
+[node name="BagPackSlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="FirstRowSlots" type="HBoxContainer" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
+[node name="FirstRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
 layout_mode = 2
 theme_override_constants/separation = 20
-alignment = 1
 
-[node name="InventoryItemSlot" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot2" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot3" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot4" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot5" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot6" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot7" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot8" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot9" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot10" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot11" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot12" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="SecondRowSlots" type="HBoxContainer" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
+[node name="SecondRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
 layout_mode = 2
 theme_override_constants/separation = 20
-alignment = 1
 
-[node name="InventoryItemSlot" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot2" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot3" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot4" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot5" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot6" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot7" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot8" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot9" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot10" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot11" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="InventoryItemSlot12" parent="InventoryPanel/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" instance=ExtResource("1_mher3")]
-layout_mode = 2
-
-[node name="ItemDetails" type="PanelContainer" parent="InventoryPanel/VBoxContainer"]
+[node name="ItemDetails" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
 
-[node name="DetailsContainer" type="HBoxContainer" parent="InventoryPanel/VBoxContainer/ItemDetails"]
+[node name="DetailsContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails"]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 30
 alignment = 1
 
-[node name="ItemImageContainer" type="PanelContainer" parent="InventoryPanel/VBoxContainer/ItemDetails/DetailsContainer"]
+[node name="ItemImageContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer"]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ItemImage" type="TextureRect" parent="InventoryPanel/VBoxContainer/ItemDetails/DetailsContainer/ItemImageContainer"]
+[node name="ItemImage" type="TextureRect" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemImageContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 texture = ExtResource("2_emj8r")
 
-[node name="ItemDescriptionContainer" type="PanelContainer" parent="InventoryPanel/VBoxContainer/ItemDetails/DetailsContainer"]
+[node name="ItemDescriptionContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer"]
 custom_minimum_size = Vector2(1000, 300)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ItemDescriptionText" type="RichTextLabel" parent="InventoryPanel/VBoxContainer/ItemDetails/DetailsContainer/ItemDescriptionContainer"]
+[node name="ItemDescriptionText" type="RichTextLabel" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemDescriptionContainer"]
 layout_mode = 2
+
+[node name="InventoryManager" parent="." node_paths=PackedStringArray("_mouseFollowingSprite") instance=ExtResource("4_7r1tx")]
+_mouseFollowingSprite = NodePath("../CursorFollowSlot")
+
+[node name="CursorFollowSlot" parent="." node_paths=PackedStringArray("_textureRect", "_counterLabel") instance=ExtResource("5_80l0k")]
+_textureRect = NodePath("Item")
+_counterLabel = NodePath("PanelContainer/Counter Value")
+
+[editable path="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot"]

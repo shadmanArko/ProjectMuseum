@@ -8,7 +8,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Test;
 
 public partial class InventorySlot : TextureRect
 {
-	[Export] private InventoryManager _inventoryManager;
+	private InventoryManager _inventoryManager;
 	private InventoryItem _inventoryItem;
 
 	[Export] private TextureRect _textureRect;
@@ -16,7 +16,7 @@ public partial class InventorySlot : TextureRect
 	[Export] private bool _isSlotEmpty;
 	[Export] private int _slotNumber;
     
-	public static Tuple<int, Texture2D> Data;
+	// public static Tuple<int, Texture2D> Data;
 
 	#region Initializers
     
@@ -29,20 +29,27 @@ public partial class InventorySlot : TextureRect
 	{
 		
 	}
-	
-
+    
 	#endregion
 
 	#region Set Remove Modify Inventory Item
 
 	public void SetInventoryItemToSlot(InventoryItem item)
 	{
+		if (item == null)
+		{
+			_isSlotEmpty = true;
+			return;
+		}
+		
 		_inventoryItem = item;
 		_isSlotEmpty = false;
 		
 		_textureRect.Texture = GetTexture(item.PngPath);
 		_itemCounter.Text = item.IsStackable && item.Stack > 1 ? item.Stack.ToString() : "";
 	}
+
+	public void SetSlotNumber(int slotNo) => _slotNumber = slotNo;
 
 	public InventoryItem RemoveInventoryItemSlot()
 	{
@@ -59,7 +66,7 @@ public partial class InventorySlot : TextureRect
     
 	#endregion
 	
-	[Export] private bool _isDragging;
+	// [Export] private bool _isDragging;
 
 	private void OnInputEvent(Node viewport, InputEvent inputEvent, int shape)
 	{
@@ -131,57 +138,57 @@ public partial class InventorySlot : TextureRect
 		GD.Print("Mouse exit");
 	}
 	
-	public override Variant _GetDragData(Vector2 atPosition)
-	{
-		//retrieve info about the slot we are dragging 
-		if (!_isDragging)
-		{
-			var dragTexture = new TextureRect();
-			dragTexture.ExpandMode = ExpandModeEnum.FitWidthProportional;
-			dragTexture.Texture = Texture;
-			dragTexture.Size = new Vector2(100, 100);
-			return dragTexture;
-		}
-		else
-		{
-			var dragTexture = new TextureRect();
-			dragTexture.ExpandMode = ExpandModeEnum.FitWidthProportional;
-			dragTexture.Texture = Texture;
-			dragTexture.Size = new Vector2(100, 100);
+	// public override Variant _GetDragData(Vector2 atPosition)
+	// {
+	// 	//retrieve info about the slot we are dragging 
+	// 	if (!_isDragging)
+	// 	{
+	// 		var dragTexture = new TextureRect();
+	// 		dragTexture.ExpandMode = ExpandModeEnum.FitWidthProportional;
+	// 		dragTexture.Texture = Texture;
+	// 		dragTexture.Size = new Vector2(100, 100);
+	// 		return dragTexture;
+	// 	}
+	// 	else
+	// 	{
+	// 		var dragTexture = new TextureRect();
+	// 		dragTexture.ExpandMode = ExpandModeEnum.FitWidthProportional;
+	// 		dragTexture.Texture = Texture;
+	// 		dragTexture.Size = new Vector2(100, 100);
+	//
+	// 		var control = new Control();
+	// 		control.AddChild(dragTexture);
+	// 		GD.Print($"drag texture size: {dragTexture.Texture.GetSize()}");
+	// 		SetDragPreview(control);
+	// 		GD.Print("is dragging");
+	// 		Data = new Tuple<int, Texture2D>(_slotNumber, Texture);
+	// 		
+	// 		return Texture;
+	// 	}
+	// }
 
-			var control = new Control();
-			control.AddChild(dragTexture);
-			GD.Print($"drag texture size: {dragTexture.Texture.GetSize()}");
-			SetDragPreview(control);
-			GD.Print("is dragging");
-			Data = new Tuple<int, Texture2D>(_slotNumber, Texture);
-			
-			return Texture;
-		}
-	}
+	// public override bool _CanDropData(Vector2 atPosition, Variant data)
+	// {
+	// 	if (!_isSlotEmpty)
+	// 	{
+	// 		GD.Print("slot not empty");
+	// 		return false;
+	// 	}
+	// 	GD.Print("slot is empty");
+	// 	return true;
+	// 	//check if we can drop an item in this slot
+	// }
 
-	public override bool _CanDropData(Vector2 atPosition, Variant data)
-	{
-		if (!_isSlotEmpty)
-		{
-			GD.Print("slot not empty");
-			return false;
-		}
-		GD.Print("slot is empty");
-		return true;
-		//check if we can drop an item in this slot
-	}
-
-	public override void _DropData(Vector2 atPosition, Variant data)
-	{
-		if (Input.IsActionJustReleased("ui_left_click"))
-		{
-			GD.Print("inside drop data method");
-			GD.Print($"{Data.Item1} and {Data.Item2}");
-			var texture = (Texture2D) data;
-			Texture = texture;
-		}
-	}
+	// public override void _DropData(Vector2 atPosition, Variant data)
+	// {
+	// 	if (Input.IsActionJustReleased("ui_left_click"))
+	// 	{
+	// 		GD.Print("inside drop data method");
+	// 		GD.Print($"{Data.Item1} and {Data.Item2}");
+	// 		var texture = (Texture2D) data;
+	// 		Texture = texture;
+	// 	}
+	// }
 
 	#endregion
 }

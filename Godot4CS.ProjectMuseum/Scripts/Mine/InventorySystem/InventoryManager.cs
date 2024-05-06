@@ -1,10 +1,7 @@
 using System;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -20,7 +17,7 @@ public partial class InventoryManager : Node2D
     private HttpRequest _getInventoryHttpRequest;
 
     [Export] private MouseFollowingSprite _cursorFollowingSprite;
-    [Export] private InventorySlot _invSlot;
+    [Export] private InventorySlot[] _inventorySlots;
 
 
     #region Initializers
@@ -32,8 +29,8 @@ public partial class InventoryManager : Node2D
 
     public override void _Ready()
     {
+        // _inventorySlots = new InventorySlot[12];
         InitializeDiReferences();
-        // await Task.Delay(5000);
         GetInventory();
     }
 
@@ -69,7 +66,20 @@ public partial class InventoryManager : Node2D
             GD.Print(item.Variant);
         }
 
-        _invSlot.SetInventoryItemToSlot(_inventory.InventoryItems[0]);
+        InitializeInventorySlots();
+        SetInventoryItemsToSlotsOnInventoryOpen();
+    }
+
+    private void InitializeInventorySlots()
+    {
+        for (int i = 0; i < _inventorySlots.Length; i++)
+            _inventorySlots[i].SetSlotNumber(i);
+    }
+
+    private void SetInventoryItemsToSlotsOnInventoryOpen()
+    {
+        foreach (var item in _inventory.InventoryItems)
+            _inventorySlots[item.Slot].SetInventoryItemToSlot(item);
     }
 
     #endregion
@@ -87,10 +97,6 @@ public partial class InventoryManager : Node2D
         MineActions.OnInventoryUpdate?.Invoke();
 
         return cursorInventoryItem;
-    }
-
-    public void SetItemFromCursorToInventory(int slotNo, InventoryItem inventoryItem)
-    {
     }
 
     #region Pick Up

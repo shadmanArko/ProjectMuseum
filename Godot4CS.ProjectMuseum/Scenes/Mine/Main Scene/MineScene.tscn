@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=34 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://wq7j3y20sfmm" path="res://Scenes/Mine/Sub Scenes/Managers/InventoryManager.tscn" id="21_r7x7f"]
 [ext_resource type="PackedScene" uid="uid://coi6tcy4grgu3" path="res://Scenes/Mine/Sub Scenes/SceneLoader.tscn" id="22_h2clm"]
 [ext_resource type="PackedScene" uid="uid://dtvk4ujsdo5dg" path="res://Scenes/Test Scenes/CursorFollowSlot.tscn" id="28_v6xuw"]
+[ext_resource type="PackedScene" uid="uid://dwou7mojgk558" path="res://Scenes/Test Scenes/InventoryDragAndDrop.tscn" id="29_jdbf1"]
 [ext_resource type="PackedScene" uid="uid://cf5v8nqef7svy" path="res://Scenes/Mine/Sub Scenes/MineSceneView.tscn" id="30_f3st8"]
 
 [node name="MineScene" type="Node2D"]
@@ -116,8 +117,9 @@ _wallPlaceableController = NodePath("WallPlaceableController")
 _consumableController = NodePath("ConsumableController")
 _equipableController = NodePath("EquipableController")
 
-[node name="InventoryManager" parent="." node_paths=PackedStringArray("_mouseFollowingSprite") instance=ExtResource("21_r7x7f")]
-_mouseFollowingSprite = NodePath("../MineUI/CursorFollowSlot")
+[node name="InventoryManager" parent="." node_paths=PackedStringArray("_cursorFollowingSprite", "_invSlot") instance=ExtResource("21_r7x7f")]
+_cursorFollowingSprite = NodePath("../MineUI/InventoryDragAndDrop/CursorFollowSlot")
+_invSlot = NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot/Item")
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates") instance=ExtResource("3_ambmn")]
 _healthBar = NodePath("Health Bar")
@@ -135,9 +137,6 @@ _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 visible = false
-offset_top = 104.0
-offset_right = 409.0
-offset_bottom = 459.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 
@@ -152,6 +151,17 @@ _dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 [node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
 [node name="CursorFollowSlot" parent="MineUI" node_paths=PackedStringArray("_textureRect", "_counterLabel") instance=ExtResource("28_v6xuw")]
+_textureRect = NodePath("Item")
+_counterLabel = NodePath("PanelContainer/Counter Value")
+
+[node name="InventoryDragAndDrop" parent="MineUI" instance=ExtResource("29_jdbf1")]
+
+[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot" index="1" node_paths=PackedStringArray("_inventoryManager", "_textureRect", "_itemCounter")]
+_inventoryManager = NodePath("../../../../../../../../../../../InventoryManager")
+_textureRect = NodePath(".")
+_itemCounter = NodePath("../PanelContainer/Counter Value")
+
+[node name="CursorFollowSlot" parent="MineUI/InventoryDragAndDrop" index="1" node_paths=PackedStringArray("_textureRect", "_counterLabel")]
 _textureRect = NodePath("Item")
 _counterLabel = NodePath("PanelContainer/Counter Value")
 
@@ -172,3 +182,6 @@ ReturnToMineButton = NodePath("Panel/Control/Button Container/Return To Mine")
 [node name="MineSceneView" parent="." node_paths=PackedStringArray("_savingCanvas", "_mineBackGround") instance=ExtResource("30_f3st8")]
 _savingCanvas = NodePath("UISaving")
 _mineBackGround = NodePath("MineBackground")
+
+[editable path="MineUI/InventoryDragAndDrop"]
+[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot"]

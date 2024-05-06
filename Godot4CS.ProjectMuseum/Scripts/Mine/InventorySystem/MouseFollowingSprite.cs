@@ -5,7 +5,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
 
 public partial class MouseFollowingSprite : Control
 {
-    public InventoryItem InventoryItem; 
+    private InventoryItem _inventoryItem; 
     
     [Export] private TextureRect _textureRect;
     [Export] private Label _counterLabel;
@@ -14,7 +14,7 @@ public partial class MouseFollowingSprite : Control
 
     public override void _Ready()
     {
-        
+        _inventoryItem = null;
     }
     
     public override void _Process(double delta)
@@ -23,19 +23,30 @@ public partial class MouseFollowingSprite : Control
         Position = mousePos;
     }
 
+    public void SetCurrentCursorItem(InventoryItem item)
+    {
+        _inventoryItem = item;
+    }
+
+    public InventoryItem GetCurrentCursorInventoryItem()
+    {
+        return _inventoryItem;
+    }
+
     public void ShowMouseFollowSprite(InventoryItem inventoryItem)
     {
-        InventoryItem = inventoryItem;
-        var texture2D = GD.Load<Texture2D>(InventoryItem.PngPath);
+        _inventoryItem = inventoryItem;
+        var texture2D = GD.Load<Texture2D>(_inventoryItem.PngPath);
         Visible = true;
         _textureRect.Texture = texture2D;
-        _counterLabel.Text = InventoryItem.Stack > 1 ? InventoryItem.Stack.ToString() : "";
+        _counterLabel.Text = _inventoryItem.Stack > 1 ? _inventoryItem.Stack.ToString() : "";
         SetProcess(true);
     }
 
-    public void HideFollowSprite()
+    public void HideFollowSpriteAndSetInventoryItemToNull()
     {
         Visible = false;
+        _inventoryItem = null;
         SetProcess(false);
     }
 }

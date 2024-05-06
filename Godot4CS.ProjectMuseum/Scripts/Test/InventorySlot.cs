@@ -1,6 +1,5 @@
 using System;
 using Godot;
-using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine;
 using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
 using ProjectMuseum.Models;
@@ -23,9 +22,7 @@ public partial class InventorySlot : TextureRect
     
 	public override void _Ready()
 	{
-		// _inventoryManager = ReferenceStorage.Instance.InventoryManager;
-		_inventoryManager = GetNode<InventoryManager>("/root/InventoryDragAndDrop/InventoryManager");
-		GD.Print($"inventory manager is null {_inventoryManager == null}");
+		_inventoryManager = ReferenceStorage.Instance.InventoryManager;
 	}
     
 	public override void _EnterTree()
@@ -68,11 +65,30 @@ public partial class InventorySlot : TextureRect
 	{
 		if (inputEvent.IsActionReleased("ui_left_click"))
 		{
+			_inventoryManager.MakeDecision(_slotNumber, _isSlotEmpty, MouseButton.Left, out var stackNumber, out var pngSlotPath, out var slotEmpty);
+			_isSlotEmpty = slotEmpty;
+			_textureRect.Visible = !_isSlotEmpty;
+			_itemCounter.Text = stackNumber.ToString();
+			if (!string.IsNullOrEmpty(pngSlotPath))
+				_textureRect.Texture = GetTexture(pngSlotPath);
+			
 			//todo: call a method in inventory manager
-			if(_isSlotEmpty) return;
-			_textureRect.Visible = false;
-			_itemCounter.Text = "";
-			_inventoryManager.SetItemFromInventorySlotToMouseCursor(_inventoryItem);
+			// if(_isSlotEmpty) return;
+			// if (_isSlotEmpty)
+			// {
+			// 	
+			// }
+			// else
+			// {
+			// 	_textureRect.Visible = false;
+			// 	_itemCounter.Text = "";
+			// 	var item = _inventoryManager.SetItemFromInventorySlotToMouseCursor(_inventoryItem);
+			// 	if (item is not null)
+			// 	{
+			// 		SetInventoryItemToSlot(item);
+			// 	}
+			// }
+
 		}
 		else if (inputEvent.IsActionReleased("ui_right_click"))
 		{

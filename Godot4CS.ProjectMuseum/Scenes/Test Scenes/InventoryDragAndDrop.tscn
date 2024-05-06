@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwou7mojgk558"]
+[gd_scene load_steps=10 format=3 uid="uid://dwou7mojgk558"]
 
 [ext_resource type="PackedScene" uid="uid://cndkl8ntjkx8v" path="res://Scenes/Test Scenes/InventoryItemSlot.tscn" id="1_mher3"]
 [ext_resource type="Texture2D" uid="uid://c001v71x5j733" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Tomahawk.png" id="2_emj8r"]
 [ext_resource type="Texture2D" uid="uid://bfxo0rfxv078c" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png" id="2_xpbgp"]
-[ext_resource type="PackedScene" uid="uid://wq7j3y20sfmm" path="res://Scenes/Mine/Sub Scenes/Managers/InventoryManager.tscn" id="4_7r1tx"]
 [ext_resource type="PackedScene" uid="uid://dtvk4ujsdo5dg" path="res://Scenes/Test Scenes/CursorFollowSlot.tscn" id="5_80l0k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb2kb"]
@@ -84,7 +83,7 @@ layout_mode = 2
 
 [node name="Item" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot" index="1" node_paths=PackedStringArray("_inventoryManager", "_textureRect", "_itemCounter")]
 texture = ExtResource("2_xpbgp")
-_inventoryManager = NodePath("../../../../../../../../../InventoryManager")
+_inventoryManager = NodePath("")
 _textureRect = NodePath(".")
 _itemCounter = NodePath("../PanelContainer/Counter Value")
 
@@ -134,9 +133,6 @@ size_flags_vertical = 4
 
 [node name="ItemDescriptionText" type="RichTextLabel" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemDescriptionContainer"]
 layout_mode = 2
-
-[node name="InventoryManager" parent="." node_paths=PackedStringArray("_mouseFollowingSprite") instance=ExtResource("4_7r1tx")]
-_mouseFollowingSprite = NodePath("../CursorFollowSlot")
 
 [node name="CursorFollowSlot" parent="." node_paths=PackedStringArray("_textureRect", "_counterLabel") instance=ExtResource("5_80l0k")]
 _textureRect = NodePath("Item")

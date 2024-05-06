@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -12,10 +16,10 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
 public partial class InventoryManager : Node2D
 {
     private Inventory _inventory;
-    
+
     private HttpRequest _getInventoryHttpRequest;
-    
-    [Export] private MouseFollowingSprite _mouseFollowingSprite;
+
+    [Export] private MouseFollowingSprite _cursorFollowingSprite;
     [Export] private InventorySlot _invSlot;
 
 
@@ -26,13 +30,13 @@ public partial class InventoryManager : Node2D
         CreateHttpRequest();
     }
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         InitializeDiReferences();
-        await Task.Delay(5000);
+        // await Task.Delay(5000);
         GetInventory();
     }
-    
+
     private void InitializeDiReferences()
     {
         _inventory = ServiceRegistry.Resolve<Inventory>();
@@ -47,29 +51,183 @@ public partial class InventoryManager : Node2D
 
     #endregion
 
-    #region Get Inventory Http Request 
+    #region Get Inventory Http Request
 
     private void GetInventory()
     {
-        var url = ApiAddress.PlayerApiPath+"GetInventory";
+        var url = ApiAddress.PlayerApiPath + "GetInventory";
         _getInventoryHttpRequest.CancelRequest();
         _getInventoryHttpRequest.Request(url);
     }
-	   
+
     private void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
         _inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
+        foreach (var item in _inventory.InventoryItems)
+        {
+            GD.Print(item.Variant);
+        }
+
         _invSlot.SetInventoryItemToSlot(_inventory.InventoryItems[0]);
     }
 
     #endregion
-    
-    public void SetItemFromInventorySlotToMouseCursor(InventoryItem inventoryItem)
+
+    public InventoryItem SetItemFromInventorySlotToMouseCursor(InventoryItem inventoryItem)
     {
-        _mouseFollowingSprite.ShowMouseFollowSprite(inventoryItem);
+        var cursorInventoryItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+        _cursorFollowingSprite.ShowMouseFollowSprite(inventoryItem);
         var isRemoved = _inventory.InventoryItems.Remove(inventoryItem);
-        
+        foreach (var item in _inventory.InventoryItems)
+        {
+            GD.Print(item.Variant);
+        }
+
+        MineActions.OnInventoryUpdate?.Invoke();
+
+        return cursorInventoryItem;
     }
-    
+
+    public void SetItemFromCursorToInventory(int slotNo, InventoryItem inventoryItem)
+    {
+    }
+
+    #region Pick Up
+
+    public void PickUpOneByOneSameVariantStackable(InventoryItem item)
+    {
+    }
+
+    public void PickUpAllSameVariantStackable(InventoryItem item)
+    {
+        var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+        if (cursorItem.Variant != item.Variant) return;
+        if (!item.IsStackable) return;
+        cursorItem.Stack += item.Stack;
+        _cursorFollowingSprite.ShowMouseFollowSprite(cursorItem);
+        _inventory.InventoryItems.Remove(item);
+    }
+
+    public void PickUpAllDifferentVariant(InventoryItem item)
+    {
+        _cursorFollowingSprite.ShowMouseFollowSprite(item);
+        _inventory.InventoryItems.Remove(item);
+    }
+
+    #endregion
+
+    #region Deposit
+
+    public void DepositAllSameVariantStackable(InventoryItem slotItem)
+    {
+        var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+        if (cursorItem.Variant != slotItem.Variant) return;
+        if (!slotItem.IsStackable) return;
+        slotItem.Stack += cursorItem.Stack;
+        _cursorFollowingSprite.HideFollowSpriteAndSetInventoryItemToNull();
+    }
+
+    public void DepositAllDifferentVariant(int slotNo)
+    {
+        var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+        cursorItem.Id = Guid.NewGuid().ToString();
+        cursorItem.Slot = slotNo;
+        _inventory.InventoryItems.Add(cursorItem);
+        _cursorFollowingSprite.HideFollowSpriteAndSetInventoryItemToNull();
+    }
+
+    #endregion
+
+    public void MakeDecision(int slotNumber, bool isSlotEmpty, MouseButton mouseButton, out int stackNo,
+        out string pngPath, out bool emptySlot)
+    {
+        if (!isSlotEmpty)
+        {
+            var item = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+            var tempItem = DeepCopy(item);
+
+            if (mouseButton == MouseButton.Left)
+            {
+                if (_cursorFollowingSprite.GetCurrentCursorInventoryItem() != null)
+                {
+                    var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+                    if (cursorItem.Variant == item.Variant)
+                    {
+                        //ADD TO STACK
+                        DepositAllSameVariantStackable(item);
+                        stackNo = item.Stack;
+                        pngPath = item.PngPath;
+                        emptySlot = false;
+                    }
+                    else
+                    {
+                        //SWAP
+                        DepositAllDifferentVariant(slotNumber);
+                        var item1 = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+                        stackNo = item1.Stack;
+                        pngPath = item1.PngPath;
+                        emptySlot = false;
+                        PickUpAllDifferentVariant(tempItem);
+                    }
+                }
+                else
+                {
+                    //FROM SLOT TO CURSOR
+                    PickUpAllDifferentVariant(item);
+                    stackNo = 0;
+                    pngPath = "";
+                    emptySlot = true;
+                }
+            }
+            else
+            {
+                //RIGHT BUTTON
+                stackNo = 0;
+                pngPath = "";
+                emptySlot = true;
+            }
+        }
+        else
+        {
+            var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+            if (cursorItem == null)
+            {
+                stackNo = 0;
+                pngPath = "";
+                emptySlot = true;
+            }
+            else
+            {
+                DepositAllDifferentVariant(slotNumber);
+                var item1 = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+                stackNo = item1.Stack;
+                pngPath = item1.PngPath;
+                emptySlot = false;
+            }
+        }
+    }
+
+    public static T DeepCopy<T>(T obj)
+    {
+        if (obj == null)
+        {
+            throw new ArgumentNullException(nameof(obj));
+        }
+
+        // Using System.Text.Json for serialization and deserialization
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            IgnoreNullValues = true
+        };
+
+        // Serialize the object to a JSON string
+        string jsonString = JsonSerializer.Serialize(obj, options);
+
+        // Deserialize the JSON string to a new instance
+        T copy = JsonSerializer.Deserialize<T>(jsonString, options);
+
+        return copy;
+    }
 }

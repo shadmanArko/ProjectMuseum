@@ -8,6 +8,7 @@ load_path = "res://.godot/imported/grey_basic_wallpaper.png-2520e76d55947f9aed5b
 
 [node name="YellowFlowerWallPaper1" type="Sprite2D" node_paths=PackedStringArray("_wallPreview")]
 modulate = Color(0.8, 0.8, 0.8, 1)
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(24, -396)
 scale = Vector2(-1, 1)

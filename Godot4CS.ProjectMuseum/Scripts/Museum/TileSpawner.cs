@@ -15,11 +15,15 @@ public partial class TileSpawner : TileMap
 {
 	[Export] private PackedScene _wallRight;
 	[Export] private PackedScene _wallLeft;
+	[Export] private PackedScene _wallFrontRight;
+	[Export] private PackedScene _wallFrontLeft;
 	[Export] private int _dirtyWallProbability = 10;
 	[Export] private Array<Texture2D> _dirtyWallTextures;
 	[Export] private Node2D _wallsParent;
+	[Export] private Node2D _frontWallsParent;
 	[Export] private LoadingBarManager _loadingBarManager;
 	private string _basicWallsId = "basic_red_wallpaper";
+	private string _frontWallsId = "Front_walls";
 	[Export] private Vector2I _originOfExpansion = new Vector2I(0, -20);
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 	private HttpRequest _httpRequestForExpandingMuseumTiles;
@@ -71,6 +75,14 @@ public partial class TileSpawner : TileMap
 			if (museumTile.BackRightWallId.Length> 0)
 			{
 				InstantiateWall(museumTile, _wallRight, WallSide.BackRight);
+			}
+			if (museumTile.FrontLeftWallId.Length> 0)
+			{
+				InstantiateFrontWall(museumTile, _wallFrontLeft, WallSide.FrontLeft);
+			}
+			if (museumTile.FrontRightWallId.Length> 0)
+			{
+				InstantiateFrontWall(museumTile, _wallFrontRight, WallSide.FrontRight);
 			}
 		}
 		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
@@ -148,7 +160,26 @@ public partial class TileSpawner : TileMap
 
 				}
 			}
-			
+			if (museumTiles.Find(tile => tile.XPosition == museumTile.XPosition && tile.YPosition == museumTile.YPosition +1) == null)
+			{
+				GD.Print($"Found null front left wall {museumTile.XPosition}, {museumTile.YPosition}");
+				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, "", "", _frontWallsId, "");
+				if (museumTile.FrontLeftWallId.Length <2)
+				{
+					museumTilesToUpdateWalls.Add(tileWallInfo);
+
+				}
+			} 
+			if (museumTiles.Find(tile => tile.XPosition == museumTile.XPosition +1 && tile.YPosition == museumTile.YPosition ) == null)
+			{
+				GD.Print($"Found null front right wall {museumTile.XPosition}, {museumTile.YPosition}");
+				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, "", "", "", _frontWallsId);
+				if (museumTile.FrontRightWallId.Length <2)
+				{
+					museumTilesToUpdateWalls.Add(tileWallInfo);
+
+				}
+			} 
 			// if (museumTile.XPosition == _minCellIndexX)
 			// {
 			// 	// InstantiateWall(museumTile, _wallLeft);
@@ -206,6 +237,14 @@ public partial class TileSpawner : TileMap
 		AddDirtyWallTexture(instance);
 		instance.Position = GetCellWorldPosition(museumTile.XPosition, museumTile.YPosition);
 		_wallsParent.AddChild(instance);
+	}
+	private void InstantiateFrontWall(MuseumTile museumTile, PackedScene wall, WallSide wallSide)
+	{
+		var instance = (Node2D)wall.Instantiate();
+		// instance.GetNode<Wall>(".").SetUpWall(museumTile, wallSide);
+		// AddDirtyWallTexture(instance);
+		instance.Position = GetCellWorldPosition(museumTile.XPosition, museumTile.YPosition);
+		_frontWallsParent.AddChild(instance);
 	}
 
 	private void AddDirtyWallTexture(Node2D instance)

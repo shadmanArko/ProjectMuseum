@@ -7,6 +7,7 @@
 load_path = "res://.godot/imported/green_flower_wallpaper.png-a679b4469b481c52e3fbc43a58ee2e34.ctex"
 
 [node name="LeafyGreenWallPaper1" type="Sprite2D" node_paths=PackedStringArray("_wallPreview")]
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-360, -212)
 texture = ExtResource("1_ynp8b")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dro5obe4nmpqf"]
+
+[ext_resource type="Texture2D" uid="uid://dvkuu3tjahrog" path="res://Assets/2D/Sprites/Decorations/Front_walls_TRIAL3 (1).png" id="1_4vfhe"]
+
+[node name="FrontWall17" type="Sprite2D"]
+y_sort_enabled = true
+position = Vector2(222, -134)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("1_4vfhe")
+offset = Vector2(-2, -35.5)
+hframes = 5
+frame = 2

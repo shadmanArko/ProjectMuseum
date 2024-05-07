@@ -18,7 +18,8 @@ public partial class InventoryManager : Node2D
     private HttpRequest _getInventoryHttpRequest;
 
     [Export] private MouseFollowingSprite _cursorFollowingSprite;
-    [Export] private InventorySlot[] _inventorySlots;
+    [Export] private InventoryViewController _inventoryViewController;
+    private InventorySlot[] _inventorySlots;
 
     #endregion
 
@@ -28,6 +29,7 @@ public partial class InventoryManager : Node2D
     public override void _EnterTree()
     {
         CreateHttpRequest();
+        _inventorySlots = _inventoryViewController.InventoryItems;
     }
     private void CreateHttpRequest()
     {
@@ -91,6 +93,7 @@ public partial class InventoryManager : Node2D
         if (isSlotEmpty)
         {
             HandleEmptySlot(slotNumber, out stackNo, out pngPath, out emptySlot);
+            RefreshInventoryOccupiedSlots();
             return;
         }
 
@@ -105,9 +108,20 @@ public partial class InventoryManager : Node2D
         {
             HandleRightMouseButton(item, cursorItem, out stackNo, out pngPath, out emptySlot);
         }
+        
+        RefreshInventoryOccupiedSlots();
+        
+        MineActions.OnInventoryUpdate?.Invoke();
     }
-    
-     private void HandleEmptySlot(int slotNumber, out int stackNo, out string pngPath, out bool emptySlot)
+
+    private void RefreshInventoryOccupiedSlots()
+    {
+        _inventory.OccupiedSlots.Clear();
+        foreach (var inventoryItem in _inventory.InventoryItems)
+            _inventory.OccupiedSlots.Add(inventoryItem.Slot);
+    }
+
+    private void HandleEmptySlot(int slotNumber, out int stackNo, out string pngPath, out bool emptySlot)
     {
         var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
         if (cursorItem != null)

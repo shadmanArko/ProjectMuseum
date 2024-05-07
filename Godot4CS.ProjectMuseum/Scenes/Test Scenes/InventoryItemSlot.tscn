@@ -11,28 +11,28 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iuykj"]
 size = Vector2(90, 90)
 
-[node name="InventoryItemSlot" type="PanelContainer"]
+[node name="InventoryItemSlot" type="PanelContainer" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
 custom_minimum_size = Vector2(100, 100)
 offset_right = 80.0
 offset_bottom = 80.0
 mouse_filter = 1
+script = ExtResource("2_w5j1e")
+_textureRect = NodePath("Item")
+_itemCounter = NodePath("PanelContainer/Counter Value")
+_isSlotEmpty = true
 
 [node name="Frame" type="TextureRect" parent="."]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("1_o1740")
 
-[node name="Item" type="TextureRect" parent="." node_paths=PackedStringArray("_textureRect", "_itemCounter")]
+[node name="Item" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 expand_mode = 4
-script = ExtResource("2_w5j1e")
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_isSlotEmpty = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(40, 30)
@@ -60,6 +60,4 @@ vertical_alignment = 2
 position = Vector2(50, 50)
 shape = SubResource("RectangleShape2D_iuykj")
 
-[connection signal="input_event" from="Area2D" to="Item" method="OnInputEvent"]
-[connection signal="mouse_entered" from="Area2D" to="Item" method="MouseEnter"]
-[connection signal="mouse_exited" from="Area2D" to="Item" method="MouseExit"]
+[connection signal="input_event" from="Area2D" to="." method="OnInputEvent"]

@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://wq7j3y20sfmm" path="res://Scenes/Mine/Sub Scenes/Managers/InventoryManager.tscn" id="21_r7x7f"]
 [ext_resource type="PackedScene" uid="uid://coi6tcy4grgu3" path="res://Scenes/Mine/Sub Scenes/SceneLoader.tscn" id="22_h2clm"]
 [ext_resource type="PackedScene" uid="uid://dtvk4ujsdo5dg" path="res://Scenes/Test Scenes/CursorFollowSlot.tscn" id="28_v6xuw"]
-[ext_resource type="PackedScene" uid="uid://dwou7mojgk558" path="res://Scenes/Test Scenes/InventoryDragAndDrop.tscn" id="29_jdbf1"]
+[ext_resource type="PackedScene" uid="uid://dwou7mojgk558" path="res://Scenes/Test Scenes/Inventory.tscn" id="29_jdbf1"]
 [ext_resource type="PackedScene" uid="uid://cf5v8nqef7svy" path="res://Scenes/Mine/Sub Scenes/MineSceneView.tscn" id="30_f3st8"]
 
 [node name="MineScene" type="Node2D"]
@@ -117,9 +117,9 @@ _wallPlaceableController = NodePath("WallPlaceableController")
 _consumableController = NodePath("ConsumableController")
 _equipableController = NodePath("EquipableController")
 
-[node name="InventoryManager" parent="." node_paths=PackedStringArray("_cursorFollowingSprite", "_inventorySlots") instance=ExtResource("21_r7x7f")]
+[node name="InventoryManager" parent="." node_paths=PackedStringArray("_cursorFollowingSprite", "_inventoryViewController") instance=ExtResource("21_r7x7f")]
 _cursorFollowingSprite = NodePath("../MineUI/CursorFollowSprite")
-_inventorySlots = [NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot2/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot3/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot4/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot5/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot6/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot7/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot8/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot9/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot10/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot11/Item"), NodePath("../MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot12/Item")]
+_inventoryViewController = NodePath("../MineUI/Inventory")
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates") instance=ExtResource("3_ambmn")]
 _healthBar = NodePath("Health Bar")
@@ -150,70 +150,12 @@ _dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 
 [node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
+[node name="Inventory" parent="MineUI" node_paths=PackedStringArray("InventoryItems") instance=ExtResource("29_jdbf1")]
+InventoryItems = [NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot12")]
+
 [node name="CursorFollowSprite" parent="MineUI" node_paths=PackedStringArray("_textureRect", "_counterLabel") instance=ExtResource("28_v6xuw")]
 _textureRect = NodePath("Item")
 _counterLabel = NodePath("PanelContainer/Counter Value")
-
-[node name="InventoryDragAndDrop" parent="MineUI" instance=ExtResource("29_jdbf1")]
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot2" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 1
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot3" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 2
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot4" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 3
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot5" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 4
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot6" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 5
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot7" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 6
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot8" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 7
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot9" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 8
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot10" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 9
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot11" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 10
-
-[node name="Item" parent="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot12" index="1" node_paths=PackedStringArray("_textureRect", "_itemCounter")]
-_textureRect = NodePath(".")
-_itemCounter = NodePath("../PanelContainer/Counter Value")
-_slotNumber = 11
 
 [node name="SceneTransition" parent="." node_paths=PackedStringArray("_colorRect") instance=ExtResource("6_1bas2")]
 visible = false
@@ -232,17 +174,3 @@ ReturnToMineButton = NodePath("Panel/Control/Button Container/Return To Mine")
 [node name="MineSceneView" parent="." node_paths=PackedStringArray("_savingCanvas", "_mineBackGround") instance=ExtResource("30_f3st8")]
 _savingCanvas = NodePath("UISaving")
 _mineBackGround = NodePath("MineBackground")
-
-[editable path="MineUI/InventoryDragAndDrop"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot2"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot3"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot4"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot5"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot6"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot7"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot8"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot9"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot10"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot11"]
-[editable path="MineUI/InventoryDragAndDrop/InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot12"]

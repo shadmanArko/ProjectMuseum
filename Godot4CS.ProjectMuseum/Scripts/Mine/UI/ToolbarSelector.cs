@@ -78,7 +78,7 @@ public partial class ToolbarSelector : Node
 		
 		RemoveAllInventorySlots();
 		CreateInventorySlots();
-		SetArtifactsOnInventorySlots();
+		// SetArtifactsOnInventorySlots();
 		SetInventoryItemSlots();
 		SelectItem(_playerControllerVariables.CurrentEquippedItemSlot);
 	}

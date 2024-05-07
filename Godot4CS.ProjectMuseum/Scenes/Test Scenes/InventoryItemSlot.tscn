@@ -32,6 +32,7 @@ expand_mode = 4
 script = ExtResource("2_w5j1e")
 _textureRect = NodePath(".")
 _itemCounter = NodePath("../PanelContainer/Counter Value")
+_isSlotEmpty = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(40, 30)

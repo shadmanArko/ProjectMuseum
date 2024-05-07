@@ -62,11 +62,8 @@ public partial class InventorySlot : TextureRect
 		_itemCounter.Text = "";
 		return tempItem;
 	}
-
     
 	#endregion
-	
-	// [Export] private bool _isDragging;
 
 	private void OnInputEvent(Node viewport, InputEvent inputEvent, int shape)
 	{
@@ -75,27 +72,9 @@ public partial class InventorySlot : TextureRect
 			_inventoryManager.MakeDecision(_slotNumber, _isSlotEmpty, MouseButton.Left, out var stackNumber, out var pngSlotPath, out var slotEmpty);
 			_isSlotEmpty = slotEmpty;
 			_textureRect.Visible = !_isSlotEmpty;
-			_itemCounter.Text = stackNumber.ToString();
+			_itemCounter.Text = stackNumber <= 1 ? "" : stackNumber.ToString();
 			if (!string.IsNullOrEmpty(pngSlotPath))
 				_textureRect.Texture = GetTexture(pngSlotPath);
-			
-			//todo: call a method in inventory manager
-			// if(_isSlotEmpty) return;
-			// if (_isSlotEmpty)
-			// {
-			// 	
-			// }
-			// else
-			// {
-			// 	_textureRect.Visible = false;
-			// 	_itemCounter.Text = "";
-			// 	var item = _inventoryManager.SetItemFromInventorySlotToMouseCursor(_inventoryItem);
-			// 	if (item is not null)
-			// 	{
-			// 		SetInventoryItemToSlot(item);
-			// 	}
-			// }
-
 		}
 		else if (inputEvent.IsActionReleased("ui_right_click"))
 		{

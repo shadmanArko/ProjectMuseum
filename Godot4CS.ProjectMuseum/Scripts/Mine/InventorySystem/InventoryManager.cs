@@ -103,6 +103,7 @@ public partial class InventoryManager : Node2D
 
     public void PickUpOneByOneSameVariantStackable(InventoryItem item)
     {
+        
     }
 
     public void PickUpAllSameVariantStackable(InventoryItem item)
@@ -118,7 +119,12 @@ public partial class InventoryManager : Node2D
     public void PickUpAllDifferentVariant(InventoryItem item)
     {
         _cursorFollowingSprite.ShowMouseFollowSprite(item);
-        _inventory.InventoryItems.Remove(item);
+        var itemInInventory = _inventory.InventoryItems.FirstOrDefault(i => i.Id == item.Id);
+        _inventory.InventoryItems.Remove(itemInInventory);
+        foreach (var inventoryItem in _inventory.InventoryItems)
+        {
+            GD.Print($"item {inventoryItem.Variant}, slot: {inventoryItem.Slot}");
+        }
     }
 
     #endregion
@@ -134,13 +140,14 @@ public partial class InventoryManager : Node2D
         _cursorFollowingSprite.HideFollowSpriteAndSetInventoryItemToNull();
     }
 
-    public void DepositAllDifferentVariant(int slotNo)
+    public string DepositAllDifferentVariant(int slotNo)
     {
         var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
         cursorItem.Id = Guid.NewGuid().ToString();
         cursorItem.Slot = slotNo;
         _inventory.InventoryItems.Add(cursorItem);
         _cursorFollowingSprite.HideFollowSpriteAndSetInventoryItemToNull();
+        return cursorItem.Id;
     }
 
     #endregion
@@ -169,8 +176,9 @@ public partial class InventoryManager : Node2D
                     else
                     {
                         //SWAP
-                        DepositAllDifferentVariant(slotNumber);
-                        var item1 = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+                        
+                        var cursorItemId = DepositAllDifferentVariant(slotNumber);
+                        var item1 = _inventory.InventoryItems.FirstOrDefault(i => i.Id == cursorItemId);
                         stackNo = item1.Stack;
                         pngPath = item1.PngPath;
                         emptySlot = false;

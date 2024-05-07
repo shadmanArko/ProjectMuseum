@@ -145,61 +145,43 @@ public partial class TileSpawner : TileMap
 			{
 				GD.Print($"Found null back left wall {museumTile.XPosition}, {museumTile.YPosition}");
 				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
-				if (museumTile.BackLeftWallId.Length <2)
-				{
-					museumTilesToUpdateWalls.Add(tileWallInfo);
-				}
+				museumTilesToUpdateWalls.Add(tileWallInfo);
+
+				// if (museumTile.BackLeftWallId.Length <2)
+				// {
+				// }
 			}
 			if (museumTiles.Find(tile => tile.XPosition == museumTile.XPosition && tile.YPosition == museumTile.YPosition -1) == null)
 			{
 				GD.Print($"Found null back right wall {museumTile.XPosition}, {museumTile.YPosition}");
 				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, "", _basicWallsId, "", "");
-				if (museumTile.BackRightWallId.Length <2)
-				{
-					museumTilesToUpdateWalls.Add(tileWallInfo);
-
-				}
+				museumTilesToUpdateWalls.Add(tileWallInfo);
+				// if (museumTile.BackRightWallId.Length <2)
+				// {
+				//
+				// }
 			}
 			if (museumTiles.Find(tile => tile.XPosition == museumTile.XPosition && tile.YPosition == museumTile.YPosition +1) == null)
 			{
 				GD.Print($"Found null front left wall {museumTile.XPosition}, {museumTile.YPosition}");
 				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, "", "", _frontWallsId, "");
-				if (museumTile.FrontLeftWallId.Length <2)
-				{
-					museumTilesToUpdateWalls.Add(tileWallInfo);
-
-				}
+				museumTilesToUpdateWalls.Add(tileWallInfo);
+				// if (museumTile.FrontLeftWallId.Length <2)
+				// {
+				//
+				// }
 			} 
 			if (museumTiles.Find(tile => tile.XPosition == museumTile.XPosition +1 && tile.YPosition == museumTile.YPosition ) == null)
 			{
 				GD.Print($"Found null front right wall {museumTile.XPosition}, {museumTile.YPosition}");
 				TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, "", "", "", _frontWallsId);
-				if (museumTile.FrontRightWallId.Length <2)
-				{
-					museumTilesToUpdateWalls.Add(tileWallInfo);
-
-				}
+				museumTilesToUpdateWalls.Add(tileWallInfo);
+				// if (museumTile.FrontRightWallId.Length <2)
+				// {
+				//
+				// }
 			} 
-			// if (museumTile.XPosition == _minCellIndexX)
-			// {
-			// 	// InstantiateWall(museumTile, _wallLeft);
-			// 	if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
-			// 	{
-			// 		
-			// 		TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
-			// 		museumTilesToUpdateWalls.Add(tileWallInfo);
-			// 	}
-			// }
-			//
-			// if (museumTile.YPosition == _minCellIndexY)
-			// {
-			// 	// InstantiateWall(museumTile, _wallRight);
-			// 	if (museumTile.BackLeftWallId == "" || museumTile.BackLeftWallId == "string")
-			// 	{
-			// 		TileWallInfo tileWallInfo = new TileWallInfo(museumTile.Id, _basicWallsId, "", "", "");
-			// 		museumTilesToUpdateWalls.Add(tileWallInfo);
-			// 	}
-			// }
+			
 			
 		}
 

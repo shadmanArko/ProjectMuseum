@@ -101,7 +101,7 @@ public partial class InventoryManager : Node2D
 
     #region Pick Up
 
-    public void PickUpOneByOneSameVariantStackable(InventoryItem item)
+    private void PickUpOneByOneSameVariantStackable(InventoryItem item)
     {
         var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
         if (cursorItem == null)
@@ -123,7 +123,7 @@ public partial class InventoryManager : Node2D
         
     }
 
-    public void PickUpAllSameVariantStackable(InventoryItem item)
+    private void PickUpAllSameVariantStackable(InventoryItem item)
     {
         var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
         if (cursorItem.Variant != item.Variant) return;
@@ -133,7 +133,7 @@ public partial class InventoryManager : Node2D
         _inventory.InventoryItems.Remove(item);
     }
 
-    public void PickUpAllDifferentVariant(InventoryItem item)
+    private void PickUpAllDifferentVariant(InventoryItem item)
     {
         _cursorFollowingSprite.ShowMouseFollowSprite(item);
         var itemInInventory = _inventory.InventoryItems.FirstOrDefault(i => i.Id == item.Id);
@@ -148,7 +148,7 @@ public partial class InventoryManager : Node2D
 
     #region Deposit
 
-    public void DepositAllSameVariantStackable(InventoryItem slotItem)
+    private void DepositAllSameVariantStackable(InventoryItem slotItem)
     {
         var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
         if (cursorItem.Variant != slotItem.Variant) return;
@@ -157,7 +157,7 @@ public partial class InventoryManager : Node2D
         _cursorFollowingSprite.HideFollowSpriteAndSetInventoryItemToNull();
     }
 
-    public string DepositAllDifferentVariant(int slotNo)
+    private string DepositAllDifferentVariant(int slotNo)
     {
         var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
         cursorItem.Id = Guid.NewGuid().ToString();
@@ -235,7 +235,7 @@ public partial class InventoryManager : Node2D
                         }
                         else
                         {
-                            PickUpAllSameVariantStackable(item);
+                            PickUpAllDifferentVariant(item);
                             stackNo = 0;
                             pngPath = "";
                             emptySlot = true;
@@ -246,10 +246,20 @@ public partial class InventoryManager : Node2D
                 {
                     if (item.Variant == cursorItem.Variant)
                     {
-                        PickUpOneByOneSameVariantStackable(item);
-                        stackNo = item.Stack;
-                        pngPath = item.PngPath;
-                        emptySlot = false;
+                        if (item.Stack > 1)
+                        {
+                            PickUpOneByOneSameVariantStackable(item);
+                            stackNo = item.Stack;
+                            pngPath = item.PngPath;
+                            emptySlot = false;
+                        }
+                        else
+                        {
+                            PickUpAllSameVariantStackable(item);
+                            stackNo = 0;
+                            pngPath = "";
+                            emptySlot = true;
+                        }
                     }
                     else
                     {
@@ -286,7 +296,7 @@ public partial class InventoryManager : Node2D
         }
     }
 
-    public static T DeepCopy<T>(T obj)
+    private static T DeepCopy<T>(T obj)
     {
         if (obj == null)
         {

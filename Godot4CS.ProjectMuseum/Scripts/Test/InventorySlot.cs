@@ -78,7 +78,12 @@ public partial class InventorySlot : TextureRect
 		}
 		else if (inputEvent.IsActionReleased("ui_right_click"))
 		{
-			//todo: 
+			_inventoryManager.MakeDecision(_slotNumber, _isSlotEmpty, MouseButton.Right, out var stackNumber, out var pngSlotPath, out var slotEmpty);
+			_isSlotEmpty = slotEmpty;
+			_textureRect.Visible = !_isSlotEmpty;
+			_itemCounter.Text = stackNumber <= 1 ? "" : stackNumber.ToString();
+			if (!string.IsNullOrEmpty(pngSlotPath))
+				_textureRect.Texture = GetTexture(pngSlotPath);
 		}
 	}
 	

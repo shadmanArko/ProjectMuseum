@@ -103,6 +103,23 @@ public partial class InventoryManager : Node2D
 
     public void PickUpOneByOneSameVariantStackable(InventoryItem item)
     {
+        var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+        if (cursorItem == null)
+        {
+            var newInventoryItem = DeepCopy(item);
+            newInventoryItem.Id = Guid.NewGuid().ToString();
+            newInventoryItem.Stack = 1;
+            item.Stack--;
+            _cursorFollowingSprite.ShowMouseFollowSprite(newInventoryItem);
+        }
+        else
+        {
+            if (cursorItem.Variant != item.Variant) return;
+            if (!item.IsStackable) return;
+            cursorItem.Stack++;
+            item.Stack--;
+            _cursorFollowingSprite.ShowMouseFollowSprite(cursorItem);
+        }
         
     }
 
@@ -194,9 +211,56 @@ public partial class InventoryManager : Node2D
                     emptySlot = true;
                 }
             }
-            else
+            else if(mouseButton == MouseButton.Right)
             {
                 //RIGHT BUTTON
+                var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+                if (cursorItem == null)
+                {
+                    if (!item.IsStackable)
+                    {
+                        PickUpAllDifferentVariant(item);
+                        stackNo = 0;
+                        pngPath = "";
+                        emptySlot = true;
+                    }
+                    else
+                    {
+                        if (item.Stack > 1)
+                        {
+                            PickUpOneByOneSameVariantStackable(item);
+                            stackNo = item.Stack;
+                            pngPath = item.PngPath;
+                            emptySlot = false;
+                        }
+                        else
+                        {
+                            PickUpAllSameVariantStackable(item);
+                            stackNo = 0;
+                            pngPath = "";
+                            emptySlot = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (item.Variant == cursorItem.Variant)
+                    {
+                        PickUpOneByOneSameVariantStackable(item);
+                        stackNo = item.Stack;
+                        pngPath = item.PngPath;
+                        emptySlot = false;
+                    }
+                    else
+                    {
+                        stackNo = item.Stack;
+                        pngPath = item.PngPath;
+                        emptySlot = false;
+                    }
+                }
+            }
+            else
+            {
                 stackNo = 0;
                 pngPath = "";
                 emptySlot = true;

@@ -323,4 +323,132 @@ public partial class InventoryManager : Node2D
 
         return copy;
     }
+    
+    
+    // public void MakeDecision(int slotNumber, bool isSlotEmpty, MouseButton mouseButton, out int stackNo,
+    //     out string pngPath, out bool emptySlot)
+    // {
+    //     if (!isSlotEmpty)
+    //     {
+    //         var item = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+    //         var tempItem = DeepCopy(item);
+    //
+    //         if (mouseButton == MouseButton.Left)
+    //         {
+    //             if (_cursorFollowingSprite.GetCurrentCursorInventoryItem() != null)
+    //             {
+    //                 var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+    //                 if (cursorItem.Variant == item.Variant)
+    //                 {
+    //                     //ADD TO STACK
+    //                     DepositAllSameVariantStackable(item);
+    //                     stackNo = item.Stack;
+    //                     pngPath = item.PngPath;
+    //                     emptySlot = false;
+    //                 }
+    //                 else
+    //                 {
+    //                     //SWAP
+    //                     
+    //                     var cursorItemId = DepositAllDifferentVariant(slotNumber);
+    //                     var item1 = _inventory.InventoryItems.FirstOrDefault(i => i.Id == cursorItemId);
+    //                     stackNo = item1.Stack;
+    //                     pngPath = item1.PngPath;
+    //                     emptySlot = false;
+    //                     PickUpAllDifferentVariant(tempItem);
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 //FROM SLOT TO CURSOR
+    //                 PickUpAllDifferentVariant(item);
+    //                 stackNo = 0;
+    //                 pngPath = "";
+    //                 emptySlot = true;
+    //             }
+    //         }
+    //         else if(mouseButton == MouseButton.Right)
+    //         {
+    //             //RIGHT BUTTON
+    //             var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+    //             if (cursorItem == null)
+    //             {
+    //                 if (!item.IsStackable)
+    //                 {
+    //                     PickUpAllDifferentVariant(item);
+    //                     stackNo = 0;
+    //                     pngPath = "";
+    //                     emptySlot = true;
+    //                 }
+    //                 else
+    //                 {
+    //                     if (item.Stack > 1)
+    //                     {
+    //                         PickUpOneByOneSameVariantStackable(item);
+    //                         stackNo = item.Stack;
+    //                         pngPath = item.PngPath;
+    //                         emptySlot = false;
+    //                     }
+    //                     else
+    //                     {
+    //                         PickUpAllDifferentVariant(item);
+    //                         stackNo = 0;
+    //                         pngPath = "";
+    //                         emptySlot = true;
+    //                     }
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 if (item.Variant == cursorItem.Variant)
+    //                 {
+    //                     if (item.Stack > 1)
+    //                     {
+    //                         PickUpOneByOneSameVariantStackable(item);
+    //                         stackNo = item.Stack;
+    //                         pngPath = item.PngPath;
+    //                         emptySlot = false;
+    //                     }
+    //                     else
+    //                     {
+    //                         PickUpAllSameVariantStackable(item);
+    //                         stackNo = 0;
+    //                         pngPath = "";
+    //                         emptySlot = true;
+    //                     }
+    //                 }
+    //                 else
+    //                 {
+    //                     stackNo = item.Stack;
+    //                     pngPath = item.PngPath;
+    //                     emptySlot = false;
+    //                 }
+    //             }
+    //         }
+    //         else
+    //         {
+    //             stackNo = 0;
+    //             pngPath = "";
+    //             emptySlot = true;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+    //         if (cursorItem == null)
+    //         {
+    //             stackNo = 0;
+    //             pngPath = "";
+    //             emptySlot = true;
+    //         }
+    //         else
+    //         {
+    //             DepositAllDifferentVariant(slotNumber);
+    //             var item1 = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+    //             stackNo = item1.Stack;
+    //             pngPath = item1.PngPath;
+    //             emptySlot = false;
+    //         }
+    //     }
+    // }
 }

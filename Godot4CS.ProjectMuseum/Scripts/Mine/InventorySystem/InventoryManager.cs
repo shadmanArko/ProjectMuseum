@@ -12,12 +12,15 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
 
 public partial class InventoryManager : Node2D
 {
-    private Inventory _inventory;
+    #region Fields
 
+    private Inventory _inventory;
     private HttpRequest _getInventoryHttpRequest;
 
     [Export] private MouseFollowingSprite _cursorFollowingSprite;
     [Export] private InventorySlot[] _inventorySlots;
+
+    #endregion
 
 
     #region Initializers
@@ -26,10 +29,14 @@ public partial class InventoryManager : Node2D
     {
         CreateHttpRequest();
     }
-
+    private void CreateHttpRequest()
+    {
+        _getInventoryHttpRequest = new HttpRequest();
+        AddChild(_getInventoryHttpRequest);
+        _getInventoryHttpRequest.RequestCompleted += OnGetInventoryHttpRequestCompleted;
+    }
     public override void _Ready()
     {
-        // _inventorySlots = new InventorySlot[12];
         InitializeDiReferences();
         GetInventory();
     }
@@ -39,24 +46,13 @@ public partial class InventoryManager : Node2D
         _inventory = ServiceRegistry.Resolve<Inventory>();
     }
 
-    private void CreateHttpRequest()
-    {
-        _getInventoryHttpRequest = new HttpRequest();
-        AddChild(_getInventoryHttpRequest);
-        _getInventoryHttpRequest.RequestCompleted += OnGetInventoryHttpRequestCompleted;
-    }
-
-    #endregion
-
-    #region Get Inventory Http Request
-
     private void GetInventory()
     {
         var url = ApiAddress.PlayerApiPath + "GetInventory";
         _getInventoryHttpRequest.CancelRequest();
         _getInventoryHttpRequest.Request(url);
     }
-
+    
     private void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
@@ -69,7 +65,7 @@ public partial class InventoryManager : Node2D
         InitializeInventorySlots();
         SetInventoryItemsToSlotsOnInventoryOpen();
     }
-
+    
     private void InitializeInventorySlots()
     {
         for (int i = 0; i < _inventorySlots.Length; i++)
@@ -81,24 +77,145 @@ public partial class InventoryManager : Node2D
         foreach (var item in _inventory.InventoryItems)
             _inventorySlots[item.Slot].SetInventoryItemToSlot(item);
     }
-
+    
     #endregion
-
-    public InventoryItem SetItemFromInventorySlotToMouseCursor(InventoryItem inventoryItem)
+    
+    
+    public void MakeDecision(int slotNumber, bool isSlotEmpty, MouseButton mouseButton, out int stackNo,
+        out string pngPath, out bool emptySlot)
     {
-        var cursorInventoryItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
-        _cursorFollowingSprite.ShowMouseFollowSprite(inventoryItem);
-        var isRemoved = _inventory.InventoryItems.Remove(inventoryItem);
-        foreach (var item in _inventory.InventoryItems)
+        stackNo = 0;
+        pngPath = "";
+        emptySlot = true;
+
+        if (isSlotEmpty)
         {
-            GD.Print(item.Variant);
+            HandleEmptySlot(slotNumber, out stackNo, out pngPath, out emptySlot);
+            return;
         }
 
-        MineActions.OnInventoryUpdate?.Invoke();
+        var item = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+        var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
 
-        return cursorInventoryItem;
+        if (mouseButton == MouseButton.Left)
+        {
+            HandleLeftMouseButton(item, cursorItem, slotNumber, out stackNo, out pngPath, out emptySlot);
+        }
+        else if (mouseButton == MouseButton.Right)
+        {
+            HandleRightMouseButton(item, cursorItem, out stackNo, out pngPath, out emptySlot);
+        }
+    }
+    
+     private void HandleEmptySlot(int slotNumber, out int stackNo, out string pngPath, out bool emptySlot)
+    {
+        var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
+        if (cursorItem != null)
+        {
+            DepositAllDifferentVariant(slotNumber);
+            var item1 = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
+            stackNo = item1.Stack;
+            pngPath = item1.PngPath;
+            emptySlot = false;
+        }
+        else
+        {
+            stackNo = 0;
+            pngPath = "";
+            emptySlot = true;
+        }
     }
 
+    private void HandleLeftMouseButton(InventoryItem item, InventoryItem cursorItem, int slotNumber,
+        out int stackNo, out string pngPath, out bool emptySlot)
+    {
+        if (cursorItem != null)
+        {
+            if (cursorItem.Variant == item.Variant)
+            {
+                DepositAllSameVariantStackable(item);
+                stackNo = item.Stack;
+                pngPath = item.PngPath;
+                emptySlot = false;
+            }
+            else
+            {
+                var cursorItemId = DepositAllDifferentVariant(slotNumber);
+                var item1 = _inventory.InventoryItems.FirstOrDefault(i => i.Id == cursorItemId);
+                stackNo = item1.Stack;
+                pngPath = item1.PngPath;
+                emptySlot = false;
+                PickUpAllDifferentVariant(DeepCopy(item));
+            }
+        }
+        else
+        {
+            PickUpAllDifferentVariant(item);
+            stackNo = 0;
+            pngPath = "";
+            emptySlot = true;
+        }
+    }
+
+    private void HandleRightMouseButton(InventoryItem item, InventoryItem cursorItem,
+        out int stackNo, out string pngPath, out bool emptySlot)
+    {
+        if (cursorItem == null)
+        {
+            if (!item.IsStackable)
+            {
+                PickUpAllDifferentVariant(item);
+                stackNo = 0;
+                pngPath = "";
+                emptySlot = true;
+            }
+            else
+            {
+                if (item.Stack > 1)
+                {
+                    PickUpOneByOneSameVariantStackable(item);
+                    stackNo = item.Stack;
+                    pngPath = item.PngPath;
+                    emptySlot = false;
+                }
+                else
+                {
+                    PickUpAllDifferentVariant(item);
+                    stackNo = 0;
+                    pngPath = "";
+                    emptySlot = true;
+                }
+            }
+        }
+        else
+        {
+            if (item.Variant == cursorItem.Variant)
+            {
+                if (item.Stack > 1)
+                {
+                    PickUpOneByOneSameVariantStackable(item);
+                    stackNo = item.Stack;
+                    pngPath = item.PngPath;
+                    emptySlot = false;
+                }
+                else
+                {
+                    PickUpAllSameVariantStackable(item);
+                    stackNo = 0;
+                    pngPath = "";
+                    emptySlot = true;
+                }
+            }
+            else
+            {
+                stackNo = item.Stack;
+                pngPath = item.PngPath;
+                emptySlot = false;
+            }
+        }
+    }
+    
+    
     #region Pick Up
 
     private void PickUpOneByOneSameVariantStackable(InventoryItem item)
@@ -120,7 +237,6 @@ public partial class InventoryManager : Node2D
             item.Stack--;
             _cursorFollowingSprite.ShowMouseFollowSprite(cursorItem);
         }
-        
     }
 
     private void PickUpAllSameVariantStackable(InventoryItem item)
@@ -146,6 +262,7 @@ public partial class InventoryManager : Node2D
 
     #endregion
 
+    
     #region Deposit
 
     private void DepositAllSameVariantStackable(InventoryItem slotItem)
@@ -168,134 +285,8 @@ public partial class InventoryManager : Node2D
     }
 
     #endregion
-
-    public void MakeDecision(int slotNumber, bool isSlotEmpty, MouseButton mouseButton, out int stackNo,
-        out string pngPath, out bool emptySlot)
-    {
-        if (!isSlotEmpty)
-        {
-            var item = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
-            var tempItem = DeepCopy(item);
-
-            if (mouseButton == MouseButton.Left)
-            {
-                if (_cursorFollowingSprite.GetCurrentCursorInventoryItem() != null)
-                {
-                    var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
-                    if (cursorItem.Variant == item.Variant)
-                    {
-                        //ADD TO STACK
-                        DepositAllSameVariantStackable(item);
-                        stackNo = item.Stack;
-                        pngPath = item.PngPath;
-                        emptySlot = false;
-                    }
-                    else
-                    {
-                        //SWAP
-                        
-                        var cursorItemId = DepositAllDifferentVariant(slotNumber);
-                        var item1 = _inventory.InventoryItems.FirstOrDefault(i => i.Id == cursorItemId);
-                        stackNo = item1.Stack;
-                        pngPath = item1.PngPath;
-                        emptySlot = false;
-                        PickUpAllDifferentVariant(tempItem);
-                    }
-                }
-                else
-                {
-                    //FROM SLOT TO CURSOR
-                    PickUpAllDifferentVariant(item);
-                    stackNo = 0;
-                    pngPath = "";
-                    emptySlot = true;
-                }
-            }
-            else if(mouseButton == MouseButton.Right)
-            {
-                //RIGHT BUTTON
-                var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
-                if (cursorItem == null)
-                {
-                    if (!item.IsStackable)
-                    {
-                        PickUpAllDifferentVariant(item);
-                        stackNo = 0;
-                        pngPath = "";
-                        emptySlot = true;
-                    }
-                    else
-                    {
-                        if (item.Stack > 1)
-                        {
-                            PickUpOneByOneSameVariantStackable(item);
-                            stackNo = item.Stack;
-                            pngPath = item.PngPath;
-                            emptySlot = false;
-                        }
-                        else
-                        {
-                            PickUpAllDifferentVariant(item);
-                            stackNo = 0;
-                            pngPath = "";
-                            emptySlot = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (item.Variant == cursorItem.Variant)
-                    {
-                        if (item.Stack > 1)
-                        {
-                            PickUpOneByOneSameVariantStackable(item);
-                            stackNo = item.Stack;
-                            pngPath = item.PngPath;
-                            emptySlot = false;
-                        }
-                        else
-                        {
-                            PickUpAllSameVariantStackable(item);
-                            stackNo = 0;
-                            pngPath = "";
-                            emptySlot = true;
-                        }
-                    }
-                    else
-                    {
-                        stackNo = item.Stack;
-                        pngPath = item.PngPath;
-                        emptySlot = false;
-                    }
-                }
-            }
-            else
-            {
-                stackNo = 0;
-                pngPath = "";
-                emptySlot = true;
-            }
-        }
-        else
-        {
-            var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
-            if (cursorItem == null)
-            {
-                stackNo = 0;
-                pngPath = "";
-                emptySlot = true;
-            }
-            else
-            {
-                DepositAllDifferentVariant(slotNumber);
-                var item1 = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
-                stackNo = item1.Stack;
-                pngPath = item1.PngPath;
-                emptySlot = false;
-            }
-        }
-    }
-
+    
+    
     private static T DeepCopy<T>(T obj)
     {
         if (obj == null)

@@ -36,6 +36,13 @@ public partial class MouseFollowingSprite : Control
     public void ShowMouseFollowSprite(InventoryItem inventoryItem)
     {
         _inventoryItem = inventoryItem;
+        if (inventoryItem == null)
+        {
+            Visible = false;
+            _textureRect.Texture = null;
+            _counterLabel.Text = "";
+            return;
+        }
         var texture2D = GD.Load<Texture2D>(_inventoryItem.PngPath);
         Visible = true;
         _textureRect.Texture = texture2D;

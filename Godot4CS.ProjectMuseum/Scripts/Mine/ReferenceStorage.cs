@@ -4,6 +4,7 @@ using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
+using Godot4CS.ProjectMuseum.Scripts.Mine.MineSettings;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -32,6 +33,7 @@ public partial class ReferenceStorage : Node
     [Export] public LoadingBarManager LoadingBarManager;
     [Export] public ParticleEffectSystem ParticleEffectSystem;
     [Export] public InventoryManager InventoryManager;
+    [Export] public MinePause MinePause;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;
@@ -39,6 +41,7 @@ public partial class ReferenceStorage : Node
     [Export] public DiscoveredArtifactVisualizer DiscoveredArtifactVisualizer;
     [Export] public MinePopUp MinePopUp;
     [Export] public MineUiController MineUiController;
+    [Export] public InventoryViewController InventoryViewController;
     
     //Particle Effects Scene Path//
     [Export] public string DepletedParticleExplosion;

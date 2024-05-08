@@ -35,6 +35,21 @@ public partial class PlayerInputHandler : Node2D
     {
         MouseActivities(inputEvent);
         SwitchEquipables(inputEvent);
+        // if (inputEvent.IsActionReleased("Inventory"))
+        // {
+        //     if (ReferenceStorage.Instance.MinePause.IsPaused)
+        //     {
+        //         GD.Print("UNPAUSING");
+        //         MineActions.OnGameUnpaused?.Invoke();
+        //         ReferenceStorage.Instance.InventoryViewController.HideInventory();
+        //     }
+        //     else
+        //     {
+        //         GD.Print("PAUSING");
+        //         MineActions.OnGamePaused?.Invoke();
+        //         ReferenceStorage.Instance.InventoryViewController.ShowInventory();
+        //     }
+        // }
     }
 
     private void MouseActivities(InputEvent inputEvent)

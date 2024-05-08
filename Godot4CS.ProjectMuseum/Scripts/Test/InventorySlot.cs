@@ -10,9 +10,11 @@ public partial class InventorySlot : PanelContainer
 	private InventoryManager _inventoryManager;
 
 	[Export] private TextureRect _textureRect;
+	[Export] private TextureRect _frameTextureRect;
 	[Export] private Label _itemCounter;
 	[Export] private bool _isSlotEmpty;
 	[Export] private int _slotNumber;
+	[Export] private bool _isUnlocked;
 
 	#region Initializers
     
@@ -39,11 +41,17 @@ public partial class InventorySlot : PanelContainer
 	}
 
 	public void SetSlotNumber(int slotNo) => _slotNumber = slotNo;
-    
+	public void SetSlotUnlockStatus(bool isUnlocked)
+	{
+		_isUnlocked = isUnlocked;
+		_frameTextureRect.SelfModulate = _isUnlocked ? Colors.White : Colors.DimGray;
+	}
+
 	#endregion
 
 	private void OnInputEvent(Node viewport, InputEvent inputEvent, int shape)
 	{
+		if(!_isUnlocked) return;
 		if (inputEvent.IsActionReleased("ui_left_click"))
 		{
 			_inventoryManager.MakeDecision(_slotNumber, _isSlotEmpty, MouseButton.Left, out var stackNumber, out var pngSlotPath, out var slotEmpty);

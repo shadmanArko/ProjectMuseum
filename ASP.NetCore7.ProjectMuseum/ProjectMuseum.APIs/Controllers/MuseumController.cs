@@ -182,7 +182,7 @@ public class MuseumController : ControllerBase
         return Ok(newMuseumTile);
     }
     //[HttpGet(ArtifactName = "GetWeatherForecast")]
-    [HttpPut("{id}")]
+    [HttpPut("UpdateMuseumTile/{id}")]
     public async Task<IActionResult> UpdateMuseumTile(string id, [FromBody] MuseumTile museumTile)
     {
         var updatedMuseumTile = await _museumTileService.UpdateMuseumTileById(id, museumTile);

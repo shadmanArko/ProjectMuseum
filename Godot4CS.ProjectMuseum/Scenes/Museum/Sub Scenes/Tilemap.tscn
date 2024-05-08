@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dxtfargoq8wot"]
+[gd_scene load_steps=32 format=3 uid="uid://dxtfargoq8wot"]
 
 [ext_resource type="Texture2D" uid="uid://b5k41sttbq2j5" path="res://Assets/2D/Sprites/Floorings/Ceramic 1.png" id="1_1fvqq"]
 [ext_resource type="Texture2D" uid="uid://hgfj3tv0o21c" path="res://Assets/2D/Sprites/Floorings/Ceramic 2.png" id="2_vr1x6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ch62gf86yp25j" path="res://Assets/2D/Sprites/Floorings/Wood 1.png" id="5_v3wv8"]
 [ext_resource type="Texture2D" uid="uid://d0uw0amq2qifi" path="res://Assets/2D/Sprites/Floorings/SaveSpot.png" id="6_2m3pq"]
 [ext_resource type="Texture2D" uid="uid://3xeyh5luiswl" path="res://Assets/2D/Sprites/Floorings/Wood 2.png" id="6_h4mlw"]
+[ext_resource type="Texture2D" uid="uid://i4yd3d2dwu78" path="res://Assets/2D/Sprites/Effects/dirt.png" id="7_2utbt"]
 [ext_resource type="Texture2D" uid="uid://15bn24arw6td" path="res://Assets/2D/Sprites/Floorings/Wood 3.png" id="7_hxakk"]
 [ext_resource type="Texture2D" uid="uid://dpxd7xi744vwq" path="res://Assets/2D/Sprites/Floorings/Wood 4.png" id="8_xbist"]
 [ext_resource type="Texture2D" uid="uid://binu4fcexiecc" path="res://Assets/2D/Sprites/Floorings/Damaged Tiles/1.png" id="12_jgmb3"]
@@ -44,6 +45,14 @@ texture_region_size = Vector2i(32, 16)
 texture = ExtResource("6_2m3pq")
 texture_region_size = Vector2i(32, 16)
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvdxv"]
+texture = ExtResource("7_2utbt")
+separation = Vector2i(2, 0)
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qnr26"]
 texture = ExtResource("3_pxfd2")
@@ -103,6 +112,7 @@ sources/10 = SubResource("TileSetAtlasSource_h0xx1")
 sources/11 = SubResource("TileSetAtlasSource_fomti")
 sources/12 = SubResource("TileSetAtlasSource_3nexj")
 sources/13 = SubResource("TileSetAtlasSource_a7est")
+sources/14 = SubResource("TileSetAtlasSource_kvdxv")
 
 [node name="TileMap" type="TileMap"]
 y_sort_enabled = true
@@ -115,4 +125,7 @@ layer_1/name = "Layer 1"
 layer_1/modulate = Color(1, 1, 1, 0.588235)
 layer_1/y_sort_enabled = true
 layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Layer 2"
+layer_2/y_sort_enabled = true
+layer_2/tile_data = PackedInt32Array()
 metadata/_edit_horizontal_guides_ = []

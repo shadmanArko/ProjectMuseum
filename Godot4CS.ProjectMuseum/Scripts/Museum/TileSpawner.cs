@@ -135,6 +135,10 @@ public partial class TileSpawner : TileMap
 			if (museumTile.XPosition < _minCellIndexX) _minCellIndexX = museumTile.XPosition;
 			if (museumTile.YPosition < _minCellIndexY) _minCellIndexY = museumTile.YPosition;
 			SetCell(0, new Vector2I(museumTile.XPosition, museumTile.YPosition), museumTile.TileSetNumber, Vector2I.Zero);
+			if (museumTile.IsDirty)
+			{
+				SetCell(2, new Vector2I(museumTile.XPosition, museumTile.YPosition), 14, Vector2I.Zero);
+			}
 		}
 
 		List<TileWallInfo> museumTilesToUpdateWalls = new List<TileWallInfo>();

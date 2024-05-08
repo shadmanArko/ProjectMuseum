@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=69 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -66,6 +66,7 @@
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DecorationsController.cs" id="62_bbh7l"]
+[ext_resource type="Script" path="res://Scripts/Museum/Controllers/MuseumDirtController.cs" id="67_6vtld"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -243,6 +244,7 @@ hframes = 4
 frame = 1
 
 [node name="WallsParent" type="Node2D" parent="museum"]
+z_index = 1
 y_sort_enabled = true
 
 [node name="MuseumTileEditor" type="Node2D" parent="museum"]
@@ -496,7 +498,6 @@ hframes = 6
 frame = 5
 
 [node name="FrontWalls" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls" node_paths=PackedStringArray("_walls")]
-z_index = 1
 y_sort_enabled = true
 position = Vector2(-15, -70)
 script = ExtResource("48_p7o0e")
@@ -509,6 +510,7 @@ _midWallOffset = Vector2(0, -33.5)
 _smallWallOffset = Vector2(0, -20)
 
 [node name="Right_front_wall" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls"]
+visible = false
 y_sort_enabled = true
 position = Vector2(3, 51)
 
@@ -700,6 +702,7 @@ texture = ExtResource("42_pnn6c")
 offset = Vector2(0, -49)
 
 [node name="Left_front_wall" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls"]
+visible = false
 y_sort_enabled = true
 position = Vector2(27, 51)
 rotation = -3.14159
@@ -871,6 +874,7 @@ hframes = 5
 frame = 1
 
 [node name="lamps and firehydrents" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
+z_index = 1
 y_sort_enabled = true
 position = Vector2(-15, -77)
 
@@ -913,7 +917,7 @@ script = ExtResource("26_vw67d")
 
 [node name="DayEndController" type="Node2D" parent="."]
 script = ExtResource("27_mm5mn")
-_dayEndTileCoord = Vector2i(-1, -5)
+_dayEndTileCoord = Vector2i(-17, -18)
 
 [node name="StoryController" type="Node2D" parent="."]
 script = ExtResource("29_6vdgp")
@@ -958,3 +962,6 @@ _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
 _sanitationItem = ExtResource("18_78kbp")
 ItemsParent = NodePath("../museum/ItemParents")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("67_6vtld")

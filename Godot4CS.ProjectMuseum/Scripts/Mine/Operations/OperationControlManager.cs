@@ -2,7 +2,9 @@
 using Godot;
 using System.Text;
 using System.Text.Json;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
@@ -17,22 +19,15 @@ public partial class OperationControlManager : Node2D
     [Export] private InventoryControllers.ConsumableController _consumableController;
     [Export] private InventoryControllers.EquipableController _equipableController;
     
-    private Inventory _inventory;
+    private InventoryDTO _inventoryDto;
     private int _slot;
     
     #region Initializers
 
     public override void _Ready()
     {
-        CreateHttpRequest();
         SubscribeToActions();
-    }
-
-    private void CreateHttpRequest()
-    {
-        _getPlayerInventoryHttpRequest = new HttpRequest();
-        AddChild(_getPlayerInventoryHttpRequest);
-        _getPlayerInventoryHttpRequest.RequestCompleted += OnGetPlayerInventoryHttpRequestComplete;
+        _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
     }
 
     private void SubscribeToActions()
@@ -55,7 +50,13 @@ public partial class OperationControlManager : Node2D
     {
         if(_slot == slot) return;
         _slot = slot;
-        GetPlayerInventory();
+        var inventoryItem = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);
+        if (inventoryItem == null)
+        {
+            GD.Print("inventory item is NULL");
+            return;
+        }
+        ActivateRequiredController(inventoryItem);
     }
     
     private void DeactivateActiveController()
@@ -70,41 +71,6 @@ public partial class OperationControlManager : Node2D
     #endregion
 
     #region Get Inventory
-
-    private void GetPlayerInventory()
-    {
-        var url = ApiAddress.PlayerApiPath+"GetInventory";
-        _getPlayerInventoryHttpRequest.CancelRequest();
-        _getPlayerInventoryHttpRequest.Request(url);
-        GD.Print("Get Player inventory called");
-    }
-	   
-    private void OnGetPlayerInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        _inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-        
-        if (_inventory == null)
-        {
-            GD.Print("INVENTORY IS NULL");
-            return;
-        }
-        
-        GD.Print($"inventory item count = {_inventory.InventoryItems.Count}");
-        if (_inventory.InventoryItems.Count <= 0)
-        {
-            GD.Print("Inventory empty");
-            return;
-        }
-
-        var inventoryItem = _inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);
-        if (inventoryItem == null)
-        {
-            GD.Print("inventory item is NULL");
-            return;
-        }
-        ActivateRequiredController(inventoryItem);
-    }
     
     private void ActivateRequiredController(InventoryItem inventoryItem)
     {

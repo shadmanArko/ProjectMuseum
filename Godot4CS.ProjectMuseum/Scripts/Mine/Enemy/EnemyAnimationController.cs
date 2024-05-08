@@ -11,8 +11,11 @@ public partial class EnemyAnimationController : AnimationPlayer
         if(animName == CurrentAnimation) return;
         
         if(animName == "death") Play(animName);
-        else if(animName == "damage" && CurrentAnimation != "death") 
+        else if (animName == "damage")
+        {
+            if(CurrentAnimation is "death") return;
             Play(animName);
+        }
         else if (animName == "aggro")
         {
             if(CurrentAnimation is "damage" or "death") return;

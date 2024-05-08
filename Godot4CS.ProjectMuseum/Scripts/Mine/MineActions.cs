@@ -6,6 +6,13 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineActions : Node
 {
+	#region Play Pause
+
+	public static Action OnGamePaused;
+	public static Action OnGameUnpaused;
+
+	#endregion
+	
 	#region Spawn Death Actions
 
 	public static Action OnPlayerSpawned;
@@ -65,11 +72,7 @@ public partial class MineActions : Node
     public static Action OnMineGenerated;
     public static Action OnMineCellBroken;
 
-    #endregion 
-
-    //for starting the enemy damage at the right moment
-    // public static Action OnPlayerAttackAnimationStarted; 
-    // public static Action OnPlayerAttackAnimationEnded;
+    #endregion
 
     public static Action OnSuccessfulDigActionCompleted;
 
@@ -105,6 +108,7 @@ public partial class MineActions : Node
     public static Action<int> OnToolbarSlotChanged;
     public static Action DeselectAllInventoryControllers;
     public static Action OnInventoryUpdate;
+    public static Action<int, Texture2D> OnInventoryItemDragged;
 
     #endregion
 

@@ -28,19 +28,22 @@ public class PlayerControllerVariables
 
     #region Gravity Variables
 
-    public float Gravity = 30f;
+    public float Gravity = 1f;
     
     #endregion
 
     #region Action Variables
     
     public MotionState State;
+
     public bool CanMove { get; set; }
+
     public bool IsAffectedByGravity { get; set; }
     
     public bool IsDead { get; set; }
 
     public bool IsAttacking { get; set; }
+    public bool IsDigging { get; set; }
 
     #endregion
 
@@ -79,7 +82,6 @@ public class PlayerControllerVariables
     #region Other Variables
 
     private int _currentEquippedItemSlot;
-
     public int CurrentEquippedItemSlot
     {
         get => _currentEquippedItemSlot;

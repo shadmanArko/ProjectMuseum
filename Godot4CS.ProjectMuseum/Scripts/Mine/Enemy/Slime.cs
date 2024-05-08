@@ -14,7 +14,7 @@ public partial class Slime : Enemy
     private MineGenerationVariables _mineGenerationVariables;
 
     private EnemyAi _enemyAi = new();
-    private Random _random = new Random(); 
+    private Random _random = new Random();
 
     #region Loitering Variables
 
@@ -31,13 +31,15 @@ public partial class Slime : Enemy
 
     #region Exploring Variables
 
-    [Export] private bool _hasWallOnLeft; 
-    [Export] private bool _hasWallOnRight; 
+    [Export] private bool _hasWallOnLeft;
+    [Export] private bool _hasWallOnRight;
 
     #endregion
-    
+
     [Export] private bool _isInsideMine;
-    
+
+    [Export] private int _idleCount;
+
     #region Initializers
 
     public override void _EnterTree()
@@ -61,7 +63,7 @@ public partial class Slime : Enemy
     private void SetValuesOnSpawn()
     {
         IsDead = false;
-        Health = 100;
+        Health = 25;
         IsAggro = false;
         CanMove = true;
         SetPhysicsProcess(true);
@@ -77,6 +79,7 @@ public partial class Slime : Enemy
     {
         OnSpawn += SetValuesOnSpawn;
         OnAggroChanged += PlayAggroAnimation;
+        OnTakeDamage += EnemyDamageAnimation;
     }
 
     #endregion
@@ -91,6 +94,7 @@ public partial class Slime : Enemy
             OnSpawn?.Invoke();
             return;
         }
+
         var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         _targetPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
@@ -105,35 +109,32 @@ public partial class Slime : Enemy
 
     private async void StartSlimeActivity()
     {
-        if (IsAggro)
-        {
-            // if (Phase != EnemyPhase.Hurt)
-            // {
-            //     if (Phase != EnemyPhase.Combat)
-            //     {
-            //         var validPos = _enemyAi.CheckForPathValidity(Position);
-            //         Phase = validPos != Vector2.Zero ? EnemyPhase.Chase : EnemyPhase.Explore;
-            //     }
-            // }
-        }
-        else Phase = EnemyPhase.Explore;
+        if(!IsAggro) Phase = EnemyPhase.Explore;
 
-        switch (Phase)
+        if (_idleCount > 0)
         {
-            case EnemyPhase.Explore:
-                await Explore();
-                break;
-            case EnemyPhase.Chase:
-                await Chase();
-                break;
-            case EnemyPhase.Combat:
-                await Attack();
-                break;
+            await PlayIdleAnimation();
+            _idleCount--;
+        }
+        else
+        {
+            switch (Phase)
+            {
+                case EnemyPhase.Explore:
+                    await Explore();
+                    break;
+                case EnemyPhase.Chase:
+                    await Chase();
+                    break;
+                case EnemyPhase.Combat:
+                    Attack();
+                    break;
+            }
         }
     }
 
     #endregion
-    
+
     public override void _PhysicsProcess(double delta)
     {
         if (IsDead)
@@ -141,72 +142,17 @@ public partial class Slime : Enemy
             SetPhysicsProcess(false);
             return;
         }
+
         if (!_isInsideMine)
             MoveIntoTheMine();
         else
             StartSlimeActivity();
-        
+
         ApplyGravity();
     }
 
     #region Phases
-
-    // #region Loiter
-    //
-    // private void DecideMoveTargetPosition()
-    // {
-    //     var tuple = _enemyAi.DetermineLoiteringPath(Position);
-    //     GD.Print($"tuple is null: {tuple == null}");
-    //     if (tuple == null)
-    //     {
-    //         IsAggro = true;
-    //         Phase = EnemyPhase.Teleport;
-    //         return;
-    //     }
-    //     _leftPos = tuple.Item1;
-    //     _rightPos = tuple.Item2;
-    //     GD.Print($"leftPos: {_leftPos}, rightPos: {_rightPos}");
-    //
-    //     _targetPos = _leftPos;
-    //     MoveDirection = Vector2.Left;
-    //     _isMovingLeft = true;
-    //     _isMovingRight = false;
-    // }
-    //
-    // private async Task Loiter()
-    // {
-    //     if (_targetPos == Vector2.Zero)
-    //         DecideMoveTargetPosition();
-    //     
-    //     if (_isMovingLeft)
-    //     {
-    //         if (_targetPos.X > Position.X)
-    //         {
-    //             IsMoving = false;
-    //             _isMovingLeft = false;
-    //             _isMovingRight = true;
-    //             _targetPos = _rightPos;
-    //             MoveDirection = Vector2.Right;
-    //         }
-    //     }
-    //
-    //     if (_isMovingRight)
-    //     {
-    //         if (_targetPos.X < Position.X)
-    //         {
-    //             IsMoving = false;
-    //             _isMovingRight = false;
-    //             _isMovingLeft = true;
-    //             _targetPos = _leftPos;
-    //             MoveDirection = Vector2.Left;
-    //         }
-    //     }
-    //     
-    //     await Move();
-    // }
-    //
-    // #endregion
-
+    
     #region Explore
 
     private async Task Explore()
@@ -216,6 +162,7 @@ public partial class Slime : Enemy
             AnimationController.PlayAnimation("idle");
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         }
+
         if (_hasWallOnLeft)
         {
             _isMovingLeft = false;
@@ -286,11 +233,17 @@ public partial class Slime : Enemy
     // }
     //
     // #endregion
-    
+
     #region Chase
 
     public override async Task Chase()
     {
+        if (!IsAggro)
+        {
+            AnimationController.PlayAnimation("aggro");
+            await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        }
+
         var posToGo = _enemyAi.CheckForPathValidity(Position);
         var currentAnim = AnimationController.CurrentAnimation;
         if (posToGo == Vector2.Zero)
@@ -301,7 +254,7 @@ public partial class Slime : Enemy
             Phase = EnemyPhase.Explore;
             return;
         }
-        
+
         _targetPos = posToGo;
         if (_targetPos.X < Position.X)
         {
@@ -317,22 +270,21 @@ public partial class Slime : Enemy
         }
 
         await Move();
-
     }
 
     #endregion
-    
+
     #endregion
-    
+
     #region States
-    
+
     #region Move
-    
+
     private async Task Move()
     {
         if (IsMoving && !IsAttacking)
         {
-            if(IsInAttackRange) return;
+            if (IsInAttackRange) return;
             AnimationController.PlayAnimation("move");
             if (_isMovingLeft)
             {
@@ -355,157 +307,129 @@ public partial class Slime : Enemy
         {
             Velocity = new Vector2(0, Velocity.Y);
             MoveAndSlide();
-            AnimationController.Play("idle");
+            AnimationController.PlayAnimation("idle");
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
             IsMoving = true;
         }
     }
-    
+
     #endregion
-    
+
     #region Attack
-    
-    public override async Task Attack()
+
+    public override void Attack()
     {
-        if(!IsInAttackRange) return;
-        if(!IsAttacking) return;
+        if (!IsInAttackRange) return;
+        if (!IsAttacking) return;
         IsMoving = false;
         IsAttacking = false;
-        GD.Print("Inside attack method");
         var lookAtPlayer = new Vector2(_playerControllerVariables.Position.X - Position.X, 0).Normalized();
         AnimationController.MoveDirection(lookAtPlayer);
         AnimationController.PlayAnimation("attack");
-        //TODO: player taking damage must come from damage database where the damage value and status effects are registered
         MineActions.OnTakeDamageStarted?.Invoke(10);
+        _idleCount = 1;
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+        IsMoving = true;
+    }
+
+    #endregion
+
+    #region Take Damage
+
+    public override void TakeDamage()
+    {
+        if (IsDead) return;
+        if (IsTakingDamage) return;
+        IsMoving = false;
+        IsTakingDamage = true;
+        _isKnockBack = true;
+
+        HealthSystem.ReduceEnemyHealth(5, 25, this);
+    }
+
+    private async void EnemyDamageAnimation()
+    {
+        AnimationController.PlayAnimation("damage");
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-        GD.Print("attack animation complete");
+        IsTakingDamage = false;
+        _idleCount = 2;
+        IsMoving = false;
+        // if(Health <= 0) Death();
+        IsMoving = true;
+    }
+
+    private async Task PlayIdleAnimation()
+    {
+        IsMoving = false;
         AnimationController.PlayAnimation("idle");
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsMoving = true;
     }
-    
+
     #endregion
-    
-    #region Take Damage
-    
-    public override void TakeDamage()
-    {
-        if(IsDead) return;
-        if (IsTakingDamage) return;
-        IsTakingDamage = true;
-        IsMoving = false;
-        
-        AnimationController.PlayAnimation("damage");
-        _isKnockBack = true;
-        GD.Print($"from knock back is attacking {_playerControllerVariables.IsAttacking}");
-        HealthSystem.ReduceEnemyHealth(10, 100, this);
-        IsMoving = true;
-        IsTakingDamage = false;
-    }
-    
-    #endregion
-    
+
     #region Death
-    
-    public override async void Death()
+
+    public override void Death()
     {
         IsDead = true;
+        IsMoving = false;
         SetPhysicsProcess(false);
         AnimationController.PlayAnimation("death");
-        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength * 1000));
+        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength * 1000));
         GD.Print("ENEMY DYING");
     }
-    
+
     private void OnDeathAnimationComplete(string animName)
     {
-        if(animName != "death") return;
+        if (animName != "death") return;
         QueueFree();
     }
-    
+
     #endregion
     
-    // #region Dig In Dig Out
-    //
-    // private void DigIn()
-    // {
-    //     if(AnimationController.CurrentAnimation == "digIn") return;
-    //     IsMoving = false;
-    //     AnimationController.PlayAnimation("digIn");
-    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-    // }
-    //
-    // private void OnDigInAnimationFinished(string animName)
-    // {
-    //     if (animName != "digIn") return;
-    //     // DigOut();
-    // }
-    //
-    // private void DigOut()
-    // {
-    //     // var currentEnemyPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
-    //     // var digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
-    //     // while (digOutPos.Equals(Vector2.Zero))
-    //     //     digOutPos = _enemyAi.DetermineDigOutPosition(currentEnemyPos);
-    //     // var rand = new Random();
-    //     // // await Task.Delay(rand.Next(2000, 5000));
-    //     // Position = digOutPos;
-    //     // AnimationController.PlayAnimation("digOut");
-    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-    // }
-    //
-    // private void OnDigOutAnimationFinished(string animName)
-    // {
-    //     if (animName != "digOut") return;
-    //     // AnimationController.PlayAnimation("idle");
-    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-    //     // AnimationController.PlayAnimation("idle");
-    //     // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-    //     // IsMoving = true;
-    // }
-    //
-    // #endregion
-    
+
     #region Idle
-    
+
     private void Idle()
     {
         AnimationController.PlayAnimation("idle");
     }
-    
+
     private void OnIdleAnimationFinished(string animName)
     {
         if (animName != "idle") return;
         CanMove = true;
         IsMoving = true;
     }
-    
+
     #endregion
 
     #region Aggro
 
-    private async void PlayAggroAnimation()
+    private void PlayAggroAnimation()
     {
         GD.Print($"IsAggro changed {IsAggro}");
         IsMoving = false;
         AnimationController.PlayAnimation("aggro");
-        await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
     }
 
     private void OnAggroAnimationFinished(string animName)
     {
-        if(animName != "aggro") return;
+        if (animName != "aggro") return;
         IsMoving = true;
     }
 
     #endregion
-    
+
     #endregion
 
     #region Physics
-    
+
     #region Gravity
 
     [Export] private bool _isGrounded;
+
     private void ApplyGravity()
     {
         if (_isGrounded)
@@ -513,10 +437,11 @@ public partial class Slime : Enemy
             Velocity = new Vector2(Velocity.X, 0);
             return;
         }
+
         Velocity = new Vector2(0, Velocity.Y + _gravity);
         MoveAndSlide();
     }
-    
+
     private void OnCellBlockEnter(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
@@ -525,7 +450,7 @@ public partial class Slime : Enemy
             _isGrounded = true;
         }
     }
-    
+
     private void OnCellBlockExit(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
@@ -536,14 +461,13 @@ public partial class Slime : Enemy
             // GD.Print("is Falling");
         }
     }
-    
+
     [Export] private float _gravity;
     [Export] private float _finalGravity;
 
     private void ApplyGravity(bool collisionBool, float delta)
 
     {
-
         if (!collisionBool)
 
         {
@@ -552,7 +476,6 @@ public partial class Slime : Enemy
             velocity.Y = Mathf.Clamp(velocity.Y, 0, _finalGravity);
             Velocity = velocity;
         }
-
     }
 
     #endregion
@@ -560,9 +483,10 @@ public partial class Slime : Enemy
     #region Knock Back
 
     [Export] private bool _isKnockBack;
+
     private async void KnockBack()
     {
-        if(!_isKnockBack) return;
+        if (!_isKnockBack) return;
         _isKnockBack = false;
         var playerDirection = _playerControllerVariables.PlayerDirection;
         var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
@@ -600,7 +524,7 @@ public partial class Slime : Enemy
         GD.Print("has wall on the left enter, move direction = right");
         _hasWallOnLeft = true;
     }
-    
+
     private void OnLeftWallAreaCollisionExit(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
@@ -616,7 +540,7 @@ public partial class Slime : Enemy
         GD.Print("has wall on the right enter, move direction = left");
         _hasWallOnRight = true;
     }
-    
+
     private void OnRightWallAreaCollisionExit(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
@@ -629,6 +553,7 @@ public partial class Slime : Enemy
     {
         OnSpawn -= SetValuesOnSpawn;
         OnAggroChanged -= PlayAggroAnimation;
+        OnTakeDamage -= EnemyDamageAnimation;
     }
 
     public override void _ExitTree()

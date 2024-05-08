@@ -37,9 +37,12 @@ public partial class EquipableController : InventoryController
     {
         if(!IsControllerActivated) return;
         IsControllerActivated = false;
+        MineActions.OnLeftMouseHeldActionEnded?.Invoke();
         UnsubscribeToActions();
         MineActions.OnInventoryUpdate?.Invoke();
     }
+
+    #region Subscribe and Unsubscribe to Actions
 
     private void SubscribeToActions()
     {
@@ -71,7 +74,6 @@ public partial class EquipableController : InventoryController
                 break;
             case "Melee":
                 MineActions.OnLeftMouseClickAction -= MeleeActionStart;
-                // MineActions.OnMeleeAttackActionEnded -= MeleeActionEnd;
                 break;
             case "Ranged":
                 break;
@@ -80,18 +82,24 @@ public partial class EquipableController : InventoryController
         MineActions.DeselectAllInventoryControllers -= DeactivateController;
     }
 
+    #endregion
+
+    #region Melee Attack
+
     private void MeleeActionStart()
     {
-        // if(_playerControllerVariables.IsAttacking) return;
-        GD.Print("inside melee action started");
         if(!_playerControllerVariables.CanAttack) return;
-        // _playerControllerVariables.IsAttacking = true;
         MineActions.OnMeleeAttackActionStarted?.Invoke();
         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
     }
 
+    #endregion
+
+    #region Dig Start and End
+
     private void DigActionStart()
     {
+        _playerControllerVariables.IsDigging = true;
         GD.Print("inside dig action started");
         SetProcess(true);
     }
@@ -99,16 +107,21 @@ public partial class EquipableController : InventoryController
     private void DigActionEnd()
     {
         SetProcess(false);
+        _playerControllerVariables.IsDigging = false;
     }
+
+    #endregion
     
     public override void _Process(double delta)
     {
-        if (_playerControllerVariables.CanDig)
+        if (_playerControllerVariables.CanDig && _playerControllerVariables.PlayerEnergy > 0)
         {
+            _playerControllerVariables.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
             MineActions.OnDigActionStarted?.Invoke();
-            // GD.Print("is digging");
             MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
         }
+        else
+            DigActionEnd();
     }
 
     #endregion

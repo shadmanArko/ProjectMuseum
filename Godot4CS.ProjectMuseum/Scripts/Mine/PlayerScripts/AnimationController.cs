@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -74,6 +75,7 @@ public partial class AnimationController : AnimationPlayer
 				break;
 		}
 	}
+	
 	private void PlayHangingAnimations(Vector2 velocity)
 	{
 		switch (velocity.X)
@@ -183,35 +185,67 @@ public partial class AnimationController : AnimationPlayer
 
 	public void PlayAnimation(string state)
 	{
-		if (_playerControllerVariables.State == MotionState.Hanging)
+		if(state == CurrentAnimation) return;
+		if (state == "death")
 		{
-			if(state == "climb_idle")
+			Play(state);
+		}
+		else if (state == "damage1")
+		{
+			if(CurrentAnimation == "death") return;
+			Play(state);
+		}
+		else if (state.Contains("celebrate"))
+		{
+			if(CurrentAnimation is "damage1" or "death") return;
+			Play(state);
+		}
+		else if (state.Contains("brush"))
+		{
+			if(CurrentAnimation is "damage1" or "death" or "celebrate") return;
+			Play(state);
+		}
+		else if (state.Contains("attack"))
+		{
+			if(CurrentAnimation is "damage1" or "death" or "celebrate" or "brush") return;
+			Play(state);
+		}
+		else if (state.Contains("mine") || state.Contains("mining"))
+		{
+			if(CurrentAnimation is "damage1" or "death" or "celebrate" or "brush" or "attack") return;
+			Play(state);
+		}
+		else
+		{
+			if (_playerControllerVariables.State == MotionState.Hanging)
 			{
-				if (CurrentAnimation == "")
+				if(state == "climb_idle")
+				{
+				
+				}
+				else
 				{
 					Play(state);
 				}
 			}
 			else
 			{
-				Play(state);
-			}
-		}
-		else
-		{
-			if (state == "idle")
-			{
-				if(CurrentAnimation == "")
+				if (state == "idle")
+				{
+					if(CurrentAnimation == "")
+						Play(state);
+				}
+				else if (state == "run")
+				{
+					if(CurrentAnimation != "attack" && !CurrentAnimation.Contains("mining") && !CurrentAnimation.Contains("brush"))
+						Play(state);
+				}
+				else
 					Play(state);
 			}
-			else if (state == "run")
-			{
-				if(CurrentAnimation != "attack" && !CurrentAnimation.Contains("mining") && !CurrentAnimation.Contains("brush"))
-					Play(state);
-			}
-			else
-				Play(state);
 		}
+		
+		
 	}
 
 	private void ToggleHangOnWall()

@@ -68,7 +68,7 @@ public partial class MiniGameController : Node2D
 	
 	private async void MiniGameWon()
 	{
-		var animationController = _playerControllerVariables.Player.animationController;
+		var animationController = _playerControllerVariables.Player.AnimationController;
 		animationController.Play("celebrate");
 		await Task.Delay(Mathf.CeilToInt(animationController.CurrentAnimationLength * 1000));
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
@@ -79,7 +79,7 @@ public partial class MiniGameController : Node2D
 	
 	private void MiniGameLost()
 	{
-		_playerControllerVariables.Player.animationController.PlayAnimation("idle");
+		_playerControllerVariables.Player.AnimationController.PlayAnimation("idle");
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
 	}
@@ -90,7 +90,7 @@ public partial class MiniGameController : Node2D
 		_playerControllerVariables.CanToggleClimb = false;
 		_playerControllerVariables.CanAttack = false;
 		_playerControllerVariables.CanDig = false;
-		_playerControllerVariables.Player.animationController.PlayAnimation("brush");
+		_playerControllerVariables.Player.AnimationController.PlayAnimation("brush");
 	}
 
 	private void ContinuePlayerMovementAfterMiniGame()

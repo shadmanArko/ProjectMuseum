@@ -52,6 +52,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
     public Action OnAggroChanged;
     public Action OnAttackChanged;
     public Action OnCanMoveChanged;
+    public Action OnTakeDamage;
 
     #endregion
 
@@ -173,10 +174,14 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
         get => _health;
         set
         {
+            var newHealth = value;
+            var currentHealth = _health;
             _health = value;
             HealthBar.Value = _health;
             
-            if(_health <= 0 && !_isDead)Death();
+            if(currentHealth > newHealth)
+                OnTakeDamage?.Invoke();
+            if(_health <= 0) Death();
         }
     }
 
@@ -189,9 +194,9 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
         return null;
     }
 
-    public virtual Task Attack()
+    public virtual void Attack()
     {
-        return null;
+        
     }
 
     public virtual void TakeDamage()
@@ -201,7 +206,6 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
 
     public virtual void Death()
     {
-        
         GD.Print("Enemy Death Called");
     }
 }

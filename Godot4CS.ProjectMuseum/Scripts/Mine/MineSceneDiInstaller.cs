@@ -17,6 +17,8 @@ public partial class MineSceneDiInstaller : Node
 		ServiceRegistry.RegisterSingleton<MineCellCrackMaterial>();
 		ServiceRegistry.RegisterSingleton<RawArtifactDTO>();
 		
+		ServiceRegistry.RegisterSingleton<InventoryDTO>();
+		
 		ServiceRegistry.Initialize();
 	}
 }

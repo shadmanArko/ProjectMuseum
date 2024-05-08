@@ -1,5 +1,7 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactDescriptiveRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepository.RawArtifactFunctionalRepository;
 
 namespace ProjectMuseum.Repositories;
 
@@ -7,11 +9,16 @@ public class InventoryRepository : IInventoryRepository
 {
     private readonly JsonFileDatabase<Inventory> _inventoryDatabase;
     private readonly JsonFileDatabase<Resource> _resourceDatabase;
+    private readonly IRawArtifactFunctionalRepository _rawArtifactFunctionalRepository;
+    private readonly IRawArtifactDescriptiveRepository _rawArtifactDescriptiveRepository;
+    
 
-    public InventoryRepository(JsonFileDatabase<Inventory> inventoryDatabase, JsonFileDatabase<Resource> resourceDatabase)
+    public InventoryRepository(JsonFileDatabase<Inventory> inventoryDatabase, JsonFileDatabase<Resource> resourceDatabase, IRawArtifactFunctionalRepository rawArtifactFunctionalRepository, IRawArtifactDescriptiveRepository rawArtifactDescriptiveRepository)
     {
         _inventoryDatabase = inventoryDatabase;
         _resourceDatabase = resourceDatabase;
+        _rawArtifactFunctionalRepository = rawArtifactFunctionalRepository;
+        _rawArtifactDescriptiveRepository = rawArtifactDescriptiveRepository;
     }
     
     public async Task<List<InventoryItem>?> GetAllEquipables()
@@ -37,8 +44,14 @@ public class InventoryRepository : IInventoryRepository
         var artifacts = inventory?.Artifacts;
 
         if (artifacts != null)
+        {
             foreach (var artifact in artifacts)
+            {
                 await ReleaseOccupiedSlot(artifact.Slot);
+                var inventoryItem = inventory!.InventoryItems.FirstOrDefault(item => item.Id == artifact.Id);
+                if(inventoryItem != null) inventory.InventoryItems.Remove(inventoryItem);
+            }
+        }
         
         artifacts?.Clear();
         if (listOfInventory != null) await _inventoryDatabase.WriteDataAsync(listOfInventory);
@@ -91,14 +104,30 @@ public class InventoryRepository : IInventoryRepository
         var listOfInventory = await _inventoryDatabase.ReadDataAsync();
         var inventory = listOfInventory?[0];
         var newEmptySlot = await GetNextEmptySlot();
-        // if (newEmptySlot == -1)
-        // {
-        //     Console.WriteLine("ERROR!! item slot number is NEGATIVE");
-        //     return artifact;
-        // }
+
+        var rawArtifactFunctionals = await _rawArtifactFunctionalRepository.GetAllRawArtifactFunctional();
+        var rawArtifactFunctional = rawArtifactFunctionals!.FirstOrDefault(raw => raw.Id == artifact.RawArtifactId);
+        var rawArtifactDescriptives = await _rawArtifactDescriptiveRepository.GetAllRawArtifactDescriptive();
+        var rawArtifactDescriptive = rawArtifactDescriptives!.FirstOrDefault(raw => raw.Id == artifact.RawArtifactId);
+        
+        var inventoryItem = new InventoryItem
+        {
+            Id = artifact.Id,
+            Type = "Artifact",
+            Category = "",
+            Variant = rawArtifactDescriptive!.ArtifactName,
+            IsStackable = false,
+            Name = rawArtifactDescriptive.ArtifactName,
+            PngPath = rawArtifactFunctional!.SmallImageLocation,
+            Slot = newEmptySlot,
+            Stack = 1
+        };
+        
         artifact.Slot = newEmptySlot;
         inventory?.OccupiedSlots.Add(newEmptySlot);
         var artifacts = inventory?.Artifacts;
+        var inventoryItems = inventory!.InventoryItems;
+        inventoryItems.Add(inventoryItem);
         artifacts?.Add(artifact);
         if (listOfInventory != null) await _inventoryDatabase.WriteDataAsync(listOfInventory);
         return artifact;

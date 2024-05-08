@@ -38,6 +38,7 @@ public partial class EnemyCollisionDetector : Node2D
         _enemy.IsInAttackRange = true;
         _enemy.IsMoving = false;
         _enemy.Phase = EnemyPhase.Combat;
+        // _enemy.Attack();
         _enemy.IsAttacking = true;
         _enemyCooldown = true;
     }

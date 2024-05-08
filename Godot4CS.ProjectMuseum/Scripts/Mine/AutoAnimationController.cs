@@ -70,7 +70,7 @@ public partial class AutoAnimationController : Node2D
 	
 	public void SetPlayerRun()
 	{
-		_animationController = _playerControllerVariables.Player.animationController;
+		_animationController = _playerControllerVariables.Player.AnimationController;
 		_playerController = _playerControllerVariables.Player;
 		_playerControllerVariables.Player.Position = new Vector2(250, -58);
 		_playerControllerVariables.CanMove = false;
@@ -120,7 +120,8 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.IsAffectedByGravity = true;
 		_playerControllerVariables.Gravity = 30f;
 		_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
-        
+		_playerControllerVariables.CurrentEquippedItemSlot = 1;
+		
 		var isTutorialPlaying = ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying();
 		var firstDayPassed = ReferenceStorage.Instance.MineTimeSystem.GetTime().Days > 1;
         

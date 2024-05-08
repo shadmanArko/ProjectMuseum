@@ -251,4 +251,24 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     }
 
     #endregion
+
+    private void OnCellBlockEnter(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        if (hasCollidedWithMine)
+        {
+            _playerControllerVariables.State = MotionState.Grounded;
+            GD.Print($"player state = {_playerControllerVariables.State}");
+        }
+    }
+
+    private void OnCellBlockExit(Node2D body)
+    {
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        if (hasCollidedWithMine && _playerControllerVariables.State != MotionState.Hanging)
+        {
+            _playerControllerVariables.State = MotionState.Falling;
+            GD.Print($"player state = {_playerControllerVariables.State}");
+        }
+    }
 }

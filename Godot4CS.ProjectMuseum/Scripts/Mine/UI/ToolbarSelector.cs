@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -17,7 +18,7 @@ public partial class ToolbarSelector : Node
 	
 	private RawArtifactDTO _rawArtifactDto;
     
-	private Inventory _inventory;
+	private InventoryDTO _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
 	private HttpRequest _getPlayerInventoryHttpRequest;
 
 	[Export] private string _toolbarSlotScenePath;
@@ -26,16 +27,13 @@ public partial class ToolbarSelector : Node
 
 	#region Initializers
 
-	public override void _EnterTree()
+	public override async void _Ready()
 	{
-		CreateHttpRequest();
 		InitializeDiReferences();
-	}
-
-	public override void _Ready()
-	{
 		SubscribeToActions();
 		_toolbarSlots = new List<ToolbarSlot>();
+		await Task.Delay(5000);
+		UpdateToolbar();
 	}
 	
 	private void InitializeDiReferences()
@@ -43,19 +41,12 @@ public partial class ToolbarSelector : Node
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
 	}
-
-	private void CreateHttpRequest()
-	{
-		_getPlayerInventoryHttpRequest = new HttpRequest();
-		AddChild(_getPlayerInventoryHttpRequest);
-		_getPlayerInventoryHttpRequest.RequestCompleted += OnGetPlayerInventoryHttpRequestComplete;
-	}
 	
 	private void SubscribeToActions()
 	{
 		MineActions.OnToolbarSlotChanged += SelectItem;
-		MineActions.OnInventoryUpdate += UpdatePlayerInventory;
-		MineActions.OnRawArtifactDTOInitialized += GetPlayerInventory;
+		MineActions.OnInventoryUpdate += UpdateToolbar;
+		MineActions.OnRawArtifactDTOInitialized += UpdateToolbar;
 	}
 
 	#endregion
@@ -64,36 +55,25 @@ public partial class ToolbarSelector : Node
 
 	#region Get Player Inventory
 
-	private void GetPlayerInventory()
+	private void RefreshToolbar()
 	{
-		var url = ApiAddress.PlayerApiPath+"GetInventory";
-		_getPlayerInventoryHttpRequest.CancelRequest();
-		_getPlayerInventoryHttpRequest.Request(url);
-	}
-	
-	private void OnGetPlayerInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		_inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-		
-		RemoveAllInventorySlots();
-		CreateInventorySlots();
-		SetArtifactsOnInventorySlots();
-		SetInventoryItemSlots();
+		RemoveAllToolbarSlots();
+		CreateToolbarSlots();
+		SetToolbarItemSlots();
 		SelectItem(_playerControllerVariables.CurrentEquippedItemSlot);
 	}
 
 	#endregion
 
-	private void UpdatePlayerInventory()
+	private void UpdateToolbar()
 	{
-		GetPlayerInventory();
 		GD.Print("UPDATING PLAYER INVENTORY");
+		RefreshToolbar();
 	}
 
-	private void CreateInventorySlots()
+	private void CreateToolbarSlots()
 	{
-		for (var i = 0; i < _inventory.SlotsUnlocked; i++)
+		for (var i = 0; i < 12; i++)
 		{
 			var toolbarSlot = ResourceLoader.Load<PackedScene>(_toolbarSlotScenePath).Instantiate() as ToolbarSlot;
 			if (toolbarSlot == null)
@@ -107,7 +87,7 @@ public partial class ToolbarSelector : Node
 		}
 	}
 
-	private void RemoveAllInventorySlots()
+	private void RemoveAllToolbarSlots()
 	{
 		if(_toolbarSlots.Count <= 0) return;
 		foreach (var t in _toolbarSlots)
@@ -116,10 +96,11 @@ public partial class ToolbarSelector : Node
 		_toolbarSlots = new List<ToolbarSlot>();
 	}
 
-	private void SetInventoryItemSlots()
+	private void SetToolbarItemSlots()
 	{
-		foreach (var inventoryItem in _inventory.InventoryItems)
+		foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
 		{
+			if (inventoryItem.Slot is < 0 or >= 12) continue;
 			_toolbarSlots[inventoryItem.Slot].SetItemTexture(inventoryItem.PngPath);
 			_toolbarSlots[inventoryItem.Slot].SetItemData(inventoryItem.Id, false);
 			
@@ -132,8 +113,8 @@ public partial class ToolbarSelector : Node
 
 	private void SetArtifactsOnInventorySlots()
 	{
-		if(_inventory.Artifacts.Count <= 0) return;
-		foreach (var artifact in _inventory.Artifacts)
+		if(_inventoryDto.Inventory.Artifacts.Count <= 0) return;
+		foreach (var artifact in _inventoryDto.Inventory.Artifacts)
 		{
 			var rawArtifactFunctional =
 				_rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(rawArtifactFunctional => rawArtifactFunctional.Id == artifact.RawArtifactId);
@@ -161,6 +142,8 @@ public partial class ToolbarSelector : Node
 	{
 		GD.Print($"current item selected in toolbar: {itemNumber}");
 		DeselectAllItems();
+		GD.Print($"item number: {itemNumber}");
+		GD.Print($"toolbar slots: {_toolbarSlots.Count}");
 		_toolbarSlots[itemNumber].SetItemAsSelected();
 	}
 
@@ -178,8 +161,8 @@ public partial class ToolbarSelector : Node
 	private void UnsubscribeToActions()
 	{
 		MineActions.OnToolbarSlotChanged -= SelectItem;
-		MineActions.OnInventoryUpdate -= UpdatePlayerInventory;
-		MineActions.OnRawArtifactDTOInitialized -= GetPlayerInventory;
+		MineActions.OnInventoryUpdate -= UpdateToolbar;
+		MineActions.OnRawArtifactDTOInitialized -= UpdateToolbar;
 	}
 
 	public override void _ExitTree()

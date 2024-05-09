@@ -1,26 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://0v3ikej83pig"]
+[gd_scene load_steps=3 format=3 uid="uid://0v3ikej83pig"]
 
 [ext_resource type="Texture2D" uid="uid://v7plrsjmv4dm" path="res://Assets/2D/Sprites/Wallpapers/basic_red_wallpaper.png" id="1_ynp8b"]
 [ext_resource type="Script" path="res://Scripts/Museum/Wall.cs" id="2_ltd76"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b0d5l"]
-load_path = "res://.godot/imported/green_flower_wallpaper.png-a679b4469b481c52e3fbc43a58ee2e34.ctex"
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("_wallSprite", "_wallPreview")]
+y_sort_enabled = true
+script = ExtResource("2_ltd76")
+_wallSprite = NodePath("LeafyGreenWallPaper1")
+_wallPreview = NodePath("LeafyGreenWallPaper1/Wall Preview")
 
-[node name="LeafyGreenWallPaper1" type="Sprite2D" node_paths=PackedStringArray("_wallPreview")]
+[node name="LeafyGreenWallPaper1" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(-360, -212)
+position = Vector2(-8, -11)
 texture = ExtResource("1_ynp8b")
-offset = Vector2(-14, -50)
+offset = Vector2(-6, -41.5)
 hframes = 3
-script = ExtResource("2_ltd76")
-_wallPreview = NodePath("Wall Preview")
-_wallPreviewSprite = SubResource("CompressedTexture2D_b0d5l")
 
-[node name="Wall Preview" type="Sprite2D" parent="."]
+[node name="Wall Preview" type="Sprite2D" parent="LeafyGreenWallPaper1"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 texture_filter = 1
 texture = ExtResource("1_ynp8b")
-offset = Vector2(-14, -50)
+offset = Vector2(-6, -41.5)
 hframes = 3

@@ -30,7 +30,6 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 6
 script = ExtResource("1_1qo2i")
-_toolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn"
 
 [node name="Health Bar" type="TextureProgressBar" parent="."]
 texture_filter = 1

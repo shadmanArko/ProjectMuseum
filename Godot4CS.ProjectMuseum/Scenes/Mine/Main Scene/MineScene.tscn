@@ -70,7 +70,6 @@ DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
 MinePopUp = NodePath("../MineUI/MinePopUp")
 MineUiController = NodePath("../MineUI")
 InventoryViewController = NodePath("../MineUI/Inventory")
-DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn"
 Tooltip = NodePath("../MineUI/Tooltip4")
 
 [node name="SceneLoader" parent="." instance=ExtResource("22_h2clm")]

@@ -9,6 +9,7 @@ public partial class MineUiController : CanvasLayer
 	[Export] private TextureProgressBar _healthBar;
 	[Export] private TextureProgressBar _energyBar;
 	[Export] private Label _playerCoordinates;
+	[Export] private HBoxContainer _toolbarPanel;
 	
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -32,6 +33,20 @@ public partial class MineUiController : CanvasLayer
 		MineActions.OnPlayerHealthValueChanged += UpdateHealthBar;
 		MineActions.OnPlayerEnergyValueChanged += UpdateEnergyBar;
 		MineActions.OnPlayerPositionUpdated += SetPlayerCoordinates;
+	}
+
+	#endregion
+
+	#region Toolbar Panel
+
+	public void ShowToolbarPanel()
+	{
+		_toolbarPanel.Visible = true;
+	}
+
+	public void HideToolbarPanel()
+	{
+		_toolbarPanel.Visible = false;
 	}
 
 	#endregion

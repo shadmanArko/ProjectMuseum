@@ -37,12 +37,14 @@ public partial class MinePause : Node2D
             GD.Print("UNPAUSING");
             MineActions.OnGameUnpaused?.Invoke();
             ReferenceStorage.Instance.InventoryViewController.HideInventory();
+            ReferenceStorage.Instance.MineUiController.ShowToolbarPanel();
         }
         else
         {
             GD.Print("PAUSING");
             MineActions.OnGamePaused?.Invoke();
             ReferenceStorage.Instance.InventoryViewController.ShowInventory();
+            ReferenceStorage.Instance.MineUiController.HideToolbarPanel();
         }
     }
 

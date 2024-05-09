@@ -44,7 +44,8 @@ public partial class ReferenceStorage : Node
     [Export] public InventoryViewController InventoryViewController;
     
     //Particle Effects Scene Path//
-    [Export] public string DepletedParticleExplosion;
+    [Export] public string DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn";
+    [Export] public string ToolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn";
 
     [Export] public MineSceneTooltip Tooltip;
     

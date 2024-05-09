@@ -40,7 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://dxanc4qqrv5x7" path="res://Scenes/Museum/Museum Ui/Artifact score UI/artifact_score_ui.tscn" id="26_waa14"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
-[ext_resource type="PackedScene" uid="uid://brfcw3x8aid8m" path="res://Scenes/Museum/Sub Scenes/GirlGuest.tscn" id="31_1byeq"]
+[ext_resource type="PackedScene" uid="uid://brfcw3x8aid8m" path="res://Scenes/Museum/Sub Scenes/FemaleGuest.tscn" id="31_1byeq"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
 [ext_resource type="Texture2D" uid="uid://c78tucptefcji" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="36_hg2i6"]

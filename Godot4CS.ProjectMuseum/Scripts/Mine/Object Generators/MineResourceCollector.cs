@@ -47,6 +47,7 @@ public partial class MineResourceCollector : Node
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_inventory = ServiceRegistry.Resolve<Inventory>();
 	}
 
 	private void SubscribeToActions()
@@ -65,16 +66,9 @@ public partial class MineResourceCollector : Node
 		if(cell.HitPoint > 0) return;
 		if(!cell.HasResource) return;
 		
-		var url = ApiAddress.PlayerApiPath+"GetInventory";
-		_getInventoryHttpRequest.CancelRequest();
-		_getInventoryHttpRequest.Request(url);
-	}
-	   
-	private async void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		_inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-        
+		// var url = ApiAddress.PlayerApiPath+"GetInventory";
+		// _getInventoryHttpRequest.CancelRequest();
+		// _getInventoryHttpRequest.Request(url);
 		if (_inventory == null)
 		{
 			GD.Print("INVENTORY IS NULL");
@@ -91,6 +85,30 @@ public partial class MineResourceCollector : Node
 			GD.Print("adding resource to inventory");
 			CollectResources();
 		}
+	}
+	   
+	private void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	{
+		// var jsonStr = Encoding.UTF8.GetString(body);
+		// _inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
+        
+		
+		// if (_inventory == null)
+		// {
+		// 	GD.Print("INVENTORY IS NULL");
+		// 	return;
+		// }
+  //       
+		// if (_inventory.OccupiedSlots.Count >= _inventory.SlotsUnlocked)
+		// {
+		// 	GD.PrintErr("No empty slots in inventory");
+		// 	ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
+		// }
+		// else
+		// {
+		// 	GD.Print("adding resource to inventory");
+		// 	CollectResources();
+		// }
 	}
     
 	#endregion
@@ -116,8 +134,15 @@ public partial class MineResourceCollector : Node
 
 	private void SendResourceFromMineToInventory(string resourceId)
 	{
-		var url = ApiAddress.MineApiPath + "SendResourceFromMineToInventory/" + resourceId;
-		_sendResourceFromMineToInventoryHttpRequest.Request(url);
+		// var url = ApiAddress.MineApiPath + "SendResourceFromMineToInventory/" + resourceId;
+		// _sendResourceFromMineToInventoryHttpRequest.Request(url);
+		var mine = _mineGenerationVariables.Mine;
+		var resources = _mineGenerationVariables.Mine.Resources;
+		var resourceToRemove = resources.FirstOrDefault(res => res.Id == resourceId);
+		if (resourceToRemove != null) resources.Remove(resourceToRemove);
+		var cell = mine?.Cells.FirstOrDefault(cell => resourceToRemove != null && cell.PositionX == resourceToRemove.PositionX && cell.PositionY == resourceToRemove.PositionY);
+		if (cell != null) cell.HasResource = false;
+		//TODO: add inventory item has to be implemented here
 	}
 	
 	private void OnSendResourceFromMineToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)

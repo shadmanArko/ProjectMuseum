@@ -31,6 +31,7 @@ public partial class EquipableController : InventoryController
         _inventoryItem = inventoryItem;
         SubscribeToActions();
         GD.Print("Equipable controller activated");
+        GD.Print(inventoryItem.Variant);
     }
 
     public override void DeactivateController()

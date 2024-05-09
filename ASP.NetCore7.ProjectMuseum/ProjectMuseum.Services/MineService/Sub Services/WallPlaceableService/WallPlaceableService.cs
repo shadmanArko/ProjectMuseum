@@ -43,4 +43,10 @@ public class WallPlaceableService : IWallPlaceableService
         var wallPlaceable = await _wallPlaceableRepository.GetWallPlaceableByVariant(variant);
         return wallPlaceable;
     }
+
+    public async Task<List<WallPlaceable>> GetAllWallPlaceables()
+    {
+        var wallPlaceables = await _wallPlaceableRepository.GetAllWallPlaceables();
+        return wallPlaceables;
+    }
 }

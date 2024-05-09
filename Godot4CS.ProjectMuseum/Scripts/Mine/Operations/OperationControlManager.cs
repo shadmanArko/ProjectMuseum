@@ -77,7 +77,7 @@ public partial class OperationControlManager : Node2D
         switch (inventoryItem.Type)
         {
             case "WallPlaceable":
-                _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
+                _wallPlaceableController.ActivateController(inventoryItem);
                 break;
             case "Consumable":
                 _consumableController.ActivateController(inventoryItem);

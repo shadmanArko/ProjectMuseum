@@ -7,4 +7,6 @@ public interface IWallPlaceableRepository
     Task<WallPlaceable> AddWallPlaceable(WallPlaceable wallPlaceable);
     Task<WallPlaceable?> RemoveWallPlaceable(string wallPlaceableId);
     Task<WallPlaceable> GetWallPlaceableByVariant(string variant);
+    Task<List<WallPlaceable>> GetAllWallPlaceables();
+    
 }

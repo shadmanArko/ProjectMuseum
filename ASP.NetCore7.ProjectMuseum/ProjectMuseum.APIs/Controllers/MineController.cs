@@ -188,17 +188,10 @@ public class MineController : ControllerBase
         return Ok(pickaxe);
     }
     
-    // [HttpGet("GenerateResources")]
-    // public async Task<IActionResult> GenerateResources()
-    // {
-    //     var mine = await _resourceService.GenerateResources();
-    //     return Ok(mine);
-    // }
-    
-    // [HttpGet("SetSpecialBackdropsInMine")]
-    // public async Task<IActionResult> SetSpecialBackdropsInMine()
-    // {
-    //     var specialBackdrops = await _specialBackdropService.SetSpecialBackdrops();
-    //     return Ok(specialBackdrops);
-    // }
+    [HttpGet("GetAllWallPlaceables")]
+    public async Task<IActionResult> GetAllWallPlaceables()
+    {
+        var wallPlaceables = await _wallPlaceableService.GetAllWallPlaceables();
+        return Ok(wallPlaceables);
+    }
 }

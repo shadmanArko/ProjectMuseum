@@ -69,7 +69,6 @@ public partial class ConsumableController : InventoryController
         IsControllerActivated = true;
         _inventoryItem = inventoryItem;
         SubscribeToActions();
-        GD.Print("Health potion controller activated");
     }
     
     public override void DeactivateController()

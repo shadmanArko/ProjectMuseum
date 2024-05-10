@@ -1,12 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwntmtbpv43ly"]
+[gd_scene load_steps=10 format=3 uid="uid://bwntmtbpv43ly"]
 
+[ext_resource type="Texture2D" uid="uid://b6rikaohqik58" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Base.png" id="1_dabh7"]
 [ext_resource type="Script" path="res://Scripts/Museum/Draggable.cs" id="1_gr5ai"]
 [ext_resource type="PackedScene" uid="uid://cx232cil6w0p0" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggablePreviewNew.tscn" id="2_6rpxt"]
+[ext_resource type="PackedScene" uid="uid://dcm73qv2wrbhh" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_artifact_tag.tscn" id="3_7ksps"]
+[ext_resource type="Texture2D" uid="uid://2qgrks6qkf3s" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Image_hlder.png" id="4_h8s37"]
 [ext_resource type="Texture2D" uid="uid://dqa8gf5sasbp6" path="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png" id="5_5n4c6"]
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="5_ptbc1"]
 [ext_resource type="FontFile" uid="uid://bwsjyoc8ldclp" path="res://Assets/Fonts/PixelOperator.ttf" id="6_4l1nu"]
+[ext_resource type="Texture2D" uid="uid://cyvudlbhhg4kq" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Name_hlder.png" id="6_yua1l"]
 
-[node name="Draggable" type="ColorRect" node_paths=PackedStringArray("_nameOfDraggable")]
+[node name="Draggable" type="TextureRect" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2")]
+texture_filter = 1
 custom_minimum_size = Vector2(387, 100)
 anchors_preset = -1
 anchor_left = 0.393
@@ -16,10 +21,14 @@ offset_left = 93.94
 offset_right = -93.9
 offset_bottom = -50.44
 grow_horizontal = 2
-color = Color(0.61339, 0.61339, 0.61339, 1)
+texture = ExtResource("1_dabh7")
 script = ExtResource("1_gr5ai")
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _draggablePreview = ExtResource("2_6rpxt")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
+_artifactTag = ExtResource("3_7ksps")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -29,9 +38,16 @@ offset_bottom = 40.0
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+texture = ExtResource("4_h8s37")
+
+[node name="artifact icon" type="TextureRect" parent="HBoxContainer/VBoxContainer2/TextureRect2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+offset_right = 100.0
+offset_bottom = 100.0
 texture = ExtResource("5_5n4c6")
 expand_mode = 1
 
@@ -39,24 +55,23 @@ expand_mode = 1
 custom_minimum_size = Vector2(283.82, 0)
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
+[node name="ColorRect" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
-mouse_filter = 1
+texture = ExtResource("6_yua1l")
 
 [node name="Name Of Artifact" type="Label" parent="HBoxContainer/VBoxContainer/ColorRect"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 2.0
-offset_top = -10.0
-offset_right = 281.0
-offset_bottom = 12.0
+offset_left = 6.0
+offset_top = -9.0
+offset_right = 279.0
+offset_bottom = 11.0
 grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("5_ptbc1")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("6_4l1nu")
 theme_override_font_sizes/font_size = 16
 text = "Classical Native American Tomahawk"

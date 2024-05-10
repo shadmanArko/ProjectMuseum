@@ -11,7 +11,7 @@ public partial class ExhibitEditorArtifactTag : Label
 	public void Initialize(string tag)
 	{
 		Text = tag;
-		// Size = artifactTag.Size + new Vector2(2, 0);
+		// CustomMinimumSize = Size + new Vector2(10, 0);
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

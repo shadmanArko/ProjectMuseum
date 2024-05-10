@@ -5,7 +5,7 @@ using System.Linq;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using ProjectMuseum.Models;
 
-public partial class Draggable : ColorRect
+public partial class Draggable : Control
 {
 	private bool droppedOnTarget = false;
 	private bool isDragging = false;
@@ -67,8 +67,11 @@ public partial class Draggable : ColorRect
 		RawArtifactFunctional rawArtifactFunctional =
 			rawArtifactFunctionals.FirstOrDefault(descriptive => descriptive.Id == artifact.RawArtifactId);
 		_nameOfDraggable.Text = rawArtifactDescriptive.ArtifactName;
-		_artifactIcon.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
-		
+
+		if (rawArtifactFunctional.Era == null)
+		{
+			GD.PrintErr("functional data not found");
+		}
 		InstantiateArtifactTag(rawArtifactFunctional.Era);
 		InstantiateArtifactTag(rawArtifactFunctional.Region);
 		InstantiateArtifactTag(rawArtifactFunctional.Object);
@@ -77,6 +80,7 @@ public partial class Draggable : ColorRect
 		{
 			InstantiateArtifactTag(material);
 		}
+		_artifactIcon.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
 		Artifact = artifact;
 	}
 

@@ -1,24 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcm73qv2wrbhh"]
+[gd_scene load_steps=5 format=3 uid="uid://dcm73qv2wrbhh"]
 
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/Exhibit editor/ExhibitEditorArtifactTag.cs" id="1_ctulo"]
+[ext_resource type="Texture2D" uid="uid://b0srtcnau2x36" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_tag_3.png" id="2_gva4d"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_i2fp3"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6s3fh"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a0eup"]
 content_margin_left = 5.0
-content_margin_bottom = 1.0
-bg_color = Color(0, 0, 0, 1)
+content_margin_right = 8.0
+texture = ExtResource("2_gva4d")
 
 [node name="Label" type="Label"]
 offset_left = 2.0
 offset_top = 6.0
-offset_right = 121.0
+offset_right = 83.0
 offset_bottom = 40.0
 size_flags_vertical = 3
 mouse_filter = 1
 theme = ExtResource("2_i2fp3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_6s3fh")
-text = "Artifact Tag"
+theme_override_styles/normal = SubResource("StyleBoxTexture_a0eup")
+text = "American"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("1_ctulo")

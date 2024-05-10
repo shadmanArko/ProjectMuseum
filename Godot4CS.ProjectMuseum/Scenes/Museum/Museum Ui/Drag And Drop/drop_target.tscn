@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://crxjk410778yy"]
+[gd_scene load_steps=4 format=3 uid="uid://crxjk410778yy"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/DropTarget.cs" id="1_45c8g"]
+[ext_resource type="Texture2D" uid="uid://crksgoxopkbyr" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Scroll_Base.png" id="1_jofnp"]
 
-[node name="DropTarget 1" type="ColorRect"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jg6in"]
+texture = ExtResource("1_jofnp")
+
+[node name="DropTarget 1" type="Panel"]
 custom_minimum_size = Vector2(387, 100)
 offset_left = 88.0
 offset_top = 49.0
 offset_right = 188.0
 offset_bottom = 99.0
-color = Color(0.541176, 0.541176, 0.541176, 1)
+theme_override_styles/panel = SubResource("StyleBoxTexture_jg6in")
 script = ExtResource("1_45c8g")

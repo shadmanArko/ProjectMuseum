@@ -1,10 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjy2gyknf1lwq"]
+[gd_scene load_steps=21 format=3 uid="uid://bjy2gyknf1lwq"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_kqmcg"]
 [ext_resource type="PackedScene" uid="uid://crxjk410778yy" path="res://Scenes/Museum/Museum Ui/Drag And Drop/drop_target.tscn" id="3_gbute"]
 [ext_resource type="PackedScene" uid="uid://bwntmtbpv43ly" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn" id="3_vjpch"]
+[ext_resource type="Texture2D" uid="uid://c11u1or74gs7v" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Exhibit_Editor_Base.png" id="4_3kga1"]
+[ext_resource type="Texture2D" uid="uid://dfmvnp2th32jm" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Exhibit_Name_Holder.png" id="4_lpjnh"]
 [ext_resource type="Script" path="res://Scripts/Museum/DropTarget.cs" id="4_mx4kr"]
+[ext_resource type="Texture2D" uid="uid://dc42prip5kq35" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Storage_Base.png" id="5_25kkq"]
+[ext_resource type="Texture2D" uid="uid://c2mru4ev22pb7" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Base1.png" id="5_njf6o"]
+[ext_resource type="Texture2D" uid="uid://ygxepb2p8q7u" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Filter_Drop_Down.png" id="7_cf2oq"]
+[ext_resource type="Texture2D" uid="uid://cyhx1le1au8o1" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Base.png" id="7_x2k0j"]
+[ext_resource type="Texture2D" uid="uid://c6628xhpc3quq" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Search_Bar.png" id="8_3usof"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fdov"]
+texture = ExtResource("5_njf6o")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qacj4"]
+texture = ExtResource("7_x2k0j")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yu7jl"]
+content_margin_left = 7.0
+texture = ExtResource("7_cf2oq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_am7xt"]
+content_margin_left = 9.0
+texture = ExtResource("7_cf2oq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rm2xx"]
+content_margin_left = 6.0
+content_margin_right = 6.0
+texture = ExtResource("8_3usof")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htnvc"]
+texture = ExtResource("5_25kkq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vc8j3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p4nli"]
+texture = ExtResource("4_3kga1")
 
 [node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton")]
 texture_filter = 1
@@ -15,12 +49,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5j1h5")
-_exitButton = NodePath("Panel/Exhibit Editor Ui BG/Top Panel/Button")
+_exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
 _draggable = ExtResource("3_vjpch")
 _dropTarget = ExtResource("3_gbute")
-_draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
-_dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer")
-_glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/CheckButton")
+_draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
+_dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
+_glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/CheckButton")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -32,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Exhibit Editor Ui BG" type="ColorRect" parent="Panel"]
+[node name="Exhibit Editor Ui BG" type="Panel" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.270312
@@ -42,49 +76,9 @@ anchor_bottom = 0.796297
 offset_bottom = 6.10352e-05
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.247059, 0.247059, 0.247059, 1)
+theme = ExtResource("2_kqmcg")
+theme_override_styles/panel = SubResource("StyleBoxTexture_8fdov")
 metadata/_edit_use_anchors_ = true
-
-[node name="Top Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.083
-offset_right = 0.000610352
-offset_bottom = -0.116718
-
-[node name="Button" type="Button" parent="Panel/Exhibit Editor Ui BG/Top Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.905
-anchor_top = 0.175
-anchor_right = 1.0
-anchor_bottom = 0.775
-offset_left = -0.290039
-offset_top = -2.0
-offset_bottom = 5.0
-grow_horizontal = 0
-grow_vertical = 2
-theme = ExtResource("2_kqmcg")
-text = "Exit"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Exhibit Editor Ui BG/Top Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -79.0
-offset_top = -13.0
-offset_right = 124.0
-offset_bottom = 11.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_kqmcg")
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-bbcode_enabled = true
-text = "[center]Exhibit Editor[/center]"
 
 [node name="Left Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
 self_modulate = Color(0.403922, 0.211765, 0.494118, 1)
@@ -93,31 +87,39 @@ anchors_preset = -1
 anchor_top = 0.083
 anchor_right = 0.324
 anchor_bottom = 1.0
-offset_top = -0.175076
-offset_right = 2.45169
-offset_bottom = -0.000854492
+offset_left = 6.0
+offset_top = -0.175068
+offset_right = 25.4517
+offset_bottom = -4.00085
 grow_vertical = 2
 theme = ExtResource("2_kqmcg")
+theme_override_styles/panel = SubResource("StyleBoxTexture_qacj4")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer"]
+layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="OptionButton" type="OptionButton" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(196, 28)
+[node name="OptionButton" type="OptionButton" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(205.55, 28)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_yu7jl")
 item_count = 3
 selected = 0
 popup/item_0/text = "Order By"
@@ -127,9 +129,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Rarity"
 popup/item_2/id = 2
 
-[node name="OptionButton2" type="OptionButton" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(196, 28)
+[node name="OptionButton2" type="OptionButton" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(205.55, 28)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_am7xt")
 item_count = 6
 selected = 0
 popup/item_0/text = "Filter"
@@ -146,22 +150,25 @@ popup/item_4/separator = true
 popup/item_5/text = "Ancient"
 popup/item_5/id = 5
 
-[node name="LineEdit" type="LineEdit" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/VBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_rm2xx")
 placeholder_text = "Search..."
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_htnvc")
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 17
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer"]
 custom_minimum_size = Vector2(387, 559.465)
 layout_direction = 2
 layout_mode = 2
@@ -170,70 +177,171 @@ theme_override_constants/separation = 10
 script = ExtResource("4_mx4kr")
 _parentTarget = true
 
-[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
+
+[node name="Draggable2" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+visible = false
+layout_mode = 2
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
+
+[node name="Draggable3" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+visible = false
+layout_mode = 2
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
+
+[node name="Draggable4" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+visible = false
+layout_mode = 2
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
+
+[node name="Draggable5" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+visible = false
+layout_mode = 2
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
+
+[node name="Draggable6" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+visible = false
+layout_mode = 2
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
+_artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
+_artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
+
+[node name="Draggable7" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+visible = false
+layout_mode = 2
+_nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
+_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
 [node name="Right Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG"]
-modulate = Color(0.937255, 0.898039, 1, 1)
-self_modulate = Color(0.388235, 0.388235, 0.388235, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.326
 anchor_top = 0.083
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 170.998
+offset_left = 41.9977
 offset_top = -0.175068
 offset_right = -0.000976563
 offset_bottom = -0.000854492
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vc8j3")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -354.0
-offset_right = 353.0
-offset_bottom = 565.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 66.385)
+layout_mode = 2
+texture = ExtResource("4_lpjnh")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_constants/margin_left = 140
 theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 180
 
-[node name="GridContainer" type="GridContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer"]
-custom_minimum_size = Vector2(387, 50)
+[node name="GridContainer" type="GridContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(387, 450)
 layout_mode = 2
 theme_override_constants/v_separation = 35
 
-[node name="DropTarget 1" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+[node name="DropTarget 1" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
 layout_mode = 2
 
-[node name="DropTarget 2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+[node name="DropTarget 2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
 layout_mode = 2
 
-[node name="DropTarget 3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+[node name="DropTarget 3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+visible = false
 layout_mode = 2
 
-[node name="DropTarget 4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+[node name="DropTarget 4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+visible = false
 layout_mode = 2
 
-[node name="CheckButton" type="CheckButton" parent="Panel/Exhibit Editor Ui BG/Right Panel"]
+[node name="CheckButton" type="CheckButton" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -148.999
-offset_top = -85.0
-offset_right = -104.999
-offset_bottom = -61.0
+offset_right = -0.000976563
+offset_bottom = -665.001
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="Top Panel" type="Panel" parent="Panel/Exhibit Editor Ui BG/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_p4nli")
+
+[node name="Button" type="Button" parent="Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.946
+anchor_top = 0.15
+anchor_right = 1.0
+anchor_bottom = 0.866
+offset_left = -6.74255
+offset_top = -9.00875
+offset_right = -7.00061
+offset_bottom = -9.01053
 grow_horizontal = 0
-grow_vertical = 0
-button_pressed = true
+grow_vertical = 2
+theme = ExtResource("2_kqmcg")
+text = "Exit"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -13.0
+offset_right = 124.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_kqmcg")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+bbcode_enabled = true
+text = "[center]Exhibit Editor[/center]"

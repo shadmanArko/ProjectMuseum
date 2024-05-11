@@ -532,10 +532,9 @@ position = Vector2(-894, -428)
 _pointLight = NodePath("PointLight2D")
 
 [node name="FrontWalls" type="Node2D" parent="museum/Background Foresnt" node_paths=PackedStringArray("_walls")]
-visible = false
 z_index = 2
 y_sort_enabled = true
-position = Vector2(0, -2)
+position = Vector2(0, -3)
 script = ExtResource("48_p7o0e")
 _walls = []
 _mainWallTexture = ExtResource("42_8t46q")
@@ -879,7 +878,7 @@ scale = Vector2(1, -1)
 texture = ExtResource("42_8t46q")
 offset = Vector2(0, -49)
 hframes = 5
-frame = 2
+frame = 3
 
 [node name="FrontWall19" type="Sprite2D" parent="museum/Background Foresnt/FrontWalls/Left_front_wall"]
 position = Vector2(254, -150)
@@ -888,7 +887,7 @@ scale = Vector2(1, -1)
 texture = ExtResource("42_8t46q")
 offset = Vector2(0, -49)
 hframes = 5
-frame = 3
+frame = 4
 
 [node name="FrontWall20" type="Sprite2D" parent="museum/Background Foresnt/FrontWalls/Left_front_wall"]
 position = Vector2(270, -158)
@@ -897,7 +896,7 @@ scale = Vector2(1, -1)
 texture = ExtResource("42_8t46q")
 offset = Vector2(0, -49)
 hframes = 5
-frame = 4
+frame = 3
 
 [node name="FrontWall21" type="Sprite2D" parent="museum/Background Foresnt/FrontWalls/Left_front_wall"]
 position = Vector2(286, -166)
@@ -906,7 +905,7 @@ scale = Vector2(1, -1)
 texture = ExtResource("42_8t46q")
 offset = Vector2(0, -49)
 hframes = 5
-frame = 3
+frame = 2
 
 [node name="FrontWall22" type="Sprite2D" parent="museum/Background Foresnt/FrontWalls/Left_front_wall"]
 position = Vector2(302, -174)

@@ -258,7 +258,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (hasCollidedWithMine)
         {
             _playerControllerVariables.State = MotionState.Grounded;
-            GD.Print($"player state = {_playerControllerVariables.State}");
+            // GD.Print($"player state = {_playerControllerVariables.State}");
         }
     }
 
@@ -268,7 +268,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (hasCollidedWithMine && _playerControllerVariables.State != MotionState.Hanging)
         {
             _playerControllerVariables.State = MotionState.Falling;
-            GD.Print($"player state = {_playerControllerVariables.State}");
+            // GD.Print($"player state = {_playerControllerVariables.State}");
         }
     }
 }

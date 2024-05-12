@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -31,17 +32,19 @@ public partial class InventoryManager : Node2D
         CreateHttpRequest();
         _inventorySlots = _inventoryViewController.InventoryItems;
         InitializeDiReferences();
+        SubscribeToActions();
         GetInventory();
     }
+
     private void CreateHttpRequest()
     {
         _getInventoryHttpRequest = new HttpRequest();
         AddChild(_getInventoryHttpRequest);
         _getInventoryHttpRequest.RequestCompleted += OnGetInventoryHttpRequestCompleted;
     }
-    public override void _Ready()
+    private void SubscribeToActions()
     {
-        
+        MineActions.OnInventoryUpdate += SetInventoryItemsToSlotsOnInventoryOpen;
     }
 
     private void InitializeDiReferences()
@@ -95,152 +98,36 @@ public partial class InventoryManager : Node2D
     
     #endregion
     
-    // public void MakeDecision(int slotNumber, bool isSlotEmpty, MouseButton mouseButton, out int stackNo,
-    //     out string pngPath, out bool emptySlot)
-    // {
-    //     stackNo = 0;
-    //     pngPath = "";
-    //     emptySlot = true;
-    //
-    //     if (isSlotEmpty)
-    //     {
-    //         HandleEmptySlot(slotNumber, out stackNo, out pngPath, out emptySlot);
-    //         RefreshInventoryOccupiedSlots();
-    //         return;
-    //     }
-    //
-    //     var item = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
-    //     var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
-    //
-    //     if (mouseButton == MouseButton.Left)
-    //     {
-    //         HandleLeftMouseButton(item, cursorItem, slotNumber, out stackNo, out pngPath, out emptySlot);
-    //     }
-    //     else if (mouseButton == MouseButton.Right)
-    //     {
-    //         HandleRightMouseButton(item, cursorItem, out stackNo, out pngPath, out emptySlot);
-    //     }
-    //     
-    //     RefreshInventoryOccupiedSlots();
-    //     
-    //     MineActions.OnInventoryUpdate?.Invoke();
-    // }
-
     private void RefreshInventoryOccupiedSlots()
     {
         _inventoryDto.Inventory.OccupiedSlots.Clear();
         foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
             _inventoryDto.Inventory.OccupiedSlots.Add(inventoryItem.Slot);
     }
-
-    // private void HandleEmptySlot(int slotNumber, out int stackNo, out string pngPath, out bool emptySlot)
-    // {
-    //     var cursorItem = _cursorFollowingSprite.GetCurrentCursorInventoryItem();
-    //     if (cursorItem != null)
-    //     {
-    //         DepositAllDifferentVariant(slotNumber);
-    //         var item1 = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == slotNumber);
-    //         stackNo = item1.Stack;
-    //         pngPath = item1.PngPath;
-    //         emptySlot = false;
-    //     }
-    //     else
-    //     {
-    //         stackNo = 0;
-    //         pngPath = "";
-    //         emptySlot = true;
-    //     }
-    // }
-    //
-    // private void HandleLeftMouseButton(InventoryItem item, InventoryItem cursorItem, int slotNumber,
-    //     out int stackNo, out string pngPath, out bool emptySlot)
-    // {
-    //     if (cursorItem != null)
-    //     {
-    //         if (cursorItem.Variant == item.Variant)
-    //         {
-    //             DepositAllSameVariantStackable(item);
-    //             stackNo = item.Stack;
-    //             pngPath = item.PngPath;
-    //             emptySlot = false;
-    //         }
-    //         else
-    //         {
-    //             var cursorItemId = DepositAllDifferentVariant(slotNumber);
-    //             var item1 = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(i => i.Id == cursorItemId);
-    //             stackNo = item1.Stack;
-    //             pngPath = item1.PngPath;
-    //             emptySlot = false;
-    //             PickUpAllDifferentVariant(DeepCopy(item));
-    //         }
-    //     }
-    //     else
-    //     {
-    //         PickUpAllDifferentVariant(item);
-    //         stackNo = 0;
-    //         pngPath = "";
-    //         emptySlot = true;
-    //     }
-    // }
-    //
-    // private void HandleRightMouseButton(InventoryItem item, InventoryItem cursorItem,
-    //     out int stackNo, out string pngPath, out bool emptySlot)
-    // {
-    //     if (cursorItem == null)
-    //     {
-    //         if (!item.IsStackable)
-    //         {
-    //             PickUpAllDifferentVariant(item);
-    //             stackNo = 0;
-    //             pngPath = "";
-    //             emptySlot = true;
-    //         }
-    //         else
-    //         {
-    //             if (item.Stack > 1)
-    //             {
-    //                 PickUpOneByOneSameVariantStackable(item);
-    //                 stackNo = item.Stack;
-    //                 pngPath = item.PngPath;
-    //                 emptySlot = false;
-    //             }
-    //             else
-    //             {
-    //                 PickUpAllDifferentVariant(item);
-    //                 stackNo = 0;
-    //                 pngPath = "";
-    //                 emptySlot = true;
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (item.Variant == cursorItem.Variant)
-    //         {
-    //             if (item.Stack > 1)
-    //             {
-    //                 PickUpOneByOneSameVariantStackable(item);
-    //                 stackNo = item.Stack;
-    //                 pngPath = item.PngPath;
-    //                 emptySlot = false;
-    //             }
-    //             else
-    //             {
-    //                 PickUpAllSameVariantStackable(item);
-    //                 stackNo = 0;
-    //                 pngPath = "";
-    //                 emptySlot = true;
-    //             }
-    //         }
-    //         else
-    //         {
-    //             stackNo = item.Stack;
-    //             pngPath = item.PngPath;
-    //             emptySlot = false;
-    //         }
-    //     }
-    // }
-    //
+    
+    public bool HasFreeSlot()
+    {
+        var emptySlots = new List<int>();
+        for (var i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
+            emptySlots.Add(i);
+        foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
+            emptySlots.Remove(inventoryItem.Slot);
+			
+        emptySlots.Sort();
+        return emptySlots.Any();
+    }
+    
+    public int GetNextEmptySlot()
+    {
+        var emptySlots = new List<int>();
+        for (var i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
+            emptySlots.Add(i);
+        foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
+            emptySlots.Remove(inventoryItem.Slot);
+			
+        emptySlots.Sort();
+        return emptySlots[0];
+    }
     
     #region Pick Up
 
@@ -287,7 +174,6 @@ public partial class InventoryManager : Node2D
     }
 
     #endregion
-
     
     #region Deposit
 
@@ -312,15 +198,13 @@ public partial class InventoryManager : Node2D
 
     #endregion
     
-    
     private static T DeepCopy<T>(T obj)
     {
         if (obj == null)
         {
             throw new ArgumentNullException(nameof(obj));
         }
-
-        // Using System.Text.Json for serialization and deserialization
+        
         var options = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
@@ -335,7 +219,6 @@ public partial class InventoryManager : Node2D
 
         return copy;
     }
-    
     
     public void MakeDecision(int slotNumber, bool isSlotEmpty, MouseButton mouseButton, out int stackNo,
         out string pngPath, out bool emptySlot)
@@ -466,4 +349,18 @@ public partial class InventoryManager : Node2D
         RefreshInventoryOccupiedSlots();
         MineActions.OnInventoryUpdate?.Invoke();
     }
+
+    #region Exit Tree
+
+    private void UnsubscribeToActions()
+    {
+        MineActions.OnInventoryUpdate -= SetInventoryItemsToSlotsOnInventoryOpen;
+    }
+    
+    public override void _ExitTree()
+    {
+        UnsubscribeToActions();
+    }
+
+    #endregion
 }

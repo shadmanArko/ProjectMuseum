@@ -42,4 +42,14 @@ public partial class ArtifactFromMineToInventory : Node2D
     {
         GD.Print($"ARTIFACT SUCCESSFULLY ADDED TO INVENTORY!!! (4)");
     }
+
+    private void RemoveArtifactFromMine()
+    {
+        var mine = 
+    }
+
+    private void AddArtifactToInventory()
+    {
+        
+    }
 }

@@ -6,7 +6,7 @@
 
 [node name="FrontWall9" type="Sprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(-2, -4)
+position = Vector2(-2, -5.5)
 rotation = 3.14159
 scale = Vector2(-1, -1)
 texture = ExtResource("1_7byai")

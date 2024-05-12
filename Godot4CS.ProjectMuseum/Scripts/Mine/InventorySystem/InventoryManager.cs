@@ -92,6 +92,9 @@ public partial class InventoryManager : Node2D
 
     private void SetInventoryItemsToSlotsOnInventoryOpen()
     {
+        for (var i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
+            _inventorySlots[i].ResetInventoryItemSlot();
+        
         foreach (var item in _inventoryDto.Inventory.InventoryItems)
             _inventorySlots[item.Slot].SetInventoryItemToSlot(item);
     }

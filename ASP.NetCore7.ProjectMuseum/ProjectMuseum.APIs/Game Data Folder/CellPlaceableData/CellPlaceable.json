@@ -1,0 +1,15 @@
+[
+  {
+    "Id": "1",
+    "PositionX": 10,
+    "PositionY": 20,
+    "OccupiedCellId": "",
+    "ExtraOccupiedDimensionX": 0,
+    "ExtraOccupiedDimensionY": 0,
+    "Type": "CellPlaceable",
+    "Category": "Explosives",
+    "Variant": "Dynamite",
+    "ScenePath": "",
+    "PngPath": ""
+  }
+]

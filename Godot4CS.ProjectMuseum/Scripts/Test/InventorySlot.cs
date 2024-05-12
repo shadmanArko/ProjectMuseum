@@ -25,8 +25,15 @@ public partial class InventorySlot : PanelContainer
     
 	#endregion
 
-	#region Set Inventory Item
+	#region Set Reset Inventory Item
 
+	public void ResetInventoryItemSlot()
+	{
+		_isSlotEmpty = true;
+		_textureRect.Texture = null;
+		_itemCounter.Text = "";
+	}
+	
 	public void SetInventoryItemToSlot(InventoryItem item)
 	{
 		if (item == null)

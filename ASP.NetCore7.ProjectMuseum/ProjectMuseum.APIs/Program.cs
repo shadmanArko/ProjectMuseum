@@ -14,6 +14,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoring
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactScoreRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ArtifactScoringRepository.ArtifactThemeMatchingTagCountRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CaveRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.CellPlaceableRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ConsumableRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.EquipableRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.MineArtifactRepository;
@@ -47,6 +48,7 @@ using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.CellPlaceableService;
 using ProjectMuseum.Services.MineService.Sub_Services.ConsumableService;
 using ProjectMuseum.Services.MineService.Sub_Services.EquippableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
@@ -102,6 +104,7 @@ string artifactThemeMatchingTagCountDataFolderPath = Path.Combine(Directory.GetC
 string equippableMeleeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippableMelee.json");
 string equippableRangeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippableRange.json");
 string equippablePickaxeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippablePickaxe.json");
+string cellPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellPlaceableData", "CellPlaceable.json");
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
@@ -166,6 +169,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<ArtifactThemeMatchingTagCount
 builder.Services.AddSingleton(new JsonFileDatabase<EquippableMelee>(equippableMeleeDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<EquippableRange>(equippableRangeDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<EquippablePickaxe>(equippablePickaxeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<CellPlaceable>(cellPlaceableDataFolderPath));
 
 
 
@@ -231,6 +235,7 @@ builder.Services.AddScoped<IArtifactRarityRepository, ArtifactRarityRepository>(
 builder.Services.AddScoped<IArtifactScoreRepository, ArtifactScoreRepository>();
 builder.Services.AddScoped<IArtifactThemeMatchingTagCountRepo, ArtifactThemeMatchingTagCountRepo>();
 builder.Services.AddScoped<IEquippableRepository, EquippableRepository>();
+builder.Services.AddScoped<ICellPlaceableRepository, CellPlaceableRepository>();
 
 
 
@@ -270,6 +275,7 @@ builder.Services.AddScoped<IArtifactScoringService, ArtifactScoringService>();
 builder.Services.AddScoped<IArtifactConditionService, ArtifactConditionService>();
 builder.Services.AddScoped<IArtifactRarityService, ArtifactRarityService>();
 builder.Services.AddScoped<IEquippableService, EquippableService>();
+builder.Services.AddScoped<ICellPlaceableService, CellPlaceableService>();
 
 
 

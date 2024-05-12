@@ -1,84 +1,82 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations.InventoryControllers;
 
-public partial class WallPlaceableController : InventoryController
+public partial class CellPlaceableController : InventoryController
 {
-    private HttpRequest _getWallPlaceablesHttpRequest;
+    private HttpRequest _getCellPlaceablesHttpRequest;
 
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     private InventoryDTO _inventoryDto;
-    private WallPlaceableDTO _wallPlaceableDto;
+    private CellPlaceableDTO _cellPlaceableDto;
 
-    [Export] private Sprite2D _wallPlaceableSprite;
+    [Export] private Sprite2D _cellPlaceableSprite;
     private InventoryItem _inventoryItem;
-
-    #region Initializers
-
+    
     private void InitializeDiInstaller()
     {
         CreateHttpRequests();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
-        _wallPlaceableDto = ServiceRegistry.Resolve<WallPlaceableDTO>();
+        _cellPlaceableDto = ServiceRegistry.Resolve<CellPlaceableDTO>();
     }
 
-    private void CreateHttpRequests()
-    {
-        _getWallPlaceablesHttpRequest = new HttpRequest();
-        AddChild(_getWallPlaceablesHttpRequest);
-        _getWallPlaceablesHttpRequest.RequestCompleted +=
-            OnGetWallPlaceablesHttpRequestComplete;
-    }
+    #region Subscribe Unsubscribe To Actions
 
     private void SubscribeToActions()
     {
-        MineActions.OnMouseMotionAction += ShowWallPlaceableEligibilityVisualizer;
-        MineActions.OnLeftMouseClickAction += PlaceWallPlaceableInMine;
+        MineActions.OnMouseMotionAction += ShowCellPlaceableEligibilityVisualizer;
+        MineActions.OnLeftMouseClickAction += PlaceCellPlaceableInMine;
         MineActions.DeselectAllInventoryControllers += DeactivateController;
     }
 
     private void UnsubscribeToActions()
     {
-        MineActions.OnMouseMotionAction -= ShowWallPlaceableEligibilityVisualizer;
-        MineActions.OnLeftMouseClickAction -= PlaceWallPlaceableInMine;
+        MineActions.OnMouseMotionAction -= ShowCellPlaceableEligibilityVisualizer;
+        MineActions.OnLeftMouseClickAction -= PlaceCellPlaceableInMine;
         MineActions.DeselectAllInventoryControllers -= DeactivateController;
     }
 
+    #endregion
+    
     public override void _Ready()
     {
         InitializeDiInstaller();
-        GetAllWallPlaceables();
+        GetAllCellPlaceables();
     }
-
-    #endregion
-
-    #region Select and Deselect
-
-    #region Activate and Deactivate
+    
+    private void CreateHttpRequests()
+    {
+        _getCellPlaceablesHttpRequest = new HttpRequest();
+        AddChild(_getCellPlaceablesHttpRequest);
+        _getCellPlaceablesHttpRequest.RequestCompleted +=
+            OnGetCellPlaceablesHttpRequestComplete;
+    }
+    
+    #region Activate Deactivate Controller
 
     public override void ActivateController(InventoryItem inventoryItem)
     {
         IsControllerActivated = true;
         _inventoryItem = inventoryItem;
         
-        var wallPlaceableTexture = ResourceLoader.Load<Texture2D>(inventoryItem.PngPath);
-        if (wallPlaceableTexture != null)
+        var cellPlaceableTexture = ResourceLoader.Load<Texture2D>(inventoryItem.PngPath);
+        if (cellPlaceableTexture != null)
         {
-            _wallPlaceableSprite.Visible = true;
-            _wallPlaceableSprite.Texture = wallPlaceableTexture;
+            _cellPlaceableSprite.Visible = true;
+            _cellPlaceableSprite.Texture = cellPlaceableTexture;
         }
         
         SubscribeToActions();
@@ -89,44 +87,67 @@ public partial class WallPlaceableController : InventoryController
     {
         if(!IsControllerActivated) return;
         IsControllerActivated = false;
-        _wallPlaceableSprite.Visible = false;
+        _cellPlaceableSprite.Visible = false;
         UnsubscribeToActions();
         GD.Print("Wall placeable controller deactivated");
     }
 
     #endregion
 
-    #endregion
+    #region Populate Cell Placeable DTO
 
-    #region From inventory to mine
-
-    private void GetAllWallPlaceables()
+    private void GetAllCellPlaceables()
     {
-        var url = ApiAddress.MineApiPath + "GetAllWallPlaceables";
-        _getWallPlaceablesHttpRequest.CancelRequest();
-        _getWallPlaceablesHttpRequest.Request(url);
+        var url = ApiAddress.MineApiPath + "GetAllCellPlaceables";
+        _getCellPlaceablesHttpRequest.CancelRequest();
+        _getCellPlaceablesHttpRequest.Request(url);
     }
     
-    private void OnGetWallPlaceablesHttpRequestComplete(long result, long responseCode,
+    private void OnGetCellPlaceablesHttpRequestComplete(long result, long responseCode,
         string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
         GD.PrintErr("wall placeable list"+jsonStr);
-        var wallPlaceables = JsonSerializer.Deserialize<List<WallPlaceable>>(jsonStr);
+        var cellPlaceables = JsonSerializer.Deserialize<List<CellPlaceable>>(jsonStr);
         
-        if (wallPlaceables == null)
+        if (cellPlaceables == null)
         {
             GD.PrintErr("Wall placeables is null in wall placeable DTO");
             return;
         }
-        _wallPlaceableDto.WallPlaceables = wallPlaceables;
+        _cellPlaceableDto.CellPlaceables = cellPlaceables;
     }
 
     #endregion
+    
+    private void ShowCellPlaceableEligibilityVisualizer(double value)
+    {
+        var eligibility = CheckEligibility();
+        
+        var cell = GetTargetCell();
+        var cellSize = _mineGenerationVariables.Mine.CellSize;
+        var offset = new Vector2(cellSize / 2f, cellSize / 4f);
+        _cellPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+        
+        if (eligibility)
+            SetSpriteColorToGreen();
+        else
+            SetSpriteColorToRed();
+    }
+    
+    private void PlaceCellPlaceableInMine()
+    {
+        var checkEligibility = CheckEligibility();
+        if (checkEligibility)
+        {
+            GD.Print($"inventory item: {_inventoryItem.Variant}, slot:{_inventoryItem.Slot}, stack: {_inventoryItem.Stack}");
+            SetCellPlaceableFromInventoryToMine();
+        }
+    }
+    
+    #region Set Cell Placeable to Mine from Inventory
 
-    #region Set Wall Placeable to Mine from Inventory
-
-    private void SetWallPlaceableFromInventoryToMine()
+    private void SetCellPlaceableFromInventoryToMine()
     {
         if (_inventoryItem.IsStackable)
         {
@@ -136,69 +157,45 @@ public partial class WallPlaceableController : InventoryController
                 _inventoryDto.Inventory.InventoryItems.Remove(_inventoryItem);
         }
 
-        var wallPlaceable = _wallPlaceableDto.WallPlaceables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
-        if (wallPlaceable == null)
+        var cellPlaceable = _cellPlaceableDto.CellPlaceables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
+        if (cellPlaceable == null)
         {
-            GD.PrintErr("Wall Placeable not found in wall placeable DTO");
+            GD.PrintErr("Cell Placeable not found in Cell Placeable DTO");
             return;
         }
         
         var cell = GetTargetCell();
-        cell.HasWallPlaceable = true;
+        cell.HasCellPlaceable = true;
         
-        wallPlaceable.Id = Guid.NewGuid().ToString();
-        wallPlaceable.OccupiedCellIds = new List<string> { cell.Id };
-        wallPlaceable.PositionX = cell.PositionX;
-        wallPlaceable.PositionY = cell.PositionY;
-        _mineGenerationVariables.Mine.WallPlaceables.Add(wallPlaceable);
+        cellPlaceable.Id = Guid.NewGuid().ToString();
+        cellPlaceable.OccupiedCellId = cell.Id!;
+        cellPlaceable.PositionX = cell.PositionX;
+        cellPlaceable.PositionY = cell.PositionY;
+        _mineGenerationVariables.Mine.CellPlaceables.Add(cellPlaceable);
         
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var cellPos = new Vector2(cellSize * cell.PositionX, cellSize * cell.PositionY);
-        InstantiateWallPlaceable(wallPlaceable.ScenePath, cellPos);
+        InstantiateCellPlaceable(cellPlaceable.ScenePath, cellPos);
         MineActions.OnInventoryUpdate?.Invoke();
     }
 
     #endregion
 
-    private void ShowWallPlaceableEligibilityVisualizer(double value)
-    {
-        var eligibility = CheckEligibility();
-        
-        var cell = GetTargetCell();
-        var cellSize = _mineGenerationVariables.Mine.CellSize;
-        var offset = new Vector2(cellSize / 2f, cellSize / 4f);
-        _wallPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
-        
-        if (eligibility)
-            SetSpriteColorToGreen();
-        else
-            SetSpriteColorToRed();
-    }
-
-    private void PlaceWallPlaceableInMine()
-    {
-        var checkEligibility = CheckEligibility();
-        if (checkEligibility)
-        {
-            GD.Print($"inventory item: {_inventoryItem.Variant}, slot:{_inventoryItem.Slot}, stack: {_inventoryItem.Stack}");
-            SetWallPlaceableFromInventoryToMine();
-        }
-    }
-
+    
     #region Set Sprite Color
 
     private void SetSpriteColorToGreen()
     {
-        _wallPlaceableSprite.Modulate = Colors.Green;
+        _cellPlaceableSprite.Modulate = Colors.Green;
     }
 
     private void SetSpriteColorToRed()
     {
-        _wallPlaceableSprite.Modulate = Colors.Red;
+        _cellPlaceableSprite.Modulate = Colors.Red;
     }
 
     #endregion
-    
+
     #region Utilities
 
     private Cell GetTargetCell()
@@ -211,7 +208,7 @@ public partial class WallPlaceableController : InventoryController
         return cell;
     }
 
-    private void InstantiateWallPlaceable(string scenePath, Vector2 pos)
+    private void InstantiateCellPlaceable(string scenePath, Vector2 pos)
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
         var cellSize = mineGenerationVariables.Mine.CellSize;
@@ -229,15 +226,17 @@ public partial class WallPlaceableController : InventoryController
             return false;
         }
 
-        if (cell.HasWallPlaceable)
+        if (cell.HasCellPlaceable)
         {
-            GD.Print("Cell Already has a wall placeable");
+            GD.Print("Cell Already has a Cell placeable");
             return false;
         }
 
-        GD.Print("Torch can be placed");
+        GD.Print("Cell Placeable can be placed");
         return true;
     }
 
     #endregion
+
+
 }

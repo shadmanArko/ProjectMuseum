@@ -16,10 +16,7 @@ public class MuseumTile
     public string FrontRightWallId { get; set; }
     public bool Walkable { get; set; }
     public bool HasExhibit { get; set; }
-    public string ExhibitId { get; set; }
-    public string ShopId { get; set; }
-    public string SanitationId { get; set; }
-    public string DecorationId { get; set; }
-    public string HangingLightId { get; set; }
+    public string ItemId { get; set; }
+    public ItemTypeEnum ItemType { get; set; }
 
 }

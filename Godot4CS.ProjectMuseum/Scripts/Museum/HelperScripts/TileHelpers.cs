@@ -138,7 +138,7 @@ public static class TileHelpers
         foreach (var tile in museumTiles)
         {
             // Skip non-empty or non-walkable tiles
-            if ( tile.ExhibitId != "string" && tile.ExhibitId !="")
+            if ( !tile.Walkable)
                 continue;
     
             Vector2I currentCoordinate = new Vector2I(tile.XPosition, tile.YPosition);
@@ -169,7 +169,7 @@ public static class TileHelpers
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {
-                if ((museumTile.ExhibitId == "string" || museumTile.ExhibitId == "") && museumTile.Walkable)
+                if ( museumTile.Walkable)
                 {
                     _lastCheckedResult = true;
                     return true;

@@ -10,7 +10,7 @@ public class Shop
     public bool RequiredManpower { get; set; }
     public int MaxProducts { get; set; }
     public string ProductCategoryTaken { get; set; }
-    public List<string> DefaultProducts { get; set; }
+    public List<Product> DefaultProducts { get; set; }
     public int LengthInTiles { get; set; }
     public int WidthInTiles { get; set; }
     public float BeautyRating { get; set; }

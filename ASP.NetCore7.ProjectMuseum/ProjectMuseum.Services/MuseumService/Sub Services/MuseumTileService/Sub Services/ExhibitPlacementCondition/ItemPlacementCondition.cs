@@ -48,7 +48,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
     public async Task<bool> PlaceExhibitOnTile(string tileId, string exhibitVariationName)
     {
         var museumTile = await _museumTileRepository.GetById(tileId);
-        if (museumTile != null && museumTile.ExhibitId != "string") return false;
+        if (museumTile != null && museumTile.ItemId != "string") return false;
         if (museumTile == null) return false;
         var exhibit = new Exhibit
         {
@@ -79,7 +79,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
             if (tileId == originTileId)
             {
                 var museumTile = await _museumTileRepository.GetById(tileId);
-                if (museumTile != null && museumTile.ExhibitId != "string") return tilesWithExhibitDto;
+                if (museumTile != null && !museumTile.Walkable) return tilesWithExhibitDto;
                 if (museumTile == null) return tilesWithExhibitDto;
                 exhibit = new Exhibit
                 {

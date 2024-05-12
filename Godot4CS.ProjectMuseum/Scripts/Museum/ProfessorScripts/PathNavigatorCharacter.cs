@@ -206,7 +206,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {
-                if (museumTile.ExhibitId == "string" || museumTile.ExhibitId == "")
+                if (museumTile.Walkable)
                 {
                     _lastCheckedResult = true;
                     return true;

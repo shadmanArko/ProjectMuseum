@@ -5,4 +5,5 @@ namespace ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ConsumableR
 public interface IConsumableRepository
 {
     Task<Consumable> GetConsumableByVariant(string variant);
+    Task<List<Consumable>> GetAllConsumables();
 }

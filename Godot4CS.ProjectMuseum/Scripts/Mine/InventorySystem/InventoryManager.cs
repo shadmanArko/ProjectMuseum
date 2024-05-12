@@ -107,14 +107,16 @@ public partial class InventoryManager : Node2D
     
     public bool HasFreeSlot()
     {
-        var emptySlots = new List<int>();
-        for (var i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
-            emptySlots.Add(i);
-        foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
-            emptySlots.Remove(inventoryItem.Slot);
-			
-        emptySlots.Sort();
-        return emptySlots.Any();
+        var inventory = _inventoryDto.Inventory;
+        return inventory.SlotsUnlocked > inventory.OccupiedSlots.Count;
+        // var emptySlots = new List<int>();
+        // for (var i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
+        //     emptySlots.Add(i);
+        // foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
+        //     emptySlots.Remove(inventoryItem.Slot);
+        //
+        // emptySlots.Sort();
+        // return emptySlots.Any();
     }
     
     public int GetNextEmptySlot()
@@ -124,7 +126,7 @@ public partial class InventoryManager : Node2D
             emptySlots.Add(i);
         foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
             emptySlots.Remove(inventoryItem.Slot);
-			
+        
         emptySlots.Sort();
         return emptySlots[0];
     }

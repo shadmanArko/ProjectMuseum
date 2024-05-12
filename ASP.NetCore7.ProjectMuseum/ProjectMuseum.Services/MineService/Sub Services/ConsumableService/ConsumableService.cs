@@ -17,4 +17,10 @@ public class ConsumableService : IConsumableService
         var consumable = _consumableRepository.GetConsumableByVariant(variant);
         return consumable;
     }
+
+    public async Task<List<Consumable>> GetAllConsumables()
+    {
+        var consumables = await _consumableRepository.GetAllConsumables();
+        return consumables;
+    }
 }

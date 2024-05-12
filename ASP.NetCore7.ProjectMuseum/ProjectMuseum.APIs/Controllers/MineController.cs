@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
+using ProjectMuseum.Services.MineService.Sub_Services.ConsumableService;
 using ProjectMuseum.Services.MineService.Sub_Services.EquippableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
@@ -27,12 +28,13 @@ public class MineController : ControllerBase
     private readonly IRawArtifactDescriptiveService _rawArtifactDescriptiveService;
     private readonly IResourceService _resourceService;
     private readonly IWallPlaceableService _wallPlaceableService;
+    private readonly IConsumableService _consumableService;
     private readonly ICaveGeneratorService _caveGeneratorService;
     private readonly ISpecialBackdropService _specialBackdropService;
     private readonly IProceduralMineGenerationService _proceduralMineGenerationService;
     private readonly IEquippableService _equippableService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService, IProceduralMineGenerationService proceduralMineGenerationService, IEquippableService equippableService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService, IProceduralMineGenerationService proceduralMineGenerationService, IEquippableService equippableService, IConsumableService consumableService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -46,6 +48,7 @@ public class MineController : ControllerBase
         _specialBackdropService = specialBackdropService;
         _proceduralMineGenerationService = proceduralMineGenerationService;
         _equippableService = equippableService;
+        _consumableService = consumableService;
     }
 
     [HttpGet("GetMineData")]
@@ -193,5 +196,12 @@ public class MineController : ControllerBase
     {
         var wallPlaceables = await _wallPlaceableService.GetAllWallPlaceables();
         return Ok(wallPlaceables);
+    }
+    
+    [HttpGet("GetAllConsumables")]
+    public async Task<IActionResult> GetAllConsumables()
+    {
+        var consumables = await _consumableService.GetAllConsumables();
+        return Ok(consumables);
     }
 }

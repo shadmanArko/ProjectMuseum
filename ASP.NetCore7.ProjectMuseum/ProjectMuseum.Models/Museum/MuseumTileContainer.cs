@@ -26,7 +26,7 @@ public class MuseumTileContainer
 
         foreach (var museumTile in museumTiles)
         {
-            bool isWalkable = (museumTile.ItemId == "string" || museumTile.ItemId == "") && museumTile.Walkable;
+            bool isWalkable = museumTile.Walkable;
             AStarNode aStarNode = new AStarNode(museumTile.XPosition * -1, museumTile.YPosition *-1, null, 0f, 0f, isWalkable);
 
             // Assign the node to the grid

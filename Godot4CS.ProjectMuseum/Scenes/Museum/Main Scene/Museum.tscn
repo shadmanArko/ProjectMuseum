@@ -58,9 +58,9 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/FrontWallsController.cs" id="48_p7o0e"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
-[ext_resource type="Texture2D" uid="uid://dg7vds601wvsp" path="res://Assets/2D/Sprites/Decorations/Front_walls_Mid.png" id="50_8lb2o"]
+[ext_resource type="Texture2D" uid="uid://71qml6v2tsw6" path="res://Assets/2D/Sprites/Decorations/Front_walls_Mid.png" id="50_8lb2o"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ItemPlacementController.cs" id="50_roy6j"]
-[ext_resource type="Texture2D" uid="uid://txsuh51u8kvl" path="res://Assets/2D/Sprites/Decorations/Front_walls_small.png" id="51_h2g6g"]
+[ext_resource type="Texture2D" uid="uid://ohxqyh8hr55" path="res://Assets/2D/Sprites/Decorations/Front_walls_small.png" id="51_h2g6g"]
 [ext_resource type="PackedScene" uid="uid://qulr4wwpgjqv" path="res://Scenes/Museum/Effects/1x1dustEffect.tscn" id="51_k8r31"]
 [ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
@@ -540,8 +540,8 @@ _mainWallTexture = ExtResource("42_8t46q")
 _midWallTexture = ExtResource("50_8lb2o")
 _smallWallTexture = ExtResource("51_h2g6g")
 _mainWallOffset = Vector2(0, -49)
-_midWallOffset = Vector2(0, -33.5)
-_smallWallOffset = Vector2(0, -20)
+_midWallOffset = Vector2(0, -49)
+_smallWallOffset = Vector2(0, -15)
 
 [node name="Right_front_wall" type="Node2D" parent="museum/Background Foresnt/FrontWalls"]
 y_sort_enabled = true

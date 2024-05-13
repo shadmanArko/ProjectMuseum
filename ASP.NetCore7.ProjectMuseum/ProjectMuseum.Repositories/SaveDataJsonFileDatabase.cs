@@ -87,7 +87,7 @@ public class SaveDataJsonFileDatabase
         var displayArtifact = JsonSerializer.Deserialize<List<DisplayArtifacts>>(await File.ReadAllTextAsync(_displayArtifactDataFolderPath));
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(await File.ReadAllTextAsync(_exhibitDataFolderPath));
         var exhibitVariations = JsonSerializer.Deserialize<List<ExhibitVariation>>(await File.ReadAllTextAsync(_exhibitVariationDataFolderPath));
-        var decorationShops = JsonSerializer.Deserialize<List<DecorationShop>>(await File.ReadAllTextAsync(_decorationShopDataFolderPath));
+        var decorationShops = JsonSerializer.Deserialize<List<Shop>>(await File.ReadAllTextAsync(_decorationShopDataFolderPath));
         var decorationShopVariations = JsonSerializer.Deserialize<List<DecorationShopVariation>>(await File.ReadAllTextAsync(_decorationShopVariationDataFolderPath));
         var decorationOthers = JsonSerializer.Deserialize<List<DecorationOther>>(await File.ReadAllTextAsync(_decorationOtherDataFolderPath));
         var decorationOtherVariations = JsonSerializer.Deserialize<List<DecorationOtherVariation>>(await File.ReadAllTextAsync(_decorationOtherVariationDataFolderPath));
@@ -175,7 +175,7 @@ public class MergedData
     [JsonPropertyName("DisplayArtifacts")] public List<DisplayArtifacts>? DisplayArtifacts { get; set; }
     [JsonPropertyName("Exhibits")] public List<Exhibit>? Exhibits { get; set; }
     [JsonPropertyName("ExhibitVariations")] public List<ExhibitVariation>? ExhibitVariations { get; set; }
-    [JsonPropertyName("DecorationShops")] public List<DecorationShop>? DecorationShops { get; set; }
+    [JsonPropertyName("DecorationShops")] public List<Shop>? DecorationShops { get; set; }
     [JsonPropertyName("DecorationShopVariations")] public List<DecorationShopVariation>? DecorationShopVariations { get; set; }
     [JsonPropertyName("DecorationOthers")] public List<DecorationOther>? DecorationOthers { get; set; }
     [JsonPropertyName("DecorationOtherVariations")] public List<DecorationOtherVariation>? DecorationOtherVariations { get; set; }

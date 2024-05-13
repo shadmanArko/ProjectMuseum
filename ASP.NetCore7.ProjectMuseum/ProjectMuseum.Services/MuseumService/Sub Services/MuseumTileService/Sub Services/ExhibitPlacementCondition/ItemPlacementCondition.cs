@@ -112,7 +112,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
     public async Task<TilesWithShopsDTO> PlaceShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
     {
         TilesWithShopsDTO tilesWithShopsDto = new TilesWithShopsDTO();
-        DecorationShop decorationShop = new DecorationShop();
+        Shop shop = new Shop();
         var museumTiles = await _museumTileRepository.GetAll();
         
         foreach (var tileId in tileIds)
@@ -120,7 +120,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
             if (tileId == originTileId)
             {
                 var museumTile = await _museumTileRepository.GetById(tileId);
-                decorationShop = new DecorationShop
+                shop = new Shop
                 {
                     Id = Guid.NewGuid().ToString(),
                     ShopVariationName =  shopVariationName,
@@ -129,14 +129,14 @@ public class ItemPlacementCondition : IItemPlacementCondition
                     RotationFrame = rotationFrame,
                     
                 };
-                await _decorationShopRepository.Insert(decorationShop);
+                await _decorationShopRepository.Insert(shop);
                 
             }
         }
-        museumTiles = await _museumTileRepository.UpdateShopToMuseumTiles(tileIds, decorationShop.Id);
+        museumTiles = await _museumTileRepository.UpdateShopToMuseumTiles(tileIds, shop.Id);
         tilesWithShopsDto.MuseumTiles = museumTiles;
         tilesWithShopsDto.DecorationShops = await _decorationShopRepository.GetAll();
-        tilesWithShopsDto.DecorationShop = decorationShop;
+        tilesWithShopsDto.Shop = shop;
         return tilesWithShopsDto;
     }
     public async Task<TilesWithSanitationsDTO> PlaceSanitationOnTiles(string originTileId, List<string> tileIds, string sanitationVariationName, int rotationFrame)

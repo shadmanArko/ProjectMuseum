@@ -264,10 +264,10 @@ public partial class Guest : GuestAi
 
     private Vector2I GetClosestShopLocation()
     {
-        if (_museumTileContainer.DecorationShops.Count > 0)
+        if (_museumTileContainer.Shops.Count > 0)
         {
             _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
-            var shop = _museumTileContainer.DecorationShops.GetClosestShopToLocation(_startTileCoordinate);
+            var shop = _museumTileContainer.Shops.GetClosestShopToLocation(_startTileCoordinate);
             _currentViewingObjectOrigin = new Vector2I(shop.XPosition, shop.YPosition);
             Vector2I coordinate = Vector2I.Zero;
             if (shop.RotationFrame == 0)

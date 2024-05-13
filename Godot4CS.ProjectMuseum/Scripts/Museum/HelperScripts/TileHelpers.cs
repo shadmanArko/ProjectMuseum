@@ -86,9 +86,9 @@ public static class TileHelpers
     
         return closestCoordinate;
     }
-    public static DecorationShop GetClosestShopToLocation(this List<DecorationShop> shops, Vector2I currentPosition)
+    public static Shop GetClosestShopToLocation(this List<Shop> shops, Vector2I currentPosition)
     {
-        DecorationShop closestShop = shops[0];
+        Shop closestShop = shops[0];
         float minDistance = 99999;
         foreach (var shop in shops)
         {

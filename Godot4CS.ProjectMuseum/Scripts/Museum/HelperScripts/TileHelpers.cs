@@ -46,6 +46,10 @@ public static class TileHelpers
         foreach (var tileId in exhibit.OccupiedTileIds)
         {
             var tile = museumTiles.GetTileById(tileId);
+            if (tile == null)
+            {
+                GD.PrintErr($"Tile not found for {exhibit.XPosition},{exhibit.YPosition}");
+            }
             Vector2I coord = new Vector2I(tile.XPosition + 1, tile.YPosition);
             if (museumTiles.IsTileWalkable(coord)) closestCoordinates.Add(new TargetWthOrigin(coord, new Vector2I(tile.XPosition, tile.YPosition)));
             coord = new Vector2I(tile.XPosition - 1, tile.YPosition);

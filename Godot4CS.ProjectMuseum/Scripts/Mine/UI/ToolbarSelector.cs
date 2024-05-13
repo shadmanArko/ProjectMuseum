@@ -95,9 +95,6 @@ public partial class ToolbarSelector : HBoxContainer
 
 	private void SetToolbarItemSlots()
 	{
-		GD.Print($"inventorydto null: {_inventoryDto == null}");
-		GD.Print($"inventory null: {_inventoryDto.Inventory == null}");
-		GD.Print($"inventory items null: {_inventoryDto.Inventory.InventoryItems == null}");
 		foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
 		{
 			if (inventoryItem.Slot is < 0 or >= 12) continue;

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3vhb77ufuw6c"]
+
+[ext_resource type="Texture2D" uid="uid://cq4sgouccwsrj" path="res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png" id="1_5ossi"]
+[ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Explosives/Dynamite.cs" id="1_j4dcf"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="3_a83gm"]
+
+[node name="Dynamite" type="Node2D" node_paths=PackedStringArray("_timerLabel")]
+script = ExtResource("1_j4dcf")
+_timerLabel = NodePath("Label")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5ossi")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_a83gm")
+theme_override_font_sizes/font_size = 11
+text = "20
+"
+horizontal_alignment = 1
+vertical_alignment = 1

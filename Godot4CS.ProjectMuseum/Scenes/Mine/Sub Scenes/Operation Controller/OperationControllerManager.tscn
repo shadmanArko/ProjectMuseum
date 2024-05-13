@@ -1,16 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7xekoa5ueyf3"]
+[gd_scene load_steps=6 format=3 uid="uid://b7xekoa5ueyf3"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/OperationControlManager.cs" id="1_0fax2"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/WallPlaceableController.cs" id="2_crgrw"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/ConsumableController.cs" id="3_cxqsv"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/EquipableController.cs" id="4_pmks2"]
+[ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/CellPlaceableController.cs" id="5_i6uqa"]
 
-[node name="OperationControllerManager" type="Node2D" node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController", "_equipableController")]
+[node name="OperationControllerManager" type="Node2D" node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController", "_equipableController", "_cellPlaceableController")]
 script = ExtResource("1_0fax2")
 _inventoryControllers = [NodePath("ConsumableController")]
 _wallPlaceableController = NodePath("WallPlaceableController")
 _consumableController = NodePath("ConsumableController")
 _equipableController = NodePath("EquipableController")
+_cellPlaceableController = NodePath("CellPlaceableController")
 
 [node name="WallPlaceableController" type="Node2D" parent="." node_paths=PackedStringArray("_wallPlaceableSprite")]
 script = ExtResource("2_crgrw")
@@ -21,6 +23,10 @@ script = ExtResource("3_cxqsv")
 
 [node name="EquipableController" type="Node2D" parent="."]
 script = ExtResource("4_pmks2")
+
+[node name="CellPlaceableController" type="Node2D" parent="." node_paths=PackedStringArray("_cellPlaceableSprite")]
+script = ExtResource("5_i6uqa")
+_cellPlaceableSprite = NodePath("../Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 8

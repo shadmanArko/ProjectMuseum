@@ -77,10 +77,11 @@ public partial class CellPlaceableController : InventoryController
         {
             _cellPlaceableSprite.Visible = true;
             _cellPlaceableSprite.Texture = cellPlaceableTexture;
+            SetSpritePosition();
         }
         
         SubscribeToActions();
-        GD.Print("Wall placeable controller activated");
+        GD.Print("Cell placeable controller activated");
     }
 
     public override void DeactivateController()
@@ -123,11 +124,7 @@ public partial class CellPlaceableController : InventoryController
     private void ShowCellPlaceableEligibilityVisualizer(double value)
     {
         var eligibility = CheckEligibility();
-        
-        var cell = GetTargetCell();
-        var cellSize = _mineGenerationVariables.Mine.CellSize;
-        var offset = new Vector2(cellSize / 2f, cellSize / 4f);
-        _cellPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+        SetSpritePosition();
         
         if (eligibility)
             SetSpriteColorToGreen();
@@ -182,7 +179,15 @@ public partial class CellPlaceableController : InventoryController
     #endregion
 
     
-    #region Set Sprite Color
+    #region Set Sprite
+
+    private void SetSpritePosition()
+    {
+        var cell = GetTargetCell();
+        var cellSize = _mineGenerationVariables.Mine.CellSize;
+        var offset = new Vector2(cellSize / 2f, cellSize / 4f);
+        _cellPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+    }
 
     private void SetSpriteColorToGreen()
     {

@@ -9,7 +9,7 @@
     "Type": "CellPlaceable",
     "Category": "Explosives",
     "Variant": "Dynamite",
-    "ScenePath": "",
-    "PngPath": ""
+    "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Explosives/Dynamite.tscn",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png"
   }
 ]

@@ -13,7 +13,6 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	[Export] public AnimationController AnimationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
-	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private float _maxVerticalVelocity;
 	[Export] private float _fallTime;
@@ -21,6 +20,10 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	
 	[Export(PropertyHint.Range, "1,200,1")]
 	public int MovementFactor = 100;
+
+	[Export] public Area2D ItemDetector;
+
+	#region Initializers
 
 	public override void _EnterTree()
 	{
@@ -34,7 +37,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		ServiceRegistry.Resolve<MineGenerationVariables>();
 		_playerControllerVariables.Player = this;
 	}
 
@@ -44,6 +47,8 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		MineActions.OnPlayerHealthValueChanged += Death;
 		MineActions.OnTakeDamageStarted += TakeDamage;
 	}
+
+	#endregion
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -90,19 +95,6 @@ public partial class PlayerController : CharacterBody2D, IDeath
 			}
 		}
 	}
-
-	// private void ApplyGravity()
-	// {
-	// 	if (_playerControllerVariables.State is MotionState.Grounded or MotionState.Hanging)
-	// 	{
-	// 		_fallTime = 0;
-	// 		return;
-	// 	}
- //        
-	// 	var previousVerticalVelocity = Velocity.Y;
-	// 	var currentVerticalVelocity = Mathf.Clamp(previousVerticalVelocity + _playerControllerVariables.Gravity, 0, _maxVerticalVelocity);
-	// 	Velocity = new Vector2(Velocity.X, currentVerticalVelocity);
-	// }
 	
 	private void ApplyGravity()
 	{

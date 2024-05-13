@@ -13,7 +13,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Mine\Items\" />
-    <Folder Include="Scripts\Mine\Objects\Categories\Light\" />
     <Folder Include="Scripts\Mine\Objects\CellPlaceables\Traps\" />
     <Folder Include="Scripts\Mine\Objects\Types\WallPlaceable\" />
   </ItemGroup>

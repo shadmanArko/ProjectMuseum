@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://btfxvqycveohy"]
+
+[ext_resource type="Texture2D" uid="uid://wff18456uxk3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png" id="1_rf63g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4py5"]
+radius = 6.0
+
+[node name="ItemDrop" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 2
+sleeping = true
+lock_rotation = true
+linear_damp = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_rf63g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g4py5")

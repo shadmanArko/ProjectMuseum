@@ -76,6 +76,8 @@ public partial class MineActions : Node
 
     public static Action OnSuccessfulDigActionCompleted;
 
+    public static Action OnCollectItemDrop;
+
     #region Health and Energy Actions
 
     public static Action OnPlayerHealthValueChanged;

@@ -33,7 +33,8 @@ public partial class MineResourceCollector : Node
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnSuccessfulDigActionCompleted += CheckResourceCollectionValidity;
+		// MineActions.OnSuccessfulDigActionCompleted += CheckResourceCollectionValidity;
+		MineActions.OnCollectItemDrop += CheckResourceCollectionValidity;
 	}
 	
 	#region Check Resource Collection Validity
@@ -136,16 +137,16 @@ public partial class MineResourceCollector : Node
 
 		return item;
 	}
-    
-	private void OnSendResourceFromMineToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		MineActions.OnInventoryUpdate?.Invoke();
-	}
 
 	#endregion
 
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnCollectItemDrop -= CheckResourceCollectionValidity;
+	}
+	
 	public override void _ExitTree()
 	{
-		MineActions.OnSuccessfulDigActionCompleted += CollectResources;
+		UnsubscribeToActions();
 	}
 }

@@ -596,8 +596,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lnct"]
-radius = 7.0
-height = 25.0
+radius = 30.0
+height = 60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wwlxh"]
 size = Vector2(4, 1.5)
@@ -614,7 +614,7 @@ size = Vector2(18, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skedj"]
 size = Vector2(18, 10)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationController")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationController", "ItemDetector")]
 light_mask = 4
 visibility_layer = 4
 z_index = 10
@@ -631,6 +631,7 @@ script = ExtResource("1_bhvr3")
 AnimationController = NodePath("AnimationPlayer")
 _maxVerticalVelocity = 200.0
 _fallTimeThreshold = 0.2
+ItemDetector = NodePath("Item Detector")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cq4yg")
@@ -665,17 +666,21 @@ _leftAttackDetector = NodePath("../LeftAttackDetector")
 _rightAttackDetector = NodePath("../RightAttackDetector")
 _topAttackDetector = NodePath("../TopAttackDetector")
 _bottomAttackDetector = NodePath("../BottomAttackDetector")
-_collisionShape2D = NodePath("../Attack Detector/Attack Collider")
+_collisionShape2D = NodePath("../Item Detector/Item Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
-[node name="Attack Detector" type="Area2D" parent="."]
-visible = false
+[node name="Item Detector" type="Area2D" parent="."]
 position = Vector2(-0.173327, -2.11858)
 collision_layer = 2
-collision_mask = 4
+collision_mask = 8
 monitoring = false
+gravity_space_override = 1
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 500.0
 
-[node name="Attack Collider" type="CollisionShape2D" parent="Attack Detector"]
+[node name="Item Collider" type="CollisionShape2D" parent="Item Detector"]
 position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3lnct")
@@ -728,10 +733,10 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_skedj")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]
-[connection signal="body_entered" from="Attack Detector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
-[connection signal="body_exited" from="Attack Detector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
+[connection signal="body_entered" from="Item Detector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
+[connection signal="body_exited" from="Item Detector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
 [connection signal="body_entered" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockEnter"]
 [connection signal="body_exited" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockExit"]
 [connection signal="body_entered" from="LeftAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]

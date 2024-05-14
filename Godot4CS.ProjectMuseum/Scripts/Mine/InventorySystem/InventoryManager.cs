@@ -64,11 +64,11 @@ public partial class InventoryManager : Node2D
         var jsonStr = Encoding.UTF8.GetString(body);
         var inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
         _inventoryDto.Inventory = inventory;
-        foreach (var item in _inventoryDto.Inventory.InventoryItems)
-        {
-            GD.Print(item.Variant);
-        }
-        GD.Print("Inventory Update from Inventory Manager");
+        // foreach (var item in _inventoryDto.Inventory.InventoryItems)
+        // {
+        //     GD.Print(item.Variant);
+        // }
+        // GD.Print("Inventory Update from Inventory Manager");
 
         InitializeInventorySlots();
         SetInventorySlotUnlockStatus();

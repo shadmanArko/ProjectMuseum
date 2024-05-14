@@ -76,7 +76,7 @@ public partial class MineActions : Node
 
     public static Action OnSuccessfulDigActionCompleted;
 
-    public static Action OnCollectItemDrop;
+    public static Action<InventoryItem> OnCollectItemDrop;
 
     #region Health and Energy Actions
 

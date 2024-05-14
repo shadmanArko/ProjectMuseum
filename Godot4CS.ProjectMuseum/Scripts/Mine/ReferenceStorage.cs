@@ -46,7 +46,8 @@ public partial class ReferenceStorage : Node
     //Particle Effects Scene Path//
     [Export] public string DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn";
     [Export] public string ToolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn";
-
+    [Export] public string ItemDropScenePath = "res://Scenes/Mine/Sub Scenes/Items/ItemDrop.tscn";
+    
     [Export] public MineSceneTooltip Tooltip;
     
     public override void _EnterTree()

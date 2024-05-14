@@ -101,7 +101,7 @@ public partial class EquipableController : InventoryController
     private void DigActionStart()
     {
         _playerControllerVariables.IsDigging = true;
-        GD.Print("inside dig action started");
+        // GD.Print("inside dig action started");
         SetProcess(true);
     }
     

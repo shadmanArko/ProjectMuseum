@@ -2,9 +2,11 @@ using System;
 using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Objects;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
+using Resource = ProjectMuseum.Models.MIne.Resource;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Object_Generators;
 
@@ -33,8 +35,8 @@ public partial class MineResourceCollector : Node
 
 	private void SubscribeToActions()
 	{
-		// MineActions.OnSuccessfulDigActionCompleted += CheckResourceCollectionValidity;
-		MineActions.OnCollectItemDrop += CheckResourceCollectionValidity;
+		MineActions.OnSuccessfulDigActionCompleted += CheckResourceCollectionValidity;
+		MineActions.OnCollectItemDrop += SendInventoryItemToInventory;
 	}
 	
 	#region Check Resource Collection Validity
@@ -62,8 +64,79 @@ public partial class MineResourceCollector : Node
 		else
 		{
 			GD.Print("adding resource to inventory");
-			CollectResources();
+			// CollectResources();
+			var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
+				tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
+			if (resource == null)
+			{
+				GD.PrintErr($"Could not find resource in the mine");
+				return;
+			}
+
+			var cellSize = _mineGenerationVariables.Mine.CellSize;
+			var offset = new Vector2(cellSize, cellSize) / 2;
+			var pos = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+			InstantiateResourceAsInventoryItem(resource, pos);
 		}
+	}
+
+	private void InstantiateResourceAsInventoryItem(Resource resource, Vector2 position)
+	{
+		var inventoryItem = new InventoryItem
+		{
+			Id = resource.Id,
+			Type = "Resource",
+			Category = resource.Category,
+			Variant = resource.Variant,
+			IsStackable = true,
+			Name = resource.Name,
+			Stack = 1,
+			Slot = 0,
+			PngPath = resource.PNGPath
+		};
+
+		var itemDropPath = ReferenceStorage.Instance.ItemDropScenePath;
+		var resourceItem =
+			SceneInstantiator.InstantiateScene(itemDropPath, _mineGenerationVariables.MineGenView, position) as ItemDrop;
+		if (resourceItem == null)
+		{
+			GD.PrintErr("Item drop is null");
+			return;
+		}
+		
+		GD.Print("instantiated resource item");
+		resourceItem.SetItem(inventoryItem);
+	}
+
+	private void SendInventoryItemToInventory(InventoryItem item)
+	{
+		if(item.Type != "Resource") return;
+		var inventoryManager = ReferenceStorage.Instance.InventoryManager;
+		var mine = _mineGenerationVariables.Mine;
+		var resources = _mineGenerationVariables.Mine.Resources;
+		var resourceToRemove = resources.FirstOrDefault(res => res.Id == item.Id);
+		if (resourceToRemove != null)
+			resources.Remove(resourceToRemove);
+		else
+		{
+			GD.PrintErr("Resource is null");
+			return;
+		}
+		var cell = mine?.Cells.FirstOrDefault(cell => cell.PositionX == resourceToRemove.PositionX && cell.PositionY == resourceToRemove.PositionY);
+		if (cell != null) cell.HasResource = false;
+		
+		if (_inventoryDto.Inventory.InventoryItems.Any(item1 => item1.Variant == resourceToRemove.Variant))
+		{
+			item = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(item1 => item1.Variant == resourceToRemove.Variant)!;
+			item.Stack++;
+		}
+		else
+		{
+			item.Slot = inventoryManager.GetNextEmptySlot();
+			_inventoryDto.Inventory.OccupiedSlots.Add(item.Slot);
+			_inventoryDto.Inventory.InventoryItems.Add(item);
+		}
+		MineActions.OnInventoryUpdate?.Invoke();
 	}
     
 	#endregion
@@ -142,7 +215,7 @@ public partial class MineResourceCollector : Node
 
 	private void UnsubscribeToActions()
 	{
-		MineActions.OnCollectItemDrop -= CheckResourceCollectionValidity;
+		MineActions.OnCollectItemDrop -= SendInventoryItemToInventory;
 	}
 	
 	public override void _ExitTree()

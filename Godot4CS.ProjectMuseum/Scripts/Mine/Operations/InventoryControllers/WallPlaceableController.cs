@@ -111,7 +111,6 @@ public partial class WallPlaceableController : InventoryController
         string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
-        GD.PrintErr("wall placeable list"+jsonStr);
         var wallPlaceables = JsonSerializer.Deserialize<List<WallPlaceable>>(jsonStr);
         
         if (wallPlaceables == null)

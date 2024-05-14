@@ -137,10 +137,10 @@ public partial class ToolbarSelector : HBoxContainer
 
 	private void SelectItem(int itemNumber)
 	{
-		GD.Print($"current item selected in toolbar: {itemNumber}");
+		// GD.Print($"current item selected in toolbar: {itemNumber}");
 		DeselectAllItems();
-		GD.Print($"item number: {itemNumber}");
-		GD.Print($"toolbar slots: {_toolbarSlots.Count}");
+		// GD.Print($"item number: {itemNumber}");
+		// GD.Print($"toolbar slots: {_toolbarSlots.Count}");
 		_toolbarSlots[itemNumber].SetItemAsSelected();
 	}
 

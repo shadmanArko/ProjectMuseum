@@ -108,7 +108,7 @@ public partial class CellPlaceableController : InventoryController
         string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
-        GD.PrintErr("wall placeable list"+jsonStr);
+        // GD.PrintErr("wall placeable list"+jsonStr);
         var cellPlaceables = JsonSerializer.Deserialize<List<CellPlaceable>>(jsonStr);
         
         if (cellPlaceables == null)

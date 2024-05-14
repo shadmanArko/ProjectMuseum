@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=48 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithEnemyDetector.cs" id="7_3m1a8"]
 [ext_resource type="PackedScene" uid="uid://caue4uc4nb88t" path="res://Scenes/Mine/Sub Scenes/Torch.tscn" id="7_s7umg"]
+[ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/ItemCollectionController.cs" id="7_wx28y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cq4yg"]
 radius = 5.0
@@ -595,6 +596,9 @@ _data = {
 "walk": SubResource("Animation_tq5uu")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_l3vm5"]
+radius = 6.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lnct"]
 radius = 30.0
 height = 60.0
@@ -669,26 +673,33 @@ _bottomAttackDetector = NodePath("../BottomAttackDetector")
 _collisionShape2D = NodePath("../Item Detector/Item Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
+[node name="Torch" parent="." instance=ExtResource("7_s7umg")]
+energy = 0.6
+range_item_cull_mask = 34
+
+[node name="Item Stasher" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item Stasher"]
+shape = SubResource("CircleShape2D_l3vm5")
+
 [node name="Item Detector" type="Area2D" parent="."]
 position = Vector2(-0.173327, -2.11858)
 collision_layer = 2
 collision_mask = 8
-monitoring = false
 gravity_space_override = 1
 gravity_point = true
 gravity_point_center = Vector2(0, 0)
 gravity_direction = Vector2(0, 0)
-gravity = 500.0
+gravity = 1500.0
+script = ExtResource("7_wx28y")
 
 [node name="Item Collider" type="CollisionShape2D" parent="Item Detector"]
 position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3lnct")
 debug_color = Color(0.649493, 0.520117, 0, 0.42)
-
-[node name="Torch" parent="." instance=ExtResource("7_s7umg")]
-energy = 0.6
-range_item_cull_mask = 34
 
 [node name="Gravity Detector" type="Area2D" parent="."]
 
@@ -733,10 +744,11 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_skedj")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
-[connection signal="body_entered" from="Item Detector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]
-[connection signal="body_exited" from="Item Detector" to="PlayerEnemyCollisionDetector" method="OnBodyExit"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]
+[connection signal="body_entered" from="Item Stasher" to="Item Detector" method="OnBodyEnterStashArea"]
+[connection signal="body_entered" from="Item Detector" to="Item Detector" method="OnBodyEntered"]
+[connection signal="body_exited" from="Item Detector" to="Item Detector" method="OnBodyExited"]
 [connection signal="body_entered" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockEnter"]
 [connection signal="body_exited" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockExit"]
 [connection signal="body_entered" from="LeftAttackDetector" to="PlayerEnemyCollisionDetector" method="OnBodyEnter"]

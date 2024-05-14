@@ -1,13 +1,13 @@
-namespace ProjectMuseum.Models;
+using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 
-public class Shop
+namespace ProjectMuseum.Models.CoreShop;
+
+public class CoreShopFunctional
 {
     public string Id { get; set; }
-    public string ShopVariationName { get; set; }
-    public int XPosition { get; set; }
-    public int YPosition { get; set; }
-    public int RotationFrame { get; set; }
+    public string Variant { get; set; }
     public bool RequiredManpower { get; set; }
+    public List<GuestNeedsEnum> NeedsShopFullfills { get; set; }
     public int MaxProducts { get; set; }
     public string ProductCategoryTaken { get; set; }
     public List<Product> DefaultProducts { get; set; }
@@ -17,5 +17,4 @@ public class Shop
     public float PlacementCost { get; set; }
     public string FunctionalDirection { get; set; }
     public string ShopPngLocation { get; set; }
-    
 }

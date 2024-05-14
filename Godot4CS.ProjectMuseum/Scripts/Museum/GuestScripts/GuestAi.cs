@@ -8,6 +8,7 @@ using Godot4CS.ProjectMuseum.Plugins.AStarPathFinding;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using Godot4CS.ProjectMuseum.Scripts.Museum.ShopSystem;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
 
@@ -32,10 +33,10 @@ public partial class GuestAi : CharacterBody2D
     protected float chargeDecayRate;
     protected float energyDecayRate;
     protected float entertainmentDecayRate;
+    protected ShopManager _shopManager;
 
     private int _needsDecayInterval = 1;
     private int _countForDecayInterval= 0;
-
     private bool _executingADecision = false;
     //Guest Ai selection
     [Export] private Sprite2D _collisionShape2D;
@@ -66,6 +67,7 @@ public partial class GuestAi : CharacterBody2D
         base._EnterTree();
         MuseumActions.OnClickGuestAi += OnClickGuestAi;
         MuseumActions.OnTimeUpdated += OnTimeUpdated;
+        _shopManager = GetTree().Root. GetNode<ShopManager>("Museum Scene Di Installer/ShopManager");
     }
 
     private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)

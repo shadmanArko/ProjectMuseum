@@ -1,5 +1,7 @@
+using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.CoreShop;
 using ProjectMuseum.Repositories.DecorationOtherRepository;
 using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
@@ -114,7 +116,16 @@ public class ItemPlacementCondition : IItemPlacementCondition
         TilesWithShopsDTO tilesWithShopsDto = new TilesWithShopsDTO();
         Shop shop = new Shop();
         var museumTiles = await _museumTileRepository.GetAll();
-        
+        //get core shop  functional with the variation name from json
+        var coreShopFunctional = new CoreShopFunctional();
+        coreShopFunctional.Variant = shopVariationName;
+        coreShopFunctional.NeedsShopFullfills = new List<GuestNeedsEnum>()
+            { GuestNeedsEnum.Hunger, GuestNeedsEnum.Thirst };
+        coreShopFunctional.DefaultProducts = new List<Product>()
+        {
+            new Product() { BasePrice = 110, NeedFillAmount = 50, FulfilsGuestNeed = GuestNeedsEnum.Hunger },
+            new Product() { BasePrice = 120, NeedFillAmount = 55, FulfilsGuestNeed = GuestNeedsEnum.Thirst }
+        };
         foreach (var tileId in tileIds)
         {
             if (tileId == originTileId)
@@ -123,7 +134,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
                 shop = new Shop
                 {
                     Id = Guid.NewGuid().ToString(),
-                    ShopVariationName =  shopVariationName,
+                    CoreShopFunctional =  coreShopFunctional,
                     XPosition = museumTile.XPosition,
                     YPosition = museumTile.YPosition,
                     RotationFrame = rotationFrame,

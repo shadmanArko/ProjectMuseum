@@ -1,3 +1,5 @@
+using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
+
 namespace ProjectMuseum.Models;
 
 public class Product
@@ -7,6 +9,7 @@ public class Product
     public string ProductVariant { get; set; }
     public string ProductCategory { get; set; }
     public string ProductType { get; set; }
+    public GuestNeedsEnum FulfilsGuestNeed { get; set; }
     public int BasePrice { get; set; }
     public int NeedFillAmount { get; set; }
 }

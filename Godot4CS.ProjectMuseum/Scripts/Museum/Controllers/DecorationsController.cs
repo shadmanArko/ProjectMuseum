@@ -86,7 +86,7 @@ public partial class DecorationsController : Node2D
 		foreach (var shop in shops)
 		{
 			var instance = (Node)_decorationShopItem.Instantiate();
-			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/DecorationShops/{shop.ShopVariationName}.png");
+			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/DecorationShops/{shop.CoreShopFunctional.Variant}.png");
 			var sprite = instance.GetNode<Sprite2D>(".") ;
 			sprite.Texture = texture2D;
 			sprite.Frame = shop.RotationFrame;

@@ -94,7 +94,7 @@ public static class TileHelpers
         {
             Vector2I currentShopCoord = new Vector2I(shop.XPosition, shop.YPosition);
             int distance = ManhattanDistance(currentPosition, currentShopCoord);
-            GD.Print($"distance of {shop.ShopVariationName} {distance}, min dis {minDistance}");
+            GD.Print($"distance of {shop.CoreShopFunctional.Variant} {distance}, min dis {minDistance}");
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -210,7 +210,7 @@ public static class TileHelpers
         return false;
     }
     
-    private static int ManhattanDistance(Vector2I a, Vector2I b)
+    public static int ManhattanDistance(this Vector2I a, Vector2I b)
     {
         return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
     }

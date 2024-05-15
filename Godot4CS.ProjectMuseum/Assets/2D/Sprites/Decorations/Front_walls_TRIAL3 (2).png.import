@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ohxqyh8hr55"
-path="res://.godot/imported/Front_walls_small.png-5700ed99a5954eaa8c4a3c4a772d0ed2.ctex"
+uid="uid://cg2fdhy5mnevm"
+path="res://.godot/imported/Front_walls_TRIAL3 (2).png-ca24f2ae38bd79fd341a5172deba7a16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Decorations/Front_walls_small.png"
-dest_files=["res://.godot/imported/Front_walls_small.png-5700ed99a5954eaa8c4a3c4a772d0ed2.ctex"]
+source_file="res://Assets/2D/Sprites/Decorations/Front_walls_TRIAL3 (2).png"
+dest_files=["res://.godot/imported/Front_walls_TRIAL3 (2).png-ca24f2ae38bd79fd341a5172deba7a16.ctex"]
 
 [params]
 

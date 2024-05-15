@@ -5,8 +5,9 @@ using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using ProjectMuseum.Models;
 
-public partial class Wall : Sprite2D
+public partial class Wall : Node2D
 {
+    [Export] private Sprite2D _wallSprite;
     [Export] private Sprite2D _wallPreview;
     [Export] private Texture2D _wallPreviewSprite;
     public string WallId;
@@ -39,19 +40,19 @@ public partial class Wall : Sprite2D
         
         TileId = museumTile.Id;
         Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/Wallpapers/{WallId}.png");
-        Texture = texture2D;
+        _wallSprite.Texture = texture2D;
         if (museumTile.XPosition == 0 || museumTile.YPosition == 0)
         {
-            Frame = 1;
+            _wallSprite.Frame = 1;
             _wallPreview.Frame = 1;
         }else if (museumTile.BackLeftWallId!= "" && museumTile.BackRightWallId != "")
         {
-            Frame = 0;
+            _wallSprite.Frame = 0;
             _wallPreview.Frame = 0;
         }
         else
         {
-            Frame = 2;
+            _wallSprite.Frame = 2;
             _wallPreview.Frame = 2;
         }
     }
@@ -75,7 +76,7 @@ public partial class Wall : Sprite2D
     {
         if (_showedPreviewOnce)
         {
-            Texture = _wallPreviewSprite;
+            _wallSprite.Texture = _wallPreviewSprite;
         }
         DisablePreview();
     }
@@ -145,7 +146,7 @@ public partial class Wall : Sprite2D
         // Check if the mouse is over the object
         if (@event is InputEventMouseMotion mouseMotionEvent)
         {
-            if (GetRect().HasPoint(GetLocalMousePosition()) )
+            if (_wallSprite.GetRect().HasPoint(GetLocalMousePosition()) )
             {
                 // Emit the mouse_entered signal
                 // _on_Hover();
@@ -160,7 +161,7 @@ public partial class Wall : Sprite2D
 
         if (Input.IsActionPressed("ui_left_click"))
         {
-            if (GetRect().HasPoint(GetLocalMousePosition()))
+            if (_wallSprite.GetRect().HasPoint(GetLocalMousePosition()))
             {
                 OnClickWall();
             }

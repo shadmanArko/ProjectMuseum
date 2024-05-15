@@ -135,6 +135,10 @@ public partial class TileSpawner : TileMap
 			if (museumTile.XPosition < _minCellIndexX) _minCellIndexX = museumTile.XPosition;
 			if (museumTile.YPosition < _minCellIndexY) _minCellIndexY = museumTile.YPosition;
 			SetCell(0, new Vector2I(museumTile.XPosition, museumTile.YPosition), museumTile.TileSetNumber, Vector2I.Zero);
+			if (museumTile.IsDirty)
+			{
+				SetCell(2, new Vector2I(museumTile.XPosition, museumTile.YPosition), 14, Vector2I.Zero);
+			}
 		}
 
 		List<TileWallInfo> museumTilesToUpdateWalls = new List<TileWallInfo>();
@@ -214,6 +218,7 @@ public partial class TileSpawner : TileMap
 
 	private void InstantiateWall(MuseumTile museumTile, PackedScene wall, WallSide wallSide)
 	{
+		
 		var instance = (Node2D)wall.Instantiate();
 		instance.GetNode<Wall>(".").SetUpWall(museumTile, wallSide);
 		AddDirtyWallTexture(instance);
@@ -222,6 +227,13 @@ public partial class TileSpawner : TileMap
 	}
 	private void InstantiateFrontWall(MuseumTile museumTile, PackedScene wall, WallSide wallSide)
 	{
+		if ((wallSide == WallSide.FrontLeft || wallSide == WallSide.FrontRight) 
+		    && ((museumTile.XPosition == 0 && museumTile.YPosition >= -19)
+		        || (museumTile.XPosition >= -17 && museumTile.YPosition ==0)))
+		{
+			GD.Print($"Skipped wall {museumTile.XPosition}, {museumTile.YPosition}");
+			return;
+		}
 		var instance = (Node2D)wall.Instantiate();
 		// instance.GetNode<Wall>(".").SetUpWall(museumTile, wallSide);
 		// AddDirtyWallTexture(instance);

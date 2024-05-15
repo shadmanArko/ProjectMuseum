@@ -125,7 +125,7 @@ public partial class MuseumTileEditor : Node2D
                     {
                         GameManager.tileMap.ClearLayer(1);
                         var spawnTilePos = new Vector2I(x, y);
-                        if (!spawnTilePos.IsTilePositionInsideTileMap()) continue;
+                        if (!spawnTilePos.IsTilePositionInsideTileMap(_museumTileContainer.MuseumTiles)) continue;
                         tilePositions.Add(spawnTilePos);
                         GameManager.tileMap.SetCell(0, spawnTilePos, _tileSourceId, Vector2I.Zero);
                         // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);

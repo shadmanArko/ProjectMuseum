@@ -60,7 +60,7 @@ public partial class TileSelector : Node2D
                     {
                         // _tileMap.ClearLayer(1);
                         var spawnTilePos = new Vector2I(x, y);
-                        if (!spawnTilePos.IsTilePositionInsideTileMap()) continue;
+                        if (!spawnTilePos.IsTilePositionInsideTileMap(_museumTileContainer.MuseumTiles)) continue;
                         tilePositions.Add(spawnTilePos);
                         
                         // _tileMap.SetCell(1, spawnTilePos, _tileSourceId, Vector2I.Zero);

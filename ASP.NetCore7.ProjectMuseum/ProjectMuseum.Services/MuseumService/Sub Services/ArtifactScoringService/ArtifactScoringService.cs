@@ -210,7 +210,7 @@ public class ArtifactScoringService : IArtifactScoringService
         var tile = await _museumTileService.GetMuseumTileById(tileId);
         if (tile.HasExhibit)
         {
-            var exhibit = exhibits.FirstOrDefault(ex => ex.Id == tile.ExhibitId);
+            var exhibit = exhibits.FirstOrDefault(ex => ex.Id == tile.ItemId);
 
             Add_All_ArtifactIds_To_ArtifactIdsInZone_From_Exhibit(exhibit, artifactIdsInZone);
         }

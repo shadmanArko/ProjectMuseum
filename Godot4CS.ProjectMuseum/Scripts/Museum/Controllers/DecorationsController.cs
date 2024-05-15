@@ -61,9 +61,9 @@ public partial class DecorationsController : Node2D
 	private void HttpRequestForGettingShopsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		var shops = JsonSerializer.Deserialize<List<DecorationShop>>(jsonStr);
+		var shops = JsonSerializer.Deserialize<List<Shop>>(jsonStr);
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-		_museumTileContainer.DecorationShops = shops;
+		_museumTileContainer.Shops = shops;
 		SpawnShops(shops);
 	}
 	private void SpawnOtherDecorations(List<DecorationOther> otherDecorations)
@@ -81,12 +81,12 @@ public partial class DecorationsController : Node2D
 			ItemsParent.AddChild(instance);
 		}
 	}
-	private void SpawnShops(List<DecorationShop> shops)
+	private void SpawnShops(List<Shop> shops)
 	{
 		foreach (var shop in shops)
 		{
 			var instance = (Node)_decorationShopItem.Instantiate();
-			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/DecorationShops/{shop.ShopVariationName}.png");
+			Texture2D texture2D = GD.Load<Texture2D>($"res://Assets/2D/Sprites/DecorationShops/{shop.CoreShopFunctional.Variant}.png");
 			var sprite = instance.GetNode<Sprite2D>(".") ;
 			sprite.Texture = texture2D;
 			sprite.Frame = shop.RotationFrame;

@@ -32,7 +32,7 @@ public partial class DecorationItem : Item
 		{
 			var tilesWithShopsDto = JsonSerializer.Deserialize<TilesWithShopsDTO>(jsonStr);
 			_museumTileContainer.MuseumTiles = tilesWithShopsDto.MuseumTiles;
-			_museumTileContainer.DecorationShops = tilesWithShopsDto.DecorationShops!;
+			_museumTileContainer.Shops = tilesWithShopsDto.DecorationShops!;
 		}else if (_builderCardType == BuilderCardType.DecorationOther)
 		{
 			var tiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);

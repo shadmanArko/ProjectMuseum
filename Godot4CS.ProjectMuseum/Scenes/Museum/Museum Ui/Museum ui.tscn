@@ -312,6 +312,7 @@ grow_horizontal = 0
 icon = ExtResource("12_v8uf8")
 
 [node name="CheckButton" type="CheckButton" parent="Right Panel"]
+z_index = 1
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0

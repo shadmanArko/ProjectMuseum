@@ -203,7 +203,7 @@ public partial class Guest : GuestAi
             currentNeed = CheckForNeedsToFulfill();
             if (currentNeed == GuestNeedsEnum.Hunger || currentNeed == GuestNeedsEnum.Thirst)
             {
-                _targetTileCoordinate =  GetClosestShopLocation();
+                _targetTileCoordinate =  GetClosestShopLocationNew();
             }
             else if (currentNeed == GuestNeedsEnum.Bladder)
             {
@@ -262,12 +262,40 @@ public partial class Guest : GuestAi
         
     }
 
+    private Vector2I GetClosestShopLocationNew()
+    {
+        _shopManager.MakeDecisionForFulfillingNeed(out var product, out var shop, this, currentNeed);
+        if (shop!= null)
+        {
+            Vector2I coordinate = Vector2I.Zero;
+            _currentViewingObjectOrigin = new Vector2I(shop.XPosition, shop.YPosition);
+            if (shop.RotationFrame == 0)
+            {
+                coordinate = new Vector2I(shop.XPosition +1, shop.YPosition);
+            }else if (shop.RotationFrame == 1)
+            {
+                coordinate = new Vector2I(shop.XPosition , shop.YPosition +1);
+            }else if (shop.RotationFrame == 2)
+            {
+                coordinate = new Vector2I(shop.XPosition - 1 , shop.YPosition);
+            }else if (shop.RotationFrame == 3)
+            {
+                coordinate = new Vector2I(shop.XPosition  , shop.YPosition - 1);
+            }
+            return coordinate;
+
+        }
+        GD.PrintErr($"Could not find shop for need {currentNeed}");
+        return new Vector2I(1000, 1000);
+
+    }
+
     private Vector2I GetClosestShopLocation()
     {
-        if (_museumTileContainer.DecorationShops.Count > 0)
+        if (_museumTileContainer.Shops.Count > 0)
         {
             _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
-            var shop = _museumTileContainer.DecorationShops.GetClosestShopToLocation(_startTileCoordinate);
+            var shop = _museumTileContainer.Shops.GetClosestShopToLocation(_startTileCoordinate);
             _currentViewingObjectOrigin = new Vector2I(shop.XPosition, shop.YPosition);
             Vector2I coordinate = Vector2I.Zero;
             if (shop.RotationFrame == 0)
@@ -572,7 +600,7 @@ public partial class Guest : GuestAi
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {
-                if (museumTile.ExhibitId == "string" || museumTile.ExhibitId == "")
+                if (museumTile.Walkable)
                 {
                     _lastCheckedResult = true;
                     return true;

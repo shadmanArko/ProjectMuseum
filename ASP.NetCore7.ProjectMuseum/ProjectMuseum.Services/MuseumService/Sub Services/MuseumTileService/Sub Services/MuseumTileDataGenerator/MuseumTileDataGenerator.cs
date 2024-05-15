@@ -43,8 +43,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     FrontLeftWallId = "",
                     FrontRightWallId = "",
                     Walkable = true,
-                    ExhibitId = "string",
-                    HangingLightId = "string"
+                    ItemId = "string"
                 };
                 if ((x== 0 || y==0 ) && !((x ==0 && y== -7) || (x ==0 && y== -8)))
                 {
@@ -84,8 +83,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     FrontLeftWallId = "",
                     FrontRightWallId = "",
                     Walkable = true,
-                    ExhibitId = "string",
-                    HangingLightId = "string"
+                    ItemId = "string"
                 };
                 await _museumTileRepository.Insert(museumTile);
             }

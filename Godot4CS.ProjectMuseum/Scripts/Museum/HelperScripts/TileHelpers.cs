@@ -46,6 +46,10 @@ public static class TileHelpers
         foreach (var tileId in exhibit.OccupiedTileIds)
         {
             var tile = museumTiles.GetTileById(tileId);
+            if (tile == null)
+            {
+                GD.PrintErr($"Tile not found for {exhibit.XPosition},{exhibit.YPosition}");
+            }
             Vector2I coord = new Vector2I(tile.XPosition + 1, tile.YPosition);
             if (museumTiles.IsTileWalkable(coord)) closestCoordinates.Add(new TargetWthOrigin(coord, new Vector2I(tile.XPosition, tile.YPosition)));
             coord = new Vector2I(tile.XPosition - 1, tile.YPosition);
@@ -82,15 +86,15 @@ public static class TileHelpers
     
         return closestCoordinate;
     }
-    public static DecorationShop GetClosestShopToLocation(this List<DecorationShop> shops, Vector2I currentPosition)
+    public static Shop GetClosestShopToLocation(this List<Shop> shops, Vector2I currentPosition)
     {
-        DecorationShop closestShop = shops[0];
+        Shop closestShop = shops[0];
         float minDistance = 99999;
         foreach (var shop in shops)
         {
             Vector2I currentShopCoord = new Vector2I(shop.XPosition, shop.YPosition);
             int distance = ManhattanDistance(currentPosition, currentShopCoord);
-            GD.Print($"distance of {shop.ShopVariationName} {distance}, min dis {minDistance}");
+            GD.Print($"distance of {shop.CoreShopFunctional.Variant} {distance}, min dis {minDistance}");
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -138,7 +142,7 @@ public static class TileHelpers
         foreach (var tile in museumTiles)
         {
             // Skip non-empty or non-walkable tiles
-            if ( tile.ExhibitId != "string" && tile.ExhibitId !="")
+            if ( !tile.Walkable)
                 continue;
     
             Vector2I currentCoordinate = new Vector2I(tile.XPosition, tile.YPosition);
@@ -169,7 +173,7 @@ public static class TileHelpers
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {
-                if ((museumTile.ExhibitId == "string" || museumTile.ExhibitId == "") && museumTile.Walkable)
+                if ( museumTile.Walkable)
                 {
                     _lastCheckedResult = true;
                     return true;
@@ -206,7 +210,7 @@ public static class TileHelpers
         return false;
     }
     
-    private static int ManhattanDistance(Vector2I a, Vector2I b)
+    public static int ManhattanDistance(this Vector2I a, Vector2I b)
     {
         return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
     }

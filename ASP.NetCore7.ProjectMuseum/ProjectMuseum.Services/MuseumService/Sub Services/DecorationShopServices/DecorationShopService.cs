@@ -24,13 +24,13 @@ public class DecorationShopService : IDecorationShopService
 
     }
 
-    public  async Task<List<DecorationShop>?> DeleteAllDecorationShops()
+    public  async Task<List<Shop>?> DeleteAllDecorationShops()
     {
         return await _decorationShopRepository.DeleteAllDecorationShops();
 
     }
 
-    public async Task<List<DecorationShop>?> GetAllDecorationShops()
+    public async Task<List<Shop>?> GetAllDecorationShops()
     {
         return await _decorationShopRepository.GetAll();
 

@@ -119,7 +119,7 @@ builder.Services.AddSingleton(new JsonFileDatabase<MuseumTile>(Const.museumTileD
 builder.Services.AddSingleton(new JsonFileDatabase<Exhibit>(Const.exhibitDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ExhibitVariation>(Const.exhibitVariationDataFolderPath));
 
-builder.Services.AddSingleton(new JsonFileDatabase<DecorationShop>(Const.decorationShopDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Shop>(Const.decorationShopDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationShopVariation>(Const.decorationShopVariationDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationOther>(Const.decorationOtherDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<DecorationOtherVariation>(Const.decorationOtherVariationDataFolderPath));

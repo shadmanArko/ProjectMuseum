@@ -175,58 +175,51 @@ theme_override_constants/separation = 10
 script = ExtResource("4_mx4kr")
 _parentTarget = true
 
-[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
-[node name="Draggable2" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable2" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 visible = false
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
-[node name="Draggable3" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable3" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 visible = false
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
-[node name="Draggable4" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable4" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 visible = false
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
-[node name="Draggable5" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable5" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 visible = false
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
-[node name="Draggable6" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable6" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 visible = false
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 
-[node name="Draggable7" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactIcon", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
+[node name="Draggable7" parent="Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_nameOfDraggable", "_artifactTagParent1", "_artifactTagParent2") instance=ExtResource("3_vjpch")]
 visible = false
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
-_artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 

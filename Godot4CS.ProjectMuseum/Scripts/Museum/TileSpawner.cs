@@ -20,7 +20,6 @@ public partial class TileSpawner : TileMap
 	[Export] private int _dirtyWallProbability = 10;
 	[Export] private Array<Texture2D> _dirtyWallTextures;
 	[Export] private Node2D _wallsParent;
-	[Export] private Node2D _frontWallsParent;
 	[Export] private LoadingBarManager _loadingBarManager;
 	private string _basicWallsId = "basic_red_wallpaper";
 	private string _frontWallsId = "Front_walls";
@@ -238,7 +237,7 @@ public partial class TileSpawner : TileMap
 		// instance.GetNode<Wall>(".").SetUpWall(museumTile, wallSide);
 		// AddDirtyWallTexture(instance);
 		instance.Position = GetCellWorldPosition(museumTile.XPosition, museumTile.YPosition);
-		_frontWallsParent.AddChild(instance);
+		_wallsParent.AddChild(instance);
 	}
 
 	private void AddDirtyWallTexture(Node2D instance)

@@ -104,7 +104,7 @@ public partial class Dynamite : Node2D
                 }
 
                 _mineGenerationVariables.BrokenCells++;
-                MineActions.OnMineCellBroken?.Invoke();
+                MineActions.OnMineCellBroken?.Invoke(new Vector2I(adjacentCell.PositionX, adjacentCell.PositionY));
                 GD.Print($"explosion affecting {adjacentCell.PositionX},{adjacentCell.PositionY}");
             }
             

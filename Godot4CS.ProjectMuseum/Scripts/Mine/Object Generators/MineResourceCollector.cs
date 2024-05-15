@@ -35,15 +35,16 @@ public partial class MineResourceCollector : Node
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnSuccessfulDigActionCompleted += CheckResourceCollectionValidity;
+		MineActions.OnMineCellBroken += CheckResourceCollectionValidity;
+		
 		MineActions.OnCollectItemDrop += SendInventoryItemToInventory;
 	}
 	
 	#region Check Resource Collection Validity
 
-	private void CheckResourceCollectionValidity()
+	private void CheckResourceCollectionValidity(Vector2I tilePos)
 	{
-		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
+		// var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
 		tilePos += _playerControllerVariables.MouseDirection;
 		var cell = _mineGenerationVariables.GetCell(tilePos);
 		
@@ -215,6 +216,7 @@ public partial class MineResourceCollector : Node
 
 	private void UnsubscribeToActions()
 	{
+		MineActions.OnMineCellBroken -= CheckResourceCollectionValidity;
 		MineActions.OnCollectItemDrop -= SendInventoryItemToInventory;
 	}
 	

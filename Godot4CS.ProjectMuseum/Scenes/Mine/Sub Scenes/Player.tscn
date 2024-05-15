@@ -597,7 +597,6 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l3vm5"]
-radius = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3lnct"]
 radius = 30.0
@@ -744,8 +743,8 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_skedj")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="body_entered" from="Item Stasher" to="Item Detector" method="OnBodyEnterStashArea"]
 [connection signal="body_entered" from="Item Detector" to="Item Detector" method="OnBodyEntered"]
 [connection signal="body_exited" from="Item Detector" to="Item Detector" method="OnBodyExited"]

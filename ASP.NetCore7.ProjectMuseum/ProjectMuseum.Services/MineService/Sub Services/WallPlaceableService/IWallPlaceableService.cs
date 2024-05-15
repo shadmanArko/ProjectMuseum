@@ -7,4 +7,5 @@ public interface IWallPlaceableService
     Task<WallPlaceable> PlaceWallPlaceableInMine(string variant, List<string> cellIds);
     Task<InventoryItem?> SendWallPlaceableFromMineToInventory(string wallPlaceableId);
     Task<WallPlaceable> GetWallPlaceableByVariant(string variant);
+    Task<List<WallPlaceable>> GetAllWallPlaceables();
 }

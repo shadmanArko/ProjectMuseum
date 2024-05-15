@@ -35,7 +35,7 @@ public static class MineSetCellConditions
         foreach (var specialBackdrop in specialBackdrops)  
         {
             var pos = new Vector2(specialBackdrop.TilePositionX * cellSize, specialBackdrop.TilePositionY * cellSize);
-            GD.Print("special backdrop position:"+pos);
+            // GD.Print("special backdrop position:"+pos);
             var tilePos = mineGenView.LocalToMap(pos);
             mineGenView.SetCell(SpecialBackdropLayer,tilePos,specialBackdrop.SourceId, new Vector2I(0,0));
         }

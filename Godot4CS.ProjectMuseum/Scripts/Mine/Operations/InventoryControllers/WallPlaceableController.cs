@@ -1,21 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
-using Newtonsoft.Json;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations.InventoryControllers;
 
-public partial class WallPlaceableController : Node2D
+public partial class WallPlaceableController : InventoryController
 {
-    private HttpRequest _sendWallPlaceableFromInventoryToMineHttpRequest;
+    private HttpRequest _getWallPlaceablesHttpRequest;
 
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
+    private InventoryDTO _inventoryDto;
+    private WallPlaceableDTO _wallPlaceableDto;
 
     [Export] private Sprite2D _wallPlaceableSprite;
     private InventoryItem _inventoryItem;
@@ -27,41 +31,47 @@ public partial class WallPlaceableController : Node2D
         CreateHttpRequests();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+        _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+        _wallPlaceableDto = ServiceRegistry.Resolve<WallPlaceableDTO>();
     }
 
     private void CreateHttpRequests()
     {
-        _sendWallPlaceableFromInventoryToMineHttpRequest = new HttpRequest();
-        AddChild(_sendWallPlaceableFromInventoryToMineHttpRequest);
-        _sendWallPlaceableFromInventoryToMineHttpRequest.RequestCompleted +=
-            OnSendWallPlaceableFromInventoryToMineHttpRequestComplete;
+        _getWallPlaceablesHttpRequest = new HttpRequest();
+        AddChild(_getWallPlaceablesHttpRequest);
+        _getWallPlaceablesHttpRequest.RequestCompleted +=
+            OnGetWallPlaceablesHttpRequestComplete;
     }
 
     private void SubscribeToActions()
     {
         MineActions.OnMouseMotionAction += ShowWallPlaceableEligibilityVisualizer;
         MineActions.OnLeftMouseClickAction += PlaceWallPlaceableInMine;
-        MineActions.OnRightMouseClickAction += DestroyWallPlaceableAndDeselect;
+        MineActions.DeselectAllInventoryControllers += DeactivateController;
     }
 
     private void UnsubscribeToActions()
     {
         MineActions.OnMouseMotionAction -= ShowWallPlaceableEligibilityVisualizer;
         MineActions.OnLeftMouseClickAction -= PlaceWallPlaceableInMine;
-        MineActions.OnRightMouseClickAction -= DestroyWallPlaceableAndDeselect;
+        MineActions.DeselectAllInventoryControllers -= DeactivateController;
     }
 
     public override void _Ready()
     {
         InitializeDiInstaller();
+        GetAllWallPlaceables();
     }
 
     #endregion
 
     #region Select and Deselect
 
-    public void OnSelectWallPlaceableFromInventory(InventoryItem inventoryItem)
+    #region Activate and Deactivate
+
+    public override void ActivateController(InventoryItem inventoryItem)
     {
+        IsControllerActivated = true;
         _inventoryItem = inventoryItem;
         
         var wallPlaceableTexture = ResourceLoader.Load<Texture2D>(inventoryItem.PngPath);
@@ -72,52 +82,79 @@ public partial class WallPlaceableController : Node2D
         }
         
         SubscribeToActions();
+        GD.Print("Wall placeable controller activated");
     }
 
-    private void OnDeselectedWallPlaceableFromInventory()
+    public override void DeactivateController()
     {
-        _wallPlaceableSprite.Visible = false;
-        _wallPlaceableSprite.Position = new Vector2(0, 0);
-        UnsubscribeToActions();
-    }
-
-    private void DestroyWallPlaceableAndDeselect()
-    {
+        if(!IsControllerActivated) return;
+        IsControllerActivated = false;
         _wallPlaceableSprite.Visible = false;
         UnsubscribeToActions();
+        GD.Print("Wall placeable controller deactivated");
     }
 
     #endregion
 
-    #region Remove Wall Placeable from Mine
+    #endregion
 
-    private void SendWallPlaceableFromInventoryToMine(InventoryItem inventoryItem)
+    #region From inventory to mine
+
+    private void GetAllWallPlaceables()
     {
-        string[] headers = { "Content-Type: application/json"};
-        var targetCell = GetTargetCell();
-        GD.Print($"target cell id: {targetCell.Id}, posX:{targetCell.PositionX}, posY:{targetCell.PositionY}");
-        GD.Print($"inventory item: {inventoryItem.Variant}, stack:{inventoryItem.Stack}, slot:{inventoryItem.Slot}, id:{inventoryItem.Id}");
-        var list = new List<string> {targetCell.Id};
-        var body = JsonConvert.SerializeObject(list);
-        
-        var url = ApiAddress.PlayerApiPath + "SendWallPlaceableFromInventoryToMine/" + inventoryItem.Id;
-        _sendWallPlaceableFromInventoryToMineHttpRequest.CancelRequest();
-        _sendWallPlaceableFromInventoryToMineHttpRequest.Request(url, headers, HttpClient.Method.Post, body);
+        var url = ApiAddress.MineApiPath + "GetAllWallPlaceables";
+        _getWallPlaceablesHttpRequest.CancelRequest();
+        _getWallPlaceablesHttpRequest.Request(url);
     }
-
-    private void OnSendWallPlaceableFromInventoryToMineHttpRequestComplete(long result, long responseCode,
+    
+    private void OnGetWallPlaceablesHttpRequestComplete(long result, long responseCode,
         string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
-        var wallPlaceable = JsonSerializer.Deserialize<WallPlaceable>(jsonStr);
-        GD.Print($"Wall placeable from inventory to mine completed. wallPlaceable: {wallPlaceable.Id} {wallPlaceable.Variant}");
-        var cellSize = _mineGenerationVariables.Mine.CellSize;
+        var wallPlaceables = JsonSerializer.Deserialize<List<WallPlaceable>>(jsonStr);
+        
+        if (wallPlaceables == null)
+        {
+            GD.PrintErr("Wall placeables is null in wall placeable DTO");
+            return;
+        }
+        _wallPlaceableDto.WallPlaceables = wallPlaceables;
+    }
+
+    #endregion
+
+    #region Set Wall Placeable to Mine from Inventory
+
+    private void SetWallPlaceableFromInventoryToMine()
+    {
+        if (_inventoryItem.IsStackable)
+        {
+            if (_inventoryItem.Stack > 1) 
+                _inventoryItem.Stack--;
+            else 
+                _inventoryDto.Inventory.InventoryItems.Remove(_inventoryItem);
+        }
+
+        var wallPlaceable = _wallPlaceableDto.WallPlaceables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
+        if (wallPlaceable == null)
+        {
+            GD.PrintErr("Wall Placeable not found in wall placeable DTO");
+            return;
+        }
+        
         var cell = GetTargetCell();
+        cell.HasWallPlaceable = true;
+        
+        wallPlaceable.Id = Guid.NewGuid().ToString();
+        wallPlaceable.OccupiedCellIds = new List<string> { cell.Id };
+        wallPlaceable.PositionX = cell.PositionX;
+        wallPlaceable.PositionY = cell.PositionY;
+        _mineGenerationVariables.Mine.WallPlaceables.Add(wallPlaceable);
+        
+        var cellSize = _mineGenerationVariables.Mine.CellSize;
         var cellPos = new Vector2(cellSize * cell.PositionX, cellSize * cell.PositionY);
         InstantiateWallPlaceable(wallPlaceable.ScenePath, cellPos);
-        OnDeselectedWallPlaceableFromInventory();
         MineActions.OnInventoryUpdate?.Invoke();
-        cell.HasWallPlaceable = true;
     }
 
     #endregion
@@ -143,7 +180,7 @@ public partial class WallPlaceableController : Node2D
         if (checkEligibility)
         {
             GD.Print($"inventory item: {_inventoryItem.Variant}, slot:{_inventoryItem.Slot}, stack: {_inventoryItem.Stack}");
-            SendWallPlaceableFromInventoryToMine(_inventoryItem);
+            SetWallPlaceableFromInventoryToMine();
         }
     }
 
@@ -184,6 +221,7 @@ public partial class WallPlaceableController : Node2D
     private bool CheckEligibility()
     {
         var cell = GetTargetCell();
+        if (cell is null) return false;
         if (!cell.IsBreakable || !cell.IsBroken || !cell.IsRevealed)
         {
             GD.Print($"Cell eligibility is false");

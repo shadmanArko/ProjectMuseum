@@ -31,6 +31,7 @@ public partial class EquipableController : InventoryController
         _inventoryItem = inventoryItem;
         SubscribeToActions();
         GD.Print("Equipable controller activated");
+        GD.Print(inventoryItem.Variant);
     }
 
     public override void DeactivateController()
@@ -100,7 +101,7 @@ public partial class EquipableController : InventoryController
     private void DigActionStart()
     {
         _playerControllerVariables.IsDigging = true;
-        GD.Print("inside dig action started");
+        // GD.Print("inside dig action started");
         SetProcess(true);
     }
     

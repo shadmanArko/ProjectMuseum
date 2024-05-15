@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Godot;
@@ -5,44 +7,69 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations.InventoryControllers;
 
 public partial class ConsumableController : InventoryController
 {
-    private HttpRequest _sendConsumableFromInventoryHttpRequest;
+    private HttpRequest _getAllConsumableDtoHttpRequest;
 
     private PlayerControllerVariables _playerControllerVariables;
+    private InventoryDTO _inventoryDto;
+    private ConsumableDTO _consumableDto;
 
     private InventoryItem _inventoryItem;
     
     #region Initializers
+
+    private void CreateHttpRequests()
+    {
+        _getAllConsumableDtoHttpRequest = new HttpRequest();
+        AddChild(_getAllConsumableDtoHttpRequest);
+        _getAllConsumableDtoHttpRequest.RequestCompleted += OnGetAllConsumableDataComplete;
+    }
 
     private void InitializeDiInstaller()
     {
         CreateHttpRequests();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         ServiceRegistry.Resolve<MineGenerationVariables>();
+        _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+        _consumableDto = ServiceRegistry.Resolve<ConsumableDTO>();
     }
-
-    private void CreateHttpRequests()
-    {
-        _sendConsumableFromInventoryHttpRequest = new HttpRequest();
-        AddChild(_sendConsumableFromInventoryHttpRequest);
-        _sendConsumableFromInventoryHttpRequest.RequestCompleted +=
-            OnConsumeHealthPotionFromInventoryHttpRequestComplete;
-    }
-
-    public override void _EnterTree()
-    {
-        InitializeDiInstaller();
-    }
-
+    
     public override void _Ready()
     {
-        
+        InitializeDiInstaller();
+        GetAllConsumableData();
     }
+
+    #region Populate Consumable DTO
+
+    private void GetAllConsumableData()
+    {
+        var url = ApiAddress.MineApiPath + "GetAllConsumables";
+        _getAllConsumableDtoHttpRequest.CancelRequest();
+        _getAllConsumableDtoHttpRequest.Request(url);
+    }
+    
+    private void OnGetAllConsumableDataComplete(long result, long responseCode, string[] headers, byte[] body)
+    {
+        var jsonStr = Encoding.UTF8.GetString(body);
+        var consumables = JsonSerializer.Deserialize<List<Consumable>>(jsonStr);
+        
+        if (consumables == null)
+        {
+            GD.PrintErr("Consumables is null in Consumable DTO");
+            return;
+        }
+        
+        _consumableDto.Consumables = consumables;
+    }
+
+    #endregion
 
     #endregion
     
@@ -69,7 +96,6 @@ public partial class ConsumableController : InventoryController
         IsControllerActivated = true;
         _inventoryItem = inventoryItem;
         SubscribeToActions();
-        GD.Print("Health potion controller activated");
     }
     
     public override void DeactivateController()
@@ -83,7 +109,7 @@ public partial class ConsumableController : InventoryController
     
     #endregion
 
-    private async void CheckForActionEligibility()
+    private void CheckForActionEligibility()
     {
         var eligible = _inventoryItem.Category switch
         {
@@ -111,21 +137,8 @@ public partial class ConsumableController : InventoryController
 
     private void ConsumeHealthPotionFromInventory(InventoryItem inventoryItem)
     {
-        string[] headers = { "Content-Type: application/json"};
-        GD.Print($"inventory item: {inventoryItem.Variant}, stack:{inventoryItem.Stack}, slot:{inventoryItem.Slot}, id:{inventoryItem.Id}");
-        
-        var url = ApiAddress.PlayerApiPath + "SendConsumableFromInventoryToMine/" + inventoryItem.Id;
-        _sendConsumableFromInventoryHttpRequest.CancelRequest();
-        _sendConsumableFromInventoryHttpRequest.Request(url, headers, HttpClient.Method.Post);
-    }
-    
-    private void OnConsumeHealthPotionFromInventoryHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        GD.Print($"json string: {jsonStr}");
-        var consumable = JsonSerializer.Deserialize<Consumable>(jsonStr);
-        GD.Print($"consumable: {consumable}");
-
+        RemoveInventoryItem(inventoryItem.Id);
+        var consumable = GetConsumableByVariant(inventoryItem);
         foreach (var statEffect in consumable.ConsumableStatEffects)
         {
             switch (consumable.Category)
@@ -144,5 +157,33 @@ public partial class ConsumableController : InventoryController
         MineActions.OnInventoryUpdate?.Invoke();
     }
 
+    private void RemoveInventoryItem(string inventoryItemId)
+    {
+        var inventoryItemToRemove =
+            _inventoryDto.Inventory.InventoryItems.FirstOrDefault(item1 => item1.Id == inventoryItemId);
+        if (inventoryItemToRemove == null)
+        {
+            GD.PrintErr("Consumable could not be found in inventory");
+            return;
+        }
+        
+        if (inventoryItemToRemove!.IsStackable && inventoryItemToRemove.Stack > 1)
+            inventoryItemToRemove.Stack--;
+        else 
+            _inventoryDto.Inventory.InventoryItems.Remove(inventoryItemToRemove);
+    }
+    
+    private Consumable GetConsumableByVariant(InventoryItem inventoryItem)
+    {
+        var consumable = _consumableDto.Consumables.FirstOrDefault(temp => temp.Variant == inventoryItem.Variant);
+        if (consumable == null)
+        {
+            GD.PrintErr("Consumable could not be found in consumable database");
+            return null;
+        }
+
+        return consumable;
+    }
+    
     #endregion
 }

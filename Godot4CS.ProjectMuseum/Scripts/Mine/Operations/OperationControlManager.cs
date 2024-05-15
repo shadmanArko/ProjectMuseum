@@ -18,6 +18,7 @@ public partial class OperationControlManager : Node2D
     [Export] private InventoryControllers.WallPlaceableController _wallPlaceableController;
     [Export] private InventoryControllers.ConsumableController _consumableController;
     [Export] private InventoryControllers.EquipableController _equipableController;
+    [Export] private InventoryControllers.CellPlaceableController _cellPlaceableController;
     
     private InventoryDTO _inventoryDto;
     private int _slot;
@@ -53,7 +54,7 @@ public partial class OperationControlManager : Node2D
         var inventoryItem = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);
         if (inventoryItem == null)
         {
-            GD.Print("inventory item is NULL");
+            GD.PrintErr("inventory item is NULL");
             return;
         }
         ActivateRequiredController(inventoryItem);
@@ -77,14 +78,17 @@ public partial class OperationControlManager : Node2D
         switch (inventoryItem.Type)
         {
             case "WallPlaceable":
-                _wallPlaceableController.OnSelectWallPlaceableFromInventory(inventoryItem);
+                _wallPlaceableController.ActivateController(inventoryItem);
                 break;
             case "Consumable":
                 _consumableController.ActivateController(inventoryItem);
                 break;
             case "Equipable":
-                GD.Print("Selected equipable controller");
+                // GD.Print("Selected equipable controller");
                 _equipableController.ActivateController(inventoryItem);
+                break;
+            case "CellPlaceable":
+                _cellPlaceableController.ActivateController(inventoryItem);
                 break;
         }
     }

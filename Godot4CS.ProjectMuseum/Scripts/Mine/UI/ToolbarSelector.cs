@@ -1,18 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
-using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
-using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
-public partial class ToolbarSelector : Node
+public partial class ToolbarSelector : HBoxContainer
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	
@@ -21,7 +17,7 @@ public partial class ToolbarSelector : Node
 	private InventoryDTO _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
 	private HttpRequest _getPlayerInventoryHttpRequest;
 
-	[Export] private string _toolbarSlotScenePath;
+	private string _toolbarSlotScenePath;
 	
 	private List<ToolbarSlot> _toolbarSlots;
 
@@ -32,6 +28,7 @@ public partial class ToolbarSelector : Node
 		InitializeDiReferences();
 		SubscribeToActions();
 		_toolbarSlots = new List<ToolbarSlot>();
+		_toolbarSlotScenePath = ReferenceStorage.Instance.ToolbarSlotScenePath;
 		await Task.Delay(5000);
 		UpdateToolbar();
 	}
@@ -140,10 +137,10 @@ public partial class ToolbarSelector : Node
 
 	private void SelectItem(int itemNumber)
 	{
-		GD.Print($"current item selected in toolbar: {itemNumber}");
+		// GD.Print($"current item selected in toolbar: {itemNumber}");
 		DeselectAllItems();
-		GD.Print($"item number: {itemNumber}");
-		GD.Print($"toolbar slots: {_toolbarSlots.Count}");
+		// GD.Print($"item number: {itemNumber}");
+		// GD.Print($"toolbar slots: {_toolbarSlots.Count}");
 		_toolbarSlots[itemNumber].SetItemAsSelected();
 	}
 

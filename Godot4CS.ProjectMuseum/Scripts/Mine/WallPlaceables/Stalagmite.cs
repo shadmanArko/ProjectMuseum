@@ -39,16 +39,19 @@ public partial class Stalagmite : Node2D, IDamagable
 
 	#endregion
     
-	private void CheckIfStalagmiteRootCellBroken()
+	private void CheckIfStalagmiteRootCellBroken(Vector2I tilePos)
 	{
-		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
-		var cell = _mineGenerationVariables.GetCell(tilePos);
-		var rootCell = _mineGenerationVariables.GetCell(new Vector2I(cell.PositionX, cell.PositionY + 1));
+		var stalagmitePos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
+		var stalagmiteCell = _mineGenerationVariables.GetCell(stalagmitePos);
+		var rootCellPos = new Vector2I(stalagmiteCell.PositionX, stalagmiteCell.PositionY + 1);
+		var rootCell = _mineGenerationVariables.GetCell(rootCellPos);
+		if(rootCell == null) return;
+		if(rootCellPos != tilePos) return;
 		if(!rootCell.IsBroken) return;
 
 		var cave = _mineGenerationVariables.Mine.Caves.FirstOrDefault(tempCave =>
-			tempCave.StalagmiteCellIds.Contains(cell.Id));
-		cave?.StalagmiteCellIds.Remove(cell.Id);
+			tempCave.StalagmiteCellIds.Contains(stalagmiteCell.Id));
+		cave?.StalagmiteCellIds.Remove(stalagmiteCell.Id);
 		PlayAnimation("stalagmite_broken");
 	}
 

@@ -70,11 +70,13 @@ public partial class MineActions : Node
     #region Mine Actions
 
     public static Action OnMineGenerated;
-    public static Action OnMineCellBroken;
+    public static Action<Vector2I> OnMineCellBroken;
 
     #endregion
 
     public static Action OnSuccessfulDigActionCompleted;
+
+    public static Action<InventoryItem> OnCollectItemDrop;
 
     #region Health and Energy Actions
 

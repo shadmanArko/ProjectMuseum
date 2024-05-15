@@ -521,7 +521,7 @@ public partial class Slime : Enemy
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the left enter, move direction = right");
+        // GD.Print("has wall on the left enter, move direction = right");
         _hasWallOnLeft = true;
     }
 
@@ -529,7 +529,7 @@ public partial class Slime : Enemy
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the left exit, move direction = right");
+        // GD.Print("has wall on the left exit, move direction = right");
         _hasWallOnLeft = false;
     }
 
@@ -537,7 +537,7 @@ public partial class Slime : Enemy
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the right enter, move direction = left");
+        // GD.Print("has wall on the right enter, move direction = left");
         _hasWallOnRight = true;
     }
 
@@ -545,7 +545,7 @@ public partial class Slime : Enemy
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
         if (!hasCollidedWithMine) return;
-        GD.Print("has wall on the right exit, move direction = left");
+        // GD.Print("has wall on the right exit, move direction = left");
         _hasWallOnRight = false;
     }
 

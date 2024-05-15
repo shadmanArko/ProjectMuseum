@@ -60,4 +60,10 @@ public class WallPlaceableRepository : IWallPlaceableRepository
         var wallPlaceable = wallPlaceables!.FirstOrDefault(tempWallPlaceable => tempWallPlaceable.Variant == variant);
         return wallPlaceable!;
     }
+
+    public async Task<List<WallPlaceable>> GetAllWallPlaceables()
+    {
+        var wallPlaceables = await _wallPlaceableDatabase.ReadDataAsync();
+        return wallPlaceables!;
+    }
 }

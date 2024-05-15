@@ -17,4 +17,10 @@ public class ConsumableRepository : IConsumableRepository
         var consumable = consumables!.FirstOrDefault(temp => temp.Variant == variant);
         return consumable!;
     }
+
+    public async Task<List<Consumable>> GetAllConsumables()
+    {
+        var consumables = await _consumableDatabase.ReadDataAsync();
+        return consumables!;
+    }
 }

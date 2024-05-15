@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwou7mojgk558"]
+[gd_scene load_steps=10 format=3 uid="uid://dwou7mojgk558"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/InventorySystem/InventoryViewController.cs" id="1_4kdob"]
 [ext_resource type="PackedScene" uid="uid://cndkl8ntjkx8v" path="res://Scenes/Test Scenes/InventoryItemSlot.tscn" id="1_mher3"]
 [ext_resource type="Texture2D" uid="uid://c001v71x5j733" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Tomahawk.png" id="2_emj8r"]
+[ext_resource type="Texture2D" uid="uid://dnjofqj8pvxp6" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/trash can.png" id="4_2mb7q"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb2kb"]
 
@@ -15,13 +16,14 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85utp"]
 
 [node name="Inventory" type="CanvasLayer" node_paths=PackedStringArray("InventoryItems", "_inventoryPanel")]
+process_mode = 2
 script = ExtResource("1_4kdob")
-InventoryItems = [NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot12")]
+InventoryItems = [NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot12")]
 _inventoryPanel = NodePath("InventoryPanel")
 
 [node name="InventoryPanel" type="Panel" parent="."]
 visible = false
-custom_minimum_size = Vector2(1500, 800)
+custom_minimum_size = Vector2(1600, 800)
 layout_direction = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -49,29 +51,33 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="InventorySlotsContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer"]
+[node name="InventorySlotsContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qb2kb")
 
-[node name="InventorySlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer"]
+[node name="InventorySlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer"]
 custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
 theme = SubResource("Theme_bv6w0")
 
-[node name="ToolbarContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
+[node name="ToolbarContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3fyoa")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
 layout_mode = 2
@@ -81,269 +87,279 @@ mouse_filter = 2
 theme = SubResource("Theme_hvqhd")
 theme_override_constants/separation = 20
 
-[node name="InventoryItemSlot" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot2" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot2" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot3" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot3" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot4" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot4" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot5" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot5" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot6" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot6" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot7" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot7" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot8" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot8" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot9" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot9" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot10" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot10" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot11" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot11" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot12" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot12" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
+[node name="InventoryContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_85utp")
 
-[node name="BagPackSlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer"]
+[node name="BagPackSlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="FirstRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
+[node name="FirstRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="InventoryItemSlot" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot2" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot2" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot3" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot3" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot4" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot4" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot5" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot5" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot6" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot6" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot7" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot7" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot8" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot8" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot9" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot9" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot10" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot10" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot11" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot11" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot12" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot12" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="SecondRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
+[node name="SecondRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="InventoryItemSlot" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot2" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot2" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot3" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot3" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot4" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot4" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot5" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot5" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot6" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot6" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot7" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot7" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot8" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot8" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot9" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot9" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot10" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot10" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot11" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot11" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="InventoryItemSlot12" parent="InventoryPanel/MarginContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
+[node name="InventoryItemSlot12" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots" node_paths=PackedStringArray("_textureRect", "_frameTextureRect", "_itemCounter") instance=ExtResource("1_mher3")]
 layout_mode = 2
 _textureRect = NodePath("Item")
 _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
-[node name="ItemDetails" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer"]
+[node name="ItemDetails" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
 
-[node name="DetailsContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails"]
+[node name="DetailsContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="ItemImageContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer"]
+[node name="ItemImageContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer"]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ItemImage" type="TextureRect" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemImageContainer"]
+[node name="ItemImage" type="TextureRect" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemImageContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 texture = ExtResource("2_emj8r")
 
-[node name="ItemDescriptionContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer"]
+[node name="ItemDescriptionContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer"]
 custom_minimum_size = Vector2(1000, 300)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ItemDescriptionText" type="RichTextLabel" parent="InventoryPanel/MarginContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemDescriptionContainer"]
+[node name="ItemDescriptionText" type="RichTextLabel" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemDescriptionContainer"]
 layout_mode = 2
+
+[node name="Trash Button" type="Button" parent="InventoryPanel/MarginContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("4_2mb7q")
+icon_alignment = 1
+expand_icon = true

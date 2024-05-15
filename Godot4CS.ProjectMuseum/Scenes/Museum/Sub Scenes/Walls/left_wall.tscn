@@ -12,9 +12,9 @@ _wallPreview = NodePath("LeafyGreenWallPaper1/Wall Preview")
 [node name="LeafyGreenWallPaper1" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(-8, -11)
+position = Vector2(-8, -16)
 texture = ExtResource("1_ynp8b")
-offset = Vector2(-6, -41.5)
+offset = Vector2(-6, -36.5)
 hframes = 3
 
 [node name="Wall Preview" type="Sprite2D" parent="LeafyGreenWallPaper1"]

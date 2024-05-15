@@ -26,7 +26,7 @@ public partial class ShopManager: Node
     }
 
     
-    private void SellProduct(Product product)
+    public void SellProduct(Product product)
     {
         MuseumActions.OnMuseumBalanceAdded?.Invoke(product.BasePrice);
     }

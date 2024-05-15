@@ -1,17 +1,1 @@
-[
-  {
-    "Id": "museum0",
-    "Name": "my Museum",
-    "Money": 20000.00,
-    "MuseumTicketCounter":
-    {
-      "Id": "abc123",
-      "TicketPrice": 12.5,
-      "MuseumRating": 4.3,
-      "NumberOfPeopleInQueue": 0,
-      "MuseumOpeningHour": 9,
-      "MuseumClosingHour": 18
-    },
-    "MuseumZones":[]
-  }
-]
+[{"Id":"museum0","Name":"my Museum","Money":21649.01,"MuseumTicketCounter":{"Id":"abc123","TicketPrice":12.5,"MuseumRating":4.3,"NumberOfPeopleInQueue":0,"MuseumOpeningHour":9,"MuseumClosingHour":18},"MuseumZones":[]}]

@@ -262,11 +262,15 @@ public partial class Guest : GuestAi
         
     }
 
+    private Shop _targetShop;
+    private Product _targetProduct;
     private Vector2I GetClosestShopLocationNew()
     {
         _shopManager.MakeDecisionForFulfillingNeed(out var product, out var shop, this, currentNeed);
-        if (shop!= null)
+        if (shop!= null && product !=null)
         {
+            _targetShop = shop;
+            _targetProduct = product;
             Vector2I coordinate = Vector2I.Zero;
             _currentViewingObjectOrigin = new Vector2I(shop.XPosition, shop.YPosition);
             if (shop.RotationFrame == 0)
@@ -285,7 +289,7 @@ public partial class Guest : GuestAi
             return coordinate;
 
         }
-        GD.PrintErr($"Could not find shop for need {currentNeed}");
+        GD.PrintErr($"Could not find shop or product for need {currentNeed}");
         return new Vector2I(1000, 1000);
 
     }
@@ -551,6 +555,7 @@ public partial class Guest : GuestAi
         
         if (_usingShop)
         {
+            BuyProduct();
             _animationPlayerInstance.Play(_playerFacingTheFront? "use_front":"use_back");
             await Task.Delay(600);
             _animationPlayerInstance.Play(_playerFacingTheFront? "consume_front":"consume_back");
@@ -558,6 +563,12 @@ public partial class Guest : GuestAi
         }
 
         Visible = !_usingWashroom;
+    }
+
+    private void BuyProduct()
+    {
+        _shopManager.SellProduct(_targetProduct);
+        availableMoney -= _targetProduct.BasePrice;
     }
 
     private void MoveBasedOnDirection(Vector2 direction)

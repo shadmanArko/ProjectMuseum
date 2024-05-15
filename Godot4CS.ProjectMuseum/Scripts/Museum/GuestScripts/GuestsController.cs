@@ -14,7 +14,9 @@ using ProjectMuseum.Models;
 
 public partial class GuestsController : Node2D
 {
-	[Export] private PackedScene _guestScene;
+	[Export] private PackedScene _maleGuestScene;
+	[Export] private PackedScene _femaleGuestScene;
+	[Export] private int _maleGuestProbability = 50;
 	[Export] private Vector2I _spawnAtTile;
 	[Export] private double _spawnInterval = 4.0;
 	[Export] private Array<Vector2I> _sceneEntryPositions;
@@ -128,7 +130,17 @@ public partial class GuestsController : Node2D
 
 	private void SpawnGuest()
 	{
-		var guest = _guestScene.Instantiate();
+		var rand = GD.RandRange(1, 100);
+		Node guest = new Node();
+		if (rand <= _maleGuestProbability)
+		{
+			guest = _maleGuestScene.Instantiate();
+
+		}
+		else
+		{
+			guest = _femaleGuestScene.Instantiate();
+		}
 		guest.GetNode<Guest>(".").Position = GameManager.tileMap.MapToLocal(_sceneEntryPositions[GD.RandRange(0, _sceneEntryPositions.Count-1)]);
 		AddChild(guest);
 		guest.GetNode<Guest>(".").Initialize(_guestBuildingParameter, _sceneEntryPositions.ToList());

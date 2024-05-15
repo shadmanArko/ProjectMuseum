@@ -246,6 +246,7 @@ hframes = 4
 frame = 1
 
 [node name="WallsParent" type="Node2D" parent="museum"]
+z_index = 1
 y_sort_enabled = true
 
 [node name="MuseumTileEditor" type="Node2D" parent="museum"]

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dvkuu3tjahrog" path="res://Assets/2D/Sprites/Decorations/Front_walls_TRIAL3 (1).png" id="1_7byai"]
 
 [node name="Node2D" type="Node2D"]
+y_sort_enabled = true
 
 [node name="FrontWall9" type="Sprite2D" parent="."]
 y_sort_enabled = true

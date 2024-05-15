@@ -42,9 +42,9 @@ public partial class MineResourceCollector : Node
 	
 	#region Check Resource Collection Validity
 
-	private void CheckResourceCollectionValidity(Vector2I tilePos)
+	private void CheckResourceCollectionValidity()
 	{
-		// var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
+		var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
 		tilePos += _playerControllerVariables.MouseDirection;
 		var cell = _mineGenerationVariables.GetCell(tilePos);
 		

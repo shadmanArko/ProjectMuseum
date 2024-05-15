@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://b0ugdi15r3d7"]
+[gd_scene load_steps=27 format=3 uid="uid://b0ugdi15r3d7"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Slime.cs" id="1_pkl74"]
 [ext_resource type="Texture2D" uid="uid://bvd8a2wh8srgq" path="res://Assets/2D/Animations/Enemy Animations/slime_Side_Animation_new.png" id="2_du8f3"]
@@ -217,93 +217,6 @@ _data = {
 "move": SubResource("Animation_h4tdc")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jyft4"]
-animation = &"attack"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5athy"]
-animation = &"damage"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dn1ai"]
-animation = &"death"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y2krj"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ij2ta"]
-animation = &"move"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hw18s"]
-animation = &"move"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rwpus"]
-animation = &"fall"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_4o61f"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_y2krj")
-blend_point_0/pos = Vector2(0, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_ij2ta")
-blend_point_1/pos = Vector2(1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_hw18s")
-blend_point_2/pos = Vector2(-1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_rwpus")
-blend_point_3/pos = Vector2(0, -1)
-blend_mode = 1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ups56"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_atu1o"]
-priority = 2
-advance_mode = 2
-advance_condition = &"is_attacking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3ju6y"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_moving"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_780lb"]
-advance_mode = 2
-advance_condition = &"is_taking_damage"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ognbc"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_moving"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bqoxk"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y8457"]
-priority = 0
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ujrmc"]
-priority = 0
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7l4tb"]
-priority = 0
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k6wic"]
-states/End/position = Vector2(677, 188)
-states/Start/position = Vector2(110, 188)
-states/attack/node = SubResource("AnimationNodeAnimation_jyft4")
-states/attack/position = Vector2(271, 69)
-states/damage/node = SubResource("AnimationNodeAnimation_5athy")
-states/damage/position = Vector2(271, 358)
-states/death/node = SubResource("AnimationNodeAnimation_dn1ai")
-states/death/position = Vector2(453, 188)
-states/move/node = SubResource("AnimationNodeBlendSpace2D_4o61f")
-states/move/position = Vector2(271, 188)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_ups56"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_atu1o"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_3ju6y"), "move", "damage", SubResource("AnimationNodeStateMachineTransition_780lb"), "damage", "move", SubResource("AnimationNodeStateMachineTransition_ognbc"), "death", "End", SubResource("AnimationNodeStateMachineTransition_bqoxk"), "damage", "death", SubResource("AnimationNodeStateMachineTransition_y8457"), "move", "death", SubResource("AnimationNodeStateMachineTransition_ujrmc"), "attack", "death", SubResource("AnimationNodeStateMachineTransition_7l4tb")]
-graph_offset = Vector2(0, -13.7009)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_ik61w"]
 radius = 8.0
 
@@ -323,7 +236,7 @@ size = Vector2(7, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rtvpy"]
 size = Vector2(7, 9)
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("NavAgent", "AnimTree", "HealthBar", "AnimationController")]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("NavAgent", "HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
 z_index = 10
@@ -333,7 +246,6 @@ _moveVelocity = 20.0
 _gravity = 5.0
 _finalGravity = 5.0
 NavAgent = NodePath("NavigationAgent2D")
-AnimTree = NodePath("AnimationTree")
 KnockBackPower = 250.0
 HealthBar = NodePath("Health Bar")
 AnimationController = NodePath("AnimationPlayer")
@@ -358,16 +270,6 @@ libraries = {
 }
 script = ExtResource("3_5dxjc")
 Sprite = NodePath("../Sprite2D")
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath("../Sprite2D")
-tree_root = SubResource("AnimationNodeStateMachine_k6wic")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/is_attacking = false
-parameters/conditions/is_dead = true
-parameters/conditions/is_moving = false
-parameters/conditions/is_taking_damage = true
-parameters/move/blend_position = Vector2(0, 0)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 10.0
@@ -450,11 +352,11 @@ _enemy = NodePath("..")
 wait_time = 3.0
 autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationComplete"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
 [connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
 [connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]

@@ -70,7 +70,7 @@ public partial class MineActions : Node
     #region Mine Actions
 
     public static Action OnMineGenerated;
-    public static Action<Vector2I> OnMineCellBroken;
+    public static Action OnMineCellBroken;
 
     #endregion
 

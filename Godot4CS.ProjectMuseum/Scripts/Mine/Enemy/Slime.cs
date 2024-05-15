@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -14,7 +13,6 @@ public partial class Slime : Enemy
     private MineGenerationVariables _mineGenerationVariables;
 
     private EnemyAi _enemyAi = new();
-    private Random _random = new Random();
 
     #region Loitering Variables
 

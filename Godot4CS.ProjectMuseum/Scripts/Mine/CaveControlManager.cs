@@ -12,6 +12,7 @@ public class CaveControlManager
         var totalCellsToReveal = new List<Cell>();
         foreach (var cell in cells)
         {
+            if(cell == null) continue;
             if (!cell.HasCave) continue;
             var requiredCave = new Cave
             {

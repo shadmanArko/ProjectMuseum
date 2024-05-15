@@ -8,6 +8,7 @@ radius = 3.0
 
 [node name="ItemDrop" type="RigidBody2D" node_paths=PackedStringArray("_itemSprite")]
 collision_layer = 8
+mass = 0.001
 sleeping = true
 lock_rotation = true
 script = ExtResource("1_h1xly")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=70 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -40,7 +40,8 @@
 [ext_resource type="PackedScene" uid="uid://dxanc4qqrv5x7" path="res://Scenes/Museum/Museum Ui/Artifact score UI/artifact_score_ui.tscn" id="26_waa14"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DayEndController.cs" id="27_mm5mn"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryController.cs" id="29_6vdgp"]
-[ext_resource type="PackedScene" uid="uid://bf3cyd5cug7da" path="res://Scenes/Museum/Sub Scenes/GuestWithLayers.tscn" id="30_4n4bn"]
+[ext_resource type="PackedScene" uid="uid://bf3cyd5cug7da" path="res://Scenes/Museum/Sub Scenes/MaleGuest.tscn" id="30_4n4bn"]
+[ext_resource type="PackedScene" uid="uid://brfcw3x8aid8m" path="res://Scenes/Museum/Sub Scenes/FemaleGuest.tscn" id="32_m646v"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
 [ext_resource type="Texture2D" uid="uid://c78tucptefcji" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="36_hg2i6"]
@@ -58,9 +59,9 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ControllersContainer.cs" id="48_dpvlv"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/FrontWallsController.cs" id="48_p7o0e"]
 [ext_resource type="Texture2D" uid="uid://6wj1oj2j7wl2" path="res://Assets/2D/Sprites/Decorations/ticket counter.png" id="48_piabe"]
-[ext_resource type="Texture2D" uid="uid://dg7vds601wvsp" path="res://Assets/2D/Sprites/Decorations/Front_walls_Mid.png" id="50_8lb2o"]
+[ext_resource type="Texture2D" uid="uid://71qml6v2tsw6" path="res://Assets/2D/Sprites/Decorations/Front_walls_Mid.png" id="50_8lb2o"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/ItemPlacementController.cs" id="50_roy6j"]
-[ext_resource type="Texture2D" uid="uid://txsuh51u8kvl" path="res://Assets/2D/Sprites/Decorations/Front_walls_small.png" id="51_h2g6g"]
+[ext_resource type="Texture2D" uid="uid://ohxqyh8hr55" path="res://Assets/2D/Sprites/Decorations/Front_walls_small.png" id="51_h2g6g"]
 [ext_resource type="PackedScene" uid="uid://qulr4wwpgjqv" path="res://Scenes/Museum/Effects/1x1dustEffect.tscn" id="51_k8r31"]
 [ext_resource type="PackedScene" uid="uid://4hojolkc2kn" path="res://Scenes/Museum/Effects/2x2dustEffect.tscn" id="52_syimh"]
 [ext_resource type="PackedScene" uid="uid://bwcubnjyh77t2" path="res://Scenes/Museum/Sub Scenes/fire_hydrant.tscn" id="58_d7sol"]
@@ -227,7 +228,8 @@ _characterSprite = NodePath("Sprite2D")
 [node name="GuestsController" type="Node2D" parent="museum"]
 y_sort_enabled = true
 script = ExtResource("18_iea1i")
-_guestScene = ExtResource("30_4n4bn")
+_maleGuestScene = ExtResource("30_4n4bn")
+_femaleGuestScene = ExtResource("32_m646v")
 _spawnAtTile = Vector2i(0, -2)
 _spawnInterval = 2.0
 _sceneEntryPositions = Array[Vector2i]([Vector2i(-83, 3), Vector2i(3, -83), Vector2i(-3, 18), Vector2i(-1, 18), Vector2i(1, 18), Vector2i(18, 3), Vector2i(18, 1), Vector2i(18, -1)])
@@ -612,10 +614,19 @@ hframes = 5
 frame = 2
 
 [node name="FrontWall17" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall" instance=ExtResource("8_1kkp3")]
-offset = Vector2(0, -49)
+visible = false
 
 [node name="FrontWall18" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
 position = Vector2(238, -142)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture = ExtResource("42_8t46q")
+offset = Vector2(0, -49)
+hframes = 5
+frame = 2
+
+[node name="FrontWall27" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+position = Vector2(222, -134)
 rotation = 3.14159
 scale = Vector2(1, -1)
 texture = ExtResource("42_8t46q")
@@ -668,7 +679,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall24" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="gateFrontWall24" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
 position = Vector2(110, -79)
 rotation = 3.14159
 scale = Vector2(-1, -1)
@@ -676,7 +687,7 @@ texture = ExtResource("43_ucw5y")
 offset = Vector2(0, -48.5)
 hframes = 3
 
-[node name="FrontWall25" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="gateFrontWall25" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
 position = Vector2(126, -87)
 rotation = 3.14159
 scale = Vector2(-1, -1)
@@ -685,7 +696,7 @@ offset = Vector2(0, -48.5)
 hframes = 3
 frame = 1
 
-[node name="FrontWall26" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="gateFrontWall26" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
 position = Vector2(142, -95)
 rotation = 3.14159
 scale = Vector2(-1, -1)
@@ -750,9 +761,18 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall9" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall" instance=ExtResource("9_63di7")]
+[node name="FrontWall23" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+position = Vector2(93.9999, -70.0001)
+rotation = 3.14159
 scale = Vector2(1, -1)
+texture = ExtResource("42_8t46q")
 offset = Vector2(0, -49)
+hframes = 5
+frame = 2
+
+[node name="FrontWall9" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall" instance=ExtResource("9_63di7")]
+visible = false
+scale = Vector2(1, -1)
 
 [node name="FrontWall10" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
 position = Vector2(110, -78)

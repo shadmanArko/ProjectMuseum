@@ -70,9 +70,9 @@ public partial class Dynamite : Node2D
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
         
-        foreach (var i in adjacentCells)
+        foreach (var direction in adjacentCells)
         {
-            var newCellPos = new Vector2I(cell.PositionX + i.X, cell.PositionY + i.Y);
+            var newCellPos = new Vector2I(cell.PositionX + direction.X, cell.PositionY + direction.Y);
             var adjacentCell = _mineGenerationVariables.GetCell(newCellPos);
             if(adjacentCell == null) continue;
             GD.Print($"Start explosion for {adjacentCell.PositionX},{adjacentCell.PositionY}");
@@ -104,7 +104,7 @@ public partial class Dynamite : Node2D
                 }
 
                 _mineGenerationVariables.BrokenCells++;
-                MineActions.OnMineCellBroken?.Invoke();
+                MineActions.OnMineCellBroken?.Invoke(newCellPos);
                 GD.Print($"explosion affecting {adjacentCell.PositionX},{adjacentCell.PositionY}");
             }
             

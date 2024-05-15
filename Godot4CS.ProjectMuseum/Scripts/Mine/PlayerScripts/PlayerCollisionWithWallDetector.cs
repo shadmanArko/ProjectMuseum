@@ -245,7 +245,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             }
 
             _mineGenerationVariables.BrokenCells++;
-            MineActions.OnMineCellBroken?.Invoke();
+            MineActions.OnMineCellBroken?.Invoke(tilePos);
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
         }
     }

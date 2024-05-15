@@ -13,10 +13,10 @@ _wallPreview = NodePath("YellowFlowerWallPaper1/wall Preview")
 modulate = Color(0.8, 0.8, 0.8, 1)
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(8, -11)
+position = Vector2(8, -16)
 scale = Vector2(-1, 1)
 texture = ExtResource("1_yr40k")
-offset = Vector2(-6, -41.5)
+offset = Vector2(-6, -36.5)
 hframes = 3
 
 [node name="wall Preview" type="Sprite2D" parent="YellowFlowerWallPaper1"]

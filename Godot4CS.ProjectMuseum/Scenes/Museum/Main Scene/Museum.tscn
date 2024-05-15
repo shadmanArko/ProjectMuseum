@@ -503,13 +503,13 @@ z_index = 1
 y_sort_enabled = true
 position = Vector2(-15, -70)
 script = ExtResource("48_p7o0e")
-_walls = []
+_walls = [NodePath("Right_front_wall/FrontWall3"), NodePath("Right_front_wall/FrontWall4"), NodePath("Right_front_wall/FrontWall5"), NodePath("Right_front_wall/FrontWall7"), NodePath("Right_front_wall/FrontWall10"), NodePath("Right_front_wall/FrontWall8"), NodePath("Right_front_wall/FrontWall9"), NodePath("Right_front_wall/FrontWall13"), NodePath("Right_front_wall/FrontWall14"), NodePath("Right_front_wall/FrontWall15"), NodePath("Right_front_wall/FrontWall16"), NodePath("Right_front_wall/FrontWall18"), NodePath("Right_front_wall/FrontWall27"), NodePath("Right_front_wall/FrontWall19"), NodePath("Right_front_wall/FrontWall20"), NodePath("Right_front_wall/FrontWall21"), NodePath("Right_front_wall/FrontWall22"), NodePath("Right_front_wall/FrontWall23"), NodePath("Left_front_wall/FrontWall4"), NodePath("Left_front_wall/FrontWall5"), NodePath("Left_front_wall/FrontWall6"), NodePath("Left_front_wall/FrontWall7"), NodePath("Left_front_wall/FrontWall8"), NodePath("Left_front_wall/FrontWall23"), NodePath("Left_front_wall/FrontWall10"), NodePath("Left_front_wall/FrontWall11"), NodePath("Left_front_wall/FrontWall12"), NodePath("Left_front_wall/FrontWall13"), NodePath("Left_front_wall/FrontWall14"), NodePath("Left_front_wall/FrontWall15"), NodePath("Left_front_wall/FrontWall16"), NodePath("Left_front_wall/FrontWall17"), NodePath("Left_front_wall/FrontWall18"), NodePath("Left_front_wall/FrontWall19"), NodePath("Left_front_wall/FrontWall20"), NodePath("Left_front_wall/FrontWall21"), NodePath("Left_front_wall/FrontWall22")]
 _mainWallTexture = ExtResource("42_8t46q")
 _midWallTexture = ExtResource("50_8lb2o")
 _smallWallTexture = ExtResource("51_h2g6g")
 _mainWallOffset = Vector2(0, -49)
-_midWallOffset = Vector2(0, -33.5)
-_smallWallOffset = Vector2(0, -20)
+_midWallOffset = Vector2(0, -49)
+_smallWallOffset = Vector2(0, -15)
 
 [node name="Right_front_wall" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls"]
 y_sort_enabled = true

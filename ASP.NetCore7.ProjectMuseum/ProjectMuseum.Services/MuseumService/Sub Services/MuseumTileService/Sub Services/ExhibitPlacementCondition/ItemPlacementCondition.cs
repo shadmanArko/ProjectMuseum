@@ -6,7 +6,9 @@ using ProjectMuseum.Repositories.DecorationOtherRepository;
 using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.SanitationRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.ShopRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ShopService;
 
 namespace ProjectMuseum.Services.MuseumTileService;
 
@@ -17,14 +19,16 @@ public class ItemPlacementCondition : IItemPlacementCondition
     private readonly ISanitationRepository _sanitationRepository;
     private readonly IDecorationOtherRepository _decorationOtherRepository;
     private readonly IMuseumTileRepository _museumTileRepository;
+    private readonly IShopRepository _shopRepository;
 
-    public ItemPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository, IDecorationShopRepository decorationShopRepository, IDecorationOtherRepository decorationOtherRepository, ISanitationRepository sanitationRepository)
+    public ItemPlacementCondition(IExhibitRepository exhibitRepository, IMuseumTileRepository museumTileRepository, IDecorationShopRepository decorationShopRepository, IDecorationOtherRepository decorationOtherRepository, ISanitationRepository sanitationRepository, IShopRepository shopRepository)
     {
         _exhibitRepository = exhibitRepository;
         _museumTileRepository = museumTileRepository;
         _decorationShopRepository = decorationShopRepository;
         _decorationOtherRepository = decorationOtherRepository;
         _sanitationRepository = sanitationRepository;
+        _shopRepository = shopRepository;
     }
     
     public async Task<List<ExhibitPlacementConditionData>> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
@@ -118,14 +122,16 @@ public class ItemPlacementCondition : IItemPlacementCondition
         var museumTiles = await _museumTileRepository.GetAll();
         //get core shop  functional with the variation name from json
         var coreShopFunctional = new CoreShopFunctional();
-        coreShopFunctional.Variant = shopVariationName;
-        coreShopFunctional.NeedsShopFullfills = new List<GuestNeedsEnum>()
-            { GuestNeedsEnum.Hunger, GuestNeedsEnum.Thirst };
-        coreShopFunctional.DefaultProducts = new List<Product>()
+        var shopFunctionalDatas = await _shopRepository.GetAllShopFunctional();
+        foreach (var shopFunctionalData in shopFunctionalDatas)
         {
-            new Product() { BasePrice = 110, NeedFillAmount = 50, FulfilsGuestNeed = GuestNeedsEnum.Hunger },
-            new Product() { BasePrice = 120, NeedFillAmount = 55, FulfilsGuestNeed = GuestNeedsEnum.Thirst }
-        };
+            if (shopFunctionalData.Variant == shopVariationName)
+            {
+                coreShopFunctional = shopFunctionalData;
+            }
+        }
+        
+        
         foreach (var tileId in tileIds)
         {
             if (tileId == originTileId)

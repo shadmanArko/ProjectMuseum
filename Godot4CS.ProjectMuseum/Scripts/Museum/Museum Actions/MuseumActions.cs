@@ -10,6 +10,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 public partial class MuseumActions : Node
 {
     public static Action<Item, Exhibit> OnClickItem;
+    public static Action<Item, Shop> OnClickShopItem;
     public static Action<GuestAi> OnClickGuestAi;
     public static Action<GuestAi> OnGuestAiUpdated;
     public static Action<string> OnClickWallForUpdatingWallPaper;

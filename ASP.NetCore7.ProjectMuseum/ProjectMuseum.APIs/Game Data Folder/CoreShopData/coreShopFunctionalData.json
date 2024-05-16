@@ -1,0 +1,76 @@
+[
+  {
+    "Id": "1",
+    "Variant": "vendingmachine1",
+    "RequiredManpower": true,
+    "NeedsShopFullfills": [1, 2],
+    "MaxProducts": 10,
+    "ProductCategoryTaken": "Category 1",
+    "DefaultProducts": 
+    [
+      {
+        "Id": "",
+        "ShopId": "",
+        "ProductVariant": "Salt Chips",
+        "ProductCategory": "Chips",
+        "ProductType": "Food",
+        "FulfilsGuestNeed": 0,
+        "BasePrice": 1.0,
+        "NeedFillAmount": 30
+      },
+      {
+        "Id": "",
+        "ShopId": "",
+        "ProductVariant": "Lime Soda",
+        "ProductCategory": "Soda",
+        "ProductType": "Drink",
+        "FulfilsGuestNeed": 1,
+        "BasePrice": 1.0,
+        "NeedFillAmount": 30
+      }
+    ],
+    "LengthInTiles": 1,
+    "WidthInTiles": 1,
+    "BeautyRating": 4.5,
+    "PlacementCost": 100.0,
+    "FunctionalDirection": "Front Only",
+    "ShopPngLocation": "res://Assets/2D/Sprites/DecorationShops/vendingmachine1.png"
+  },
+  {
+    "Id": "1",
+    "Variant": "vendingmachine2",
+    "RequiredManpower": true,
+    "NeedsShopFullfills": [1, 2],
+    "MaxProducts": 10,
+    "ProductCategoryTaken": "Category 1",
+    "DefaultProducts":
+    [
+      {
+        "Id": "",
+        "ShopId": "",
+        "ProductVariant": "Sourcream Chips",
+        "ProductCategory": "Chips",
+        "ProductType": "Food",
+        "FulfilsGuestNeed": 0,
+        "BasePrice": 1.0,
+        "NeedFillAmount": 30
+      },
+      {
+        "Id": "",
+        "ShopId": "",
+        "ProductVariant": "Dark Soda",
+        "ProductCategory": "Soda",
+        "ProductType": "Drink",
+        "FulfilsGuestNeed": 1,
+        "BasePrice": 1.0,
+        "NeedFillAmount": 30
+      }
+    ],
+    "LengthInTiles": 1,
+    "WidthInTiles": 1,
+    "BeautyRating": 4.5,
+    "PlacementCost": 100.0,
+    "FunctionalDirection": "Front Only",
+    "ShopPngLocation": "res://Assets/2D/Sprites/DecorationShops/vendingmachine2.png"
+  }
+]

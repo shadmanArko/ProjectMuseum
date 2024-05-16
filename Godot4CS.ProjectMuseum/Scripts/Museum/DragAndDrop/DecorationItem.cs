@@ -16,6 +16,7 @@ public partial class DecorationItem : Item
 	private string _variationName;
 	private HttpRequest _httpRequestForPlacingDecorationItem;
 	private BuilderCardType _builderCardType;
+	private Shop _shopData;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -33,6 +34,7 @@ public partial class DecorationItem : Item
 			var tilesWithShopsDto = JsonSerializer.Deserialize<TilesWithShopsDTO>(jsonStr);
 			_museumTileContainer.MuseumTiles = tilesWithShopsDto.MuseumTiles;
 			_museumTileContainer.Shops = tilesWithShopsDto.DecorationShops!;
+			_shopData = tilesWithShopsDto.Shop;
 		}else if (_builderCardType == BuilderCardType.DecorationOther)
 		{
 			var tiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
@@ -82,6 +84,7 @@ public partial class DecorationItem : Item
 	{
 		selectedItem = true;
 		_builderCardType = builderCardType;
+		_itemType = _builderCardType == BuilderCardType.DecorationShop ? ItemTypes.Shop : ItemTypes.Decoration;
 		_variationName = cardName;
 		MakeObjectsFloating();
 	}
@@ -112,7 +115,21 @@ public partial class DecorationItem : Item
 		OnItemPlacedOnTile(GlobalPosition);
 		DisableItemPlacementShadow();
 	}
-
+	public override void _Input(InputEvent @event)
+	{
+		if (Input.IsActionJustReleased("ui_right_click"))
+		{
+			if (GetRect().HasPoint(GetLocalMousePosition()))
+			{
+				if (_itemType== ItemTypes.Shop)
+				{
+					MuseumActions.OnClickShopItem?.Invoke(this, _shopData);
+				}
+                
+			}
+		}
+		
+	}
 	public override void _ExitTree()
 	{
 		base._ExitTree();

@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.CoreShop;
 using ProjectMuseum.Models.MIne;
 using ProjectMuseum.Models.MIne.Equippables;
 using ProjectMuseum.Repositories;
@@ -32,7 +33,9 @@ using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.DisplayArtifactRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.GuestBuildingParameterRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.MuseumZoneRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.ProductRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.SanitationRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.ShopRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.TradingArtifactRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 using ProjectMuseum.Repositories.PlayerInfoRepository;
@@ -71,7 +74,9 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ProductService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.SanaitationService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ShopService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 using ProjectMuseum.Services.PlayerInfoService;
@@ -106,6 +111,9 @@ string equippableRangeDataFolderPath = Path.Combine(Directory.GetCurrentDirector
 string equippablePickaxeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippablePickaxe.json");
 string cellPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellPlaceableData", "CellPlaceable.json");
 
+string coreShopFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CoreShopData", "coreShopFunctionalData.json");
+string coreShopDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CoreShopData", "coreShopDescriptiveData.json");
+string productDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder","CoreProductData",  "productData.json");
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
 
@@ -170,6 +178,10 @@ builder.Services.AddSingleton(new JsonFileDatabase<EquippableMelee>(equippableMe
 builder.Services.AddSingleton(new JsonFileDatabase<EquippableRange>(equippableRangeDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<EquippablePickaxe>(equippablePickaxeDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<CellPlaceable>(cellPlaceableDataFolderPath));
+
+builder.Services.AddSingleton(new JsonFileDatabase<CoreShopFunctional>(coreShopFunctionalDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<CoreShopDescriptive>(coreShopDescriptiveDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<Product>(productDataFolderPath));
 
 
 
@@ -236,6 +248,8 @@ builder.Services.AddScoped<IArtifactScoreRepository, ArtifactScoreRepository>();
 builder.Services.AddScoped<IArtifactThemeMatchingTagCountRepo, ArtifactThemeMatchingTagCountRepo>();
 builder.Services.AddScoped<IEquippableRepository, EquippableRepository>();
 builder.Services.AddScoped<ICellPlaceableRepository, CellPlaceableRepository>();
+builder.Services.AddScoped<IShopRepository, ShopRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 
 
@@ -276,7 +290,8 @@ builder.Services.AddScoped<IArtifactConditionService, ArtifactConditionService>(
 builder.Services.AddScoped<IArtifactRarityService, ArtifactRarityService>();
 builder.Services.AddScoped<IEquippableService, EquippableService>();
 builder.Services.AddScoped<ICellPlaceableService, CellPlaceableService>();
-
+builder.Services.AddScoped<IShopService, ShopService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 // builder.Services.AddScoped<ISaveService>(provider => new SaveService(provider.GetRequiredService<SaveDataJsonFileDatabase>()));

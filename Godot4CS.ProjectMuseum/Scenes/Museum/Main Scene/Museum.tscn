@@ -182,7 +182,7 @@ _scoreCardsParent = NodePath("Panel/MarginContainer/VBoxContainer/GridContainer"
 _closingButton = NodePath("Panel/MarginContainer/VBoxContainer/Container/Label/Button")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(130, -49)
+position = Vector2(-110, -3)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
@@ -207,7 +207,7 @@ _animationPlayer = NodePath("PlayerAnimation")
 _characterSprite = NodePath("Sprite2D")
 
 [node name="Player_Uncontrolled" parent="museum" node_paths=PackedStringArray("_animationPlayer", "_characterSprite") instance=ExtResource("19_1kq7h")]
-position = Vector2(130, -48)
+position = Vector2(129, -52)
 _professorEnteringCoordinates = Array[Vector2i]([Vector2i(-5, -7), Vector2i(-5, -8)])
 _museumExitingCoordinate = Vector2i(0, -7)
 _animationNameAfterInitialMovement = "idle_back_facing"
@@ -383,6 +383,58 @@ texture_filter = 1
 position = Vector2(1335, -523)
 texture = SubResource("CompressedTexture2D_vpg7c")
 
+[node name="walls" type="Node2D" parent="museum/Background Foresnt/Road"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(15, 45)
+
+[node name="BusStopWall" type="Sprite2D" parent="museum/Background Foresnt/Road/walls"]
+z_index = 1
+position = Vector2(-343.34, -195)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -28.175)
+hframes = 6
+
+[node name="BusStopWall2" type="Sprite2D" parent="museum/Background Foresnt/Road/walls"]
+z_index = 1
+position = Vector2(-327.665, -196)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -27.165)
+hframes = 6
+frame = 1
+
+[node name="BusStopWall3" type="Sprite2D" parent="museum/Background Foresnt/Road/walls"]
+z_index = 1
+position = Vector2(-312, -191.34)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0, -31.825)
+hframes = 6
+frame = 2
+
+[node name="BusStopWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/walls"]
+z_index = 1
+position = Vector2(-297, -189)
+texture = ExtResource("42_fq60h")
+offset = Vector2(0.67, -34.175)
+hframes = 6
+frame = 3
+
+[node name="BusStopWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/walls"]
+z_index = 1
+position = Vector2(-280, -179)
+texture = ExtResource("42_fq60h")
+offset = Vector2(-0.66, -44.175)
+hframes = 6
+frame = 4
+
+[node name="BusStopWall6" type="Sprite2D" parent="museum/Background Foresnt/Road/walls"]
+z_index = 1
+position = Vector2(-264, -175)
+texture = ExtResource("42_fq60h")
+offset = Vector2(-0.98, -48.155)
+hframes = 6
+frame = 5
+
 [node name="RoadChunk3" type="Sprite2D" parent="museum/Background Foresnt/Road"]
 z_index = 1
 y_sort_enabled = true
@@ -446,62 +498,10 @@ position = Vector2(-379, -201)
 texture = ExtResource("42_2k8e8")
 offset = Vector2(0, -31.61)
 
-[node name="walls" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
-z_index = 1
+[node name="FrontWalls" type="Node2D" parent="museum/Background Foresnt/Road" node_paths=PackedStringArray("_walls")]
+z_index = 2
 y_sort_enabled = true
-position = Vector2(0, -9)
-
-[node name="BusStopWall" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
-z_index = 1
-position = Vector2(-343.34, -195)
-texture = ExtResource("42_fq60h")
-offset = Vector2(0, -28.175)
-hframes = 6
-
-[node name="BusStopWall2" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
-z_index = 1
-position = Vector2(-327.665, -196)
-texture = ExtResource("42_fq60h")
-offset = Vector2(0, -27.165)
-hframes = 6
-frame = 1
-
-[node name="BusStopWall3" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
-z_index = 1
-position = Vector2(-312, -191.34)
-texture = ExtResource("42_fq60h")
-offset = Vector2(0, -31.825)
-hframes = 6
-frame = 2
-
-[node name="BusStopWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
-z_index = 1
-position = Vector2(-297, -189)
-texture = ExtResource("42_fq60h")
-offset = Vector2(0.67, -34.175)
-hframes = 6
-frame = 3
-
-[node name="BusStopWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
-z_index = 1
-position = Vector2(-280, -179)
-texture = ExtResource("42_fq60h")
-offset = Vector2(-0.66, -44.175)
-hframes = 6
-frame = 4
-
-[node name="BusStopWall6" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls"]
-z_index = 1
-position = Vector2(-264, -175)
-texture = ExtResource("42_fq60h")
-offset = Vector2(-0.98, -48.155)
-hframes = 6
-frame = 5
-
-[node name="FrontWalls" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls" node_paths=PackedStringArray("_walls")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(-15, -70)
+position = Vector2(0, -25)
 script = ExtResource("48_p7o0e")
 _walls = [NodePath("Right_front_wall/FrontWall3"), NodePath("Right_front_wall/FrontWall4"), NodePath("Right_front_wall/FrontWall5"), NodePath("Right_front_wall/FrontWall7"), NodePath("Right_front_wall/FrontWall10"), NodePath("Right_front_wall/FrontWall8"), NodePath("Right_front_wall/FrontWall9"), NodePath("Right_front_wall/FrontWall13"), NodePath("Right_front_wall/FrontWall14"), NodePath("Right_front_wall/FrontWall15"), NodePath("Right_front_wall/FrontWall16"), NodePath("Right_front_wall/FrontWall18"), NodePath("Right_front_wall/FrontWall27"), NodePath("Right_front_wall/FrontWall19"), NodePath("Right_front_wall/FrontWall20"), NodePath("Right_front_wall/FrontWall21"), NodePath("Right_front_wall/FrontWall22"), NodePath("Right_front_wall/FrontWall23"), NodePath("Left_front_wall/FrontWall4"), NodePath("Left_front_wall/FrontWall5"), NodePath("Left_front_wall/FrontWall6"), NodePath("Left_front_wall/FrontWall7"), NodePath("Left_front_wall/FrontWall8"), NodePath("Left_front_wall/FrontWall23"), NodePath("Left_front_wall/FrontWall10"), NodePath("Left_front_wall/FrontWall11"), NodePath("Left_front_wall/FrontWall12"), NodePath("Left_front_wall/FrontWall13"), NodePath("Left_front_wall/FrontWall14"), NodePath("Left_front_wall/FrontWall15"), NodePath("Left_front_wall/FrontWall16"), NodePath("Left_front_wall/FrontWall17"), NodePath("Left_front_wall/FrontWall18"), NodePath("Left_front_wall/FrontWall19"), NodePath("Left_front_wall/FrontWall20"), NodePath("Left_front_wall/FrontWall21"), NodePath("Left_front_wall/FrontWall22")]
 _mainWallTexture = ExtResource("42_8t46q")
@@ -511,11 +511,11 @@ _mainWallOffset = Vector2(0, -49)
 _midWallOffset = Vector2(0, -49)
 _smallWallOffset = Vector2(0, -15)
 
-[node name="Right_front_wall" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls"]
+[node name="Right_front_wall" type="Node2D" parent="museum/Background Foresnt/Road/FrontWalls"]
 y_sort_enabled = true
 position = Vector2(3, 51)
 
-[node name="FrontWall3" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall3" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(334, -190)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -524,7 +524,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 1
 
-[node name="FrontWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(14, -30)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -532,7 +532,7 @@ texture = ExtResource("42_8t46q")
 offset = Vector2(0, -49)
 hframes = 5
 
-[node name="FrontWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(30, -38)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -541,7 +541,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall7" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall7" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(62, -54)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -550,7 +550,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall10" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall10" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(46, -46)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -559,7 +559,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall8" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall8" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(78, -62)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -568,7 +568,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 4
 
-[node name="FrontWall9" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall9" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(94, -70)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -577,7 +577,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall13" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall13" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(158, -102)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -586,7 +586,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall14" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall14" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(174, -110)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -595,7 +595,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 4
 
-[node name="FrontWall15" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall15" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(190, -118)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -604,7 +604,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall16" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall16" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(206, -126)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -613,10 +613,10 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall17" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall" instance=ExtResource("8_1kkp3")]
+[node name="FrontWall17" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall" instance=ExtResource("8_1kkp3")]
 visible = false
 
-[node name="FrontWall18" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall18" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(238, -142)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -625,7 +625,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall27" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall27" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(222, -134)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -634,7 +634,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall19" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall19" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(254, -150)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -643,7 +643,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall20" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall20" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(270, -158)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -652,7 +652,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall21" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall21" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(286, -166)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -661,7 +661,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall22" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall22" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(302, -174)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -670,7 +670,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 4
 
-[node name="FrontWall23" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="FrontWall23" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(318, -182)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -679,7 +679,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="gateFrontWall24" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="gateFrontWall24" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(110, -79)
 rotation = 3.14159
 scale = Vector2(-1, -1)
@@ -687,7 +687,7 @@ texture = ExtResource("43_ucw5y")
 offset = Vector2(0, -48.5)
 hframes = 3
 
-[node name="gateFrontWall25" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="gateFrontWall25" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(126, -87)
 rotation = 3.14159
 scale = Vector2(-1, -1)
@@ -696,7 +696,7 @@ offset = Vector2(0, -48.5)
 hframes = 3
 frame = 1
 
-[node name="gateFrontWall26" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="gateFrontWall26" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 position = Vector2(142, -95)
 rotation = 3.14159
 scale = Vector2(-1, -1)
@@ -705,19 +705,19 @@ offset = Vector2(0, -48.5)
 hframes = 3
 frame = 2
 
-[node name="EntryGateClose" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Right_front_wall"]
+[node name="EntryGateClose" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Right_front_wall"]
 visible = false
 position = Vector2(127, -87)
 texture = ExtResource("42_pnn6c")
 offset = Vector2(0, -49)
 
-[node name="Left_front_wall" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls"]
+[node name="Left_front_wall" type="Node2D" parent="museum/Background Foresnt/Road/FrontWalls"]
 y_sort_enabled = true
 position = Vector2(27, 51)
 rotation = -3.14159
 scale = Vector2(1, -1)
 
-[node name="FrontWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall4" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(14, -30)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -725,7 +725,7 @@ texture = ExtResource("42_8t46q")
 offset = Vector2(0, -49)
 hframes = 5
 
-[node name="FrontWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall5" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(30, -38)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -734,7 +734,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall6" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall6" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(46, -46)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -743,7 +743,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 4
 
-[node name="FrontWall7" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall7" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(62, -54)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -752,7 +752,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall8" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall8" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(78, -62)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -761,7 +761,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall23" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall23" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(93.9999, -70.0001)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -770,11 +770,11 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall9" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall" instance=ExtResource("9_63di7")]
+[node name="FrontWall9" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall" instance=ExtResource("9_63di7")]
 visible = false
 scale = Vector2(1, -1)
 
-[node name="FrontWall10" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall10" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(110, -78)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -783,7 +783,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall11" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall11" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(126, -86)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -792,7 +792,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall12" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall12" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(142, -94)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -801,7 +801,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall13" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall13" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(158, -102)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -810,7 +810,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall14" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall14" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(174, -110)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -819,7 +819,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall15" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall15" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(190, -118)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -828,7 +828,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall16" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall16" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(206, -126)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -837,7 +837,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall17" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall17" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(222, -134)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -846,7 +846,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall18" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall18" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(238, -142)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -855,7 +855,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 2
 
-[node name="FrontWall19" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall19" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(254, -150)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -864,7 +864,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall20" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall20" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(270, -158)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -873,7 +873,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 4
 
-[node name="FrontWall21" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall21" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(286, -166)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -882,7 +882,7 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 3
 
-[node name="FrontWall22" type="Sprite2D" parent="museum/Background Foresnt/Road/RoadChunk3/walls/FrontWalls/Left_front_wall"]
+[node name="FrontWall22" type="Sprite2D" parent="museum/Background Foresnt/Road/FrontWalls/Left_front_wall"]
 position = Vector2(302, -174)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -891,36 +891,47 @@ offset = Vector2(0, -49)
 hframes = 5
 frame = 1
 
-[node name="lamps and firehydrents" type="Node2D" parent="museum/Background Foresnt/Road/RoadChunk3"]
-z_index = 1
+[node name="lamps and firehydrents" type="Node2D" parent="museum/Background Foresnt/Road/FrontWalls"]
 y_sort_enabled = true
-position = Vector2(-15, -77)
+position = Vector2(0, 2)
 
-[node name="FireHydrant" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" instance=ExtResource("58_d7sol")]
-z_index = 1
+[node name="FireHydrant" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" instance=ExtResource("58_d7sol")]
+y_sort_enabled = true
 position = Vector2(354, -148)
 
-[node name="StreetLamp" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+[node name="StreetLamp" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+z_index = 0
+y_sort_enabled = true
 position = Vector2(341, -140)
 _pointLight = NodePath("PointLight2D")
 
-[node name="StreetLamp2" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
-position = Vector2(583, -261)
+[node name="StreetLamp2" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+z_index = 0
+y_sort_enabled = true
+position = Vector2(799, -303)
 _pointLight = NodePath("PointLight2D")
 
-[node name="StreetLamp3" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+[node name="StreetLamp3" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+z_index = 0
+y_sort_enabled = true
 position = Vector2(857, -397)
 _pointLight = NodePath("PointLight2D")
 
-[node name="StreetLamp4" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+[node name="StreetLamp4" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+z_index = 0
+y_sort_enabled = true
 position = Vector2(-111, -35)
 _pointLight = NodePath("PointLight2D")
 
-[node name="StreetLamp5" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+[node name="StreetLamp5" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+z_index = 0
+y_sort_enabled = true
 position = Vector2(-560, -261)
 _pointLight = NodePath("PointLight2D")
 
-[node name="StreetLamp6" parent="museum/Background Foresnt/Road/RoadChunk3/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+[node name="StreetLamp6" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
+z_index = 0
+y_sort_enabled = true
 position = Vector2(-894, -428)
 _pointLight = NodePath("PointLight2D")
 

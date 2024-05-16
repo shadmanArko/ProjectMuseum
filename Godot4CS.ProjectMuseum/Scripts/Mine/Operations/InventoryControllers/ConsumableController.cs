@@ -122,8 +122,8 @@ public partial class ConsumableController : InventoryController
         {
             var message = _inventoryItem.Category switch
             {
-                "Health" => "Player is already in full health",
-                "Energy" => "Player is already in full energy",
+                "Health" => "Already at full health.",
+                "Energy" => "Already at full energy.",
                 _ => "An unknown error occured"
             };
             ReferenceStorage.Instance.MinePopUp.ShowPopUp(message);

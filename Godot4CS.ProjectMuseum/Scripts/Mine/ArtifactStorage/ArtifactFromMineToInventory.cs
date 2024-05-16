@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Objects;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 
@@ -8,15 +9,15 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.ArtifactStorage;
 
 public partial class ArtifactFromMineToInventory : Node2D
 {
-    // private HttpRequest _addArtifactToInventoryHttpRequest;
     private InventoryDTO _inventoryDto;
     private MineGenerationVariables _mineGenerationVariables;
     private RawArtifactDTO _rawArtifactDto;
-    
+
+    #region Initializers
+
     public override void _Ready()
     {
         SubscribeToActions();
-        // CreateHttpRequest();
         InitializeDiReference();
     }
 
@@ -27,49 +28,23 @@ public partial class ArtifactFromMineToInventory : Node2D
         _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
     }
     
-    // private void CreateHttpRequest()
-    // {
-    //     _addArtifactToInventoryHttpRequest = new HttpRequest();
-    //     AddChild(_addArtifactToInventoryHttpRequest);
-    //     _addArtifactToInventoryHttpRequest.RequestCompleted += OnAddArtifactFromMineToInventory;
-    // }
-
     private void SubscribeToActions()
     {
         MineActions.OnArtifactSuccessfullyRetrieved += SendArtifactFromMineToInventory;
+        MineActions.OnCollectItemDrop += SendArtifactItemToInventory;
     }
 
-    // private void AddArtifactFromMineToInventory(Artifact artifact)
-    // {
-    //     string[] headers = { "Content-Type: application/json"};
-    //     var body = JsonConvert.SerializeObject(artifact);
-    //
-    //     _addArtifactToInventoryHttpRequest.Request(ApiAddress.MineApiPath+"SendArtifactToInventory", headers,
-    //         HttpClient.Method.Post, body);
-    //     
-    //     GD.Print($"HTTP REQUEST FOR ADDING ARTIFACT TO INVENTORY (3)");
-    // }
-    //
-    // private void OnAddArtifactFromMineToInventory(long result, long responseCode, string[] headers, byte[] body)
-    // {
-    //     GD.Print($"ARTIFACT SUCCESSFULLY ADDED TO INVENTORY!!! (4)");
-    // }
+    #endregion
     
     private void SendArtifactFromMineToInventory(Artifact artifact)
     {
-        var inventoryManager = ReferenceStorage.Instance.InventoryManager;
-        if (!inventoryManager.HasFreeSlot())
-        {
-            ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
-            return;
-        }
-        
+        var cellSize = _mineGenerationVariables.Mine.CellSize;
+        var offset = new Vector2(cellSize, cellSize) / 2;
+        var artifactPos = new Vector2(artifact.PositionX, artifact.PositionY) * cellSize + offset;
         RemoveArtifactFromMine(artifact);
-        var inventoryItem = AddArtifactToInventory(artifact);
-        GD.Print($"artifact added to inventory {inventoryItem.Variant}");
-        MineActions.OnInventoryUpdate?.Invoke();
+        InstantiateArtifactAsInventoryItem(artifact, artifactPos);
     }
-
+    
     private void RemoveArtifactFromMine(Artifact artifact)
     {
         var cell = _mineGenerationVariables.Mine.Cells.FirstOrDefault(tempCell =>
@@ -83,14 +58,12 @@ public partial class ArtifactFromMineToInventory : Node2D
         cell.HasArtifact = false;
     }
 
-    private InventoryItem AddArtifactToInventory(Artifact artifact)
+    private void InstantiateArtifactAsInventoryItem(Artifact artifact, Vector2 pos)
     {
-        var inventoryManager = ReferenceStorage.Instance.InventoryManager;
         var rawArtifactFunctional =
             _rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(raw => raw.Id == artifact.RawArtifactId);
         var rawArtifactDescriptive =
             _rawArtifactDto.RawArtifactDescriptives.FirstOrDefault(raw => raw.Id == artifact.RawArtifactId);
-        var nextEmptySlot = inventoryManager.GetNextEmptySlot();
         var inventoryItem = new InventoryItem
         {
             Id = artifact.Id,
@@ -100,16 +73,42 @@ public partial class ArtifactFromMineToInventory : Node2D
             IsStackable = false,
             Name = rawArtifactDescriptive.ArtifactName,
             PngPath = rawArtifactFunctional!.SmallImageLocation,
-            Slot = nextEmptySlot,
+            Slot = 0,
             Stack = 1
         };
 
-        var inventory = _inventoryDto.Inventory;
-        artifact.Slot = nextEmptySlot;
-        inventory.OccupiedSlots.Add(nextEmptySlot);
-        inventory.InventoryItems.Add(inventoryItem);
-        inventory.Artifacts.Add(artifact);
+        var itemPngPath = ReferenceStorage.Instance.ItemDropScenePath;
+        var artifactItem =
+            SceneInstantiator.InstantiateScene(itemPngPath, _mineGenerationVariables.MineGenView, pos) as ItemDrop;
+        if (artifactItem == null)
+        {
+            GD.PrintErr("Item drop is null");
+            return;
+        }
+        GD.Print("instantiated resource item");
+        artifactItem.SetItem(inventoryItem);
+    }
+    
+    private void SendArtifactItemToInventory(InventoryItem inventoryItem)
+    {
+        if (inventoryItem.Type != "Artifact") return;
+        
+        var inventoryManager = ReferenceStorage.Instance.InventoryManager;
+        
+        inventoryItem.Slot = inventoryManager.GetNextEmptySlot();
+        _inventoryDto.Inventory.OccupiedSlots.Add(inventoryItem.Slot);
+        _inventoryDto.Inventory.InventoryItems.Add(inventoryItem);
+        MineActions.OnInventoryUpdate?.Invoke();
+    }
 
-        return inventoryItem;
+    private void UnsubscribeToActions()
+    {
+        MineActions.OnArtifactSuccessfullyRetrieved -= SendArtifactFromMineToInventory;
+        MineActions.OnCollectItemDrop -= SendArtifactItemToInventory;
+    }
+
+    public override void _ExitTree()
+    {
+        UnsubscribeToActions();
     }
 }

@@ -17,7 +17,6 @@ public partial class Dynamite : Node2D
     [Export] private Label _timerLabel;
     public override void _Ready()
     {
-        SubscribeToActions();
         InitializeDiInstaller();
         _timer = 6f;
     }
@@ -28,21 +27,7 @@ public partial class Dynamite : Node2D
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
     }
-
-    #region Subscribe and UnSubscribe
-
-    private void SubscribeToActions()
-    {
-        
-    }
-
-    private void UnSubscribeToActions()
-    {
-        
-    }
-
-    #endregion
-
+    
     public override void _Process(double delta)
     {
         var isReadyToExplode = CheckForExplosionValidity((float)delta);
@@ -105,6 +90,7 @@ public partial class Dynamite : Node2D
 
                 _mineGenerationVariables.BrokenCells++;
                 MineActions.OnMineCellBroken?.Invoke(newCellPos);
+                cell.HasCellPlaceable = false;
                 GD.Print($"explosion affecting {adjacentCell.PositionX},{adjacentCell.PositionY}");
             }
             
@@ -115,7 +101,6 @@ public partial class Dynamite : Node2D
 
     public override void _ExitTree()
     {
-        UnSubscribeToActions();
         GD.Print("Dynamite exploded");
     }
 }

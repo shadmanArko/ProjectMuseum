@@ -44,8 +44,6 @@ public partial class MineResourceCollector : Node
 
 	private void CheckResourceCollectionValidity(Vector2I tilePos)
 	{
-		// var tilePos = _mineGenerationVariables.MineGenView.LocalToMap(_playerControllerVariables.Position);
-		// tilePos += _playerControllerVariables.MouseDirection;
 		var cell = _mineGenerationVariables.GetCell(tilePos);
 		
 		if(cell.HitPoint > 0) return;
@@ -65,7 +63,6 @@ public partial class MineResourceCollector : Node
 		else
 		{
 			GD.Print("adding resource to inventory");
-			// CollectResources();
 			var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
 				tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
 			if (resource == null)

@@ -1,13 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://btfxvqycveohy"]
+[gd_scene load_steps=6 format=3 uid="uid://btfxvqycveohy"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/ItemDrop.cs" id="1_h1xly"]
 [ext_resource type="Texture2D" uid="uid://wff18456uxk3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_coal.png" id="1_rf63g"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/OutlineAndShineShader.gdshader" id="2_navp8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4py5"]
 radius = 3.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qenu2"]
+shader = ExtResource("2_navp8")
+shader_parameter/width = null
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/shine_color = Color(0.996078, 0.996078, 0.678431, 0.25098)
+shader_parameter/shine_line_width = 0.1
+shader_parameter/shine_angle = 0.785398
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_wait_cycles = 1.0
+
 [node name="ItemDrop" type="RigidBody2D" node_paths=PackedStringArray("_itemSprite")]
-collision_layer = 8
+collision_layer = 32
 mass = 0.001
 sleeping = true
 lock_rotation = true
@@ -19,5 +30,6 @@ shape = SubResource("CircleShape2D_g4py5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_qenu2")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_rf63g")

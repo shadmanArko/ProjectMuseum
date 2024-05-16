@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
@@ -16,20 +17,7 @@ public partial class ItemCollectionController : Area2D
     public override void _Ready()
     {
         InitializeDiInstaller();
-        SubscribeToActions();
         _inventoryManager = ReferenceStorage.Instance.InventoryManager;
-    }
-
-    private void SubscribeToActions()
-    {
-        // BodyEntered += OnBodyEntered;
-        // BodyExited += OnBodyExited;
-    }
-
-    private void UnsubscribeToActions()
-    {
-        // BodyEntered -= OnBodyEntered;
-        // BodyExited -= OnBodyExited;
     }
 
     private void InitializeDiInstaller()
@@ -49,10 +37,24 @@ public partial class ItemCollectionController : Area2D
             GD.Print("ITEM IS NOT ITEM DROP");
             return;
         }
-        
-        if(!_inventoryManager.HasFreeSlot()) return;
-        GD.Print($"PULLING ITEM TOWARDS PLAYER {item.GetItem().Variant}");
-        item.Sleeping = false;
+
+        var inventoryItem = item.GetItem();
+        var inventoryStack =
+            _inventoryDto.Inventory.InventoryItems.FirstOrDefault(item1 => item1.Variant == inventoryItem.Variant);
+        if (inventoryItem.IsStackable && inventoryStack != null)
+        {
+            
+        }
+        if(inventoryItem.IsStackable && inventoryStack == null) return;
+        item.SetCollisionLayerValue(4, true);
+        item.SetCollisionLayerValue(6, false);
+        // if (!_inventoryManager.HasFreeSlot())
+        // {
+        //     // item.Sleeping
+        //     return;
+        // }
+        // GD.Print($"PULLING ITEM TOWARDS PLAYER {item.GetItem().Variant}");
+        // item.Sleeping = false;
     }
     
     private void OnBodyExited(Node2D body)
@@ -73,6 +75,8 @@ public partial class ItemCollectionController : Area2D
         var item = body as ItemDrop;
         if(item == null) return;
         var inventoryItem = item.GetItem();
+        
+        if(!_inventoryManager.HasFreeSlot() && !inventoryItem.IsStackable) return;
         if (inventoryItem == null)
         {
             GD.PrintErr($"inventory item is null");
@@ -93,6 +97,6 @@ public partial class ItemCollectionController : Area2D
 
     public override void _ExitTree()
     {
-        UnsubscribeToActions();
+        
     }
 }

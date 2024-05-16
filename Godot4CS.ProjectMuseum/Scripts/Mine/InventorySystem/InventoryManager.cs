@@ -64,11 +64,6 @@ public partial class InventoryManager : Node2D
         var jsonStr = Encoding.UTF8.GetString(body);
         var inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
         _inventoryDto.Inventory = inventory;
-        // foreach (var item in _inventoryDto.Inventory.InventoryItems)
-        // {
-        //     GD.Print(item.Variant);
-        // }
-        // GD.Print("Inventory Update from Inventory Manager");
 
         InitializeInventorySlots();
         SetInventorySlotUnlockStatus();
@@ -112,14 +107,6 @@ public partial class InventoryManager : Node2D
     {
         var inventory = _inventoryDto.Inventory;
         return inventory.SlotsUnlocked > inventory.OccupiedSlots.Count;
-        // var emptySlots = new List<int>();
-        // for (var i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
-        //     emptySlots.Add(i);
-        // foreach (var inventoryItem in _inventoryDto.Inventory.InventoryItems)
-        //     emptySlots.Remove(inventoryItem.Slot);
-        //
-        // emptySlots.Sort();
-        // return emptySlots.Any();
     }
     
     public int GetNextEmptySlot()

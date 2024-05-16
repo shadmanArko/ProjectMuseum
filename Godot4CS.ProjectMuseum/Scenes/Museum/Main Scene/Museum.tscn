@@ -182,7 +182,7 @@ _scoreCardsParent = NodePath("Panel/MarginContainer/VBoxContainer/GridContainer"
 _closingButton = NodePath("Panel/MarginContainer/VBoxContainer/Container/Label/Button")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(-110, -3)
+position = Vector2(128, -55)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
@@ -908,7 +908,7 @@ _pointLight = NodePath("PointLight2D")
 [node name="StreetLamp2" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]
 z_index = 0
 y_sort_enabled = true
-position = Vector2(799, -303)
+position = Vector2(581, -259)
 _pointLight = NodePath("PointLight2D")
 
 [node name="StreetLamp3" parent="museum/Background Foresnt/Road/FrontWalls/lamps and firehydrents" node_paths=PackedStringArray("_pointLight") instance=ExtResource("59_42wpc")]

@@ -1,1 +1,19 @@
-[{"Id":"a3593d27-2ded-4535-b775-9f02e683c1cd","ExhibitVariationName":"BasicExhibit1x1","XPosition":-17,"YPosition":-4,"RotationFrame":0,"OccupiedTileIds":["f01392b7-9009-4357-b884-3c6701a7c409"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"02ed88f9-2ac3-426d-8cad-e7078328d730","ExhibitVariationName":"BasicExhibit4x4","XPosition":-13,"YPosition":-13,"RotationFrame":0,"OccupiedTileIds":["0f17b87c-2ad2-4538-9f57-8c214a3027da","e2b151bf-5054-4578-848a-c8399b8e56b7","dbab51d2-06e9-44d8-b6d6-4106e9edd5fa","8fc8cd63-addd-469e-9eca-be3f00a98d6a"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"0a51601f-3c9b-480f-985b-32a8c0b36164","ExhibitVariationName":"BasicExhibit1x1","XPosition":-10,"YPosition":-12,"RotationFrame":0,"OccupiedTileIds":["ecdf8687-c6b6-4dfc-a2fa-14d3afdf773a"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"b723bb13-d46e-4263-9d55-87c7d3667218","ExhibitVariationName":"BasicExhibit4x4","XPosition":-15,"YPosition":-9,"RotationFrame":0,"OccupiedTileIds":["6c10c55d-4ddc-44bd-bf50-aee82eadcb41","7d42ff3b-4d76-426b-b061-ad3d4e597a0a","e9752826-febb-4d3a-98a1-20ef65d9c36c","a26d7bc2-f7a1-4038-be65-dd5020d3852c"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false}]
+[
+  {
+    "Id": "a3593d27-2ded-4535-b775-9f02e683c1cd",
+    "ExhibitVariationName": "BasicExhibit1x1",
+    "XPosition": -17,
+    "YPosition": -4,
+    "OccupiedTileIds": [
+      "f01392b7-9009-4357-b884-3c6701a7c409"
+    ],
+    "RotationFrame": 0,
+    "ArtifactIds": [],
+    "ExhibitDecoration": "string",
+    "ExhibitArtifactSlot1": "",
+    "ExhibitArtifactSlot2": "string",
+    "ExhibitArtifactSlot3": "string",
+    "ExhibitArtifactSlot4": "string",
+    "ExhibitArtifactSlot5": "string"
+  }
+]

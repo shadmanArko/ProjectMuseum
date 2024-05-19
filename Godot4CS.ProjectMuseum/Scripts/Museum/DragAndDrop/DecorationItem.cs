@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -17,12 +19,67 @@ public partial class DecorationItem : Item
 	private HttpRequest _httpRequestForPlacingDecorationItem;
 	private BuilderCardType _builderCardType;
 	private Shop _shopData;
+	private List<Product> _allShopProducts;
+	private MuseumTileContainer _museumTileContainer;
 	public override void _Ready()
 	{
 		base._Ready();
 		_httpRequestForPlacingDecorationItem = new HttpRequest();
 		AddChild(_httpRequestForPlacingDecorationItem);
 		_httpRequestForPlacingDecorationItem.RequestCompleted += HttpRequestForPlacingDecorationItemOnRequestCompleted;
+		MuseumActions.OnProductPriceUpdated += OnProductPriceUpdated;
+		MuseumActions.OnProductReplaced += OnProductReplaced;
+		MuseumActions.OnGettingAllProducts += OnGettingAllProducts;
+		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+	}
+
+	private void OnGettingAllProducts(List<Product> obj)
+	{
+		_allShopProducts = obj;
+	}
+
+	private void OnProductReplaced(Product currentProduct, string newProductName, float price)
+	{
+		// GD.PrintErr($"Came to replace product cpid {currentProduct.ShopId}, csid {_shopData.Id}");
+		if (_shopData != null && currentProduct.ShopId == _shopData.Id)
+		{
+			
+			foreach (var product in _shopData.CoreShopFunctional.DefaultProducts.ToList())
+			{
+				if (product.Id == currentProduct.Id)
+				{
+					_shopData.CoreShopFunctional.DefaultProducts.Remove(product);
+					GD.Print("Removing product");
+				}
+			}
+			foreach (var product in _museumTileContainer.Products)
+			{
+				if (product.ProductVariant == newProductName)
+				{
+					product.BasePrice = price;
+					product.Id = Guid.NewGuid().ToString();
+					product.ShopId = _shopData.Id;
+					_shopData.CoreShopFunctional.DefaultProducts.Add(product);
+					
+				}
+			}
+			MuseumActions.OnClickShopItem?.Invoke(this, _shopData);
+		}
+	}
+
+	private void OnProductPriceUpdated(Product currentProduct, float price)
+	{
+		if (_shopData != null && currentProduct.ShopId == _shopData.Id)
+		{
+			foreach (var product in _shopData.CoreShopFunctional.DefaultProducts)
+			{
+				if (product.Id == currentProduct.Id)
+				{
+					product.BasePrice = price;
+					GD.Print($"Updating product price to {product.BasePrice}");
+				}
+			}
+		}
 	}
 
 	private void HttpRequestForPlacingDecorationItemOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -146,6 +203,9 @@ public partial class DecorationItem : Item
 	{
 		base._ExitTree();
 		_httpRequestForPlacingDecorationItem.RequestCompleted -= HttpRequestForPlacingDecorationItemOnRequestCompleted;
+		MuseumActions.OnProductPriceUpdated -= OnProductPriceUpdated;
+		MuseumActions.OnProductReplaced -= OnProductReplaced;
+		MuseumActions.OnGettingAllProducts -= OnGettingAllProducts;
 
 	}
 }

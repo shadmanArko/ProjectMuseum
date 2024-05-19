@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/ProductCardForShop.cs" id="1_s53r8"]
 
-[node name="Product Card For shop" type="ColorRect" node_paths=PackedStringArray("_productOptionButton", "_productPrice")]
+[node name="Product Card For shop" type="ColorRect" node_paths=PackedStringArray("_productOptionButton", "_productPrice", "_priceIncreaseButton", "_priceDecreaseButton")]
 custom_minimum_size = Vector2(300, 70)
 script = ExtResource("1_s53r8")
 _productOptionButton = NodePath("MarginContainer/OptionButton")
 _productPrice = NodePath("MarginContainer/product Price/TextEdit")
+_priceIncreaseButton = NodePath("MarginContainer/product Price/TextEdit/Price Up Button")
+_priceDecreaseButton = NodePath("MarginContainer/product Price/TextEdit/Price Down Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -61,7 +63,7 @@ offset_top = -3.0
 offset_right = -4.0
 offset_bottom = 8.0
 
-[node name="Price Up Button2" type="Button" parent="MarginContainer/product Price/TextEdit"]
+[node name="Price Down Button" type="Button" parent="MarginContainer/product Price/TextEdit"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

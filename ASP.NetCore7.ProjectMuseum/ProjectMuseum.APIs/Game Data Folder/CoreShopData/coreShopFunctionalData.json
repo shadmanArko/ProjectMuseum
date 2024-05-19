@@ -1,23 +1,13 @@
 [
   {
     "Id": "1",
-    "Variant": "vendingmachine1",
+    "Variant": "sodaVendingMachine1",
     "RequiredManpower": true,
-    "NeedsShopFullfills": [1, 2],
-    "MaxProducts": 10,
+    "NeedsShopFullfills": [1],
+    "MaxProducts": 2,
     "ProductCategoryTaken": "Category 1",
     "DefaultProducts": 
     [
-      {
-        "Id": "",
-        "ShopId": "",
-        "ProductVariant": "Salt Chips",
-        "ProductCategory": "Chips",
-        "ProductType": "Food",
-        "FulfilsGuestNeed": 0,
-        "BasePrice": 1.0,
-        "NeedFillAmount": 30
-      },
       {
         "Id": "",
         "ShopId": "",
@@ -27,6 +17,16 @@
         "FulfilsGuestNeed": 1,
         "BasePrice": 1.0,
         "NeedFillAmount": 30
+      },
+      {
+        "Id": "",
+        "ShopId": "",
+        "ProductVariant": "Diet Lime Soda",
+        "ProductCategory": "Soda",
+        "ProductType": "Drink",
+        "FulfilsGuestNeed": 1,
+        "BasePrice": 1.2,
+        "NeedFillAmount": 30
       }
     ],
     "LengthInTiles": 1,
@@ -34,14 +34,14 @@
     "BeautyRating": 4.5,
     "PlacementCost": 100.0,
     "FunctionalDirection": "Front Only",
-    "ShopPngLocation": "res://Assets/2D/Sprites/DecorationShops/vendingmachine1.png"
+    "ShopPngLocation": "res://Assets/2D/Sprites/DecorationShops/sodaVendingMachine1.png"
   },
   {
     "Id": "1",
-    "Variant": "vendingmachine2",
+    "Variant": "chipsVendingMachine1",
     "RequiredManpower": true,
-    "NeedsShopFullfills": [1, 2],
-    "MaxProducts": 10,
+    "NeedsShopFullfills": [0],
+    "MaxProducts": 2,
     "ProductCategoryTaken": "Category 1",
     "DefaultProducts":
     [
@@ -58,10 +58,10 @@
       {
         "Id": "",
         "ShopId": "",
-        "ProductVariant": "Dark Soda",
-        "ProductCategory": "Soda",
-        "ProductType": "Drink",
-        "FulfilsGuestNeed": 1,
+        "ProductVariant": "Salt Chips",
+        "ProductCategory": "Chips",
+        "ProductType": "Food",
+        "FulfilsGuestNeed": 0,
         "BasePrice": 1.0,
         "NeedFillAmount": 30
       }
@@ -71,6 +71,6 @@
     "BeautyRating": 4.5,
     "PlacementCost": 100.0,
     "FunctionalDirection": "Front Only",
-    "ShopPngLocation": "res://Assets/2D/Sprites/DecorationShops/vendingmachine2.png"
+    "ShopPngLocation": "res://Assets/2D/Sprites/DecorationShops/chipsVendingMachine1.png"
   }
 ]

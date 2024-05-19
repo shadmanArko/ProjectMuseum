@@ -122,7 +122,9 @@ public class ItemPlacementCondition : IItemPlacementCondition
         var museumTiles = await _museumTileRepository.GetAll();
         //get core shop  functional with the variation name from json
         var coreShopFunctional = new CoreShopFunctional();
+        var coreShopDescriptive = new CoreShopDescriptive();
         var shopFunctionalDatas = await _shopRepository.GetAllShopFunctional();
+        var shopDescriptiveDatas = await _shopRepository.GetAllShopDescriptive();
         foreach (var shopFunctionalData in shopFunctionalDatas)
         {
             if (shopFunctionalData.Variant == shopVariationName)
@@ -130,7 +132,13 @@ public class ItemPlacementCondition : IItemPlacementCondition
                 coreShopFunctional = shopFunctionalData;
             }
         }
-        
+        foreach (var shopDescriptive in shopDescriptiveDatas)
+        {
+            if (shopDescriptive.Variant == shopVariationName)
+            {
+                coreShopDescriptive = shopDescriptive;
+            }
+        }
         
         foreach (var tileId in tileIds)
         {
@@ -141,11 +149,17 @@ public class ItemPlacementCondition : IItemPlacementCondition
                 {
                     Id = Guid.NewGuid().ToString(),
                     CoreShopFunctional =  coreShopFunctional,
+                    CoreShopDescriptive =  coreShopDescriptive,
                     XPosition = museumTile.XPosition,
                     YPosition = museumTile.YPosition,
                     RotationFrame = rotationFrame,
                     
                 };
+                foreach (var defaultProduct in coreShopFunctional.DefaultProducts)
+                {
+                    defaultProduct.Id = Guid.NewGuid().ToString();
+                    defaultProduct.ShopId = shop.Id;
+                }
                 await _decorationShopRepository.Insert(shop);
                 
             }

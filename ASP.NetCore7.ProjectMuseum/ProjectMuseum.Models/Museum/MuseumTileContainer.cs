@@ -6,6 +6,7 @@ public class MuseumTileContainer
     public List<Exhibit> Exhibits { get; set; }
     public List<Sanitation> Sanitations { get; set; }
     public List<Shop> Shops { get; set; }
+    public List<Product> Products { get; set; }
     public List<MuseumTile> MuseumTiles
     {
         get => museumTiles;

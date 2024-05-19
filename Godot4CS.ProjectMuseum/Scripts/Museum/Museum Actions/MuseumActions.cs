@@ -109,6 +109,14 @@ public partial class MuseumActions : Node
     public static Action<List<RawArtifactFunctional>> OnRawArtifactFunctionalDataLoaded;
 
     #endregion
+
+    #region Shop
+
+    public static Action<Product, string, float> OnProductReplaced;
+    public static Action<Product, float> OnProductPriceUpdated;
+    public static Action<List<Product>> OnGettingAllProducts;
+
+    #endregion
 }
 public enum WallHeightEnum
 {

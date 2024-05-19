@@ -182,9 +182,11 @@ visible = false
 _scoreCardsParent = NodePath("Panel/MarginContainer/VBoxContainer/GridContainer")
 _closingButton = NodePath("Panel/MarginContainer/VBoxContainer/Container/Label/Button")
 
-[node name="Shop Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_closeButton") instance=ExtResource("25_derus")]
+[node name="Shop Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_closeButton", "_productCardsParent", "_shopName") instance=ExtResource("25_derus")]
 visible = false
 _closeButton = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/close Button")
+_productCardsParent = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container")
+_shopName = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/Label")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
 position = Vector2(128, -55)

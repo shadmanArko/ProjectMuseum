@@ -18,12 +18,12 @@ shader_parameter/shine_speed = 1.0
 shader_parameter/shine_wait_cycles = 1.0
 
 [node name="ItemDrop" type="RigidBody2D" node_paths=PackedStringArray("_itemSprite")]
-collision_layer = 32
-mass = 0.001
-sleeping = true
+collision_layer = 8
+inertia = 0.5
 lock_rotation = true
 script = ExtResource("1_h1xly")
 _itemSprite = NodePath("Sprite2D")
+_speed = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_g4py5")

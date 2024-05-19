@@ -6,4 +6,5 @@ public class RawArtifactDTO
 {
     public List<RawArtifactFunctional> RawArtifactFunctionals { get; set; }
     public List<RawArtifactDescriptive> RawArtifactDescriptives { get; set; }
+    public List<Artifact> Artifacts { get; set; }
 }

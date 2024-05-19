@@ -10,7 +10,7 @@
     "Category": "Light",
     "Variant": "FireTorch",
     "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/WallPlaceables/Lighting/FireTorch.tscn",
-    "PngPath": "res://Assets/firetorch.png"
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/torch.png"
   },
   {
     "Id": "2",

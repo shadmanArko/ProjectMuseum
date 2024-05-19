@@ -12,9 +12,40 @@ public partial class ItemDrop : RigidBody2D
     [Export] private Sprite2D _itemSprite;
 
     private InventoryItem _inventoryItem;
+    [Export] private float _speed;
+
+    public InventoryItem InventoryItem
+    {
+        get => _inventoryItem;
+        set
+        {
+            _inventoryItem = value;
+            _itemSprite.Texture = SetSprite(value.PngPath);
+        }
+    }
 
     public override void _Ready()
     {
+        InitializeDiInstaller();
+        SetPhysicsProcess(false);
+    }
+
+    private void InitializeDiInstaller()
+    {
+        _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        var playerPos = _playerControllerVariables.Position;
+        LinearVelocity = (playerPos - Position) * _speed * (float)delta;
+    }
+
+    public void SetToCollectibleCollisionLayer()
+    {
+        SetCollisionLayer(4);
+        SetCollisionLayerValue(4, true);
+        SetCollisionLayerValue(5,false);
         
     }
 
@@ -23,17 +54,14 @@ public partial class ItemDrop : RigidBody2D
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
     }
 
-    public void SetItem(InventoryItem item)
-    {
-        _inventoryItem = item;
-        _itemSprite.Texture = SetSprite(item.PngPath);
-    }
-
-    public InventoryItem GetItem() => _inventoryItem;
-
     private Texture2D SetSprite(string spritePath)
     {
         var texture2D = GD.Load<Texture2D>(spritePath);
         return texture2D;
+    }
+
+    public override void _ExitTree()
+    {
+        SetPhysicsProcess(false);
     }
 }

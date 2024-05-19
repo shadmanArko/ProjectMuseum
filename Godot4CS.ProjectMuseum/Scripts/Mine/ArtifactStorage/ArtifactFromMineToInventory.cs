@@ -30,13 +30,15 @@ public partial class ArtifactFromMineToInventory : Node2D
     
     private void SubscribeToActions()
     {
-        MineActions.OnArtifactSuccessfullyRetrieved += SendArtifactFromMineToInventory;
+        MineActions.OnArtifactSuccessfullyRetrieved += RemoveFromMineAndInstantiateInventoryItem;
         MineActions.OnCollectItemDrop += SendArtifactItemToInventory;
     }
 
     #endregion
-    
-    private void SendArtifactFromMineToInventory(Artifact artifact)
+
+    #region Remove Artifact From Mine And Instantiate As Inventory Item
+
+    private void RemoveFromMineAndInstantiateInventoryItem(Artifact artifact)
     {
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var offset = new Vector2(cellSize, cellSize) / 2;
@@ -86,8 +88,10 @@ public partial class ArtifactFromMineToInventory : Node2D
             return;
         }
         GD.Print("instantiated resource item");
-        artifactItem.SetItem(inventoryItem);
+        artifactItem.InventoryItem = inventoryItem;
     }
+
+    #endregion
     
     private void SendArtifactItemToInventory(InventoryItem inventoryItem)
     {
@@ -101,9 +105,11 @@ public partial class ArtifactFromMineToInventory : Node2D
         MineActions.OnInventoryUpdate?.Invoke();
     }
 
+    #region Exit Tree
+
     private void UnsubscribeToActions()
     {
-        MineActions.OnArtifactSuccessfullyRetrieved -= SendArtifactFromMineToInventory;
+        MineActions.OnArtifactSuccessfullyRetrieved -= RemoveFromMineAndInstantiateInventoryItem;
         MineActions.OnCollectItemDrop -= SendArtifactItemToInventory;
     }
 
@@ -111,4 +117,6 @@ public partial class ArtifactFromMineToInventory : Node2D
     {
         UnsubscribeToActions();
     }
+
+    #endregion
 }

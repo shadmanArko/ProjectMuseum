@@ -48,34 +48,48 @@ public partial class MineResourceCollector : Node
 		
 		if(cell.HitPoint > 0) return;
 		if(!cell.HasResource) return;
-        
-		if (_inventoryDto == null)
+		
+		var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
+			tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
+		if (resource == null)
 		{
-			GD.Print("INVENTORY IS NULL");
+			GD.PrintErr($"Could not find resource in the mine");
 			return;
 		}
-        
-		if (_inventoryDto.Inventory.OccupiedSlots.Count >= _inventoryDto.Inventory.SlotsUnlocked)
-		{
-			GD.PrintErr("No empty slots in inventory");
-			ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
-		}
-		else
-		{
-			GD.Print("adding resource to inventory");
-			var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
-				tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
-			if (resource == null)
-			{
-				GD.PrintErr($"Could not find resource in the mine");
-				return;
-			}
 
-			var cellSize = _mineGenerationVariables.Mine.CellSize;
-			var offset = new Vector2(cellSize, cellSize) / 2;
-			var pos = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
-			InstantiateResourceAsInventoryItem(resource, pos);
-		}
+		cell.HasResource = false;
+		var cellSize = _mineGenerationVariables.Mine.CellSize;
+		var offset = new Vector2(cellSize, cellSize) / 2;
+		var pos = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+		InstantiateResourceAsInventoryItem(resource, pos);
+        
+		// if (_inventoryDto == null)
+		// {
+		// 	GD.Print("INVENTORY IS NULL");
+		// 	return;
+		// }
+  //       
+		// if (_inventoryDto.Inventory.OccupiedSlots.Count >= _inventoryDto.Inventory.SlotsUnlocked)
+		// {
+		// 	GD.PrintErr("No empty slots in inventory");
+		// 	ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
+		// }
+		// else
+		// {
+		// 	GD.Print("adding resource to inventory");
+		// 	var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
+		// 		tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
+		// 	if (resource == null)
+		// 	{
+		// 		GD.PrintErr($"Could not find resource in the mine");
+		// 		return;
+		// 	}
+		//
+		// 	var cellSize = _mineGenerationVariables.Mine.CellSize;
+		// 	var offset = new Vector2(cellSize, cellSize) / 2;
+		// 	var pos = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+		// 	InstantiateResourceAsInventoryItem(resource, pos);
+		// }
 	}
 
 	private void InstantiateResourceAsInventoryItem(Resource resource, Vector2 position)
@@ -103,7 +117,7 @@ public partial class MineResourceCollector : Node
 		}
 		
 		GD.Print("instantiated resource item");
-		resourceItem.SetItem(inventoryItem);
+		resourceItem.InventoryItem = inventoryItem;
 	}
 
 	private void SendInventoryItemToInventory(InventoryItem item)

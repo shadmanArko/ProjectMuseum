@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -7,16 +8,18 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 
 public partial class MiniGameController : Node2D
 {
-	private HttpRequest _sendArtifactToInventoryHttpRequest;
+	// private HttpRequest _sendArtifactToInventoryHttpRequest;
 
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
+	private RawArtifactDTO _rawArtifactDto;
 	
 	[Export] private string[] _miniGameScenePaths;
 	private Random _random;
@@ -34,6 +37,7 @@ public partial class MiniGameController : Node2D
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
+		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
 	}
 
 	private void SubscribeToActions()
@@ -45,9 +49,9 @@ public partial class MiniGameController : Node2D
 	
 	private void CreateHttpRequests()
 	{
-		_sendArtifactToInventoryHttpRequest = new HttpRequest();
-		AddChild(_sendArtifactToInventoryHttpRequest);
-		_sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
+		// _sendArtifactToInventoryHttpRequest = new HttpRequest();
+		// AddChild(_sendArtifactToInventoryHttpRequest);
+		// _sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
 	}
 
 	private void LoadAlternateTapMiniGame(Vector2I cellPos)
@@ -72,7 +76,7 @@ public partial class MiniGameController : Node2D
 		animationController.Play("celebrate");
 		await Task.Delay(Mathf.CeilToInt(animationController.CurrentAnimationLength * 1000));
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
-		SendArtifactToInventory(cell.ArtifactId);
+		RemoveArtifactFromMineAndInstantiateInventoryItem(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
 	}
@@ -103,24 +107,18 @@ public partial class MiniGameController : Node2D
 	
 	#region Send Artifact To Inventory
 
-	private void SendArtifactToInventory(string artifactId)
+	private void RemoveArtifactFromMineAndInstantiateInventoryItem(string artifactId)
 	{
-		var url = $"{ApiAddress.MineApiPath}SendArtifactToInventory/{artifactId}";
-		_sendArtifactToInventoryHttpRequest.Request(url);
-
-		GD.Print($"HTTP REQUEST FOR SENDING ARTIFACT TO INVENTORY (1)");
-	}
-
-	private void OnSendArtifactToInventoryHttpRequestCompleted(long result, long responseCode, string[] headers,
-		byte[] body)
-	{
-		GD.Print("Successfully sent artifact to inventory");
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
-		GD.Print($"artifact pos: {artifact.PositionX}, {artifact.PositionY}");
+		var artifact = _rawArtifactDto.Artifacts.FirstOrDefault(temp => temp.Id == artifactId);
+		if (artifact == null)
+		{
+			GD.PrintErr($"ERROR: Artifact could not be found. Id: {artifactId}");
+			return;
+		}
 		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
 		MineActions.OnInventoryUpdate?.Invoke();
 		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");
+		_rawArtifactDto.Artifacts.Remove(artifact);
 	}
 
 	#endregion

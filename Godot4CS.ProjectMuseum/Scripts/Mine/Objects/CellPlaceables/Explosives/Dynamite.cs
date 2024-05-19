@@ -60,7 +60,7 @@ public partial class Dynamite : Node2D
             var newCellPos = new Vector2I(cell.PositionX + direction.X, cell.PositionY + direction.Y);
             var adjacentCell = _mineGenerationVariables.GetCell(newCellPos);
             if(adjacentCell == null) continue;
-            GD.Print($"Start explosion for {adjacentCell.PositionX},{adjacentCell.PositionY}");
+            if(!adjacentCell.IsInstantiated || !adjacentCell.IsBreakable || adjacentCell.IsBroken) continue;
             
             adjacentCell.HitPoint = adjacentCell.HasArtifact ? 1 : 0;
             MineSetCellConditions.SetCrackOnTiles(newCellPos, _playerControllerVariables.MouseDirection, adjacentCell,

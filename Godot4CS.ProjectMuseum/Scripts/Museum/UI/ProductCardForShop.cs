@@ -23,7 +23,7 @@ public partial class ProductCardForShop : ColorRect
 		_priceIncreaseButton.Pressed += PriceIncreaseButtonOnPressed;
 		_priceDecreaseButton.Pressed += PriceDecreaseButtonOnPressed;
 		_productOptionButton.ItemSelected += ProductOptionButtonOnItemSelected;
-		_productPrice.TextSubmitted += ProductPriceOnTextSubmitted;
+		_productPrice.TextChanged += ProductPriceOnTextSubmitted;
 	}
 
 	private void ProductPriceOnTextSubmitted(string newtext)
@@ -95,7 +95,7 @@ public partial class ProductCardForShop : ColorRect
 		_priceIncreaseButton.Pressed -= PriceIncreaseButtonOnPressed;
 		_priceDecreaseButton.Pressed -= PriceDecreaseButtonOnPressed;
 		_productOptionButton.ItemSelected -= ProductOptionButtonOnItemSelected;
-		_productPrice.TextSubmitted -= ProductPriceOnTextSubmitted;
+		_productPrice.TextChanged -= ProductPriceOnTextSubmitted;
 
 	}
 }

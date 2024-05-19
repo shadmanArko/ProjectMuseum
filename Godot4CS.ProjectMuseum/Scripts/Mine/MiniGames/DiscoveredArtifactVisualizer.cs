@@ -90,5 +90,14 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 	{
 		_canvasLayer.Visible = false;
 	}
-	
+
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnArtifactSuccessfullyRetrieved += ShowDiscoveredArtifactVisualizerUi;
+	}
+
+	public override void _ExitTree()
+	{
+		UnsubscribeToActions();
+	}
 }

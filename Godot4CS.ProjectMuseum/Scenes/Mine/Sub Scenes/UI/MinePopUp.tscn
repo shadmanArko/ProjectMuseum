@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://503e52mqqilf"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/MinePopUp.cs" id="1_m4g74"]
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_wxos4"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="2_r3l15"]
 
 [node name="MinePopUp" type="PanelContainer" node_paths=PackedStringArray("_popUpText")]
 visible = false
@@ -10,10 +10,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -397.0
-offset_top = 96.0
-offset_right = 3.0
-offset_bottom = 196.0
+offset_left = -400.0
+offset_top = -50.0
+offset_bottom = 50.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
@@ -22,11 +21,12 @@ script = ExtResource("1_m4g74")
 _popUpText = NodePath("Pop Up Text")
 
 [node name="Pop Up Text" type="RichTextLabel" parent="."]
+texture_filter = 1
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_fonts/normal_font = ExtResource("2_wxos4")
+theme_override_fonts/normal_font = ExtResource("2_r3l15")
 theme_override_font_sizes/normal_font_size = 11
 text = "Mine Pop Up UI Text"
 fit_content = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqltyu2fgvmyp"]
+[gd_scene load_steps=10 format=3 uid="uid://bqltyu2fgvmyp"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineUiController.cs" id="1_fgd35"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSelector.cs" id="2_64t2a"]
@@ -6,7 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://15bptc8ns637" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina _bar.png" id="4_oy7sv"]
 [ext_resource type="Texture2D" uid="uid://d3w37soodcxua" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Bar fill.png" id="4_qktgs"]
 [ext_resource type="Texture2D" uid="uid://bqnclq7a3ymjd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina Bar fill.png" id="6_o1ooj"]
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="7_0tllj"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="8_geyvw"]
+[ext_resource type="Texture2D" uid="uid://drlegajgqcabr" path="res://Assets/2D/Sprites/Keyboard Letters/Keyboard Letters and Symbols.png" id="9_my1nx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehlpn"]
+atlas = ExtResource("9_my1nx")
+region = Rect2(0, 48, 16, 16)
 
 [node name="MineUI" type="CanvasLayer" node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates", "_toolbarPanel")]
 script = ExtResource("1_fgd35")
@@ -80,11 +85,44 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = -83.0
+offset_top = -80.0
 offset_right = 220.0
-offset_bottom = -33.0
+offset_bottom = -30.0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("7_0tllj")
+theme_override_fonts/font = ExtResource("8_geyvw")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="PanelContainer" type="HBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -370.0
+offset_top = -60.0
+offset_right = -120.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PanelContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_geyvw")
+theme_override_font_sizes/font_size = 11
+text = "Press"
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+texture = SubResource("AtlasTexture_ehlpn")
+expand_mode = 3
+
+[node name="Label2" type="Label" parent="PanelContainer"]
+layout_mode = 2
+text = "to toggle Inventory"

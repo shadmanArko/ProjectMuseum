@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using ProjectMuseum.Models;
 
@@ -14,6 +15,7 @@ public partial class ProductCardForShop : ColorRect
 	private Product _currentSelectedProduct;
 	private float _currentProductPrice = 0f;
 	private string _currentSelectedProductName = "";
+	private static readonly Regex NumericRegex = new Regex(@"^\d*\.?\d*$");
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -21,11 +23,24 @@ public partial class ProductCardForShop : ColorRect
 		_priceIncreaseButton.Pressed += PriceIncreaseButtonOnPressed;
 		_priceDecreaseButton.Pressed += PriceDecreaseButtonOnPressed;
 		_productOptionButton.ItemSelected += ProductOptionButtonOnItemSelected;
+		_productPrice.TextSubmitted += ProductPriceOnTextSubmitted;
+	}
+
+	private void ProductPriceOnTextSubmitted(string newtext)
+	{
+		if (!NumericRegex.IsMatch(newtext))
+		{
+			newtext = _currentProductPrice.ToString("0.00");
+		}
+		_currentProductPrice = float.Parse(newtext);
+		_currentProductPrice = Mathf.Clamp(_currentProductPrice, 0.05f, 10000.0f);
+		MuseumActions.OnProductPriceUpdated?.Invoke(_currentSelectedProduct, _currentProductPrice);
 	}
 
 	private void PriceDecreaseButtonOnPressed()
 	{
 		_currentProductPrice -= _priceChangingAmount;
+		_currentProductPrice = Mathf.Clamp(_currentProductPrice, 0.05f, 10000.0f);
 		UpdatePriceText();
 		MuseumActions.OnProductPriceUpdated?.Invoke(_currentSelectedProduct, _currentProductPrice);
 	}
@@ -80,5 +95,7 @@ public partial class ProductCardForShop : ColorRect
 		_priceIncreaseButton.Pressed -= PriceIncreaseButtonOnPressed;
 		_priceDecreaseButton.Pressed -= PriceDecreaseButtonOnPressed;
 		_productOptionButton.ItemSelected -= ProductOptionButtonOnItemSelected;
+		_productPrice.TextSubmitted -= ProductPriceOnTextSubmitted;
+
 	}
 }

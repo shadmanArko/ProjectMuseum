@@ -2,7 +2,7 @@
   {
     "Id": "museum0",
     "Name": "my Museum",
-    "Money": 20000.00,
+    "Money": 1000.00,
     "MuseumTicketCounter":
     {
       "Id": "abc123",

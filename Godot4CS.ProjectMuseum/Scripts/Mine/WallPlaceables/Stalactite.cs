@@ -45,7 +45,7 @@ public partial class Stalactite : Node2D, IDamagable
 	
 	private void CheckIfStalactiteRootCellBroken(Vector2I tilePos)
 	{
-		if (_isFalling)return;
+		if (_isFalling) return;
 		var stalactitePos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
 		var cell = _mineGenerationVariables.GetCell(stalactitePos);
 		var rootCellPos = new Vector2I(cell.PositionX, cell.PositionY - 1);

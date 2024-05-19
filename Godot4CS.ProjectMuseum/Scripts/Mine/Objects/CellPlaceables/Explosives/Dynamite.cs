@@ -17,7 +17,6 @@ public partial class Dynamite : Node2D
     [Export] private Label _timerLabel;
     public override void _Ready()
     {
-        SubscribeToActions();
         InitializeDiInstaller();
         _timer = 6f;
     }
@@ -28,21 +27,7 @@ public partial class Dynamite : Node2D
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
     }
-
-    #region Subscribe and UnSubscribe
-
-    private void SubscribeToActions()
-    {
-        
-    }
-
-    private void UnSubscribeToActions()
-    {
-        
-    }
-
-    #endregion
-
+    
     public override void _Process(double delta)
     {
         var isReadyToExplode = CheckForExplosionValidity((float)delta);
@@ -75,7 +60,7 @@ public partial class Dynamite : Node2D
             var newCellPos = new Vector2I(cell.PositionX + direction.X, cell.PositionY + direction.Y);
             var adjacentCell = _mineGenerationVariables.GetCell(newCellPos);
             if(adjacentCell == null) continue;
-            GD.Print($"Start explosion for {adjacentCell.PositionX},{adjacentCell.PositionY}");
+            if(!adjacentCell.IsInstantiated || !adjacentCell.IsBreakable || adjacentCell.IsBroken) continue;
             
             adjacentCell.HitPoint = adjacentCell.HasArtifact ? 1 : 0;
             MineSetCellConditions.SetCrackOnTiles(newCellPos, _playerControllerVariables.MouseDirection, adjacentCell,
@@ -105,6 +90,7 @@ public partial class Dynamite : Node2D
 
                 _mineGenerationVariables.BrokenCells++;
                 MineActions.OnMineCellBroken?.Invoke(newCellPos);
+                cell.HasCellPlaceable = false;
                 GD.Print($"explosion affecting {adjacentCell.PositionX},{adjacentCell.PositionY}");
             }
             
@@ -115,7 +101,6 @@ public partial class Dynamite : Node2D
 
     public override void _ExitTree()
     {
-        UnSubscribeToActions();
         GD.Print("Dynamite exploded");
     }
 }

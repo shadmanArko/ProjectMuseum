@@ -141,6 +141,17 @@ _marginContainer = NodePath("MarginContainer")
 _panel = NodePath("Panel")
 
 [node name="MinePopUp" parent="MineUI" node_paths=PackedStringArray("_popUpText") instance=ExtResource("12_uukqb")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = -180.0
+offset_right = 400.0
+offset_bottom = -80.0
+grow_horizontal = 1
+grow_vertical = 0
 _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]

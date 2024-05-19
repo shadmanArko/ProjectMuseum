@@ -1,8 +1,10 @@
+using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Objects;
 using ProjectMuseum.DTOs;
+using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
@@ -16,20 +18,7 @@ public partial class ItemCollectionController : Area2D
     public override void _Ready()
     {
         InitializeDiInstaller();
-        SubscribeToActions();
         _inventoryManager = ReferenceStorage.Instance.InventoryManager;
-    }
-
-    private void SubscribeToActions()
-    {
-        // BodyEntered += OnBodyEntered;
-        // BodyExited += OnBodyExited;
-    }
-
-    private void UnsubscribeToActions()
-    {
-        // BodyEntered -= OnBodyEntered;
-        // BodyExited -= OnBodyExited;
     }
 
     private void InitializeDiInstaller()
@@ -50,16 +39,59 @@ public partial class ItemCollectionController : Area2D
             return;
         }
         
-        if(!_inventoryManager.HasFreeSlot()) return;
-        GD.Print($"PULLING ITEM TOWARDS PLAYER {item.GetItem().Variant}");
-        item.Sleeping = false;
+        GD.Print("Item inside collection area");
+        // var inventory = _inventoryDto.Inventory;
+        var inventoryItem = item.InventoryItem;
+        
+        item.SetPhysicsProcess(true);
+        if (inventoryItem.IsStackable)
+        {
+            AddItemAsStackable(item);
+        }
+        else
+        {
+            AddItemAsNonStackable(item);
+        }
+    }
+
+    private void AddItemAsStackable(ItemDrop item)
+    {
+        var inventoryItem = item.InventoryItem;
+        var inventory = _inventoryDto.Inventory;
+        var inventoryStack =
+            inventory.InventoryItems.FirstOrDefault(item1 => item1.Variant == inventoryItem.Variant);
+        if (inventoryStack != null)
+        {
+            item.SetPhysicsProcess(true);
+            GD.Print("Added item to stack");
+        }
+        else
+        {
+            AddItemAsNonStackable(item);
+        }
+        
+    }
+
+    private void AddItemAsNonStackable(ItemDrop item)
+    {
+        var inventoryItem = item.InventoryItem;
+        var inventory = _inventoryDto.Inventory;
+        if (_inventoryManager.HasFreeSlot())
+        {
+            item.SetPhysicsProcess(true);
+        }
+        else
+        {
+            item.SetPhysicsProcess(false);
+            GD.Print("inventory has no empty slot");
+        }
     }
     
     private void OnBodyExited(Node2D body)
     {
         var item = body as ItemDrop;
         if(item == null) return;
-        GD.Print($"NOT PULLING ITEM TOWARDS PLAYER {item.GetItem().Variant}");
+        GD.Print($"NOT PULLING ITEM TOWARDS PLAYER {item.InventoryItem.Variant}");
         item.Sleeping = true;
     }
 
@@ -72,7 +104,9 @@ public partial class ItemCollectionController : Area2D
         GD.Print($"body name: {body.Name}");
         var item = body as ItemDrop;
         if(item == null) return;
-        var inventoryItem = item.GetItem();
+        var inventoryItem = item.InventoryItem;
+        
+        if(!_inventoryManager.HasFreeSlot() && !inventoryItem.IsStackable) return;
         if (inventoryItem == null)
         {
             GD.PrintErr($"inventory item is null");
@@ -93,6 +127,6 @@ public partial class ItemCollectionController : Area2D
 
     public override void _ExitTree()
     {
-        UnsubscribeToActions();
+        
     }
 }

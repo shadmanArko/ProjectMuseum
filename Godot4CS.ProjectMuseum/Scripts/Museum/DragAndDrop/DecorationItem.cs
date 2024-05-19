@@ -88,6 +88,11 @@ public partial class DecorationItem : Item
 		_variationName = cardName;
 		MakeObjectsFloating();
 	}
+	public void ReInitializeShop(Shop shop)
+	{
+		_shopData = shop;
+		_itemType = ItemTypes.Shop;
+	}
 	private new void HandleItemPlacement()
 	{
 		GD.Print("Handled item placement from Decoration Item");
@@ -115,21 +120,28 @@ public partial class DecorationItem : Item
 		OnItemPlacedOnTile(GlobalPosition);
 		DisableItemPlacementShadow();
 	}
+	// public override void _Input(InputEvent @event)
+	// {
+		
+	// 	}
+	// 	
+	// }
 	public override void _Input(InputEvent @event)
 	{
+		base._Input(@event);
 		if (Input.IsActionJustReleased("ui_right_click"))
 		{
 			if (GetRect().HasPoint(GetLocalMousePosition()))
 			{
-				if (_itemType== ItemTypes.Shop)
+				if (_itemType == ItemTypes.Shop)
 				{
 					MuseumActions.OnClickShopItem?.Invoke(this, _shopData);
 				}
-                
+
 			}
 		}
-		
 	}
+
 	public override void _ExitTree()
 	{
 		base._ExitTree();

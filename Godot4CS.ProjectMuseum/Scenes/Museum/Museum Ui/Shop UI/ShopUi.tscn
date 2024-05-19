@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://csiru7vsowfr4"]
+[gd_scene load_steps=6 format=3 uid="uid://csiru7vsowfr4"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/ShopUi.cs" id="1_460b3"]
+[ext_resource type="PackedScene" uid="uid://bwxvfea8me5c5" path="res://Scenes/Museum/Museum Ui/Shop UI/product_card_for_shop.tscn" id="4_20wdg"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_hok6h"]
 [ext_resource type="Texture2D" uid="uid://c2mru4ev22pb7" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Base1.png" id="5_dwgxl"]
 
@@ -79,73 +80,10 @@ theme_override_constants/margin_bottom = 5
 [node name="Products container" type="VBoxContainer" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer"]
 layout_mode = 2
 
-[node name="Product Card For shop" type="ColorRect" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container"]
-custom_minimum_size = Vector2(300, 70)
+[node name="Product Card For shop" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container" node_paths=PackedStringArray("_productOptionButton", "_productPrice") instance=ExtResource("4_20wdg")]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container/Product Card For shop"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="OptionButton" type="OptionButton" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container/Product Card For shop/MarginContainer"]
-custom_minimum_size = Vector2(230, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-alignment = 1
-selected = 0
-item_count = 1
-popup/item_0/text = "Soda"
-
-[node name="product Price" type="ColorRect" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container/Product Card For shop/MarginContainer"]
-custom_minimum_size = Vector2(60, 30)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-color = Color(0.670588, 0.670588, 0.670588, 1)
-
-[node name="TextEdit" type="LineEdit" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container/Product Card For shop/MarginContainer/product Price"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -44.0
-offset_top = -10.0
-offset_right = -4.0
-offset_bottom = 10.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 8
-placeholder_text = "1.00"
-alignment = 1
-
-[node name="Price Up Button" type="Button" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container/Product Card For shop/MarginContainer/product Price/TextEdit"]
-layout_mode = 0
-offset_left = -12.0
-offset_top = -3.0
-offset_right = -4.0
-offset_bottom = 8.0
-
-[node name="Price Up Button2" type="Button" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container/Product Card For shop/MarginContainer/product Price/TextEdit"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -12.0
-offset_top = -9.0
-offset_right = -4.0
-offset_bottom = 2.0
-grow_vertical = 0
+_productOptionButton = NodePath("MarginContainer/OptionButton")
+_productPrice = NodePath("MarginContainer/product Price/TextEdit")
 
 [node name="ColorRect2" type="ColorRect" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container"]
 custom_minimum_size = Vector2(300, 70)

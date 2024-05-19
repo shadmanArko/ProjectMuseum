@@ -33,7 +33,7 @@
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/WallController.cs" id="23_md2ii"]
 [ext_resource type="PackedScene" uid="uid://2nxthrd3s2eh" path="res://Scenes/Museum/Sub Scenes/Emily.tscn" id="24_vxlv2"]
 [ext_resource type="Script" path="res://Plugins/Time System/MuseumTimeSystem/Scripts/MuseumTimeSystem.cs" id="24_wpojy"]
-[ext_resource type="PackedScene" uid="uid://csiru7vsowfr4" path="res://Scenes/Museum/Museum Ui/ShopUi.tscn" id="25_derus"]
+[ext_resource type="PackedScene" uid="uid://csiru7vsowfr4" path="res://Scenes/Museum/Museum Ui/Shop UI/ShopUi.tscn" id="25_derus"]
 [ext_resource type="PackedScene" uid="uid://di3wkks16f8su" path="res://Scenes/Museum/Museum Ui/guest_pop_up_ui.tscn" id="25_jsgpp"]
 [ext_resource type="Script" path="res://Scripts/Museum/SaveGame.cs" id="25_nktge"]
 [ext_resource type="PackedScene" uid="uid://bggrmc7dfa7d8" path="res://Scenes/Museum/Sub Scenes/Alex.tscn" id="25_qfbsa"]

@@ -10,10 +10,19 @@ public partial class MuseumGate : Node2D
 	[Export] private Texture2D _smallHeightGate;
 	[Export] private Texture2D _originalHeightGate;
 	[Export] private Array<Sprite2D> _gateSprites;
+	[Export] private Node2D _closedGate;
+	[Export] private Node2D _openedGate;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		MuseumActions.OnClickWallHeightChangeButton += OnClickWallHeightChangeButton;
+		MuseumActions.OnClickMuseumGateToggle += OnClickMuseumGateToggle;
+	}
+
+	private void OnClickMuseumGateToggle(bool gateOpen)
+	{
+		_closedGate.Visible = !gateOpen;
+		_openedGate.Visible = gateOpen;
 	}
 
 	private void OnClickWallHeightChangeButton(WallHeightEnum obj)
@@ -44,6 +53,7 @@ public partial class MuseumGate : Node2D
 	{
 		base._ExitTree();
 		MuseumActions.OnClickWallHeightChangeButton -= OnClickWallHeightChangeButton;
+		MuseumActions.OnClickMuseumGateToggle -= OnClickMuseumGateToggle;
 
 	}
 }

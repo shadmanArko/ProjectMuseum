@@ -1,1 +1,19 @@
-[{"Id":"a3593d27-2ded-4535-b775-9f02e683c1cd","ExhibitVariationName":"BasicExhibit1x1","XPosition":-17,"YPosition":-4,"RotationFrame":0,"OccupiedTileIds":["f01392b7-9009-4357-b884-3c6701a7c409"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"550907f1-bc91-4160-aa0a-2c3a73937996","ExhibitVariationName":"BasicExhibit4x4","XPosition":-12,"YPosition":-9,"RotationFrame":0,"OccupiedTileIds":["264de170-002f-490e-b777-9d190137d3fb","49b83ea5-72b5-46cc-a396-3792342f5841","10bb1cae-0d3f-42b9-9cf0-cf04427d0744","e57b9c88-f58f-4819-81d9-8fde860c065f"],"ArtifactIds":["4"],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"4","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"dc53e26d-db13-43f0-b561-e21f571d4b6d","ExhibitVariationName":"BasicExhibit1x1","XPosition":-8,"YPosition":-9,"RotationFrame":0,"OccupiedTileIds":["8e1a3d8b-8fa1-4adc-a4dd-65dad808efa3"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"d9161954-f7ee-4f18-9425-4fd80a6e3b96","ExhibitVariationName":"BasicExhibit1x1","XPosition":-7,"YPosition":-12,"RotationFrame":0,"OccupiedTileIds":["a4f61d38-5691-4e11-a2f9-3eebda91e608"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"bcc9f753-92d4-4f80-ba61-77abde79fa83","ExhibitVariationName":"BasicExhibit1x1","XPosition":-11,"YPosition":-13,"RotationFrame":0,"OccupiedTileIds":["c6209058-0a07-45a6-be17-b7ed136317b7"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false}]
+[
+  {
+    "Id": "a3593d27-2ded-4535-b775-9f02e683c1cd",
+    "ExhibitVariationName": "BasicExhibit1x1",
+    "XPosition": -17,
+    "YPosition": -4,
+    "OccupiedTileIds": [
+      "f01392b7-9009-4357-b884-3c6701a7c409"
+    ],
+    "RotationFrame": 0,
+    "ArtifactIds": [],
+    "ExhibitDecoration": "string",
+    "ExhibitArtifactSlot1": "",
+    "ExhibitArtifactSlot2": "string",
+    "ExhibitArtifactSlot3": "string",
+    "ExhibitArtifactSlot4": "string",
+    "ExhibitArtifactSlot5": "string"
+  }
+]

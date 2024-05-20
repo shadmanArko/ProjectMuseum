@@ -1,1 +1,64 @@
-[{"InventoryItems":[{"Id":"eqp1","Name":"Sword","Type":"Equipable","Category":"Melee","Variant":"BasicSword","IsStackable":false,"Stack":1,"Slot":0,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"},{"Id":"eqp2","Name":"Pickaxe","Type":"Equipable","Category":"Pickaxe","Variant":"BasicPickaxe","IsStackable":false,"Stack":1,"Slot":1,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"},{"Id":"1","Name":"Health Potion","Type":"Consumable","Category":"Health","Variant":"HealthPotion","IsStackable":true,"Stack":34,"Slot":2,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"},{"Id":"2","Name":"Energy Potion","Type":"Consumable","Category":"Energy","Variant":"EnergyPotion","IsStackable":true,"Stack":25,"Slot":3,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"},{"Id":"3","Name":"Fire Torch","Type":"WallPlaceable","Category":"Torch","Variant":"FireTorch","IsStackable":true,"Stack":23,"Slot":4,"PngPath":"res://Assets/firetorch.png"},{"Id":"4","Name":"Dynamite","Type":"CellPlaceable","Category":"Explosive","Variant":"Dynamite","IsStackable":true,"Stack":50,"Slot":5,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png"},{"Id":"e56391ce-7e68-435d-bf20-3a50ce502931","Name":"Renaissance American Cutlass","Type":"Artifact","Category":"","Variant":"Renaissance American Cutlass","IsStackable":false,"Stack":1,"Slot":6,"PngPath":"res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"}],"Artifacts":[{"Id":"e56391ce-7e68-435d-bf20-3a50ce502931","RawArtifactId":"RenaissanceAmericanCutlass","PositionX":26,"PositionY":3,"Slot":6,"Condition":"Decrepit","Rarity":"Common"}],"OccupiedSlots":[0,1,2,3,4,5,6],"SlotsUnlocked":24}]
+[
+  {
+    "InventoryItems": [
+      {
+        "Id": "eqp1",
+        "Name": "Sword",
+        "Type": "Equipable",
+        "Category": "Melee",
+        "Variant": "BasicSword",
+        "IsStackable": false,
+        "Stack": 1,
+        "Slot": 0,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Sword.png"
+      },
+      {
+        "Id": "eqp2",
+        "Name": "Pickaxe",
+        "Type": "Equipable",
+        "Category": "Pickaxe",
+        "Variant": "BasicPickaxe",
+        "IsStackable": false,
+        "Stack": 1,
+        "Slot": 1,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Adze.png"
+      },
+      {
+        "Id": "1",
+        "Name": "Health Potion",
+        "Type": "Consumable",
+        "Category": "Health",
+        "Variant": "HealthPotion",
+        "IsStackable": true,
+        "Stack": 5,
+        "Slot": 2,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
+      },
+      {
+        "Id": "2",
+        "Name": "Energy Potion",
+        "Type": "Consumable",
+        "Category": "Energy",
+        "Variant": "EnergyPotion",
+        "IsStackable": true,
+        "Stack": 5,
+        "Slot": 3,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
+      },
+      {
+        "Id": "3",
+        "Name": "Fire Torch",
+        "Type": "WallPlaceable",
+        "Category": "Torch",
+        "Variant": "FireTorch",
+        "IsStackable": true,
+        "Stack": 5,
+        "Slot": 4,
+        "PngPath": "res://Assets/firetorch.png"
+      }
+    ],
+    "Artifacts": [],
+    "OccupiedSlots": [0,1,2,3,4],
+    "SlotsUnlocked": 12
+  }
+]

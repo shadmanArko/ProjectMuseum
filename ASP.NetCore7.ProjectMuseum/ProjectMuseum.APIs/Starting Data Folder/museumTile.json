@@ -120,7 +120,7 @@
     "BackRightWallId": "",
     "FrontLeftWallId": "",
     "FrontRightWallId": "",
-    "Walkable": false,
+    "Walkable": true,
     "HasExhibit": false,
     "ItemId": "string",
     "ItemType": 0
@@ -156,7 +156,7 @@
     "BackRightWallId": "",
     "FrontLeftWallId": "",
     "FrontRightWallId": "",
-    "Walkable": true,
+    "Walkable": false,
     "HasExhibit": false,
     "ItemId": "string",
     "ItemType": 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://70xubhgxm5i3"]
+[gd_scene load_steps=57 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.cs" id="1_26dxj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="4_uca33"]
 [ext_resource type="Texture2D" uid="uid://d4ehoky215c4n" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_bracket.png" id="5_73e00"]
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
+[ext_resource type="Texture2D" uid="uid://tixoivx3ighx" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/guest_icon.png" id="6_3xcmr"]
 [ext_resource type="Texture2D" uid="uid://dn3q2drhtqr3f" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/marble bg.png" id="7_lgch0"]
 [ext_resource type="Texture2D" uid="uid://cuy4hn1owyvmh" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/money_bar.png" id="7_tkekb"]
 [ext_resource type="Texture2D" uid="uid://cjjyg0qbnjwg4" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_half.png" id="7_v3soj"]
@@ -20,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://c2x163wdvl3ts" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/filter panel.png" id="10_xrxjq"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="12_6by2m"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/LensButton.cs" id="13_ajthb"]
+[ext_resource type="Texture2D" uid="uid://dmqn2hpqs5pyc" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/money_icon.png" id="13_yb238"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/WallHeightButtons.cs" id="14_e2b3n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ee3wu"]
@@ -98,6 +100,7 @@ anchor_bottom = 1.0
 offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 script = ExtResource("1_26dxj")
 _newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
 _decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent/Food and Drinks Button")
@@ -159,16 +162,24 @@ visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Guest Icon" type="TextureRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
-custom_minimum_size = Vector2(3.01, 0)
-layout_mode = 2
-expand_mode = 4
-
 [node name="Guest Text" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+visible = false
 layout_mode = 2
 theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "GUESTS"
+
+[node name="MarginContainer" type="MarginContainer" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 8
+
+[node name="Guest Icon" type="TextureRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("6_3xcmr")
+expand_mode = 3
 
 [node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
@@ -1049,10 +1060,11 @@ offset_right = 150.0
 offset_bottom = 50.0
 theme_override_constants/separation = 10
 
-[node name="Money Icon" type="ColorRect" parent="Right Panel/Money Display Panel/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Money Icon" type="TextureRect" parent="Right Panel/Money Display Panel/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(67.54, 0)
 layout_mode = 2
-color = Color(1, 1, 1, 0)
+texture = ExtResource("13_yb238")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Right Panel/Money Display Panel/HBoxContainer"]
 layout_mode = 2
@@ -1072,6 +1084,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
 text = "1300.99"
 
 [node name="Misc Panel" type="PanelContainer" parent="Right Panel"]

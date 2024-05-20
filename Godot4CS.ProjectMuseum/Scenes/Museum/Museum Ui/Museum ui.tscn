@@ -18,13 +18,14 @@
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
 [node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_mfgvl")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 _diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
@@ -37,7 +38,6 @@ metadata/_edit_vertical_guides_ = [-481.0]
 visible = false
 layout_mode = 1
 offset_right = 0.00012207
-mouse_filter = 1
 _closePanelButton = NodePath("PanelContainer/Container/Top Panel/Button")
 _subcontinentButton = NodePath("PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=77 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -48,6 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://c78tucptefcji" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="36_hg2i6"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Texture2D" uid="uid://dlovykj6658ca" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2 .png" id="38_0ce5p"]
+[ext_resource type="PackedScene" uid="uid://boje1emvyvbaj" path="res://Scenes/Museum/Sub Scenes/isomatric_forest_chunk.tscn" id="39_h6v45"]
 [ext_resource type="Texture2D" uid="uid://dmmsxb8jxs57x" path="res://Assets/2D/Sprites/Decorations/wooden bench.png" id="39_vhpcv"]
 [ext_resource type="Texture2D" uid="uid://23336ohioufw" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 3.png" id="39_yuyho"]
 [ext_resource type="Texture2D" uid="uid://c5d4q1m13dh1v" path="res://Assets/2D/Sprites/Decorations/BusStand/Bus_Stop_Bench.png" id="41_8xrmn"]
@@ -122,12 +123,14 @@ Maxzoom = 4.0
 
 [node name="Fade In and Out Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_animationPlayer", "_timeUi") instance=ExtResource("13_bhjmc")]
 z_index = 8
+mouse_filter = 1
 _animationPlayer = NodePath("AnimationPlayer")
 _timeUi = NodePath("Label")
 metadata/_edit_use_anchors_ = true
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("museumMoneyTextField", "_conceptEndingUi", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi", "ItemsParent") instance=ExtResource("7_xsnwb")]
-mouse_filter = 1
+visible = true
+mouse_filter = 2
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")
 _sanitationItem = ExtResource("18_78kbp")
@@ -184,6 +187,7 @@ _guestInterestTags = NodePath("PanelContainer/VBoxContainer/Guest Thoughts/Inter
 
 [node name="Artifact Score Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_scoreCardsParent", "_closingButton") instance=ExtResource("26_waa14")]
 visible = false
+mouse_filter = 1
 _scoreCardsParent = NodePath("Panel/MarginContainer/VBoxContainer/GridContainer")
 _closingButton = NodePath("Panel/MarginContainer/VBoxContainer/Container/Label/Button")
 
@@ -286,10 +290,8 @@ offset = Vector2(0, -32.5)
 z_index = -1
 y_sort_enabled = true
 
-[node name="IsomatricForestChunk" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(360.285, -334.5)
-texture = ExtResource("36_hg2i6")
+[node name="IsomatricForestChunk" parent="museum/Background elements affected by light" instance=ExtResource("39_h6v45")]
+position = Vector2(357, -334)
 
 [node name="IsomatricForestChunk2" type="Sprite2D" parent="museum/Background elements affected by light"]
 texture_filter = 1

@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+mouse_filter = 1
 script = ExtResource("1_ft8li")
 _closePanelButton = NodePath("PanelContainer/Container/Top Panel/Button")
 _subcontinentButton = NodePath("PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")

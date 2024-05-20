@@ -16,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_460b3")
 _closeButton = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/close Button")
 _productCardForShop = ExtResource("4_20wdg")

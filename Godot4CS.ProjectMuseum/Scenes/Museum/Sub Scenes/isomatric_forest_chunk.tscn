@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://boje1emvyvbaj"]
+
+[ext_resource type="Texture2D" uid="uid://c78tucptefcji" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="1_gvmby"]
+[ext_resource type="Script" path="res://Scripts/Museum/IsomatricForestChunk.cs" id="2_4j5ur"]
+
+[node name="IsomatricForestChunk" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(312, 195)
+texture = ExtResource("1_gvmby")
+script = ExtResource("2_4j5ur")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Expand"

@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://boje1emvyvbaj"]
+[gd_scene load_steps=4 format=3 uid="uid://boje1emvyvbaj"]
 
 [ext_resource type="Texture2D" uid="uid://c78tucptefcji" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="1_gvmby"]
 [ext_resource type="Script" path="res://Scripts/Museum/IsomatricForestChunk.cs" id="2_4j5ur"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="3_j3lhn"]
 
-[node name="IsomatricForestChunk" type="Sprite2D"]
+[node name="IsomatricForestChunk" type="Sprite2D" node_paths=PackedStringArray("_expansionButton", "_neighbourChunks")]
 texture_filter = 1
 position = Vector2(312, 195)
 texture = ExtResource("1_gvmby")
 script = ExtResource("2_4j5ur")
+_expansionButton = NodePath("Control/Button")
+_neighbourChunks = []
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -17,9 +20,13 @@ offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_left = -0.5
+anchor_right = 1.5
 anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = -20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_j3lhn")
 text = "Expand"

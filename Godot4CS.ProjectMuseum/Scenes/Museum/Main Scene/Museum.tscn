@@ -290,8 +290,9 @@ offset = Vector2(0, -32.5)
 z_index = -1
 y_sort_enabled = true
 
-[node name="IsomatricForestChunk" parent="museum/Background elements affected by light" instance=ExtResource("39_h6v45")]
+[node name="IsomatricForestChunk" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton") instance=ExtResource("39_h6v45")]
 position = Vector2(357, -334)
+_expansionButton = NodePath("Control/Button")
 
 [node name="IsomatricForestChunk2" type="Sprite2D" parent="museum/Background elements affected by light"]
 texture_filter = 1

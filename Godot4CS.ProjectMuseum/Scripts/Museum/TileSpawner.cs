@@ -29,6 +29,8 @@ public partial class TileSpawner : TileMap
 	private HttpRequest _httpRequestForUpdatingMuseumWalls;
 
 	private MuseumTileContainer _museumTileContainer;
+
+	private bool _museumBeingExpanded;
 	// [Export] private Array<int> _dirtyTilesIndex;
 	public override async void  _Ready()
 	{
@@ -45,6 +47,7 @@ public partial class TileSpawner : TileMap
 		_httpRequestForGettingMuseumTiles.RequestCompleted += OnRequestCompletedForGettingMuseumTiles;
 		_httpRequestForExpandingMuseumTiles.RequestCompleted += HttpRequestForExpandingMuseumTilesOnRequestCompleted;
 		_httpRequestForUpdatingMuseumWalls.RequestCompleted += HttpRequestForUpdatingMuseumWallsOnRequestCompleted;
+		MuseumActions.OnCallForMuseumExpansion += ExpandMuseum;
 		await Task.Delay(1000);
 		_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/GetAllMuseumTiles");
 	}
@@ -106,6 +109,11 @@ public partial class TileSpawner : TileMap
 		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
 		_museumTileContainer.MuseumTiles = museumTiles;
 		GD.Print("museum tiles request complete");
+		if (_museumBeingExpanded)
+		{
+			MuseumActions.OnMuseumExpanded?.Invoke();
+			_museumBeingExpanded = false;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -113,8 +121,13 @@ public partial class TileSpawner : TileMap
 		base._Input(@event);
 		if (Input.IsActionPressed("Expand"))
 		{
-			_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/ExpandMuseum/{_originOfExpansion.X}/{_originOfExpansion.Y}");
+			ExpandMuseum(_originOfExpansion);
 		}
+	}
+
+	private void ExpandMuseum(Vector2I origin)
+	{
+		_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/ExpandMuseum/{origin.X}/{origin.Y}");
 	}
 
 	private int _minCellIndexX;
@@ -253,5 +266,14 @@ public partial class TileSpawner : TileMap
 		// The following line will return the world position of the center of the cell.
 		Vector2 cellCenter = MapToLocal(new Vector2I(cellX , cellY ));
 		return cellCenter;
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		_httpRequestForGettingMuseumTiles.RequestCompleted -= OnRequestCompletedForGettingMuseumTiles;
+		_httpRequestForExpandingMuseumTiles.RequestCompleted -= HttpRequestForExpandingMuseumTilesOnRequestCompleted;
+		_httpRequestForUpdatingMuseumWalls.RequestCompleted -= HttpRequestForUpdatingMuseumWallsOnRequestCompleted;
+		MuseumActions.OnCallForMuseumExpansion -= ExpandMuseum;
 	}
 }

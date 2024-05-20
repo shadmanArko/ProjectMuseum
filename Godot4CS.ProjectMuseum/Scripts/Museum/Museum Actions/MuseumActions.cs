@@ -117,6 +117,13 @@ public partial class MuseumActions : Node
     public static Action<List<Product>> OnGettingAllProducts;
 
     #endregion
+
+    #region Expansion
+
+    public static Action<Vector2I> OnCallForMuseumExpansion;
+    public static Action OnMuseumExpanded;
+
+    #endregion
 }
 public enum WallHeightEnum
 {

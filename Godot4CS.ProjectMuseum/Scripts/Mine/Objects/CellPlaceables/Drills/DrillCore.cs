@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Objects.CellPlaceables.Drills;
 
-public partial class RightDrill : Node2D
+public partial class DrillCore : Node2D
 {
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
@@ -13,6 +15,16 @@ public partial class RightDrill : Node2D
 
     [Export] private float _timer;
     [Export] private Label _timerLabel;
+
+    private List<DrillDirection> _drillDirections;
+    [Export] private DrillHead[] _drillHeads;
+    
+    [Export] private Sprite2D _drillCoreSprite2D;
+    
+    
+
+    #region Initializers
+
     public override void _Ready()
     {
         SubscribeToActions();
@@ -39,5 +51,10 @@ public partial class RightDrill : Node2D
         
     }
 
+#endregion
+
     #endregion
+    
+    
+    
 }

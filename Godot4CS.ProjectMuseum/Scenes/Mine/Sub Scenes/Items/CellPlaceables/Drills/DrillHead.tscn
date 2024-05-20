@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://25iu2yk3bg86"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillHead.cs" id="1_4efx4"]
+[ext_resource type="Texture2D" uid="uid://0k3kp14lu1mw" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillHead.png" id="2_sms8w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7ncc"]
+size = Vector2(50, 50)
+
+[node name="DrillHead" type="Node2D" node_paths=PackedStringArray("_drillHead")]
+script = ExtResource("1_4efx4")
+_drillHead = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_sms8w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y7ncc")

@@ -80,7 +80,7 @@ public partial class IsomatricForestChunk : Sprite2D
 	}
 	private void ExpansionButtonOnMouseEntered()
 	{
-		Modulate = Colors.Brown;
+		Modulate = Colors.LightGray;
 	}
 
 	public override void _ExitTree()

@@ -84,7 +84,7 @@ public partial class BottomBarMuseumUi : Control
 
 	private async void OnMuseumBalanceUpdated(float amount)
 	{
-		_museumMoneyTextField.Text = amount.ToString("0.00");
+		_museumMoneyTextField.Text = amount.ToString("0");
 	}
 
 	private void EnableBuilderCard()

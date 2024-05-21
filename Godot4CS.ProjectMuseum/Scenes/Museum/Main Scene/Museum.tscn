@@ -82,8 +82,8 @@ load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f604
 [node name="Museum Scene Di Installer" type="Node"]
 script = ExtResource("2_yr8uh")
 
-[node name="LoadingScene" parent="." node_paths=PackedStringArray("_hSlider", "_canvasLayer") instance=ExtResource("2_apv3a")]
-_hSlider = NodePath("CanvasLayer/Control/Panel/ColorRect/HSlider")
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_apv3a")]
+_progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
 _canvasLayer = NodePath("CanvasLayer")
 
 [node name="museum" type="Node2D" parent="."]
@@ -110,10 +110,10 @@ _loadingBarManager = NodePath("../../LoadingScene")
 
 [node name="Camera2D" type="Camera2D" parent="museum"]
 position = Vector2(50, -210)
-limit_left = -2500
-limit_top = -1500
-limit_right = 2500
-limit_bottom = 800
+limit_left = -2000
+limit_top = -1300
+limit_right = 2000
+limit_bottom = 600
 script = ExtResource("4_kytf8")
 zoomSpd = 0.2
 Minzoom = 1.0

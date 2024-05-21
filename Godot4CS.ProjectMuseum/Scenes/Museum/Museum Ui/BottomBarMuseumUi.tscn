@@ -186,6 +186,9 @@ expand_mode = 3
 [node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
 theme = ExtResource("4_uca33")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_constants/outline_size = 5
 text = "0
 "
 horizontal_alignment = 2
@@ -1108,7 +1111,9 @@ horizontal_alignment = 1
 [node name="Money Text Holder" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
 text = "1300"
 

@@ -1,20 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://dblrh4tn2hgds"]
 
-[ext_resource type="Texture2D" uid="uid://bxfpi17g00tm8" path="res://Assets/2D/Sprites/Mine Sprites/Elevator/LIFT_SHAFT.png" id="1_ovcfn"]
 [ext_resource type="PackedScene" uid="uid://25iu2yk3bg86" path="res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillHead.tscn" id="1_v5shb"]
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillCore.cs" id="1_xojfg"]
+[ext_resource type="Texture2D" uid="uid://d1tjlmb1shea5" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drill.png" id="2_2nk5d"]
 
-[node name="Drill" type="Node2D" node_paths=PackedStringArray("_drillHeads", "_drillCoreSprite2D")]
+[node name="DrillCore" type="Node2D" node_paths=PackedStringArray("_drillHeads", "_drillCoreSprite2D")]
 script = ExtResource("1_xojfg")
 _drillHeads = []
 _drillCoreSprite2D = NodePath("DrillCoreSprite")
 
-[node name="DrillCoreSprite" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("1_ovcfn")
-
 [node name="DrillHead" parent="." node_paths=PackedStringArray("_drillCore", "_drillHead") instance=ExtResource("1_v5shb")]
-position = Vector2(0, 20)
-scale = Vector2(0.25, 0.25)
 _drillCore = NodePath("..")
 _drillHead = NodePath("Sprite2D")
+
+[node name="DrillCoreSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_2nk5d")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(2, 2, 20, 20)

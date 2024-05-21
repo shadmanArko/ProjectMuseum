@@ -4,7 +4,6 @@ using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Objects;
 using ProjectMuseum.DTOs;
-using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 

@@ -1,19 +1,33 @@
 [gd_scene load_steps=4 format=3 uid="uid://25iu2yk3bg86"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillHead.cs" id="1_4efx4"]
-[ext_resource type="Texture2D" uid="uid://0k3kp14lu1mw" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillHead.png" id="2_sms8w"]
+[ext_resource type="Texture2D" uid="uid://d1tjlmb1shea5" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drill.png" id="2_oewyy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7ncc"]
-size = Vector2(50, 50)
+size = Vector2(6, 16)
 
-[node name="DrillHead" type="Node2D" node_paths=PackedStringArray("_drillHead")]
+[node name="DrillHead" type="RigidBody2D" node_paths=PackedStringArray("_drillHead")]
+collision_layer = 32
+gravity_scale = 0.0
+lock_rotation = true
+freeze_mode = 1
+linear_damp_mode = 1
 script = ExtResource("1_4efx4")
 _drillHead = NodePath("Sprite2D")
+_drillPhase = 3
+_drillDirection = 4
+_wreckPosOffset = 5
+_thrustSpeed = 50
+_withdrawSpeed = 10
+_speed = 20.0
+_stoppingDistance = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_sms8w")
+texture = ExtResource("2_oewyy")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(8, 26, 8, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_y7ncc")

@@ -24,6 +24,8 @@ public partial class ItemDrop : RigidBody2D
         }
     }
 
+    #region Initializers
+
     public override void _Ready()
     {
         InitializeDiInstaller();
@@ -35,30 +37,23 @@ public partial class ItemDrop : RigidBody2D
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
     }
 
+    #endregion
+
     public override void _PhysicsProcess(double delta)
     {
         var playerPos = _playerControllerVariables.Position;
         LinearVelocity = (playerPos - Position) * _speed * (float)delta;
     }
 
-    public void SetToCollectibleCollisionLayer()
-    {
-        SetCollisionLayer(4);
-        SetCollisionLayerValue(4, true);
-        SetCollisionLayerValue(5,false);
-        
-    }
-
-    private void InitializeDiReference()
-    {
-        _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-    }
+    #region Utilities
 
     private Texture2D SetSprite(string spritePath)
     {
         var texture2D = GD.Load<Texture2D>(spritePath);
         return texture2D;
     }
+
+    #endregion
 
     public override void _ExitTree()
     {

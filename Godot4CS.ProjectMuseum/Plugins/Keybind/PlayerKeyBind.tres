@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="PlayerKeyBindResource" load_steps=2 format=3 uid="uid://cnicmv2ytblx5"]
+
+[ext_resource type="Script" path="res://Plugins/Keybind/PlayerKeyBindResource.gd" id="1_eilpi"]
+
+[resource]
+script = ExtResource("1_eilpi")

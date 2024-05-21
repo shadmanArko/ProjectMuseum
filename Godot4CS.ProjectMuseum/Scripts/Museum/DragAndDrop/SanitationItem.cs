@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using Node2D = Godot.Node2D;
 
 public partial class SanitationItem : Item
 {
@@ -35,6 +36,7 @@ public partial class SanitationItem : Item
 
 	public override void _PhysicsProcess(double delta)
 	{
+		CheckForSeeThroughEffect();
 		if (!selectedItem) return;
 		Vector2I mouseTile = GameManager.tileMap.LocalToMap(GetGlobalMousePosition());
         
@@ -67,6 +69,18 @@ public partial class SanitationItem : Item
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))
 		{
 			QueueFree();
+		}
+	}
+
+	private void CheckForSeeThroughEffect()
+	{
+		var player = GetTree().Root.GetNode<CharacterBody2DIsometric>("Museum Scene Di Installer/museum/Player");
+		if (player!=null)
+		{
+			if (GetRect().Intersects(player._characterSprite.GetRect()))
+			{
+				GD.Print("player inside bound");
+			}
 		}
 	}
 

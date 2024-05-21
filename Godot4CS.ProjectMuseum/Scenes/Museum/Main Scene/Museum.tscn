@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=76 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -45,7 +45,6 @@
 [ext_resource type="PackedScene" uid="uid://brfcw3x8aid8m" path="res://Scenes/Museum/Sub Scenes/FemaleGuest.tscn" id="32_m646v"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
-[ext_resource type="Texture2D" uid="uid://c78tucptefcji" path="res://Assets/2D/Sprites/Backgrounds/isomatric forest chunk.png" id="36_hg2i6"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Texture2D" uid="uid://dlovykj6658ca" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2 .png" id="38_0ce5p"]
 [ext_resource type="PackedScene" uid="uid://boje1emvyvbaj" path="res://Scenes/Museum/Sub Scenes/isomatric_forest_chunk.tscn" id="39_h6v45"]
@@ -198,7 +197,8 @@ _productCardsParent = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Produc
 _shopName = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/Label")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
-position = Vector2(128, -55)
+unique_name_in_owner = true
+position = Vector2(124, -61)
 _characterSprite = NodePath("Sprite2D")
 _displacementSpeed = 50.0
 _animationPlayer = NodePath("PlayerAnimation")
@@ -290,79 +290,108 @@ offset = Vector2(0, -32.5)
 z_index = -1
 y_sort_enabled = true
 
-[node name="IsomatricForestChunk" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton") instance=ExtResource("39_h6v45")]
-position = Vector2(357, -334)
+[node name="chunk (0, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(359, -334)
 _expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(0, -20)
+_allChunks = [NodePath("."), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (0, -40)"), NodePath("../chunk (-18, -20)")]
+_firstNeighbourOfMuseum = true
 
-[node name="IsomatricForestChunk2" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(-243, -314.955)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (0, -40)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(693, -502)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(0, -40)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("."), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -40))")]
 
-[node name="IsomatricForestChunk3" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(76, -478)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (0, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(1037, -656)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(0, -60)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("."), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (0, -40)"), NodePath("../chunk (-18, -60)")]
 
-[node name="IsomatricForestChunk8" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(127, -787)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-18, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(71, -478.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-18, -20)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("."), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-18, -40))")]
 
-[node name="IsomatricForestChunk6" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(695, -502)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-18, -40))" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(405, -646.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-18, -40)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("."), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (-36, -40)"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (0, -40)")]
 
-[node name="IsomatricForestChunk7" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(414, -645.5)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-18, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(749, -800.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-18, -60)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("."), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (-36, -60)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -40))")]
 
-[node name="IsomatricForestChunk4" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(-532, -458.955)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-36, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(-219, -622)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-36, -20)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("."), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (-54, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-36, 0)")]
 
-[node name="IsomatricForestChunk5" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(-206.715, -621.5)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-36, -40)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(117, -791)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-36, -40)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("."), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (-54, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-36, -20)")]
 
-[node name="IsomatricForestChunk9" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(-161, -931.5)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-36, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(461, -945)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-36, -60)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("."), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (-54, -60)"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -40)")]
 
-[node name="IsomatricForestChunk12" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(464, -955)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-54, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(-507, -766.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-54, -20)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("."), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (-54, -40)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-54, 0)")]
 
-[node name="IsomatricForestChunk13" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(1032, -669)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-18, 0)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(-300, -344.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-18, 0)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("."), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
+_neighbourChunks = [NodePath("../chunk (-18, -20)"), NodePath("../chunk (-36, 0)")]
+_firstNeighbourOfMuseum = true
 
-[node name="IsomatricForestChunk14" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(751, -813.5)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-36, 0)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(-588, -489)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-36, 0)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("."), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 
-[node name="IsomatricForestChunk15" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(176, -1099.5)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-54, 0)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(-876, -632.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-54, 0)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("."), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 
-[node name="IsomatricForestChunk10" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(-820, -602.455)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-54, -40)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(-171, -935.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-54, -40)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("."), NodePath("../chunk (-54, -60)")]
 
-[node name="IsomatricForestChunk11" type="Sprite2D" parent="museum/Background elements affected by light"]
-texture_filter = 1
-position = Vector2(-494.715, -766)
-texture = ExtResource("36_hg2i6")
+[node name="chunk (-54, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
+position = Vector2(173, -1089.5)
+_expansionButton = NodePath("Control/Button")
+expansionOrigin = Vector2i(-54, -60)
+_allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath(".")]
 
 [node name="Road" type="Node2D" parent="museum/Background elements affected by light"]
 y_sort_enabled = true

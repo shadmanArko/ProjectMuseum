@@ -12,7 +12,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
     private Vector2 motion = Vector2.Zero;
 
 
-    [Export] private Sprite2D _characterSprite;
+    [Export] public Sprite2D _characterSprite;
     private bool _playerFacingTheFront = true;
 
     private MuseumTileContainer _museumTileContainer;

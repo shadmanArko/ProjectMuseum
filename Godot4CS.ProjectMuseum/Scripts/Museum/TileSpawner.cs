@@ -128,6 +128,7 @@ public partial class TileSpawner : TileMap
 	private void ExpandMuseum(Vector2I origin)
 	{
 		_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/ExpandMuseum/{origin.X}/{origin.Y}");
+		_museumBeingExpanded = true;
 	}
 
 	private int _minCellIndexX;

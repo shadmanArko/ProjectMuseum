@@ -45,7 +45,7 @@ public partial class MuseumTimeSystem : Node
 	    _time.Minutes+=10;
 
 	    _time.Minutes = 0;
-	    _time.Hours = 6;
+	    _time.Hours = 7;
 	    _time.Days++;
 	    if (_time.Days >= _daysInMonth)
 	    {

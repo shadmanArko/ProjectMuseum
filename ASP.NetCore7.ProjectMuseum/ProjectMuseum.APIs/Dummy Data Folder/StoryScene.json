@@ -525,8 +525,8 @@
         "EntryNo": "16a",
         "IllustrationName": "",
         "Dialogue": "Hey, is anyone there? ",
-        "Speaker": "Portrait",
-        "SpeakerEmotion": "Placeholder",
+        "Speaker": "Karla",
+        "SpeakerEmotion": "Curious",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -543,8 +543,8 @@
         "EntryNo": "16c",
         "IllustrationName": "",
         "Dialogue": "Wow! You wouldn't know it yet, but that could be big news for the town. This museum used to be a big draw around these parts. Loads of people from all across the state would come by. Brought a good bit of traffic for the local businesses.",
-        "Speaker": "Portrait",
-        "SpeakerEmotion": "Placeholder",
+        "Speaker": "Karla",
+        "SpeakerEmotion": "Earnest",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -552,8 +552,8 @@
         "EntryNo": "16d",
         "IllustrationName": "",
         "Dialogue": "Gosh!! Where are my manners?! My name is Karla. I run a small logging business from the town here.",
-        "Speaker": "Portrait",
-        "SpeakerEmotion": "Placeholder",
+        "Speaker": "Karla",
+        "SpeakerEmotion": "Earnest",
         "HasCutscene": false,
         "HasCutsceneArt": false
       },
@@ -561,8 +561,8 @@
         "EntryNo": "16e",
         "IllustrationName": "",
         "Dialogue": "It's still got the rights to this big patch of trees in the back here. If you ever need to expand. You let me know!",
-        "Speaker": "Portrait",
-        "SpeakerEmotion": "Placeholder",
+        "Speaker": "Karla",
+        "SpeakerEmotion": "Earnest",
         "HasCutscene": false,
         "HasCutsceneArt": false
       }

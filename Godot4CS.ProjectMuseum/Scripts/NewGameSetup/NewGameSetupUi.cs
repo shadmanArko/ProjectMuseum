@@ -58,7 +58,9 @@ public partial class NewGameSetupUi : Control
 			{ "Id", "string" },
 			{ "Name", LineEdit.Text },
 			{ "Gender", OptionButton.Text },
-			{ "Tutorial", CheckButton.ButtonPressed }
+			{ "Tutorial", CheckButton.ButtonPressed },
+			{"WakeUpHour", 7},
+			{"ForceSleepHour", 00}
 		});
 		string[] headers = { "Content-Type: application/json" };
 		Error error = _httpRequestForNewGameSetUpData.Request($"{ApiAddress.UrlPrefix}Player/PostPlayerInfo", headers,

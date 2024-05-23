@@ -8,4 +8,6 @@ public class PlayerInfo
     public bool Tutorial { get; set; }
     public int CompletedStoryScene { get; set; }
     public int CompletedTutorialScene { get; set; }
+    public int WakeUpHour { get; set; }
+    public int ForceSleepHour { get; set; }
 }

@@ -514,5 +514,129 @@
         "HasCutsceneArt": false
       }
     ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 16,
+    "HasTutorial": false,
+    "TutorialNumber": 0,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "16a",
+        "IllustrationName": "",
+        "Dialogue": "Hey, is anyone there? ",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "16b",
+        "IllustrationName": "",
+        "Dialogue": "Hey! I'm [PlayerName]. I'm working at the museum now. The Professor and I are trying to fix it up.",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Determined",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "16c",
+        "IllustrationName": "",
+        "Dialogue": "Wow! You wouldn't know it yet, but that could be big news for the town. This museum used to be a big draw around these parts. Loads of people from all across the state would come by. Brought a good bit of traffic for the local businesses.",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "16d",
+        "IllustrationName": "",
+        "Dialogue": "Gosh!! Where are my manners?! My name is Karla. I run a small logging business from the town here.",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "16e",
+        "IllustrationName": "",
+        "Dialogue": "It's still got the rights to this big patch of trees in the back here. If you ever need to expand. You let me know!",
+        "Speaker": "Portrait",
+        "SpeakerEmotion": "Placeholder",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
+  },
+  {
+    "Id": "",
+    "SceneNo": 17,
+    "HasTutorial": true,
+    "TutorialNumber": 8,
+    "StorySceneEntries": [
+      {
+        "EntryNo": "17a",
+        "IllustrationName": "",
+        "Dialogue": "How are you settling in, [PlayerName]? I see the museum is coming along quite well. ",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "17b",
+        "IllustrationName": "",
+        "Dialogue": "From one former museum keeper to another, I suggest you contemplate theming your artifacts.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "17c",
+        "IllustrationName": "",
+        "Dialogue": "Theming?",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Confused",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "17d",
+        "IllustrationName": "",
+        "Dialogue": "Theming. That's right. If you have objects that can be tagged similarly displayed close to one another in a designated zone, the museum' guests will be much more appreciative of the history of the objects in question.",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "17e",
+        "IllustrationName": "",
+        "Dialogue": "Imagine an iron sword from the medieval age sat next to an iron spearhead from the ancient age. The guests are more likely to apprecaite the evolution of iron weaponry through the ages. ",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Thoughtful",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "17f",
+        "IllustrationName": "",
+        "Dialogue": "I think I get it.",
+        "Speaker": "Player",
+        "SpeakerEmotion": "Confused",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      },
+      {
+        "EntryNo": "17g",
+        "IllustrationName": "",
+        "Dialogue": "Don't worry it is quite simple. All artifacts have tags. If you have different artifacts with matching tags in a particular zone, you'll notice these artifacts are scored higher, and do wonders for your ticket sales, and your overall museum rating too. ",
+        "Speaker": "Professor Eucalyptus",
+        "SpeakerEmotion": "Pleased",
+        "HasCutscene": false,
+        "HasCutsceneArt": false
+      }
+    ]
   }
 ]

@@ -187,5 +187,45 @@
         ]
       }
     ]
+  },
+  {
+    "Id": "Tut8",
+    "SceneNo": 8,
+    "ContinuesStory": false,
+    "StoryNumber": 16,
+    "TutorialSceneEntries": [
+      {
+        "EntryNo": "Tut8a",
+        "TutorialText": "Click on the Zoning Button below.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "ClickOnZoningButton"
+        ]
+      },
+      {
+        "EntryNo": "Tut8b",
+        "TutorialText": "Click on the New Zone Button.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "ClickOnNewZoneButton"
+        ]
+      },
+      {
+        "EntryNo": "Tut8c",
+        "TutorialText": "Create a zone by dragging {Left Click} across a set of tiles.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "CreateZone"
+        ]
+      },
+      {
+        "EntryNo": "Tut8d",
+        "TutorialText": "Place, within exhibits in your recently-created zone, atleast 2 artifacts with atleast 2 matching tags.",
+        "KeyBindsNeedsToPerform": [],
+        "ActionsNeedsToPerform": [
+          "PlaceTwoMatchingArtifactsInZone"
+        ]
+      }
+    ]
   }
 ]

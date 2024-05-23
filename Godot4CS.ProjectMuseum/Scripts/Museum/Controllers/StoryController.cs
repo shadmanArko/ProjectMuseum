@@ -11,7 +11,7 @@ public partial class StoryController : Node2D
 {
 	private HttpRequest _httpRequestForGettingPlayerInfo;
 
-	private int _totalStoryNumber = 15;
+	private int _totalStoryNumber = 17;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

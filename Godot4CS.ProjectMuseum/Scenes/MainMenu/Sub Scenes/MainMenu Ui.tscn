@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="5_fnjy7"]
 [ext_resource type="Texture2D" uid="uid://dr000m1goscjo" path="res://Assets/2D/Sprites/UI/Main menu/LOGO for mainmenu.png" id="5_g2t5h"]
 [ext_resource type="Texture2D" uid="uid://curg8go0y87rp" path="res://Assets/2D/Sprites/UI/Main menu/Tempo menu box.png" id="6_hdi3s"]
-[ext_resource type="PackedScene" uid="uid://c0bw7ofqrwqdb" path="res://Scripts/UiSound.tscn" id="7_kt7s5"]
+[ext_resource type="PackedScene" path="res://Scripts/UiSound.tscn" id="7_kt7s5"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton")]
 layout_mode = 3

@@ -14,7 +14,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
 
     [Export] public Sprite2D _characterSprite;
     private bool _playerFacingTheFront = true;
-
+    public Rect2 rect2 = new Rect2(0,0,0,0);
     private MuseumTileContainer _museumTileContainer;
     // Converts any Vector2 coordinates or motion from the cartesian to the isometric system
     public override async void _Ready()
@@ -43,6 +43,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
     private Vector2I _lastPlayerTile = new Vector2I(1000, 1000);
     public override void _PhysicsProcess(double delta)
     {
+        rect2 = _characterSprite.GetRect();
         // Everything works like you're used to in a top-down game
         Vector2 direction = Vector2.Zero;
 
@@ -111,6 +112,13 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
             }
             MoveAndCollide(motion);
         }
+    }
+
+    public override void _Draw()
+    {
+        base._Draw();
+        // DrawRect(_characterSprite.GetRect(), Colors.Green);
+        // GD.Print($"player Rect {_characterSprite.GetRect()}");
     }
 
     public override void _Input(InputEvent @event)

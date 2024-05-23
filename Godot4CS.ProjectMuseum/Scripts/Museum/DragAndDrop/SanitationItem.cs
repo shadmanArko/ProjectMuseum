@@ -17,9 +17,11 @@ public partial class SanitationItem : Item
 	private string _variationName;
 	private HttpRequest _httpRequestForPlacingSanitationItem;
 	private BuilderCardType _builderCardType;
+	private CharacterBody2DIsometric _player;
 	public override void _Ready()
 	{
 		base._Ready();
+		_player = GetTree().Root.GetNode<CharacterBody2DIsometric>("Museum Scene Di Installer/museum/Player");
 		_httpRequestForPlacingSanitationItem = new HttpRequest();
 		AddChild(_httpRequestForPlacingSanitationItem);
 		_httpRequestForPlacingSanitationItem.RequestCompleted += HttpRequestForPlacingSanitationItemOnRequestCompleted;
@@ -36,7 +38,7 @@ public partial class SanitationItem : Item
 
 	public override void _PhysicsProcess(double delta)
 	{
-		CheckForSeeThroughEffect();
+		// CheckForSeeThroughEffect();
 		if (!selectedItem) return;
 		Vector2I mouseTile = GameManager.tileMap.LocalToMap(GetGlobalMousePosition());
         
@@ -74,14 +76,32 @@ public partial class SanitationItem : Item
 
 	private void CheckForSeeThroughEffect()
 	{
-		var player = GetTree().Root.GetNode<CharacterBody2DIsometric>("Museum Scene Di Installer/museum/Player");
-		if (player!=null)
+		
+		if (_player!=null)
 		{
-			if (GetRect().Intersects(player._characterSprite.GetRect()))
+			var characterRect = new Rect2(_player.Position, _player._characterSprite.GetRect().Size);
+			if (GetRect().Intersects(characterRect))
 			{
-				GD.Print("player inside bound");
+				
+				GD.Print($"player rect {characterRect} inside bound {GetRect()}");
 			}
+			
 		}
+	}
+
+	public override void _Draw()
+	{
+		// base._Draw();
+		// var playerRect = _player._characterSprite.GetRect();
+		// // var playerRect = new Rect2(_player.Position, _player._characterSprite.GetRect().Size);
+		// DrawRect(new Rect2(_player.Position, _player._characterSprite.GetRect().Size), Colors.Blue);
+		// DrawRect(GetRect(), Colors.Red);
+		// // DebugRect();
+	}
+
+	private void DebugRect()
+	{
+		GD.Print($"sanitation rect {GetRect()}");
 	}
 
 	public void Initialize(string cardName, BuilderCardType builderCardType)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bjy2gyknf1lwq"]
+[gd_scene load_steps=22 format=3 uid="uid://bjy2gyknf1lwq"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_kqmcg"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ygxepb2p8q7u" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Filter_Drop_Down.png" id="7_cf2oq"]
 [ext_resource type="Texture2D" uid="uid://cyhx1le1au8o1" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Base.png" id="7_x2k0j"]
 [ext_resource type="Texture2D" uid="uid://c6628xhpc3quq" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Search_Bar.png" id="8_3usof"]
+[ext_resource type="PackedScene" uid="uid://bch1nfis5he7t" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggableNewPreview.tscn" id="11_sl8im"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fdov"]
 texture = ExtResource("5_njf6o")
@@ -179,6 +180,7 @@ _parentTarget = true
 layout_mode = 2
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
 _artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
+_draggablePreview = ExtResource("11_sl8im")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 

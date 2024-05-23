@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectMuseum.Models;
 
-public partial class DraggableNewPreview : ColorRect
+public partial class DraggableNewPreview : Control
 {
 	[Export] private Label _nameOfDraggable;
 	[Export] private TextureRect _artifactIcon;

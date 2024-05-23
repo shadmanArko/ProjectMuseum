@@ -4,12 +4,13 @@
 [ext_resource type="Script" path="res://Scripts/Museum/IsomatricForestChunk.cs" id="2_4j5ur"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="3_j3lhn"]
 
-[node name="IsomatricForestChunk" type="Sprite2D" node_paths=PackedStringArray("_expansionButton", "_neighbourChunks")]
+[node name="IsomatricForestChunk" type="Sprite2D" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks")]
 texture_filter = 1
 position = Vector2(312, 195)
 texture = ExtResource("1_gvmby")
 script = ExtResource("2_4j5ur")
 _expansionButton = NodePath("Control/Button")
+_allChunks = []
 _neighbourChunks = []
 
 [node name="Control" type="Control" parent="."]

@@ -17,6 +17,9 @@ public partial class DrillCore : Node2D
     [Export] private DrillHead[] _drillHeads;
     
     [Export] private Sprite2D _drillCoreSprite2D;
+
+    [Export] private Texture2D _disabledCoreTexture;
+    [Export] private Texture2D _enabledCoreTexture;
     
     #region Initializers
 
@@ -48,5 +51,15 @@ public partial class DrillCore : Node2D
     #endregion
 
     #endregion
+
+    public void DisableCore()
+    {
+        _drillCoreSprite2D.Texture = _disabledCoreTexture;
+    }
+
+    public void EnableCore()
+    {
+        _drillCoreSprite2D.Texture = _enabledCoreTexture;
+    }
     
 }

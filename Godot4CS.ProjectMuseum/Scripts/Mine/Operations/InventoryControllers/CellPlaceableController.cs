@@ -168,9 +168,11 @@ public partial class CellPlaceableController : InventoryController
         cellPlaceable.PositionX = cell.PositionX;
         cellPlaceable.PositionY = cell.PositionY;
         _mineGenerationVariables.Mine.CellPlaceables.Add(cellPlaceable);
-        
         var cellSize = _mineGenerationVariables.Mine.CellSize;
-        var cellOffset = new Vector2(cellSize, cellSize) / 2;
+        // var cellOffset = new Vector2(cellSize, cellSize) / 2;
+        // GD.Print($"cell pos {cell.PositionX * cellSize}, {cell.PositionY * cellSize}");
+        // GD.Print($"cell offset {cellOffset}");
+        // GD.Print($"cell size {cellSize}");
         var cellPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
         InstantiateCellPlaceable(cellPlaceable.ScenePath, cellPos);
         MineActions.OnInventoryUpdate?.Invoke();
@@ -185,7 +187,7 @@ public partial class CellPlaceableController : InventoryController
     {
         var cell = GetTargetCell();
         var cellSize = _mineGenerationVariables.Mine.CellSize;
-        var offset = new Vector2(cellSize / 2f, cellSize / 4f);
+        var offset = new Vector2(cellSize / 2f, cellSize / 2f);
         _cellPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
     }
 
@@ -217,7 +219,7 @@ public partial class CellPlaceableController : InventoryController
     {
         var mineGenerationVariables = ReferenceStorage.Instance.MineGenerationVariables;
         var cellSize = mineGenerationVariables.Mine.CellSize;
-        var offset = new Vector2(cellSize / 2f, cellSize / 4f);
+        var offset = new Vector2(cellSize / 2f, cellSize / 2f);
         SceneInstantiator.InstantiateScene(scenePath, mineGenerationVariables.MineGenView, pos + offset);
     }
 

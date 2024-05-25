@@ -52,52 +52,52 @@
   {
     "Id": "AncientNativeAmericanBowl",
     "ArtifactName": "Ancient Native American Bowl",
-    "Description": "NA"
+    "Description": "Natives used bowls for ritual and everyday purposes."
   },
   {
     "Id": "ClassicalNativeAmericanBowl",
     "ArtifactName": "Classical Native American Bowl",
-    "Description": "NA"
+    "Description": "Clay for pottery often had to be mined and purified in labor-intensive processes."
   },
   {
     "Id": "MedievalNativeAmericanBowl",
     "ArtifactName": "Medieval Native American Bowl",
-    "Description": "NA"
+    "Description": "Ever-increasingly sophisticated designs on pottery can be found in discoveries from almost every part of the world. "
   },
   {
     "Id": "RenaissanceAmericanBowl",
     "ArtifactName": "Renaissance American Bowl",
-    "Description": "NA"
+    "Description": "European settlers arriving in the new world often brought their own designs and production methods for their vessels."
   },
   {
     "Id": "MedievalNativeAmericanLeatherChestplate",
-    "ArtifactName": "MedievalNative American Leather Chestplate",
-    "Description": "NA"
+    "ArtifactName": "Medieval Native American Leather Chestplate",
+    "Description": "Hardened leather was a common component in Native American armor."
   },
   {
     "Id": "RenaissanceAmericanIronChestplate",
     "ArtifactName": "Renaissance American Iron Chestplate",
-    "Description": "NA"
+    "Description": "The cuirass had become the most common form of body armor by the Age of Exploration."
   },
   {
     "Id": "IndustrialAmericanInfantryGear",
     "ArtifactName": "Industrial American Infantry Gear",
-    "Description": "NA"
+    "Description": "By the time of the American Civil War, soldiers' uniforms had begun to be mass produced. "
   },
   {
     "Id": "AncientNativeAmericanWampumBeadCurrency",
     "ArtifactName": "Ancient Native American Wampum Bead Currency",
-    "Description": "NA"
+    "Description": "Wampum beads were not only used for trade, but also for clothing and decorative purposes."
   },
   {
     "Id": "ClassicalNativeAmericanShellCurrency",
     "ArtifactName": "Classical Native American Shell Currency",
-    "Description": "NA"
+    "Description": "Atleast some groups from almost every continent have been recorded as using shells for currency."
   },
   {
     "Id": "MedievalNativeAmericanWampumBeadCurrency",
     "ArtifactName": "Medieval Native American Wampum Bead Currency",
-    "Description": "NA"
+    "Description": "It was not until the arrival or Europeans that wampum beads took on a primarily commercial function."
   },
   {
     "Id": "AncientNativeAmericanVase",

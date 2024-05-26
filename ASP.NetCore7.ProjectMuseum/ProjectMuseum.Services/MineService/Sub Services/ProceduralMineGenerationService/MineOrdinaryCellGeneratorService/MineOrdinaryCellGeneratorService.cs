@@ -7,8 +7,7 @@ namespace ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerati
 
 public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorService
 {
-    private Random _random;
-    private int _maxHitPoint = 80;
+    private int _maxHitPoint = 40;
     private readonly IMineRepository _mineRepository;
     private readonly ICaveGeneratorRepository _caveGeneratorRepository;
 
@@ -17,7 +16,6 @@ public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorServic
     {
         _mineRepository = mineRepository;
         _caveGeneratorRepository = caveGeneratorRepository;
-        _random = new Random();
     }
 
     public async Task<Mine> GenerateMineCellData(int xSize, int ySize, int cellSize)
@@ -108,9 +106,8 @@ public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorServic
         cell.IsRevealed = false;
         cell.HasArtifact = false;
         cell.HasCave = false;
-
-        var hp = _random.Next(40, _maxHitPoint);
-        cell.MaxHitPoint = hp - hp % 10;
-        cell.HitPoint = cell.MaxHitPoint;
+        
+        cell.MaxHitPoint = _maxHitPoint;
+        cell.HitPoint = _maxHitPoint;
     }
 }

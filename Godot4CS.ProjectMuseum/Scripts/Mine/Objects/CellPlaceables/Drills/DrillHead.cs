@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
-using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Objects.CellPlaceables.Drills;
@@ -18,6 +16,7 @@ public partial class DrillHead : RigidBody2D
     [Export] private DrillCore _drillCore;
     
     [Export] private int _drillLimit = 5;
+    [Export] private int _cellDamagePerHit = 5;
     
     [Export] private Sprite2D _drillExtension;
     [Export] private Sprite2D _drillHead;
@@ -43,7 +42,7 @@ public partial class DrillHead : RigidBody2D
 
     [Export] private float _speed;
     [Export] private float _stoppingDistance;
-    [Export] private int _drillCount;
+    // [Export] private int _drillCount;
     
     public override void _EnterTree()
     {
@@ -111,7 +110,6 @@ public partial class DrillHead : RigidBody2D
                 {
                     _isWrecking = false;
                     LinearVelocity = Vector2.Zero;
-                    _drillCount++;
 
                     if (!playOnlyOnce)
                     {
@@ -135,12 +133,12 @@ public partial class DrillHead : RigidBody2D
                 }
                 else
                 {
-                    if (_drillCount >= 5)
+                    var cellToBreak = GetCellByMapPos(_targetMapPos + GetDrillDirection());
+                    if (cellToBreak.HitPoint <= 0)
                     {
                         LinearVelocity = Vector2.Zero;
                         _isWrecking = false;
                         await Task.Delay(2000);
-                        _drillCount = 0;
                         _drillPhase = DrillPhase.Retract;
                         RetractToCore();
                     }
@@ -203,7 +201,9 @@ public partial class DrillHead : RigidBody2D
                 GD.PrintErr("CELL NOT BREAKABLE OR NOT INITIALIZED");
                 break;
             }
+            
             if (cell.IsBroken) posToExpandTo = new Vector2I(cell.PositionX, cell.PositionY);
+            else break;
         }
         
         GD.Print($"posToExpand: {posToExpandTo}, finalMapPos: {_finalMapPos}");
@@ -253,7 +253,7 @@ public partial class DrillHead : RigidBody2D
     private void BreakCell(Vector2I tilePos)
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
-        cell.HitPoint--;
+        cell.HitPoint -= _cellDamagePerHit;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100000);
 
         var normalCellCrackMaterial =

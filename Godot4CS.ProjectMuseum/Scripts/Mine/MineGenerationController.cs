@@ -168,11 +168,6 @@ public partial class MineGenerationController : Node2D
 		var artifactsList = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
 		_rawArtifactDto.Artifacts = artifactsList;
 		MineActions.OnRawArtifactDTOInitialized?.Invoke();
-
-		foreach (var artifact in artifactsList)
-		{
-			GD.Print($"artifact in mine: {artifact.Id}");
-		}
 	}
 
 	#endregion

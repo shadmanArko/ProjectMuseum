@@ -35,7 +35,6 @@ public static class MineSetCellConditions
         foreach (var specialBackdrop in specialBackdrops)  
         {
             var pos = new Vector2(specialBackdrop.TilePositionX * cellSize, specialBackdrop.TilePositionY * cellSize);
-            // GD.Print("special backdrop position:"+pos);
             var tilePos = mineGenView.LocalToMap(pos);
             mineGenView.SetCell(SpecialBackdropLayer,tilePos,specialBackdrop.SourceId, new Vector2I(0,0));
         }
@@ -126,22 +125,26 @@ public static class MineSetCellConditions
 
     public static void SetCrackOnTiles(Vector2I tilePos, Vector2I mouseDir, Cell cell,CellCrackMaterial cellCrackMaterial)
     {
-        var mineGenerationView = ReferenceStorage.Instance.MineGenerationVariables.MineGenView;
-        if(cell.HitPoint > 3) return;
+        var threeFourth = 75 * cell.MaxHitPoint / 100;
+        var half = 50 * cell.MaxHitPoint / 100;
+        var oneFourth = 25 * cell.MaxHitPoint / 100;
         
-        if (cell.HitPoint == 3)
+        var mineGenerationView = ReferenceStorage.Instance.MineGenerationVariables.MineGenView;
+        if(cell.HitPoint > threeFourth) return;
+        
+        if (cell.HitPoint > half && cell.HitPoint <= threeFourth)
         {
             var coords = new Vector2I(cellCrackMaterial.SmallCrack.AtlasCoordX,
                 cellCrackMaterial.SmallCrack.AtlasCoordY);
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir ,cellCrackMaterial.SmallCrack.TileSourceId, tilePos, coords);
         }
-        else if (cell.HitPoint >= 2)
+        else if (cell.HitPoint > oneFourth && cell.HitPoint <= half)
         {
             var coords = new Vector2I(cellCrackMaterial.MediumCrack.AtlasCoordX,
                 cellCrackMaterial.MediumCrack.AtlasCoordY);
             SetCrackBasedOnDigDirection(mineGenerationView, mouseDir, cellCrackMaterial.MediumCrack.TileSourceId,tilePos, coords);
         }
-        else if (cell.HitPoint >= 1)
+        else if (cell.HitPoint > 0 && cell.HitPoint <= oneFourth)
         {
             var coords = new Vector2I(cellCrackMaterial.LargeCrack.AtlasCoordX,
                 cellCrackMaterial.LargeCrack.AtlasCoordY);

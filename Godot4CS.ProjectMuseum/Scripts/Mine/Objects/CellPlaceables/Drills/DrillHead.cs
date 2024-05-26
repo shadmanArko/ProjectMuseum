@@ -254,7 +254,7 @@ public partial class DrillHead : RigidBody2D
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
         cell.HitPoint--;
-        Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
+        Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100000);
 
         var normalCellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
@@ -264,16 +264,7 @@ public partial class DrillHead : RigidBody2D
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
-            // GD.Print($"Revealed cells count: {cells.Count}");
-
             var caveCells = CaveControlManager.RevealCave(_mineGenerationVariables, cells);
-            
-            
-            // if (GetDrillDirection() == Vector2I.Down)
-            // {
-            //     if (_playerControllerVariables.State != MotionState.Hanging)
-            //         _playerControllerVariables.State = MotionState.Falling;
-            // }
 
             foreach (var tempCell in cells)
             {
@@ -295,11 +286,9 @@ public partial class DrillHead : RigidBody2D
 
             _mineGenerationVariables.BrokenCells++;
             MineActions.OnMineCellBroken?.Invoke(tilePos);
-            // MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
         }
     }
-
-
+    
     private void DisableDrillHead()
     {
         _drillCore.DisableCore();

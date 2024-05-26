@@ -131,7 +131,6 @@ public partial class AutoAnimationController : Node2D
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = true;
 			_playerControllerVariables.CanAttack = true;
-			_playerControllerVariables.CanBrush = true;
 			_playerControllerVariables.CanDig = true;
 			_playerControllerVariables.CanToggleClimb = true;
 		}

@@ -171,8 +171,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
         
-        cell.HitPoint--;
-        Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
+        cell.HitPoint -= _playerControllerVariables.CellDamagePoint;
+        Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100000);
         
         var cellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
@@ -204,9 +204,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     private void DigOrdinaryCell(Vector2I tilePos)
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
-        cell.HitPoint--;
-        Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 10000);
-
+        cell.HitPoint -= _playerControllerVariables.CellDamagePoint;
+        Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100000);
+        GD.PrintErr($"cell HP: {cell.HitPoint}");
         var normalCellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
@@ -215,10 +215,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
-            // GD.Print($"Revealed cells count: {cells.Count}");
-
             var caveCells = CaveControlManager.RevealCave(_mineGenerationVariables, cells);
-            
             
             if (_playerControllerVariables.MouseDirection == Vector2I.Down)
             {

@@ -11,7 +11,6 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
 {
     public string Id { get; set; }
     [Export] public NavigationAgent2D NavAgent { get; set; }
-    // [Export] public Timer TrackTimer { get; set; }
     [Export] protected AnimationTree AnimTree;
 
     #region Phase
@@ -30,7 +29,6 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
 
     #endregion
     
-    public EnemyState State { get; set; }
     public bool IsAffectedByGravity { get; set; }
     
     protected Vector2 MoveDirection;

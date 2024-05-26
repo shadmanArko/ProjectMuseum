@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1",
+    "Name": "Sword of Valor",
+    "Type": "Equipable",
+    "Category": "Melee",
+    "Variant": "BasicSword",
+    "AnimantionSpriteSheetPath": "sprites/sword_of_valor.png",
+    "Damage": 10,
+    "Cooldown": 1,
+    "HasStatusAffect": true,
+    "ListOfStatusAffects": ["Courage", "Strength"]
+  },
+  {
+    "Id": "2",
+    "Name": "Dagger of Shadows",
+    "Type": "Equipable",
+    "Category": "Melee",
+    "Variant": "LongSword",
+    "AnimantionSpriteSheetPath": "sprites/dagger_of_shadows.png",
+    "Damage": 20,
+    "Cooldown": 2,
+    "HasStatusAffect": true,
+    "ListOfStatusAffects": ["Poison", "Bleed"]
+  }
+]

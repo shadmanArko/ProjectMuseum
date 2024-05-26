@@ -12,7 +12,6 @@ public class PlayerControllerVariables
 
     public bool CanMoveLeftAndRight;
     public bool CanAttack;
-    public bool CanBrush;
     public bool CanDig;
     public bool CanToggleClimb;
 
@@ -76,6 +75,16 @@ public class PlayerControllerVariables
             MineActions.OnPlayerEnergyValueChanged?.Invoke();
         }
     }
+
+    #endregion
+
+    #region Damage Points and Cooldown
+
+    public int EnemyDamagePoint;
+    public int CellDamagePoint;
+
+    public float EnemyHitCoolDown;
+    public float CellHitCoolDown;
 
     #endregion
 

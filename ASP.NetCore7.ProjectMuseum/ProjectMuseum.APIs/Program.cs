@@ -1,6 +1,6 @@
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
-using ProjectMuseum.Models.MIne.Equippables;
+using ProjectMuseum.Models.MIne.Equipables;
 using ProjectMuseum.Repositories;
 using ProjectMuseum.Repositories.BuilderCardsRepository;
 using ProjectMuseum.Repositories.DecorationOtherRepository;
@@ -50,7 +50,7 @@ using ProjectMuseum.Services.MineService.Sub_Services;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.CellPlaceableService;
 using ProjectMuseum.Services.MineService.Sub_Services.ConsumableService;
-using ProjectMuseum.Services.MineService.Sub_Services.EquippableService;
+using ProjectMuseum.Services.MineService.Sub_Services.EquipableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellService;
@@ -101,9 +101,9 @@ string artifactConditionDataFolderPath = Path.Combine(Directory.GetCurrentDirect
 string artifactEraDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactEra.json");
 string artifactRarityDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactRarity.json");
 string artifactThemeMatchingTagCountDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactThemeMatchingTagCount.json");
-string equippableMeleeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippableMelee.json");
-string equippableRangeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippableRange.json");
-string equippablePickaxeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equippable", "EquippablePickaxe.json");
+string equipableMeleeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equipable", "EquipableMelee.json");
+string equipableRangeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equipable", "EquipableRange.json");
+string equipablePickaxeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equipable", "EquipablePickaxe.json");
 string cellPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellPlaceableData", "CellPlaceable.json");
 
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
@@ -166,9 +166,9 @@ builder.Services.AddSingleton(new JsonFileDatabase<ArtifactCondition>(artifactCo
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactEra>(artifactEraDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactRarity>(artifactRarityDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<ArtifactThemeMatchingTagCount>(artifactThemeMatchingTagCountDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<EquippableMelee>(equippableMeleeDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<EquippableRange>(equippableRangeDataFolderPath));
-builder.Services.AddSingleton(new JsonFileDatabase<EquippablePickaxe>(equippablePickaxeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<EquipableMelee>(equipableMeleeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<EquipableRange>(equipableRangeDataFolderPath));
+builder.Services.AddSingleton(new JsonFileDatabase<EquipablePickaxe>(equipablePickaxeDataFolderPath));
 builder.Services.AddSingleton(new JsonFileDatabase<CellPlaceable>(cellPlaceableDataFolderPath));
 
 
@@ -234,7 +234,7 @@ builder.Services.AddScoped<IArtifactEraRepository, ArtifactEraRepository>();
 builder.Services.AddScoped<IArtifactRarityRepository, ArtifactRarityRepository>();
 builder.Services.AddScoped<IArtifactScoreRepository, ArtifactScoreRepository>();
 builder.Services.AddScoped<IArtifactThemeMatchingTagCountRepo, ArtifactThemeMatchingTagCountRepo>();
-builder.Services.AddScoped<IEquippableRepository, EquippableRepository>();
+builder.Services.AddScoped<IEquipableRepository, EquipableRepository>();
 builder.Services.AddScoped<ICellPlaceableRepository, CellPlaceableRepository>();
 
 
@@ -274,7 +274,7 @@ builder.Services.AddScoped<IConsumableService, ConsumableService>();
 builder.Services.AddScoped<IArtifactScoringService, ArtifactScoringService>();
 builder.Services.AddScoped<IArtifactConditionService, ArtifactConditionService>();
 builder.Services.AddScoped<IArtifactRarityService, ArtifactRarityService>();
-builder.Services.AddScoped<IEquippableService, EquippableService>();
+builder.Services.AddScoped<IEquipableService, EquipableService>();
 builder.Services.AddScoped<ICellPlaceableService, CellPlaceableService>();
 
 

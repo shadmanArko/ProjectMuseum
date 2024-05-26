@@ -29,7 +29,7 @@ public partial class IsomatricForestChunk : Sprite2D
 		_expansionButton.Pressed += ExpansionButtonOnPressed;
 		MuseumActions.OnMuseumExpanded += OnMuseumExpanded;
 		MuseumActions.OnCallForMuseumExpansion += OnCallForMuseumExpansion;
-		await Task.Delay(2000);
+		await Task.Delay(3000);
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 		CheckIfThisChunkIsExpanded();
 		CheckForExpansionEligibility();

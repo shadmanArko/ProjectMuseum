@@ -73,6 +73,7 @@ public partial class MuseumActions : Node
     public static Action OnClickArtifactsLensButton;
     public static Action<WallHeightEnum> OnClickWallHeightChangeButton;
     public static Action<string> OnNeedOfPopUpUi;
+    public static Action<string> OnNeedOfWarning;
 
     #endregion
     #region Story

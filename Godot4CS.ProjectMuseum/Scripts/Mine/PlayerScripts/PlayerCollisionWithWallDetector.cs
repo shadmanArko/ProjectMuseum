@@ -206,7 +206,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         var cell = _mineGenerationVariables.GetCell(tilePos);
         cell.HitPoint -= _playerControllerVariables.CellDamagePoint;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100000);
-        GD.PrintErr($"cell HP: {cell.HitPoint}");
+        // GD.PrintErr($"cell HP: {cell.HitPoint}");
         var normalCellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");

@@ -100,10 +100,10 @@ public class PlayerControllerVariables
             MineActions.DeselectAllInventoryControllers?.Invoke();
             MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItemSlot);
             
-            if(_currentEquippedItemSlot == 0)
-                MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SwordSelected");
-            else if(_currentEquippedItemSlot == 1)
-                MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
+            // if(_currentEquippedItemSlot == 0)
+            //     MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SwordSelected");
+            // else if(_currentEquippedItemSlot == 1)
+            //     MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
         }       
     }
 

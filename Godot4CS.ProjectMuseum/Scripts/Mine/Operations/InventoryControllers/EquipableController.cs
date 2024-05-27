@@ -173,9 +173,11 @@ public partial class EquipableController : InventoryController
             case "Pickaxe":
                 MineActions.OnLeftMouseHeldActionStarted += DigActionStart;
                 MineActions.OnLeftMouseHeldActionEnded += DigActionEnd;
+                MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
                 break;
             case "Melee":
                 MineActions.OnLeftMouseClickAction += MeleeActionStart;
+                MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SwordSelected");
                 break;
             case "Ranged":
                 break;
@@ -247,8 +249,8 @@ public partial class EquipableController : InventoryController
         {
             _playerControllerVariables.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
             MineActions.OnDigActionStarted?.Invoke();
-            GD.Print($"Pickaxe damage to cell: {_playerControllerVariables.CellDamagePoint}");
-            MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
+            // GD.Print($"Pickaxe damage to cell: {_playerControllerVariables.CellDamagePoint}");
+            // MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
         }
         else
             DigActionEnd();

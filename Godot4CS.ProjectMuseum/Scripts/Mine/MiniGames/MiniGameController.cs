@@ -15,8 +15,6 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 
 public partial class MiniGameController : Node2D
 {
-	// private HttpRequest _sendArtifactToInventoryHttpRequest;
-
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 	private RawArtifactDTO _rawArtifactDto;
@@ -27,7 +25,6 @@ public partial class MiniGameController : Node2D
 	private Vector2I _artifactCellPos;
 	public override void _Ready()
 	{
-		CreateHttpRequests();
 		InitializeDiReference();
 		SubscribeToActions();
 		_random = new Random();
@@ -47,20 +44,15 @@ public partial class MiniGameController : Node2D
 		MineActions.OnMiniGameLost += MiniGameLost;
 	}
 	
-	private void CreateHttpRequests()
-	{
-		// _sendArtifactToInventoryHttpRequest = new HttpRequest();
-		// AddChild(_sendArtifactToInventoryHttpRequest);
-		// _sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
-	}
 
 	private void LoadAlternateTapMiniGame(Vector2I cellPos)
 	{
 		CeasePlayerMovementDuringMiniGame();
-		var randomMiniGamePath = _miniGameScenePaths[_random.Next(0, _miniGameScenePaths.Length)];
+		var mineTutorial = ReferenceStorage.Instance.MineTutorial;
+		var randomMiniGame = mineTutorial.IsMineTutorialPlaying() ? 0 : _random.Next(0, _miniGameScenePaths.Length);
+		var randomMiniGamePath = _miniGameScenePaths[randomMiniGame];
 		_artifactCellPos = cellPos;
-		var scene =
-		    ResourceLoader.Load<PackedScene>(randomMiniGamePath).Instantiate();
+		var scene = ResourceLoader.Load<PackedScene>(randomMiniGamePath).Instantiate();
 		if (scene is null)
 		{
 		    GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
@@ -94,7 +86,7 @@ public partial class MiniGameController : Node2D
 		_playerControllerVariables.CanToggleClimb = false;
 		_playerControllerVariables.CanAttack = false;
 		_playerControllerVariables.CanDig = false;
-		_playerControllerVariables.Player.AnimationController.PlayAnimation("brush");
+		_playerControllerVariables.Player.AnimationController.Play("brush");
 	}
 
 	private void ContinuePlayerMovementAfterMiniGame()

@@ -11,6 +11,8 @@ public partial class ItemDrop : RigidBody2D
     
     [Export] private Sprite2D _itemSprite;
 
+    public Artifact Artifact;
+    
     private InventoryItem _inventoryItem;
     [Export] private float _speed;
 

@@ -224,7 +224,6 @@ public partial class WallPlaceableController : InventoryController
         if (cell is null) return false;
         if (!cell.IsBreakable || !cell.IsBroken || !cell.IsRevealed)
         {
-            GD.Print($"Cell eligibility is false");
             return false;
         }
 

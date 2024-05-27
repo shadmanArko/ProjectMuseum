@@ -37,8 +37,7 @@ public partial class EquipableController : InventoryController
         SetProcess(false);
         GetAllMeleeEquipables();
         GetAllRangedEquipables();
-        GetAllPickaxeEquipables();
-        GD.PrintErr("Equipable Controller activated");
+        GetAllPickaxeEquipables(); 
     }
 
     private void InitializeDiReference()
@@ -113,7 +112,7 @@ public partial class EquipableController : InventoryController
             GD.PrintErr("ranged equipable is null in ranged equipable DTO");
             return;
         }
-        GD.PrintErr($"ranged count: {rangedEquipables.Count}");
+        
         _equipableDto.RangedEquipables = rangedEquipables;
     }
 
@@ -132,7 +131,6 @@ public partial class EquipableController : InventoryController
         string[] headers, byte[] body)
     {
         var jsonStr = Encoding.UTF8.GetString(body);
-        GD.PrintErr($"pickaxe list: {body}");
         var pickaxeEquipables = JsonSerializer.Deserialize<List<EquipablePickaxe>>(jsonStr);
         
         if (pickaxeEquipables == null)
@@ -140,7 +138,7 @@ public partial class EquipableController : InventoryController
             GD.PrintErr("pickaxe equipable is null in pickaxe equipable DTO");
             return;
         }
-        GD.PrintErr($"pickaxe count: {pickaxeEquipables.Count}");
+        
         _equipableDto.PickaxeEquipables = pickaxeEquipables;
     }
 
@@ -175,11 +173,9 @@ public partial class EquipableController : InventoryController
             case "Pickaxe":
                 MineActions.OnLeftMouseHeldActionStarted += DigActionStart;
                 MineActions.OnLeftMouseHeldActionEnded += DigActionEnd;
-                GD.Print("subscribed to pickaxe actions");
                 break;
             case "Melee":
                 MineActions.OnLeftMouseClickAction += MeleeActionStart;
-                GD.Print("subscribed to melee actions");
                 break;
             case "Ranged":
                 break;

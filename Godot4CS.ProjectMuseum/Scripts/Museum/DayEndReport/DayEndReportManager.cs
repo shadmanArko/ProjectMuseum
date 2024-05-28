@@ -18,6 +18,7 @@ public partial class DayEndReportManager : Node
 	private void DayEnded()
 	{
 		var dayEndReport = new MuseumDayEndReport();
+		dayEndReport.NumberOfTicketsSold = _ticketCounter.numberOfTicketsSold;
 		dayEndReport.TotalRevenueFromTickets = _ticketCounter.totalRevenueFromTickets;
 		dayEndReport.TotalDrinkRevenue = _shopManager.revenueFromDrinkSell;
 		dayEndReport.TotalFoodRevenue = _shopManager.revenueFromFoodSell;

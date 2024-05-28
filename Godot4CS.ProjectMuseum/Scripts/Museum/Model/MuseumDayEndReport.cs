@@ -4,6 +4,7 @@ public class MuseumDayEndReport
 {
 	private int _numberOfShopSales;
 	private float _totalRevenueFromShops;
+	public float NumberOfTicketsSold { get; set; }
 	public float TotalRevenueFromTickets { get; set; }
 	
 	public int NumberOfShopSales

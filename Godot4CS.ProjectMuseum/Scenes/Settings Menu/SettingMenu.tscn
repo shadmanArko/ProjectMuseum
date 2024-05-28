@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://rp4letc3x850"]
+[gd_scene load_steps=5 format=3 uid="uid://rp4letc3x850"]
 
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/SettingMenu.cs" id="1_3llg0"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="1_q5rr7"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="2_6jhkg"]
+[ext_resource type="PackedScene" uid="uid://bffmgqpet85vg" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="4_m68n7"]
 
 [node name="SettingMenu" type="Node" node_paths=PackedStringArray("_settingsMenuCanvasItem", "_exitButton")]
 script = ExtResource("1_3llg0")
@@ -343,86 +344,18 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer"]
 layout_mode = 2
+theme_override_constants/separation = 40
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
+theme_override_constants/separation = 10
 
-[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="HotkeyRebindButton" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("4_m68n7")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
 
-[node name="Label3" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="HotkeyRebindButton2" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("4_m68n7")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label4" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label5" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label6" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label7" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label8" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label9" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label10" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label11" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label12" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label13" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label14" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label15" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
-
-[node name="Label16" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GP1"
+action_name = "move_right"
 
 [node name="Button" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2

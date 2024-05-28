@@ -39,8 +39,8 @@
 process_mode = 1
 script = ExtResource("1_rq1hl")
 
-[node name="LoadingScene" parent="." node_paths=PackedStringArray("_hSlider", "_canvasLayer") instance=ExtResource("2_deqi7")]
-_hSlider = NodePath("CanvasLayer/Control/Panel/ColorRect/HSlider")
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_deqi7")]
+_progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
 _canvasLayer = NodePath("CanvasLayer")
 
 [node name="MineSceneInitializer" type="Node" parent="." node_paths=PackedStringArray("_rootNode")]
@@ -156,6 +156,9 @@ _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 visible = false
+offset_top = 104.0
+offset_right = 409.0
+offset_bottom = 459.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

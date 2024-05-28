@@ -24,9 +24,9 @@ public partial class FadeInAndOutUi : Control
 	private async void DayEndReportClosingButtonOnPressed()
 	{
 		_dayEndReportPanel.Visible = false;
+		await Task.Delay(200);
 		_timeUi.Visible = true;
 		await Task.Delay(1000);
-		await Task.Delay(700);
 		ChangeDay();
 		await Task.Delay(1000);
 		_animationPlayer.Play("Fade_Out");

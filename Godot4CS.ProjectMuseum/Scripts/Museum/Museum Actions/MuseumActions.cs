@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Model;
 using Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 using ProjectMuseum.Models;
 
@@ -123,6 +124,13 @@ public partial class MuseumActions : Node
 
     public static Action<Vector2I> OnCallForMuseumExpansion;
     public static Action OnMuseumExpanded;
+
+    #endregion
+
+    #region DayEnd
+
+    public static Action DayEnded;
+    public static Action<MuseumDayEndReport> DayEndReportGenerated;
 
     #endregion
 }

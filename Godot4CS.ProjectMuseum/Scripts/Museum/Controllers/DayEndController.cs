@@ -94,6 +94,7 @@ public partial class DayEndController : Node2D
 
 	private static void SleepAndSave()
 	{
+		MuseumActions.DayEnded?.Invoke();
 		MuseumActions.OnPlayerSavedGame?.Invoke();
 		MuseumActions.OnPlayerSleepAndSavedGame?.Invoke();
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=79 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://brfcw3x8aid8m" path="res://Scenes/Museum/Sub Scenes/FemaleGuest.tscn" id="32_m646v"]
 [ext_resource type="Script" path="res://Scripts/Museum/Tutorial System/TutorialSystem.cs" id="33_vs3ci"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/StoryCharacterController.cs" id="34_r65mj"]
+[ext_resource type="Script" path="res://Scripts/Museum/TicketCounter.cs" id="36_u6t42"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/TownController.cs" id="37_vwmma"]
 [ext_resource type="Texture2D" uid="uid://dlovykj6658ca" path="res://Assets/2D/Sprites/Backgrounds/Road Chunks/ROAD CHUNK 2 .png" id="38_0ce5p"]
 [ext_resource type="PackedScene" uid="uid://boje1emvyvbaj" path="res://Scenes/Museum/Sub Scenes/isomatric_forest_chunk.tscn" id="39_h6v45"]
@@ -75,6 +76,7 @@
 [ext_resource type="PackedScene" uid="uid://ukhmjsk0jnjt" path="res://Scenes/Museum/Sub Scenes/street_lamp.tscn" id="59_42wpc"]
 [ext_resource type="Script" path="res://Scripts/Museum/Controllers/DecorationsController.cs" id="62_bbh7l"]
 [ext_resource type="Script" path="res://Scripts/Museum/ShopSystem/ShopManager.cs" id="67_5udny"]
+[ext_resource type="Script" path="res://Scripts/Museum/DayEndReport/DayEndReportManager.cs" id="77_6snda"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -265,6 +267,7 @@ position = Vector2(147, -86)
 texture = ExtResource("48_piabe")
 hframes = 4
 frame = 1
+script = ExtResource("36_u6t42")
 
 [node name="WallsParent" type="Node2D" parent="museum"]
 z_index = 1
@@ -1100,3 +1103,8 @@ ItemsParent = NodePath("../museum/ItemParents")
 
 [node name="ShopManager" type="Node2D" parent="."]
 script = ExtResource("67_5udny")
+
+[node name="DayEndManager" type="Node2D" parent="." node_paths=PackedStringArray("_shopManager", "_ticketCounter")]
+script = ExtResource("77_6snda")
+_shopManager = NodePath("../ShopManager")
+_ticketCounter = NodePath("../museum/ItemParents/TicketCounter")

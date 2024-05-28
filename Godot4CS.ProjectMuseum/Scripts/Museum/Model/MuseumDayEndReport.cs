@@ -3,8 +3,8 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Model;
 public class MuseumDayEndReport
 {
 	private int _numberOfShopSales;
-	private int _totalRevenueFromShops;
-	public int TotalRevenueFromTickets { get; set; }
+	private float _totalRevenueFromShops;
+	public float TotalRevenueFromTickets { get; set; }
 	
 	public int NumberOfShopSales
 	{
@@ -16,14 +16,14 @@ public class MuseumDayEndReport
 	public int NumberOfFoodSales { get; set; }
 	public int NumberOfDrinkSales { get; set; }
     
-	public int TotalRevenueFromShops
+	public float TotalRevenueFromShops
 	{
 		get => TotalSouvenirRevenue + TotalFoodRevenue + TotalDrinkRevenue;
 		set => _totalRevenueFromShops = value;
 
 	}
     
-	public int TotalSouvenirRevenue { get; set; }
-	public int TotalFoodRevenue { get; set; }
-	public int TotalDrinkRevenue { get; set; }
+	public float TotalSouvenirRevenue { get; set; }
+	public float TotalFoodRevenue { get; set; }
+	public float TotalDrinkRevenue { get; set; }
 }

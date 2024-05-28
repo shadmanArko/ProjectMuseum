@@ -1,8 +1,12 @@
 using Godot;
 using System;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
+using ProjectMuseum.Models;
 using Time = ProjectMuseum.Models.Time;
 
 public partial class DayEndController : Node2D
@@ -11,15 +15,34 @@ public partial class DayEndController : Node2D
 	[Export] private int _saveSpotTileSourceId = 13;
 	[Export] private int _forcedDayEndHour = 23;
 	[Export] private int _forcedDayEndMinute = 30;
-
+	[Export] private int _forcedDayEndWarningHour = 22;
+	[Export] private int _forcedDayEndWarningMinute = 30;
 	private bool _endingDay = false;
+
+	private string _playerName = "";
+
+	private HttpRequest _httpRequestForGettingPlayerInfo;
     // Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
+		_httpRequestForGettingPlayerInfo = new HttpRequest();
+		AddChild(_httpRequestForGettingPlayerInfo);
+		_httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
+		_httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
 		MuseumActions.PlayerEnteredNewTile += PlayerEnteredNewTile;
 
 		MuseumActions.OnMuseumTilesUpdated +=  SetDayEndCell;
 		MuseumActions.OnTimeUpdated += OnTimeUpdated;
+	}
+
+	private void HttpRequestForGettingPlayerInfoOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+        string jsonStr = Encoding.UTF8.GetString(body);
+		GD.Print($"Got player Name {jsonStr}");
+		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+		_playerName = playerInfo.Name;
+		
+
 	}
 
 	private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
@@ -29,7 +52,10 @@ public partial class DayEndController : Node2D
 			_endingDay = true;
 			SleepAndSave();
 		}
-
+		if (hours == _forcedDayEndWarningHour && minutes == _forcedDayEndWarningMinute &&! _endingDay)
+		{
+			MuseumActions.OnNeedOfWarning?.Invoke($"It is getting late. {_playerName} will sleep soon.");
+		}
 		if (_endingDay && hours == _forcedDayEndHour && minutes == _forcedDayEndMinute)
 		{
 			_endingDay = false;
@@ -69,6 +95,7 @@ public partial class DayEndController : Node2D
 
 	private static void SleepAndSave()
 	{
+		MuseumActions.DayEnded?.Invoke();
 		MuseumActions.OnPlayerSavedGame?.Invoke();
 		MuseumActions.OnPlayerSleepAndSavedGame?.Invoke();
 	}
@@ -81,8 +108,11 @@ public partial class DayEndController : Node2D
 	public override void _ExitTree()
 	{
 		base._ExitTree();
+		_httpRequestForGettingPlayerInfo.RequestCompleted -= HttpRequestForGettingPlayerInfoOnRequestCompleted;
 		MuseumActions.PlayerEnteredNewTile -= PlayerEnteredNewTile;
+
 		MuseumActions.OnMuseumTilesUpdated -=  SetDayEndCell;
+		MuseumActions.OnTimeUpdated -= OnTimeUpdated;
 
 	}
 }

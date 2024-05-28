@@ -21,6 +21,8 @@ public partial class DecorationItem : Item
 	private Shop _shopData;
 	private List<Product> _allShopProducts;
 	private MuseumTileContainer _museumTileContainer;
+	public int numberOfProductsSold = 0;
+	public float totalRevenue = 0;
 	public override void _Ready()
 	{
 		base._Ready();

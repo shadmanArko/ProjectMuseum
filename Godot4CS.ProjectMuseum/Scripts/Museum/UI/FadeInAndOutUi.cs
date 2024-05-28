@@ -7,6 +7,8 @@ public partial class FadeInAndOutUi : Control
 {
 	[Export] private AnimationPlayer _animationPlayer;
 	[Export] private Label _timeUi;
+	[Export] private Control _dayEndReportPanel;
+	[Export] private Button _dayEndReportClosingButton;
 
 	private int _lastSavedDay;
 	private int _lastSavedMonth;
@@ -16,6 +18,18 @@ public partial class FadeInAndOutUi : Control
 	{
 		MuseumActions.OnPlayerSleepAndSavedGame += PlayFadeInAndOut;
 		MuseumActions.OnTimeUpdated += OnTimeUpdated;
+		_dayEndReportClosingButton.Pressed += DayEndReportClosingButtonOnPressed;
+	}
+
+	private async void DayEndReportClosingButtonOnPressed()
+	{
+		_dayEndReportPanel.Visible = false;
+		await Task.Delay(200);
+		_timeUi.Visible = true;
+		await Task.Delay(1000);
+		ChangeDay();
+		await Task.Delay(1000);
+		_animationPlayer.Play("Fade_Out");
 	}
 
 	private void OnTimeUpdated(int minutes, int hours, int days, int months, int years)
@@ -34,11 +48,7 @@ public partial class FadeInAndOutUi : Control
 	async void PlayFadeInAndOut()
 	{
 		_animationPlayer.Play("Fade_In");
-		await Task.Delay(1000);
-		await Task.Delay(700);
-		ChangeDay();
-		await Task.Delay(1000);
-		_animationPlayer.Play("Fade_Out");
+		
 	}
 
 	private void ChangeDay()

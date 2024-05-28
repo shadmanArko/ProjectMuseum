@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgnrj8tqnh8sc"]
+[gd_scene load_steps=12 format=3 uid="uid://dgnrj8tqnh8sc"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/FadeInAndOutUi.cs" id="1_d06o6"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_u8jc8"]
 [ext_resource type="Texture2D" uid="uid://dggwn6fbxefyq" path="res://Assets/2D/Sprites/Museum Ui/Untitled_7.png" id="3_hvx4a"]
+[ext_resource type="Theme" uid="uid://buxos2wmpbr3k" path="res://Themes/Museum ui Light White.tres" id="4_1f1pu"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/DayEndReportPanel.cs" id="4_ypx5v"]
 
 [sub_resource type="Gradient" id="Gradient_tmpn5"]
 interpolation_mode = 1
@@ -168,7 +170,7 @@ libraries = {
 "": SubResource("AnimationLibrary_iyjcu")
 }
 
-[node name="Day end Report Panel" type="Panel" parent="."]
+[node name="Day end Report Panel" type="Panel" parent="." node_paths=PackedStringArray("_numberOfTicketsSold", "_totalRevenueFromTickets", "_numberOfShopSales", "_souvenirSales", "_foodSales", "_drinksSales", "_totalRevenueFromShops", "_souvenirRevenue", "_foodRevenue", "_drinksRevenue")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -181,6 +183,17 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_hlwhb")
+script = ExtResource("4_ypx5v")
+_numberOfTicketsSold = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number Of Tickets sold/MarginContainer/Panel/Number of Tickets Sold")
+_totalRevenueFromTickets = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Tickets/MarginContainer/Panel/Total Revenue from Tickets")
+_numberOfShopSales = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number of Shop Sales/MarginContainer/Panel/Number of Shop Sales")
+_souvenirSales = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Sales/MarginContainer/Panel/Souvenir Sales")
+_foodSales = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Sales/MarginContainer/Panel/Food Sales")
+_drinksSales = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Sales/MarginContainer/Panel/Drinks Sales")
+_totalRevenueFromShops = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Shops/MarginContainer/Panel/Total Revenue from Shops")
+_souvenirRevenue = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Revenue/MarginContainer/Panel/Souvenir Revenue")
+_foodRevenue = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Revenue/MarginContainer/Panel/Food Revenue")
+_drinksRevenue = NodePath("MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Revenue/MarginContainer/Panel/Drinks Revenue")
 
 [node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel"]
 layout_mode = 1
@@ -224,3 +237,513 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 text = "X"
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1070, 800)
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 30
+
+[node name="ColorRect" type="ColorRect" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+color = Color(0.560955, 0.560955, 0.560955, 0.14902)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Number Of Tickets sold" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number Of Tickets sold"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number Of Tickets sold/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number Of Tickets sold/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Number of Tickets Sold: . . . . . . . . . . . . . .  . . . . ."
+
+[node name="Number of Tickets Sold" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number Of Tickets sold/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Total Revenue from Tickets" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Tickets"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Tickets/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Tickets/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Total Revenue from Tickets: . . . . . . . . . . . . . . . ."
+
+[node name="Total Revenue from Tickets" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Tickets/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Number of Shop Sales" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number of Shop Sales"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number of Shop Sales/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number of Shop Sales/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Number of Shop Sales: . . . . . . . . . . . . . . . . . . . ."
+
+[node name="Number of Shop Sales" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Number of Shop Sales/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Souvenir Sales" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Sales"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Sales/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Sales/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Souvenir Sales: . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+
+[node name="Souvenir Sales" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Sales/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Food Sales" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Sales"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Sales/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Sales/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Food Sales: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+
+[node name="Food Sales" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Sales/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Drinks Sales" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Sales"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Sales/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Sales/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Drinks Sales: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+
+[node name="Drinks Sales" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Sales/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Total Revenue from Shops" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Shops"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Shops/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Shops/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Total Revenue from Shops: . . . . . . . . . . . . . . . . "
+
+[node name="Total Revenue from Shops" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Total Revenue from Shops/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Souvenir Revenue" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Revenue"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Revenue/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Revenue/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Souvenir Revenue: . . . . . . . . . . . . . . . . . . . . . . . ."
+
+[node name="Souvenir Revenue" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Souvenir Revenue/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Food Revenue" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Revenue"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Revenue/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Revenue/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Food Revenue: . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+
+[node name="Food Revenue" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Food Revenue/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Drinks Revenue" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Revenue"]
+layout_mode = 2
+offset_right = 826.0
+offset_bottom = 70.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Revenue/MarginContainer"]
+custom_minimum_size = Vector2(960.045, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Revenue/MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 13.0
+offset_right = 849.0
+offset_bottom = 57.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "Drinks Revenue: . . . . . . . . . . . . . . . . . . . . . . . . . ."
+
+[node name="Drinks Revenue" type="Label" parent="Day end Report Panel/MarginContainer/VBoxContainer/MarginContainer/ColorRect/VBoxContainer/Drinks Revenue/MarginContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.045
+offset_top = -22.0
+offset_right = -0.0449829
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("4_1f1pu")
+theme_override_font_sizes/font_size = 32
+text = "00X"
+horizontal_alignment = 2
+vertical_alignment = 1

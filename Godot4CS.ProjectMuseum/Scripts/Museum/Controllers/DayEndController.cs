@@ -28,7 +28,7 @@ public partial class DayEndController : Node2D
 		_httpRequestForGettingPlayerInfo = new HttpRequest();
 		AddChild(_httpRequestForGettingPlayerInfo);
 		_httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
-		_httpRequestForGettingPlayerInfo.Request(ApiAddress.MuseumApiPath + "GetPlayerInfo");
+		_httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
 		MuseumActions.PlayerEnteredNewTile += PlayerEnteredNewTile;
 
 		MuseumActions.OnMuseumTilesUpdated +=  SetDayEndCell;
@@ -37,10 +37,11 @@ public partial class DayEndController : Node2D
 
 	private void HttpRequestForGettingPlayerInfoOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
-		string jsonStr = Encoding.UTF8.GetString(body);
+        string jsonStr = Encoding.UTF8.GetString(body);
+		GD.Print($"Got player Name {jsonStr}");
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		_playerName = playerInfo.Name;
-		GD.Print($"Got player Name {_playerName}");
+		
 
 	}
 

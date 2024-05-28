@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -39,13 +40,13 @@ public partial class MiniGameController : Node2D
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnMiniGameLoad += LoadAlternateTapMiniGame;
+		MineActions.OnMiniGameLoad += LoadMiniGame;
 		MineActions.OnMiniGameWon += MiniGameWon;
 		MineActions.OnMiniGameLost += MiniGameLost;
 	}
 	
 
-	private void LoadAlternateTapMiniGame(Vector2I cellPos)
+	private void LoadMiniGame(Vector2I cellPos)
 	{
 		CeasePlayerMovementDuringMiniGame();
 		var mineTutorial = ReferenceStorage.Instance.MineTutorial;
@@ -75,7 +76,8 @@ public partial class MiniGameController : Node2D
 	
 	private void MiniGameLost()
 	{
-		_playerControllerVariables.Player.AnimationController.PlayAnimation("idle");
+		var animationToPlay = _playerControllerVariables.State == MotionState.Hanging ? "climb_idle" : "idle";
+		_playerControllerVariables.Player.AnimationController.PlayAnimation(animationToPlay);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
 	}
@@ -117,7 +119,7 @@ public partial class MiniGameController : Node2D
 
 	public override void _ExitTree()
 	{
-		MineActions.OnMiniGameLoad -= LoadAlternateTapMiniGame;
+		MineActions.OnMiniGameLoad -= LoadMiniGame;
 		MineActions.OnMiniGameWon -= MiniGameWon;
 		MineActions.OnMiniGameLost -= MiniGameLost;
 	}

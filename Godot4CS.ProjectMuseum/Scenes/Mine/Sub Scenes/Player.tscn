@@ -660,8 +660,12 @@ _alternateButtonPressMiniGameScenePath = "res://Scenes/Mine/Sub Scenes/MiniGames
 [node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource("5_0x0fh")
 
-[node name="PlayerEnemyCollisionDetector" type="Node2D" parent="." node_paths=PackedStringArray("_collisionShape2D", "_animationPlayer")]
+[node name="PlayerEnemyCollisionDetector" type="Node2D" parent="." node_paths=PackedStringArray("_leftAttackDetector", "_rightAttackDetector", "_topAttackDetector", "_bottomAttackDetector", "_collisionShape2D", "_animationPlayer")]
 script = ExtResource("7_3m1a8")
+_leftAttackDetector = NodePath("../LeftAttackDetector")
+_rightAttackDetector = NodePath("../RightAttackDetector")
+_topAttackDetector = NodePath("../TopAttackDetector")
+_bottomAttackDetector = NodePath("../BottomAttackDetector")
 _collisionShape2D = NodePath("../Item Detector/Item Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
@@ -732,8 +736,8 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_skedj")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="body_entered" from="Item Stasher" to="Item Detector" method="OnBodyEnterStashArea"]
 [connection signal="body_entered" from="Item Detector" to="Item Detector" method="OnBodyEntered"]
 [connection signal="body_exited" from="Item Detector" to="Item Detector" method="OnBodyExited"]

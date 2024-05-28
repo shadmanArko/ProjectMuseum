@@ -35,8 +35,7 @@ public partial class Slime : Enemy
     #endregion
 
     [Export] private bool _isInsideMine;
-
-    [Export] private int _idleCount;
+    
 
     #region Initializers
 
@@ -109,26 +108,19 @@ public partial class Slime : Enemy
     {
         if(!IsAggro) Phase = EnemyPhase.Explore;
 
-        if (_idleCount > 0)
+        switch (Phase)
         {
-            await PlayIdleAnimation();
-            _idleCount--;
+            case EnemyPhase.Explore:
+                await Explore();
+                break;
+            case EnemyPhase.Chase:
+                await Chase();
+                break;
+            case EnemyPhase.Combat:
+                Attack();
+                break;
         }
-        else
-        {
-            switch (Phase)
-            {
-                case EnemyPhase.Explore:
-                    await Explore();
-                    break;
-                case EnemyPhase.Chase:
-                    await Chase();
-                    break;
-                case EnemyPhase.Combat:
-                    Attack();
-                    break;
-            }
-        }
+
     }
 
     #endregion
@@ -239,14 +231,16 @@ public partial class Slime : Enemy
         if (!IsAggro)
         {
             AnimationController.PlayAnimation("aggro");
+            IsMoving = false;
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
+            IsMoving = true;
         }
+        
+        GD.Print();
 
         var posToGo = _enemyAi.CheckForPathValidity(Position);
-        var currentAnim = AnimationController.CurrentAnimation;
         if (posToGo == Vector2.Zero)
         {
-            // await Teleport();
             AnimationController.PlayAnimation("idle");
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
             Phase = EnemyPhase.Explore;
@@ -325,8 +319,6 @@ public partial class Slime : Enemy
         AnimationController.MoveDirection(lookAtPlayer);
         AnimationController.PlayAnimation("attack");
         MineActions.OnTakeDamageStarted?.Invoke(10);
-        _idleCount = 1;
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsMoving = true;
     }
 
@@ -348,11 +340,9 @@ public partial class Slime : Enemy
     private async void EnemyDamageAnimation()
     {
         AnimationController.PlayAnimation("damage");
+        IsMoving = false;
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsTakingDamage = false;
-        _idleCount = 2;
-        IsMoving = false;
-        // if(Health <= 0) Death();
         IsMoving = true;
     }
 

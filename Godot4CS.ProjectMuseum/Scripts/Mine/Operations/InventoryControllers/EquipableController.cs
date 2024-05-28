@@ -86,7 +86,7 @@ public partial class EquipableController : InventoryController
             GD.PrintErr("melee equipable is null in melee equipable DTO");
             return;
         }
-        GD.PrintErr($"Melee count: {meleeEquipables.Count}");
+        
         _equipableDto.MeleeEquipables = meleeEquipables;
     }
 
@@ -161,6 +161,7 @@ public partial class EquipableController : InventoryController
         IsControllerActivated = false;
         MineActions.OnLeftMouseHeldActionEnded?.Invoke();
         UnsubscribeToActions();
+        GD.Print("DEACTIVATING EQUIPABLE CONTROLLER");
         MineActions.OnInventoryUpdate?.Invoke();
     }
 
@@ -171,6 +172,7 @@ public partial class EquipableController : InventoryController
         switch (_inventoryItem.Category)
         {
             case "Pickaxe":
+                GD.Print("SUBSCRIBING TO PICKAXE ACTIONS");
                 MineActions.OnLeftMouseHeldActionStarted += DigActionStart;
                 MineActions.OnLeftMouseHeldActionEnded += DigActionEnd;
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
@@ -226,8 +228,6 @@ public partial class EquipableController : InventoryController
     private void DigActionStart()
     {
         _playerControllerVariables.IsDigging = true;
-        // GD.PrintErr($"equipableDTO pickaxe is null: {_equipableDto.PickaxeEquipables == null}");
-        // GD.PrintErr($"pickaxe list count: {_equipableDto.PickaxeEquipables.Count}");
         
         var pickAxe = _equipableDto.PickaxeEquipables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
         _playerControllerVariables.CellDamagePoint = pickAxe!.Damage;

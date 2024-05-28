@@ -90,19 +90,16 @@ public partial class CampToMineTransition : Button
             HealthSystem.RestorePlayerFullHealth(_playerControllerVariables);
             EnergySystem.RestoreFullEnergy(_playerControllerVariables);
             _autoAnimationController.SetPlayerRun();
-            _playerControllerVariables.CurrentEquippedItemSlot = 1;
         }
         else
         {
             mineTimeSystem.StartNextDayMineExcavation();
-            _playerControllerVariables.CurrentEquippedItemSlot = 1;
         }
     }
 
     private void TransitionFromCampToMineOnTheSameDay()
     {
         _autoAnimationController.SetPlayerRun();
-        _playerControllerVariables.CurrentEquippedItemSlot = 1;
     }
 
     private async void TransitFromCampToMuseum()

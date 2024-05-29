@@ -9,12 +9,14 @@ public partial class AnimationController : AnimationPlayer
 {
 	private PlayerControllerVariables _playerControllerVariables;
 
+	[Export] private AudioStreamPlayer2D _audioStreamPlayer2D;
 	[Export] private Sprite2D _sprite;
 
 	#region Initializers
 
 	public override void _Ready()
 	{
+		//_audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("");
 		InitializeDiReferences();
 		SubscribeToActions();
 	}
@@ -120,7 +122,8 @@ public partial class AnimationController : AnimationPlayer
 	private void OnDigAnimationEnded(string animName)
 	{
 		if(!animName.Contains("mining") && !animName.Contains("climb_mine")) return;
-		
+		//todo add sound
+		_audioStreamPlayer2D.Play();
 		MineActions.OnDigActionEnded?.Invoke();
 	}
 

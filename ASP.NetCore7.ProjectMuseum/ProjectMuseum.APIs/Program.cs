@@ -25,6 +25,7 @@ using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.RawArtifactRepo
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.ResourceRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SiteArtifactRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.SpecialBackdropRepository;
+using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.VineInformationRepository;
 using ProjectMuseum.Repositories.MineRepository.Sub_Repositories.WallPlaceableRepository;
 using ProjectMuseum.Repositories.MiscellaneousDataRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
@@ -61,6 +62,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService.RawArti
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SiteArtifactChanceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
+using ProjectMuseum.Services.MineService.Sub_Services.VineInformationService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
 using ProjectMuseum.Services.MiscellaneousDataService;
 using ProjectMuseum.Services.MuseumService;
@@ -236,6 +238,7 @@ builder.Services.AddScoped<IArtifactScoreRepository, ArtifactScoreRepository>();
 builder.Services.AddScoped<IArtifactThemeMatchingTagCountRepo, ArtifactThemeMatchingTagCountRepo>();
 builder.Services.AddScoped<IEquipableRepository, EquipableRepository>();
 builder.Services.AddScoped<ICellPlaceableRepository, CellPlaceableRepository>();
+builder.Services.AddScoped<IVineInformationRepository, VineInformationRepository>();
 
 
 
@@ -276,6 +279,7 @@ builder.Services.AddScoped<IArtifactConditionService, ArtifactConditionService>(
 builder.Services.AddScoped<IArtifactRarityService, ArtifactRarityService>();
 builder.Services.AddScoped<IEquipableService, EquipableService>();
 builder.Services.AddScoped<ICellPlaceableService, CellPlaceableService>();
+builder.Services.AddScoped<IVineInformationService, VineInformationService>();
 
 
 

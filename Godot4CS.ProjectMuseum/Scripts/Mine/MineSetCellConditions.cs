@@ -38,6 +38,22 @@ public static class MineSetCellConditions
             var tilePos = mineGenView.LocalToMap(pos);
             mineGenView.SetCell(SpecialBackdropLayer,tilePos,specialBackdrop.SourceId, new Vector2I(0,0));
         }
+
+        var vineBackdrops = mineGenerationVariables.Mine.VineInformations;
+        foreach (var vineBackdrop in vineBackdrops)
+        {
+            GD.Print($"vine id: {vineBackdrop.SourceId}");
+            foreach (var vineCellId in vineBackdrop.VineCellPositions)
+            {
+                
+                var cell = cells.FirstOrDefault(tempCell => tempCell.Id == vineCellId);
+                if(cell == null) continue;
+                GD.Print($"vine pos: {cell.PositionX}, {cell.PositionY}");
+                var pos = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
+                var tilePos = mineGenView.LocalToMap(pos);
+                mineGenView.SetCell(SpecialBackdropLayer,tilePos,7, new Vector2I(0,0));
+            }
+        }
     }
     
     public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationVariables mineGenerationVariables)

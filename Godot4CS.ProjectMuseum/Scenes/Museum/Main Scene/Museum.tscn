@@ -125,7 +125,7 @@ Maxzoom = 4.0
 
 [node name="Fade In and Out Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_animationPlayer", "_timeUi", "_dayEndReportPanel", "_dayEndReportClosingButton") instance=ExtResource("13_bhjmc")]
 z_index = 8
-mouse_filter = 1
+mouse_filter = 2
 _animationPlayer = NodePath("AnimationPlayer")
 _timeUi = NodePath("Label")
 _dayEndReportPanel = NodePath("Day end Report Panel")
@@ -301,7 +301,7 @@ z_index = -1
 y_sort_enabled = true
 
 [node name="chunk (0, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(359, -334)
+position = Vector2(349, -296)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(0, -20)
 _allChunks = [NodePath("."), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
@@ -309,70 +309,70 @@ _neighbourChunks = [NodePath("../chunk (0, -40)"), NodePath("../chunk (-18, -20)
 _firstNeighbourOfMuseum = true
 
 [node name="chunk (0, -40)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(693, -502)
+position = Vector2(669, -456.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(0, -40)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("."), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -40))")]
 
 [node name="chunk (0, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(1037, -656)
+position = Vector2(989, -617.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(0, -60)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("."), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (0, -40)"), NodePath("../chunk (-18, -60)")]
 
 [node name="chunk (-18, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(71, -478.5)
+position = Vector2(59, -440)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-18, -20)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("."), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-18, -40))")]
 
 [node name="chunk (-18, -40))" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(405, -646.5)
+position = Vector2(380, -600.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-18, -40)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("."), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (-36, -40)"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (0, -40)")]
 
 [node name="chunk (-18, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(749, -800.5)
+position = Vector2(700, -761.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-18, -60)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("."), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (-36, -60)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -40))")]
 
 [node name="chunk (-36, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(-219, -622)
+position = Vector2(-230, -584)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-36, -20)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("."), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (-54, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-36, 0)")]
 
 [node name="chunk (-36, -40)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(117, -791)
+position = Vector2(90, -744)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-36, -40)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("."), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (-54, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-36, -20)")]
 
 [node name="chunk (-36, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(461, -945)
+position = Vector2(411, -905)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-36, -60)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("."), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (-54, -60)"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -40)")]
 
 [node name="chunk (-54, -20)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(-507, -766.5)
+position = Vector2(-521, -726.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-54, -20)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("."), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 _neighbourChunks = [NodePath("../chunk (-54, -40)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-54, 0)")]
 
 [node name="chunk (-18, 0)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(-300, -344.5)
+position = Vector2(-263, -280)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-18, 0)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("."), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
@@ -380,25 +380,25 @@ _neighbourChunks = [NodePath("../chunk (-18, -20)"), NodePath("../chunk (-36, 0)
 _firstNeighbourOfMuseum = true
 
 [node name="chunk (-36, 0)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(-588, -489)
+position = Vector2(-552, -424)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-36, 0)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("."), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 
 [node name="chunk (-54, 0)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(-876, -632.5)
+position = Vector2(-841, -567.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-54, 0)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("."), NodePath("../chunk (-54, -40)"), NodePath("../chunk (-54, -60)")]
 
 [node name="chunk (-54, -40)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(-171, -935.5)
+position = Vector2(-199, -886.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-54, -40)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("."), NodePath("../chunk (-54, -60)")]
 
 [node name="chunk (-54, -60)" parent="museum/Background elements affected by light" node_paths=PackedStringArray("_expansionButton", "_allChunks") instance=ExtResource("39_h6v45")]
-position = Vector2(173, -1089.5)
+position = Vector2(123, -1046.5)
 _expansionButton = NodePath("Control/Button")
 expansionOrigin = Vector2i(-54, -60)
 _allChunks = [NodePath("../chunk (0, -20)"), NodePath("../chunk (0, -40)"), NodePath("../chunk (0, -60)"), NodePath("../chunk (-18, -20)"), NodePath("../chunk (-18, -40))"), NodePath("../chunk (-18, -60)"), NodePath("../chunk (-36, -20)"), NodePath("../chunk (-36, -40)"), NodePath("../chunk (-36, -60)"), NodePath("../chunk (-54, -20)"), NodePath("../chunk (-18, 0)"), NodePath("../chunk (-36, 0)"), NodePath("../chunk (-54, 0)"), NodePath("../chunk (-54, -40)"), NodePath(".")]

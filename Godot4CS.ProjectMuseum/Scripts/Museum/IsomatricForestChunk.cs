@@ -114,11 +114,13 @@ public partial class IsomatricForestChunk : Sprite2D
 		if (_alreadyExpanded)
 		{
 			_expansionButton.Visible = false;
+			Visible = false;
 			return;
 		}
 		if (_firstNeighbourOfMuseum)
 		{
 			_expansionButton.Visible = true;
+			Visible = true;
 			return;
 		}
 		foreach (var neighbourChunk in _neighbourChunks)

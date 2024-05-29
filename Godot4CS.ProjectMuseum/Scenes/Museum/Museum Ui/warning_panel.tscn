@@ -75,6 +75,7 @@ offset_left = 2.0
 offset_top = 113.0
 offset_right = 502.0
 offset_bottom = 163.0
+mouse_filter = 2
 texture = ExtResource("1_dsrwm")
 
 [node name="MarginContainer" type="MarginContainer" parent="ColorRect"]

@@ -3,6 +3,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Mine.WallPlaceables;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
@@ -36,7 +37,7 @@ public partial class Slime : Enemy
 
     [Export] private bool _isInsideMine;
 
-    [Export] private int _idleCount;
+    // [Export] private int _idleCount;
 
     #region Initializers
 
@@ -109,25 +110,17 @@ public partial class Slime : Enemy
     {
         if(!IsAggro) Phase = EnemyPhase.Explore;
 
-        if (_idleCount > 0)
+        switch (Phase)
         {
-            await PlayIdleAnimation();
-            _idleCount--;
-        }
-        else
-        {
-            switch (Phase)
-            {
-                case EnemyPhase.Explore:
-                    await Explore();
-                    break;
-                case EnemyPhase.Chase:
-                    await Chase();
-                    break;
-                case EnemyPhase.Combat:
-                    Attack();
-                    break;
-            }
+            case EnemyPhase.Explore:
+                await Explore();
+                break;
+            case EnemyPhase.Chase:
+                await Chase();
+                break;
+            case EnemyPhase.Combat:
+                Attack();
+                break;
         }
     }
 
@@ -243,10 +236,8 @@ public partial class Slime : Enemy
         }
 
         var posToGo = _enemyAi.CheckForPathValidity(Position);
-        var currentAnim = AnimationController.CurrentAnimation;
         if (posToGo == Vector2.Zero)
         {
-            // await Teleport();
             AnimationController.PlayAnimation("idle");
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
             Phase = EnemyPhase.Explore;
@@ -325,8 +316,6 @@ public partial class Slime : Enemy
         AnimationController.MoveDirection(lookAtPlayer);
         AnimationController.PlayAnimation("attack");
         MineActions.OnTakeDamageStarted?.Invoke(10);
-        _idleCount = 1;
-        // await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsMoving = true;
     }
 
@@ -350,9 +339,7 @@ public partial class Slime : Enemy
         AnimationController.PlayAnimation("damage");
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsTakingDamage = false;
-        _idleCount = 2;
         IsMoving = false;
-        // if(Health <= 0) Death();
         IsMoving = true;
     }
 
@@ -518,6 +505,8 @@ public partial class Slime : Enemy
     private void OnLeftWallAreaCollisionEnter(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        var stalagmite = body as Stalagmite;
+        hasCollidedWithMine |= stalagmite != null;
         if (!hasCollidedWithMine) return;
         // GD.Print("has wall on the left enter, move direction = right");
         _hasWallOnLeft = true;
@@ -526,6 +515,8 @@ public partial class Slime : Enemy
     private void OnLeftWallAreaCollisionExit(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        var stalagmite = body as Stalagmite;
+        hasCollidedWithMine |= stalagmite != null;
         if (!hasCollidedWithMine) return;
         // GD.Print("has wall on the left exit, move direction = right");
         _hasWallOnLeft = false;

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -253,24 +254,32 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		
 	}
 
-	public void Death()
+	public async void Death()
 	{
 		if(_playerControllerVariables.PlayerHealth > 0) return;
 		if(_playerControllerVariables.IsDead) return;
+		_playerControllerVariables.IsDead = true;
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		AnimationController.Play("death");
 		_playerControllerVariables.CanMove = false;
+		_playerControllerVariables.CanAttack = false;
+		_playerControllerVariables.CanToggleClimb = false;
+		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.State = MotionState.Falling;
+		AnimationController.Play("death");
+		await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength * 1000));
+		SetPhysicsProcess(false);
+		MineActions.OnPlayerDead?.Invoke();
+		_ExitTree();
 	}
 
 	private void OnDeathAnimationFinished(string animName)
 	{
 		if(animName != "death") return;
-		_playerControllerVariables.IsDead = true;
 		SetPhysicsProcess(false);
-		MineActions.OnPlayerDead?.Invoke();
-		_ExitTree();
+		// MineActions.OnPlayerDead?.Invoke();
+		// _ExitTree();
 	}
 
 	public override void _ExitTree()

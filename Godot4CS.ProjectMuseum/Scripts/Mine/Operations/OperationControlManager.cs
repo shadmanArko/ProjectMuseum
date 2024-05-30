@@ -49,7 +49,8 @@ public partial class OperationControlManager : Node2D
 
     private void ActivateControllerBasedInItemType(int slot)
     {
-        if(_slot == slot) return;
+        // if(_slot == slot) return;
+        MineActions.DeselectAllInventoryControllers?.Invoke();
         _slot = slot;
         var inventoryItem = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);
         if (inventoryItem == null)

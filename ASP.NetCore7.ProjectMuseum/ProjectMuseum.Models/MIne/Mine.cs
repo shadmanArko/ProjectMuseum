@@ -7,6 +7,7 @@ public class Mine
     public List<Cell> Cells{ get; set; }
     public List<Resource> Resources { get; set; }
     public List<SpecialBackdropPngInformation> SpecialBackdropPngInformations { get; set; }
+    public List<VineInformation> VineInformations { get; set; }
     public List<Cave> Caves { get; set; }
     public List<WallPlaceable> WallPlaceables { get; set; }
     public List<CellPlaceable> CellPlaceables { get; set; }

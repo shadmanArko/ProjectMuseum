@@ -21,6 +21,7 @@ public partial class MineSceneDiInstaller : Node
 		ServiceRegistry.RegisterSingleton<ConsumableDTO>();
 		ServiceRegistry.RegisterSingleton<WallPlaceableDTO>();
 		ServiceRegistry.RegisterSingleton<CellPlaceableDTO>();
+		ServiceRegistry.RegisterSingleton<EquipableDTO>();
 		
 		ServiceRegistry.Initialize();
 	}

@@ -89,6 +89,7 @@ public partial class ArtifactFromMineToInventory : Node2D
         }
         GD.Print("instantiated resource item");
         artifactItem.InventoryItem = inventoryItem;
+        artifactItem.Artifact = artifact;
     }
 
     #endregion

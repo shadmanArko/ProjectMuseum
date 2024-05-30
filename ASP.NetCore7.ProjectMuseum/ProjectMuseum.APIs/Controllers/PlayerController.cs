@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.LoadAndSaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.WallPlaceableService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.PlayerInfoService;
 using ProjectMuseum.Services.PlayerService.Sub_Services.InventoryService;
 using ProjectMuseum.Services.PlayerService.Sub_Services.TimeService;
@@ -18,15 +19,17 @@ public class PlayerController : ControllerBase
     private readonly IPlayerInfoService _playerInfoService;
     private readonly IInventoryService _inventoryService;
     private readonly ITimeService _timeService;
+    private readonly IArtifactStorageService _artifactStorageService;
     
 
-    public PlayerController(ISaveService saveService, ILoadService loadService, IPlayerInfoService playerInfoService, IInventoryService inventoryService, ITimeService timeService)
+    public PlayerController(ISaveService saveService, ILoadService loadService, IPlayerInfoService playerInfoService, IInventoryService inventoryService, ITimeService timeService, IArtifactStorageService artifactStorageService)
     {
         _saveService = saveService;
         _loadService = loadService;
         _playerInfoService = playerInfoService;
         _inventoryService = inventoryService;
         _timeService = timeService;
+        _artifactStorageService = artifactStorageService;
     }
     [HttpPost("PostPlayerInfo")]
     public async Task<IActionResult> CreatePlayerInfo([FromBody] PlayerInfo playerInfo)
@@ -90,6 +93,13 @@ public class PlayerController : ControllerBase
     {
         await _inventoryService.SendAllArtifactsToArtifactStorage();
         return Ok();
+    }
+    
+    [HttpPut("SendAllArtifactsToArtifactStorage")]  //New
+    public async Task<IActionResult> SendAllArtifactsToArtifactStorage([FromBody] List<Artifact> artifacts)
+    {
+        var listOfArtifacts = await _artifactStorageService.AddListOfArtifacts(artifacts);
+        return Ok(listOfArtifacts);
     }
 
     [HttpGet("GetTime")]

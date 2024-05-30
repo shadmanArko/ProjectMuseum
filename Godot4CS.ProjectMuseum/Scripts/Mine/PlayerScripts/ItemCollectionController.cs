@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -12,19 +13,48 @@ public partial class ItemCollectionController : Area2D
 {
     private PlayerControllerVariables _playerControllerVariables;
     private InventoryDTO _inventoryDto;
-
     private InventoryManager _inventoryManager;
+
+    private List<ItemDrop> _itemDrops; 
+    private const int ItemStackLimit = 99;
+
+    #region Initializers
 
     public override void _Ready()
     {
         InitializeDiInstaller();
         _inventoryManager = ReferenceStorage.Instance.InventoryManager;
+        _itemDrops = new List<ItemDrop>();
     }
 
     private void InitializeDiInstaller()
     {
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+    }
+
+    #endregion
+
+    public override void _Process(double delta)
+    {
+        CheckIfDroppedItemsCanBeCollectable();
+    }
+
+    private void CheckIfDroppedItemsCanBeCollectable()
+    {
+        if (_itemDrops.Count <= 0)
+        {
+            GD.Print("no item inside item drop");
+            SetProcess(false);
+            return;
+        }
+        foreach (var drop in _itemDrops)
+        {
+            if(drop == null) continue;
+            var canBeCollected = CanItemBeCollected(drop.InventoryItem);
+            GD.Print($"{drop.InventoryItem.Variant} can be collected {canBeCollected}");
+            drop.SetPhysicsProcess(canBeCollected);
+        }
     }
 
     #region Item Collection Controller
@@ -40,51 +70,24 @@ public partial class ItemCollectionController : Area2D
         }
         
         GD.Print("Item inside collection area");
-        // var inventory = _inventoryDto.Inventory;
         var inventoryItem = item.InventoryItem;
-        
-        item.SetPhysicsProcess(true);
-        if (inventoryItem.IsStackable)
+        if (inventoryItem == null)
         {
-            AddItemAsStackable(item);
+            GD.PrintErr("Fatal error: Inventory item is null");
+            return;
         }
-        else
-        {
-            AddItemAsNonStackable(item);
-        }
-    }
 
-    private void AddItemAsStackable(ItemDrop item)
-    {
-        var inventoryItem = item.InventoryItem;
-        var inventory = _inventoryDto.Inventory;
-        var inventoryStack =
-            inventory.InventoryItems.FirstOrDefault(item1 => item1.Variant == inventoryItem.Variant);
-        if (inventoryStack != null)
+        var canBeCollected = CanItemBeCollected(inventoryItem);
+        if (!canBeCollected)
         {
-            item.SetPhysicsProcess(true);
-            GD.Print("Added item to stack");
+            GD.Print("CANNOT BE COLLECTED");
+            if(!_itemDrops.Contains(item))
+                _itemDrops.Add(item);
         }
         else
-        {
-            AddItemAsNonStackable(item);
-        }
+            item.SetPhysicsProcess(true);
         
-    }
-
-    private void AddItemAsNonStackable(ItemDrop item)
-    {
-        var inventoryItem = item.InventoryItem;
-        var inventory = _inventoryDto.Inventory;
-        if (_inventoryManager.HasFreeSlot())
-        {
-            item.SetPhysicsProcess(true);
-        }
-        else
-        {
-            item.SetPhysicsProcess(false);
-            GD.Print("inventory has no empty slot");
-        }
+        SetProcess(_itemDrops.Count >= 1);
     }
     
     private void OnBodyExited(Node2D body)
@@ -92,7 +95,9 @@ public partial class ItemCollectionController : Area2D
         var item = body as ItemDrop;
         if(item == null) return;
         GD.Print($"NOT PULLING ITEM TOWARDS PLAYER {item.InventoryItem.Variant}");
-        item.Sleeping = true;
+
+        _itemDrops.Remove(item);
+        item.SetPhysicsProcess(false);
     }
 
     #endregion
@@ -104,23 +109,53 @@ public partial class ItemCollectionController : Area2D
         GD.Print($"body name: {body.Name}");
         var item = body as ItemDrop;
         if(item == null) return;
-        var inventoryItem = item.InventoryItem;
         
-        if(!_inventoryManager.HasFreeSlot() && !inventoryItem.IsStackable) return;
+        var inventoryItem = item.InventoryItem;
         if (inventoryItem == null)
         {
             GD.PrintErr($"inventory item is null");
             return;
         }
+
+        var canBeCollected = CanItemBeCollected(inventoryItem);
+        if (!canBeCollected)
+        {
+            GD.Print("CANNOT BE STASHED");
+            item.SetPhysicsProcess(false);
+            return;
+        }
+
+        if (inventoryItem.Type == "Artifact")
+            _inventoryDto.Inventory.Artifacts.Add(item.Artifact);
         
         MineActions.OnCollectItemDrop?.Invoke(inventoryItem);
         GD.Print("Collecting inventory item");
+        _itemDrops.Remove(item);
         item.QueueFree();
     }
+
+    
 
     private void OnBodyExitStashArea(Node2D body)
     {
         
+    }
+
+    #endregion
+
+    #region Utilities
+
+    private bool CanItemBeCollected(InventoryItem inventoryItem)
+    {
+        var canBeCollected = _inventoryManager.HasFreeSlot();
+        if (!inventoryItem.IsStackable) return canBeCollected;
+        foreach (var tempItem in _inventoryDto.Inventory.InventoryItems)
+        {
+            if (tempItem.Variant != inventoryItem.Variant) continue;
+            canBeCollected = canBeCollected || tempItem.Stack < ItemStackLimit;
+        }
+
+        return canBeCollected;
     }
 
     #endregion

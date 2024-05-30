@@ -120,8 +120,8 @@ public partial class AutoAnimationController : Node2D
 		_playerControllerVariables.IsAffectedByGravity = true;
 		_playerControllerVariables.Gravity = 30f;
 		_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
-		_playerControllerVariables.CurrentEquippedItemSlot = 1;
 		
+		_playerControllerVariables.CurrentEquippedItemSlot = _playerControllerVariables.CurrentEquippedItemSlot;
 		var isTutorialPlaying = ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying();
 		var firstDayPassed = ReferenceStorage.Instance.MineTimeSystem.GetTime().Days > 1;
         
@@ -131,7 +131,6 @@ public partial class AutoAnimationController : Node2D
 		{
 			_playerControllerVariables.CanMoveLeftAndRight = true;
 			_playerControllerVariables.CanAttack = true;
-			_playerControllerVariables.CanBrush = true;
 			_playerControllerVariables.CanDig = true;
 			_playerControllerVariables.CanToggleClimb = true;
 		}

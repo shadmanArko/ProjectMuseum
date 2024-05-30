@@ -78,21 +78,23 @@ public partial class CampToMineTransition : Button
 
     private async void TransitFromCampToMineTheNextDay()
     {
-        GD.PrintErr("TransitFromCampToMine");
+        var mineTimeSystem = ReferenceStorage.Instance.MineTimeSystem;
         var sceneTransition = ReferenceStorage.Instance.SceneTransition;
         await sceneTransition.FadeIn();
         await Task.Delay(2000);
         await sceneTransition.FadeOut();
 
-        if (ReferenceStorage.Instance.MineTimeSystem.GetTime().Days <= 5)
+        if (mineTimeSystem.GetTime().Days <= 5)
         {
-            ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
+            mineTimeSystem.StartNextDayMineExcavation();
             HealthSystem.RestorePlayerFullHealth(_playerControllerVariables);
             EnergySystem.RestoreFullEnergy(_playerControllerVariables);
             _autoAnimationController.SetPlayerRun();
         }
         else
-            ReferenceStorage.Instance.MineTimeSystem.StartNextDayMineExcavation();
+        {
+            mineTimeSystem.StartNextDayMineExcavation();
+        }
     }
 
     private void TransitionFromCampToMineOnTheSameDay()

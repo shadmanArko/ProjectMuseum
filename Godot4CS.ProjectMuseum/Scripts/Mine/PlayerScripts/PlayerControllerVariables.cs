@@ -12,7 +12,6 @@ public class PlayerControllerVariables
 
     public bool CanMoveLeftAndRight;
     public bool CanAttack;
-    public bool CanBrush;
     public bool CanDig;
     public bool CanToggleClimb;
 
@@ -79,6 +78,16 @@ public class PlayerControllerVariables
 
     #endregion
 
+    #region Damage Points and Cooldown
+
+    public int EnemyDamagePoint;
+    public int CellDamagePoint;
+
+    public float EnemyHitCoolDown;
+    public float CellHitCoolDown;
+
+    #endregion
+
     #region Other Variables
 
     private int _currentEquippedItemSlot;
@@ -88,14 +97,14 @@ public class PlayerControllerVariables
         set
         {
             _currentEquippedItemSlot = value;
-            MineActions.DeselectAllInventoryControllers?.Invoke();
+            // MineActions.DeselectAllInventoryControllers?.Invoke();
             MineActions.OnToolbarSlotChanged?.Invoke(_currentEquippedItemSlot);
             
             if(_currentEquippedItemSlot == 0)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SwordSelected");
             else if(_currentEquippedItemSlot == 1)
                 MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PickaxeSelected");
-        }       
+        }
     }
 
     private Vector2 _position;

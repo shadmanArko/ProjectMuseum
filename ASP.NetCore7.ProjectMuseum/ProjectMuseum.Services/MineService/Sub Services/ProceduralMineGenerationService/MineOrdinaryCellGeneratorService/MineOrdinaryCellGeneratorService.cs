@@ -7,9 +7,7 @@ namespace ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerati
 
 public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorService
 {
-    // public int XSize = 49;
-    // public int YSize = 64;
-    // public int cellSize = 20;
+    private int _maxHitPoint = 40;
     private readonly IMineRepository _mineRepository;
     private readonly ICaveGeneratorRepository _caveGeneratorRepository;
 
@@ -85,7 +83,8 @@ public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorServic
         cell.IsInstantiated = false;
         cell.HasArtifact = false;
         cell.HasCave = false;
-        cell.HitPoint = 10000;
+        cell.MaxHitPoint = 100000;
+        cell.HitPoint = 100000;
     }
 
     private void CreateUnbreakableCell(Cell cell)
@@ -95,7 +94,8 @@ public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorServic
         cell.IsInstantiated = true;
         cell.HasArtifact = false;
         cell.HasCave = false;
-        cell.HitPoint = 10000;
+        cell.MaxHitPoint = 100000;
+        cell.HitPoint = 100000;
     }
 
     private void CreateBreakableCell(Cell cell)
@@ -106,6 +106,8 @@ public class MineOrdinaryCellGeneratorService : IMineOrdinaryCellGeneratorServic
         cell.IsRevealed = false;
         cell.HasArtifact = false;
         cell.HasCave = false;
-        cell.HitPoint = 4;
+        
+        cell.MaxHitPoint = _maxHitPoint;
+        cell.HitPoint = _maxHitPoint;
     }
 }

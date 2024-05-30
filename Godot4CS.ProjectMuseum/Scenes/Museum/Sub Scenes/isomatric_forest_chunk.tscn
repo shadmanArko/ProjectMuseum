@@ -28,7 +28,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="Control"]
-visible = false
 z_index = 20
 layout_mode = 1
 anchors_preset = -1
@@ -37,7 +36,7 @@ anchor_right = 1.5
 anchor_bottom = 1.0
 offset_left = -18.0
 offset_top = -59.0
-offset_right = -18.0
+offset_right = -35.0
 offset_bottom = -55.0
 grow_horizontal = 2
 grow_vertical = 2

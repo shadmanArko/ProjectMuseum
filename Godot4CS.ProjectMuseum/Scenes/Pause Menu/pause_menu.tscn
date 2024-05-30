@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="3_m1stg"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="4_33lpo"]
 [ext_resource type="PackedScene" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="4_hicjn"]
-[ext_resource type="PackedScene" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="5_sv46g"]
+[ext_resource type="PackedScene" uid="uid://bffmgqpet85vg" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="5_sv46g"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -15,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="pause_menu_button" type="Button" parent="."]
 custom_minimum_size = Vector2(100, 100)

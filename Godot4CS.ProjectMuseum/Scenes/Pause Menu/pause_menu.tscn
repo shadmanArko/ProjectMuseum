@@ -4,10 +4,11 @@
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu.gd" id="2_47s05"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="3_m1stg"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="4_33lpo"]
-[ext_resource type="PackedScene" uid="uid://ouhmqp7q5h10" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="4_hicjn"]
-[ext_resource type="PackedScene" uid="uid://bffmgqpet85vg" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="5_sv46g"]
+[ext_resource type="PackedScene" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="4_hicjn"]
+[ext_resource type="PackedScene" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="5_sv46g"]
 
 [node name="PauseMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -183,13 +184,10 @@ popup/item_0/text = "English"
 popup/item_1/text = "Bangla"
 popup/item_1/id = 1
 
-[node name="Audio" type="TabBar" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer" node_paths=PackedStringArray("_masterVolumeSlider", "_sfxVolumeSlider", "_musicVolumeSlider")]
+[node name="Audio" type="TabBar" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 script = ExtResource("3_m1stg")
-_masterVolumeSlider = NodePath("")
-_sfxVolumeSlider = NodePath("")
-_musicVolumeSlider = NodePath("")
 metadata/_tab_index = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Audio"]

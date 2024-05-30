@@ -7,3 +7,4 @@ extends Button
 func _on_pressed() -> void:
 	pause_menu.visible = true
 	pause_menu_button.visible = false
+	get_tree().paused = true

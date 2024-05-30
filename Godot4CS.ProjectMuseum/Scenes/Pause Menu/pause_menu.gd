@@ -13,6 +13,7 @@ extends ColorRect
 func _on_back_button_pressed() -> void:
 	pause_menu.visible = false
 	pause_menu_button.visible = true
+	get_tree().paused = false
 	
 
 

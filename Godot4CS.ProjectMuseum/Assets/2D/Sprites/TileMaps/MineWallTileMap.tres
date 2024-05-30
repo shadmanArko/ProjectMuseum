@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://fp1turhp7v3g"]
+[gd_resource type="TileSet" load_steps=20 format=3 uid="uid://fp1turhp7v3g"]
 
 [ext_resource type="Texture2D" uid="uid://ba1tjq5haf74d" path="res://Assets/2D/Sprites/Mine Sprites/Tiles/new new tiles/new new tiles.png" id="1_ydiuw"]
 [ext_resource type="Texture2D" uid="uid://bmdi1gwvqmabd" path="res://Assets/2D/Sprites/Mine Sprites/Artifact/Artifact.png" id="3_8pu6h"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cpq1rrmpv3vjv" path="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/Pipelines2.png" id="6_btdie"]
 [ext_resource type="Texture2D" uid="uid://d08uo58ouwhmg" path="res://Assets/2D/Sprites/Mine Sprites/Tiles/Mince Cracks/Cracks + Materials.png" id="7_d1vpi"]
 [ext_resource type="Texture2D" uid="uid://bn3cmxo53nkqd" path="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/TRex.png" id="7_k85dt"]
+[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Mine Sprites/Vine/vine.png" id="8_kb2d7"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vwjl6"]
 polygon = PackedVector2Array(-10, -10, -8.75, -8.75, 8.75, -8.75, 10, -10, 8.75, -8.75, 8.75, 8.75, 10, 10, 8.75, 8.75, -8.75, 8.75, -10, 10, -8.75, 8.75, -8.75, -8.75)
@@ -298,6 +299,11 @@ texture_region_size = Vector2i(20, 20)
 0:0/size_in_atlas = Vector2i(9, 5)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_haruc"]
+texture = ExtResource("8_kb2d7")
+texture_region_size = Vector2i(20, 20)
+0:0/0 = 0
+
 [resource]
 tile_size = Vector2i(20, 20)
 occlusion_layer_0/light_mask = 1
@@ -311,4 +317,5 @@ sources/3 = SubResource("TileSetAtlasSource_s3arw")
 sources/4 = SubResource("TileSetAtlasSource_orkkq")
 sources/5 = SubResource("TileSetAtlasSource_tnwe4")
 sources/6 = SubResource("TileSetAtlasSource_o2wxc")
+sources/7 = SubResource("TileSetAtlasSource_haruc")
 tile_proxies/coords_level = [[4, Vector2i(0, 0)], [5, Vector2i(0, 0)], [4, Vector2i(1, 0)], [5, Vector2i(1, 0)], [4, Vector2i(2, 0)], [5, Vector2i(2, 0)], [4, Vector2i(3, 0)], [5, Vector2i(3, 0)], [4, Vector2i(4, 0)], [5, Vector2i(4, 0)]]

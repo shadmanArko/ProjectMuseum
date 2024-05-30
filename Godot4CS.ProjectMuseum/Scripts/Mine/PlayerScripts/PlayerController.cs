@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -14,6 +14,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	[Export] public AnimationController AnimationController;
 
 	private PlayerControllerVariables _playerControllerVariables;
+	private MineGenerationVariables _mineGenerationVariables;
 
 	[Export] private float _maxVerticalVelocity;
 	[Export] private float _fallTime;
@@ -21,8 +22,6 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	
 	[Export(PropertyHint.Range, "1,200,1")]
 	public int MovementFactor = 100;
-
-	[Export] public Area2D ItemDetector;
 
 	#region Initializers
 
@@ -38,7 +37,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	private void InitializeDiReferences()
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-		ServiceRegistry.Resolve<MineGenerationVariables>();
+		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 		_playerControllerVariables.Player = this;
 	}
 
@@ -47,6 +46,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		MineActions.OnSuccessfulDigActionCompleted += ReducePlayerEnergy;
 		MineActions.OnPlayerHealthValueChanged += Death;
 		MineActions.OnTakeDamageStarted += TakeDamage;
+		MineActions.OnPlayerPositionUpdated += OnPlayerClimbingVine;
 	}
 
 	#endregion
@@ -188,14 +188,11 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		{
 			AnimationController.PlayAnimation("climb_to_idle");
 			_playerControllerVariables.State = MotionState.Falling;
-			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed / 2;
-			MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ToggleGrab");
 		}
 		else
 		{
 			AnimationController.PlayAnimation("idle_to_climb");
 			_playerControllerVariables.State = MotionState.Hanging;
-			_playerControllerVariables.Acceleration = PlayerControllerVariables.MaxSpeed;
 			MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("ToggleGrab");
 		}
 		
@@ -239,6 +236,20 @@ public partial class PlayerController : CharacterBody2D, IDeath
 
 	#endregion
 
+	private void OnPlayerClimbingVine()
+	{
+		if(_playerControllerVariables.State != MotionState.Hanging) return;
+		var vineInfos = _mineGenerationVariables.Mine.VineInformations;
+		var currentCellPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
+		var cell = _mineGenerationVariables.GetCell(currentCellPos);
+		if(cell == null) return;
+		
+		var playerHangingOnVine = vineInfos.Any(vineInfo =>
+			vineInfo.VineCellPositions.Any(vineId => vineId == cell.Id));
+		_playerControllerVariables.Acceleration = playerHangingOnVine ? 
+			PlayerControllerVariables.MaxSpeed : PlayerControllerVariables.MaxSpeed / 2;
+	}
+
 	private void TakeDamage(int damageValue)
 	{
 		if(_playerControllerVariables.IsDead) return;
@@ -254,38 +265,37 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		
 	}
 
-	public async void Death()
+	public void Death()
 	{
 		if(_playerControllerVariables.PlayerHealth > 0) return;
 		if(_playerControllerVariables.IsDead) return;
-		_playerControllerVariables.IsDead = true;
 		var velocity = Velocity;
 		velocity.X = 0;
 		Velocity = velocity;
-		_playerControllerVariables.CanMove = false;
-		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanToggleClimb = false;
-		_playerControllerVariables.CanDig = false;
-		_playerControllerVariables.State = MotionState.Falling;
 		AnimationController.Play("death");
-		await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength * 1000));
-		SetPhysicsProcess(false);
-		MineActions.OnPlayerDead?.Invoke();
-		_ExitTree();
+		_playerControllerVariables.CanMove = false;
 	}
 
 	private void OnDeathAnimationFinished(string animName)
 	{
 		if(animName != "death") return;
+		_playerControllerVariables.IsDead = true;
 		SetPhysicsProcess(false);
-		// MineActions.OnPlayerDead?.Invoke();
-		// _ExitTree();
+		MineActions.OnPlayerDead?.Invoke();
+		_ExitTree();
+	}
+	
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnSuccessfulDigActionCompleted -= ReducePlayerEnergy;
+		MineActions.OnPlayerHealthValueChanged -= Death;
+		MineActions.OnTakeDamageStarted -= TakeDamage;
+		MineActions.OnPlayerPositionUpdated -= OnPlayerClimbingVine;
 	}
 
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		MineActions.OnSuccessfulDigActionCompleted -= ReducePlayerEnergy;
-		MineActions.OnPlayerHealthValueChanged -= Death;
+		UnsubscribeToActions();
 	}
 }

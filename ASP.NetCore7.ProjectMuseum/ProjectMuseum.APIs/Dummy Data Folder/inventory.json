@@ -30,7 +30,7 @@
         "Category": "Health",
         "Variant": "HealthPotion",
         "IsStackable": true,
-        "Stack": 5,
+        "Stack": 34,
         "Slot": 2,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
       },
@@ -41,7 +41,7 @@
         "Category": "Energy",
         "Variant": "EnergyPotion",
         "IsStackable": true,
-        "Stack": 5,
+        "Stack": 25,
         "Slot": 3,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
       },
@@ -52,13 +52,42 @@
         "Category": "Torch",
         "Variant": "FireTorch",
         "IsStackable": true,
-        "Stack": 5,
+        "Stack": 23,
         "Slot": 4,
         "PngPath": "res://Assets/firetorch.png"
+      },
+      {
+        "Id": "4",
+        "Name": "Dynamite",
+        "Type": "CellPlaceable",
+        "Category": "Explosive",
+        "Variant": "Dynamite",
+        "IsStackable": true,
+        "Stack": 50,
+        "Slot": 5,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png"
+      },
+      {
+        "Id": "5",
+        "Name": "Down Drill",
+        "Type": "CellPlaceable",
+        "Category": "Drill",
+        "Variant": "DownDrill",
+        "IsStackable": true,
+        "Stack": 50,
+        "Slot": 6,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreEnabled.png"
       }
     ],
     "Artifacts": [],
-    "OccupiedSlots": [0,1,2,3,4],
+    "OccupiedSlots": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
     "SlotsUnlocked": 12
   }
 ]

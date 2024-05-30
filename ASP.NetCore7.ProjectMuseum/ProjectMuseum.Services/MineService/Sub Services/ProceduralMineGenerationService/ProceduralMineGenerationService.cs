@@ -11,6 +11,7 @@ using ProjectMuseum.Services.MineService.Sub_Services.RawArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.ResourceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SiteArtifactChanceService;
 using ProjectMuseum.Services.MineService.Sub_Services.SpecialBackdropService;
+using ProjectMuseum.Services.MineService.Sub_Services.VineInformationService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService.ArtifactConditionService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactScoringService.ArtifactRarityService;
 
@@ -29,6 +30,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
     private readonly IResourceService _resourceService;
     private readonly IArtifactConditionService _artifactConditionService;
     private readonly IArtifactRarityService _artifactRarityService;
+    private readonly IVineInformationService _vineInformationService;
 
 
     private readonly ISpecialBackdropService _specialBackdropService;
@@ -40,7 +42,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         IMineRepository mineRepository, ISpecialBackdropService specialBackdropService,
         JsonFileDatabase<SpecialBackdropPngInformation> specialBackdropPngInformationDatabase, IMineService mineService,
         IRawArtifactFunctionalService rawArtifactFunctionalService, IMineArtifactService mineArtifactService,
-        ISiteArtifactChanceService siteArtifactChanceService, IResourceService resourceService, IArtifactRarityService artifactRarityService, IArtifactConditionService artifactConditionService)
+        ISiteArtifactChanceService siteArtifactChanceService, IResourceService resourceService, IArtifactRarityService artifactRarityService, IArtifactConditionService artifactConditionService, IVineInformationService vineInformationService)
     {
         _proceduralMineGenerationRepository = proceduralMineGenerationRepository;
         _mineOrdinaryCellGeneratorService = mineOrdinaryCellGeneratorService;
@@ -55,6 +57,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         _resourceService = resourceService;
         _artifactRarityService = artifactRarityService;
         _artifactConditionService = artifactConditionService;
+        _vineInformationService = vineInformationService;
     }
 
     public async Task<Mine> GenerateProceduralMine()
@@ -63,6 +66,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         await GenerateBossCave();
         await GenerateCaves();
         await GenerateSpecialBackdrops();
+        await GenerateVines();
+        await GenerateVines();
         await GenerateArtifacts();
         await GenerateResources();
         var mine = await _mineRepository.Get();
@@ -244,6 +249,95 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
         await _specialBackdropService.SetSpecialBackdrops(listOfAddedBackdrops);
     }
+
+    #endregion
+
+    #region Generate Vines
+
+    private async Task GenerateVines()
+    {
+        var random = new Random();
+        var noOfVinesToGenerate = random.Next(10, 15);
+        var minVeinRange = 4;
+        var maxVeinRange = 8;
+        
+        var mine = await _mineRepository.Get();
+        var cells = mine.Cells;
+        var cellsWithoutBackdrops = new List<Cell>();
+        var cellsWithBackdrops = new List<Cell>();
+
+        foreach (var cell in cells)
+            cellsWithoutBackdrops.Add(cell);
+        
+        foreach (var specialBackdrop in mine.SpecialBackdropPngInformations)
+        {
+            var xMin = specialBackdrop.TilePositionX - specialBackdrop.SizeX / 2;
+            var xMax = specialBackdrop.TilePositionX + specialBackdrop.SizeX / 2;
+            var yMin = specialBackdrop.TilePositionY - specialBackdrop.SizeY / 2;
+            var yMax = specialBackdrop.TilePositionY + specialBackdrop.SizeY / 2;
+
+            for (var i = xMin; i < xMax; i++)
+            {
+                for (var j = yMin; j < yMax; j++)
+                {
+                    var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
+                    if(cell == null) continue;
+                    cellsWithBackdrops.Add(cell);
+                }
+            }
+        }
+
+        foreach (var backdrop in cellsWithBackdrops)
+            cellsWithoutBackdrops.Remove(backdrop);
+        //TODO: xPos 3 to 50, yPos 3 to 46
+
+        var cellsToRemove = new List<Cell>();
+        foreach (var cell in cellsWithoutBackdrops)
+        {
+            if(cell.PositionX <= 3 || cell.PositionX > 45 || cell.PositionY <= 3 || cell.PositionY > 50)
+                cellsToRemove.Add(cell);
+        }
+
+        foreach (var cell in cellsToRemove)
+            cellsWithoutBackdrops.Remove(cell);
+        
+        var listOfVineInformations = new List<VineInformation>();
+        for (var i = 0; i < noOfVinesToGenerate; i++)
+        {
+            var vineInfo = new VineInformation();
+            var veinRange = random.Next(minVeinRange, maxVeinRange);
+            var cellsWithVines = new List<string>();
+            Console.WriteLine($"cells without backdrops: {cellsWithoutBackdrops.Count}");
+            var startingNode = cellsWithoutBackdrops[random.Next(0, cellsWithoutBackdrops.Count)];
+            cellsWithVines.Add(startingNode.Id!);
+            for (var j = 1; j <= veinRange; j++)
+            {
+                var nextNode = cellsWithoutBackdrops.FirstOrDefault(temp =>
+                    temp.PositionX == startingNode.PositionX && temp.PositionY == startingNode.PositionY + j);
+                if(nextNode == null) break;
+                Console.WriteLine($"Vine Pos: {nextNode.PositionX}, {nextNode.PositionY}");
+                cellsWithVines.Add(nextNode.Id!);
+                cellsWithoutBackdrops.Remove(nextNode);
+            }
+
+            if (cellsWithVines.Count <= 0) continue;
+            vineInfo.SourceId = Guid.NewGuid().ToString();
+            vineInfo.VineCellPositions = cellsWithVines;
+            listOfVineInformations.Add(vineInfo);
+
+            // foreach (var vineInformation in listOfVineInformations)
+            // {
+            //     Console.WriteLine($"Vine Id: {vineInformation.SourceId}");
+            //     foreach (var cellPosition in vineInformation.VineCellPositions)
+            //         Console.WriteLine($"Vine cells: {cellPosition}");
+            // }
+
+            await _vineInformationService.SetVineBackdrops(listOfVineInformations);
+        }
+        
+        
+    }
+    
 
     #endregion
 

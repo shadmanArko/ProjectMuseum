@@ -1,23 +1,32 @@
+using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Objects.CellPlaceables.Drills;
 
-public partial class RightDrill : Node2D
+public partial class DrillCore : Node2D
 {
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     private MineCellCrackMaterial _mineCellCrackMaterial;
+    
+    private List<DrillDirection> _drillDirections;
+    [Export] private DrillHead[] _drillHeads;
+    
+    [Export] private Sprite2D _drillCoreSprite2D;
 
-    [Export] private float _timer;
-    [Export] private Label _timerLabel;
+    [Export] private Texture2D _disabledCoreTexture;
+    [Export] private Texture2D _enabledCoreTexture;
+    
+    #region Initializers
+
     public override void _Ready()
     {
         SubscribeToActions();
         InitializeDiInstaller();
-        _timer = 10f;
     }
 
     private void InitializeDiInstaller()
@@ -40,4 +49,17 @@ public partial class RightDrill : Node2D
     }
 
     #endregion
+
+    #endregion
+
+    public void DisableCore()
+    {
+        _drillCoreSprite2D.Texture = _disabledCoreTexture;
+    }
+
+    public void EnableCore()
+    {
+        _drillCoreSprite2D.Texture = _enabledCoreTexture;
+    }
+    
 }

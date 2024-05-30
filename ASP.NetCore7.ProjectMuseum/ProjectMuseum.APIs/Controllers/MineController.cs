@@ -4,7 +4,7 @@ using ProjectMuseum.Services.MineService;
 using ProjectMuseum.Services.MineService.Sub_Services.CaveService;
 using ProjectMuseum.Services.MineService.Sub_Services.CellPlaceableService;
 using ProjectMuseum.Services.MineService.Sub_Services.ConsumableService;
-using ProjectMuseum.Services.MineService.Sub_Services.EquippableService;
+using ProjectMuseum.Services.MineService.Sub_Services.EquipableService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineArtifactService;
 using ProjectMuseum.Services.MineService.Sub_Services.MineCellCrackService;
 using ProjectMuseum.Services.MineService.Sub_Services.ProceduralMineGenerationService;
@@ -34,9 +34,9 @@ public class MineController : ControllerBase
     private readonly ICaveGeneratorService _caveGeneratorService;
     private readonly ISpecialBackdropService _specialBackdropService;
     private readonly IProceduralMineGenerationService _proceduralMineGenerationService;
-    private readonly IEquippableService _equippableService;
+    private readonly IEquipableService _equipableService;
 
-    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService, IProceduralMineGenerationService proceduralMineGenerationService, IEquippableService equippableService, IConsumableService consumableService, ICellPlaceableService cellPlaceableService)
+    public MineController(IMineService mineService, IMineArtifactService mineArtifactService, IMineOrdinaryCellGeneratorService mineOrdinaryCellGeneratorService, IMineCellCrackMaterialService mineCellCrackMaterialService, IRawArtifactDescriptiveService rawArtifactDescriptiveService, IRawArtifactFunctionalService rawArtifactFunctionalService, IResourceService resourceService, IWallPlaceableService wallPlaceableService, ICaveGeneratorService caveGeneratorService, ISpecialBackdropService specialBackdropService, IProceduralMineGenerationService proceduralMineGenerationService, IEquipableService equipableService, IConsumableService consumableService, ICellPlaceableService cellPlaceableService)
     {
         _mineService = mineService;
         _mineArtifactService = mineArtifactService;
@@ -49,7 +49,7 @@ public class MineController : ControllerBase
         _caveGeneratorService = caveGeneratorService;
         _specialBackdropService = specialBackdropService;
         _proceduralMineGenerationService = proceduralMineGenerationService;
-        _equippableService = equippableService;
+        _equipableService = equipableService;
         _consumableService = consumableService;
         _cellPlaceableService = cellPlaceableService;
     }
@@ -176,21 +176,21 @@ public class MineController : ControllerBase
     [HttpGet("GetMeleeByVariant/{variant}")]
     public async Task<IActionResult> GetMeleeByVariant(string variant)
     {
-        var melee = await _equippableService.GetMeleeByVariant(variant);
+        var melee = await _equipableService.GetMeleeByVariant(variant);
         return Ok(melee);
     }
     
     [HttpGet("GetRangeByVariant/{variant}")]
     public async Task<IActionResult> GetRangeByVariant(string variant)
     {
-        var range = await _equippableService.GetRangeByVariant(variant);
+        var range = await _equipableService.GetRangeByVariant(variant);
         return Ok(range);
     }
     
     [HttpGet("GetPickaxeByVariant/{variant}")]
     public async Task<IActionResult> GetPickaxeByVariant(string variant)
     {
-        var pickaxe = await _equippableService.GetPickaxeByVariant(variant);
+        var pickaxe = await _equipableService.GetPickaxeByVariant(variant);
         return Ok(pickaxe);
     }
     
@@ -213,5 +213,24 @@ public class MineController : ControllerBase
     {
         var cellPlaceables = await _cellPlaceableService.GetAllCellPlaceables();
         return Ok(cellPlaceables);
+    }
+    
+    [HttpGet("GetAllMeleeEquipables")]
+    public async Task<IActionResult> GetAllMeleeEquipables()
+    {
+        var meleeEquipables = await _equipableService.GetAllMeleeEquipables();
+        return Ok(meleeEquipables);
+    }
+    [HttpGet("GetAllRangedEquipables")]
+    public async Task<IActionResult> GetAllRangedEquipables()
+    {
+        var rangedEquipables = await _equipableService.GetAllRangedEquipables();
+        return Ok(rangedEquipables);
+    }
+    [HttpGet("GetAllPickaxeEquipables")]
+    public async Task<IActionResult> GetAllPickaxeEquipables()
+    {
+        var pickaxeEquipables = await _equipableService.GetAllPickaxeEquipables();
+        return Ok(pickaxeEquipables);
     }
 }

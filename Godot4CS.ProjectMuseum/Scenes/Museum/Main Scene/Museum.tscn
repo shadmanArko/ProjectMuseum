@@ -133,7 +133,6 @@ _dayEndReportClosingButton = NodePath("Day end Report Panel/MarginContainer/VBox
 metadata/_edit_use_anchors_ = true
 
 [node name="Musseum Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("museumMoneyTextField", "_conceptEndingUi", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi", "ItemsParent") instance=ExtResource("7_xsnwb")]
-visible = true
 mouse_filter = 2
 _decorationShopItem = ExtResource("15_j81qh")
 _decorationOtherItem = ExtResource("16_1ehrh")

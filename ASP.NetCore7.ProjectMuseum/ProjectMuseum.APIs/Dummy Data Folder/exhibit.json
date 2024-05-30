@@ -1,1 +1,19 @@
-[{"Id":"a3593d27-2ded-4535-b775-9f02e683c1cd","ExhibitVariationName":"BasicExhibit1x1","XPosition":-17,"YPosition":-4,"RotationFrame":0,"OccupiedTileIds":["f01392b7-9009-4357-b884-3c6701a7c409"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"adc2e144-02d6-4c9e-b5b2-e207fb6f4287","ExhibitVariationName":"BasicExhibit4x4","XPosition":-15,"YPosition":-11,"RotationFrame":0,"OccupiedTileIds":["da384de5-774f-4c95-950d-b3ca83070c4b","e7dd5b7e-5a2c-463d-9273-99e88c701b60","5ee59a6a-ef12-4bf5-8dcc-5a3a729102b7","b187b7cd-2098-428b-bc9b-0070fd7ab543"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false},{"Id":"d53a6272-38b1-4798-8204-2f3329d4ee03","ExhibitVariationName":"BasicExhibit1x1","XPosition":-14,"YPosition":-15,"RotationFrame":0,"OccupiedTileIds":["0e02563d-bdc7-4f55-a672-0d8c21dd0ff9"],"ArtifactIds":[],"ExhibitDecoration":"string","ExhibitArtifactSlot1":"string","ExhibitArtifactSlot2":"string","ExhibitArtifactSlot3":"string","ExhibitArtifactSlot4":"string","ExhibitArtifactSlot5":"string","IsInZone":false}]
+[
+  {
+    "Id": "a3593d27-2ded-4535-b775-9f02e683c1cd",
+    "ExhibitVariationName": "BasicExhibit1x1",
+    "XPosition": -17,
+    "YPosition": -4,
+    "OccupiedTileIds": [
+      "f01392b7-9009-4357-b884-3c6701a7c409"
+    ],
+    "RotationFrame": 0,
+    "ArtifactIds": [],
+    "ExhibitDecoration": "string",
+    "ExhibitArtifactSlot1": "",
+    "ExhibitArtifactSlot2": "string",
+    "ExhibitArtifactSlot3": "string",
+    "ExhibitArtifactSlot4": "string",
+    "ExhibitArtifactSlot5": "string"
+  }
+]

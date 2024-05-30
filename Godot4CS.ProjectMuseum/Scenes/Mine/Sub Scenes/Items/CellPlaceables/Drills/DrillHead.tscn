@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://25iu2yk3bg86"]
+[gd_scene load_steps=4 format=3 uid="uid://cguqypy3fxhlx"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillHead.cs" id="1_4efx4"]
 [ext_resource type="Texture2D" uid="uid://co3aka2bsofbv" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillHead.png" id="2_nrvqn"]

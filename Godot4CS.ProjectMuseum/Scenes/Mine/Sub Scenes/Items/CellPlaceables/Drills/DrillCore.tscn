@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dblrh4tn2hgds"]
+[gd_scene load_steps=6 format=3 uid="uid://cingdd4u4wht8"]
 
-[ext_resource type="PackedScene" uid="uid://25iu2yk3bg86" path="res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillHead.tscn" id="1_v5shb"]
+[ext_resource type="PackedScene" uid="uid://cguqypy3fxhlx" path="res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillHead.tscn" id="1_v5shb"]
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillCore.cs" id="1_xojfg"]
 [ext_resource type="Texture2D" uid="uid://dweykgjy62cki" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillExtension.png" id="2_s66rn"]
 [ext_resource type="Texture2D" uid="uid://bvwdrs12rpgo7" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreDisabled.png" id="2_x6t05"]
@@ -31,5 +31,4 @@ _drillHead = NodePath("Sprite2D")
 [node name="DrillCoreSprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("3_4udi1")
-flip_v = true
 region_rect = Rect2(2, 2, 20, 20)

@@ -17,6 +17,7 @@ public partial class IsomatricForestChunk : Sprite2D
 	[Export] private bool _firstNeighbourOfMuseum;
 	[Export] public bool _alreadyExpanded;
 	[Export] public Sprite2D _outline;
+	[Export] public Node2D _trees;
 	private Color _startColor;
 	private Vector2I _lastMuseumExpansionOrigin;
 	private MuseumTileContainer _museumTileContainer;
@@ -24,7 +25,7 @@ public partial class IsomatricForestChunk : Sprite2D
 	public override async void _Ready()
 	{
 		ExtractNeighbours();
-		_startColor = Modulate;
+		_startColor = _trees.Modulate;
 		_expansionButton.MouseEntered += ExpansionButtonOnMouseEntered;
 		_expansionButton.MouseExited += ExpansionButtonOnMouseExited;
 		_expansionButton.Pressed += ExpansionButtonOnPressed;
@@ -105,7 +106,7 @@ public partial class IsomatricForestChunk : Sprite2D
 
 	private void ExpansionButtonOnMouseExited()
 	{
-		Modulate = _startColor;
+		_trees.Modulate = _startColor;
 		_outline.Visible = false;
 	}
 
@@ -140,7 +141,7 @@ public partial class IsomatricForestChunk : Sprite2D
 	}
 	private void ExpansionButtonOnMouseEntered()
 	{
-		Modulate = Colors.LightGray;
+		_trees.Modulate = Colors.AntiqueWhite;
 		_outline.Visible = true;
 	}
 

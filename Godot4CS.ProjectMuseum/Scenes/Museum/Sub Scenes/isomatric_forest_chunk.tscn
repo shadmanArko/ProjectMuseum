@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dmgpqj5wqmc16" path="res://Assets/2D/Sprites/Backgrounds/chunk selection/chunk selection button.png" id="4_akivr"]
 [ext_resource type="PackedScene" uid="uid://d4kmeq7x6st30" path="res://Scenes/Museum/Backgrounds/Trees/basic_tree.tscn" id="5_euu57"]
 [ext_resource type="PackedScene" uid="uid://c5wqq7kf4boqy" path="res://Scenes/Museum/Backgrounds/Trees/basic_tree_2.tscn" id="6_6w5u0"]
-[ext_resource type="Texture2D" uid="uid://ck0oka4y7gqg5" path="res://Assets/2D/Sprites/Backgrounds/chunk selection/chunk selection balck outline.png" id="7_ny5vd"]
+[ext_resource type="Texture2D" uid="uid://dyl744gd4pd80" path="res://Assets/2D/Sprites/Backgrounds/chunk selection/chunk selection white outline.png" id="8_muykd"]
 
-[node name="IsomatricForestChunk" type="Sprite2D" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks", "_outline")]
+[node name="IsomatricForestChunk" type="Sprite2D" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks", "_outline", "_trees")]
 z_index = -1
 y_sort_enabled = true
 texture_filter = 1
@@ -20,6 +20,7 @@ _expansionButton = NodePath("Control/Button")
 _allChunks = []
 _neighbourChunks = []
 _outline = NodePath("outline")
+_trees = NodePath("Trees")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -105,4 +106,4 @@ position = Vector2(-115, -17)
 
 [node name="outline" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("7_ny5vd")
+texture = ExtResource("8_muykd")

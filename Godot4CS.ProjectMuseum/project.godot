@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot4CS.ProjectMuseum"
-run/main_scene="res://Scenes/Mine/Main Scene/MineScene.tscn"
+run/main_scene="res://Scenes/MainMenu/Main Scene/MainMenu.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://Assets/2D/Sprites/icon.svg"
 
@@ -26,6 +26,7 @@ MuseumActions="*res://Scripts/Museum/Museum Actions/MuseumActions.cs"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=4
 window/size/resizable=false
 window/stretch/scale_mode="integer"
 window/vsync/vsync_mode=2

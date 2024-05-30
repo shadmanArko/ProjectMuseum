@@ -93,7 +93,6 @@ public partial class DrillHead : RigidBody2D
                 WreckCellWalls();
                 await Task.Delay(1000);
                 _drillPhase = DrillPhase.Drill;
-                GD.Print("Expand to wreck walls");
             }
         }
         else if (_drillPhase == DrillPhase.Drill)
@@ -195,7 +194,6 @@ public partial class DrillHead : RigidBody2D
                 return;
             }
             
-            GD.PrintErr("FOUND VALID CELL");
             if (!cell.IsBreakable || !cell.IsInstantiated)
             {
                 GD.PrintErr("CELL NOT BREAKABLE OR NOT INITIALIZED");
@@ -206,18 +204,15 @@ public partial class DrillHead : RigidBody2D
             else break;
         }
         
-        GD.Print($"posToExpand: {posToExpandTo}, finalMapPos: {_finalMapPos}");
         if (posToExpandTo == _initialMapPos || posToExpandTo == _finalMapPos)
         {
             _drillPhase = DrillPhase.Disabled;
-            GD.PrintErr("Disabled drill as next pos equal to initial pos");
         }
         else
         {
             _targetMapPos = posToExpandTo;
             ExpandUptoFurthestEmptyCell();
             _drillPhase = DrillPhase.Expand;
-            GD.PrintErr("EXPANDING DRILL HEAD");
         }
     }
 
@@ -228,7 +223,6 @@ public partial class DrillHead : RigidBody2D
         _initialGlobalPos = _initialMapPos * cellSize + cellOffset;
         _targetGlobalPos = _targetMapPos * cellSize + cellOffset;
         SetPhysicsProcess(true);
-        GD.Print("initial pos and final pos calculated. expanding");
     }
 
     private void RetractToCore()
@@ -239,7 +233,6 @@ public partial class DrillHead : RigidBody2D
         var targetCellPos = GetLocalToMap(_drillCore.GlobalPosition);
         var targetCell = GetCellByMapPos(targetCellPos);
         _targetGlobalPos = new Vector2(targetCell.PositionX, targetCell.PositionY) * cellSize + cellOffset;
-        GD.Print("retracting to core");
     }
     
     private void WreckCellWalls()
@@ -247,7 +240,6 @@ public partial class DrillHead : RigidBody2D
         _initialWreckPos = GlobalPosition + new Vector2(0, -_wreckRetractPosOffset);
         _targetWreckPos = GlobalPosition + new Vector2(0, _wreckThrustPosOffset);
         _isWrecking = true;
-        GD.Print("wrecking cell walls");
     }
     
     private void BreakCell(Vector2I tilePos)
@@ -314,8 +306,7 @@ public partial class DrillHead : RigidBody2D
             if (!cell.IsBroken)
                 unbrokenCellCount++;
         }
-
-        GD.Print($"contains broken cells: {unbrokenCellCount}");
+        
         return unbrokenCellCount > 0;
     }
     

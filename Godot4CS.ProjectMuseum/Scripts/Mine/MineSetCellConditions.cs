@@ -45,7 +45,6 @@ public static class MineSetCellConditions
             GD.Print($"vine id: {vineBackdrop.SourceId}");
             foreach (var vineCellId in vineBackdrop.VineCellPositions)
             {
-                
                 var cell = cells.FirstOrDefault(tempCell => tempCell.Id == vineCellId);
                 if(cell == null) continue;
                 GD.Print($"vine pos: {cell.PositionX}, {cell.PositionY}");

@@ -315,6 +315,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
                 var nextNode = cellsWithoutBackdrops.FirstOrDefault(temp =>
                     temp.PositionX == startingNode.PositionX && temp.PositionY == startingNode.PositionY + j);
                 if(nextNode == null) break;
+                Console.WriteLine($"Vine Pos: {nextNode.PositionX}, {nextNode.PositionY}");
                 cellsWithVines.Add(nextNode.Id!);
                 cellsWithoutBackdrops.Remove(nextNode);
             }
@@ -324,12 +325,12 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             vineInfo.VineCellPositions = cellsWithVines;
             listOfVineInformations.Add(vineInfo);
 
-            foreach (var vineInformation in listOfVineInformations)
-            {
-                Console.WriteLine($"Vine Id: {vineInformation.SourceId}");
-                foreach (var cellPosition in vineInformation.VineCellPositions)
-                    Console.WriteLine($"Vine cells: {cellPosition}");
-            }
+            // foreach (var vineInformation in listOfVineInformations)
+            // {
+            //     Console.WriteLine($"Vine Id: {vineInformation.SourceId}");
+            //     foreach (var cellPosition in vineInformation.VineCellPositions)
+            //         Console.WriteLine($"Vine cells: {cellPosition}");
+            // }
 
             await _vineInformationService.SetVineBackdrops(listOfVineInformations);
         }

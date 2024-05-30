@@ -614,7 +614,7 @@ size = Vector2(18, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skedj"]
 size = Vector2(18, 10)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationController", "ItemDetector")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationController")]
 light_mask = 4
 visibility_layer = 4
 z_index = 10
@@ -631,7 +631,6 @@ script = ExtResource("1_bhvr3")
 AnimationController = NodePath("AnimationPlayer")
 _maxVerticalVelocity = 200.0
 _fallTimeThreshold = 0.2
-ItemDetector = NodePath("Item Detector")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cq4yg")

@@ -55,10 +55,39 @@
         "Stack": 5,
         "Slot": 4,
         "PngPath": "res://Assets/firetorch.png"
+      },
+      {
+        "Id": "4",
+        "Name": "Dynamite",
+        "Type": "CellPlaceable",
+        "Category": "Explosive",
+        "Variant": "Dynamite",
+        "IsStackable": true,
+        "Stack": 5,
+        "Slot": 5,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png"
+      },
+      {
+        "Id": "5",
+        "Name": "Down Drill",
+        "Type": "CellPlaceable",
+        "Category": "Drill",
+        "Variant": "DownDrill",
+        "IsStackable": true,
+        "Stack": 5,
+        "Slot": 6,
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreEnabled.png"
       }
     ],
     "Artifacts": [],
-    "OccupiedSlots": [0,1,2,3,4],
+    "OccupiedSlots": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
     "SlotsUnlocked": 12
   }
 ]

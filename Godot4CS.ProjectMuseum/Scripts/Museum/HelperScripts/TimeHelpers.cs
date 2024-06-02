@@ -27,4 +27,29 @@ public static class TimeHelpers
 
         return correspondedDay;
     }
+    public static string ToCorrespondedDayShort(this int day)
+    {
+        string correspondedDay = "";
+        switch (day)
+        {
+            case 1: correspondedDay = "Mo";
+                break;
+            case 2: correspondedDay = "Tu";
+                break;
+            case 3: correspondedDay = "Wd";
+                break;
+            case 4: correspondedDay = "Tr";
+                break;
+            case 5: correspondedDay = "Fr";
+                break;
+            case 6: correspondedDay = "St";
+                break;
+            case 7: correspondedDay = "Su";
+                break;
+            default: correspondedDay = $"day {day}";
+                break;
+        }
+
+        return correspondedDay;
+    }
 }

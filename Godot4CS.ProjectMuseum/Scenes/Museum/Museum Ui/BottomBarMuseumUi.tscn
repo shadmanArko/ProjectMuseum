@@ -758,6 +758,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="walls parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3

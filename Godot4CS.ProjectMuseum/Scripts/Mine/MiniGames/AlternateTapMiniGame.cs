@@ -24,8 +24,16 @@ public partial class AlternateTapMiniGame : CanvasLayer
 
 	[Export] private bool _miniGameWon;
 
+	private bool _isTutorialPlaying;
+
 	public override void _Ready()
 	{
+		_isTutorialPlaying = ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying();
+		if (_isTutorialPlaying)
+		{
+			_failPoints = 0;
+		}
+		
 		_timer = 2;
 		_miniGameWon = false;
 		SetProcess(true);
@@ -33,7 +41,17 @@ public partial class AlternateTapMiniGame : CanvasLayer
     
 	public override void _Process(double delta)
 	{
-		_timerLabel.Text = $"Time Remaining:   00:{Mathf.Ceil(Mathf.Clamp(_countDownTimer,0,_initialCountDownValue)):g00}";
+		if (_isTutorialPlaying)
+		{
+			_timerLabel.Visible = false;
+		}
+		else
+		{
+			_timerLabel.Visible = true;
+			_timerLabel.Text = $"Time Remaining:   00:{Mathf.Ceil(Mathf.Clamp(_countDownTimer,0,_initialCountDownValue)):g00}";
+		}
+		
+		
 		if (_countDownTimer <= 0)
 		{
 			if (_progressValue >= _finalValue)
@@ -53,7 +71,8 @@ public partial class AlternateTapMiniGame : CanvasLayer
 		}
 		else
 		{
-			_countDownTimer -= delta;
+			if(!_isTutorialPlaying)
+				_countDownTimer -= delta;
 			
 			if (_progressValue >= _finalValue)
 			{

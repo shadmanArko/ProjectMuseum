@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1",
+    "Name": "Longbow",
+    "Type": "Equipable",
+    "Category": "Ranged",
+    "Variant": "BasicBow",
+    "AnimantionSpriteSheetPath": "sprites/longbow.png",
+    "Damage": 35,
+    "Cooldown": 2.5,
+    "HasStatusEffect": false,
+    "ListOfStatusEffects": []
+  },
+  {
+    "Id": "2",
+    "Name": "Crossbow",
+    "Type": "Equipable",
+    "Category": "Ranged",
+    "Variant": "BasicCrossBow",
+    "AnimantionSpriteSheetPath": "sprites/crossbow.png",
+    "Damage": 50,
+    "Cooldown": 3.0,
+    "HasStatusEffect": true,
+    "ListOfStatusEffects": ["Slow"]
+  }
+]

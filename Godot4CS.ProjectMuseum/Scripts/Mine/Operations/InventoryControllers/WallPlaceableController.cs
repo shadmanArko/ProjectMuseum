@@ -166,7 +166,13 @@ public partial class WallPlaceableController : InventoryController
         var cell = GetTargetCell();
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var offset = new Vector2(cellSize / 2f, cellSize / 4f);
-        _wallPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+        if (cell == null)
+            _wallPlaceableSprite.Visible = false;
+        else
+        {
+            _wallPlaceableSprite.Visible = true;
+            _wallPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
+        }
         
         if (eligibility)
             SetSpriteColorToGreen();
@@ -224,7 +230,6 @@ public partial class WallPlaceableController : InventoryController
         if (cell is null) return false;
         if (!cell.IsBreakable || !cell.IsBroken || !cell.IsRevealed)
         {
-            GD.Print($"Cell eligibility is false");
             return false;
         }
 

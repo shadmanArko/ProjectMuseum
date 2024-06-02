@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://ouhmqp7q5h10"]
+
+[ext_resource type="Script" path="res://Scenes/Settings Menu/volume_slider_settings.gd" id="1_0m6yj"]
+
+[node name="Volume_Slider_Settings" type="HBoxContainer"]
+size_flags_vertical = 6
+script = ExtResource("1_0m6yj")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Master Volume"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001

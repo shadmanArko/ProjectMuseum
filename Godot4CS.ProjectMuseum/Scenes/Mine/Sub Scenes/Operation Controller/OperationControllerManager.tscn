@@ -8,7 +8,7 @@
 
 [node name="OperationControllerManager" type="Node2D" node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController", "_equipableController", "_cellPlaceableController")]
 script = ExtResource("1_0fax2")
-_inventoryControllers = [NodePath("ConsumableController")]
+_inventoryControllers = [NodePath("WallPlaceableController"), NodePath("ConsumableController"), NodePath("EquipableController"), NodePath("CellPlaceableController")]
 _wallPlaceableController = NodePath("WallPlaceableController")
 _consumableController = NodePath("ConsumableController")
 _equipableController = NodePath("EquipableController")

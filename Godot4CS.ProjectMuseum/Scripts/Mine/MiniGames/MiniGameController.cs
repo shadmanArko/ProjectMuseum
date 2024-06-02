@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -15,8 +16,6 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 
 public partial class MiniGameController : Node2D
 {
-	// private HttpRequest _sendArtifactToInventoryHttpRequest;
-
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
 	private RawArtifactDTO _rawArtifactDto;
@@ -27,7 +26,6 @@ public partial class MiniGameController : Node2D
 	private Vector2I _artifactCellPos;
 	public override void _Ready()
 	{
-		CreateHttpRequests();
 		InitializeDiReference();
 		SubscribeToActions();
 		_random = new Random();
@@ -42,25 +40,20 @@ public partial class MiniGameController : Node2D
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnMiniGameLoad += LoadAlternateTapMiniGame;
+		MineActions.OnMiniGameLoad += LoadMiniGame;
 		MineActions.OnMiniGameWon += MiniGameWon;
 		MineActions.OnMiniGameLost += MiniGameLost;
 	}
 	
-	private void CreateHttpRequests()
-	{
-		// _sendArtifactToInventoryHttpRequest = new HttpRequest();
-		// AddChild(_sendArtifactToInventoryHttpRequest);
-		// _sendArtifactToInventoryHttpRequest.RequestCompleted += OnSendArtifactToInventoryHttpRequestCompleted;
-	}
 
-	private void LoadAlternateTapMiniGame(Vector2I cellPos)
+	private void LoadMiniGame(Vector2I cellPos)
 	{
 		CeasePlayerMovementDuringMiniGame();
-		var randomMiniGamePath = _miniGameScenePaths[_random.Next(0, _miniGameScenePaths.Length)];
+		var mineTutorial = ReferenceStorage.Instance.MineTutorial;
+		var randomMiniGame = mineTutorial.IsMineTutorialPlaying() ? 0 : _random.Next(0, _miniGameScenePaths.Length);
+		var randomMiniGamePath = _miniGameScenePaths[randomMiniGame];
 		_artifactCellPos = cellPos;
-		var scene =
-		    ResourceLoader.Load<PackedScene>(randomMiniGamePath).Instantiate();
+		var scene = ResourceLoader.Load<PackedScene>(randomMiniGamePath).Instantiate();
 		if (scene is null)
 		{
 		    GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
@@ -83,7 +76,8 @@ public partial class MiniGameController : Node2D
 	
 	private void MiniGameLost()
 	{
-		_playerControllerVariables.Player.AnimationController.PlayAnimation("idle");
+		var animationToPlay = _playerControllerVariables.State == MotionState.Hanging ? "climb_idle" : "idle";
+		_playerControllerVariables.Player.AnimationController.PlayAnimation(animationToPlay);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
 	}
@@ -94,7 +88,7 @@ public partial class MiniGameController : Node2D
 		_playerControllerVariables.CanToggleClimb = false;
 		_playerControllerVariables.CanAttack = false;
 		_playerControllerVariables.CanDig = false;
-		_playerControllerVariables.Player.AnimationController.PlayAnimation("brush");
+		_playerControllerVariables.Player.AnimationController.Play("brush");
 	}
 
 	private void ContinuePlayerMovementAfterMiniGame()
@@ -125,7 +119,7 @@ public partial class MiniGameController : Node2D
 
 	public override void _ExitTree()
 	{
-		MineActions.OnMiniGameLoad -= LoadAlternateTapMiniGame;
+		MineActions.OnMiniGameLoad -= LoadMiniGame;
 		MineActions.OnMiniGameWon -= MiniGameWon;
 		MineActions.OnMiniGameLost -= MiniGameLost;
 	}

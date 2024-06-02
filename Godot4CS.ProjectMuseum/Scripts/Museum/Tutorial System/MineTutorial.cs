@@ -93,7 +93,6 @@ public partial class MineTutorial : Node
 	{
 		_playerControllerVariables.CanMoveLeftAndRight = true;
 		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = false;
 		_playerControllerVariables.CanDig = false;
 		_playerControllerVariables.CanToggleClimb = false;
 	}
@@ -105,7 +104,6 @@ public partial class MineTutorial : Node
 		GD.Print("after return statement in ended tutorial number "+entryNo);
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = false;
 		_playerControllerVariables.CanDig = false;
 		_playerControllerVariables.CanToggleClimb = false;
 	}
@@ -116,23 +114,9 @@ public partial class MineTutorial : Node
 		if (entryNo is not "Tut6b") return;
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = false;
 		_playerControllerVariables.CanDig = true;
 		_playerControllerVariables.CanToggleClimb = false;
 	}
-
-	
-	// private void BrushArtifactCellTutorial(string entryNo)
-	// {
-	// 	GD.Print($"Ended scene Entry No: {entryNo}");
-	// 	if(entryNo != "Tut6d") return;
-	// 	
-	// 	_playerControllerVariables.CanMoveLeftAndRight = false;
-	// 	_playerControllerVariables.CanAttack = false;
-	// 	_playerControllerVariables.CanBrush = true;
-	// 	_playerControllerVariables.CanDig = false;
-	// 	_playerControllerVariables.CanToggleClimb = false;
-	// }
 	
 	private void PlayMiniGameTutorial(string entryNo)
 	{
@@ -140,7 +124,6 @@ public partial class MineTutorial : Node
 		if(entryNo != "Tut6d") return;
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = false;
 		_playerControllerVariables.CanDig = false;
 		_playerControllerVariables.CanToggleClimb = false;
 	}
@@ -152,7 +135,6 @@ public partial class MineTutorial : Node
 		
 		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanAttack = false;
-		_playerControllerVariables.CanBrush = false;
 		_playerControllerVariables.CanDig = false;
 		_playerControllerVariables.CanToggleClimb = true;
 	}
@@ -164,15 +146,9 @@ public partial class MineTutorial : Node
 		SetProcess(false);
 		_playerControllerVariables.CanMoveLeftAndRight = true;
 		_playerControllerVariables.CanAttack = true;
-		_playerControllerVariables.CanBrush = true;
 		_playerControllerVariables.CanDig = true;
 		_playerControllerVariables.CanToggleClimb = true;
 		_isMineTutorialDonePlaying = true;
-	}
-
-	public string GetCurrentTutorial()
-	{
-		return _tutorialSystem!.GetCurrentTutorialSceneEntry();
 	}
 
 	public override void _ExitTree()

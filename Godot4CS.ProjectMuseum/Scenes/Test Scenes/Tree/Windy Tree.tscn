@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp5pyaqfguij2"]
+
+[ext_resource type="Texture2D" uid="uid://drcoxba8fd6ta" path="res://Assets/2D/Sprites/Backgrounds/Trees/tree basic 2/tree basic 2.png" id="1_jmbxl"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/TextureDistortions.gdshader" id="2_ox6at"]
+[ext_resource type="Texture2D" uid="uid://by2448uewwovg" path="res://Assets/2D/Sprites/Backgrounds/Trees/tree basic 2/tree basic 2 leaves .png" id="3_rhqwa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ybo8c"]
+shader = ExtResource("2_ox6at")
+shader_parameter/speed = 5.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.01
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.01
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[node name="WindyTree" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(173, -107)
+texture = ExtResource("1_jmbxl")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+material = SubResource("ShaderMaterial_ybo8c")
+texture = ExtResource("3_rhqwa")

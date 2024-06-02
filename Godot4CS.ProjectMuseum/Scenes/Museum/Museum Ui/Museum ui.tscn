@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=28 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="2_3c32r"]
@@ -11,14 +11,30 @@
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="8_txj3i"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/DateTimeUi.cs" id="10_6y0pe"]
 [ext_resource type="Texture2D" uid="uid://cdttskiu31lta" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Digging_and_permits_button.png" id="11_7rcfi"]
+[ext_resource type="Texture2D" uid="uid://c6qt0uklf0uso" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/Journal_Time_Holder.png" id="11_m6lyo"]
 [ext_resource type="PackedScene" uid="uid://dm4eekpyeu8on" path="res://Scenes/Museum/Museum Ui/tutorial.tscn" id="11_n0rbh"]
+[ext_resource type="Texture2D" uid="uid://degkw0giydeey" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/spring.png" id="11_qtb2y"]
+[ext_resource type="Texture2D" uid="uid://yxnt0amb64sk" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/Watchl_Time_Holder.png" id="12_2xt8o"]
+[ext_resource type="Texture2D" uid="uid://c2g0d2eyu2p6c" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/summer.png" id="12_lqgl4"]
 [ext_resource type="Texture2D" uid="uid://xkttu35op33w" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Town_map_button.png" id="12_v8uf8"]
+[ext_resource type="Texture2D" uid="uid://b1vfcog702bw3" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/autum.png" id="13_3cupb"]
+[ext_resource type="Texture2D" uid="uid://ck57dho3bl7di" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/Base_Time_Holder.png" id="13_7jvl8"]
+[ext_resource type="Texture2D" uid="uid://c4qtq75ucvhb7" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 1.png" id="14_0wt1n"]
+[ext_resource type="Texture2D" uid="uid://bie7kys11t6jl" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/winter.png" id="14_vwlgk"]
+[ext_resource type="Texture2D" uid="uid://cbt0yswgkp4m7" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 2.png" id="15_uv7q1"]
+[ext_resource type="Texture2D" uid="uid://gqsqgxtag33h" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 4.png" id="17_8ehy4"]
+[ext_resource type="Texture2D" uid="uid://co2ewctepfvby" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/Speed_Time_Holder.png" id="18_qlalm"]
+[ext_resource type="Theme" uid="uid://o7ja5fo50126" path="res://Themes/Museum ui purple Bold.tres" id="20_2gmip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ihs8b"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+texture = ExtResource("18_qlalm")
+
 [node name="Museum Ui" type="Control" node_paths=PackedStringArray("museumMoneyTextField", "_diggingPermitsButton", "_townMapButton", "_museumGateCheckButton", "_diggingPermitsUi")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -201,77 +217,241 @@ offset_bottom = 24.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Top Panel" node_paths=PackedStringArray("_dateTime", "_pausePlayButton", "_timeSpeed1X", "_timeSpeed2X", "_timeSpeed4X", "_timeSpeed8X")]
+[node name="Date time panel" type="Panel" parent="Top Panel" node_paths=PackedStringArray("_clockTime", "_dayName", "_day", "_month", "_monthIcon", "_year", "_pausePlayButton", "_timeSpeed1X", "_timeSpeed2X", "_timeSpeed4X")]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -363.0
-offset_top = -24.0
-offset_right = -48.0
-offset_bottom = 24.0
+offset_left = -546.0
+offset_top = -29.0
+offset_right = -46.0
+offset_bottom = 71.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("10_6y0pe")
-_dateTime = NodePath("Label")
-_pausePlayButton = NodePath("HBoxContainer/Pause_Play")
-_timeSpeed1X = NodePath("HBoxContainer/1x")
-_timeSpeed2X = NodePath("HBoxContainer/2x")
-_timeSpeed4X = NodePath("HBoxContainer/4x")
-_timeSpeed8X = NodePath("HBoxContainer/8x")
+_clockTime = NodePath("MarginContainer/HBoxContainer/clock/Time")
+_dayName = NodePath("MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 1/Label")
+_day = NodePath("MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 2/Label")
+_month = NodePath("MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 3/Label")
+_monthIcon = NodePath("MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 3")
+_year = NodePath("MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 4/Label")
+_pausePlayButton = NodePath("MarginContainer/HBoxContainer/clock/HBoxContainer/Pause_Play")
+_timeSpeed1X = NodePath("MarginContainer/HBoxContainer/clock/HBoxContainer/1x")
+_timeSpeed2X = NodePath("MarginContainer/HBoxContainer/clock/HBoxContainer/2x")
+_timeSpeed4X = NodePath("MarginContainer/HBoxContainer/clock/HBoxContainer/4x")
+_spring = ExtResource("11_qtb2y")
+_summer = ExtResource("12_lqgl4")
+_autumn = ExtResource("13_3cupb")
+_winter = ExtResource("14_vwlgk")
 
-[node name="Label" type="Label" parent="Top Panel/ColorRect"]
+[node name="MarginContainer" type="MarginContainer" parent="Top Panel/Date time panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("8_txj3i")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-text = "00:00 Thursday 02/ 02/ Year 01"
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top Panel/Date time panel/MarginContainer"]
+layout_mode = 2
+
+[node name="book" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_m6lyo")
+expand_mode = 3
+
+[node name="clock" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("12_2xt8o")
+expand_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock"]
+z_index = -1
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -29.45
+offset_right = 289.627
+offset_bottom = 61.0
+grow_horizontal = 0
+texture = ExtResource("13_7jvl8")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 14
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer"]
+layout_mode = 2
+
+[node name="date holder 1" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("14_0wt1n")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = -0.0999985
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("20_2gmip")
+text = "Su"
 horizontal_alignment = 1
 vertical_alignment = 1
-text_overrun_behavior = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Top Panel/ColorRect"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 0
-offset_top = 48.0
-offset_right = 180.0
-offset_bottom = 80.0
+[node name="date holder 2" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("15_uv7q1")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = 0.299999
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("20_2gmip")
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="date holder 3" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("14_vwlgk")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 3"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = 0.299999
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("20_2gmip")
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="date holder 4" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("17_8ehy4")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/TextureRect/MarginContainer/HBoxContainer/date holder 4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = 0.299999
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("20_2gmip")
+text = "Yr 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock"]
+custom_minimum_size = Vector2(10, 8)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.45
+offset_top = -35.0
+offset_right = 209.55
+offset_bottom = 1.19
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_constants/separation = 5
 
-[node name="Pause_Play" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="Pause_Play" type="Button" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/HBoxContainer"]
+custom_minimum_size = Vector2(50, 32)
 layout_mode = 2
+theme = ExtResource("20_2gmip")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ihs8b")
+text = "//"
 
-[node name="1x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="1x" type="Button" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/HBoxContainer"]
+custom_minimum_size = Vector2(50, 32)
 layout_mode = 2
-theme = ExtResource("8_txj3i")
+theme = ExtResource("20_2gmip")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ihs8b")
 text = "1x"
 
-[node name="2x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="2x" type="Button" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/HBoxContainer"]
+custom_minimum_size = Vector2(50, 32)
 layout_mode = 2
-theme = ExtResource("8_txj3i")
+theme = ExtResource("20_2gmip")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ihs8b")
 text = "2x"
 
-[node name="4x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="4x" type="Button" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/HBoxContainer"]
+custom_minimum_size = Vector2(50, 32)
 layout_mode = 2
-theme = ExtResource("8_txj3i")
+theme = ExtResource("20_2gmip")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ihs8b")
 text = "4x"
 
-[node name="8x" type="Button" parent="Top Panel/ColorRect/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="8x" type="Button" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 32)
 layout_mode = 2
-theme = ExtResource("8_txj3i")
+theme = ExtResource("20_2gmip")
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ihs8b")
 text = "8x"
+
+[node name="Time" type="Label" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/clock"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 12.0
+offset_right = -27.45
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("20_2gmip")
+text = "24:59"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Right Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)

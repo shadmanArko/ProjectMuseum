@@ -31,7 +31,7 @@ public partial class IsomatricForestChunk : Sprite2D
 		_expansionButton.Pressed += ExpansionButtonOnPressed;
 		MuseumActions.OnMuseumExpanded += OnMuseumExpanded;
 		MuseumActions.OnCallForMuseumExpansion += OnCallForMuseumExpansion;
-		await Task.Delay(5000);
+		await Task.Delay(1000);
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
 		CheckIfThisChunkIsExpanded();
 		CheckForExpansionEligibility();
@@ -83,9 +83,17 @@ public partial class IsomatricForestChunk : Sprite2D
 			
 		}
 	}
-
-	private void CheckIfThisChunkIsExpanded()
+	private async Task WaitForMuseumTiles()
 	{
+		while (_museumTileContainer.MuseumTiles == null)
+		{
+			GD.Print("Waiting");
+			await Task.Delay(100); // Wait for 100 milliseconds before checking again
+		}
+	}
+	private async void CheckIfThisChunkIsExpanded()
+	{
+		await WaitForMuseumTiles();
 		foreach (var museumTile in _museumTileContainer.MuseumTiles)
 		{
 			if (museumTile.XPosition == expansionOrigin.X && museumTile.YPosition == expansionOrigin.Y)

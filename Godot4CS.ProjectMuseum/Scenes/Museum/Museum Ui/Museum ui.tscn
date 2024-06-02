@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://cbt0yswgkp4m7" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 2.png" id="15_uv7q1"]
 [ext_resource type="Texture2D" uid="uid://gqsqgxtag33h" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 4.png" id="17_8ehy4"]
 [ext_resource type="Texture2D" uid="uid://co2ewctepfvby" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/Speed_Time_Holder.png" id="18_qlalm"]
-[ext_resource type="Theme" uid="uid://o7ja5fo50126" path="res://Themes/Museum ui purple Bold.tres" id="20_2gmip"]
+[ext_resource type="Theme" path="res://Themes/Museum ui purple Bold.tres" id="20_2gmip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)

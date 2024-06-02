@@ -12,4 +12,6 @@ public interface IItemPlacementCondition
           string exhibitVariationName, int rotationFrame);
      Task<TilesWithShopsDTO> PlaceShopOnTiles(string originTileId, List<string> tileIds,
          string shopVariationName, int rotationFrame);
+
+     Task<TilesWithExhibitDto> DeleteExhibit(string exhibitId);
 }

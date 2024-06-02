@@ -122,7 +122,11 @@ public class MuseumTileService : IMuseumTileService
         var museumTiles = await _museumTileRepository.DeleteAll();
         return museumTiles;
     }
-
+    public async Task<TilesWithExhibitDto?> DeleteExhibit(string exhibitId)
+    {
+        var exhibits = await _itemPlacementCondition.DeleteExhibit(exhibitId);
+        return exhibits;
+    }
     public async Task<List<MuseumTile>?> GenerateMuseumTileForNewGame()
     {
        return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();

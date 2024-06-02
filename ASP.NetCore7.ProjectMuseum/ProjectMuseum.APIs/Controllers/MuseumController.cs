@@ -107,6 +107,12 @@ public class MuseumController : ControllerBase
         var allExhibits = await _exhibitService.GetAllExhibits();
         return Ok(allExhibits);
     }
+    [HttpGet("DeleteExhibit")]
+    public async Task<IActionResult> DeleteExhibit(string exhibitId)
+    {
+        var allExhibits = await _museumTileService.DeleteExhibit(exhibitId);
+        return Ok(allExhibits);
+    }
     [HttpGet("GetAllShops")]
     public async Task<IActionResult> GetAllShops()
     {

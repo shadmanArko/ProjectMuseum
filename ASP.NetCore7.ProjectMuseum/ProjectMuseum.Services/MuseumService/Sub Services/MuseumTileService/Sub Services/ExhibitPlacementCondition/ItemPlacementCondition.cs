@@ -228,19 +228,32 @@ public class ItemPlacementCondition : IItemPlacementCondition
         return museumTiles;
     }
 
-    public async Task<List<Exhibit>> DeleteExhibit()
+    public async Task<TilesWithExhibitDto> DeleteExhibit(string exhibitId)
+    {
+        Exhibit exhibit = new Exhibit();
+        var exhibits = await _exhibitRepository.GetAll();
+        exhibit = exhibits.FirstOrDefault(exhibit1 => exhibit1.Id == exhibitId);
+
+        if (exhibit != null)
+        {
+            var museumTiles = await _museumTileRepository.RemoveItemFromMuseumTiles(exhibit.OccupiedTileIds);
+        }
+
+        exhibits = await _exhibitRepository.Delete(exhibitId);
+        var dto = new TilesWithExhibitDto();
+        dto.MuseumTiles = await _museumTileRepository.GetAll();
+        dto.Exhibits = exhibits;
+        return dto;
+    }
+    public async Task<List<Shop>> DeleteShop(string shopId)
     {
         return null;
     }
-    public async Task<List<Shop>> DeleteShop()
+    public async Task<List<DecorationOther>> DeleteDecoration(string decorationId)
     {
         return null;
     }
-    public async Task<List<DecorationOther>> DeleteDecoration()
-    {
-        return null;
-    }
-    public async Task<List<Sanitation>> DeleteSanitation()
+    public async Task<List<Sanitation>> DeleteSanitation(string sanitationId)
     {
         return null;
     }

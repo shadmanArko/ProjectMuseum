@@ -14,6 +14,8 @@ public partial class ExhibitItem : Item
 {
 	[Export] private Array<Sprite2D> _artifactSlots;
 	private HttpRequest _httpRequestForGettingExhibitVariation;
+	private bool _moving = false;
+	private Vector2 _movingFromPos = new Vector2();
 	public override void _Ready()
 	{
 		base._Ready();
@@ -24,7 +26,23 @@ public partial class ExhibitItem : Item
 		MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
 		_httpRequestForArtifactPlacement.RequestCompleted += HttpRequestForArtifactPlacementOnRequestCompleted;
 		_httpRequestForArtifactRemoval.RequestCompleted += HttpRequestForArtifactRemovalOnRequestCompleted;
-		
+		MuseumActions.OnExhibitDeleted += OnExhibitDeleted;
+		MuseumActions.OnMakeExhibitFloatForMoving += OnMakeExhibitFloatForMoving;
+	}
+
+	private void OnMakeExhibitFloatForMoving(string obj)
+	{
+		selectedItem = true;
+		_moving = true;
+		_movingFromPos = Position;
+	}
+
+	private void OnExhibitDeleted(string obj)
+	{
+		if (obj== ExhibitData.Id)
+		{
+			QueueFree();
+		}
 	}
 
 	private void HttpRequestForGettingExhibitVariationOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -88,7 +106,17 @@ public partial class ExhibitItem : Item
 		}
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))
 		{
-			QueueFree();
+			if (_moving)
+			{
+				Position = _movingFromPos;
+				selectedItem = false;
+				Modulate = _originalColor;
+			}
+			else
+			{
+				QueueFree();
+			}
+
 		}
 	}
 	private new void HandleItemPlacement()

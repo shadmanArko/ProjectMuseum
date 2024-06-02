@@ -109,6 +109,8 @@ public partial class MuseumActions : Node
 
     public static Action<List<RawArtifactDescriptive>> OnRawArtifactDescriptiveDataLoaded;
     public static Action<List<RawArtifactFunctional>> OnRawArtifactFunctionalDataLoaded;
+    public static Action<string> OnExhibitDeleted;
+    public static Action<string> OnMakeExhibitFloatForMoving;
 
     #endregion
 

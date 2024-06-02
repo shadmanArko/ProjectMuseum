@@ -178,6 +178,21 @@ public class MuseumTileRepository : IMuseumTileRepository
         await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTiles;
     }
+    public async Task<List<MuseumTile>?> RemoveItemFromMuseumTiles(List<string> tileIds)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        foreach (var tile in museumTiles)
+        {
+            if (tileIds.Contains(tile.Id))
+            {
+                tile.ItemId = "";
+                tile.Walkable = true;
+                tile.ItemType = ItemTypeEnum.None;
+            }
+        }
+        await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTiles;
+    }
 
     public async Task<MuseumTile?> Delete(string id)
     {

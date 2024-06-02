@@ -62,13 +62,13 @@ public class ExhibitRepository : IExhibitRepository
         return exhibits;
     }
 
-    public async Task<Exhibit?> Delete(string id)
+    public async Task<List<Exhibit>?> Delete(string id)
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == id);
         if (exhibit != null) exhibits?.Remove(exhibit);
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
-        return exhibit;
+        return await _exhibitDatabase.ReadDataAsync();
     }
 
     public async Task<List<Exhibit>?> DeleteAllExhibits()

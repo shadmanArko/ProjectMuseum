@@ -227,4 +227,21 @@ public class ItemPlacementCondition : IItemPlacementCondition
         museumTiles = await _museumTileRepository.UpdateOtherDecorationToMuseumTiles(tileIds, decorationOther.Id);
         return museumTiles;
     }
+
+    public async Task<List<Exhibit>> DeleteExhibit()
+    {
+        return null;
+    }
+    public async Task<List<Shop>> DeleteShop()
+    {
+        return null;
+    }
+    public async Task<List<DecorationOther>> DeleteDecoration()
+    {
+        return null;
+    }
+    public async Task<List<Sanitation>> DeleteSanitation()
+    {
+        return null;
+    }
 }

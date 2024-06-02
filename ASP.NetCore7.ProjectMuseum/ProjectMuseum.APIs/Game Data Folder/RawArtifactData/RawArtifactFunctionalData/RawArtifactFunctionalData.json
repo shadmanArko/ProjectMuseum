@@ -262,5 +262,115 @@
     "ObjectSize": "Medium",
     "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Industrial American Porcelain Vase.png",
     "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "AncientNativeAmericanClayHumanFigurine",
+    "Era": "Ancient",
+    "Region": "American",
+    "Object": "Toy",
+    "Materials": ["Clay"],
+    "ObjectClass": "Leisure",
+    "ObjectSize": "Tiny",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Ancient Native American Clay Human Figurine.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "ClassicalNativeAmericanBeadNecklace",
+    "Era": "Classical",
+    "Region": "American",
+    "Object": "Necklace",
+    "Materials": ["Beads"],
+    "ObjectClass": "Ceremonial",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Bead Necklace.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "ClassicalNativeAmericanShellNecklace",
+    "Era": "Classical",
+    "Region": "American",
+    "Object": "Necklace",
+    "Materials": ["Shell"],
+    "ObjectClass": "Leisure",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Shell Necklace.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "IndustrialAmericanFurBoots",
+    "Era": "Industrial",
+    "Region": "American",
+    "Object": "Boots",
+    "Materials": ["Fur"],
+    "ObjectClass": "Economic",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Industrial American Fur Boots.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "IndustrialAmericanPorcelainVase",
+    "Era": "Industrial",
+    "Region": "American",
+    "Object": "Vase",
+    "Materials": ["Porcelain"],
+    "ObjectClass": "Clothing",
+    "ObjectSize": "Medium",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Industrial American Porcelain Vase.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "MedievalNativeAmericanClayPrisonerFigurine",
+    "Era": "Medieval",
+    "Region": "American",
+    "Object": "Toy",
+    "Materials": ["Clay"],
+    "ObjectClass": "Leisure",
+    "ObjectSize": "Tiny",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Clay Prisoner Figurine.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "MedievalNativeAmericanGemNecklace",
+    "Era": "Medieval",
+    "Region": "American",
+    "Object": "Necklace",
+    "Materials": ["Gems"],
+    "ObjectClass": "Leisure",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Gem Necklace.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "MedievalNativeAmericanLeatherBoots",
+    "Era": "Medieval",
+    "Region": "American",
+    "Object": "Boots",
+    "Materials": ["Leather"],
+    "ObjectClass": "Clothing",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Leather Boots.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "ModernAmericanRubberBoots",
+    "Era": "Modern",
+    "Region": "American",
+    "Object": "Boots",
+    "Materials": ["Rubber"],
+    "ObjectClass": "Economic",
+    "ObjectSize": "Small",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Modern American Rubber Boots.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
+  },
+  {
+    "Id": "RenaissanceAmericanSilverCoin",
+    "Era": "Renaissance",
+    "Region": "American",
+    "Object": "Coin",
+    "Materials": ["Silver"],
+    "ObjectClass": "Vessel",
+    "ObjectSize": "Tiny",
+    "LargeImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Renaissance American Silver Coin.png",
+    "SmallImageLocation": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Artifact Icon.png"
   }
 ]

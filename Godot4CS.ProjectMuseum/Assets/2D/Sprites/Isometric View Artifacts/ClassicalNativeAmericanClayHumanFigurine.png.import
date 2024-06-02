@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bytl08waw2c7m"
-path="res://.godot/imported/ClassicalNativeAmericanClayAnimalFigurine.png-c3ebb02b8ff34d72bc7a44ed66ce89d1.ctex"
+path="res://.godot/imported/ClassicalNativeAmericanClayHumanFigurine.png-bf66c1e3e3cf75aba918cbd620deb040.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanClayAnimalFigurine.png"
-dest_files=["res://.godot/imported/ClassicalNativeAmericanClayAnimalFigurine.png-c3ebb02b8ff34d72bc7a44ed66ce89d1.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/ClassicalNativeAmericanClayHumanFigurine.png"
+dest_files=["res://.godot/imported/ClassicalNativeAmericanClayHumanFigurine.png-bf66c1e3e3cf75aba918cbd620deb040.ctex"]
 
 [params]
 

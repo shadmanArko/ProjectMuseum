@@ -78,6 +78,7 @@ public partial class FadeInAndOutUi : Control
 	{
 		MuseumActions.OnPlayerSleepAndSavedGame -= PlayFadeInAndOut;
 		MuseumActions.OnTimeUpdated -= OnTimeUpdated;
+		_dayEndReportClosingButton.Pressed -= DayEndReportClosingButtonOnPressed;
 		MuseumActions.OnConceptStoryCompleted -= OnConceptStoryCompleted;
 
 	}

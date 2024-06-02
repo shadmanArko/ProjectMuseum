@@ -46,7 +46,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     
     protected List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
     protected List<ExhibitPlacementConditionData> _listOfMatchingExhibitPlacementConditionDatas;
-    protected Color _eligibleColor = Colors.Green;
+    [Export] protected Color _eligibleColor = Colors.Green;
     protected Color _ineligibleColor = Colors.Red;
 
     protected Color _originalColor;

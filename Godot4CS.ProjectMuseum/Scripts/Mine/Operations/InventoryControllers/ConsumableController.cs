@@ -126,7 +126,7 @@ public partial class ConsumableController : InventoryController
                 "Energy" => "Already at full energy.",
                 _ => "An unknown error occured"
             };
-            ReferenceStorage.Instance.MinePopUp.ShowPopUp(message);
+            ReferenceStorage.Instance.LogMessageController.ShowLogMessage(message);
             return;
         }
         
@@ -145,11 +145,11 @@ public partial class ConsumableController : InventoryController
             {
                 case "Health":
                     HealthSystem.EffectPlayerHealth(statEffect, _playerControllerVariables);
-                    ReferenceStorage.Instance.MinePopUp.ShowPopUp("Health increased");
+                    ReferenceStorage.Instance.LogMessageController.ShowLogMessage("Health increased");
                     break;
                 case "Energy":
                     EnergySystem.EffectPlayerEnergy(statEffect, _playerControllerVariables);
-                    ReferenceStorage.Instance.MinePopUp.ShowPopUp("Energy increased");
+                    ReferenceStorage.Instance.LogMessageController.ShowLogMessage("Energy increased");
                     break;
             }
         }

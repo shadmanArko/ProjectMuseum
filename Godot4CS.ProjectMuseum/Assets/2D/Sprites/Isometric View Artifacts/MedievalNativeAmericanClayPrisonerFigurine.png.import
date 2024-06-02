@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wghq5xodtlc3"
-path="res://.godot/imported/sword.png-b279cfc7a75cabd59de64c20d2b357a6.ctex"
+uid="uid://bbo5vukyi0d0x"
+path="res://.godot/imported/MedievalNativeAmericanClayPrisonerFigurine.png-4566f8e96c0a51522d3b9d470f6ccb0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/sword.png"
-dest_files=["res://.godot/imported/sword.png-b279cfc7a75cabd59de64c20d2b357a6.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/MedievalNativeAmericanClayPrisonerFigurine.png"
+dest_files=["res://.godot/imported/MedievalNativeAmericanClayPrisonerFigurine.png-4566f8e96c0a51522d3b9d470f6ccb0c.ctex"]
 
 [params]
 

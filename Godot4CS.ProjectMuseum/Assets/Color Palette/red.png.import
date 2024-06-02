@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn7ci741026ru"
-path="res://.godot/imported/Renaissance Native American Tomahawk.png-f670977f1d3fc830e6da188bd6f5427d.ctex"
+uid="uid://d32qdj6cpqbf2"
+path="res://.godot/imported/red.png-6c10fe01990afe74fdbf547426df43eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/Renaissance Native American Tomahawk.png"
-dest_files=["res://.godot/imported/Renaissance Native American Tomahawk.png-f670977f1d3fc830e6da188bd6f5427d.ctex"]
+source_file="res://Assets/Color Palette/red.png"
+dest_files=["res://.godot/imported/red.png-6c10fe01990afe74fdbf547426df43eb.ctex"]
 
 [params]
 

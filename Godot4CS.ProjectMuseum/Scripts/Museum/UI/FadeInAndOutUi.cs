@@ -9,7 +9,7 @@ public partial class FadeInAndOutUi : Control
 	[Export] private Label _timeUi;
 	[Export] private Control _dayEndReportPanel;
 	[Export] private Button _dayEndReportClosingButton;
-
+	private bool _conceptEnded = false;
 	private int _lastSavedDay;
 	private int _lastSavedMonth;
 	private int _lastSavedYear;
@@ -19,6 +19,12 @@ public partial class FadeInAndOutUi : Control
 		MuseumActions.OnPlayerSleepAndSavedGame += PlayFadeInAndOut;
 		MuseumActions.OnTimeUpdated += OnTimeUpdated;
 		_dayEndReportClosingButton.Pressed += DayEndReportClosingButtonOnPressed;
+		MuseumActions.OnConceptStoryCompleted += OnConceptStoryCompleted;
+	}
+
+	private void OnConceptStoryCompleted()
+	{
+		_conceptEnded = true;
 	}
 
 	private async void DayEndReportClosingButtonOnPressed()
@@ -47,7 +53,19 @@ public partial class FadeInAndOutUi : Control
 
 	async void PlayFadeInAndOut()
 	{
-		_animationPlayer.Play("Fade_In");
+		if (_conceptEnded)
+		{
+			_animationPlayer.Play("Fade_In");
+		}
+		else
+		{
+			_animationPlayer.Play("Fade_In_Without_Report");
+			await Task.Delay(1500);
+			ChangeDay();
+			await Task.Delay(1000);
+			_animationPlayer.Play("Fade_Out");
+		}
+
 		
 	}
 
@@ -60,5 +78,8 @@ public partial class FadeInAndOutUi : Control
 	{
 		MuseumActions.OnPlayerSleepAndSavedGame -= PlayFadeInAndOut;
 		MuseumActions.OnTimeUpdated -= OnTimeUpdated;
+		_dayEndReportClosingButton.Pressed -= DayEndReportClosingButtonOnPressed;
+		MuseumActions.OnConceptStoryCompleted -= OnConceptStoryCompleted;
+
 	}
 }

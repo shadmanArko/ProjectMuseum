@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bry2q0lr5q8l8"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/ItemCollectionLogSystem/LogMessageCard.cs" id="1_v58e3"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="2_pb7qg"]
+
+[node name="Log Message Card" type="PanelContainer" node_paths=PackedStringArray("_label")]
+custom_minimum_size = Vector2(150, 50)
+offset_right = 150.0
+offset_bottom = 50.0
+pivot_offset = Vector2(75, 25)
+script = ExtResource("1_v58e3")
+_label = NodePath("Label")
+_finalTimer = 3.0
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_pb7qg")
+theme_override_font_sizes/font_size = 22
+text = "1x Health Potion"
+vertical_alignment = 1

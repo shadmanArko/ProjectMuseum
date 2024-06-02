@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dab44t0l4xved"
-path="res://.godot/imported/AncientNativeAmericanWampumBead Currency.png-4dbd02eab44a056919c3fccc7d9d1328.ctex"
+uid="uid://cigp4bqprfodn"
+path="res://.godot/imported/AncientNativeAmericanWampumBeadCurrency.png-b7b915aec41b68a16032da96d72e8016.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/AncientNativeAmericanWampumBead Currency.png"
-dest_files=["res://.godot/imported/AncientNativeAmericanWampumBead Currency.png-4dbd02eab44a056919c3fccc7d9d1328.ctex"]
+source_file="res://Assets/2D/Sprites/Isometric View Artifacts/AncientNativeAmericanWampumBeadCurrency.png"
+dest_files=["res://.godot/imported/AncientNativeAmericanWampumBeadCurrency.png-b7b915aec41b68a16032da96d72e8016.ctex"]
 
 [params]
 

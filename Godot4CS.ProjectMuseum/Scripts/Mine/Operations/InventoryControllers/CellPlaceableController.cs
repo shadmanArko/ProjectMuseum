@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.ColorControllers;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
@@ -193,12 +194,14 @@ public partial class CellPlaceableController : InventoryController
 
     private void SetSpriteColorToGreen()
     {
-        _cellPlaceableSprite.Modulate = Colors.Green;
+        // _cellPlaceableSprite.Modulate = Colors.Green;
+        ColorBlendController.SetColorToGreen(_cellPlaceableSprite);
     }
 
     private void SetSpriteColorToRed()
     {
-        _cellPlaceableSprite.Modulate = Colors.Red;
+        // _cellPlaceableSprite.Modulate = Colors.Red;
+        ColorBlendController.SetColorToRed(_cellPlaceableSprite);
     }
 
     #endregion

@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7xekoa5ueyf3"]
+[gd_scene load_steps=8 format=3 uid="uid://b7xekoa5ueyf3"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/OperationControlManager.cs" id="1_0fax2"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/WallPlaceableController.cs" id="2_crgrw"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/ConsumableController.cs" id="3_cxqsv"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/EquipableController.cs" id="4_pmks2"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/CellPlaceableController.cs" id="5_i6uqa"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/ColorBlendingMode.gdshader" id="6_ymdxv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fwbt7"]
+shader = ExtResource("6_ymdxv")
+shader_parameter/blend_color = null
+shader_parameter/blend = true
 
 [node name="OperationControllerManager" type="Node2D" node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController", "_equipableController", "_cellPlaceableController")]
 script = ExtResource("1_0fax2")
@@ -32,3 +38,4 @@ _cellPlaceableSprite = NodePath("../Sprite2D")
 visibility_layer = 8
 z_index = 10
 texture_filter = 1
+material = SubResource("ShaderMaterial_fwbt7")

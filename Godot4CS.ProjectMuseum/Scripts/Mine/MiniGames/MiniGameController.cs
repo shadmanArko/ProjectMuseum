@@ -77,7 +77,7 @@ public partial class MiniGameController : Node2D
 	private void MiniGameLost()
 	{
 		var animationToPlay = _playerControllerVariables.State == MotionState.Hanging ? "climb_idle" : "idle";
-		_playerControllerVariables.Player.AnimationController.PlayAnimation(animationToPlay);
+		_playerControllerVariables.Player.AnimationController.Play(animationToPlay);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
 	}

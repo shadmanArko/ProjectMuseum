@@ -1,14 +1,23 @@
-[gd_scene load_steps=56 format=3 uid="uid://brfcw3x8aid8m"]
+[gd_scene load_steps=65 format=3 uid="uid://brfcw3x8aid8m"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/Guest.cs" id="1_1bgye"]
 [ext_resource type="Texture2D" uid="uid://dq2jyoehxogkj" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHADOW/GUEST_SHADOW.png" id="2_u41il"]
+[ext_resource type="Texture2D" uid="uid://bh54t4lofodkx" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/SKIN/F_GUEST_SKIN_3.png" id="3_1w0f1"]
+[ext_resource type="Texture2D" uid="uid://cmmtajk834ncu" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/SKIN/F_GUEST_SKIN_4.png" id="4_3njpc"]
 [ext_resource type="Texture2D" uid="uid://rah7b81nyx6v" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/EYES/EYES_1.png" id="6_eek6c"]
 [ext_resource type="Texture2D" uid="uid://b35i6jlt8ohj" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/EYES/EYES_2.png" id="7_62ouc"]
 [ext_resource type="Texture2D" uid="uid://dryxg3v8b8lf7" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/EYES/EYES_3.png" id="8_qj4j7"]
 [ext_resource type="Texture2D" uid="uid://b253hu0jtxtnm" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/EYES/EYES_4.png" id="9_yhuqh"]
 [ext_resource type="Texture2D" uid="uid://poomvinxy81v" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/EYES/EYES_5.png" id="10_02p8v"]
+[ext_resource type="Texture2D" uid="uid://4dgvreqs3w87" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/HAIR/F_HAIR_3.png" id="10_hfpjl"]
+[ext_resource type="Texture2D" uid="uid://b3fes1oclik5u" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/SHIRT/F_SHIRT_4.png" id="10_uyomq"]
+[ext_resource type="Texture2D" uid="uid://dcvd6l3l8rtp0" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/SHIRT/F_SHIRT_5.png" id="11_7sk7c"]
+[ext_resource type="Texture2D" uid="uid://3l5aumu3xaqc" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/HAIR/F_HAIR_5.png" id="12_idjcj"]
+[ext_resource type="Texture2D" uid="uid://b8d2m7mwliq8d" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/SHIRT/F_SHIRT_6.png" id="12_j8dfx"]
+[ext_resource type="Texture2D" uid="uid://c2ouywc4onbhu" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/SHIRT/F_SHIRT_7.png" id="13_gyfe8"]
 [ext_resource type="Texture2D" uid="uid://bhqw1b38dq0y4" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHOES/SHOE_1.png" id="13_uvrcu"]
 [ext_resource type="Texture2D" uid="uid://bqctxtw70rjpi" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/SHOES/SHOE_2.png" id="14_cf5c1"]
+[ext_resource type="Texture2D" uid="uid://b47bsjj3a2p11" path="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/SHIRT/F_SHIRT_8.png" id="14_rkcy4"]
 [ext_resource type="Texture2D" uid="uid://cpf2ks21r5skm" path="res://Assets/2D/Animations/Museum Character Animations/GUEST_ANIMATION_ASSETS/OVER_CLOTH/OVER_CLOTH_1.png" id="23_ebgoh"]
 [ext_resource type="Texture2D" uid="uid://v8vwnt8lk4uv" path="res://Assets/2D/Animations/GuestSelection/guest_selection.png" id="24_ppuhe"]
 [ext_resource type="Texture2D" uid="uid://c6wth67qrvtwr" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_full.png" id="25_6e5eu"]
@@ -2570,12 +2579,12 @@ _characterPant = NodePath("Charcter Parts/Pant")
 _characterShirt = NodePath("Charcter Parts/Shirt")
 _characterOverCloth = NodePath("Charcter Parts/Over Cloth")
 _shadowTextures = Array[Texture2D]([ExtResource("2_u41il")])
-_skinTextures = Array[Texture2D]([SubResource("CompressedTexture2D_uw5jo"), SubResource("CompressedTexture2D_65abc")])
+_skinTextures = Array[Texture2D]([SubResource("CompressedTexture2D_uw5jo"), SubResource("CompressedTexture2D_65abc"), ExtResource("3_1w0f1"), ExtResource("4_3njpc")])
 _eyeTextures = Array[Texture2D]([ExtResource("6_eek6c"), ExtResource("7_62ouc"), ExtResource("8_qj4j7"), ExtResource("9_yhuqh"), ExtResource("10_02p8v")])
-_hairTextures = Array[Texture2D]([SubResource("CompressedTexture2D_5i80j"), SubResource("CompressedTexture2D_pp1uc")])
+_hairTextures = Array[Texture2D]([SubResource("CompressedTexture2D_5i80j"), SubResource("CompressedTexture2D_pp1uc"), ExtResource("10_hfpjl"), ExtResource("12_idjcj")])
 _shoeTextures = Array[Texture2D]([ExtResource("13_uvrcu"), ExtResource("14_cf5c1")])
 _pantTextures = Array[Texture2D]([SubResource("CompressedTexture2D_auqwe"), SubResource("CompressedTexture2D_ke8fn"), SubResource("CompressedTexture2D_ff7in"), SubResource("CompressedTexture2D_61nr4"), SubResource("CompressedTexture2D_4223g"), SubResource("CompressedTexture2D_bsemq")])
-_shirtTextures = Array[Texture2D]([SubResource("CompressedTexture2D_vpgos"), SubResource("CompressedTexture2D_xgyb8"), SubResource("CompressedTexture2D_fp6ed")])
+_shirtTextures = Array[Texture2D]([SubResource("CompressedTexture2D_vpgos"), SubResource("CompressedTexture2D_xgyb8"), SubResource("CompressedTexture2D_fp6ed"), ExtResource("10_uyomq"), ExtResource("11_7sk7c"), ExtResource("12_j8dfx"), ExtResource("13_gyfe8"), ExtResource("14_rkcy4")])
 _overClothTextures = Array[Texture2D]([ExtResource("23_ebgoh")])
 _collisionShape2D = NodePath("Charcter Parts/Shadow")
 _selectionIndicator = NodePath("selectionIndicator")

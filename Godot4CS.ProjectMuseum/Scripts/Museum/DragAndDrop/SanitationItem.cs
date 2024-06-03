@@ -48,7 +48,9 @@ public partial class SanitationItem : Item
 			Vector2 localPos = GameManager.tileMap.MapToLocal(mouseTile);
 			Vector2 worldPos = GameManager.tileMap.ToGlobal(localPos);
 			_eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
-			Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+			// Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+			
+			SetMaterialBasedOnEligibility();
 			// GD.Print($"{eligibleForItemPlacementInTile}");
 			// Apply effect based on eligibility
 			GlobalPosition = worldPos;
@@ -67,6 +69,7 @@ public partial class SanitationItem : Item
 			// OnItemPlaced?.Invoke(ItemPrice);
 			selectedItem = false;
 			Modulate = _originalColor;
+			SetMaterialWithoutBlend();
 		}
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))
 		{

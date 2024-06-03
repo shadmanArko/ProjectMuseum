@@ -18,6 +18,7 @@ public partial class SanitationItem : Item
 	private HttpRequest _httpRequestForPlacingSanitationItem;
 	private BuilderCardType _builderCardType;
 	private CharacterBody2DIsometric _player;
+	private Sanitation _sanitationData;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -112,7 +113,13 @@ public partial class SanitationItem : Item
 		selectedItem = true;
 		_builderCardType = builderCardType;
 		_variationName = cardName;
+		_itemType = ItemTypes.Sanitation;
 		MakeObjectsFloating();
+	}
+	public void ReInitializeShop(Sanitation sanitation)
+	{
+		_sanitationData = sanitation;
+		_itemType = ItemTypes.Sanitation;
 	}
 	private new void HandleItemPlacement()
 	{

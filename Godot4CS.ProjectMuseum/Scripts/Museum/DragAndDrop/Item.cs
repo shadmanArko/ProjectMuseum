@@ -238,7 +238,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     {
         if (Input.IsActionJustReleased("ui_right_click"))
         {
-            if (GetRect().HasPoint(GetLocalMousePosition()))
+            if (GetRect().HasPoint(GetLocalMousePosition()) || (_glass != null && _glass.GetRect().HasPoint(GetLocalMousePosition())))
             {
                 if (_itemType== ItemTypes.Exhibit)
                 {
@@ -335,5 +335,6 @@ public enum ItemTypes
 {
     Exhibit,
     Decoration,
-    Shop
+    Shop,
+    Sanitation
 }

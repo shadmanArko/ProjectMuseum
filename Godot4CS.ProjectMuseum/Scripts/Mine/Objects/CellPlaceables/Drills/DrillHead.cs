@@ -22,6 +22,18 @@ public partial class DrillHead : RigidBody2D
     [Export] private Sprite2D _drillHead;
     
     [Export] private DrillPhase _drillPhase;
+
+    public DrillPhase DrillPhase
+    {
+        get => _drillPhase;
+        set
+        {
+            if (_drillPhase != value)
+                _drillCore.OnDrillPhaseChanged?.Invoke(value);
+            _drillPhase = value;
+        }
+    }
+
     [Export] private DrillDirection _drillDirection;
 
     [Export] private Vector2I _initialMapPos;
@@ -42,7 +54,6 @@ public partial class DrillHead : RigidBody2D
 
     [Export] private float _speed;
     [Export] private float _stoppingDistance;
-    // [Export] private int _drillCount;
     
     public override void _EnterTree()
     {
@@ -80,10 +91,11 @@ public partial class DrillHead : RigidBody2D
     {
         SetExtensionScale();
         
-        if (_drillPhase == DrillPhase.Expand)
+        if (DrillPhase == DrillPhase.Expand)
         {
             if (GlobalPosition.DistanceTo(_targetGlobalPos) > _stoppingDistance)
             {
+                
                 var direction = (_targetGlobalPos - GlobalPosition).Normalized(); 
                 LinearVelocity = direction * _speed;
             }
@@ -92,11 +104,15 @@ public partial class DrillHead : RigidBody2D
                 LinearVelocity = Vector2.Zero;
                 WreckCellWalls();
                 await Task.Delay(1000);
+<<<<<<< Updated upstream
                 _drillPhase = DrillPhase.Drill;
                 GD.Print("Expand to wreck walls");
+=======
+                DrillPhase = DrillPhase.Drill;
+>>>>>>> Stashed changes
             }
         }
-        else if (_drillPhase == DrillPhase.Drill)
+        else if (DrillPhase == DrillPhase.Drill)
         {
             if (_isWrecking)
             {
@@ -119,7 +135,8 @@ public partial class DrillHead : RigidBody2D
                     await Task.Delay(2000);
                     if (!ContainsCellsToBreak())
                     {
-                        _drillPhase = DrillPhase.Retract;
+                        DrillPhase = DrillPhase.Retract;
+                        _drillCore._animationPlayer.Play("drag");
                         RetractToCore();
                     }
                 }
@@ -139,7 +156,7 @@ public partial class DrillHead : RigidBody2D
                         LinearVelocity = Vector2.Zero;
                         _isWrecking = false;
                         await Task.Delay(2000);
-                        _drillPhase = DrillPhase.Retract;
+                        DrillPhase = DrillPhase.Retract;
                         RetractToCore();
                     }
                     else
@@ -150,7 +167,7 @@ public partial class DrillHead : RigidBody2D
                 }
             }
         }
-        else if (_drillPhase == DrillPhase.Retract)
+        else if (DrillPhase == DrillPhase.Retract)
         {
             if (GlobalPosition.DistanceTo(_targetGlobalPos) > _stoppingDistance)
             {
@@ -168,7 +185,7 @@ public partial class DrillHead : RigidBody2D
                 }
                 else
                 {
-                    _drillPhase = DrillPhase.Expand;
+                    DrillPhase = DrillPhase.Expand;
                     InitializeDrill();
                 }
             }
@@ -209,15 +226,23 @@ public partial class DrillHead : RigidBody2D
         GD.Print($"posToExpand: {posToExpandTo}, finalMapPos: {_finalMapPos}");
         if (posToExpandTo == _initialMapPos || posToExpandTo == _finalMapPos)
         {
+<<<<<<< Updated upstream
             _drillPhase = DrillPhase.Disabled;
             GD.PrintErr("Disabled drill as next pos equal to initial pos");
+=======
+            DrillPhase = DrillPhase.Disabled;
+>>>>>>> Stashed changes
         }
         else
         {
             _targetMapPos = posToExpandTo;
             ExpandUptoFurthestEmptyCell();
+<<<<<<< Updated upstream
             _drillPhase = DrillPhase.Expand;
             GD.PrintErr("EXPANDING DRILL HEAD");
+=======
+            DrillPhase = DrillPhase.Expand;
+>>>>>>> Stashed changes
         }
     }
 
@@ -292,7 +317,7 @@ public partial class DrillHead : RigidBody2D
     private void DisableDrillHead()
     {
         _drillCore.DisableCore();
-        _drillPhase = DrillPhase.Disabled;
+        DrillPhase = DrillPhase.Disabled;
     }
 
     private void EnableDrillHead()

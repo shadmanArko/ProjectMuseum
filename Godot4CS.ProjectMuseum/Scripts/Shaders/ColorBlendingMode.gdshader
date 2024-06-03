@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 uniform vec4 blend_color : source_color;
-uniform float blend_factor : hint_range(0.0, 1.0);
+uniform bool blend = true;
 
 vec3 rgb_to_hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -32,7 +32,7 @@ void fragment() {
     vec3 final_rgb = hsv_to_rgb(final_hsv);
     
     // Blend the result with the original texture color
-    vec4 result_color = mix(tex_color, vec4(final_rgb, tex_color.a), blend_factor);
+    vec4 result_color = mix(tex_color, vec4(final_rgb, tex_color.a), float(blend));
     
     COLOR = result_color;
 }

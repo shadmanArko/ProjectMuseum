@@ -39,4 +39,11 @@ public partial class DayEndReportPanel : Panel
 	public override void _Process(double delta)
 	{
 	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		MuseumActions.DayEndReportGenerated -= DayEndReportGenerated;
+
+	}
 }

@@ -16,9 +16,6 @@ public partial class DrillCore : Node2D
     [Export] private Sprite2D _drillCoreSprite2D;
     [Export] private AnimationPlayer _animationPlayer;
 
-    [Export] private Texture2D _disabledCoreTexture;
-    [Export] private Texture2D _enabledCoreTexture;
-
     public Action<DrillPhase> OnDrillPhaseChanged;
     
     #region Initializers

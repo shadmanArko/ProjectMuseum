@@ -36,6 +36,7 @@ public partial class ReferenceStorage : Node
     [Export] public InventoryManager InventoryManager;
     [Export] public MinePause MinePause;
     [Export] public LogMessageController LogMessageController;
+    [Export] public ScreenShakeController ScreenShakeController;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;

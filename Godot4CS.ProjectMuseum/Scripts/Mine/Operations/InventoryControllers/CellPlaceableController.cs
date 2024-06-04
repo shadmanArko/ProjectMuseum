@@ -248,7 +248,7 @@ public partial class CellPlaceableController : InventoryController
                 return false;
             if (!bottomCell.IsBroken || !bottomCell.IsInstantiated || !bottomCell.IsBreakable || !bottomCell.IsRevealed)
             {
-                ReferenceStorage.Instance.LogMessageController.ShowLogMessage("Needs to have a broken cell underneath the target cell where it is placed");
+                ReferenceStorage.Instance.LogMessageController.ShowLogMessage("Needs to have a broken cell in the direction of operation.");
                 return false;
             }
         }

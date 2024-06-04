@@ -1,27 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://cingdd4u4wht8"]
+[gd_scene load_steps=13 format=3 uid="uid://cingdd4u4wht8"]
 
 [ext_resource type="PackedScene" uid="uid://cguqypy3fxhlx" path="res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillHead.tscn" id="1_v5shb"]
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillCore.cs" id="1_xojfg"]
 [ext_resource type="Texture2D" uid="uid://dweykgjy62cki" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillExtension.png" id="2_s66rn"]
-[ext_resource type="Texture2D" uid="uid://bvwdrs12rpgo7" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreDisabled.png" id="2_x6t05"]
-[ext_resource type="Texture2D" uid="uid://bm2qeofcxbink" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreEnabled.png" id="3_4udi1"]
-[ext_resource type="Texture2D" uid="uid://cs0pg3qh1b533" path="res://Assets/2D/Sprites/Mine Sprites/Drills/pistonBase.png" id="6_3p00y"]
-[ext_resource type="Texture2D" uid="uid://bncnqhym6iq61" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCore.png" id="6_6bx1t"]
-
-[sub_resource type="Animation" id="Animation_cbd01"]
-resource_name = "retract"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DrillCoreSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8991),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
+[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Mine Sprites/Drills/pistonBase.png" id="6_3p00y"]
+[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCore.png" id="6_6bx1t"]
 
 [sub_resource type="Animation" id="Animation_yje0t"]
 length = 0.001
@@ -36,51 +19,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_y2r7m"]
-resource_name = "expand"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DrillCoreSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3996, 0.8991),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [5, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_b3q12"]
-resource_name = "thrust"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DrillCoreSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2664, 0.5661, 0.8991),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_wakbl"]
-resource_name = "drag"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DrillCoreSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8991),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [1, 2]
 }
 
 [sub_resource type="Animation" id="Animation_p0rft"]
@@ -98,6 +36,66 @@ tracks/0/keys = {
 "values": [5, 0]
 }
 
+[sub_resource type="Animation" id="Animation_wakbl"]
+resource_name = "drag"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DrillCoreSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8991),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_y2r7m"]
+resource_name = "expand"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DrillCoreSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3996, 0.8991),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_cbd01"]
+resource_name = "retract"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DrillCoreSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8991),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_b3q12"]
+resource_name = "thrust"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DrillCoreSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2664, 0.5661, 0.8991),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bngnb"]
 _data = {
 "RESET": SubResource("Animation_yje0t"),
@@ -113,8 +111,6 @@ script = ExtResource("1_xojfg")
 _drillHeads = []
 _drillCoreSprite2D = NodePath("DrillCoreSprite")
 _animationPlayer = NodePath("AnimationPlayer")
-_disabledCoreTexture = ExtResource("2_x6t05")
-_enabledCoreTexture = ExtResource("3_4udi1")
 
 [node name="drillExtension" type="Sprite2D" parent="."]
 texture_filter = 1

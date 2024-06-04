@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -45,6 +46,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
+        // MineActions.OnSuccessfulDigActionCompleted += ReferenceStorage.Instance.ScreenShakeController.VerticalCameraShake;
     }
 
     #endregion

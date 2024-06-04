@@ -4,6 +4,7 @@ public enum DrillPhase
 {
     Retract,
     Expand,
-    Drill,
+    Thrust,
+    Drag,
     Disabled
 }

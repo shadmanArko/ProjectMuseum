@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.ItemCollectionLogSystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
@@ -237,6 +238,19 @@ public partial class CellPlaceableController : InventoryController
         {
             GD.Print("Cell Already has a Cell placeable");
             return false;
+        }
+
+        if (_inventoryItem.Variant == "DownDrill")
+        {
+            var bottomCell =
+                _mineGenerationVariables.GetCell(new Vector2I(cell.PositionX, cell.PositionY) + Vector2I.Down);
+            if (bottomCell == null)
+                return false;
+            if (!bottomCell.IsBroken || !bottomCell.IsInstantiated || !bottomCell.IsBreakable || !bottomCell.IsRevealed)
+            {
+                ReferenceStorage.Instance.LogMessageController.ShowLogMessage("Needs to have a broken cell underneath the target cell where it is placed");
+                return false;
+            }
         }
 
         GD.Print("Cell Placeable can be placed");

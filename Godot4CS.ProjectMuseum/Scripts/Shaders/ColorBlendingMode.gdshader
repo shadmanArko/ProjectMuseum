@@ -28,7 +28,7 @@ void fragment() {
     vec3 blend_hsv = rgb_to_hsv(blend_color.rgb);
     
     // Preserve the luminance from the base color, and use hue and saturation from the blend color
-    vec3 final_hsv = vec3(blend_hsv.x, base_hsv.y*1.035, base_hsv.z*1.4);
+    vec3 final_hsv = vec3(blend_hsv.x, base_hsv.y*1.035, base_hsv.z*1.2);
     vec3 final_rgb = hsv_to_rgb(final_hsv);
     
     // Blend the result with the original texture color

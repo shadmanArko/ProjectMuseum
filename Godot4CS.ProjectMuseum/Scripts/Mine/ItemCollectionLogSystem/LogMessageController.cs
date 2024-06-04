@@ -10,16 +10,13 @@ public partial class LogMessageController : PanelContainer
     [Export] private VBoxContainer _vBoxContainer;
     public List<LogMessageCard> ItemCards;
 
-    private const string ItemCardScenePath = "res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageCard.tscn";
-    public override void _EnterTree()
-    {
-        
-    }
+    private string _itemCardScenePath;
 
     public override void _Ready()
     {
         SubscribeToActions();
         ItemCards = new List<LogMessageCard>();
+        _itemCardScenePath = ReferenceStorage.Instance.ItemCardScenePath;
     }
 
     private void SubscribeToActions()
@@ -32,13 +29,11 @@ public partial class LogMessageController : PanelContainer
         var collectedItem = ItemCards.FirstOrDefault(tempItem => tempItem.InventoryItem.Variant == item.Variant);
         if (collectedItem != null)
         {
-            GD.Print("in collection. incrementing item count");
             collectedItem.ShowCollectedItem(item);
             return;
         }
         
-        GD.Print("Not in collection. adding new item card");
-        var itemCard = ResourceLoader.Load<PackedScene>(ItemCardScenePath).Instantiate() as LogMessageCard;
+        var itemCard = ResourceLoader.Load<PackedScene>(_itemCardScenePath).Instantiate() as LogMessageCard;
         if (itemCard is null)
         {
             GD.PrintErr("FATAL ERROR: Could not instantiate Item Card");
@@ -53,29 +48,10 @@ public partial class LogMessageController : PanelContainer
     public void ShowLogMessage(string message)
     {
         var collectedItem = ItemCards.FirstOrDefault(temp => temp.GetMessage() == message);
-        // if (collectedItem != null)
-        // {
-        //     collectedItem.ShowLogMessage(message);
-        //     return;
-        // }
-        //
-        // GD.Print("Not in collection. adding new item card");
-        // var itemCard = ResourceLoader.Load<PackedScene>(ItemCardScenePath).Instantiate() as LogMessageCard;
-        // if (itemCard is null)
-        // {
-        //     GD.PrintErr("FATAL ERROR: Could not instantiate Item Card");
-        //     return;
-        // }
-        // _vBoxContainer.AddChild(itemCard);
-        //
-        // itemCard.ShowCollectedItem(item);
-        // ItemCards.Add(itemCard);
-
 
         if (collectedItem == null)
         {
-            GD.Print("Not in collection. adding new item card");
-            var itemCard = ResourceLoader.Load<PackedScene>(ItemCardScenePath).Instantiate() as LogMessageCard;
+            var itemCard = ResourceLoader.Load<PackedScene>(_itemCardScenePath).Instantiate() as LogMessageCard;
             if (itemCard is null)
             {
                 GD.PrintErr("FATAL ERROR: Could not instantiate Item Card");

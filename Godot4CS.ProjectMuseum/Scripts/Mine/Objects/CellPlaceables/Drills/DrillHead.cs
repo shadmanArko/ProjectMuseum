@@ -22,6 +22,18 @@ public partial class DrillHead : RigidBody2D
     [Export] private Sprite2D _drillHead;
     
     [Export] private DrillPhase _drillPhase;
+
+    private DrillPhase DrillPhase
+    {
+        get => _drillPhase;
+        set
+        {
+            if (_drillPhase != value)
+                _drillCore.OnDrillPhaseChanged?.Invoke(value);
+            _drillPhase = value;
+        }
+    }
+
     [Export] private DrillDirection _drillDirection;
 
     [Export] private Vector2I _initialMapPos;
@@ -33,7 +45,7 @@ public partial class DrillHead : RigidBody2D
     
     [Export] private Vector2 _initialWreckPos;  //to store wrecker's thrusting starting and ending positions
     [Export] private Vector2 _targetWreckPos;
-    [Export] private bool _isWrecking;
+    
     [Export] private int _wreckRetractPosOffset;   //30
     [Export] private int _wreckThrustPosOffset;   //10
     
@@ -42,13 +54,7 @@ public partial class DrillHead : RigidBody2D
 
     [Export] private float _speed;
     [Export] private float _stoppingDistance;
-    // [Export] private int _drillCount;
     
-    public override void _EnterTree()
-    {
-        
-    }
-
     public override async void _Ready()
     {
         InitializeDiInstaller();
@@ -80,7 +86,7 @@ public partial class DrillHead : RigidBody2D
     {
         SetExtensionScale();
         
-        if (_drillPhase == DrillPhase.Expand)
+        if (DrillPhase == DrillPhase.Expand)
         {
             if (GlobalPosition.DistanceTo(_targetGlobalPos) > _stoppingDistance)
             {
@@ -92,64 +98,56 @@ public partial class DrillHead : RigidBody2D
                 LinearVelocity = Vector2.Zero;
                 WreckCellWalls();
                 await Task.Delay(1000);
-                _drillPhase = DrillPhase.Drill;
             }
         }
-        else if (_drillPhase == DrillPhase.Drill)
+        else if (DrillPhase == DrillPhase.Thrust)
         {
-            if (_isWrecking)
+            var playOnlyOnce = false;
+            if (GlobalPosition.DistanceTo(_targetWreckPos) > _stoppingDistance)
             {
-                var playOnlyOnce = false;
-                if (GlobalPosition.DistanceTo(_targetWreckPos) > _stoppingDistance)
-                {
-                    var direction = (_targetWreckPos - GlobalPosition).Normalized(); 
-                    LinearVelocity = direction * _thrustSpeed;
-                }
-                else
-                {
-                    _isWrecking = false;
-                    LinearVelocity = Vector2.Zero;
-
-                    if (!playOnlyOnce)
-                    {
-                        BreakCell(_targetMapPos + GetDrillDirection());
-                        playOnlyOnce = true;
-                    }
-                    await Task.Delay(2000);
-                    if (!ContainsCellsToBreak())
-                    {
-                        _drillPhase = DrillPhase.Retract;
-                        RetractToCore();
-                    }
-                }
+                var direction = (_targetWreckPos - GlobalPosition).Normalized(); 
+                LinearVelocity = direction * _thrustSpeed;
             }
             else
             {
-                if (GlobalPosition.DistanceTo(_initialWreckPos) > _stoppingDistance)
+                DrillPhase = DrillPhase.Drag;
+                LinearVelocity = Vector2.Zero;
+
+                if (!playOnlyOnce)
                 {
-                    var direction = (_initialWreckPos - GlobalPosition).Normalized(); 
-                    LinearVelocity = direction * _withdrawSpeed;
+                    BreakCell(_targetMapPos + GetDrillDirection());
+                    playOnlyOnce = true;
                 }
-                else
+                await Task.Delay(2000);
+                if (!ContainsCellsToBreak())
                 {
-                    var cellToBreak = GetCellByMapPos(_targetMapPos + GetDrillDirection());
-                    if (cellToBreak.HitPoint <= 0)
-                    {
-                        LinearVelocity = Vector2.Zero;
-                        _isWrecking = false;
-                        await Task.Delay(2000);
-                        _drillPhase = DrillPhase.Retract;
-                        RetractToCore();
-                    }
-                    else
-                    {
-                        _isWrecking = true;
-                    }
-                    
+                    DrillPhase = DrillPhase.Retract;
+                    RetractToCore();
                 }
             }
         }
-        else if (_drillPhase == DrillPhase.Retract)
+        else if (DrillPhase == DrillPhase.Drag)
+        {
+            if (GlobalPosition.DistanceTo(_initialWreckPos) > _stoppingDistance)
+            {
+                var direction = (_initialWreckPos - GlobalPosition).Normalized(); 
+                LinearVelocity = direction * _withdrawSpeed;
+            }
+            else
+            {
+                var cellToBreak = GetCellByMapPos(_targetMapPos + GetDrillDirection());
+                if (cellToBreak.HitPoint <= 0)
+                {
+                    LinearVelocity = Vector2.Zero;
+                    await Task.Delay(2000);
+                    DrillPhase = DrillPhase.Retract;
+                    RetractToCore();
+                }
+                else 
+                    DrillPhase = DrillPhase.Thrust;
+            }
+        }
+        else if (DrillPhase == DrillPhase.Retract)
         {
             if (GlobalPosition.DistanceTo(_targetGlobalPos) > _stoppingDistance)
             {
@@ -163,11 +161,11 @@ public partial class DrillHead : RigidBody2D
 
                 if (!ContainsCellsToBreak())
                 {
-                    DisableDrillHead();
+                    _drillPhase = DrillPhase.Disabled;
                 }
                 else
                 {
-                    _drillPhase = DrillPhase.Expand;
+                    DrillPhase = DrillPhase.Expand;
                     InitializeDrill();
                 }
             }
@@ -180,9 +178,7 @@ public partial class DrillHead : RigidBody2D
         var posToExpandTo = _initialMapPos;
 
         if (!ContainsCellsToBreak())
-            DisableDrillHead();
-        else
-            EnableDrillHead();
+            _drillPhase = DrillPhase.Disabled;
         
         for (var i = 1; i <= _drillLimit; i++)
         {
@@ -206,13 +202,13 @@ public partial class DrillHead : RigidBody2D
         
         if (posToExpandTo == _initialMapPos || posToExpandTo == _finalMapPos)
         {
-            _drillPhase = DrillPhase.Disabled;
+            DrillPhase = DrillPhase.Disabled;
         }
         else
         {
             _targetMapPos = posToExpandTo;
             ExpandUptoFurthestEmptyCell();
-            _drillPhase = DrillPhase.Expand;
+            DrillPhase = DrillPhase.Expand;
         }
     }
 
@@ -237,9 +233,11 @@ public partial class DrillHead : RigidBody2D
     
     private void WreckCellWalls()
     {
-        _initialWreckPos = GlobalPosition + new Vector2(0, -_wreckRetractPosOffset);
-        _targetWreckPos = GlobalPosition + new Vector2(0, _wreckThrustPosOffset);
-        _isWrecking = true;
+        var cellSize = _mineGenerationVariables.Mine.CellSize;
+        var currentGlobalPosition = GetLocalToMap(GlobalPosition) * cellSize + new Vector2(cellSize, cellSize)/2;
+        _initialWreckPos = currentGlobalPosition + new Vector2(0, -_wreckRetractPosOffset);
+        _targetWreckPos = currentGlobalPosition + new Vector2(0, _wreckThrustPosOffset);
+        DrillPhase = DrillPhase.Thrust;
     }
     
     private void BreakCell(Vector2I tilePos)
@@ -279,17 +277,6 @@ public partial class DrillHead : RigidBody2D
             _mineGenerationVariables.BrokenCells++;
             MineActions.OnMineCellBroken?.Invoke(tilePos);
         }
-    }
-    
-    private void DisableDrillHead()
-    {
-        _drillCore.DisableCore();
-        _drillPhase = DrillPhase.Disabled;
-    }
-
-    private void EnableDrillHead()
-    {
-        _drillCore.EnableCore();
     }
 
     #region Utilities

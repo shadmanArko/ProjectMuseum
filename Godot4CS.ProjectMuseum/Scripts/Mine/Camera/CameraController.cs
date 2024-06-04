@@ -35,7 +35,7 @@ public partial class CameraController : Node2D
 			CheckCameraPosition();
 	}
 
-	public void SetCameraToFollowPlayer()
+	private void SetCameraToFollowPlayer()
 	{
 		GD.Print("SET CAMERA FOLLOW PLAYER CALLED");
 		SetCameraLimits();
@@ -77,6 +77,12 @@ public partial class CameraController : Node2D
 		var smoothLerpY = Mathf.Lerp(cameraPos.Y, playerPos.Y, 0.5f);
 		_camera.Position = new Vector2(smoothLerpX, smoothLerpY);
 	}
+
+	#region Utilities
+
+	public Camera2D GetCamera() => _camera;
+
+	#endregion
 
 	public override void _ExitTree()
 	{

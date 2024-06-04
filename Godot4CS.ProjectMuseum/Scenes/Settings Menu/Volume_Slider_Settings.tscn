@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ouhmqp7q5h10"]
 
-[ext_resource type="Script" path="res://Scenes/Settings Menu/volume_slider_settings.gd" id="1_0m6yj"]
+[ext_resource type="Script" path="res://Scripts/SettingsMenu/volume_slider_settings.gd" id="1_0m6yj"]
 
 [node name="Volume_Slider_Settings" type="HBoxContainer"]
 size_flags_vertical = 6

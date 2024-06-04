@@ -14,6 +14,7 @@ func _on_back_button_pressed() -> void:
 	pause_menu.visible = false
 	pause_menu_button.visible = true
 	get_tree().paused = false
+	SettingsSignalBus.emit_set_settings_dictionary(SettingsDataContainer.create_storage_dictionary())
 	
 
 

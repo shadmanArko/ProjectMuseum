@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3njs5gj75ppi"]
+[gd_scene load_steps=9 format=3 uid="uid://c3njs5gj75ppi"]
 
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu_button.gd" id="1_x8mop"]
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu.gd" id="2_47s05"]
+[ext_resource type="Script" path="res://Plugins/Keybind/SettingsDataContainer.gd" id="3_afjxx"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="3_m1stg"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="4_33lpo"]
 [ext_resource type="PackedScene" uid="uid://ouhmqp7q5h10" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="4_hicjn"]
@@ -101,6 +102,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 1.00943)
+script = ExtResource("3_afjxx")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="settings_menu"]

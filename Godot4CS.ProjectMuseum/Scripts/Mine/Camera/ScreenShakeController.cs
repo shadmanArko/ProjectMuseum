@@ -21,7 +21,7 @@ public partial class ScreenShakeController : Node2D
     {
         var offset = new Vector2(0, _random.Next(-1, 1) * _magnitude);
         // _tween.TweenProperty(_camera, _camera.SceneFilePath, ) 
-            Tween.InterpolateValue(_camera.Position, offset, 1, 1, Tween.TransitionType.Linear, Tween.EaseType.In);
+            // Tween.InterpolateValue(_camera.Position, offset, 1, 1, Tween.TransitionType.Linear, Tween.EaseType.In);
         GD.PrintErr("SHAKING SCREEN");
     }
 }

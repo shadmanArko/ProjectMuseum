@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cguqypy3fxhlx" path="res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillHead.tscn" id="1_v5shb"]
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillCore.cs" id="1_xojfg"]
 [ext_resource type="Texture2D" uid="uid://dweykgjy62cki" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillExtension.png" id="2_s66rn"]
-[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Mine Sprites/Drills/pistonBase.png" id="6_3p00y"]
-[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCore.png" id="6_6bx1t"]
+[ext_resource type="Texture2D" uid="uid://cs0pg3qh1b533" path="res://Assets/2D/Sprites/Mine Sprites/Drills/pistonBase.png" id="6_3p00y"]
+[ext_resource type="Texture2D" uid="uid://bncnqhym6iq61" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCore.png" id="6_6bx1t"]
 
 [sub_resource type="Animation" id="Animation_yje0t"]
 length = 0.001

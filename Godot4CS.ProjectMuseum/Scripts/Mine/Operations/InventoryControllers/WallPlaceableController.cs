@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.ColorControllers;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
@@ -194,12 +195,12 @@ public partial class WallPlaceableController : InventoryController
 
     private void SetSpriteColorToGreen()
     {
-        _wallPlaceableSprite.Modulate = Colors.Green;
+        ColorBlendController.SetColorToGreen(_wallPlaceableSprite);
     }
 
     private void SetSpriteColorToRed()
     {
-        _wallPlaceableSprite.Modulate = Colors.Red;
+        ColorBlendController.SetColorToRed(_wallPlaceableSprite);
     }
 
     #endregion

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cye410nrvhc2d"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/ItemCollectionLogSystem/LogMessageController.cs" id="1_vhx67"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uu0m3"]
+
+[node name="Log Message Controller" type="PanelContainer" node_paths=PackedStringArray("_vBoxContainer")]
+texture_filter = 1
+custom_minimum_size = Vector2(400, 300)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -150.0
+offset_bottom = 150.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uu0m3")
+script = ExtResource("1_vhx67")
+_vBoxContainer = NodePath("VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2

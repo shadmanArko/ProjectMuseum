@@ -18,6 +18,7 @@ public partial class SanitationItem : Item
 	private HttpRequest _httpRequestForPlacingSanitationItem;
 	private BuilderCardType _builderCardType;
 	private CharacterBody2DIsometric _player;
+	private Sanitation _sanitationData;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -48,7 +49,9 @@ public partial class SanitationItem : Item
 			Vector2 localPos = GameManager.tileMap.MapToLocal(mouseTile);
 			Vector2 worldPos = GameManager.tileMap.ToGlobal(localPos);
 			_eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
-			Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+			// Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+			
+			SetMaterialBasedOnEligibility();
 			// GD.Print($"{eligibleForItemPlacementInTile}");
 			// Apply effect based on eligibility
 			GlobalPosition = worldPos;
@@ -67,6 +70,7 @@ public partial class SanitationItem : Item
 			// OnItemPlaced?.Invoke(ItemPrice);
 			selectedItem = false;
 			Modulate = _originalColor;
+			SetMaterialWithoutBlend();
 		}
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))
 		{
@@ -109,7 +113,13 @@ public partial class SanitationItem : Item
 		selectedItem = true;
 		_builderCardType = builderCardType;
 		_variationName = cardName;
+		_itemType = ItemTypes.Sanitation;
 		MakeObjectsFloating();
+	}
+	public void ReInitializeShop(Sanitation sanitation)
+	{
+		_sanitationData = sanitation;
+		_itemType = ItemTypes.Sanitation;
 	}
 	private new void HandleItemPlacement()
 	{

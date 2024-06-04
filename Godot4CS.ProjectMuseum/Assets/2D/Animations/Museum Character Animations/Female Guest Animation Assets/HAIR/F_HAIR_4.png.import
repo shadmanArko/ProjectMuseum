@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wghq5xodtlc3"
-path="res://.godot/imported/sword.png-b279cfc7a75cabd59de64c20d2b357a6.ctex"
+uid="uid://co4lsxwr02yo"
+path="res://.godot/imported/F_HAIR_4.png-e41972e475ebd42be68b7f0f357a9a38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/sword.png"
-dest_files=["res://.godot/imported/sword.png-b279cfc7a75cabd59de64c20d2b357a6.ctex"]
+source_file="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/HAIR/F_HAIR_4.png"
+dest_files=["res://.godot/imported/F_HAIR_4.png-e41972e475ebd42be68b7f0f357a9a38.ctex"]
 
 [params]
 

@@ -95,7 +95,7 @@ public partial class DropTarget : Control
     private void Highlight(bool highlight)
     {
         // Set the color to the original or a highlighted color based on the 'highlight' parameter
-        Modulate = highlight ? Colors.Green : originalColor;
+        // Modulate = highlight ? Colors.Green : originalColor;
     }
 
     public override void _ExitTree()

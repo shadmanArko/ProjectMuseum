@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
-[ext_resource type="AudioStream" uid="uid://cbto5odc4hoj5" path="res://Assets/SFX/UI_Message.wav" id="2_x4oiq"]
+[ext_resource type="AudioStream" uid="uid://w68icbbxppgt" path="res://Assets/SFX/Mine SFX/Dig/mine_dig.wav" id="2_qftpu"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithWallDetector.cs" id="4_rq7pk"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
@@ -634,7 +634,7 @@ _maxVerticalVelocity = 200.0
 _fallTimeThreshold = 0.2
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_x4oiq")
+stream = ExtResource("2_qftpu")
 bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

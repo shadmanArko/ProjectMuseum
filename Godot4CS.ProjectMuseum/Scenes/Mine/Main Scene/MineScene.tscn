@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=37 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://dtvk4ujsdo5dg" path="res://Scenes/Test Scenes/CursorFollowSlot.tscn" id="28_v6xuw"]
 [ext_resource type="PackedScene" uid="uid://dwou7mojgk558" path="res://Scenes/Test Scenes/Inventory.tscn" id="29_jdbf1"]
 [ext_resource type="PackedScene" uid="uid://cf5v8nqef7svy" path="res://Scenes/Mine/Sub Scenes/MineSceneView.tscn" id="30_f3st8"]
+[ext_resource type="PackedScene" uid="uid://cye410nrvhc2d" path="res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageController.tscn" id="32_rvnlm"]
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
 
 [node name="MineScene" type="Node2D"]
@@ -50,7 +51,7 @@ _rootNode = NodePath("..")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePause", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePause", "LogMessageController", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -65,6 +66,7 @@ LoadingBarManager = NodePath("../LoadingScene")
 ParticleEffectSystem = NodePath("../ParticleEffectSystem")
 InventoryManager = NodePath("../InventoryManager")
 MinePause = NodePath("../MinePause")
+LogMessageController = NodePath("../MineUI/Log Message Controller")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
@@ -142,17 +144,6 @@ _marginContainer = NodePath("MarginContainer")
 _panel = NodePath("Panel")
 
 [node name="MinePopUp" parent="MineUI" node_paths=PackedStringArray("_popUpText") instance=ExtResource("12_uukqb")]
-anchors_preset = 2
-anchor_left = 0.0
-anchor_top = 1.0
-anchor_right = 0.0
-anchor_bottom = 1.0
-offset_left = 0.0
-offset_top = -180.0
-offset_right = 400.0
-offset_bottom = -80.0
-grow_horizontal = 1
-grow_vertical = 0
 _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
@@ -180,6 +171,9 @@ InventoryItems = [NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxCon
 _inventoryPanel = NodePath("InventoryPanel")
 
 [node name="PauseMenu" parent="MineUI" instance=ExtResource("34_a03ws")]
+
+[node name="Log Message Controller" parent="MineUI" node_paths=PackedStringArray("_vBoxContainer") instance=ExtResource("32_rvnlm")]
+_vBoxContainer = NodePath("VBoxContainer")
 
 [node name="SceneTransition" parent="." node_paths=PackedStringArray("_colorRect") instance=ExtResource("6_1bas2")]
 visible = false

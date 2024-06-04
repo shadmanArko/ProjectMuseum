@@ -46,9 +46,11 @@ public partial class Item : Sprite2D, IComparable<Item>
     
     protected List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
     protected List<ExhibitPlacementConditionData> _listOfMatchingExhibitPlacementConditionDatas;
-    protected Color _eligibleColor = Colors.Green;
-    protected Color _ineligibleColor = Colors.Red;
-
+    // protected Color _eligibleColor = new Color("649d47");
+    // protected Color _ineligibleColor = new Color("bc302b");
+    protected ShaderMaterial greenMaterial;
+    protected ShaderMaterial redMaterial;
+    protected ShaderMaterial noBlendMaterial;
     protected Color _originalColor;
     protected HttpRequest _httpRequestForExhibitPlacementConditions;
     protected HttpRequest _httpRequestForExhibitPlacement;
@@ -74,8 +76,11 @@ public partial class Item : Sprite2D, IComparable<Item>
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
+        // itemShaderMaterial = (ShaderMaterial)Material;
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-        
+        greenMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/green.tres");
+        redMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/red.tres");
+        noBlendMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/White.tres");
         AddToGroup("ManualSortGroup");
         _httpRequestForExhibitPlacement = new HttpRequest();
         _httpRequestForExhibitPlacementConditions = new HttpRequest();
@@ -167,7 +172,9 @@ public partial class Item : Sprite2D, IComparable<Item>
             Vector2 localPos = GameManager.tileMap.MapToLocal(mouseTile);
             Vector2 worldPos = GameManager.tileMap.ToGlobal(localPos);
             _eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
-            Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+            // Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+            SetMaterialBasedOnEligibility();
+
             // GD.Print($"{eligibleForItemPlacementInTile}");
             // Apply effect based on eligibility
             GlobalPosition = worldPos;
@@ -186,11 +193,23 @@ public partial class Item : Sprite2D, IComparable<Item>
             // OnItemPlaced?.Invoke(ItemPrice);
             selectedItem = false;
             Modulate = _originalColor;
+            // itemShaderMaterial.SetShaderParameter("blend", false);
+            SetMaterialWithoutBlend();
         }
         if (selectedItem && Input.IsActionPressed("ui_right_click"))
         {
             QueueFree();
         }
+    }
+
+    protected void SetMaterialWithoutBlend()
+    {
+        Material = noBlendMaterial;
+    }
+
+    protected void SetMaterialBasedOnEligibility()
+    {
+        Material = _eligibleForItemPlacementInTile ? greenMaterial : redMaterial;
     }
 
     public void EnableGlass(bool enableGlass)
@@ -219,7 +238,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     {
         if (Input.IsActionJustReleased("ui_right_click"))
         {
-            if (GetRect().HasPoint(GetLocalMousePosition()))
+            if (GetRect().HasPoint(GetLocalMousePosition()) || (_glass != null && _glass.GetRect().HasPoint(GetLocalMousePosition())))
             {
                 if (_itemType== ItemTypes.Exhibit)
                 {
@@ -316,5 +335,6 @@ public enum ItemTypes
 {
     Exhibit,
     Decoration,
-    Shop
+    Shop,
+    Sanitation
 }

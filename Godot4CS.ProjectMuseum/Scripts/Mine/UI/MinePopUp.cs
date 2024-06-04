@@ -5,15 +5,15 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 
 public partial class MinePopUp : PanelContainer
 {
-    [Export] private RichTextLabel _popUpText;
+    [Export] private Label _popUpText;
 
     public async void ShowPopUp(string message)
     {
         Show();
         _popUpText.Text = message;
-        var panelSize = Size;
-        panelSize.Y = _popUpText.Size.Y + 20;
-        Size = panelSize;
+        // var panelSize = Size;
+        // panelSize.Y = _popUpText.Size.Y + 20;
+        // Size = panelSize;
         await Task.Delay(5000);
         _popUpText.Text = "";
         Hide();
@@ -23,9 +23,9 @@ public partial class MinePopUp : PanelContainer
     {
         Show();
         _popUpText.Text = message;
-        var panelSize = Size;
-        panelSize.Y = _popUpText.Size.Y + 20;
-        Size = panelSize;
+        // var panelSize = Size;
+        // panelSize.Y = _popUpText.Size.Y + 20;
+        // Size = panelSize;
         await Task.Delay(seconds * 1000);
         _popUpText.Text = "";
         Hide();

@@ -4,6 +4,7 @@ using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
+using Godot4CS.ProjectMuseum.Scripts.Mine.ItemCollectionLogSystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MineSettings;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
@@ -34,6 +35,7 @@ public partial class ReferenceStorage : Node
     [Export] public ParticleEffectSystem ParticleEffectSystem;
     [Export] public InventoryManager InventoryManager;
     [Export] public MinePause MinePause;
+    [Export] public LogMessageController LogMessageController;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;

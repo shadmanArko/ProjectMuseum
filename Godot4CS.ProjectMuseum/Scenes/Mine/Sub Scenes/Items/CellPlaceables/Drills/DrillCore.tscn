@@ -16,6 +16,7 @@ _enabledCoreTexture = ExtResource("3_4udi1")
 [node name="drillExtension" type="Sprite2D" parent="."]
 texture_filter = 1
 texture_repeat = 2
+use_parent_material = true
 position = Vector2(0, -6)
 scale = Vector2(1, 0.5)
 texture = ExtResource("2_s66rn")
@@ -30,5 +31,6 @@ _drillHead = NodePath("Sprite2D")
 
 [node name="DrillCoreSprite" type="Sprite2D" parent="."]
 texture_filter = 1
+use_parent_material = true
 texture = ExtResource("3_4udi1")
 region_rect = Rect2(2, 2, 20, 20)

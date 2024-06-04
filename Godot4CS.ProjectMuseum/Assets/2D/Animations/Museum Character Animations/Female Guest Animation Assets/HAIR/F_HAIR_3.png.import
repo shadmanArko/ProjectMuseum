@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dab44t0l4xved"
-path="res://.godot/imported/AncientNativeAmericanWampumBead Currency.png-4dbd02eab44a056919c3fccc7d9d1328.ctex"
+uid="uid://4dgvreqs3w87"
+path="res://.godot/imported/F_HAIR_3.png-9beb85f06d4c88cbf8701d558ebd1eda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Isometric View Artifacts/AncientNativeAmericanWampumBead Currency.png"
-dest_files=["res://.godot/imported/AncientNativeAmericanWampumBead Currency.png-4dbd02eab44a056919c3fccc7d9d1328.ctex"]
+source_file="res://Assets/2D/Animations/Museum Character Animations/Female Guest Animation Assets/HAIR/F_HAIR_3.png"
+dest_files=["res://.godot/imported/F_HAIR_3.png-9beb85f06d4c88cbf8701d558ebd1eda.ctex"]
 
 [params]
 

@@ -12,6 +12,25 @@ var loaded_data : Dictionary = {}
 
 func _ready():
 	create_storage_dictionary()
+	
+func on_master_volume_set(toggled : bool) -> void:
+	pass
+	
+func on_music_volume_set(toggled : bool) -> void:
+	pass
+	
+func on_sfx_volume_set(toggled : bool) -> void:
+	pass
+	
+func on_ui_volume_set(toggled : bool) -> void:
+	pass
+	
+func on_ambiance_volume_set(toggled : bool) -> void:
+	pass
+	
+	
+func handle_signals() -> void:
+	pass
 
 func create_storage_dictionary() -> Dictionary:
 	var settings_container_dict = {

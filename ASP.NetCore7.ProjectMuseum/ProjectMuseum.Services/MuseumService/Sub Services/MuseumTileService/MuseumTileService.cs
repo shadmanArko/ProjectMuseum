@@ -77,7 +77,10 @@ public class MuseumTileService : IMuseumTileService
     {
         return await _itemPlacementCondition.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName, rotationFrame);
     }
-
+    public async Task<TilesWithExhibitDto> MoveExhibitOnTiles(string originTileId, List<string> tileIds, Exhibit exhibit, int rotationFrame)
+    {
+        return await _itemPlacementCondition.MoveExhibitOnTiles(originTileId, tileIds, exhibit, rotationFrame);
+    }
     public async Task<TilesWithShopsDTO> PlaceShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
     {
         return await _itemPlacementCondition.PlaceShopOnTiles(originTileId, tileIds, shopVariationName, rotationFrame);

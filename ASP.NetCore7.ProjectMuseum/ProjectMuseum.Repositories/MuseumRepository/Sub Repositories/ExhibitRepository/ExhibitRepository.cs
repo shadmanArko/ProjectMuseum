@@ -24,8 +24,12 @@ public class ExhibitRepository : IExhibitRepository
     public async Task<Exhibit> Update(string id, Exhibit exhibit)
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();
-        var exhibitToUpdate = exhibit;
-        exhibitToUpdate.Id = id;
+        var foundExhibit = exhibits.FirstOrDefault(exhibit1 => exhibit1.Id == exhibit.Id);
+        if (foundExhibit != null)
+        {
+            exhibits.Remove(foundExhibit);
+        }
+        exhibits.Add(exhibit);
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
         return exhibit;
     }

@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Services.BuilderCardService;
 using ProjectMuseum.Services.DecorationOtherService;
@@ -81,6 +82,12 @@ public class MuseumController : ControllerBase
     public async Task<IActionResult> PlaceAnExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName, int rotationFrame)
     {
         var exhibitPlacementResult = await _museumTileService.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName, rotationFrame);
+        return Ok(exhibitPlacementResult);
+    }
+    [HttpGet("MoveExhibitOnTiles/{originTileId}/{rotationFrame}")]
+    public async Task<IActionResult> MoveExhibitOnTiles(string originTileId, ExhibitWithNewTiles exhibitWithNewTiles, int rotationFrame)
+    {
+        var exhibitPlacementResult = await _museumTileService.MoveExhibitOnTiles(originTileId, exhibitWithNewTiles.NewTileIds, exhibitWithNewTiles.Exhibit, rotationFrame);
         return Ok(exhibitPlacementResult);
     }
     [HttpGet("PlaceAShopOnTiles/{originTileId}/{shopVariationName}/{rotationFrame}")]

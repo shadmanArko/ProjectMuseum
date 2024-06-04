@@ -113,7 +113,7 @@ public partial class ExhibitEditorUi : Control
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
 		foreach (var artifact in artifacts)
 		{
-			if (artifact == null) continue;
+			if (artifact == null || _selectedExhibit == null) continue;
 			
 			if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot1)
 			{

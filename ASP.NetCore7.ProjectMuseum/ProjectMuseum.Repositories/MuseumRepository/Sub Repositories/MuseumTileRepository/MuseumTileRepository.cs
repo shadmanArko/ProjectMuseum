@@ -132,7 +132,29 @@ public class MuseumTileRepository : IMuseumTileRepository
         await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTiles;
     }
-
+    public async Task<List<MuseumTile>?> UpdateMovedExhibitToMuseumTiles(List<string> previousTileIds, List<string> newTileIds, string exhibitId)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        foreach (var tile in museumTiles)
+        {
+            if (newTileIds.Contains(tile.Id))
+            {
+                tile.ItemId = exhibitId;
+                tile.Walkable = false;
+                tile.HasExhibit = true;
+                tile.ItemType = ItemTypeEnum.Exhibit;
+            }
+            else if (previousTileIds.Contains(tile.Id))
+            {
+                tile.ItemId = "";
+                tile.Walkable = true;
+                tile.HasExhibit = false;
+                tile.ItemType = ItemTypeEnum.None;
+            }
+        }
+        await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTiles;
+    }
     public async Task<List<MuseumTile>?> UpdateShopToMuseumTiles(List<string> tileIds, string shopId)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();

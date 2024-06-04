@@ -63,6 +63,9 @@ public partial class Item : Sprite2D, IComparable<Item>
     protected int _currentFrame;
     protected int _maxFrame = 4;
     private float _offsetBeforeItemPlacement = 10;
+    
+    protected bool _moving = false;
+    protected Vector2 _movingFromPos = new Vector2();
 
     public Item()
     {
@@ -320,7 +323,15 @@ public partial class Item : Sprite2D, IComparable<Item>
     }
     protected void OnItemPlacedOnTile(Vector2 position)
     {
-        MuseumActions.OnItemPlacedOnTile?.Invoke(this, position);
+        if (_moving)
+        {
+            MuseumActions.OnItemMovedToTile?.Invoke(this, position);
+
+        }
+        else
+        {
+            MuseumActions.OnItemPlacedOnTile?.Invoke(this, position);
+        }
     }
     public override void _ExitTree()
     {

@@ -30,7 +30,7 @@
         "Category": "Health",
         "Variant": "HealthPotion",
         "IsStackable": true,
-        "Stack": 34,
+        "Stack": 5,
         "Slot": 2,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_health.png"
       },
@@ -41,7 +41,7 @@
         "Category": "Energy",
         "Variant": "EnergyPotion",
         "IsStackable": true,
-        "Stack": 25,
+        "Stack": 5,
         "Slot": 3,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/potion_energy.png"
       },
@@ -52,7 +52,7 @@
         "Category": "Torch",
         "Variant": "FireTorch",
         "IsStackable": true,
-        "Stack": 23,
+        "Stack": 5,
         "Slot": 4,
         "PngPath": "res://Assets/firetorch.png"
       },
@@ -63,7 +63,7 @@
         "Category": "Explosive",
         "Variant": "Dynamite",
         "IsStackable": true,
-        "Stack": 50,
+        "Stack": 5,
         "Slot": 5,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png"
       },
@@ -74,7 +74,7 @@
         "Category": "Drill",
         "Variant": "DownDrill",
         "IsStackable": true,
-        "Stack": 50,
+        "Stack": 5,
         "Slot": 6,
         "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreEnabled.png"
       }

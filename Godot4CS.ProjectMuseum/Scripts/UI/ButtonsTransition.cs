@@ -84,7 +84,7 @@ public partial class ButtonsTransition : HBoxContainer
 			button!.Visible = true;
 		}
 
-		_mainButtonsBg.Visible = true;
+		// _mainButtonsBg.Visible = true;
 	}
 
 	private void TurnOffMainContainerButtons(string str)

@@ -1,6 +1,6 @@
 [
   {
-    "VariationName": "vendingmachine1",
+    "VariationName": "chipsVendingMachine1",
     "NumberOfTilesNeeded": 1,
     "IsDrinkShop": true,
     "IsFoodShop": false,
@@ -13,7 +13,7 @@
     "PlacementCost": 100.0
   },
   {
-    "VariationName": "vendingmachine2",
+    "VariationName": "sodaVendingMachine1",
     "NumberOfTilesNeeded": 1,
     "IsDrinkShop": false,
     "IsFoodShop": true,

@@ -92,6 +92,7 @@ public partial class DecorationsController : Node2D
 			sprite.Frame = shop.RotationFrame;
 			instance.GetNode<Node2D>(".").Position =
 				GameManager.tileMap.MapToLocal(new Vector2I(shop.XPosition, shop.YPosition));
+			instance.GetNode<DecorationItem>(".").ReInitializeShop(shop);
 			ItemsParent.AddChild(instance);
 		}
 	}

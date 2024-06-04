@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://70xubhgxm5i3"]
+[gd_scene load_steps=57 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.cs" id="1_26dxj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="4_uca33"]
 [ext_resource type="Texture2D" uid="uid://d4ehoky215c4n" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_bracket.png" id="5_73e00"]
 [ext_resource type="PackedScene" uid="uid://cffgxhfalo68b" path="res://Scenes/Museum/Museum Ui/Builder Ui/builder_card.tscn" id="5_fc6vt"]
+[ext_resource type="Texture2D" uid="uid://tixoivx3ighx" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/guest_icon.png" id="6_3xcmr"]
 [ext_resource type="Texture2D" uid="uid://dn3q2drhtqr3f" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/marble bg.png" id="7_lgch0"]
 [ext_resource type="Texture2D" uid="uid://cuy4hn1owyvmh" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/money_bar.png" id="7_tkekb"]
 [ext_resource type="Texture2D" uid="uid://cjjyg0qbnjwg4" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/stars_half.png" id="7_v3soj"]
@@ -20,76 +21,77 @@
 [ext_resource type="Texture2D" uid="uid://c2x163wdvl3ts" path="res://Assets/2D/Sprites/Museum Ui/BuilderPanel/builder bar/filter panel.png" id="10_xrxjq"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="12_6by2m"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/LensButton.cs" id="13_ajthb"]
+[ext_resource type="Texture2D" uid="uid://dmqn2hpqs5pyc" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/money_icon.png" id="13_yb238"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/WallHeightButtons.cs" id="14_e2b3n"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qteoa"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ee3wu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0jsxk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4u3p7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a28ad"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0jsxk"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ee3wu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgiaw"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qteoa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s5uh5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5dj88"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_562k0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgiaw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjeu6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g8t5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dchjj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tw0rh"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g8t5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_562k0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjeu6"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b2jl3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j15fb"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yyyfd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jys0r"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_44nn8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yyyfd"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j15fb"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b2jl3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_striv"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w0eh"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rocwa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mqoxg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a5r8s"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rocwa"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w0eh"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_striv"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mpxv4"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7781j"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ypvm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vd1xn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8b2w"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ypvm"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7781j"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mpxv4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3f3m"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atwyn"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lp2yd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jiror"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wjxgi"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lp2yd"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3f3m"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atwyn"]
 
 [node name="BottomBarMuseumUi" type="Control" node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsButton", "_flooringButton", "_wallpapersButton", "_sanitationButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel")]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -98,6 +100,7 @@ anchor_bottom = 1.0
 offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 script = ExtResource("1_26dxj")
 _newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
 _decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent/Food and Drinks Button")
@@ -121,6 +124,7 @@ grow_vertical = 2
 texture = ExtResource("2_12hgw")
 
 [node name="buttons bg" type="TextureRect" parent="Background"]
+visible = false
 layout_mode = 0
 offset_left = 473.0
 offset_right = 1506.33
@@ -130,12 +134,13 @@ expand_mode = 3
 
 [node name="Left Panel" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.04
-anchor_bottom = 1.0
-offset_top = -2.0
-offset_right = 963.0
-grow_vertical = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 1640.0
+offset_bottom = 20.0
+grow_vertical = 2
 
 [node name="Guest Count Holder Panel" type="PanelContainer" parent="Left Panel"]
 layout_mode = 2
@@ -159,20 +164,31 @@ visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Guest Icon" type="TextureRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
-custom_minimum_size = Vector2(3.01, 0)
-layout_mode = 2
-expand_mode = 4
-
 [node name="Guest Text" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+visible = false
 layout_mode = 2
 theme = ExtResource("4_uca33")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "GUESTS"
 
+[node name="MarginContainer" type="MarginContainer" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 8
+
+[node name="Guest Icon" type="TextureRect" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Icon and Text/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("6_3xcmr")
+expand_mode = 3
+
 [node name="Guest Count" type="Label" parent="Left Panel/Guest Count Holder Panel/Guest Count Holder"]
 layout_mode = 2
 theme = ExtResource("4_uca33")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_constants/outline_size = 5
 text = "0
 "
 horizontal_alignment = 2
@@ -252,9 +268,9 @@ _staffContainer = NodePath("../Sub Buttons Panel/Staff Button Container")
 _toggleMode = true
 
 [node name="Administration parent" type="TextureRect" parent="Left Panel/Buttons Panel/Main Buttons Panel"]
+custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
-expand_mode = 3
 
 [node name="Administration Button" type="Button" parent="Left Panel/Buttons Panel/Main Buttons Panel/Administration parent"]
 custom_minimum_size = Vector2(100, 0)
@@ -265,16 +281,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_4u3p7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a28ad")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
 text = "Administration"
 script = ExtResource("2_1850m")
 _stringName = "Administration"
@@ -293,16 +311,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_pgiaw")
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_s5uh5")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_5dj88")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pgiaw")
 text = "Exhibit"
 script = ExtResource("2_1850m")
 _stringName = "Exhibit"
@@ -321,16 +341,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_4u3p7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a28ad")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
 text = "Facilities"
 script = ExtResource("2_1850m")
 _stringName = "Facilities"
@@ -349,16 +371,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_4u3p7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a28ad")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
 text = "Room"
 script = ExtResource("2_1850m")
 _stringName = "Room"
@@ -377,16 +401,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_4u3p7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a28ad")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0jsxk")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ee3wu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qteoa")
 text = "Staff"
 script = ExtResource("2_1850m")
 _stringName = "Staff"
@@ -422,17 +448,18 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxEmpty_562k0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jjeu6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4g8t5")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_dchjj")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_tw0rh")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_4g8t5")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jjeu6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_562k0")
 text = "Museum Overview"
 text_overrun_behavior = 1
 
@@ -450,16 +477,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_562k0")
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jjeu6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4g8t5")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_dchjj")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_tw0rh")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_4g8t5")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jjeu6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_562k0")
 text = "Finances"
 
 [node name="Marketing Parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
@@ -476,16 +504,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
 theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_562k0")
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jjeu6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4g8t5")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_dchjj")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_tw0rh")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_4g8t5")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jjeu6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_562k0")
 text = "Marketing"
 
 [node name="Exhibit Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
@@ -506,18 +535,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_j15fb")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.241156, 0.241156, 0.241156, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.843137)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b2jl3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yyyfd")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jys0r")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_44nn8")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_yyyfd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_b2jl3")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j15fb")
 text = "New Exhibit"
 
 [node name="clear exhibit parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
@@ -534,18 +561,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_j15fb")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.241156, 0.241156, 0.241156, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.843137)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b2jl3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yyyfd")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jys0r")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_44nn8")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_yyyfd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_b2jl3")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j15fb")
 text = "Clear Exhibit"
 
 [node name="edit exhibit parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
@@ -562,18 +587,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_j15fb")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.241156, 0.241156, 0.241156, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.843137)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b2jl3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yyyfd")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jys0r")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_44nn8")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_yyyfd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_b2jl3")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j15fb")
 text = "Edit Exhibit"
 
 [node name="Facilities Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
@@ -594,18 +617,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mqoxg")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a5r8s")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
 text = "Education"
 
 [node name="Play Areas Button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
@@ -622,18 +646,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mqoxg")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a5r8s")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
 text = "Play Areas"
 
 [node name="sanitation button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
@@ -650,18 +675,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mqoxg")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a5r8s")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
 text = "Sanitation"
 
 [node name="suvenirs button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
@@ -678,18 +704,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mqoxg")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a5r8s")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
 text = "Souvenirs"
 
 [node name="food and drinks button parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
@@ -711,18 +738,19 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mqoxg")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_a5r8s")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rocwa")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_striv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w0eh")
 text = "Food & Drinks"
 
 [node name="Room Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
@@ -730,6 +758,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="walls parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("3_lvt4l")
 expand_mode = 3
@@ -743,18 +772,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vd1xn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
 text = "Walls"
 
 [node name="security parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
@@ -771,18 +801,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vd1xn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
 text = "Security"
 
 [node name="lighting button" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
@@ -799,18 +830,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vd1xn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
 text = "Lighting"
 
 [node name="wallpaper parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
@@ -827,18 +859,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vd1xn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
 text = "Wallpaper"
 
 [node name="flooring parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
@@ -855,18 +888,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vd1xn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
 text = "Flooring"
 
 [node name="decorations Parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
@@ -883,18 +917,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vd1xn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8b2w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ypvm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mpxv4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7781j")
 text = "Decorations"
 
 [node name="Staff Button Container" type="HBoxContainer" parent="Left Panel/Buttons Panel/Sub Buttons Panel"]
@@ -920,19 +955,20 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jiror")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wjxgi")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
 text = "Staff Overview"
 
 [node name="staff zoning parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
@@ -949,18 +985,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jiror")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wjxgi")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
 text = "Staff Zoning"
 
 [node name="staff facilities parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
@@ -982,18 +1019,19 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jiror")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wjxgi")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
 text = "Staff Facilities"
 
 [node name="staff hiring parent" type="TextureRect" parent="Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
@@ -1010,18 +1048,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0.297706, 0.142019, 0.18413, 1)
-theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
-theme_override_colors/font_hover_color = Color(0.172833, 0.172833, 0.172833, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.273873, 0.273873, 0.273873, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+theme_override_colors/font_pressed_color = Color(0.295867, 0.295866, 0.295866, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.996078, 0.678431, 0.870588)
+theme_override_colors/font_hover_pressed_color = Color(0.996078, 0.996078, 0.678431, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jiror")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wjxgi")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_lp2yd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_v3f3m")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_atwyn")
 text = "Staff Hiring"
 
 [node name="Right Panel" type="HBoxContainer" parent="."]
@@ -1031,8 +1070,9 @@ anchor_left = 1.0
 anchor_top = 0.04
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -324.0
-offset_top = -2.0
+offset_left = -392.0
+offset_top = 1.76001
+offset_bottom = -3.99999
 grow_horizontal = 0
 grow_vertical = 0
 alignment = 2
@@ -1049,10 +1089,11 @@ offset_right = 150.0
 offset_bottom = 50.0
 theme_override_constants/separation = 10
 
-[node name="Money Icon" type="ColorRect" parent="Right Panel/Money Display Panel/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Money Icon" type="TextureRect" parent="Right Panel/Money Display Panel/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(67.54, 0)
 layout_mode = 2
-color = Color(1, 1, 1, 0)
+texture = ExtResource("13_yb238")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Right Panel/Money Display Panel/HBoxContainer"]
 layout_mode = 2
@@ -1071,8 +1112,11 @@ horizontal_alignment = 1
 [node name="Money Text Holder" type="Label" parent="Right Panel/Money Display Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_uca33")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "1300.99"
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "1300"
 
 [node name="Misc Panel" type="PanelContainer" parent="Right Panel"]
 custom_minimum_size = Vector2(150, 0)

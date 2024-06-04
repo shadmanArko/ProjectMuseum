@@ -3,6 +3,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Mine.WallPlaceables;
 using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
@@ -35,7 +36,8 @@ public partial class Slime : Enemy
     #endregion
 
     [Export] private bool _isInsideMine;
-    
+
+    // [Export] private int _idleCount;
 
     #region Initializers
 
@@ -120,7 +122,6 @@ public partial class Slime : Enemy
                 Attack();
                 break;
         }
-
     }
 
     #endregion
@@ -231,12 +232,8 @@ public partial class Slime : Enemy
         if (!IsAggro)
         {
             AnimationController.PlayAnimation("aggro");
-            IsMoving = false;
             await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
-            IsMoving = true;
         }
-        
-        GD.Print();
 
         var posToGo = _enemyAi.CheckForPathValidity(Position);
         if (posToGo == Vector2.Zero)
@@ -340,9 +337,9 @@ public partial class Slime : Enemy
     private async void EnemyDamageAnimation()
     {
         AnimationController.PlayAnimation("damage");
-        IsMoving = false;
         await Task.Delay(Mathf.CeilToInt(AnimationController.CurrentAnimationLength) * 1000);
         IsTakingDamage = false;
+        IsMoving = false;
         IsMoving = true;
     }
 
@@ -508,6 +505,8 @@ public partial class Slime : Enemy
     private void OnLeftWallAreaCollisionEnter(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        var stalagmite = body as Stalagmite;
+        hasCollidedWithMine |= stalagmite != null;
         if (!hasCollidedWithMine) return;
         // GD.Print("has wall on the left enter, move direction = right");
         _hasWallOnLeft = true;
@@ -516,6 +515,8 @@ public partial class Slime : Enemy
     private void OnLeftWallAreaCollisionExit(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        var stalagmite = body as Stalagmite;
+        hasCollidedWithMine |= stalagmite != null;
         if (!hasCollidedWithMine) return;
         // GD.Print("has wall on the left exit, move direction = right");
         _hasWallOnLeft = false;

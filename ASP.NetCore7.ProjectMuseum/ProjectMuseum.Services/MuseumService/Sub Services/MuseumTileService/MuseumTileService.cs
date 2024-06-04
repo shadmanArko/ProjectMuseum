@@ -7,6 +7,7 @@ using ProjectMuseum.Repositories.DecorationRepository;
 using ProjectMuseum.Repositories.ExhibitRepository;
 using ProjectMuseum.Repositories.MuseumRepository;
 using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.SanitationRepository;
+using ProjectMuseum.Repositories.MuseumRepository.Sub_Repositories.ShopRepository;
 using ProjectMuseum.Repositories.MuseumTileRepository;
 
 namespace ProjectMuseum.Services.MuseumTileService;
@@ -20,10 +21,11 @@ public class MuseumTileService : IMuseumTileService
     private readonly IDecorationShopRepository _decorationShopRepository;
     private readonly IDecorationOtherRepository _decorationOtherRepository;
     private readonly ISanitationRepository _sanitationRepository;
+    private readonly IShopRepository _shopRepository;
     
     private readonly SaveDataJsonFileDatabase _saveDataJsonFileDatabase;
 
-    public MuseumTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IDecorationShopRepository decorationShopRepository, IDecorationOtherRepository decorationOtherRepository, ISanitationRepository sanitationRepository)
+    public MuseumTileService(IMuseumTileRepository museumTileRepository, IExhibitRepository exhibitRepository, SaveDataJsonFileDatabase saveDataJsonFileDatabase, IDecorationShopRepository decorationShopRepository, IDecorationOtherRepository decorationOtherRepository, ISanitationRepository sanitationRepository, IShopRepository shopRepository)
     {
         _museumTileRepository = museumTileRepository;
         _exhibitRepository = exhibitRepository;
@@ -31,8 +33,9 @@ public class MuseumTileService : IMuseumTileService
         _decorationShopRepository = decorationShopRepository;
         _decorationOtherRepository = decorationOtherRepository;
         _sanitationRepository = sanitationRepository;
+        _shopRepository = shopRepository;
         _museumTileDataGenerator = new MuseumTileDataGenerator(_museumTileRepository);
-        _itemPlacementCondition = new ItemPlacementCondition(_exhibitRepository, _museumTileRepository, _decorationShopRepository, _decorationOtherRepository, _sanitationRepository);
+        _itemPlacementCondition = new ItemPlacementCondition(_exhibitRepository, _museumTileRepository, _decorationShopRepository, _decorationOtherRepository, _sanitationRepository, _shopRepository);
     }
 
     public async Task<MuseumTile> InsertMuseumTile(MuseumTile museumTile)

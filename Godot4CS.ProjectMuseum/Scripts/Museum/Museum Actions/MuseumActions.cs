@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Model;
 using Godot4CS.ProjectMuseum.Scripts.Museum.ProfessorScripts;
 using ProjectMuseum.Models;
 
@@ -10,6 +11,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 public partial class MuseumActions : Node
 {
     public static Action<Item, Exhibit> OnClickItem;
+    public static Action<Item, Shop> OnClickShopItem;
     public static Action<GuestAi> OnClickGuestAi;
     public static Action<GuestAi> OnGuestAiUpdated;
     public static Action<string> OnClickWallForUpdatingWallPaper;
@@ -72,6 +74,7 @@ public partial class MuseumActions : Node
     public static Action OnClickArtifactsLensButton;
     public static Action<WallHeightEnum> OnClickWallHeightChangeButton;
     public static Action<string> OnNeedOfPopUpUi;
+    public static Action<string> OnNeedOfWarning;
 
     #endregion
     #region Story
@@ -106,6 +109,28 @@ public partial class MuseumActions : Node
 
     public static Action<List<RawArtifactDescriptive>> OnRawArtifactDescriptiveDataLoaded;
     public static Action<List<RawArtifactFunctional>> OnRawArtifactFunctionalDataLoaded;
+
+    #endregion
+
+    #region Shop
+
+    public static Action<Product, string, float> OnProductReplaced;
+    public static Action<Product, float> OnProductPriceUpdated;
+    public static Action<List<Product>> OnGettingAllProducts;
+
+    #endregion
+
+    #region Expansion
+
+    public static Action<Vector2I> OnCallForMuseumExpansion;
+    public static Action OnMuseumExpanded;
+
+    #endregion
+
+    #region DayEnd
+
+    public static Action DayEnded;
+    public static Action<MuseumDayEndReport> DayEndReportGenerated;
 
     #endregion
 }

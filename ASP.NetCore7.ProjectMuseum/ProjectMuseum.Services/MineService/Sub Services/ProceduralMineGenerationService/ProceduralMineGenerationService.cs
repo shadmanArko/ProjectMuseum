@@ -243,9 +243,9 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             listOfCoords.Remove(tempCoord);
         }
 
-        // Console.WriteLine($"Backdrop Position");
-        // foreach (var backdrop in listOfAddedBackdrops)
-        //     Console.WriteLine($"X:{backdrop.TilePositionX}, Y:{backdrop.TilePositionY}");
+        Console.WriteLine($"Backdrop Position");
+        foreach (var backdrop in listOfAddedBackdrops)
+            Console.WriteLine($"X:{backdrop.TilePositionX}, Y:{backdrop.TilePositionY}");
 
         await _specialBackdropService.SetSpecialBackdrops(listOfAddedBackdrops);
     }

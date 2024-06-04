@@ -10,9 +10,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -50.0
-offset_bottom = 50.0
+offset_left = -500.0
+offset_top = 210.0
+offset_bottom = 310.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
@@ -20,15 +20,13 @@ size_flags_vertical = 8
 script = ExtResource("1_m4g74")
 _popUpText = NodePath("Pop Up Text")
 
-[node name="Pop Up Text" type="RichTextLabel" parent="."]
+[node name="Pop Up Text" type="Label" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_fonts/normal_font = ExtResource("2_r3l15")
-theme_override_font_sizes/normal_font_size = 11
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_r3l15")
+theme_override_font_sizes/font_size = 22
 text = "Mine Pop Up UI Text"
-fit_content = true
-scroll_active = false
+vertical_alignment = 1
 autowrap_mode = 2

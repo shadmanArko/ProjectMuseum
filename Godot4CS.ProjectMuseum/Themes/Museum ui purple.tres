@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dmp0egkhnuhem"]
+
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_wkrsg"]
+
+[resource]
+Button/colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_focus_color = Color(0.992157, 0.815686, 0.32549, 1)
+Button/colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+Button/colors/font_pressed_color = Color(0.294118, 0.294118, 0.294118, 1)
+Button/constants/outline_size = 5
+Button/fonts/font = ExtResource("1_wkrsg")
+Label/colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Label/colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+Label/constants/outline_size = 5
+Label/fonts/font = ExtResource("1_wkrsg")
+LineEdit/fonts/font = ExtResource("1_wkrsg")
+ProgressBar/fonts/font = ExtResource("1_wkrsg")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 0)
+RichTextLabel/fonts/bold_font = ExtResource("1_wkrsg")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_wkrsg")
+RichTextLabel/fonts/italics_font = ExtResource("1_wkrsg")
+RichTextLabel/fonts/mono_font = ExtResource("1_wkrsg")
+RichTextLabel/fonts/normal_font = ExtResource("1_wkrsg")

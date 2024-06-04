@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://csiru7vsowfr4"]
+[gd_scene load_steps=6 format=3 uid="uid://csiru7vsowfr4"]
 
+[ext_resource type="Script" path="res://Scripts/Museum/UI/ShopUi.cs" id="1_460b3"]
+[ext_resource type="PackedScene" uid="uid://bwxvfea8me5c5" path="res://Scenes/Museum/Museum Ui/Shop UI/product_card_for_shop.tscn" id="4_20wdg"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_hok6h"]
 [ext_resource type="Texture2D" uid="uid://c2mru4ev22pb7" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Base1.png" id="5_dwgxl"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fdov"]
 texture = ExtResource("5_dwgxl")
 
-[node name="Shop Ui" type="Control"]
+[node name="Shop Ui" type="Control" node_paths=PackedStringArray("_closeButton", "_productCardsParent", "_shopName")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -14,6 +16,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_460b3")
+_closeButton = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/close Button")
+_productCardForShop = ExtResource("4_20wdg")
+_productCardsParent = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container")
+_shopName = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/Label")
 
 [node name="Shop Ui Bg" type="Panel" parent="."]
 layout_mode = 1
@@ -52,7 +60,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Soda Vending Machine"
 
-[node name="Button" type="Button" parent="Shop Ui Bg/MarginContainer/VBox Container/Top Container"]
+[node name="close Button" type="Button" parent="Shop Ui Bg/MarginContainer/VBox Container/Top Container"]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 text = "X"
@@ -76,9 +84,12 @@ theme_override_constants/margin_bottom = 5
 [node name="Products container" type="VBoxContainer" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container"]
-custom_minimum_size = Vector2(300, 70)
+[node name="Product Card For shop" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container" node_paths=PackedStringArray("_productOptionButton", "_productPrice", "_priceIncreaseButton", "_priceDecreaseButton") instance=ExtResource("4_20wdg")]
 layout_mode = 2
+_productOptionButton = NodePath("MarginContainer/OptionButton")
+_productPrice = NodePath("MarginContainer/product Price/TextEdit")
+_priceIncreaseButton = NodePath("MarginContainer/product Price/TextEdit/Price Up Button")
+_priceDecreaseButton = NodePath("MarginContainer/product Price/TextEdit/Price Down Button")
 
 [node name="ColorRect2" type="ColorRect" parent="Shop Ui Bg/MarginContainer/VBox Container/Products panel/MarginContainer/Products container"]
 custom_minimum_size = Vector2(300, 70)

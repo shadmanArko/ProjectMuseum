@@ -45,7 +45,7 @@ public class MuseumTileDataGenerator : IMuseumTileDataGenerator
                     Walkable = true,
                     ItemId = "string"
                 };
-                if ((x== 0 || y==0 ) && !((x ==0 && y== -7) || (x ==0 && y== -8)))
+                if ((x== 0 || y==0 ) && !((x ==0 && y== -7) || (x ==0 && y== -6)))
                 {
                     museumTile.Walkable = false;
                 }

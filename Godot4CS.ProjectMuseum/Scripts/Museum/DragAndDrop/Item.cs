@@ -221,8 +221,12 @@ public partial class Item : Sprite2D, IComparable<Item>
         {
             if (GetRect().HasPoint(GetLocalMousePosition()))
             {
-                MuseumActions.OnClickItem?.Invoke(this, ExhibitData);
-                MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SelectItem");
+                if (_itemType== ItemTypes.Exhibit)
+                {
+                    MuseumActions.OnClickItem?.Invoke(this, ExhibitData);
+                    MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SelectItem");
+                }
+                
             }
         }
         if (Input.IsActionJustPressed("PressQ") && selectedItem)
@@ -311,5 +315,6 @@ public partial class Item : Sprite2D, IComparable<Item>
 public enum ItemTypes
 {
     Exhibit,
-    Decoration
+    Decoration,
+    Shop
 }

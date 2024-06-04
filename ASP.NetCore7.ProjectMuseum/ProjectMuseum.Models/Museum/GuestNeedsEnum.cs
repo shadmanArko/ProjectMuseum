@@ -8,5 +8,6 @@ public enum GuestNeedsEnum
     Bladder,
     Charge,
     Energy,
-    Entertainment
+    Entertainment,
+    Souvenir
 }

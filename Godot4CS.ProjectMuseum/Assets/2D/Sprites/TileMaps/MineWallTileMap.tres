@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cpq1rrmpv3vjv" path="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/Pipelines2.png" id="6_btdie"]
 [ext_resource type="Texture2D" uid="uid://d08uo58ouwhmg" path="res://Assets/2D/Sprites/Mine Sprites/Tiles/Mince Cracks/Cracks + Materials.png" id="7_d1vpi"]
 [ext_resource type="Texture2D" uid="uid://bn3cmxo53nkqd" path="res://Assets/2D/Sprites/Mine Sprites/Backgrounds/TRex.png" id="7_k85dt"]
-[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Mine Sprites/Vine/vine.png" id="8_kb2d7"]
+[ext_resource type="Texture2D" uid="uid://djo51iib4bip5" path="res://Assets/2D/Sprites/Mine Sprites/Vine/vine.png" id="8_kb2d7"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vwjl6"]
 polygon = PackedVector2Array(-10, -10, -8.75, -8.75, 8.75, -8.75, 10, -10, 8.75, -8.75, 8.75, 8.75, 10, 10, 8.75, 8.75, -8.75, 8.75, -10, 10, -8.75, 8.75, -8.75, -8.75)

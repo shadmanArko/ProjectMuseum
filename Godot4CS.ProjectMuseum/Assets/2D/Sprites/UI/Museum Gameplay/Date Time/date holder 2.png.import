@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gon63saer8ki"
-path="res://.godot/imported/vendingmachine1.png-e66ed5abd1ab475a650c0a35e7e7573a.ctex"
+uid="uid://cbt0yswgkp4m7"
+path="res://.godot/imported/date holder 2.png-e491b6de52e241149c28c1551c65086a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/DecorationShops/vendingmachine1.png"
-dest_files=["res://.godot/imported/vendingmachine1.png-e66ed5abd1ab475a650c0a35e7e7573a.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 2.png"
+dest_files=["res://.godot/imported/date holder 2.png-e491b6de52e241149c28c1551c65086a.ctex"]
 
 [params]
 

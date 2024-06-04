@@ -12,7 +12,9 @@ using ProjectMuseum.Services.MuseumService.Sub_Services.ArtifactStorageService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.DisplayArtifactService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.GuestBuilderParameterService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.MuseumZoneService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ProductService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.SanaitationService;
+using ProjectMuseum.Services.MuseumService.Sub_Services.ShopService;
 using ProjectMuseum.Services.MuseumService.Sub_Services.TradingArtifactsService;
 using ProjectMuseum.Services.MuseumTileService;
 
@@ -37,8 +39,14 @@ public class MuseumController : ControllerBase
     private readonly IArtifactScoringService _artifactScoringService;
 
     private readonly ISanitationService _sanitationService;
+    private readonly IProductService _productService;
+    private readonly IShopService _shopService;
 
-    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService, IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService, IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, ISanitationService sanitationService, IArtifactScoringService artifactScoringService)
+    public MuseumController(IMuseumTileService museumTileService, IMuseumService museumService, IDisplayArtifactService displayArtifactService,
+        IArtifactStorageService artifactStorageService, ITradingArtifactsService tradingArtifactsService, IExhibitService exhibitService,
+        IBuilderCardService builderCardService, IDecorationShopService decorationShopService, IDecorationOtherService decorationOtherService, 
+        IMuseumZoneService museumZoneService, IGuestBuilderParameterService guestBuilderParameterService, ISanitationService sanitationService, 
+        IArtifactScoringService artifactScoringService, IProductService productService, IShopService shopService)
     {
         _museumTileService = museumTileService;
         _museumService = museumService;
@@ -54,6 +62,8 @@ public class MuseumController : ControllerBase
        
         _sanitationService = sanitationService;
         _artifactScoringService = artifactScoringService;
+        _productService = productService;
+        _shopService = shopService;
     }
     [HttpGet("GetAllMuseumTiles")]
     public async Task<IActionResult> GetAllMuseumTiles()
@@ -348,6 +358,17 @@ public class MuseumController : ControllerBase
         var artifactScores = await _artifactScoringService.RefreshArtifactScore();
         return Ok(artifactScores);
     }
-
+    [HttpGet("GetAllProducts")]
+    public async Task<IActionResult> GetAllProducts()
+    {
+        var products = await _productService.GetAllProducts();
+        return Ok(products);
+    }
+    [HttpGet("GetAllShopFunctionalDatas")]
+    public async Task<IActionResult> GetAllShopFunctionalDatas()
+    {
+        var shopFunctionals = await _shopService.GetAllShopFunctional();
+        return Ok(shopFunctionals);
+    }
 
 }

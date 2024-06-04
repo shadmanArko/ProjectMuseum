@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwxvfea8me5c5"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/UI/ProductCardForShop.cs" id="1_s53r8"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_bjvhk"]
+
+[node name="Product Card For shop" type="ColorRect" node_paths=PackedStringArray("_productOptionButton", "_productPrice", "_priceIncreaseButton", "_priceDecreaseButton")]
+custom_minimum_size = Vector2(300, 70)
+script = ExtResource("1_s53r8")
+_productOptionButton = NodePath("MarginContainer/OptionButton")
+_productPrice = NodePath("MarginContainer/product Price/TextEdit")
+_priceIncreaseButton = NodePath("MarginContainer/product Price/TextEdit/Price Up Button")
+_priceDecreaseButton = NodePath("MarginContainer/product Price/TextEdit/Price Down Button")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer"]
+custom_minimum_size = Vector2(213, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("2_bjvhk")
+alignment = 1
+selected = 0
+item_count = 1
+popup/item_0/text = "Soda"
+
+[node name="product Price" type="ColorRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(71.835, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="TextEdit" type="LineEdit" parent="MarginContainer/product Price"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -10.0
+offset_right = -4.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_bjvhk")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+placeholder_text = "1.00"
+alignment = 1
+
+[node name="Price Up Button" type="Button" parent="MarginContainer/product Price/TextEdit"]
+layout_mode = 0
+offset_left = 2.0625
+offset_top = 1.5
+offset_right = 10.0625
+offset_bottom = 12.5
+
+[node name="Price Down Button" type="Button" parent="MarginContainer/product Price/TextEdit"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0625
+offset_top = -13.5
+offset_right = 10.0625
+offset_bottom = -2.5
+grow_vertical = 0

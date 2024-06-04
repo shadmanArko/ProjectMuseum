@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://robhito2pwle"]
+
+[ext_resource type="Texture2D" uid="uid://ggvdo5exrdvd" path="res://Assets/2D/Sprites/Backgrounds/Trees/palm tree/palm tree.png" id="1_rc5h5"]
+[ext_resource type="Texture2D" uid="uid://dhhjvj2y26gr5" path="res://Assets/2D/Sprites/Backgrounds/Trees/palm tree/palm tree_leaves.png" id="2_t8whj"]
+
+[node name="PalmTree" type="Node2D"]
+z_index = 1
+
+[node name="Tree body" type="Sprite2D" parent="."]
+position = Vector2(-1, 14)
+texture = ExtResource("1_rc5h5")
+offset = Vector2(0, -65)
+
+[node name="tree leaves" type="Sprite2D" parent="Tree body"]
+texture = ExtResource("2_t8whj")
+offset = Vector2(0, -65)

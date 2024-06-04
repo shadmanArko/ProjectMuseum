@@ -6,6 +6,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.GuestScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Model;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using ProjectMuseum.Models;
@@ -15,19 +16,49 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.ShopSystem;
 public partial class ShopManager: Node
 {
     //have all shops 
-
+    public int numberOfFoodSell;
+    public int numberOfDrinkSell;
+    public int numberOfSouvenirSell;
+    public float revenueFromFoodSell;
+    public float revenueFromDrinkSell;
+    public float revenueFromSouvenirSell;
     private MuseumTileContainer _museumTileContainer;
     //Find suitable shop, destination and product
     public override async void _Ready()
     {
         base._Ready();
         await Task.Delay(1000);
+        MuseumActions.DayEndReportGenerated += DayEndReportGenerated;
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
     }
 
-    
+    private void DayEndReportGenerated(MuseumDayEndReport obj)
+    {
+        numberOfFoodSell = 0;
+        numberOfDrinkSell = 0;
+        numberOfSouvenirSell = 0;
+        revenueFromFoodSell = 0;
+        revenueFromDrinkSell = 0;
+        revenueFromSouvenirSell = 0;
+    }
+
+
     public void SellProduct(Product product)
     {
+        if (product.FulfilsGuestNeed == GuestNeedsEnum.Hunger)
+        {
+            numberOfFoodSell++;
+            revenueFromFoodSell += product.BasePrice;
+        }else if (product.FulfilsGuestNeed == GuestNeedsEnum.Thirst)
+        {
+            numberOfDrinkSell++;
+            revenueFromDrinkSell += product.BasePrice;
+        }
+        else if (product.FulfilsGuestNeed == GuestNeedsEnum.Souvenir)
+        {
+            numberOfSouvenirSell++;
+            revenueFromSouvenirSell += product.BasePrice;
+        }
         MuseumActions.OnMuseumBalanceAdded?.Invoke(product.BasePrice);
     }
 
@@ -66,5 +97,11 @@ public partial class ShopManager: Node
         var guestCoordinate = GameManager.tileMap.LocalToMap(guestPosition);
         var shopCoordinate = new Vector2I(guestXPosition, guestYPosition);
         return guestCoordinate.ManhattanDistance(shopCoordinate);
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        MuseumActions.DayEndReportGenerated -= DayEndReportGenerated;
     }
 }

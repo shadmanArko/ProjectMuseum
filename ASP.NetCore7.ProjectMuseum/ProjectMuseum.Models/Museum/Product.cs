@@ -10,6 +10,6 @@ public class Product
     public string ProductCategory { get; set; }
     public string ProductType { get; set; }
     public GuestNeedsEnum FulfilsGuestNeed { get; set; }
-    public int BasePrice { get; set; }
+    public float BasePrice { get; set; }
     public int NeedFillAmount { get; set; }
 }

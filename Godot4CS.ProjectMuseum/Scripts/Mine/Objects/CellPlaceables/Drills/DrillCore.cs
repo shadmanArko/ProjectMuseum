@@ -10,16 +10,16 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Objects.CellPlaceables.Drills;
 
 public partial class DrillCore : Node2D
 {
-    public Action<DrillPhase> OnDrillPhaseChanged;
-    
     private List<DrillDirection> _drillDirections;
     [Export] private DrillHead[] _drillHeads;
     
     [Export] private Sprite2D _drillCoreSprite2D;
-    [Export] public AnimationPlayer _animationPlayer;
+    [Export] private AnimationPlayer _animationPlayer;
 
     [Export] private Texture2D _disabledCoreTexture;
     [Export] private Texture2D _enabledCoreTexture;
+
+    public Action<DrillPhase> OnDrillPhaseChanged;
     
     #region Initializers
 
@@ -31,19 +31,21 @@ public partial class DrillCore : Node2D
 
     private void InitializeDiInstaller()
     {
-        
+        ServiceRegistry.Resolve<PlayerControllerVariables>();
+        ServiceRegistry.Resolve<MineGenerationVariables>();
+        ServiceRegistry.Resolve<MineCellCrackMaterial>();
     }
 
     #region Subscribe and UnSubscribe
 
     private void SubscribeToActions()
     {
-        OnDrillPhaseChanged += PlayAnimationOnDrillPhaseChanged;
+        OnDrillPhaseChanged += PlayAnimationBasedOnDrillPhase;
     }
 
     private void UnSubscribeToActions()
     {
-        OnDrillPhaseChanged -= PlayAnimationOnDrillPhaseChanged;
+        OnDrillPhaseChanged -= PlayAnimationBasedOnDrillPhase;
     }
 
     #endregion
@@ -60,24 +62,33 @@ public partial class DrillCore : Node2D
         // _drillCoreSprite2D.Texture = _enabledCoreTexture;
     }
 
-    private void PlayAnimationOnDrillPhaseChanged(DrillPhase phase)
+    private void PlayAnimationBasedOnDrillPhase(DrillPhase phase)
     {
         switch (phase)
         {
             case DrillPhase.Retract:
-                _animationPlayer.Play("drag");
+                _animationPlayer.Play("retract");
                 break;
             case DrillPhase.Expand:
                 _animationPlayer.Play("expand");
                 break;
-            case DrillPhase.Drill:
+            case DrillPhase.Thrust:
                 _animationPlayer.Play("thrust");
                 break;
+            case DrillPhase.Drag:
+                _animationPlayer.Play("drag");
+                break;
             case DrillPhase.Disabled:
+                _animationPlayer.Play("disabled");
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(phase), phase, null);
+                _animationPlayer.Play("retract");
+                break;
         }
     }
-    
+
+    public override void _ExitTree()
+    {
+        UnSubscribeToActions();
+    }
 }

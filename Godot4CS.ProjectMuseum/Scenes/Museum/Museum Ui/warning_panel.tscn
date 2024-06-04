@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://k1y7r7bsityp"]
+
+[ext_resource type="Script" path="res://Scripts/Museum/UI/WarningPanel.cs" id="1_5avuh"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="1_40f2b"]
+[ext_resource type="Texture2D" uid="uid://cv0a1gr5b7pn1" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button_base.png" id="1_dsrwm"]
+
+[sub_resource type="Animation" id="Animation_c2iyf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 113)]
+}
+
+[sub_resource type="Animation" id="Animation_qjcau"]
+resource_name = "slide_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-500, 113), Vector2(2, 113)]
+}
+
+[sub_resource type="Animation" id="Animation_cjs7w"]
+resource_name = "slide_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2, 113), Vector2(-500, 113)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jig7o"]
+_data = {
+"RESET": SubResource("Animation_c2iyf"),
+"slide_in": SubResource("Animation_qjcau"),
+"slide_out": SubResource("Animation_cjs7w")
+}
+
+[node name="WarningPanel" type="Control" node_paths=PackedStringArray("_warningText", "_animationPlayer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_5avuh")
+_warningText = NodePath("ColorRect/MarginContainer/RichTextLabel")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 1
+offset_left = 2.0
+offset_top = 113.0
+offset_right = 502.0
+offset_bottom = 163.0
+mouse_filter = 2
+texture = ExtResource("1_dsrwm")
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RichTextLabel" type="Label" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_40f2b")
+theme_override_colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_constants/outline_size = 5
+text = "It is getting late. [PLAYERNAME] will sleep soon."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jig7o")
+}

@@ -4,6 +4,7 @@ using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
+using Godot4CS.ProjectMuseum.Scripts.Mine.ItemCollectionLogSystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MineSettings;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
@@ -34,6 +35,7 @@ public partial class ReferenceStorage : Node
     [Export] public ParticleEffectSystem ParticleEffectSystem;
     [Export] public InventoryManager InventoryManager;
     [Export] public MinePause MinePause;
+    [Export] public LogMessageController LogMessageController;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;
@@ -43,10 +45,11 @@ public partial class ReferenceStorage : Node
     [Export] public MineUiController MineUiController;
     [Export] public InventoryViewController InventoryViewController;
     
-    //Particle Effects Scene Path//
+    //Scene Paths//
     [Export] public string DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn";
     [Export] public string ToolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn";
     [Export] public string ItemDropScenePath = "res://Scenes/Mine/Sub Scenes/Items/ItemDrop.tscn";
+    public string ItemCardScenePath = "res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageCard.tscn";
     
     [Export] public MineSceneTooltip Tooltip;
     

@@ -107,8 +107,9 @@ _characterSprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, -0.05)
 texture = ExtResource("2_uht1t")
-offset = Vector2(0, -18.61)
+offset = Vector2(0, -16.925)
 hframes = 8
 vframes = 4
 

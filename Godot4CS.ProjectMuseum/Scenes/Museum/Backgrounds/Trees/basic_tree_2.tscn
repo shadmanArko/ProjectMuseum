@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5wqq7kf4boqy"]
+
+[ext_resource type="Texture2D" uid="uid://drcoxba8fd6ta" path="res://Assets/2D/Sprites/Backgrounds/Trees/tree basic 2/tree basic 2.png" id="1_my3ig"]
+[ext_resource type="Texture2D" uid="uid://by2448uewwovg" path="res://Assets/2D/Sprites/Backgrounds/Trees/tree basic 2/tree basic 2 leaves .png" id="2_eo15g"]
+
+[node name="Basic Tree2" type="Node2D"]
+z_index = 1
+position = Vector2(-127, 32)
+
+[node name="Tree body" type="Sprite2D" parent="."]
+position = Vector2(-1, 14)
+texture = ExtResource("1_my3ig")
+offset = Vector2(0, -65)
+
+[node name="tree leaves" type="Sprite2D" parent="Tree body"]
+texture = ExtResource("2_eo15g")
+offset = Vector2(0, -65)

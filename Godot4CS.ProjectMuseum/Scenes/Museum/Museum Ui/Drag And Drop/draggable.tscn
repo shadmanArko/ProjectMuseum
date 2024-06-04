@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://b6rikaohqik58" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Base.png" id="1_dabh7"]
 [ext_resource type="Script" path="res://Scripts/Museum/Draggable.cs" id="1_gr5ai"]
-[ext_resource type="PackedScene" uid="uid://cx232cil6w0p0" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggablePreviewNew.tscn" id="2_6rpxt"]
 [ext_resource type="PackedScene" uid="uid://dcm73qv2wrbhh" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_artifact_tag.tscn" id="3_7ksps"]
+[ext_resource type="PackedScene" uid="uid://bch1nfis5he7t" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggableNewPreview.tscn" id="3_35gd3"]
 [ext_resource type="Texture2D" uid="uid://2qgrks6qkf3s" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Image_hlder.png" id="4_h8s37"]
 [ext_resource type="Texture2D" uid="uid://dqa8gf5sasbp6" path="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png" id="5_5n4c6"]
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="5_ptbc1"]
@@ -25,7 +25,7 @@ texture = ExtResource("1_dabh7")
 script = ExtResource("1_gr5ai")
 _nameOfDraggable = NodePath("HBoxContainer/VBoxContainer/ColorRect/Name Of Artifact")
 _artifactIcon = NodePath("HBoxContainer/VBoxContainer2/TextureRect2/artifact icon")
-_draggablePreview = ExtResource("2_6rpxt")
+_draggablePreview = ExtResource("3_35gd3")
 _artifactTagParent1 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer")
 _artifactTagParent2 = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/GridContainer2")
 _artifactTag = ExtResource("3_7ksps")

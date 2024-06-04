@@ -52,52 +52,52 @@
   {
     "Id": "AncientNativeAmericanBowl",
     "ArtifactName": "Ancient Native American Bowl",
-    "Description": "NA"
+    "Description": "Natives used bowls for ritual and everyday purposes."
   },
   {
     "Id": "ClassicalNativeAmericanBowl",
     "ArtifactName": "Classical Native American Bowl",
-    "Description": "NA"
+    "Description": "Clay for pottery often had to be mined and purified in labor-intensive processes."
   },
   {
     "Id": "MedievalNativeAmericanBowl",
     "ArtifactName": "Medieval Native American Bowl",
-    "Description": "NA"
+    "Description": "Ever-increasingly sophisticated designs on pottery can be found in discoveries from almost every part of the world. "
   },
   {
     "Id": "RenaissanceAmericanBowl",
     "ArtifactName": "Renaissance American Bowl",
-    "Description": "NA"
+    "Description": "European settlers arriving in the new world often brought their own designs and production methods for their vessels."
   },
   {
     "Id": "MedievalNativeAmericanLeatherChestplate",
-    "ArtifactName": "MedievalNative American Leather Chestplate",
-    "Description": "NA"
+    "ArtifactName": "Medieval Native American Leather Chestplate",
+    "Description": "Hardened leather was a common component in Native American armor."
   },
   {
     "Id": "RenaissanceAmericanIronChestplate",
     "ArtifactName": "Renaissance American Iron Chestplate",
-    "Description": "NA"
+    "Description": "The cuirass had become the most common form of body armor by the Age of Exploration."
   },
   {
     "Id": "IndustrialAmericanInfantryGear",
     "ArtifactName": "Industrial American Infantry Gear",
-    "Description": "NA"
+    "Description": "By the time of the American Civil War, soldiers' uniforms had begun to be mass produced. "
   },
   {
     "Id": "AncientNativeAmericanWampumBeadCurrency",
     "ArtifactName": "Ancient Native American Wampum Bead Currency",
-    "Description": "NA"
+    "Description": "Wampum beads were not only used for trade, but also for clothing and decorative purposes."
   },
   {
     "Id": "ClassicalNativeAmericanShellCurrency",
     "ArtifactName": "Classical Native American Shell Currency",
-    "Description": "NA"
+    "Description": "Atleast some groups from almost every continent have been recorded as using shells for currency."
   },
   {
     "Id": "MedievalNativeAmericanWampumBeadCurrency",
     "ArtifactName": "Medieval Native American Wampum Bead Currency",
-    "Description": "NA"
+    "Description": "It was not until the arrival or Europeans that wampum beads took on a primarily commercial function."
   },
   {
     "Id": "AncientNativeAmericanVase",
@@ -117,6 +117,136 @@
   {
     "Id": "IndustrialAmericanPorcelainVase",
     "ArtifactName": "IndustrialAmericanPorcelainVase",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanPlate",
+    "ArtifactName": "Industrial American Plate",
+    "Description": "NA"
+  },
+  {
+    "Id": "ModernAmericanPlate",
+    "ArtifactName": "Modern American Plate",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceAmericanSilverCoin",
+    "ArtifactName": "Renaissance American Silver Coin",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanSilverCoin",
+    "ArtifactName": "Industrial American Silver Coin",
+    "Description": "NA"
+  },
+  {
+    "Id": "ClassicalNativeAmericanVase",
+    "ArtifactName": "Classical Native American Vase",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanLeatherBoots ",
+    "ArtifactName": "Industrial American Leather Boots ",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanFurBoots",
+    "ArtifactName": "Industrial American Fur Boots",
+    "Description": "NA"
+  },
+  {
+    "Id": "ModernAmericanRubberBoots",
+    "ArtifactName": "Modern American Rubber Boots",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanCanoe",
+    "ArtifactName": "Medieval Native American Canoe",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceNativeAmericanCanoe",
+    "ArtifactName": "Renaissance Native American Canoe",
+    "Description": "NA"
+  },
+  {
+    "Id": "AncientNativeAmericanBeadNecklace",
+    "ArtifactName": "Ancient Native American Bead Necklace",
+    "Description": "NA"
+  },
+  {
+    "Id": "AncientNativeAmericanShellNecklace",
+    "ArtifactName": "Ancient Native American Shell Necklace",
+    "Description": "NA"
+  },
+  {
+    "Id": "ClassicalNativeAmericanBeadNecklace",
+    "ArtifactName": "Classical Native American Bead Necklace",
+    "Description": "NA"
+  },
+  {
+    "Id": "ClassicalNativeAmericanShellNecklace",
+    "ArtifactName": "Classical Native American Shell Necklace",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanGemNecklace",
+    "ArtifactName": "Medieval Native American Gem Necklace",
+    "Description": "NA"
+  },
+  {
+    "Id": "AncientNativeAmericanClayHumanFigurine",
+    "ArtifactName": "Ancient Native American Clay Human Figurine",
+    "Description": "NA"
+  },
+  {
+    "Id": "ClassicalNativeAmericanClayHumamFigurine",
+    "ArtifactName": "Classical Native American Clay Humam Figurine",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanClayPrisonerFigurine",
+    "ArtifactName": "Medieval Native American Clay Prisoner Figurine",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceAmericanWoodenBoatToy",
+    "ArtifactName": "Renaissance American Wooden Boat Toy",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanIronTrainToy",
+    "ArtifactName": "Industrial American Iron Train Toy",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceNativeAmericanHorseGear",
+    "ArtifactName": "Renaissance Native American Horse Gear",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceAmericanHorseGear",
+    "ArtifactName": "Renaissance American Horse Gear",
+    "Description": "NA"
+  },
+  {
+    "Id": "MedievalNativeAmericanBoneArrowhead",
+    "ArtifactName": "Medieval Native American Bone Arrowhead",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialNativeAmericanSilverBeltBuckle",
+    "ArtifactName": "Industrial Native American Silver Belt Buckle",
+    "Description": "NA"
+  },
+  {
+    "Id": "IndustrialAmericanGramophone",
+    "ArtifactName": "Industrial American Gramophone",
+    "Description": "NA"
+  },
+  {
+    "Id": "RenaissanceAmericanWagon",
+    "ArtifactName": "Renaissance American Wagon",
     "Description": "NA"
   }
 ]

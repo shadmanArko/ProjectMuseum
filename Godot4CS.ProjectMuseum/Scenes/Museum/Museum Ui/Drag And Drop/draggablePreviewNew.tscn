@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx232cil6w0p0"]
+[gd_scene load_steps=6 format=3 uid="uid://c0mwqo57w17dn"]
 
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/Drag And Drop/DraggableNewPreview.cs" id="2_5cfer"]
 [ext_resource type="PackedScene" uid="uid://dcm73qv2wrbhh" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_artifact_tag.tscn" id="3_tem73"]

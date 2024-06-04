@@ -36,6 +36,7 @@ public partial class ReferenceStorage : Node
     [Export] public InventoryManager InventoryManager;
     [Export] public MinePause MinePause;
     [Export] public LogMessageController LogMessageController;
+    [Export] public ScreenShakeController ScreenShakeController;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;
@@ -45,10 +46,11 @@ public partial class ReferenceStorage : Node
     [Export] public MineUiController MineUiController;
     [Export] public InventoryViewController InventoryViewController;
     
-    //Particle Effects Scene Path//
+    //Scene Paths//
     [Export] public string DepletedParticleExplosion = "res://Scenes/Mine/Sub Scenes/Particle Effects/DepletedParticleExplosion.tscn";
     [Export] public string ToolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn";
     [Export] public string ItemDropScenePath = "res://Scenes/Mine/Sub Scenes/Items/ItemDrop.tscn";
+    public string ItemCardScenePath = "res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageCard.tscn";
     
     [Export] public MineSceneTooltip Tooltip;
     

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvwdrs12rpgo7"
-path="res://.godot/imported/drillCoreDisabled.png-6fed696f66a96624aa496a3d3430b7b2.ctex"
+uid="uid://bncnqhym6iq61"
+path="res://.godot/imported/drillCore.png-6704162feb0b377c73b52a02e5b462d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreDisabled.png"
-dest_files=["res://.godot/imported/drillCoreDisabled.png-6fed696f66a96624aa496a3d3430b7b2.ctex"]
+source_file="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCore.png"
+dest_files=["res://.godot/imported/drillCore.png-6704162feb0b377c73b52a02e5b462d4.ctex"]
 
 [params]
 

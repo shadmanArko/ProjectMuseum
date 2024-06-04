@@ -44,7 +44,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     [Export] private Sprite2D _shadow;
     protected List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
-    protected List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
+    protected static List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
     protected List<ExhibitPlacementConditionData> _listOfMatchingExhibitPlacementConditionDatas;
     // protected Color _eligibleColor = new Color("649d47");
     // protected Color _ineligibleColor = new Color("bc302b");
@@ -96,8 +96,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;
         
-        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
-        _httpRequestForExhibitPlacementConditions.Request(url);
+        GetUpdatedItemPlacementConditions();
         _originalColor = Modulate;
 
         if (numberOfTilesItTakes == 1)
@@ -122,6 +121,11 @@ public partial class Item : Sprite2D, IComparable<Item>
         }
     }
 
+    protected void GetUpdatedItemPlacementConditions()
+    {
+        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
+        _httpRequestForExhibitPlacementConditions.Request(url);
+    }
 
 
     public void MakeObjectsFloating()

@@ -138,7 +138,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
                 
             }
         }
-        museumTiles = await _museumTileRepository.UpdateMovedExhibitToMuseumTiles(prevTileIds, tileIds, exhibit.Id);
+        museumTiles = await _museumTileRepository.UpdateMovedItemToMuseumTiles(prevTileIds, tileIds, exhibit.Id, ItemTypeEnum.Exhibit);
         
         tilesWithExhibitDto.Exhibit = exhibit;
         var exhibits = await _exhibitRepository.GetAllExhibits();

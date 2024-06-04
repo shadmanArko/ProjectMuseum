@@ -37,6 +37,7 @@ public partial class ExhibitItem : Item
 			selectedItem = true;
 			_moving = true;
 			_movingFromPos = Position;
+			GetUpdatedItemPlacementConditions();
 		}
 		
 	}
@@ -155,6 +156,7 @@ public partial class ExhibitItem : Item
 		_httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
 		//GD.Print($"Handling exhibit placement for price {ItemPrice}");
 		// MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
+		GetUpdatedItemPlacementConditions();
 		MuseumActions.OnItemUpdated?.Invoke();
 		DisableItemPlacementShadow();
 	}

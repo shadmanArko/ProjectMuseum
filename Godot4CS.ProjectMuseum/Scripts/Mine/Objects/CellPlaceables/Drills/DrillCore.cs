@@ -52,16 +52,6 @@ public partial class DrillCore : Node2D
 
     #endregion
 
-    public void DisableCore()
-    {
-        // _drillCoreSprite2D.Texture = _disabledCoreTexture;
-    }
-
-    public void EnableCore()
-    {
-        // _drillCoreSprite2D.Texture = _enabledCoreTexture;
-    }
-
     private void PlayAnimationBasedOnDrillPhase(DrillPhase phase)
     {
         switch (phase)

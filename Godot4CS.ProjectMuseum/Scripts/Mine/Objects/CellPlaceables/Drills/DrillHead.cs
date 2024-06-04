@@ -161,7 +161,7 @@ public partial class DrillHead : RigidBody2D
 
                 if (!ContainsCellsToBreak())
                 {
-                    DisableDrillHead();
+                    _drillPhase = DrillPhase.Disabled;
                 }
                 else
                 {
@@ -178,9 +178,7 @@ public partial class DrillHead : RigidBody2D
         var posToExpandTo = _initialMapPos;
 
         if (!ContainsCellsToBreak())
-            DisableDrillHead();
-        else
-            EnableDrillHead();
+            _drillPhase = DrillPhase.Disabled;
         
         for (var i = 1; i <= _drillLimit; i++)
         {
@@ -279,17 +277,6 @@ public partial class DrillHead : RigidBody2D
             _mineGenerationVariables.BrokenCells++;
             MineActions.OnMineCellBroken?.Invoke(tilePos);
         }
-    }
-    
-    private void DisableDrillHead()
-    {
-        _drillCore.DisableCore();
-        DrillPhase = DrillPhase.Disabled;
-    }
-
-    private void EnableDrillHead()
-    {
-        _drillCore.EnableCore();
     }
 
     #region Utilities

@@ -255,7 +255,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (hasCollidedWithMine)
         {
             _playerControllerVariables.State = MotionState.Grounded;
-            // GD.Print($"player state = {_playerControllerVariables.State}");
+            _playerControllerVariables.Acceleration = _playerControllerVariables.State == MotionState.Hanging ? 
+                PlayerControllerVariables.MaxSpeed / 2 : PlayerControllerVariables.MaxSpeed;
         }
     }
 

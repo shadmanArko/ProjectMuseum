@@ -38,7 +38,7 @@ public partial class MineToCampTransition : Button
         _playerControllerVariables.Player.Position = new Vector2(250,-60);
         await sceneTransition.FadeOut();
         
-        MineActions.OnPlayerReachBackToCamp?.Invoke();
+        MineActions.OnPlayerReachedBackToCamp?.Invoke();
         MineActions.OnInventoryUpdate?.Invoke();
         
         ActivateCampExitPromptUi();

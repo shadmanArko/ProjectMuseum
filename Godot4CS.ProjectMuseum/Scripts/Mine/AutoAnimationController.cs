@@ -136,6 +136,7 @@ public partial class AutoAnimationController : Node2D
 		}
         
 		ReferenceStorage.Instance.MineTimeSystem.PlayTimer();
+		MineActions.OnPlayerLandedIntoTheMine?.Invoke();
 	}
 
 	private void UnsubscribeToActions()

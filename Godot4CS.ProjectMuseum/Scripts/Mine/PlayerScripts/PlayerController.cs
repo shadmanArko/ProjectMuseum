@@ -146,8 +146,6 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	private Vector2 GetInputKeyboard()
 	{
 		Vector2 motion;
-		// if(!_playerControllerVariables.CanMove || _playerControllerVariables.IsAttacking || _playerControllerVariables.IsDigging) return Vector2.Zero;
-		
 		if (_playerControllerVariables.State == MotionState.Hanging)
 		{
 			motion = new Vector2
@@ -170,7 +168,6 @@ public partial class PlayerController : CharacterBody2D, IDeath
 	private bool PlayerAttack()
 	{
 		var input = Input.IsActionJustReleased("ui_left_click") && _playerControllerVariables.PlayerEnergy > 0;
-		// _playerControllerVariables.IsAttacking = input;
 		return input;
 	}
 

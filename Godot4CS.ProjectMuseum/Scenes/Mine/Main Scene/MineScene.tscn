@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=39 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://wq7j3y20sfmm" path="res://Scenes/Mine/Sub Scenes/Managers/InventoryManager.tscn" id="21_r7x7f"]
 [ext_resource type="PackedScene" uid="uid://cy25gubu2ffgk" path="res://Scenes/Mine/Sub Scenes/Camera/ScreenShakeController.tscn" id="21_xw743"]
 [ext_resource type="PackedScene" uid="uid://coi6tcy4grgu3" path="res://Scenes/Mine/Sub Scenes/SceneLoader.tscn" id="22_h2clm"]
+[ext_resource type="PackedScene" uid="uid://cs6e0obahil33" path="res://Scenes/Mine/Sub Scenes/Sounds/Mine Music Scene/BackgroundMusicManager.tscn" id="24_5ul55"]
 [ext_resource type="PackedScene" uid="uid://dtvk4ujsdo5dg" path="res://Scenes/Test Scenes/CursorFollowSlot.tscn" id="28_v6xuw"]
 [ext_resource type="PackedScene" uid="uid://dwou7mojgk558" path="res://Scenes/Test Scenes/Inventory.tscn" id="29_jdbf1"]
 [ext_resource type="PackedScene" uid="uid://cf5v8nqef7svy" path="res://Scenes/Mine/Sub Scenes/MineSceneView.tscn" id="30_f3st8"]
@@ -134,6 +135,9 @@ _cellPlaceableController = NodePath("CellPlaceableController")
 [node name="InventoryManager" parent="." node_paths=PackedStringArray("_cursorFollowingSprite", "_inventoryViewController") instance=ExtResource("21_r7x7f")]
 _cursorFollowingSprite = NodePath("../MineUI/CursorFollowSprite")
 _inventoryViewController = NodePath("../MineUI/Inventory")
+
+[node name="BackgroundMusicManager" parent="." node_paths=PackedStringArray("_streamPlayer") instance=ExtResource("24_5ul55")]
+_streamPlayer = NodePath("BackgroundMusicStreamPlayer")
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates", "_toolbarPanel") instance=ExtResource("3_ambmn")]
 _healthBar = NodePath("Health Bar")

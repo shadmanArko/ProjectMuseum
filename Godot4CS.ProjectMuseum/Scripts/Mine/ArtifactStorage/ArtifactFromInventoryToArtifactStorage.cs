@@ -29,7 +29,7 @@ public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 
 	private void SubscribeToActions()
 	{
-		MineActions.OnPlayerReachBackToCamp += SendArtifactFromInventoryToStorage;
+		MineActions.OnPlayerReachedBackToCamp += SendArtifactFromInventoryToStorage;
 	}
 
 	private void CreateHttpRequest()

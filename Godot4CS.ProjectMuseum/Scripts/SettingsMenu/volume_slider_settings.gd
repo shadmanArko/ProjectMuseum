@@ -14,6 +14,10 @@ func _ready():
 	set_name_lebel_text()
 	set_slider_value()
 	
+func load_data() -> void:
+	match bus_name:
+		"Master":
+			on_value_changed(SettingsDataContainer.get_maser)
 	
 func set_name_lebel_text() -> void:
 	label.text = str(bus_name) + "Volume"

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ry55m836vsai"
+path="res://.godot/imported/swordSlash.mp3-348bc5d48e4014964f3328a0f0ca204a.mp3str"
+
+[deps]
+
+source_file="res://Assets/SFX/Mine SFX/Melee/swordSlash.mp3"
+dest_files=["res://.godot/imported/swordSlash.mp3-348bc5d48e4014964f3328a0f0ca204a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

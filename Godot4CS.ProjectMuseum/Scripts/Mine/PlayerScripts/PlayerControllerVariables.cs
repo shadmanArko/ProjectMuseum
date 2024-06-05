@@ -125,6 +125,7 @@ public class PlayerControllerVariables
         set
         {
             _velocity = value;
+            Player.Velocity = value;
             MineActions.OnPlayerVelocityUpdated?.Invoke();
         }
     }

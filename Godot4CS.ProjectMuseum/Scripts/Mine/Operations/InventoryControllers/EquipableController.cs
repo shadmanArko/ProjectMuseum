@@ -216,7 +216,7 @@ public partial class EquipableController : InventoryController
         var meleeWeapon = _equipableDto.MeleeEquipables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
         _playerControllerVariables.EnemyDamagePoint = meleeWeapon!.Damage;
         _playerControllerVariables.EnemyHitCoolDown = meleeWeapon!.Cooldown;
-        GD.Print($"Melee damage to enemy: {_playerControllerVariables.EnemyDamagePoint}");
+        
         MineActions.OnMeleeAttackActionStarted?.Invoke();
         MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("AttackActionCompleted");
     }
@@ -228,29 +228,31 @@ public partial class EquipableController : InventoryController
     private void DigActionStart()
     {
         _playerControllerVariables.IsDigging = true;
-        
+        _playerControllerVariables.CanMove = false;
         var pickAxe = _equipableDto.PickaxeEquipables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
         _playerControllerVariables.CellDamagePoint = pickAxe!.Damage;
         _playerControllerVariables.CellHitCoolDown = pickAxe!.Cooldown;
-        SetProcess(true);
+        SetPhysicsProcess(true);
     }
 
     private void DigActionEnd()
     {
-        SetProcess(false);
+        SetPhysicsProcess(false);
         _playerControllerVariables.IsDigging = false;
+        _playerControllerVariables.CanMove = true;
+        _playerControllerVariables.CanMoveLeftAndRight = true;
     }
 
     #endregion
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (_playerControllerVariables.CanDig && _playerControllerVariables.PlayerEnergy > 0)
         {
-            _playerControllerVariables.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
+            _playerControllerVariables.CanMove = false;
+            _playerControllerVariables.CanMoveLeftAndRight = false;
+            _playerControllerVariables.Player.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
             MineActions.OnDigActionStarted?.Invoke();
-            // GD.Print($"Pickaxe damage to cell: {_playerControllerVariables.CellDamagePoint}");
-            // MuseumActions.OnPlayerPerformedTutorialRequiringAction.Invoke("DigActionCompleted");
         }
         else
             DigActionEnd();

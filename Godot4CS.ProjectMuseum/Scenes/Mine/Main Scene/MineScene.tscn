@@ -124,6 +124,7 @@ _miniGameScenePaths = PackedStringArray("res://Scenes/Mine/Sub Scenes/MiniGames/
 _camera = NodePath("Camera2D")
 
 [node name="ScreenShakeController" parent="." instance=ExtResource("21_xw743")]
+_shakeAmount = 1.0
 
 [node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController", "_equipableController", "_cellPlaceableController") instance=ExtResource("16_ot1vu")]
 _inventoryControllers = [NodePath("WallPlaceableController"), NodePath("ConsumableController"), NodePath("EquipableController"), NodePath("CellPlaceableController")]

@@ -85,6 +85,7 @@ public partial class MiniGameController : Node2D
 	private void CeasePlayerMovementDuringMiniGame()
 	{
 		_playerControllerVariables.CanMove = false;
+		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanToggleClimb = false;
 		_playerControllerVariables.CanAttack = false;
 		_playerControllerVariables.CanDig = false;

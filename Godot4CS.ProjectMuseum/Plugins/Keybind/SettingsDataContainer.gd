@@ -29,6 +29,10 @@ func on_ui_volume_set(value : float) -> void:
 func on_ambiance_volume_set(value : float) -> void:
 	ambiance_volume = value
 	
+#func get -> void:
+	#if loaded_data == {}:
+		#return
+	#return
 	
 func handle_signals() -> void:
 	SettingsSignalBus.on_master_sound_set.connect(on_master_volume_set)

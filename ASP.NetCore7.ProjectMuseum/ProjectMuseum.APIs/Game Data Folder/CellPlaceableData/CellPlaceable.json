@@ -23,6 +23,6 @@
     "Category": "Drill",
     "Variant": "DownDrill",
     "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillCore.tscn",
-    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png"
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreSprite.png"
   }
 ]

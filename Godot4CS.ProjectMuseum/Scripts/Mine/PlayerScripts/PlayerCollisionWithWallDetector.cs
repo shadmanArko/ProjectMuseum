@@ -245,6 +245,11 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             _mineGenerationVariables.BrokenCells++;
             MineActions.OnMineCellBroken?.Invoke(tilePos);
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
+
+            var mouseDirection = _playerControllerVariables.MouseDirection;
+            var shakeDirection = mouseDirection.X != 0 ? 
+                ShakeDirection.Horizontal : ShakeDirection.Vertical;
+            ReferenceStorage.Instance.ScreenShakeController.ShakeScreen(ShakeIntensity.Mild, shakeDirection);
         }
     }
 

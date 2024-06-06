@@ -116,6 +116,10 @@ public partial class DrillHead : RigidBody2D
                 if (!playOnlyOnce)
                 {
                     BreakCell(_targetMapPos + GetDrillDirection());
+                    var drillDirection = GetDrillDirection();
+                    var shakeDirection = drillDirection.X != 0 ? 
+                        ShakeDirection.Horizontal : ShakeDirection.Vertical;
+                    ReferenceStorage.Instance.ScreenShakeController.ShakeScreen(ShakeIntensity.Moderate, shakeDirection);
                     playOnlyOnce = true;
                 }
                 await Task.Delay(2000);

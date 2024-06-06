@@ -13,12 +13,10 @@ public partial class ScreenShakeController : Node2D
     [Export] private float _shakeDuration = 0.1f;
     [Export] private float _timer = 0.1f;
     
-    private const float MildIntensity = 0.5f;
-    private const float ModerateIntensity = 1f;
-    private const float HeavyIntensity = 1.5f;
-
+    private const float MildIntensity = 1f;
+    private const float ModerateIntensity = 1.5f;
+    private const float HeavyIntensity = 2f;
     
-
     public override void _Ready()
     {
         _camera2D = ReferenceStorage.Instance.CameraController.GetCamera();

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://p4pp1nmkb44s"]
+[gd_scene load_steps=6 format=3 uid="uid://p4pp1nmkb44s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/MineExitPromptUi.cs" id="1_ib847"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_ifxad"]
+[ext_resource type="Theme" uid="uid://bxuxhp8sn6n2n" path="res://Assets/Themes/Mine/UI/Buttons/PromptButtonTheme.tres" id="2_e0c30"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/MineToCampTransition.cs" id="3_amuk3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n65nu"]
@@ -45,6 +46,8 @@ custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("2_e0c30")
 theme_override_fonts/font = ExtResource("1_ifxad")
+theme_override_font_sizes/font_size = 16
 text = "RETURN TO CAMP?"
 script = ExtResource("3_amuk3")

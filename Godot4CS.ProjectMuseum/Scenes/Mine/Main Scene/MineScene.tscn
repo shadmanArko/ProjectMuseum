@@ -53,7 +53,7 @@ _rootNode = NodePath("..")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePause", "LogMessageController", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePause", "LogMessageController", "ScreenShakeController", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -69,6 +69,7 @@ ParticleEffectSystem = NodePath("../ParticleEffectSystem")
 InventoryManager = NodePath("../InventoryManager")
 MinePause = NodePath("../MinePause")
 LogMessageController = NodePath("../MineUI/Log Message Controller")
+ScreenShakeController = NodePath("../ScreenShakeController")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
@@ -156,9 +157,6 @@ _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 visible = false
-offset_top = 104.0
-offset_right = 409.0
-offset_bottom = 459.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

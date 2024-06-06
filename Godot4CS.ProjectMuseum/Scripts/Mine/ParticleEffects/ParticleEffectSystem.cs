@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Objects.CellPlaceables.Explosives;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
@@ -71,6 +73,27 @@ public partial class ParticleEffectSystem : Node2D
         _mineGenerationVariables.MineGenView.AddChild(particle);
         var direction = _playerControllerVariables.MouseDirection * -1;
         particle.EmitParticle(direction);
+    }
+
+    #endregion
+
+    #region Dynamite Explosion Effect
+
+    public async void TriggerDynamiteExplosion(Vector2I cellPos, float waitTime)
+    {
+        await Task.Delay(Mathf.CeilToInt(waitTime * 1000));
+        var cellSize = _mineGenerationVariables.Mine.CellSize;
+        var cellOffset = new Vector2(cellSize, cellSize) / 2;
+        var explosionPos = cellPos * cellSize + cellOffset;
+
+        var explosionScenePath = ReferenceStorage.Instance.DynamiteExplosionScenePath;
+        SceneInstantiator.InstantiateScene(explosionScenePath, _mineGenerationVariables.MineGenView, explosionPos);
+        
+        var explosive = ResourceLoader.Load<PackedScene>(explosionScenePath).Instantiate() as ExplosionEffect;
+        if (explosive == null) return;
+        _mineGenerationVariables.MineGenView.AddChild(explosive);
+        explosive.GlobalPosition = explosionPos;
+        GD.Print("EXPLOSION EFFECT");
     }
 
     #endregion

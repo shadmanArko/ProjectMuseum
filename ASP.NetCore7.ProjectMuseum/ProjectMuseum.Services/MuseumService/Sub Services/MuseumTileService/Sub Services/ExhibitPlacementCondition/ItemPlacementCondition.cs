@@ -73,6 +73,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
         await _museumTileRepository.UpdateExhibitToMuseumTile(tileId, exhibit.Id);
         return true;
     }
+   
     public async Task<TilesWithExhibitDto> PlaceExhibitOnTiles(string originTileId, List<string> tileIds, string exhibitVariationName, int rotationFrame)
     {
         TilesWithExhibitDto tilesWithExhibitDto = new TilesWithExhibitDto();
@@ -108,6 +109,36 @@ public class ItemPlacementCondition : IItemPlacementCondition
             }
         }
         museumTiles = await _museumTileRepository.UpdateExhibitToMuseumTiles(tileIds, exhibit.Id);
+        
+        tilesWithExhibitDto.Exhibit = exhibit;
+        var exhibits = await _exhibitRepository.GetAllExhibits();
+        tilesWithExhibitDto.Exhibits = exhibits;
+        if (museumTiles != null) tilesWithExhibitDto.MuseumTiles = museumTiles;
+        return tilesWithExhibitDto;
+    }
+    public async Task<TilesWithExhibitDto> MoveExhibitOnTiles(string originTileId, List<string> tileIds, Exhibit exhibit, int rotationFrame)
+    {
+        TilesWithExhibitDto tilesWithExhibitDto = new TilesWithExhibitDto();
+        var museumTiles = await _museumTileRepository.GetAll();
+        tilesWithExhibitDto.Exhibit = exhibit;
+        tilesWithExhibitDto.MuseumTiles = museumTiles;
+        var prevTileIds = exhibit.OccupiedTileIds;
+        foreach (var tileId in tileIds)
+        {
+            if (tileId == originTileId)
+            {
+                var museumTile = await _museumTileRepository.GetById(tileId);
+                if (museumTile != null && !museumTile.Walkable) return tilesWithExhibitDto;
+                if (museumTile == null) return tilesWithExhibitDto;
+                exhibit.XPosition = museumTile.XPosition;
+                exhibit.YPosition = museumTile.YPosition;
+                exhibit.OccupiedTileIds = tileIds;
+                exhibit.RotationFrame = rotationFrame;
+                await _exhibitRepository.Update(exhibit.Id, exhibit);
+                
+            }
+        }
+        museumTiles = await _museumTileRepository.UpdateMovedItemToMuseumTiles(prevTileIds, tileIds, exhibit.Id, ItemTypeEnum.Exhibit);
         
         tilesWithExhibitDto.Exhibit = exhibit;
         var exhibits = await _exhibitRepository.GetAllExhibits();
@@ -228,19 +259,32 @@ public class ItemPlacementCondition : IItemPlacementCondition
         return museumTiles;
     }
 
-    public async Task<List<Exhibit>> DeleteExhibit()
+    public async Task<TilesWithExhibitDto> DeleteExhibit(string exhibitId)
+    {
+        Exhibit exhibit = new Exhibit();
+        var exhibits = await _exhibitRepository.GetAll();
+        exhibit = exhibits.FirstOrDefault(exhibit1 => exhibit1.Id == exhibitId);
+
+        if (exhibit != null)
+        {
+            var museumTiles = await _museumTileRepository.RemoveItemFromMuseumTiles(exhibit.OccupiedTileIds);
+        }
+
+        exhibits = await _exhibitRepository.Delete(exhibitId);
+        var dto = new TilesWithExhibitDto();
+        dto.MuseumTiles = await _museumTileRepository.GetAll();
+        dto.Exhibits = exhibits;
+        return dto;
+    }
+    public async Task<List<Shop>> DeleteShop(string shopId)
     {
         return null;
     }
-    public async Task<List<Shop>> DeleteShop()
+    public async Task<List<DecorationOther>> DeleteDecoration(string decorationId)
     {
         return null;
     }
-    public async Task<List<DecorationOther>> DeleteDecoration()
-    {
-        return null;
-    }
-    public async Task<List<Sanitation>> DeleteSanitation()
+    public async Task<List<Sanitation>> DeleteSanitation(string sanitationId)
     {
         return null;
     }

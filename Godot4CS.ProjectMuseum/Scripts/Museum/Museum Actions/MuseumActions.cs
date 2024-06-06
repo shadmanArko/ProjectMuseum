@@ -29,6 +29,7 @@ public partial class MuseumActions : Node
     public static Action OnItemUpdated;
     public static Action OnItemPlaced;
     public static Action<Item, Vector2> OnItemPlacedOnTile;
+    public static Action<Item, Vector2> OnItemMovedToTile;
     public static Action<string> OnBottomPanelButtonClicked;
     public static Action<BuilderCardType> OnBottomPanelBuilderCardToggleClicked;
     public static Action<Artifact, int> ArtifactDroppedOnSlot;
@@ -109,6 +110,8 @@ public partial class MuseumActions : Node
 
     public static Action<List<RawArtifactDescriptive>> OnRawArtifactDescriptiveDataLoaded;
     public static Action<List<RawArtifactFunctional>> OnRawArtifactFunctionalDataLoaded;
+    public static Action<string> OnExhibitDeleted;
+    public static Action<string> OnMakeExhibitFloatForMoving;
 
     #endregion
 

@@ -37,7 +37,6 @@ position = Vector2(0, 1)
 offset = Vector2(0, -18.955)
 
 [node name="glass" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.392157)
 texture_filter = 1
 use_parent_material = true
 position = Vector2(0, 1)

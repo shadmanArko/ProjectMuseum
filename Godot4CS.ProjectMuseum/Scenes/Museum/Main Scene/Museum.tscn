@@ -142,7 +142,7 @@ museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 _conceptEndingUi = NodePath("../ConceptEnding UI")
 _diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
 _townMapButton = NodePath("Right Panel/TownMap Button")
-_museumGateCheckButton = NodePath("Right Panel/CheckButton")
+_museumGateCheckButton = NodePath("Top Panel/Date time panel/MarginContainer/HBoxContainer/ColorRect/GateOpenCloseSign/CheckButton")
 _diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 ItemsParent = NodePath("../../ItemParents")
 

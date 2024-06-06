@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bpare5kqece4c"]
+[gd_scene load_steps=32 format=3 uid="uid://bpare5kqece4c"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/MuseumUi.cs" id="1_mfgvl"]
 [ext_resource type="PackedScene" uid="uid://dxystp6xmjk7p" path="res://Scenes/Museum/Museum Ui/DiggingAndPermitsMenu.tscn" id="2_3c32r"]
@@ -21,13 +21,20 @@
 [ext_resource type="Texture2D" uid="uid://ck57dho3bl7di" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/Base_Time_Holder.png" id="13_7jvl8"]
 [ext_resource type="Texture2D" uid="uid://c4qtq75ucvhb7" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 1.png" id="14_0wt1n"]
 [ext_resource type="Texture2D" uid="uid://bie7kys11t6jl" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/winter.png" id="14_vwlgk"]
+[ext_resource type="Texture2D" uid="uid://c8ccqhl7m4h50" path="res://Assets/2D/Sprites/Museum Ui/Open and Close sign/sign board spin.png" id="15_snvwg"]
 [ext_resource type="Texture2D" uid="uid://cbt0yswgkp4m7" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 2.png" id="15_uv7q1"]
+[ext_resource type="Theme" path="res://Themes/Museum ui purple.tres" id="16_gngvh"]
+[ext_resource type="Script" path="res://Scripts/Museum/UI/GateOpenCloseSign.cs" id="16_uveqo"]
 [ext_resource type="Texture2D" uid="uid://gqsqgxtag33h" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/date holder 4.png" id="17_8ehy4"]
 [ext_resource type="Texture2D" uid="uid://co2ewctepfvby" path="res://Assets/2D/Sprites/UI/Museum Gameplay/Date Time/Speed_Time_Holder.png" id="18_qlalm"]
 [ext_resource type="Theme" path="res://Themes/Museum ui purple Bold.tres" id="20_2gmip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1es80"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohbhg"]
+atlas = ExtResource("15_snvwg")
+region = Rect2(0, 0, 56, 40)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ihs8b"]
 content_margin_left = 4.0
@@ -46,7 +53,7 @@ script = ExtResource("1_mfgvl")
 museumMoneyTextField = NodePath("Bottom Panel/MuseumMoney")
 _diggingPermitsButton = NodePath("Right Panel/Digging and Permits Button")
 _townMapButton = NodePath("Right Panel/TownMap Button")
-_museumGateCheckButton = NodePath("Right Panel/CheckButton")
+_museumGateCheckButton = NodePath("Top Panel/Date time panel/MarginContainer/HBoxContainer/ColorRect/GateOpenCloseSign/CheckButton")
 _diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 metadata/_edit_vertical_guides_ = [-481.0]
 
@@ -250,9 +257,11 @@ _winter = ExtResource("14_vwlgk")
 
 [node name="MarginContainer" type="MarginContainer" parent="Top Panel/Date time panel"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_left = -0.242
+anchor_right = 0.955
 anchor_bottom = 1.0
+offset_right = -98.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
@@ -262,6 +271,68 @@ theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Top Panel/Date time panel/MarginContainer"]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(1, 1, 1, 0)
+
+[node name="GateOpenCloseSign" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(112, 80)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -20.0
+offset_right = 28.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_ohbhg")
+script = ExtResource("16_uveqo")
+_texture = ExtResource("15_snvwg")
+
+[node name="CheckButton" type="CheckButton" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/ColorRect/GateOpenCloseSign"]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -43.0
+offset_right = 45.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="Label" type="Label" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer/ColorRect/GateOpenCloseSign"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 35.0
+offset_right = -8.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("16_gngvh")
+theme_override_font_sizes/font_size = 32
+text = "Close"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="book" type="TextureRect" parent="Top Panel/Date time panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -491,23 +562,6 @@ offset_right = -15.0
 offset_bottom = 58.0
 grow_horizontal = 0
 icon = ExtResource("12_v8uf8")
-
-[node name="CheckButton" type="CheckButton" parent="Right Panel"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -92.0
-offset_top = -137.5
-offset_right = -7.0
-offset_bottom = -106.5
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Gate"
 
 [node name="Tutorial" parent="." node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("11_n0rbh")]
 visible = false

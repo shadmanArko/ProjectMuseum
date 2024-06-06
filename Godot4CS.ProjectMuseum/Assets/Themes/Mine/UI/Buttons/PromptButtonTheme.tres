@@ -1,0 +1,36 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bxuxhp8sn6n2n"]
+
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="1_hi7jm"]
+[ext_resource type="Texture2D" uid="uid://8mv6vfdk7p4q" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/ButtonSprite/MinePromptButton.png" id="2_xhxi8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2xtd"]
+texture = ExtResource("2_xhxi8")
+modulate_color = Color(0.470076, 0.470076, 0.470076, 0.486275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7idhj"]
+texture = ExtResource("2_xhxi8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mitqt"]
+texture = ExtResource("2_xhxi8")
+modulate_color = Color(0.699653, 0.699653, 0.699653, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q328g"]
+texture = ExtResource("2_xhxi8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5xkhr"]
+texture = ExtResource("2_xhxi8")
+modulate_color = Color(0.481789, 0.481789, 0.481789, 1)
+
+[resource]
+Button/colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_disabled_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_focus_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_hover_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_hover_pressed_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_hi7jm")
+Button/styles/disabled = SubResource("StyleBoxTexture_v2xtd")
+Button/styles/focus = SubResource("StyleBoxTexture_7idhj")
+Button/styles/hover = SubResource("StyleBoxTexture_mitqt")
+Button/styles/normal = SubResource("StyleBoxTexture_q328g")
+Button/styles/pressed = SubResource("StyleBoxTexture_5xkhr")

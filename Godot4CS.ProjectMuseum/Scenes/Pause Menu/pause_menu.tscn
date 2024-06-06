@@ -1,15 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://c3njs5gj75ppi"]
 
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu_button.gd" id="1_x8mop"]
+[ext_resource type="Texture2D" uid="uid://cumayfeb23rhq" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/ButtonSprite/Menu_Icon.png" id="2_5xbg7"]
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu.gd" id="2_47s05"]
 [ext_resource type="Script" path="res://Plugins/Keybind/SettingsDataContainer.gd" id="3_afjxx"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="3_m1stg"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="4_33lpo"]
 [ext_resource type="PackedScene" uid="uid://ouhmqp7q5h10" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="4_hicjn"]
 [ext_resource type="PackedScene" uid="uid://bffmgqpet85vg" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="5_sv46g"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xqm0"]
-bg_color = Color(0.459013, 0.116898, 0.0552337, 1)
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -22,6 +20,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="pause_menu_button" type="Button" parent="."]
+texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 1
@@ -32,9 +31,15 @@ offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 60.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 33
-theme_override_styles/normal = SubResource("StyleBoxFlat_5xqm0")
+flat = true
 script = ExtResource("1_x8mop")
+
+[node name="TextureRect" type="TextureRect" parent="pause_menu_button"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+texture = ExtResource("2_5xbg7")
 
 [node name="pause_menu" type="ColorRect" parent="."]
 visible = false

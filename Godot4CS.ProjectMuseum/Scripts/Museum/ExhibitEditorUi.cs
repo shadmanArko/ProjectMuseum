@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 
 public partial class ExhibitEditorUi : Control
@@ -15,38 +18,69 @@ public partial class ExhibitEditorUi : Control
 	[Export] private Control _draggablesParent;
 	[Export] private Control _dropTargetsParent;
 	[Export] private CheckButton _glassCheckButton;
+	[Export] private Button _DeleteExhibitButton;
+	[Export] private Button _moveExhibitButton;
 	private Item _selectedItem;
 	private HttpRequest _httpRequestForGettingExhibitsInStore;
 	private HttpRequest _httpRequestForGettingExhibitsInDisplay;
 	private HttpRequest _httpRequestForGettingRawArtifactFunctionalData;
 	private HttpRequest _httpRequestForGettingRawArtifactDescriptiveData;
+	private HttpRequest _httpRequestForDeletingExhibit;
 	private static List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
 	private static List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
 	private Exhibit _selectedExhibit;
+	private MuseumTileContainer _museumTileContainer;
 	
     // Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		_httpRequestForGettingExhibitsInStore = new HttpRequest();
 		_httpRequestForGettingExhibitsInDisplay = new HttpRequest();
 		_httpRequestForGettingRawArtifactFunctionalData = new HttpRequest();
 		_httpRequestForGettingRawArtifactDescriptiveData = new HttpRequest();
+		_httpRequestForDeletingExhibit = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitsInStore);
 		AddChild(_httpRequestForGettingExhibitsInDisplay);
 		AddChild(_httpRequestForGettingRawArtifactFunctionalData);
 		AddChild(_httpRequestForGettingRawArtifactDescriptiveData);
+		AddChild(_httpRequestForDeletingExhibit);
 		_httpRequestForGettingExhibitsInStore.RequestCompleted += HttpRequestForGettingExhibitsInStoreOnRequestCompleted;
 		_httpRequestForGettingExhibitsInDisplay.RequestCompleted += HttpRequestForGettingExhibitsInDisplayOnRequestCompleted;
 		_httpRequestForGettingRawArtifactFunctionalData.RequestCompleted += HttpRequestForGettingRawArtifactFunctionalDataOnRequestCompleted;
 		_httpRequestForGettingRawArtifactDescriptiveData.RequestCompleted += HttpRequestForGettingRawArtifactDescriptiveDataOnRequestCompleted;
+		_httpRequestForDeletingExhibit.RequestCompleted += HttpRequestForDeletingExhibitOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnSlot += ArtifactDroppedOnSlot;
 		MuseumActions.ArtifactRemovedFromSlot += ArtifactRemovedFromSlot;
 		MuseumActions.PlayStoryScene += PlayStoryScene;
 		_exitButton.Pressed += ExitButtonOnPressed;
 		_glassCheckButton.Pressed += GlassCheckButtonOnPressed;
-		
+		_DeleteExhibitButton.Pressed += DeleteExhibitButtonOnPressed;
+		_moveExhibitButton.Pressed += MoveExhibitButtonOnPressed;
 		_httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
 		_httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
+		await Task.Delay(1000);
+		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+	}
+
+	private void MoveExhibitButtonOnPressed()
+	{
+		Visible = false;
+		MuseumActions.OnMakeExhibitFloatForMoving?.Invoke(_selectedExhibit.Id);
+	}
+
+	private void DeleteExhibitButtonOnPressed()
+	{
+		Visible = false;
+		_httpRequestForDeletingExhibit.Request(ApiAddress.MuseumApiPath + $"DeleteExhibit?exhibitId={_selectedExhibit.Id}");
+	}
+
+	private void HttpRequestForDeletingExhibitOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		var tilesWithExhibitDto = JsonSerializer.Deserialize<TilesWithExhibitDto>(jsonStr);
+		_museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
+		_museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
+		MuseumActions.OnExhibitDeleted?.Invoke(_selectedExhibit.Id);
 	}
 
 	private void HttpRequestForGettingRawArtifactDescriptiveDataOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -79,7 +113,7 @@ public partial class ExhibitEditorUi : Control
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
 		foreach (var artifact in artifacts)
 		{
-			if (artifact == null) continue;
+			if (artifact == null || _selectedExhibit == null) continue;
 			
 			if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot1)
 			{
@@ -119,6 +153,7 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
+		_glassCheckButton.ButtonPressed = _selectedItem.IsGlassEnabled();
 		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 4;
 		for (int i = 0; i < numberOfSlots; i++)
 		{
@@ -177,6 +212,7 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingRawArtifactDescriptiveData.RequestCompleted -= HttpRequestForGettingRawArtifactDescriptiveDataOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnSlot -= ArtifactDroppedOnSlot;
 		MuseumActions.ArtifactRemovedFromSlot -= ArtifactRemovedFromSlot;
+		_DeleteExhibitButton.Pressed -= DeleteExhibitButtonOnPressed;
 		MuseumActions.PlayStoryScene -= PlayStoryScene;
 		_exitButton.Pressed -= ExitButtonOnPressed;
 		_glassCheckButton.Pressed -= GlassCheckButtonOnPressed;

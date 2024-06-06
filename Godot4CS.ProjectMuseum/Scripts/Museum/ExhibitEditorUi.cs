@@ -153,6 +153,7 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
+		_glassCheckButton.ButtonPressed = _selectedItem.IsGlassEnabled();
 		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 4;
 		for (int i = 0; i < numberOfSlots; i++)
 		{

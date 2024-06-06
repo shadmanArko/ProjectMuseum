@@ -161,7 +161,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         ExhibitData = tilesWithExhibitDto.Exhibit;
         _museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
         if (tilesWithExhibitDto.Exhibits != null) _museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
-        //GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
+        // GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
     }
 
     protected Vector2I _lastCheckedTile = new Vector2I();
@@ -222,6 +222,12 @@ public partial class Item : Sprite2D, IComparable<Item>
     public void EnableGlass(bool enableGlass)
     {
         _glass.Visible = enableGlass;
+        
+    }
+    public bool IsGlassEnabled()
+    {
+        return _glass.Visible;
+        
     }
     public async void HandleItemPlacement()
     {

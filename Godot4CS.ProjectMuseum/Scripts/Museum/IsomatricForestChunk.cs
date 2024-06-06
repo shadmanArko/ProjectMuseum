@@ -158,6 +158,8 @@ public partial class IsomatricForestChunk : Sprite2D
 		base._ExitTree();
 		_expansionButton.MouseEntered -= ExpansionButtonOnMouseEntered;
 		_expansionButton.MouseExited -= ExpansionButtonOnMouseExited;
+		_expansionButton.Pressed -= ExpansionButtonOnPressed;
+		MuseumActions.OnMuseumExpanded -= OnMuseumExpanded;
 		MuseumActions.OnCallForMuseumExpansion -= OnCallForMuseumExpansion;
 	}
 }

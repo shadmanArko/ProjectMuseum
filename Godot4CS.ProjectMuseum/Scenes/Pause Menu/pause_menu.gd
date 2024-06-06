@@ -1,4 +1,4 @@
-extends ColorRect
+extends TextureRect
 @onready var pause_menu_button: Button = $"../pause_menu_button"
 @onready var pause_menu: TextureRect = $"."
 @onready var back_button: Button = $MarginContainer/VBoxContainer/back_button

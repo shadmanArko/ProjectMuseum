@@ -37,6 +37,7 @@ anchor_right = 1.0
 offset_left = -50.0
 offset_bottom = 50.0
 grow_horizontal = 0
+scale = Vector2(0.993248, 1.00411)
 theme_override_font_sizes/font_size = 33
 theme_override_styles/normal = SubResource("StyleBoxTexture_lr8jx")
 script = ExtResource("1_x8mop")

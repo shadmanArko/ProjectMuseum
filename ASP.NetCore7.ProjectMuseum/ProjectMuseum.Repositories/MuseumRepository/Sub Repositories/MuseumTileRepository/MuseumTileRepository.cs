@@ -132,7 +132,33 @@ public class MuseumTileRepository : IMuseumTileRepository
         await _museumTileDatabase.WriteDataAsync(museumTiles);
         return museumTiles;
     }
-
+    public async Task<List<MuseumTile>?> UpdateMovedItemToMuseumTiles(List<string> previousTileIds, List<string> newTileIds, string itemId, ItemTypeEnum itemType)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        foreach (var tile in museumTiles)
+        {
+            if (newTileIds.Contains(tile.Id))
+            {
+                tile.ItemId = itemId;
+                tile.Walkable = false;
+                tile.ItemType = itemType;
+                if (itemType == ItemTypeEnum.Exhibit)
+                {
+                    tile.HasExhibit = true;
+                }
+            }
+            else if (previousTileIds.Contains(tile.Id))
+            {
+                tile.ItemId = "";
+                tile.Walkable = true;
+                tile.HasExhibit = false;
+                tile.ItemType = ItemTypeEnum.None;
+            }
+            
+        }
+        await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return await _museumTileDatabase.ReadDataAsync();
+    }
     public async Task<List<MuseumTile>?> UpdateShopToMuseumTiles(List<string> tileIds, string shopId)
     {
         var museumTiles = await _museumTileDatabase.ReadDataAsync();
@@ -173,6 +199,21 @@ public class MuseumTileRepository : IMuseumTileRepository
                 tile.ItemId = decorationId;
                 tile.Walkable = false;
                 tile.ItemType = ItemTypeEnum.Decoration;
+            }
+        }
+        await _museumTileDatabase.WriteDataAsync(museumTiles);
+        return museumTiles;
+    }
+    public async Task<List<MuseumTile>?> RemoveItemFromMuseumTiles(List<string> tileIds)
+    {
+        var museumTiles = await _museumTileDatabase.ReadDataAsync();
+        foreach (var tile in museumTiles)
+        {
+            if (tileIds.Contains(tile.Id))
+            {
+                tile.ItemId = "";
+                tile.Walkable = true;
+                tile.ItemType = ItemTypeEnum.None;
             }
         }
         await _museumTileDatabase.WriteDataAsync(museumTiles);

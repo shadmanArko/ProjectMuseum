@@ -1,13 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3njs5gj75ppi"]
+[gd_scene load_steps=14 format=3 uid="uid://c3njs5gj75ppi"]
 
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu_button.gd" id="1_x8mop"]
-[ext_resource type="Texture2D" uid="uid://cumayfeb23rhq" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/ButtonSprite/Menu_Icon.png" id="2_5xbg7"]
+[ext_resource type="Texture2D" uid="uid://7hu5jvedc3w1" path="res://Assets/2D/Sprites/Museum Ui/Menu_Icon.png" id="1_ygicn"]
+[ext_resource type="Texture2D" uid="uid://dggwn6fbxefyq" path="res://Assets/2D/Sprites/Museum Ui/Untitled_7.png" id="2_8uo1c"]
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu.gd" id="2_47s05"]
 [ext_resource type="Script" path="res://Plugins/Keybind/SettingsDataContainer.gd" id="3_afjxx"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="3_m1stg"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="4_33lpo"]
 [ext_resource type="PackedScene" uid="uid://ouhmqp7q5h10" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="4_hicjn"]
+[ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_ynyrp"]
 [ext_resource type="PackedScene" uid="uid://bffmgqpet85vg" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="5_sv46g"]
+[ext_resource type="Texture2D" uid="uid://cx2x1gi8ngfp3" path="res://Assets/2D/Sprites/Museum Ui/button.png" id="5_yugtr"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lr8jx"]
+texture = ExtResource("1_ygicn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uuskr"]
+texture = ExtResource("5_yugtr")
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -20,28 +29,19 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="pause_menu_button" type="Button" parent="."]
-texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -60.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 60.0
+offset_left = -50.0
+offset_bottom = 50.0
 grow_horizontal = 0
-flat = true
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxTexture_lr8jx")
 script = ExtResource("1_x8mop")
 
-[node name="TextureRect" type="TextureRect" parent="pause_menu_button"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_right = 50.0
-offset_bottom = 50.0
-texture = ExtResource("2_5xbg7")
-
-[node name="pause_menu" type="ColorRect" parent="."]
+[node name="pause_menu" type="TextureRect" parent="."]
 visible = false
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 1
@@ -52,7 +52,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.396889, 0.396889, 0.396889, 1)
+texture = ExtResource("2_8uo1c")
 script = ExtResource("2_47s05")
 
 [node name="MarginContainer" type="MarginContainer" parent="pause_menu"]
@@ -63,16 +63,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="pause_menu/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="pause_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("4_ynyrp")
+theme_override_colors/font_color = Color(0.576471, 0.203922, 0.121569, 1)
 theme_override_font_sizes/font_size = 50
 text = "Menu"
 horizontal_alignment = 1
@@ -80,23 +82,43 @@ vertical_alignment = 1
 
 [node name="back_button" type="Button" parent="pause_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("4_ynyrp")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_uuskr")
 text = "Back"
+icon_alignment = 1
+expand_icon = true
 
 [node name="settings_button" type="Button" parent="pause_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("4_ynyrp")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_uuskr")
 text = "Settings"
+icon_alignment = 1
+expand_icon = true
 
 [node name="Button3" type="Button" parent="pause_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("4_ynyrp")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
 theme_override_font_sizes/font_size = 50
-text = "Back to MainMenu"
+theme_override_styles/normal = SubResource("StyleBoxTexture_uuskr")
+text = "Main Menu"
+icon_alignment = 1
+expand_icon = true
 
 [node name="Button4" type="Button" parent="pause_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("4_ynyrp")
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
 theme_override_font_sizes/font_size = 50
-text = "Back to Desktop"
+theme_override_styles/normal = SubResource("StyleBoxTexture_uuskr")
+text = "Desktop"
+icon_alignment = 1
+expand_icon = true
 
 [node name="settings_menu" type="Control" parent="."]
 visible = false

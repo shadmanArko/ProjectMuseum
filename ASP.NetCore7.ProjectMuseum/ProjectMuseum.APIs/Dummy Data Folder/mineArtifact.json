@@ -1,1 +1,167 @@
-[{"Artifacts":[{"Id":"837328ab-71e1-4b73-b4ac-b2b7607ad068","RawArtifactId":"ModernAmericanRifle","PositionX":41,"PositionY":3,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"67b36180-55e5-44f6-9782-5bd4f0610f5f","RawArtifactId":"AncientNativeAmericanClub","PositionX":33,"PositionY":12,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"c0fd7c7d-26be-4a01-a6ff-22de84677a2f","RawArtifactId":"ClassicalNativeAmericanTomahawk","PositionX":19,"PositionY":28,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"1205e7cf-2466-40a4-a7c6-864aed9088d5","RawArtifactId":"RenaissanceNativeAmericanTomahawk","PositionX":39,"PositionY":31,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"59c78808-9d54-46ea-a21c-1b366b159e69","RawArtifactId":"MedievalNativeAmericanTomahawk","PositionX":34,"PositionY":50,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"145bc78d-51d3-4942-935c-19cb2e327421","RawArtifactId":"ClassicalNativeAmericanWoodenSword","PositionX":46,"PositionY":44,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"0a1b128e-595c-4e20-b3f6-6a4eda06122c","RawArtifactId":"IndustrialAmericanMusket","PositionX":38,"PositionY":46,"Slot":0,"Condition":"Intact","Rarity":"Common"},{"Id":"06fef7d1-b5e3-4b9f-90c2-b2e234b22511","RawArtifactId":"RenaissanceAmericanCutlass","PositionX":31,"PositionY":18,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"c182ce5a-bcc1-4273-b6b3-6dff46f57e9d","RawArtifactId":"IndustrialAmericanInfantryGear","PositionX":10,"PositionY":7,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"c789c83c-44d8-43dd-8a55-1cab8adbc563","RawArtifactId":"RenaissanceAmericanIronChestplate","PositionX":30,"PositionY":2,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"fc1643ff-1451-4225-bbfe-a5f87246398e","RawArtifactId":"MedievalNativeAmericanWarShield","PositionX":18,"PositionY":20,"Slot":0,"Condition":"Decrepit","Rarity":"Rare"},{"Id":"5124602e-3783-4b6f-b60c-7ab69b260ec7","RawArtifactId":"ClassicalNativeAmericanWarShield","PositionX":6,"PositionY":28,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"1f97eed6-111a-4320-ac0d-1c1b0235279c","RawArtifactId":"MedievalNativeAmericanLeatherChestplate","PositionX":36,"PositionY":20,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"226048d0-1795-4ad3-b46a-a17a89ab3a5e","RawArtifactId":"MedievalNativeAmericanLeatherBoots","PositionX":42,"PositionY":47,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"116aaa43-e563-43d9-9337-f3369bebc900","RawArtifactId":"IndustrialAmericanFurBoots","PositionX":33,"PositionY":56,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"1bd65fe2-caf5-47de-9d40-9425b6779311","RawArtifactId":"ModernAmericanRubberBoots","PositionX":31,"PositionY":58,"Slot":0,"Condition":"Decrepit","Rarity":"Rare"},{"Id":"8ae30c08-e8ec-4c6b-8454-abdef9a9c8ac","RawArtifactId":"IndustrialAmericanPorcelainVase","PositionX":10,"PositionY":6,"Slot":0,"Condition":"Pristine","Rarity":"Common"},{"Id":"c85bc507-69dc-4aeb-8626-564dfe0670f5","RawArtifactId":"ClassicalNativeAmericanShellCurrency","PositionX":8,"PositionY":17,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"d334c0cc-c52e-4f36-970c-27921d5c1348","RawArtifactId":"MedievalNativeAmericanWampumBeadCurrency","PositionX":14,"PositionY":58,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"7312593b-b187-4bd3-9a65-c31e1f137ee5","RawArtifactId":"AncientNativeAmericanWampumBeadCurrency","PositionX":40,"PositionY":20,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"89869e8c-28a3-42dd-8abe-41108aca6c29","RawArtifactId":"MedievalNativeAmericanBowl","PositionX":36,"PositionY":6,"Slot":0,"Condition":"Intact","Rarity":"Common"},{"Id":"f2655a02-c4b0-49eb-a886-fb9ee19010a5","RawArtifactId":"RenaissanceAmericanSilverCoin","PositionX":10,"PositionY":2,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"cebaaaca-bed1-4ed2-a609-0618bfef2653","RawArtifactId":"MedievalNativeAmericanVase","PositionX":36,"PositionY":25,"Slot":0,"Condition":"Intact","Rarity":"Rare"},{"Id":"e2fa8272-622b-42da-bd5f-b2dd413ab62c","RawArtifactId":"ClassicalNativeAmericanBowl","PositionX":34,"PositionY":17,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"7d6f1e60-270a-4920-8af9-5f9166f015f6","RawArtifactId":"ClassicalNativeAmericanShellNecklace","PositionX":22,"PositionY":37,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"22b91212-92a9-43c3-9f34-90d3cb6a0bb5","RawArtifactId":"IndustrialAmericanPorcelainVase","PositionX":34,"PositionY":12,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"a58abd9d-27ff-461d-ad52-d3df390013d7","RawArtifactId":"ClassicalNativeAmericanShellNecklace","PositionX":1,"PositionY":16,"Slot":0,"Condition":"Decrepit","Rarity":"Legendary"},{"Id":"575c3e5f-de90-4590-8846-e8f39f4a74f9","RawArtifactId":"MedievalNativeAmericanWarShield","PositionX":37,"PositionY":30,"Slot":0,"Condition":"Intact","Rarity":"Legendary"},{"Id":"527e8681-6e7e-48d0-b8c0-aabb7db629f3","RawArtifactId":"RenaissanceAmericanIronChestplate","PositionX":35,"PositionY":11,"Slot":0,"Condition":"Intact","Rarity":"Rare"},{"Id":"8fc91d41-127c-4139-b82f-21c48091c662","RawArtifactId":"MedievalNativeAmericanVase","PositionX":27,"PositionY":19,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"e76bad25-e4cd-47ab-9ddd-1f418d435bfd","RawArtifactId":"RenaissanceAmericanIronChestplate","PositionX":9,"PositionY":24,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"0b58fda9-7411-4b9c-af31-9eb0f22cabdd","RawArtifactId":"MedievalNativeAmericanWampumBeadCurrency","PositionX":47,"PositionY":41,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"13cd5d05-1b3e-4d10-aa70-d839ae218b30","RawArtifactId":"IndustrialAmericanFurBoots","PositionX":3,"PositionY":40,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"60d1ec55-7c91-43df-80cf-e7f345ce3a30","RawArtifactId":"AncientNativeAmericanWampumBeadCurrency","PositionX":46,"PositionY":60,"Slot":0,"Condition":"Intact","Rarity":"Common"},{"Id":"2feaa18d-4cdf-4a04-a929-ce76662a3dd1","RawArtifactId":"AncientNativeAmericanWampumBeadCurrency","PositionX":40,"PositionY":47,"Slot":0,"Condition":"Decrepit","Rarity":"Common"},{"Id":"903b12ee-368d-477d-ae20-fdc0515eee9b","RawArtifactId":"ClassicalNativeAmericanWoodenSword","PositionX":21,"PositionY":12,"Slot":0,"Condition":"Pristine","Rarity":"Common"},{"Id":"tutorialArtifact","RawArtifactId":"ClassicalNativeAmericanTomahawk","PositionX":24,"PositionY":2,"Slot":0,"Condition":"Decrepit","Rarity":"Common"}]}]
+[
+  {
+    "Artifacts": [
+      {
+        "Id": "3",
+        "RawArtifactId": "MedievalNativeAmericanTomahawk",
+        "PositionX": 24,
+        "PositionY": 2,
+        "Slot": 0
+      },
+      {
+        "Id": "4",
+        "RawArtifactId": "ModernAmericanRifle",
+        "PositionX": 13,
+        "PositionY": 4,
+        "Slot": 0
+      },
+      {
+        "Id": "5",
+        "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
+        "PositionX": 32,
+        "PositionY": 5,
+        "Slot": 0
+      },
+      {
+        "Id": "6",
+        "RawArtifactId": "ModernAmericanRifle",
+        "PositionX": 36,
+        "PositionY": 6,
+        "Slot": 0
+      },
+      {
+        "Id": "7",
+        "RawArtifactId": "ModernAmericanRifle",
+        "PositionX": 26,
+        "PositionY": 7,
+        "Slot": 0
+      },
+      {
+        "Id": "8",
+        "RawArtifactId": "RenaissanceAmericanCutlass",
+        "PositionX": 18,
+        "PositionY": 8,
+        "Slot": 0
+      },
+      {
+        "Id": "9",
+        "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
+        "PositionX": 8,
+        "PositionY": 9,
+        "Slot": 0
+      },
+      {
+        "Id": "10",
+        "RawArtifactId": "RenaissanceNativeAmericanTomahawk",
+        "PositionX": 30,
+        "PositionY": 12,
+        "Slot": 0
+      },
+      {
+        "Id": "11",
+        "RawArtifactId": "AncientNativeAmericanClub",
+        "PositionX": 22,
+        "PositionY": 13,
+        "Slot": 0
+      },
+      {
+        "Id": "12",
+        "RawArtifactId": "IndustrialAmericanMusket",
+        "PositionX": 12,
+        "PositionY": 14,
+        "Slot": 0
+      },
+      {
+        "Id": "13",
+        "RawArtifactId": "RenaissanceAmericanCutlass",
+        "PositionX": 27,
+        "PositionY": 15,
+        "Slot": 0
+      },
+      {
+        "Id": "14",
+        "RawArtifactId": "ClassicalNativeAmericanWarShield",
+        "PositionX": 33,
+        "PositionY": 16,
+        "Slot": 0
+      },
+      {
+        "Id": "15",
+        "RawArtifactId": "MedievalNativeAmericanWarShield",
+        "PositionX": 20,
+        "PositionY": 19,
+        "Slot": 0
+      },
+      {
+        "Id": "16",
+        "RawArtifactId": "IndustrialAmericanMusket",
+        "PositionX": 29,
+        "PositionY": 20,
+        "Slot": 0
+      },
+      {
+        "Id": "17",
+        "RawArtifactId": "ClassicalNativeAmericanWarShield",
+        "PositionX": 15,
+        "PositionY": 21,
+        "Slot": 0
+      },
+      {
+        "Id": "18",
+        "RawArtifactId": "RenaissanceAmericanCutlass",
+        "PositionX": 25,
+        "PositionY": 22,
+        "Slot": 0
+      },
+      {
+        "Id": "19",
+        "RawArtifactId": "MedievalNativeAmericanWarShield",
+        "PositionX": 39,
+        "PositionY": 23,
+        "Slot": 0
+      },
+      {
+        "Id": "20",
+        "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
+        "PositionX": 9,
+        "PositionY": 24,
+        "Slot": 0
+      },
+      {
+        "Id": "21",
+        "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
+        "PositionX": 32,
+        "PositionY": 25,
+        "Slot": 0
+      },
+      {
+        "Id": "22",
+        "RawArtifactId": "AncientNativeAmericanClub",
+        "PositionX": 17,
+        "PositionY": 26,
+        "Slot": 0
+      },      
+      {
+        "Id": "23",
+        "RawArtifactId": "ClassicalNativeAmericanWoodenSword",
+        "PositionX": 21,
+        "PositionY": 27,
+        "Slot": 0
+      },
+      {
+        "Id": "24",
+        "RawArtifactId": "MedievalNativeAmericanWarShield",
+        "PositionX": 31,
+        "PositionY": 32,
+        "Slot": 0
+      },
+      {
+        "Id": "25",
+        "RawArtifactId": "AncientNativeAmericanClub",
+        "PositionX": 24,
+        "PositionY": 39,
+        "Slot": 0
+      }
+    ]
+  }
+]

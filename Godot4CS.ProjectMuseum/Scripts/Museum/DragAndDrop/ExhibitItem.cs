@@ -6,6 +6,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using Newtonsoft.Json;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 namespace Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
@@ -14,6 +15,7 @@ public partial class ExhibitItem : Item
 {
 	[Export] private Array<Sprite2D> _artifactSlots;
 	private HttpRequest _httpRequestForGettingExhibitVariation;
+	
 	public override void _Ready()
 	{
 		base._Ready();
@@ -24,7 +26,28 @@ public partial class ExhibitItem : Item
 		MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
 		_httpRequestForArtifactPlacement.RequestCompleted += HttpRequestForArtifactPlacementOnRequestCompleted;
 		_httpRequestForArtifactRemoval.RequestCompleted += HttpRequestForArtifactRemovalOnRequestCompleted;
+		MuseumActions.OnExhibitDeleted += OnExhibitDeleted;
+		MuseumActions.OnMakeExhibitFloatForMoving += OnMakeExhibitFloatForMoving;
+	}
+
+	private void OnMakeExhibitFloatForMoving(string obj)
+	{
+		if (obj== ExhibitData.Id)
+		{
+			selectedItem = true;
+			_moving = true;
+			_movingFromPos = Position;
+			GetUpdatedItemPlacementConditions();
+		}
 		
+	}
+
+	private void OnExhibitDeleted(string obj)
+	{
+		if (obj== ExhibitData.Id)
+		{
+			QueueFree();
+		}
 	}
 
 	private void HttpRequestForGettingExhibitVariationOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -81,7 +104,15 @@ public partial class ExhibitItem : Item
 				return;
 			}
 
-			HandleItemPlacement();
+			if (!_moving)
+			{
+				HandleItemPlacement();
+			}
+			else
+			{
+				HandleItemMovedPlacement();
+			}
+
 			// OnItemPlaced?.Invoke(ItemPrice);
 			selectedItem = false;
 			OnItemPlacedOnTile(GlobalPosition);
@@ -92,9 +123,44 @@ public partial class ExhibitItem : Item
 		}
 		if (selectedItem && Input.IsActionPressed("ui_right_click"))
 		{
-			QueueFree();
+			if (_moving)
+			{
+				Position = _movingFromPos;
+				selectedItem = false;
+				Modulate = _originalColor;
+				SetMaterialWithoutBlend();
+			}
+			else
+			{
+				QueueFree();
+			}
+
 		}
 	}
+
+	private void HandleItemMovedPlacement()
+	{
+		//GD.Print("Handled item placement from ExhibitItem");
+		List<string> tileIds = new List<string>();
+		foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
+		{
+			tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
+			
+		}
+
+		var exhibitWithNewTiles = new ExhibitWithNewTiles(){Exhibit = ExhibitData, NewTileIds = tileIds};
+		string[] headers = { "Content-Type: application/json"};
+		var body = JsonConvert.SerializeObject(exhibitWithNewTiles);
+		string url =
+			$"{ApiAddress.MuseumApiPath}MoveExhibitOnTiles/{tileIds[0]}/{Frame}";
+		_httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+		//GD.Print($"Handling exhibit placement for price {ItemPrice}");
+		// MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
+		GetUpdatedItemPlacementConditions();
+		MuseumActions.OnItemUpdated?.Invoke();
+		DisableItemPlacementShadow();
+	}
+
 	private new void HandleItemPlacement()
 	{
 		//GD.Print("Handled item placement from ExhibitItem");
@@ -227,5 +293,7 @@ public partial class ExhibitItem : Item
 	    _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
 	    _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
 	    _httpRequestForGettingExhibitVariation.RequestCompleted -= HttpRequestForGettingExhibitVariationOnRequestCompleted;
+	    MuseumActions.OnExhibitDeleted -= OnExhibitDeleted;
+	    MuseumActions.OnMakeExhibitFloatForMoving -= OnMakeExhibitFloatForMoving;
     }
 }

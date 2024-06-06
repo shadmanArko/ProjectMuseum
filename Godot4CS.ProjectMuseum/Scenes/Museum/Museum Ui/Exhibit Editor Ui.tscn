@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bjy2gyknf1lwq"]
+[gd_scene load_steps=22 format=3 uid="uid://bjy2gyknf1lwq"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_kqmcg"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ygxepb2p8q7u" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Filter_Drop_Down.png" id="7_cf2oq"]
 [ext_resource type="Texture2D" uid="uid://cyhx1le1au8o1" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Base.png" id="7_x2k0j"]
 [ext_resource type="Texture2D" uid="uid://c6628xhpc3quq" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Search_Bar.png" id="8_3usof"]
+[ext_resource type="Theme" uid="uid://buxos2wmpbr3k" path="res://Themes/Museum ui Light White.tres" id="12_vigyp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fdov"]
 texture = ExtResource("5_njf6o")
@@ -40,7 +41,7 @@ texture = ExtResource("5_25kkq")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p4nli"]
 texture = ExtResource("4_3kga1")
 
-[node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton")]
+[node name="Exhibit Editor Ui" type="Control" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton", "_DeleteExhibitButton", "_moveExhibitButton")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -54,7 +55,9 @@ _draggable = ExtResource("3_vjpch")
 _dropTarget = ExtResource("3_gbute")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
-_glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/CheckButton")
+_glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")
+_DeleteExhibitButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/Delete Exhibit Button")
+_moveExhibitButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/Move Exhibit Button")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -267,7 +270,7 @@ texture = ExtResource("4_lpjnh")
 [node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 140
-theme_override_constants/margin_top = 60
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 180
 
 [node name="GridContainer" type="GridContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer"]
@@ -289,9 +292,27 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="CheckButton" type="CheckButton" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="Delete Exhibit Button" type="Button" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("12_vigyp")
+text = "Delete Exhibit"
+
+[node name="Move Exhibit Button" type="Button" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("12_vigyp")
+text = "Move Exhibit"
+
+[node name="CheckButton" type="CheckButton" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 button_pressed = true
+text = "Glass"
+alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/Exhibit Editor Ui BG"]
 layout_mode = 1

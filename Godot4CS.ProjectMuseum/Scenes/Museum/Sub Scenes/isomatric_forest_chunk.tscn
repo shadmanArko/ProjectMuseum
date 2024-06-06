@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c5wqq7kf4boqy" path="res://Scenes/Museum/Backgrounds/Trees/basic_tree_2.tscn" id="6_6w5u0"]
 [ext_resource type="Texture2D" uid="uid://dyl744gd4pd80" path="res://Assets/2D/Sprites/Backgrounds/chunk selection/chunk selection white outline.png" id="8_muykd"]
 
-[node name="IsomatricForestChunk" type="Sprite2D" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks")]
+[node name="IsomatricForestChunk" type="Sprite2D" node_paths=PackedStringArray("_expansionButton", "_allChunks", "_neighbourChunks", "_outline", "_trees")]
 z_index = -1
 y_sort_enabled = true
 texture_filter = 1
@@ -19,6 +19,8 @@ script = ExtResource("2_4j5ur")
 _expansionButton = NodePath("Control/Button")
 _allChunks = []
 _neighbourChunks = []
+_outline = NodePath("outline")
+_trees = NodePath("Trees")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://bny6g3hde85j1"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Explosives/ExplosionEffect.cs" id="1_hg772"]
+[ext_resource type="Texture2D" uid="uid://bswudfiq6err6" path="res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamiteExplosion.png" id="1_vmrg2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqpmb"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsojp"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lw0oo"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gfpu"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_821ck"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m36n"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnf1b"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpx4l"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uwle"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(192, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkbyf"]
+atlas = ExtResource("1_vmrg2")
+region = Rect2(216, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jyyin"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqpmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsojp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lw0oo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gfpu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_821ck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m36n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnf1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpx4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3uwle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkbyf")
+}],
+"loop": false,
+"name": &"dynamiteExplode",
+"speed": 10.0
+}]
+
+[node name="DynamiteExplosion" type="Node2D" node_paths=PackedStringArray("_animatedSprite2D")]
+script = ExtResource("1_hg772")
+_animatedSprite2D = NodePath("AnimatedSprite2D")
+_animationName = "dynamiteExplode"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jyyin")
+animation = &"dynamiteExplode"
+frame = 9
+frame_progress = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]

@@ -55,11 +55,19 @@ public partial class Dynamite : Node2D
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
         
+        ReferenceStorage.Instance.ParticleEffectSystem.TriggerDynamiteExplosion(
+            new Vector2I(cell.PositionX, cell.PositionY), 0);
+        
         foreach (var direction in adjacentCells)
         {
             var newCellPos = new Vector2I(cell.PositionX + direction.X, cell.PositionY + direction.Y);
             var adjacentCell = _mineGenerationVariables.GetCell(newCellPos);
             if(adjacentCell == null) continue;
+            
+            ReferenceStorage.Instance.ParticleEffectSystem.TriggerDynamiteExplosion(
+                new Vector2I(adjacentCell.PositionX, adjacentCell.PositionY), 0.1f);
+
+            
             if(!adjacentCell.IsInstantiated || !adjacentCell.IsBreakable || adjacentCell.IsBroken) continue;
             
             adjacentCell.HitPoint = adjacentCell.HasArtifact ? 1 : 0;

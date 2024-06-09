@@ -11,9 +11,10 @@
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="4_ynyrp"]
 [ext_resource type="PackedScene" uid="uid://bffmgqpet85vg" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="5_sv46g"]
 [ext_resource type="Texture2D" uid="uid://cx2x1gi8ngfp3" path="res://Assets/2D/Sprites/Museum Ui/button.png" id="5_yugtr"]
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="8_enhfw"]
-[ext_resource type="Texture2D" uid="uid://0h05duorl1mc" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button_v1.png" id="9_mgxrq"]
-[ext_resource type="Texture2D" uid="uid://btc7tmyyk7wql" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button.png" id="10_4nxet"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/SimpleBlur.gdshader" id="9_lnjo7"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/SimpleBlur.gdshader" id="9_yc7tk"]
+[ext_resource type="Texture2D" uid="uid://dmvybcmnlotge" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/bg.png" id="10_v70c6"]
+[ext_resource type="Theme" uid="uid://d4nuoj106bh6v" path="res://Themes/Theme1.tres" id="11_5kqp1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lr8jx"]
 texture = ExtResource("1_ygicn")
@@ -21,15 +22,16 @@ texture = ExtResource("1_ygicn")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uuskr"]
 texture = ExtResource("5_yugtr")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c3m1r"]
-texture = ExtResource("2_8uo1c")
-texture_margin_top = 7.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tbnj"]
+shader = ExtResource("9_lnjo7")
+shader_parameter/blur_radius = 0.059
+shader_parameter/blur_amount = 1.0
+shader_parameter/blur_inner = 0.6
+shader_parameter/blur_outer = 0.66
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qbea3"]
-texture = ExtResource("9_mgxrq")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8xt4n"]
-texture = ExtResource("10_4nxet")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1310"]
+shader = ExtResource("9_yc7tk")
+shader_parameter/lod = 1.5
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -156,6 +158,7 @@ expand_icon = true
 
 [node name="settings_menu" type="Control" parent="."]
 visible = false
+material = SubResource("ShaderMaterial_5tbnj")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,6 +168,16 @@ grow_vertical = 2
 scale = Vector2(1, 1.00943)
 script = ExtResource("3_afjxx")
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="settings_menu"]
+material = SubResource("ShaderMaterial_y1310")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_v70c6")
 
 [node name="MarginContainer" type="MarginContainer" parent="settings_menu"]
 layout_mode = 1
@@ -182,33 +195,36 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="settings_menu/MarginContainer"]
 layout_mode = 2
 
-[node name="Exit Button" type="Button" parent="settings_menu/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "Exit"
 
-[node name="Label" type="Label" parent="settings_menu/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(632.065, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("8_enhfw")
-theme_override_font_sizes/font_size = 31
-text = "Settings"
+size_flags_horizontal = 6
+size_flags_vertical = 1
+theme = ExtResource("11_5kqp1")
+theme_override_colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
+theme_override_colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+theme_override_font_sizes/font_size = 64
+text = "   Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit Button" type="Button" parent="settings_menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(90, 60)
+layout_mode = 2
+theme = ExtResource("11_5kqp1")
+text = "X"
 
 [node name="TabContainer" type="TabContainer" parent="settings_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("8_enhfw")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/panel = SubResource("StyleBoxTexture_c3m1r")
-theme_override_styles/tab_selected = SubResource("StyleBoxTexture_qbea3")
-theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_8xt4n")
+theme = ExtResource("11_5kqp1")
 tab_alignment = 1
-current_tab = 1
+current_tab = 0
 
 [node name="Interface" type="TabBar" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -236,6 +252,7 @@ size_flags_vertical = 6
 
 [node name="Label" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/UI Scaling"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "UI Scaling"
 
 [node name="HSlider" type="HSlider" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/UI Scaling"]
@@ -249,18 +266,22 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/Language"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "Language"
 
 [node name="OptionButton" type="OptionButton" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Interface/MarginContainer/ScrollContainer/VBoxContainer/Language"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
+selected = 0
 item_count = 2
 popup/item_0/text = "English"
 popup/item_1/text = "Bangla"
 popup/item_1/id = 1
 
 [node name="Audio" type="TabBar" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("3_m1stg")
 metadata/_tab_index = 1
@@ -327,28 +348,33 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Edge Scrolling" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Edge Scrolling"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("11_5kqp1")
 text = "Edge Scrolling"
 
 [node name="CheckBox" type="CheckBox" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Edge Scrolling"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
 
 [node name="Mouse Wheel Speed" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Speed"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "Mouse Wheel Speed"
 
 [node name="OptionButton" type="OptionButton" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Speed"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
 item_count = 2
 popup/item_0/text = "English"
 popup/item_1/text = "Bangla"
@@ -359,12 +385,14 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Acceleration"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "Mouse Wheel Acceleration"
 
 [node name="OptionButton" type="OptionButton" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Gameplay/MarginContainer/ScrollContainer/VBoxContainer/Mouse Wheel Acceleration"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
 item_count = 2
 popup/item_0/text = "English"
 popup/item_1/text = "Bangla"
@@ -394,6 +422,7 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
 [node name="Resolution" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
@@ -401,27 +430,32 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "Resolution"
 
 [node name="OptionButton" type="OptionButton" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
 
 [node name="Frame Rate Cap" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Frame Rate Cap"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "Frame Rate Cap"
 
 [node name="OptionButton" type="OptionButton" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Frame Rate Cap"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
+selected = 0
 item_count = 2
-popup/item_0/text = "English"
-popup/item_1/text = "Bangla"
+popup/item_0/text = "60"
+popup/item_1/text = "90"
 popup/item_1/id = 1
 
 [node name="Window Mode" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
@@ -429,18 +463,21 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Window Mode"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "Window Mode"
 
 [node name="OptionButton" type="OptionButton" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Window Mode"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
 
 [node name="Post-Processing" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Post-Processing"]
 layout_mode = 2
+theme = ExtResource("11_5kqp1")
 text = "Post-Processing"
 
 [node name="CheckBox2" type="CheckBox" parent="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Post-Processing"]
@@ -503,6 +540,7 @@ text = "X"
 [connection signal="pressed" from="pause_menu_button" to="pause_menu_button" method="_on_pressed"]
 [connection signal="pressed" from="pause_menu/MarginContainer/VBoxContainer/back_button" to="pause_menu" method="_on_back_button_pressed"]
 [connection signal="pressed" from="pause_menu/MarginContainer/VBoxContainer/settings_button" to="pause_menu" method="_on_settings_button_pressed"]
+[connection signal="pressed" from="settings_menu/MarginContainer/VBoxContainer/HBoxContainer/Exit Button" to="settings_menu" method="_on_exit_button_pressed"]
 [connection signal="item_selected" from="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Resolution/OptionButton" to="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics" method="OnResolutionSelected"]
 [connection signal="item_selected" from="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics/MarginContainer/ScrollContainer/VBoxContainer/Window Mode/OptionButton" to="settings_menu/MarginContainer/VBoxContainer/TabContainer/Graphics" method="OnWindowModeSelected"]
 [connection signal="pressed" from="setting_menu_close_button" to="pause_menu" method="_on_setting_menu_close_button_pressed"]

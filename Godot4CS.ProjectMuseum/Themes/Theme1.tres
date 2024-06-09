@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://d4nuoj106bh6v"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://d4nuoj106bh6v"]
 
 [ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="1_pyp5b"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_qhpts"]
@@ -35,6 +35,9 @@ texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
 modulate_color = Color(0.763809, 0.763809, 0.763808, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k85u"]
+bg_color = Color(0.886275, 0.847059, 0.788235, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsur8"]
 texture = ExtResource("4_8ubux")
@@ -83,8 +86,15 @@ Button/styles/pressed = SubResource("StyleBoxTexture_xvy2t")
 Label/colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
 Label/colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
 Label/constants/outline_size = 5
-Label/fonts/font = ExtResource("1_qhpts")
+Label/fonts/font = ExtResource("1_pyp5b")
 LineEdit/fonts/font = ExtResource("1_qhpts")
+OptionButton/fonts/font = ExtResource("1_pyp5b")
+PopupMenu/colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
+PopupMenu/colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+PopupMenu/fonts/font = ExtResource("1_pyp5b")
+PopupMenu/fonts/font_separator = ExtResource("1_pyp5b")
+PopupMenu/fonts/title_font = ExtResource("1_pyp5b")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_1k85u")
 ProgressBar/fonts/font = ExtResource("1_qhpts")
 RichTextLabel/colors/default_color = Color(0, 0, 0, 0)
 RichTextLabel/fonts/bold_font = ExtResource("1_qhpts")

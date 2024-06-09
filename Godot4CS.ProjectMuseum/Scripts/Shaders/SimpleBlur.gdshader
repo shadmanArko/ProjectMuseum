@@ -26,7 +26,7 @@ void fragment() {
     blurColor.a = blur;
 
     // Mix colors of the blur effect with white for an additional effect
-    blurColor.rgb = mix(blurColor.rgb, vec3(1.0), 0.1);
+    blurColor.rgb = mix(blurColor.rgb, vec3(0.0), 0.5);
 
     // Set the final color to the modified color of the blur effect
     COLOR = blurColor;

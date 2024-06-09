@@ -1,0 +1,104 @@
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://d4nuoj106bh6v"]
+
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="1_pyp5b"]
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_qhpts"]
+[ext_resource type="Texture2D" uid="uid://curg8go0y87rp" path="res://Assets/2D/Sprites/UI/Main menu/Tempo menu box.png" id="2_b8u56"]
+[ext_resource type="Texture2D" uid="uid://dc42prip5kq35" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Storage_Base.png" id="4_8ubux"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gywvm"]
+texture = ExtResource("2_b8u56")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(1, 1, 1, 0.529412)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vullu"]
+texture = ExtResource("2_b8u56")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.889147, 0.889147, 0.889147, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t0p3l"]
+texture = ExtResource("2_b8u56")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xvy2t"]
+texture = ExtResource("2_b8u56")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.763809, 0.763809, 0.763808, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsur8"]
+texture = ExtResource("4_8ubux")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e7gdc"]
+texture = ExtResource("2_b8u56")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(1, 1, 1, 0.85098)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a0sxj"]
+texture = ExtResource("2_b8u56")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u6r7k"]
+texture = ExtResource("2_b8u56")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.769432, 0.769432, 0.769432, 1)
+
+[resource]
+Button/colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_disabled_color = Color(0.239216, 0.0980392, 0.247059, 0.662745)
+Button/colors/font_focus_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_hover_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+Button/colors/font_pressed_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/constants/outline_size = 5
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_pyp5b")
+Button/styles/disabled = SubResource("StyleBoxTexture_gywvm")
+Button/styles/hover = SubResource("StyleBoxTexture_vullu")
+Button/styles/normal = SubResource("StyleBoxTexture_t0p3l")
+Button/styles/pressed = SubResource("StyleBoxTexture_xvy2t")
+Label/colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+Label/colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Label/constants/outline_size = 5
+Label/fonts/font = ExtResource("1_qhpts")
+LineEdit/fonts/font = ExtResource("1_qhpts")
+ProgressBar/fonts/font = ExtResource("1_qhpts")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 0)
+RichTextLabel/fonts/bold_font = ExtResource("1_qhpts")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_qhpts")
+RichTextLabel/fonts/italics_font = ExtResource("1_qhpts")
+RichTextLabel/fonts/mono_font = ExtResource("1_qhpts")
+RichTextLabel/fonts/normal_font = ExtResource("1_qhpts")
+TabContainer/colors/font_disabled_color = Color(0.239216, 0.0980392, 0.247059, 0.619608)
+TabContainer/colors/font_hovered_color = Color(0.239216, 0.0980392, 0.247059, 1)
+TabContainer/colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+TabContainer/colors/font_selected_color = Color(0.239216, 0.0980392, 0.247059, 1)
+TabContainer/colors/font_unselected_color = Color(0.239216, 0.0980392, 0.247059, 0.815686)
+TabContainer/fonts/font = ExtResource("1_pyp5b")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_lsur8")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_e7gdc")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_a0sxj")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_u6r7k")

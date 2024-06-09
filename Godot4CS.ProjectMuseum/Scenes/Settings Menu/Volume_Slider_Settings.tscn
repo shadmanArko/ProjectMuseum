@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ouhmqp7q5h10"]
 
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/volume_slider_settings.gd" id="1_0m6yj"]
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_ewdfi"]
+[ext_resource type="Theme" uid="uid://d4nuoj106bh6v" path="res://Themes/Theme1.tres" id="2_8omfa"]
 
 [node name="Volume_Slider_Settings" type="HBoxContainer"]
 size_flags_vertical = 6
@@ -10,9 +10,8 @@ script = ExtResource("1_0m6yj")
 [node name="Label" type="Label" parent="."]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.890196, 0.478431, 0.239216, 1)
-theme_override_fonts/font = ExtResource("2_ewdfi")
-theme_override_font_sizes/font_size = 25
+theme = ExtResource("2_8omfa")
+theme_override_font_sizes/font_size = 16
 text = "Master Volume"
 
 [node name="VSeparator" type="VSeparator" parent="."]

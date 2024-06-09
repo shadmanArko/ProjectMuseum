@@ -5,8 +5,6 @@ var music_volume : float = 0.0
 var sfx_volume : float = 0.0
 var ui_volume : float = 0.0
 var ambiance_volume : float = 0.0
-@onready var settings_menu: Control = $"."
-@onready var exit_button: Button = $"MarginContainer/VBoxContainer/HBoxContainer/Exit Button"
 @onready var keybind_resource : PlayerKeyBindResource = preload("res://Plugins/Keybind/PlayerKeyBind.tres")
 
 var loaded_data : Dictionary = {}
@@ -89,5 +87,3 @@ func on_settings_data_loaded(data : Dictionary) -> void:
 	
 
 
-func _on_exit_button_pressed() -> void:
-	settings_menu.visible = false

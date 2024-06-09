@@ -34,9 +34,7 @@ func _on_setting_menu_close_button_pressed() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	var main_menu_scene = load("res://Scenes/MainMenu/Main Scene/MainMenu.tscn")
-	if main_menu_scene:
-		get_tree().change_scene_to(main_menu_scene)
+	get_tree().change_scene_to_file("res://Scenes/MainMenu/Main Scene/MainMenu.tscn")
 
 
 func _on_exit_to_desktop_button_pressed() -> void:

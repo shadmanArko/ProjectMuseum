@@ -92,7 +92,7 @@ public partial class ButtonsTransition : HBoxContainer
 		foreach (var buttonHolder in _buttonHolders)
 		{
 			//var button = node as Button;
-			var button = buttonHolder.GetChild(0).GetNode<Button>(".");
+			var button = buttonHolder.GetNode<Button>(".");
 			if (button == null)
 			{
 				GD.PrintErr("Button found Null");

@@ -108,6 +108,7 @@ public partial class IsomatricForestChunk : Sprite2D
 
 	private void ExpansionButtonOnPressed()
 	{
+		return;
 		MuseumActions.OnCallForMuseumExpansion?.Invoke(expansionOrigin);
 		_alreadyExpanded = true;
 	}

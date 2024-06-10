@@ -123,7 +123,7 @@ grow_vertical = 0
 theme = ExtResource("5_fnjy7")
 theme_override_colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
 theme_override_font_sizes/font_size = 16
-text = "Proof of Concept."
+text = "Vertical Slice"
 
 [node name="settings_menu" type="Control" parent="BG"]
 visible = false

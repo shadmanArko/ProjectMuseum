@@ -64,18 +64,17 @@ offset_right = 0.00012207
 _closePanelButton = NodePath("PanelContainer/Container/Top Panel/Button")
 _subcontinentButton = NodePath("PanelContainer/Container/Location Selector Panel/VBoxContainer/Sublocation Panel/Sublocation Scroll Panel/Sublocation Scroll Container/Sublocation Button")
 
-[node name="BottomBarMuseumUi2" parent="." node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsButton", "_flooringButton", "_wallpapersButton", "_sanitationButton", "_exhibitButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel") instance=ExtResource("3_xtoc7")]
+[node name="BottomBarMuseumUi2" parent="." node_paths=PackedStringArray("_newExhibitButton", "_decorationsShopButton", "_decorationsButton", "_flooringButton", "_wallpapersButton", "_sanitationButton", "_museumMoneyTextField", "_museumAddedMoneyAmountTextField", "_museumGuestNumberTextField", "_builderCardPanel") instance=ExtResource("3_xtoc7")]
 layout_mode = 1
-_newExhibitButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
-_decorationsShopButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent/Food and Drinks Button")
-_decorationsButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Parent/decorations Button")
-_flooringButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/flooring parent/Flooring Button")
-_wallpapersButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/wallpaper parent/Wallpaper Button")
-_sanitationButton = NodePath("Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/sanitation button parent/Sanitation Button")
-_exhibitButton = NodePath("Left Panel/Buttons Panel/Main Buttons Panel/Exhibit parent/Exhibit Button")
-_museumMoneyTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Text Holder")
-_museumAddedMoneyAmountTextField = NodePath("Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Adding Amount")
-_museumGuestNumberTextField = NodePath("Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Count")
+_newExhibitButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
+_decorationsShopButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent/Food and Drinks Button")
+_decorationsButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Parent/decorations Button")
+_flooringButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/flooring parent/Flooring Button")
+_wallpapersButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/wallpaper parent/Wallpaper Button")
+_sanitationButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/sanitation button parent/Sanitation Button")
+_museumMoneyTextField = NodePath("HBoxContainer/Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Text Holder")
+_museumAddedMoneyAmountTextField = NodePath("HBoxContainer/Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Adding Amount")
+_museumGuestNumberTextField = NodePath("HBoxContainer/Left Panel/Guest Count Holder Panel/Guest Count Holder/Guest Count")
 _builderCardPanel = NodePath("Builder card panel")
 
 [node name="Panel" type="Panel" parent="."]

@@ -1,0 +1,115 @@
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://h77j7tl4gcaw"]
+
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="1_1oida"]
+[ext_resource type="Texture2D" uid="uid://btc7tmyyk7wql" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button.png" id="2_cs6g0"]
+[ext_resource type="Texture2D" uid="uid://curg8go0y87rp" path="res://Assets/2D/Sprites/UI/Main menu/Tempo menu box.png" id="2_sp2n2"]
+[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="3_afb62"]
+[ext_resource type="Texture2D" uid="uid://dc42prip5kq35" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Storage_Base.png" id="4_ahuqd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gywvm"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("2_cs6g0")
+modulate_color = Color(1, 1, 1, 0.529412)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vullu"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("2_cs6g0")
+modulate_color = Color(0.889147, 0.889147, 0.889147, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t0p3l"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("2_cs6g0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xvy2t"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("2_cs6g0")
+modulate_color = Color(0.763809, 0.763809, 0.763808, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k85u"]
+bg_color = Color(0.886275, 0.847059, 0.788235, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsur8"]
+texture = ExtResource("4_ahuqd")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e7gdc"]
+texture = ExtResource("2_sp2n2")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(1, 1, 1, 0.85098)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a0sxj"]
+texture = ExtResource("2_sp2n2")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u6r7k"]
+texture = ExtResource("2_sp2n2")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.769432, 0.769432, 0.769432, 1)
+
+[resource]
+Button/colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+Button/colors/font_disabled_color = Color(0.996078, 0.952941, 0.886275, 0.713726)
+Button/colors/font_focus_color = Color(0.996078, 0.952941, 0.886275, 1)
+Button/colors/font_hover_color = Color(0.996078, 0.952941, 0.886275, 1)
+Button/colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Button/colors/font_pressed_color = Color(0.996078, 0.952941, 0.886275, 1)
+Button/constants/outline_size = 5
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_1oida")
+Button/styles/disabled = SubResource("StyleBoxTexture_gywvm")
+Button/styles/hover = SubResource("StyleBoxTexture_vullu")
+Button/styles/normal = SubResource("StyleBoxTexture_t0p3l")
+Button/styles/pressed = SubResource("StyleBoxTexture_xvy2t")
+Label/colors/font_color = Color(0.996078, 0.952941, 0.886275, 1)
+Label/colors/font_outline_color = Color(0.239216, 0.0980392, 0.247059, 1)
+Label/constants/outline_size = 5
+Label/fonts/font = ExtResource("1_1oida")
+LineEdit/fonts/font = ExtResource("3_afb62")
+OptionButton/fonts/font = ExtResource("1_1oida")
+PopupMenu/colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
+PopupMenu/colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+PopupMenu/fonts/font = ExtResource("1_1oida")
+PopupMenu/fonts/font_separator = ExtResource("1_1oida")
+PopupMenu/fonts/title_font = ExtResource("1_1oida")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_1k85u")
+ProgressBar/fonts/font = ExtResource("3_afb62")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 0)
+RichTextLabel/fonts/bold_font = ExtResource("3_afb62")
+RichTextLabel/fonts/bold_italics_font = ExtResource("3_afb62")
+RichTextLabel/fonts/italics_font = ExtResource("3_afb62")
+RichTextLabel/fonts/mono_font = ExtResource("3_afb62")
+RichTextLabel/fonts/normal_font = ExtResource("3_afb62")
+TabContainer/colors/font_disabled_color = Color(0.239216, 0.0980392, 0.247059, 0.619608)
+TabContainer/colors/font_hovered_color = Color(0.239216, 0.0980392, 0.247059, 1)
+TabContainer/colors/font_outline_color = Color(0.996078, 0.952941, 0.886275, 1)
+TabContainer/colors/font_selected_color = Color(0.239216, 0.0980392, 0.247059, 1)
+TabContainer/colors/font_unselected_color = Color(0.239216, 0.0980392, 0.247059, 0.815686)
+TabContainer/fonts/font = ExtResource("1_1oida")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_lsur8")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_e7gdc")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_a0sxj")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_u6r7k")

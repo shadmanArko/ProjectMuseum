@@ -239,6 +239,7 @@ public partial class EquipableController : InventoryController
     {
         SetPhysicsProcess(false);
         _playerControllerVariables.IsDigging = false;
+        if(ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying()) return;
         _playerControllerVariables.CanMove = true;
         _playerControllerVariables.CanMoveLeftAndRight = true;
     }

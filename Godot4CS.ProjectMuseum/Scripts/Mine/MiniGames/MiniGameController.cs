@@ -72,6 +72,7 @@ public partial class MiniGameController : Node2D
 		RemoveArtifactFromMineAndInstantiateInventoryItem(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
+		MineActions.OnMiniGameEnded?.Invoke();
 	}
 	
 	private void MiniGameLost()
@@ -80,6 +81,7 @@ public partial class MiniGameController : Node2D
 		_playerControllerVariables.Player.AnimationController.PlayAnimation(animationToPlay);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
+		MineActions.OnMiniGameEnded?.Invoke();
 	}
 	
 	private void CeasePlayerMovementDuringMiniGame()

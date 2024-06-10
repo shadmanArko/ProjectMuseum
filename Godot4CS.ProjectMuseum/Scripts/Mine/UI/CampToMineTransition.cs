@@ -28,9 +28,15 @@ public partial class CampToMineTransition : Button
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _autoAnimationController = ReferenceStorage.Instance.AutoAnimationController;
         _campExitPromptUi = ReferenceStorage.Instance.CampExitPromptUi;
+        
         _campExitPromptUi.SleepForTheNightButton.ButtonUp += DeactivateCampExitPromptUi;
+        _campExitPromptUi.SleepForTheNightButton.ButtonUp += SleepForTheNight;
+        
         _campExitPromptUi.ReturnToMuseumButton.ButtonUp += DeactivateCampExitPromptUi;
+        _campExitPromptUi.ReturnToMuseumButton.ButtonUp += ReturnToMuseum;
+        
         _campExitPromptUi.ReturnToMineButton.ButtonUp += DeactivateCampExitPromptUi;
+        _campExitPromptUi.ReturnToMineButton.ButtonUp += ReturnToMine;
     }
 
     private void CreateHttpRequest()
@@ -111,9 +117,25 @@ public partial class CampToMineTransition : Button
         GetAndSaveTime();
         await Task.Delay(2000);
     }
+
+    private void SleepForTheNight()
+    {
+        MineActions.OnPlayerSleepForTheNightButtonPressed?.Invoke();
+    }
+
+    private void ReturnToMuseum()
+    {
+        MineActions.OnPlayerReturnToMuseumButtonPressed?.Invoke();
+    }
+    
+    private void ReturnToMine()
+    {
+        MineActions.OnPlayerReturnToMineButtonPressed?.Invoke();
+    }
     
     private void DeactivateCampExitPromptUi()
     {
+        
         _campExitPromptUi.Visible = false;
     }
 }

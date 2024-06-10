@@ -240,6 +240,7 @@ public partial class EquipableController : InventoryController
         SetPhysicsProcess(false);
         _playerControllerVariables.IsDigging = false;
         if(ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying()) return;
+        if(_playerControllerVariables.IsBrushing) return;
         _playerControllerVariables.CanMove = true;
         _playerControllerVariables.CanMoveLeftAndRight = true;
     }
@@ -248,8 +249,14 @@ public partial class EquipableController : InventoryController
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_playerControllerVariables.CanDig && _playerControllerVariables.PlayerEnergy > 0)
+        if (_playerControllerVariables.CanDig)
         {
+            if (_playerControllerVariables.PlayerEnergy <= 0)
+            {
+                ReferenceStorage.Instance.LogMessageController.ShowLogMessage("You are out of energy.");
+                return;
+            }
+            
             _playerControllerVariables.CanMove = false;
             _playerControllerVariables.CanMoveLeftAndRight = false;
             _playerControllerVariables.Player.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);

@@ -43,6 +43,7 @@ public class PlayerControllerVariables
 
     public bool IsAttacking { get; set; }
     public bool IsDigging { get; set; }
+    public bool IsBrushing { get; set; }
 
     #endregion
 

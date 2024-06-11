@@ -39,17 +39,18 @@
 [ext_resource type="PackedScene" uid="uid://cye410nrvhc2d" path="res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageController.tscn" id="32_rvnlm"]
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
 
-[node name="MineScene" type="Node2D"]
+[node name="MineScene" type="Control"]
 process_mode = 1
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_rq1hl")
 
 [node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_deqi7")]
 _progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
 _canvasLayer = NodePath("CanvasLayer")
 
-[node name="MineSceneInitializer" type="Node" parent="." node_paths=PackedStringArray("_rootNode")]
+[node name="MineSceneInitializer" type="Node" parent="."]
 script = ExtResource("2_t7o23")
-_rootNode = NodePath("..")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
@@ -140,9 +141,7 @@ _inventoryViewController = NodePath("../MineUI/Inventory")
 [node name="BackgroundMusicManager" parent="." node_paths=PackedStringArray("_streamPlayer") instance=ExtResource("24_5ul55")]
 _streamPlayer = NodePath("BackgroundMusicStreamPlayer")
 
-[node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates", "_toolbarPanel") instance=ExtResource("3_ambmn")]
-_healthBar = NodePath("Health Bar")
-_energyBar = NodePath("Energy Bar")
+[node name="MineUI" parent="." node_paths=PackedStringArray("_playerCoordinates", "_toolbarPanel") instance=ExtResource("3_ambmn")]
 _playerCoordinates = NodePath("Player Coordinates")
 _toolbarPanel = NodePath("Toolbar Panel")
 

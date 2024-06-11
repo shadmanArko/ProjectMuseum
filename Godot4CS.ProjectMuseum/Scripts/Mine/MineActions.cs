@@ -101,9 +101,6 @@ public partial class MineActions : Node
     public static Action<Artifact> OnArtifactSuccessfullyRetrieved;
 
     #endregion
-    
-    public static Action OnPlayerLandedIntoTheMine;
-    public static Action OnPlayerReachedBackToCamp;
 
     #region Camp Mine Transition Actions
 

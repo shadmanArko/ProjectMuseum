@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.Camera;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -133,9 +132,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnSuccessfulDigActionCompleted?.Invoke();
     }
 
-    [Export] private string _alternateButtonPressMiniGameScenePath;
-    [Export] private bool _isMiniGameLoaded;
-    private Vector2I _artifactTilePos;
+    // [Export] private string _alternateButtonPressMiniGameScenePath;
+    // [Export] private bool _isMiniGameLoaded;
+    // private Vector2I _artifactTilePos;
     
     private Vector2I FindPositionOfTargetCell()
     {
@@ -246,6 +245,11 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             _mineGenerationVariables.BrokenCells++;
             MineActions.OnMineCellBroken?.Invoke(tilePos);
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
+
+            var mouseDirection = _playerControllerVariables.MouseDirection;
+            var shakeDirection = mouseDirection.X != 0 ? 
+                ShakeDirection.Horizontal : ShakeDirection.Vertical;
+            ReferenceStorage.Instance.ScreenShakeController.ShakeScreen(ShakeIntensity.Mild, shakeDirection);
         }
     }
 
@@ -268,7 +272,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         if (hasCollidedWithMine && _playerControllerVariables.State != MotionState.Hanging)
         {
             _playerControllerVariables.State = MotionState.Falling;
-            // GD.Print($"player state = {_playerControllerVariables.State}");
         }
     }
 }

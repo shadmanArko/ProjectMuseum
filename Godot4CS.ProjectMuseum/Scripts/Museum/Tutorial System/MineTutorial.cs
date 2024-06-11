@@ -78,7 +78,8 @@ public partial class MineTutorial : Node
 	{
 		if (_isMineTutorialDonePlaying) return false;
 		
-		GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
+		// GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
+		if (PlayerInfo == null) return false;
 		return PlayerInfo.CompletedTutorialScene == 5;
 	}
 	

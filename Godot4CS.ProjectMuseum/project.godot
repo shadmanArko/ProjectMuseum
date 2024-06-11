@@ -21,6 +21,9 @@ GameManager="*res://Scripts/GameManager/game_manager.gd"
 MineActions="*res://Scripts/Mine/MineActions.cs"
 SceneReferenceStore="*res://Scripts/Mine/SceneReferenceStore.cs"
 MuseumActions="*res://Scripts/Museum/Museum Actions/MuseumActions.cs"
+SettingsSignalBus="*res://Scripts/SettingsMenu/SettingsSignalBus.gd"
+SaveManager="*res://Scripts/SettingsMenu/SaveManager.gd"
+SettingsDataContainer="*res://Plugins/Keybind/SettingsDataContainer.gd"
 
 [display]
 

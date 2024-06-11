@@ -76,7 +76,7 @@
         "IsStackable": true,
         "Stack": 5,
         "Slot": 6,
-        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreEnabled.png"
+        "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreSprite.png"
       }
     ],
     "Artifacts": [],

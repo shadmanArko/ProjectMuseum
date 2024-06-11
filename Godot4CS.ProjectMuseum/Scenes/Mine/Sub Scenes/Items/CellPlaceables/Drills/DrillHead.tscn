@@ -7,6 +7,7 @@
 size = Vector2(3, 3)
 
 [node name="DrillHead" type="RigidBody2D" node_paths=PackedStringArray("_drillHead")]
+use_parent_material = true
 collision_layer = 32
 gravity_scale = 0.0
 lock_rotation = true
@@ -25,6 +26,7 @@ _stoppingDistance = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+use_parent_material = true
 texture = ExtResource("2_nrvqn")
 flip_v = true
 region_rect = Rect2(8, 26, 8, 16)

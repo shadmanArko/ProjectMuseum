@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://s31mm480yn0y"]
+
+[ext_resource type="Shader" path="res://Scripts/Shaders/ColorBlendingMode.gdshader" id="1_27y57"]
+
+[resource]
+shader = ExtResource("1_27y57")
+shader_parameter/blend_color = Color(0.737255, 0.188235, 0.168627, 1)
+shader_parameter/blend = true

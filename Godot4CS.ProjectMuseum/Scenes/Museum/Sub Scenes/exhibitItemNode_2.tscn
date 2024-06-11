@@ -33,10 +33,9 @@ one_way_collision_margin = 0.0
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="glass" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.392157)
 position = Vector2(0, 1)
 texture = ExtResource("3_calhw")
-offset = Vector2(0, -30.345)
+offset = Vector2(0, -30.5)
 
 [node name="Artifact Slot 1" type="Sprite2D" parent="."]
 position = Vector2(-4, 0.1)

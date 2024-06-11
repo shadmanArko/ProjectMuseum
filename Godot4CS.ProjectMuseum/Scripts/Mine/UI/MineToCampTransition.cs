@@ -32,13 +32,17 @@ public partial class MineToCampTransition : Button
         var sceneTransition = ReferenceStorage.Instance.SceneTransition;
         await sceneTransition.FadeIn();
         _playerControllerVariables.CanMove = false;
+        _playerControllerVariables.CanMoveLeftAndRight = false;
+        _playerControllerVariables.CanAttack = false;
+        _playerControllerVariables.CanDig = false;
+        _playerControllerVariables.CanToggleClimb = false;
         await Task.Delay(2000);
         _playerControllerVariables.State = MotionState.Grounded;
         _playerControllerVariables.IsAffectedByGravity = false;
         _playerControllerVariables.Player.Position = new Vector2(250,-60);
         await sceneTransition.FadeOut();
         
-        MineActions.OnPlayerReachBackToCamp?.Invoke();
+        MineActions.OnPlayerReachedBackToCamp?.Invoke();
         MineActions.OnInventoryUpdate?.Invoke();
         
         ActivateCampExitPromptUi();

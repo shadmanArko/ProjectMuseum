@@ -1,7 +1,7 @@
 extends Button
 
 @onready var pause_menu_button: Button = $"."
-@onready var pause_menu: ColorRect = $"../pause_menu"
+@onready var pause_menu: TextureRect = $"../pause_menu"
 
 
 func _on_pressed() -> void:

@@ -77,7 +77,10 @@ public class MuseumTileService : IMuseumTileService
     {
         return await _itemPlacementCondition.PlaceExhibitOnTiles(originTileId, tileIds, exhibitVariationName, rotationFrame);
     }
-
+    public async Task<TilesWithExhibitDto> MoveExhibitOnTiles(string originTileId, List<string> tileIds, Exhibit exhibit, int rotationFrame)
+    {
+        return await _itemPlacementCondition.MoveExhibitOnTiles(originTileId, tileIds, exhibit, rotationFrame);
+    }
     public async Task<TilesWithShopsDTO> PlaceShopOnTiles(string originTileId, List<string> tileIds, string shopVariationName, int rotationFrame)
     {
         return await _itemPlacementCondition.PlaceShopOnTiles(originTileId, tileIds, shopVariationName, rotationFrame);
@@ -122,7 +125,11 @@ public class MuseumTileService : IMuseumTileService
         var museumTiles = await _museumTileRepository.DeleteAll();
         return museumTiles;
     }
-
+    public async Task<TilesWithExhibitDto?> DeleteExhibit(string exhibitId)
+    {
+        var exhibits = await _itemPlacementCondition.DeleteExhibit(exhibitId);
+        return exhibits;
+    }
     public async Task<List<MuseumTile>?> GenerateMuseumTileForNewGame()
     {
        return await _museumTileDataGenerator.GenerateMuseumTileDataForNewMuseum();

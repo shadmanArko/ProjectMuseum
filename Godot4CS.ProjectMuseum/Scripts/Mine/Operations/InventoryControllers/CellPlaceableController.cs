@@ -5,6 +5,9 @@ using System.Text;
 using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+
+using Godot4CS.ProjectMuseum.Scripts.Mine.ColorControllers;
+
 using Godot4CS.ProjectMuseum.Scripts.Mine.ItemCollectionLogSystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -187,19 +190,25 @@ public partial class CellPlaceableController : InventoryController
     private void SetSpritePosition()
     {
         var cell = GetTargetCell();
+        if (cell == null)
+        {
+            _cellPlaceableSprite.Visible = false;
+            return;
+        }
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var offset = new Vector2(cellSize / 2f, cellSize / 2f);
+        _cellPlaceableSprite.Visible = true;
         _cellPlaceableSprite.Position = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
     }
 
     private void SetSpriteColorToGreen()
     {
-        _cellPlaceableSprite.Modulate = Colors.Green;
+        ColorBlendController.SetColorToGreen(_cellPlaceableSprite);
     }
 
     private void SetSpriteColorToRed()
     {
-        _cellPlaceableSprite.Modulate = Colors.Red;
+        ColorBlendController.SetColorToRed(_cellPlaceableSprite);
     }
 
     #endregion

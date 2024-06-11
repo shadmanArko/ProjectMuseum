@@ -123,7 +123,7 @@ public partial class AnimationController : AnimationPlayer
 	{
 		if(!animName.Contains("mining") && !animName.Contains("climb_mine")) return;
 		//todo add sound
-		_audioStreamPlayer2D.Play();
+		// _audioStreamPlayer2D.Play();
 		MineActions.OnDigActionEnded?.Invoke();
 	}
 

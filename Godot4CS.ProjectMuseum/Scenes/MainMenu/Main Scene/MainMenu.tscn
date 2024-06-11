@@ -9,18 +9,13 @@
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MainMenu" parent="CanvasLayer" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton") instance=ExtResource("1_yi0a2")]
+[node name="MainMenu Ui" parent="CanvasLayer" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton", "SettingsExitButton", "SettingsPanel") instance=ExtResource("1_yi0a2")]
 ContinueButton = NodePath("BG/Buttons MarginContainer/VBoxContainer/Continue")
 NewGameButton = NodePath("BG/Buttons MarginContainer/VBoxContainer/New Game")
 OptionsButton = NodePath("BG/Buttons MarginContainer/VBoxContainer/Options")
 ExitButton = NodePath("BG/Buttons MarginContainer/VBoxContainer/Exit")
+SettingsExitButton = NodePath("BG/settings_menu/MarginContainer/VBoxContainer/HBoxContainer/Exit Button")
+SettingsPanel = NodePath("BG/settings_menu")
 
 [node name="NewGameSetupUi" parent="CanvasLayer" node_paths=PackedStringArray("StartButton", "LineEdit", "OptionButton", "CheckButton", "_warningPanel", "LoadingPanel") instance=ExtResource("2_nx8bi")]
 visible = false

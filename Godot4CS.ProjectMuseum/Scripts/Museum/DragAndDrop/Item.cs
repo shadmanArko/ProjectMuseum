@@ -44,11 +44,13 @@ public partial class Item : Sprite2D, IComparable<Item>
     [Export] private Sprite2D _shadow;
     protected List<Vector2I> listOfCoordinateOffsetsToCheck = new List<Vector2I>();
     
-    protected List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
+    protected static List<ExhibitPlacementConditionData> _exhibitPlacementConditionDatas;
     protected List<ExhibitPlacementConditionData> _listOfMatchingExhibitPlacementConditionDatas;
-    protected Color _eligibleColor = Colors.Green;
-    protected Color _ineligibleColor = Colors.Red;
-
+    // protected Color _eligibleColor = new Color("649d47");
+    // protected Color _ineligibleColor = new Color("bc302b");
+    protected ShaderMaterial greenMaterial;
+    protected ShaderMaterial redMaterial;
+    protected ShaderMaterial noBlendMaterial;
     protected Color _originalColor;
     protected HttpRequest _httpRequestForExhibitPlacementConditions;
     protected HttpRequest _httpRequestForExhibitPlacement;
@@ -61,6 +63,9 @@ public partial class Item : Sprite2D, IComparable<Item>
     protected int _currentFrame;
     protected int _maxFrame = 4;
     private float _offsetBeforeItemPlacement = 10;
+    
+    protected bool _moving = false;
+    protected Vector2 _movingFromPos = new Vector2();
 
     public Item()
     {
@@ -74,8 +79,11 @@ public partial class Item : Sprite2D, IComparable<Item>
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
+        // itemShaderMaterial = (ShaderMaterial)Material;
         _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-        
+        greenMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/green.tres");
+        redMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/red.tres");
+        noBlendMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/White.tres");
         AddToGroup("ManualSortGroup");
         _httpRequestForExhibitPlacement = new HttpRequest();
         _httpRequestForExhibitPlacementConditions = new HttpRequest();
@@ -88,8 +96,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;
         
-        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
-        _httpRequestForExhibitPlacementConditions.Request(url);
+        GetUpdatedItemPlacementConditions();
         _originalColor = Modulate;
 
         if (numberOfTilesItTakes == 1)
@@ -114,6 +121,11 @@ public partial class Item : Sprite2D, IComparable<Item>
         }
     }
 
+    protected void GetUpdatedItemPlacementConditions()
+    {
+        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
+        _httpRequestForExhibitPlacementConditions.Request(url);
+    }
 
 
     public void MakeObjectsFloating()
@@ -149,7 +161,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         ExhibitData = tilesWithExhibitDto.Exhibit;
         _museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
         if (tilesWithExhibitDto.Exhibits != null) _museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
-        //GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
+        // GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
     }
 
     protected Vector2I _lastCheckedTile = new Vector2I();
@@ -167,7 +179,9 @@ public partial class Item : Sprite2D, IComparable<Item>
             Vector2 localPos = GameManager.tileMap.MapToLocal(mouseTile);
             Vector2 worldPos = GameManager.tileMap.ToGlobal(localPos);
             _eligibleForItemPlacementInTile = CheckIfTheTileIsEligible(mouseTile);
-            Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+            // Modulate = _eligibleForItemPlacementInTile ? _eligibleColor : _ineligibleColor;
+            SetMaterialBasedOnEligibility();
+
             // GD.Print($"{eligibleForItemPlacementInTile}");
             // Apply effect based on eligibility
             GlobalPosition = worldPos;
@@ -186,6 +200,8 @@ public partial class Item : Sprite2D, IComparable<Item>
             // OnItemPlaced?.Invoke(ItemPrice);
             selectedItem = false;
             Modulate = _originalColor;
+            // itemShaderMaterial.SetShaderParameter("blend", false);
+            SetMaterialWithoutBlend();
         }
         if (selectedItem && Input.IsActionPressed("ui_right_click"))
         {
@@ -193,9 +209,25 @@ public partial class Item : Sprite2D, IComparable<Item>
         }
     }
 
+    protected void SetMaterialWithoutBlend()
+    {
+        Material = noBlendMaterial;
+    }
+
+    protected void SetMaterialBasedOnEligibility()
+    {
+        Material = _eligibleForItemPlacementInTile ? greenMaterial : redMaterial;
+    }
+
     public void EnableGlass(bool enableGlass)
     {
         _glass.Visible = enableGlass;
+        
+    }
+    public bool IsGlassEnabled()
+    {
+        return _glass.Visible;
+        
     }
     public async void HandleItemPlacement()
     {
@@ -219,7 +251,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     {
         if (Input.IsActionJustReleased("ui_right_click"))
         {
-            if (GetRect().HasPoint(GetLocalMousePosition()))
+            if (GetRect().HasPoint(GetLocalMousePosition()) || (_glass != null && _glass.GetRect().HasPoint(GetLocalMousePosition())))
             {
                 if (_itemType== ItemTypes.Exhibit)
                 {
@@ -301,7 +333,15 @@ public partial class Item : Sprite2D, IComparable<Item>
     }
     protected void OnItemPlacedOnTile(Vector2 position)
     {
-        MuseumActions.OnItemPlacedOnTile?.Invoke(this, position);
+        if (_moving)
+        {
+            MuseumActions.OnItemMovedToTile?.Invoke(this, position);
+
+        }
+        else
+        {
+            MuseumActions.OnItemPlacedOnTile?.Invoke(this, position);
+        }
     }
     public override void _ExitTree()
     {
@@ -316,5 +356,6 @@ public enum ItemTypes
 {
     Exhibit,
     Decoration,
-    Shop
+    Shop,
+    Sanitation
 }

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bffmgqpet85vg"]
+[gd_scene load_steps=3 format=3 uid="uid://bffmgqpet85vg"]
 
-[ext_resource type="Script" path="res://Scenes/Settings Menu/HotkeyRebindButton.gd" id="1_tdfue"]
+[ext_resource type="Script" path="res://Scripts/SettingsMenu/HotkeyRebindButton.gd" id="1_tdfue"]
+[ext_resource type="Theme" uid="uid://d4nuoj106bh6v" path="res://Themes/Theme1.tres" id="2_e40lj"]
 
 [node name="HotkeyRebindButton" type="Control" groups=["hotkey_button"]]
 layout_mode = 3
@@ -23,8 +24,9 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-custom_minimum_size = Vector2(400, 30)
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
+theme = ExtResource("2_e40lj")
 text = "Action"
 vertical_alignment = 1
 
@@ -36,6 +38,8 @@ theme_override_constants/separation = 200
 [node name="Button" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(164, 0)
 layout_mode = 2
+theme = ExtResource("2_e40lj")
+theme_override_font_sizes/font_size = 16
 toggle_mode = true
 text = "Action_Key"
 

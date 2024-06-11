@@ -14,9 +14,11 @@ public interface IMuseumTileRepository
     Task<List<MuseumTile>?> UpdateMuseumTilesWallId(List<TileWallInfo> tileWallInfos);
     Task<MuseumTile?> UpdateExhibitToMuseumTile(string tileId, string exhibitId);
     Task<List<MuseumTile>?> UpdateExhibitToMuseumTiles(List<string> tileIds, string exhibitId);
+    Task<List<MuseumTile>?> UpdateMovedItemToMuseumTiles(List<string> previousTileIds, List<string> newTileIds, string itemId, ItemTypeEnum itemType);
     Task<List<MuseumTile>?> UpdateShopToMuseumTiles(List<string> tileIds, string shopId);
     Task<List<MuseumTile>?> UpdateSanitationToMuseumTiles(List<string> tileIds, string shopId);
     Task<List<MuseumTile>?> UpdateOtherDecorationToMuseumTiles(List<string> tileIds, string shopId);
+    Task<List<MuseumTile>?> RemoveItemFromMuseumTiles(List<string> tileIds);
     Task<MuseumTile?> Delete(string id);
     Task<List<MuseumTile>
         ?> DeleteAll();

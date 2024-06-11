@@ -8,6 +8,8 @@ public partial class MainMenu : Control
 	[Export] public Button NewGameButton;
 	[Export] public Button OptionsButton;
 	[Export] public Button ExitButton;
+	[Export] public Button SettingsExitButton;
+	[Export] public Control SettingsPanel;
 
 	private HttpRequest _httpRequestForLoadingGame;
     // Called when the node enters the scene tree for the first time.
@@ -16,9 +18,21 @@ public partial class MainMenu : Control
 		ExitButton.Pressed += ExitButtonOnPressed;
 		NewGameButton.Pressed += NewGameButtonOnPressed;
 		ContinueButton.Pressed += ContinueButtonOnPressed;
+		OptionsButton.Pressed += OptionsButtonOnPressed;
+		SettingsExitButton.Pressed += SettingsExitButtonOnPressed;
 		_httpRequestForLoadingGame = new HttpRequest();
 		AddChild(_httpRequestForLoadingGame);
 		_httpRequestForLoadingGame.RequestCompleted += HttpRequestForLoadingGameOnRequestCompleted;
+	}
+
+	private void SettingsExitButtonOnPressed()
+	{
+		SettingsPanel.Visible = false;
+	}
+
+	private void OptionsButtonOnPressed()
+	{
+		SettingsPanel.Visible = true;
 	}
 
 	private void HttpRequestForLoadingGameOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -42,5 +56,13 @@ public partial class MainMenu : Control
 		GetTree().Quit();
 	}
 
-	
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		ExitButton.Pressed -= ExitButtonOnPressed;
+		NewGameButton.Pressed -= NewGameButtonOnPressed;
+		ContinueButton.Pressed -= ContinueButtonOnPressed;
+		OptionsButton.Pressed -= OptionsButtonOnPressed;
+		SettingsExitButton.Pressed -= SettingsExitButtonOnPressed;
+	}
 }

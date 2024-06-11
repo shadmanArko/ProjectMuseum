@@ -59,7 +59,7 @@ public partial class MiniGameController : Node2D
 		    GD.PrintErr("COULD NOT instantiate Alternate tap mini game scene. FATAL ERROR");
 		    return;
 		}
-		
+        
 		AddChild(scene);
 	}
 	
@@ -78,7 +78,7 @@ public partial class MiniGameController : Node2D
 	private void MiniGameLost()
 	{
 		var animationToPlay = _playerControllerVariables.State == MotionState.Hanging ? "climb_idle" : "idle";
-		_playerControllerVariables.Player.AnimationController.PlayAnimation(animationToPlay);
+		_playerControllerVariables.Player.AnimationController.Play(animationToPlay);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
 		MineActions.OnMiniGameEnded?.Invoke();
@@ -87,18 +87,22 @@ public partial class MiniGameController : Node2D
 	private void CeasePlayerMovementDuringMiniGame()
 	{
 		_playerControllerVariables.CanMove = false;
+		_playerControllerVariables.CanMoveLeftAndRight = false;
 		_playerControllerVariables.CanToggleClimb = false;
 		_playerControllerVariables.CanAttack = false;
 		_playerControllerVariables.CanDig = false;
+		_playerControllerVariables.IsBrushing = true;
 		_playerControllerVariables.Player.AnimationController.Play("brush");
 	}
 
 	private void ContinuePlayerMovementAfterMiniGame()
 	{
 		_playerControllerVariables.CanMove = true;
+		_playerControllerVariables.CanMoveLeftAndRight = true;
 		_playerControllerVariables.CanToggleClimb = true;
 		_playerControllerVariables.CanAttack = true;
 		_playerControllerVariables.CanDig = true;
+		_playerControllerVariables.IsBrushing = false;
 	}
 	
 	#region Send Artifact To Inventory

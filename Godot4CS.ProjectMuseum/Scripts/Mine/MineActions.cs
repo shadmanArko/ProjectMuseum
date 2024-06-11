@@ -14,7 +14,7 @@ public partial class MineActions : Node
 	#endregion
 	
 	#region Spawn Death Actions
-
+    
 	public static Action OnPlayerSpawned;
 	public static Action OnPlayerDead;
 
@@ -102,7 +102,8 @@ public partial class MineActions : Node
 
     #endregion
     
-    public static Action OnPlayerReachBackToCamp;
+    public static Action OnPlayerLandedIntoTheMine;
+    public static Action OnPlayerReachedBackToCamp;
 
     #region Camp Mine Transition Actions
 
@@ -121,7 +122,6 @@ public partial class MineActions : Node
     public static Action<int> OnToolbarSlotChanged;
     public static Action DeselectAllInventoryControllers;
     public static Action OnInventoryUpdate;
-    public static Action<int, Texture2D> OnInventoryItemDragged;
 
     #endregion
 

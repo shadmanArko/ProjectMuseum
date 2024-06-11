@@ -88,32 +88,32 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //NO Need to change these paths
-string cellCrackMaterialDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
-string rawArtifactFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
-string rawArtifactDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
-string resourceDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Resource", "Resource.json");
+string cellCrackMaterialDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "CellCrackMaterial", "CellCrackMaterial.json");
+string rawArtifactFunctionalDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "RawArtifactData", "RawArtifactFunctionalData", "RawArtifactFunctionalData.json");
+string rawArtifactDescriptiveDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "RawArtifactData", "RawArtifactDescriptiveData", "RawArtifactDescriptiveDataEnglish.json");
+string resourceDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "Resource", "Resource.json");
 string mainMenuMiscellaneousDataFolderPath = MiscellaneousDataFolderPath.MainMenuMiscellaneousDataFolderPath(LanguageSelector.GetCurrentLanguage());
-string settingsMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "SettingsMiscellaneousData", "SettingsMiscellaneousData.json");
-string museumMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MuseumMiscellaneousData", "MuseumMiscellaneousData.json");
-string mineMiscellaneousDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "MiscellaneousData", "MineMiscellaneousData", "MineMiscellaneousData.json");
-string wallPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "WallPlaceableData", "WallPlaceable.json");
-string caveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CaveData.json");
-string specialBackdropDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "SpecialBackdropData", "SpecialBackdropPngInformation.json");
-string proceduralMineGenerationDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ProceduralGenerationData", "ProceduralMineGenerationData.json");
-string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
-string consumableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Consumable", "Consumable.json");
-string artifactConditionDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactCondition.json");
-string artifactEraDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactEra.json");
-string artifactRarityDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactRarity.json");
-string artifactThemeMatchingTagCountDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "ArtifactScore", "ArtifactThemeMatchingTagCount.json");
-string equipableMeleeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equipable", "EquipableMelee.json");
-string equipableRangeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equipable", "EquipableRange.json");
-string equipablePickaxeDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "Equipable", "EquipablePickaxe.json");
-string cellPlaceableDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CellPlaceableData", "CellPlaceable.json");
+string settingsMiscellaneousDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "MiscellaneousData", "SettingsMiscellaneousData", "SettingsMiscellaneousData.json");
+string museumMiscellaneousDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "MiscellaneousData", "MuseumMiscellaneousData", "MuseumMiscellaneousData.json");
+string mineMiscellaneousDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "MiscellaneousData", "MineMiscellaneousData", "MineMiscellaneousData.json");
+string wallPlaceableDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "WallPlaceableData", "WallPlaceable.json");
+string caveDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "CaveData.json");
+string specialBackdropDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "SpecialBackdropData", "SpecialBackdropPngInformation.json");
+string proceduralMineGenerationDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "ProceduralGenerationData", "ProceduralMineGenerationData.json");
+string siteArtifactChanceFunctionalDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "ProceduralGenerationData", "SiteArtifactChanceData", "SiteArtifactChanceFunctionalData", "SiteArtifactChanceFunctionalData.json");
+string consumableDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "Consumable", "Consumable.json");
+string artifactConditionDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "ArtifactScore", "ArtifactCondition.json");
+string artifactEraDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "ArtifactScore", "ArtifactEra.json");
+string artifactRarityDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "ArtifactScore", "ArtifactRarity.json");
+string artifactThemeMatchingTagCountDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "ArtifactScore", "ArtifactThemeMatchingTagCount.json");
+string equipableMeleeDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "Equipable", "EquipableMelee.json");
+string equipableRangeDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "Equipable", "EquipableRange.json");
+string equipablePickaxeDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "Equipable", "EquipablePickaxe.json");
+string cellPlaceableDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "CellPlaceableData", "CellPlaceable.json");
 
-string coreShopFunctionalDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CoreShopData", "coreShopFunctionalData.json");
-string coreShopDescriptiveDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder", "CoreShopData", "coreShopDescriptiveData.json");
-string productDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Game Data Folder","CoreProductData",  "productData.json");
+string coreShopFunctionalDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "CoreShopData", "coreShopFunctionalData.json");
+string coreShopDescriptiveDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder", "CoreShopData", "coreShopDescriptiveData.json");
+string productDataFolderPath = Path.Combine(AppContext.BaseDirectory, "Game Data Folder","CoreProductData",  "productData.json");
 //string museumTileDataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Dummy Data Folder", "museumTile.json"); //todo for dev
 //string dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Dummy Data Folder", "museumTile.json"); //todo for deployment
 
@@ -314,8 +314,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-Console.WriteLine("Base directory " + Directory.GetCurrentDirectory());
-// Console.WriteLine("Current directory " + Directory.GetCurrentDirectory());
+Console.WriteLine("Base directory " + AppContext.BaseDirectory);
+// Console.WriteLine("Current directory " + AppContext.BaseDirectory);
 // Console.WriteLine("Doc folder directory " + Environment.SpecialFolder.MyDocuments);
 // Console.WriteLine("persistent directory " +  Environment.SpecialFolder.ApplicationData);
 

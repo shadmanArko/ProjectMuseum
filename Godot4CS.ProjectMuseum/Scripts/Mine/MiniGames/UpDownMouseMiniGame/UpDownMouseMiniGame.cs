@@ -56,7 +56,7 @@ public partial class UpDownMouseMiniGame : Node2D
             if (_progressValue >= _finalValue)
             {
                 _miniGameWon = true;
-                GD.Print("Alt Tap INSIDE ELSE");
+                // // GD.Print("Alt Tap INSIDE ELSE");
                 DestroyScene();
             }
         }
@@ -85,26 +85,26 @@ public partial class UpDownMouseMiniGame : Node2D
         {
             if (GetGlobalMousePosition().Y > _lastRegisteredMousePos.Y)
             {
-                GD.Print("moving down");
+                // GD.Print("moving down");
                 _isMovingUp = false;
                 _progressValue += _successPoints;
             }
             else if(GetGlobalMousePosition().Y < _lastRegisteredMousePos.Y)
             {
-                GD.Print("moving up");
+                // GD.Print("moving up");
             }
         }
         else
         {
             if (GetGlobalMousePosition().Y < _lastRegisteredMousePos.Y)
             {
-                GD.Print("moving up");
+                // GD.Print("moving up");
                 _isMovingUp = true;
                 _progressValue += _successPoints;
             }
             else
             {
-                GD.Print("moving down");
+                // GD.Print("moving down");
             }
         }
         
@@ -120,7 +120,7 @@ public partial class UpDownMouseMiniGame : Node2D
         else
             MineActions.OnMiniGameLost?.Invoke();
 		
-        GD.Print("Process Stopped");
+        // GD.Print("Process Stopped");
         QueueFree();
     }
 }

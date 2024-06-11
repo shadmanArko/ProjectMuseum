@@ -29,6 +29,7 @@ public static class TimeHelpers
     }
     public static string ToCorrespondedDayShort(this int day)
     {
+        day = (day % 7) + 1;
         string correspondedDay = "";
         switch (day)
         {

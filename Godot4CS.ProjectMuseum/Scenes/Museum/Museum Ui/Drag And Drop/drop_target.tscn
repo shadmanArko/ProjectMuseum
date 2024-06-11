@@ -7,7 +7,7 @@
 texture = ExtResource("1_jofnp")
 
 [node name="DropTarget 1" type="Panel"]
-custom_minimum_size = Vector2(387, 100)
+custom_minimum_size = Vector2(100, 100)
 offset_left = 88.0
 offset_top = 49.0
 offset_right = 188.0

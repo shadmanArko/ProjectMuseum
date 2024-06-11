@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bjy2gyknf1lwq"]
+[gd_scene load_steps=23 format=3 uid="uid://bjy2gyknf1lwq"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_kqmcg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c11u1or74gs7v" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Exhibit_Editor_Base.png" id="4_3kga1"]
 [ext_resource type="Texture2D" uid="uid://dfmvnp2th32jm" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Exhibit_Name_Holder.png" id="4_lpjnh"]
 [ext_resource type="Script" path="res://Scripts/Museum/DropTarget.cs" id="4_mx4kr"]
+[ext_resource type="PackedScene" uid="uid://dfskhvya13su5" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_2x_2_grid.tscn" id="4_vggsg"]
 [ext_resource type="Texture2D" uid="uid://dc42prip5kq35" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Storage_Base.png" id="5_25kkq"]
 [ext_resource type="Texture2D" uid="uid://c2mru4ev22pb7" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Base1.png" id="5_njf6o"]
 [ext_resource type="Texture2D" uid="uid://ygxepb2p8q7u" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Storage_Tool_Filter_Drop_Down.png" id="7_cf2oq"]
@@ -53,6 +54,7 @@ script = ExtResource("1_5j1h5")
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
 _draggable = ExtResource("3_vjpch")
 _dropTarget = ExtResource("3_gbute")
+_dropTargetGrid = ExtResource("4_vggsg")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
 _glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")
@@ -276,7 +278,9 @@ theme_override_constants/margin_right = 180
 [node name="GridContainer" type="GridContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(387, 450)
 layout_mode = 2
-theme_override_constants/v_separation = 35
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
 
 [node name="DropTarget 1" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
 layout_mode = 2

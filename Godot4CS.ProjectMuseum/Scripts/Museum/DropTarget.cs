@@ -9,9 +9,10 @@ public partial class DropTarget : Control
     [Export] private bool _parentTarget;
     public bool hasEmptySlot = true;
     private PackedScene draggableScene = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn");
+    private PackedScene draggableScene100x100 = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable_100x100.tscn");
     // Store the original color for later restoration
     private Color originalColor;
-    public int SlotNumber = 0;
+    [Export] public int SlotNumber = 0;
     private List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
     private List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
     public override void _Ready()
@@ -67,7 +68,7 @@ public partial class DropTarget : Control
     {
         //GD.Print($"Drop data has run");
         hasEmptySlot = false;
-        Control draggableCopy = (Control)draggableScene.Instantiate();
+        Control draggableCopy = _parentTarget? (Control)draggableScene.Instantiate() : (Control)draggableScene100x100.Instantiate();
         // draggableCopy.GetNode<Draggable>(".").canBeDragged = false;
         draggableCopy.GetNode<Draggable>(".").parentDropTarget = this;
         draggableCopy.GetNode<Draggable>(".").Initialize(((Node)data).GetNode<Draggable>(".").Artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);

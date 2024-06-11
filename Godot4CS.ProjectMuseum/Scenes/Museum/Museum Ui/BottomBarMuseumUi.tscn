@@ -1,11 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://70xubhgxm5i3"]
+[gd_scene load_steps=24 format=3 uid="uid://70xubhgxm5i3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ButtonsTransition.cs" id="1_8vmjs"]
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/BottomBarMuseumUi.cs" id="1_26dxj"]
 [ext_resource type="Texture2D" uid="uid://e4kkuk5wqoef" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/Bottom_bar_base.png" id="2_12hgw"]
 [ext_resource type="Script" path="res://Scripts/Museum/UI/ButtonPress.cs" id="2_1850m"]
 [ext_resource type="Texture2D" uid="uid://cv0a1gr5b7pn1" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button_base.png" id="3_7gysw"]
-[ext_resource type="Texture2D" uid="uid://btc7tmyyk7wql" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/button.png" id="3_lvt4l"]
 [ext_resource type="Texture2D" uid="uid://dwui552mmvmeq" path="res://Assets/2D/Sprites/Museum Ui/BottomBar/guest_bar.png" id="3_vneh1"]
 [ext_resource type="Script" path="res://Scripts/Museum/BuilderCardSlotsController.cs" id="4_egqqe"]
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="4_uca33"]
@@ -37,12 +36,12 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
 script = ExtResource("1_26dxj")
-_newExhibitButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent/New Exhibit Button")
-_decorationsShopButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent/Food and Drinks Button")
-_decorationsButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Parent/decorations Button")
-_flooringButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/flooring parent/Flooring Button")
-_wallpapersButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/wallpaper parent/Wallpaper Button")
-_sanitationButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/sanitation button parent/Sanitation Button")
+_newExhibitButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/New Exhibit Button")
+_decorationsShopButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/Food and Drinks Button")
+_decorationsButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Button")
+_flooringButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Flooring Button")
+_wallpapersButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/Wallpaper Button")
+_sanitationButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/Sanitation Button")
 _exhibitButton = NodePath("HBoxContainer/Left Panel/Buttons Panel/Main Buttons Panel/Exhibit Button")
 _museumMoneyTextField = NodePath("HBoxContainer/Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Text Holder")
 _museumAddedMoneyAmountTextField = NodePath("HBoxContainer/Right Panel/Money Display Panel/HBoxContainer/VBoxContainer/Money Adding Amount")
@@ -415,61 +414,25 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="museum overview parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Museum Overview Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container/museum overview parent"]
+[node name="Museum Overview Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = 4.0
-offset_right = 29.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
 text = "Museum Overview"
 text_overrun_behavior = 1
 
-[node name="Finances parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Finances Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container/Finances parent"]
+[node name="Finances Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_constants/outline_size = 5
 text = "Finances"
 
-[node name="Marketing Parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Marketing Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container/Marketing Parent"]
+[node name="Marketing Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Administration Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_constants/outline_size = 5
 text = "Marketing"
@@ -478,51 +441,21 @@ text = "Marketing"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="new exhibit parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="New Exhibit Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/new exhibit parent"]
+[node name="New Exhibit Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 text = "New Exhibit"
 
-[node name="clear exhibit parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Clear Exhibit Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/clear exhibit parent"]
+[node name="Clear Exhibit Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 text = "Clear Exhibit"
 
-[node name="edit exhibit parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Edit Exhibit Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container/edit exhibit parent"]
+[node name="Edit Exhibit Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Exhibit Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 text = "Edit Exhibit"
 
@@ -530,94 +463,39 @@ text = "Edit Exhibit"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Education button parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Education Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/Education button parent"]
+[node name="Education Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 text = "Education"
 
-[node name="Play Areas Button parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Play Areas Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/Play Areas Button parent"]
+[node name="Play Areas Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 text = "Play Areas"
 
-[node name="sanitation button parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Sanitation Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/sanitation button parent"]
+[node name="Sanitation Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Sanitation"
 
-[node name="suvenirs button parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Souvenirs Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/suvenirs button parent"]
+[node name="Souvenirs Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Souvenirs"
 
-[node name="food and drinks button parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Food and Drinks Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container/food and drinks button parent"]
+[node name="Food and Drinks Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Facilities Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 4.0
-offset_right = 16.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
@@ -628,115 +506,45 @@ text = "Food & Drinks"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="walls parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Walls Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/walls parent"]
+[node name="Security Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("18_djreu")
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-text = "Walls"
-
-[node name="security parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
 layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Security Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/security parent"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Security"
 
-[node name="lighting button" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Lighting Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/lighting button"]
+[node name="Lighting Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Lighting"
 
-[node name="wallpaper parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Wallpaper Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/wallpaper parent"]
+[node name="Wallpaper Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Wallpaper"
 
-[node name="flooring parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Flooring Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/flooring parent"]
+[node name="Flooring Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Flooring"
 
-[node name="decorations Parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="decorations Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container/decorations Parent"]
+[node name="decorations Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Room Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
@@ -747,24 +555,9 @@ text = "Decorations"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="staff overview parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Staff Overview Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container/staff overview parent"]
+[node name="Staff Overview Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 4.0
-offset_right = 26.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
@@ -772,62 +565,27 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
 text = "Staff Overview"
 
-[node name="staff zoning parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Staff Zoning Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container/staff zoning parent"]
+[node name="Staff Zoning Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Staff Zoning"
 
-[node name="staff facilities parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Staff Facilities Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container/staff facilities parent"]
+[node name="Staff Facilities Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = 4.0
-offset_right = 21.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "Staff Facilities"
 
-[node name="staff hiring parent" type="TextureRect" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
-layout_mode = 2
-texture = ExtResource("3_lvt4l")
-expand_mode = 3
-
-[node name="Staff Hiring Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container/staff hiring parent"]
+[node name="Staff Hiring Button" type="Button" parent="HBoxContainer/Left Panel/Buttons Panel/Sub Buttons Panel/Staff Button Container"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("18_djreu")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)

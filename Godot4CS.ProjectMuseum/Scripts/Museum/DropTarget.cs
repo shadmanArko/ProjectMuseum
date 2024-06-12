@@ -13,6 +13,7 @@ public partial class DropTarget : Control
     // Store the original color for later restoration
     private Color originalColor;
     [Export] public int SlotNumber = 0;
+    [Export] public int GridNumber = 0;
     private List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
     private List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
     public override void _Ready()
@@ -34,9 +35,10 @@ public partial class DropTarget : Control
         _rawArtifactDescriptiveDatas = obj;
     }
 
-    public void Initialize(int slotNumber, List<RawArtifactDescriptive> rawArtifactDescriptives, List<RawArtifactFunctional> rawArtifactFunctionals)
+    public void Initialize(int slotNumber, int gridNumber, List<RawArtifactDescriptive> rawArtifactDescriptives, List<RawArtifactFunctional> rawArtifactFunctionals)
     {
         SlotNumber = slotNumber;
+        GridNumber = gridNumber;
         _rawArtifactDescriptiveDatas = rawArtifactDescriptives;
         _rawArtifactFunctionalDatas = rawArtifactFunctionals;
     }
@@ -79,13 +81,13 @@ public partial class DropTarget : Control
         if (_parentTarget)
         {
             draggableCopy.GetNode<Draggable>(".").ResetDraggableOnGettingBackToParent();
-            MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag);
+            MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag, ((Node)data).GetNode<Draggable>(".").GridAtTheStartOfDrag);
         }
         else
         {
             MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact,
-                ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag);
-            MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, SlotNumber);
+                ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag, ((Node)data).GetNode<Draggable>(".").GridAtTheStartOfDrag);
+            MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, SlotNumber, GridNumber);
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PlaceArtifactOnDisplaySlot");
 
         }

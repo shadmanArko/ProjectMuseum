@@ -97,6 +97,7 @@ public class ItemPlacementCondition : IItemPlacementCondition
                     OccupiedTileIds = tileIds,
                     ArtifactIds = new List<string>(),
                     RotationFrame = rotationFrame,
+                    ArtifactGridSlots2X2s = new List<GridSlots2X2>(),
                     ExhibitDecoration = "string",
                     ExhibitArtifactSlot1 = "string",
                     ExhibitArtifactSlot2 = "string",
@@ -104,6 +105,10 @@ public class ItemPlacementCondition : IItemPlacementCondition
                     ExhibitArtifactSlot4 = "string",
                     ExhibitArtifactSlot5 = "string"
                 };
+                for (int i = 0; i < tileIds.Count; i++)
+                {
+                    exhibit.ArtifactGridSlots2X2s.Add(new GridSlots2X2());
+                }
                 await _exhibitRepository.Insert(exhibit);
                 
             }

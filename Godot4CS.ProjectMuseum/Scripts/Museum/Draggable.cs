@@ -13,6 +13,7 @@ public partial class Draggable : Control
 	public DropTarget parentDropTarget;
 	private Vector2 _customMinimumSize;
 	public int SlotAtTheStartOfDrag;
+	public int GridAtTheStartOfDrag;
 	public Artifact Artifact;
 	[Export] private Label _nameOfDraggable;
 	[Export] private TextureRect _artifactIcon;
@@ -28,6 +29,7 @@ public partial class Draggable : Control
 		_customMinimumSize = CustomMinimumSize;
 		parentDropTarget = GetParent<DropTarget>();
 		SlotAtTheStartOfDrag = parentDropTarget.SlotNumber;
+		GridAtTheStartOfDrag = parentDropTarget.GridNumber;
 	}
 	public override void _Input(InputEvent @event)
 	{

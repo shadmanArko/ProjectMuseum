@@ -103,9 +103,9 @@ public partial class ExhibitEditorUi : Control
 		_selectedItem.EnableGlass(_glassCheckButton.ButtonPressed);
 	}
 
-	private void ArtifactRemovedFromSlot(Artifact artifact, int slotNumber)
+	private void ArtifactRemovedFromSlot(Artifact artifact, int slotNumber, int gridNumber)
 	{
-		MuseumActions.ArtifactRemovedFromExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber);
+		MuseumActions.ArtifactRemovedFromExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber);
 	}
 
 	private void HttpRequestForGettingExhibitsInDisplayOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -115,35 +115,40 @@ public partial class ExhibitEditorUi : Control
 		foreach (var artifact in artifacts)
 		{
 			if (artifact == null || _selectedExhibit == null) continue;
-			
-			if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot1)
+			int gridCount = 0;
+			foreach (var gridSlots2X2 in _selectedExhibit.ArtifactGridSlots2X2s)
 			{
-				var instance = _draggable.Instantiate();
-				_dropTargetsParent.GetChildren()[0].GetChildren()[0].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot2)
-			{
-				var instance = _draggable.Instantiate();
-				_dropTargetsParent.GetChildren()[0].GetChildren()[1].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot3)
-			{
-				var instance = _draggable.Instantiate();
-				_dropTargetsParent.GetChildren()[0].GetChildren()[2].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot4)
-			{
-				var instance = _draggable.Instantiate();
-				_dropTargetsParent.GetChildren()[0].GetChildren()[3].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+				if (artifact.Id == gridSlots2X2.Slot0)
+				{
+					var instance = _draggable.Instantiate();
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].AddChild(instance);
+					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+				}else if (artifact.Id == gridSlots2X2.Slot1)
+				{
+					var instance = _draggable.Instantiate();
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].AddChild(instance);
+					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+				}else if (artifact.Id == gridSlots2X2.Slot2)
+				{
+					var instance = _draggable.Instantiate();
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].AddChild(instance);
+					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+				}else if (artifact.Id == gridSlots2X2.Slot3)
+				{
+					var instance = _draggable.Instantiate();
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].AddChild(instance);
+					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+				}
+
+				gridCount++;
 			}
 			
 		}
 	}
 
-	private void ArtifactDroppedOnSlot(Artifact artifact, int slotNumber)
+	private void ArtifactDroppedOnSlot(Artifact artifact, int slotNumber, int gridNumber)
 	{
-		MuseumActions.ArtifactDroppedOnExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber);
+		MuseumActions.ArtifactDroppedOnExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber);
 	}
 
 	public void ReInitialize(Item item, Exhibit exhibit)
@@ -155,15 +160,15 @@ public partial class ExhibitEditorUi : Control
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
 		_glassCheckButton.ButtonPressed = _selectedItem.IsGlassEnabled();
-		var numberOfSlots = item.numberOfTilesItTakes < 4 ? 1 : 4;
-		for (int i = 0; i < numberOfSlots; i++)
+		var numberOfGrids = item.numberOfTilesItTakes < 4 ? 1 : 4;
+		for (int gridNumber = 0; gridNumber < numberOfGrids; gridNumber++)
 		{
 			var instance = _dropTargetGrid.Instantiate();
 			int childCount = 0;
 			foreach (var child in instance.GetChildren())
 			{
 				childCount++;
-				child.GetNode<DropTarget>(".").Initialize(childCount, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);	
+				child.GetNode<DropTarget>(".").Initialize(childCount, gridNumber, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);	
 			}
 			
 			_dropTargetsParent.AddChild(instance);

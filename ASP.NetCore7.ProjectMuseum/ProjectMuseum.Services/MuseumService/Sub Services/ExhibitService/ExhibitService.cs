@@ -31,13 +31,13 @@ public class ExhibitService : IExhibitService
         return await _exhibitRepository.GetAllExhibits();
     }
 
-    public async Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot)
+    public async Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot, int gridNumber)
     {
-        return await _exhibitRepository.AddArtifactToExhibit(exhibitId, artifactId, slot);
+        return await _exhibitRepository.AddArtifactToExhibit(exhibitId, artifactId, slot, gridNumber);
     }
 
-    public async Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot)
+    public async Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot, int gridNumber)
     {
-        return await _exhibitRepository.RemoveArtifactFromExhibit(exhibitId, artifactId, slot);
+        return await _exhibitRepository.RemoveArtifactFromExhibit(exhibitId, artifactId, slot, gridNumber);
     }
 }

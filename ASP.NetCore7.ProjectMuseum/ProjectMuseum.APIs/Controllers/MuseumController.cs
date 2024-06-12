@@ -275,10 +275,10 @@ public class MuseumController : ControllerBase
         var artifacts = await _artifactStorageService.GetAllArtifactsOfStorage();
         return Ok(artifacts);
     }
-    [HttpGet("AddArtifactToStorageFromExhibit/{artifactId}/{exhibitId}/{slot}")]
-    public async Task<IActionResult> AddArtifactToStorageFromExhibit(string artifactId, string exhibitId, int slot)
+    [HttpGet("AddArtifactToStorageFromExhibit/{artifactId}/{exhibitId}/{slot}/{gridNumber}")]
+    public async Task<IActionResult> AddArtifactToStorageFromExhibit(string artifactId, string exhibitId, int slot, int gridNumber)
     {
-        var exhibit = await _exhibitService.RemoveArtifactFromExhibit(exhibitId, artifactId, slot);
+        var exhibit = await _exhibitService.RemoveArtifactFromExhibit(exhibitId, artifactId, slot, gridNumber);
         var artifacts = await _artifactStorageService.GetArtifactOutOfDisplayById(artifactId);
 
         return Ok(exhibit);
@@ -291,11 +291,11 @@ public class MuseumController : ControllerBase
         return Ok(artifact);
     }
 
-    [HttpGet("AddArtifactToExhibitSlotFromStore/{artifactId}/{exhibitId}/{slot}")]
-    public async Task<IActionResult> AddArtifactToExhibitSlotFromStore(string artifactId, string exhibitId, int slot)
+    [HttpGet("AddArtifactToExhibitSlotFromStore/{artifactId}/{exhibitId}/{slot}/{gridNumber}")]
+    public async Task<IActionResult> AddArtifactToExhibitSlotFromStore(string artifactId, string exhibitId, int slot, int gridNumber)
     {
         var artifacts = await _artifactStorageService.SendArtifactToDisplayById(artifactId);
-        var exhibit = await _exhibitService.AddArtifactToExhibit(exhibitId, artifactId, slot);
+        var exhibit = await _exhibitService.AddArtifactToExhibit(exhibitId, artifactId, slot, gridNumber);
         return Ok(exhibit);
     }
     [HttpGet("GetAllTradingArtifacts")]

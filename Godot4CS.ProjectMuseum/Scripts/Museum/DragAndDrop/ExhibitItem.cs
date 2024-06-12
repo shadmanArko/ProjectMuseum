@@ -212,14 +212,14 @@ public partial class ExhibitItem : Item
         //GD.Print("Removed Artifact");
     }
 
-    private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber)
+    private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber)
     {
         if (slotNumber == 0) return;
         if (givenItem == this)
         {
             RemoveArtifactFromSlot(slotNumber);
             _httpRequestForArtifactRemoval.Request(ApiAddress.MuseumApiPath +
-                                                   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}");
+                                                   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}");
         }
     }
 
@@ -243,7 +243,7 @@ public partial class ExhibitItem : Item
         //GD.Print("Placed Artifact");
     }
 
-    private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber)
+    private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber)
     {
         if (slotNumber == 0) return;
         
@@ -252,7 +252,7 @@ public partial class ExhibitItem : Item
             AssignArtifactToSlot(artifact, slotNumber);
 
             _httpRequestForArtifactPlacement.Request(ApiAddress.MuseumApiPath +
-                                                     $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}");
+                                                     $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}");
         }
     }
 

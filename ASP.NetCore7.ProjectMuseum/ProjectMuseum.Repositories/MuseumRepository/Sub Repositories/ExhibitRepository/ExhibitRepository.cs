@@ -82,45 +82,45 @@ public class ExhibitRepository : IExhibitRepository
         return exhibits;
     }
 
-    public async Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot)
+    public async Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot, int gridNumber)
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
         if (slot == 1)
         {
-            exhibit.ExhibitArtifactSlot1 = artifactId;
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifactId;
         }else if (slot == 2)
         {
-            exhibit.ExhibitArtifactSlot2 = artifactId;
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifactId;
         }else if (slot == 3)
         {
-            exhibit.ExhibitArtifactSlot3 = artifactId;
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = artifactId;
         }else if (slot == 4)
         {
-            exhibit.ExhibitArtifactSlot4 = artifactId;
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = artifactId;
         }
         exhibit.ArtifactIds.Add(artifactId);
         if (exhibits != null) await _exhibitDatabase.WriteDataAsync(exhibits);
         return exhibit;
     }
-    public async Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot)
+    public async Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot, int gridNumber)
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
         if (slot == 1)
         {
-            exhibit.ExhibitArtifactSlot1 = "";
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = "";
         }else if (slot == 2)
         {
-            exhibit.ExhibitArtifactSlot2 = "";
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = "";
         }
         else if (slot == 3)
         {
-            exhibit.ExhibitArtifactSlot3 = "";
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = "";
         }
         else if (slot == 4)
         {
-            exhibit.ExhibitArtifactSlot4 = "";
+            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = "";
         }
         exhibit.ArtifactIds.Remove(artifactId);
 

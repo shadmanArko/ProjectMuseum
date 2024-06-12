@@ -2,6 +2,7 @@ using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 
@@ -82,7 +83,7 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 
 	private void OnOkayButtonPressed()
 	{
-		_playerControllerVariables.CanMove = true;
+		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");
 		HideDiscoveredArtifactVisualizerUi();
 	}
 
@@ -93,7 +94,7 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 
 	private void UnsubscribeToActions()
 	{
-		MineActions.OnArtifactSuccessfullyRetrieved += ShowDiscoveredArtifactVisualizerUi;
+		MineActions.OnArtifactSuccessfullyRetrieved -= ShowDiscoveredArtifactVisualizerUi;
 	}
 
 	public override void _ExitTree()

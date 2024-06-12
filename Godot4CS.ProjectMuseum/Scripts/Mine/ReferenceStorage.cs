@@ -34,7 +34,7 @@ public partial class ReferenceStorage : Node
     [Export] public LoadingBarManager LoadingBarManager;
     [Export] public ParticleEffectSystem ParticleEffectSystem;
     [Export] public InventoryManager InventoryManager;
-    [Export] public MinePause MinePause;
+    [Export] public MinePauseManager MinePauseManager;
     [Export] public LogMessageController LogMessageController;
     [Export] public ScreenShakeController ScreenShakeController;
     

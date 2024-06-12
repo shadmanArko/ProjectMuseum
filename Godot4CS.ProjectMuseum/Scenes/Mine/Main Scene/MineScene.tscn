@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cmjtexcfmbaxm" path="res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageSystem.tscn" id="7_x8k1i"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/DamageSystem/DamageSystem.cs" id="8_4crix"]
 [ext_resource type="PackedScene" uid="uid://ccshgryravaf2" path="res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn" id="8_mppk2"]
-[ext_resource type="PackedScene" uid="uid://vnv6cso2c6ak" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePause.tscn" id="8_pdymc"]
+[ext_resource type="PackedScene" uid="uid://vnv6cso2c6ak" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
 [ext_resource type="PackedScene" uid="uid://p4pp1nmkb44s" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_uross"]
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
@@ -54,7 +54,7 @@ script = ExtResource("2_t7o23")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePause", "LogMessageController", "ScreenShakeController", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePauseManager", "LogMessageController", "ScreenShakeController", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -68,7 +68,7 @@ DamageSystem = NodePath("../DamageSystem")
 LoadingBarManager = NodePath("../LoadingScene")
 ParticleEffectSystem = NodePath("../ParticleEffectSystem")
 InventoryManager = NodePath("../InventoryManager")
-MinePause = NodePath("../MinePause")
+MinePauseManager = NodePath("../MinePauseManager")
 LogMessageController = NodePath("../MineUI/Log Message Controller")
 ScreenShakeController = NodePath("../ScreenShakeController")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
@@ -86,7 +86,7 @@ _tutorialSystem = NodePath("Tutorial System")
 
 [node name="MineGameConditions" parent="." instance=ExtResource("12_i3nvu")]
 
-[node name="MinePause" parent="." instance=ExtResource("8_pdymc")]
+[node name="MinePauseManager" parent="." instance=ExtResource("8_pdymc")]
 process_mode = 3
 
 [node name="DamageSystem" parent="." instance=ExtResource("7_x8k1i")]
@@ -141,7 +141,9 @@ _inventoryViewController = NodePath("../MineUI/Inventory")
 [node name="BackgroundMusicManager" parent="." node_paths=PackedStringArray("_streamPlayer") instance=ExtResource("24_5ul55")]
 _streamPlayer = NodePath("BackgroundMusicStreamPlayer")
 
-[node name="MineUI" parent="." node_paths=PackedStringArray("_playerCoordinates", "_toolbarPanel") instance=ExtResource("3_ambmn")]
+[node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates", "_toolbarPanel") instance=ExtResource("3_ambmn")]
+_healthBar = NodePath("Health Bar")
+_energyBar = NodePath("Energy Bar")
 _playerCoordinates = NodePath("Player Coordinates")
 _toolbarPanel = NodePath("Toolbar Panel")
 
@@ -155,6 +157,7 @@ _panel = NodePath("Panel")
 _popUpText = NodePath("Pop Up Text")
 
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
+process_mode = 3
 visible = false
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")

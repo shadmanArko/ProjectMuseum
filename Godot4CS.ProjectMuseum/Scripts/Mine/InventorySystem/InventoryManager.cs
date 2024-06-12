@@ -189,7 +189,9 @@ public partial class InventoryManager : Node2D
     }
 
     #endregion
-    
+
+    #region Utilities
+
     private static T DeepCopy<T>(T obj)
     {
         if (obj == null)
@@ -211,6 +213,10 @@ public partial class InventoryManager : Node2D
 
         return copy;
     }
+
+    public bool HasItemAtHand() => _cursorFollowingSprite.GetCurrentCursorInventoryItem() != null;
+
+    #endregion
     
     public void MakeDecision(int slotNumber, bool isSlotEmpty, MouseButton mouseButton, out int stackNo,
         out string pngPath, out bool emptySlot)

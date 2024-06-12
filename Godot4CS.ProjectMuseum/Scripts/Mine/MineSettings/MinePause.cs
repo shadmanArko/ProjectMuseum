@@ -5,8 +5,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.MineSettings;
 public partial class MinePause : Node2D
 {
     public bool IsPaused { get; set; }
-
-
+    
     public override void _Ready()
     {
         SubscribeToActions();
@@ -34,6 +33,8 @@ public partial class MinePause : Node2D
         if (!inputEvent.IsActionReleased("Inventory")) return;
         if (ReferenceStorage.Instance.MinePause.IsPaused)
         {
+            var inventoryManager = ReferenceStorage.Instance.InventoryManager;
+            if(inventoryManager.HasItemAtHand()) return;
             GD.Print("UNPAUSING");
             MineActions.OnGameUnpaused?.Invoke();
             ReferenceStorage.Instance.InventoryViewController.HideInventory();

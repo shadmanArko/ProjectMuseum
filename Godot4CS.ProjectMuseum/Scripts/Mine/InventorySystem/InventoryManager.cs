@@ -34,6 +34,7 @@ public partial class InventoryManager : Node2D
         InitializeDiReferences();
         SubscribeToActions();
         GetInventory();
+        _isGamePausedByInventory = false;
     }
 
     private void CreateHttpRequest()
@@ -94,6 +95,44 @@ public partial class InventoryManager : Node2D
             _inventorySlots[item.Slot].SetInventoryItemToSlot(item);
     }
     
+    #endregion
+
+    #region Input
+
+    private bool _isGamePausedByInventory;
+    public override void _Input(InputEvent inputEvent)
+    {
+        if (!inputEvent.IsActionReleased("Inventory")) return;
+        
+        if (ReferenceStorage.Instance.MinePauseManager.IsPaused)
+        {
+            GD.Print($"isPaused: {ReferenceStorage.Instance.MinePauseManager.IsPaused}");
+            if (_isGamePausedByInventory)
+            {
+                if (HasItemAtHand())
+                {
+                    GD.Print($"has item in hand: {HasItemAtHand()}");
+                    return;
+                }
+                GD.Print("UNPAUSING");
+                MineActions.OnGameUnpaused?.Invoke();
+                ReferenceStorage.Instance.InventoryViewController.HideInventory();
+                ReferenceStorage.Instance.MineUiController.ShowToolbarPanel();
+                _isGamePausedByInventory = false;
+            }
+            
+        }
+        else
+        {
+            GD.Print("PAUSING");
+            MineActions.OnGamePaused?.Invoke();
+            ReferenceStorage.Instance.InventoryViewController.ShowInventory();
+            ReferenceStorage.Instance.MineUiController.HideToolbarPanel();
+            _isGamePausedByInventory = true;
+        }
+    }
+
+
     #endregion
     
     private void RefreshInventoryOccupiedSlots()

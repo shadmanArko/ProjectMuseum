@@ -8,6 +8,7 @@ public partial class DropTarget : Control
 {
     [Export] private bool _parentTarget;
     public bool hasEmptySlot = true;
+    private bool matchsGrid = false;
     private PackedScene draggableScene = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn");
     private PackedScene draggableScene100x100 = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable_100x100.tscn");
     // Store the original color for later restoration
@@ -54,7 +55,7 @@ public partial class DropTarget : Control
     {
         if (obj.IsInGroup("Draggable") && hasEmptySlot)
         {
-            Highlight(true);
+            // Highlight(true);
         }
     }
 
@@ -63,7 +64,7 @@ public partial class DropTarget : Control
         var canDrop = ((Node)data).IsInGroup("Draggable");
         //GD.Print($"Can drop data has run {Name}");
         // Highlight(canDrop && hasEmptySlot); // Highlight if conditions are met
-        return (canDrop && hasEmptySlot) || _parentTarget;
+        return (canDrop && hasEmptySlot && matchsGrid) || _parentTarget;
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
@@ -87,7 +88,7 @@ public partial class DropTarget : Control
         {
             MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact,
                 ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag, ((Node)data).GetNode<Draggable>(".").GridAtTheStartOfDrag);
-            MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, SlotNumber, GridNumber);
+            MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, ((Node)data).GetNode<Draggable>(".").ArtifactSize, SlotNumber, GridNumber);
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PlaceArtifactOnDisplaySlot");
 
         }
@@ -95,10 +96,16 @@ public partial class DropTarget : Control
         ((Node)data).QueueFree();// Reset highlight after dropping
     }
 
-    private void Highlight(bool highlight)
+    public void Highlight(bool highlight)
     {
         // Set the color to the original or a highlighted color based on the 'highlight' parameter
-        // Modulate = highlight ? Colors.Green : originalColor;
+        Modulate = highlight ? Colors.Green : originalColor;
+    }
+
+    public void SetGridSizeInfo(bool value)
+    {
+        matchsGrid = value;
+        Highlight(matchsGrid);
     }
 
     public override void _ExitTree()

@@ -3,6 +3,33 @@
     "Artifacts": [
       {
         "Id": "4",
+        "RawArtifactId": "ClassicalNativeAmericanShellNecklace",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },
+      {
+        "Id": "5",
+        "RawArtifactId": "AncientNativeAmericanClayHumanFigurine",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },
+      {
+        "Id": "6",
+        "RawArtifactId": "ClassicalNativeAmericanTomahawk",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },
+      {
+        "Id": "7",
         "RawArtifactId": "ClassicalNativeAmericanTomahawk",
         "PositionX": 22,
         "PositionY": 6,

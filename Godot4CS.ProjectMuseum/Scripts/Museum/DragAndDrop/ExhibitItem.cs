@@ -187,19 +187,22 @@ public partial class ExhibitItem : Item
         foreach (var artifact in displayArtifact)
         {
             if (artifact == null ) continue;
-            
-            if (artifact.Id == ExhibitData.ExhibitArtifactSlot1)
+
+            foreach (var gridSlots2X2 in ExhibitData.ArtifactGridSlots2X2s)
             {
-                AssignArtifactToSlot(artifact, 1);
-            }else if (artifact.Id == ExhibitData.ExhibitArtifactSlot2)
-            {
-                AssignArtifactToSlot(artifact, 2);
-            }else if (artifact.Id == ExhibitData.ExhibitArtifactSlot3)
-            {
-	            AssignArtifactToSlot(artifact, 3);
-            }else if (artifact.Id == ExhibitData.ExhibitArtifactSlot4)
-            {
-	            AssignArtifactToSlot(artifact, 4);
+	            if (artifact.Id == gridSlots2X2.Slot0)
+	            {
+		            AssignArtifactToSlot(artifact, 1);
+	            }else if (artifact.Id == gridSlots2X2.Slot1)
+	            {
+		            AssignArtifactToSlot(artifact, 2);
+	            }else if (artifact.Id == gridSlots2X2.Slot2)
+	            {
+		            AssignArtifactToSlot(artifact, 3);
+	            }else if (artifact.Id == gridSlots2X2.Slot3)
+	            {
+		            AssignArtifactToSlot(artifact, 4);
+	            }
             }
         }
     }

@@ -9,6 +9,14 @@
     ],
     "RotationFrame": 0,
     "ArtifactIds": [],
+    "ArtifactGridSlots2X2s": [
+      {
+        "Slot0": "string",
+        "Slot1": "string",
+        "Slot2": "string",
+        "Slot3": "string"
+      }
+    ],
     "ExhibitDecoration": "string",
     "ExhibitArtifactSlot1": "",
     "ExhibitArtifactSlot2": "string",

@@ -15,6 +15,7 @@ public partial class Draggable : Control
 	public int SlotAtTheStartOfDrag;
 	public int GridAtTheStartOfDrag;
 	public Artifact Artifact;
+	public string ArtifactSize = "tiny";
 	[Export] private Label _nameOfDraggable;
 	[Export] private TextureRect _artifactIcon;
 	[Export] private PackedScene _draggablePreview;
@@ -69,7 +70,7 @@ public partial class Draggable : Control
 		RawArtifactFunctional rawArtifactFunctional =
 			rawArtifactFunctionals.FirstOrDefault(descriptive => descriptive.Id == artifact.RawArtifactId);
 		_nameOfDraggable.Text = rawArtifactDescriptive.ArtifactName;
-
+		ArtifactSize = rawArtifactFunctional.ObjectSize;
 		if (rawArtifactFunctional.Era == null)
 		{
 			GD.PrintErr("functional data not found");

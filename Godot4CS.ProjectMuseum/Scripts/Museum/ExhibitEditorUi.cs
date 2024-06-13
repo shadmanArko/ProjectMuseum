@@ -146,7 +146,7 @@ public partial class ExhibitEditorUi : Control
 		}
 	}
 
-	private void ArtifactDroppedOnSlot(Artifact artifact, int slotNumber, int gridNumber)
+	private void ArtifactDroppedOnSlot(Artifact artifact, string size, int slotNumber, int gridNumber)
 	{
 		MuseumActions.ArtifactDroppedOnExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber);
 	}

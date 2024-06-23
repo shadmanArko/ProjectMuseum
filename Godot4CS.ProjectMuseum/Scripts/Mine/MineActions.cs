@@ -91,6 +91,7 @@ public partial class MineActions : Node
     public static Action<Vector2I> OnMiniGameLoad;
     public static Action OnMiniGameWon;
     public static Action OnMiniGameLost;
+    public static Action OnMiniGameEnded;
 
     #endregion
 
@@ -100,9 +101,16 @@ public partial class MineActions : Node
     public static Action<Artifact> OnArtifactSuccessfullyRetrieved;
 
     #endregion
-    
+
+    #region Camp Mine Transition Actions
+
     public static Action OnPlayerLandedIntoTheMine;
     public static Action OnPlayerReachedBackToCamp;
+    public static Action OnPlayerSleepForTheNightButtonPressed;
+    public static Action OnPlayerReturnToMineButtonPressed;
+    public static Action OnPlayerReturnToMuseumButtonPressed;
+
+    #endregion
 
     public static Action OnPlayerReachFirstWarning;
 

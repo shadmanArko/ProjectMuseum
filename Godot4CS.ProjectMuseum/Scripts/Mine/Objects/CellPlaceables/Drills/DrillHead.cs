@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
@@ -54,7 +55,9 @@ public partial class DrillHead : RigidBody2D
 
     [Export] private float _speed;
     [Export] private float _stoppingDistance;
-    
+
+    #region Initializers
+
     public override async void _Ready()
     {
         InitializeDiInstaller();
@@ -72,13 +75,17 @@ public partial class DrillHead : RigidBody2D
 
     private void SubscribeToActions()
     {
-        
+        MineActions.OnPlayerSleepForTheNightButtonPressed += BreakAllCellsWhenPlayerSleepsForTheNight;
+        MineActions.OnMiniGameEnded += RestartDrillOnArtifactCellBroken;
     }
 
     private void UnsubscribeToActions()
     {
-        
+        MineActions.OnPlayerSleepForTheNightButtonPressed -= BreakAllCellsWhenPlayerSleepsForTheNight;
+        MineActions.OnMiniGameEnded -= RestartDrillOnArtifactCellBroken;
     }
+
+    #endregion
 
     private float _timer;
 
@@ -247,6 +254,8 @@ public partial class DrillHead : RigidBody2D
     private void BreakCell(Vector2I tilePos)
     {
         var cell = _mineGenerationVariables.GetCell(tilePos);
+        if(cell == null) return;
+        if(cell.HasArtifact) return;
         cell.HitPoint -= _cellDamagePerHit;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100000);
 
@@ -255,6 +264,7 @@ public partial class DrillHead : RigidBody2D
                 cellCrackMat.MaterialType == "Normal");
         MineSetCellConditions.SetCrackOnTiles(tilePos, GetDrillDirection(), cell,
             normalCellCrackMaterial);
+        
         if (cell.HitPoint <= 0)
         {
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
@@ -283,11 +293,36 @@ public partial class DrillHead : RigidBody2D
         }
     }
 
+    private void BreakAllCellsWhenPlayerSleepsForTheNight()
+    {
+        for (int i = 1; i <= _drillLimit; i++)
+        {
+            var cell = GetCellByMapPos(_initialMapPos + GetDrillDirection() * i);
+            if(cell == null) continue;
+            if(!cell.IsInstantiated || !cell.IsBreakable) break;
+            if(cell.IsBroken) continue;
+
+            cell.HitPoint = 0;
+            BreakCell(new Vector2I(cell.PositionX, cell.PositionY));
+            if (cell.HasArtifact) break;
+        }
+        
+        _drillPhase = DrillPhase.Retract;
+        RetractToCore();
+    }
+
+    private void RestartDrillOnArtifactCellBroken()
+    {
+        if(_drillPhase != DrillPhase.Disabled) return;
+        if(!ContainsCellsToBreak()) return;
+        InitializeDrill();
+    }
+
     #region Utilities
 
     private bool ContainsCellsToBreak()
     {
-        var unbrokenCellCount = 0;
+        var unbrokenCells = new List<Cell>();
         for (int i = 1; i <= _drillLimit; i++)
         {
             var cell = GetCellByMapPos(_initialMapPos + GetDrillDirection() * i);
@@ -295,10 +330,12 @@ public partial class DrillHead : RigidBody2D
             if(!cell.IsInstantiated || !cell.IsBreakable) break;
             
             if (!cell.IsBroken)
-                unbrokenCellCount++;
+                unbrokenCells.Add(cell);
         }
-        
-        return unbrokenCellCount > 0;
+
+        if(unbrokenCells.Any())
+            if (unbrokenCells[0].HasArtifact) return false;
+        return unbrokenCells.Count > 0;
     }
     
     private void CalculateInitialAndFinalPosition()

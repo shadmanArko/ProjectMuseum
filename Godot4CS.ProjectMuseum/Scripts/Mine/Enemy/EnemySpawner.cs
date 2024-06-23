@@ -25,8 +25,8 @@ public partial class EnemySpawner : Node2D
     
     private Vector2 _newPos = new(560,-60);
 
-    [Export] private int[] _cellBreakTargetCount;
-    [Export] private int[] _enemySpawnCount;
+    private List<int> _cellBreakTargetCount;
+    private List<int> _enemySpawnCount;
     [Export] private int _counter;
     [Export] private bool _enemyMovingIntoMine;
     
@@ -34,12 +34,15 @@ public partial class EnemySpawner : Node2D
 
     public override void _EnterTree()
     {
-        InitializeDiInstallers();
+        
     }
     
     public override void _Ready()
     {
+        InitializeDiInstallers();
         _enemies = new List<Enemy>();
+        _cellBreakTargetCount = new List<int> { 10, 20, 30, 40, 50, 60 };
+        _enemySpawnCount = new List<int> { 1,1,2,1,2,3};
         SetProcess(false);
         SetPhysicsProcess(false);
         _counter = 0;
@@ -69,7 +72,7 @@ public partial class EnemySpawner : Node2D
 
     private void CheckForEnemySpawnConditions()
     {
-        if(_counter >= _enemySpawnCount.Length) return;
+        if(_counter >= _enemySpawnCount.Count) return;
 
         if (_enemySpawnCount[_counter] <= 0)
             _counter++;

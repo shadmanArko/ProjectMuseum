@@ -3,6 +3,7 @@ using Godot;
 using System.Text;
 using System.Text.Json;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
@@ -19,7 +20,8 @@ public partial class OperationControlManager : Node2D
     [Export] private InventoryControllers.ConsumableController _consumableController;
     [Export] private InventoryControllers.EquipableController _equipableController;
     [Export] private InventoryControllers.CellPlaceableController _cellPlaceableController;
-    
+
+    private PlayerControllerVariables _playerControllerVariables;
     private InventoryDTO _inventoryDto;
     private int _slot;
     
@@ -27,19 +29,20 @@ public partial class OperationControlManager : Node2D
 
     public override void _Ready()
     {
-        SubscribeToActions();
+        _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+        SubscribeToActions();
     }
 
     private void SubscribeToActions()
     {
-        MineActions.OnToolbarSlotChanged += ActivateControllerBasedInItemType;
+        MineActions.OnToolbarSlotChanged += ActivateControllerBasedOnItemType;
         MineActions.DeselectAllInventoryControllers += DeactivateActiveController;
     }
 
     private void UnsubscribeToActions()
     {
-        MineActions.OnToolbarSlotChanged -= ActivateControllerBasedInItemType;
+        MineActions.OnToolbarSlotChanged -= ActivateControllerBasedOnItemType;
         MineActions.DeselectAllInventoryControllers -= DeactivateActiveController;
     }
 
@@ -47,9 +50,8 @@ public partial class OperationControlManager : Node2D
 
     #region Controller Activation
 
-    private void ActivateControllerBasedInItemType(int slot)
+    private void ActivateControllerBasedOnItemType(int slot)
     {
-        // if(_slot == slot) return;
         MineActions.DeselectAllInventoryControllers?.Invoke();
         _slot = slot;
         var inventoryItem = _inventoryDto.Inventory.InventoryItems.FirstOrDefault(tempItem => tempItem.Slot == _slot);

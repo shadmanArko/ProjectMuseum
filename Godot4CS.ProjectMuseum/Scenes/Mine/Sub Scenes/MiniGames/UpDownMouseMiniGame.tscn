@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="4_x65gu"]
 
 [node name="UpDownMouseMiniGame" type="Node2D" node_paths=PackedStringArray("_timerLabel", "_progressLabel", "_textureProgressBar")]
+process_mode = 3
 script = ExtResource("1_k50qv")
 _timerLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Timer Label")
 _progressLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container/Progress Label")

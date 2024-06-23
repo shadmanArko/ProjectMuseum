@@ -228,7 +228,7 @@ public partial class EquipableController : InventoryController
     private void DigActionStart()
     {
         _playerControllerVariables.IsDigging = true;
-        _playerControllerVariables.CanMove = false;
+        // _playerControllerVariables.CanMove = false;
         var pickAxe = _equipableDto.PickaxeEquipables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
         _playerControllerVariables.CellDamagePoint = pickAxe!.Damage;
         _playerControllerVariables.CellHitCoolDown = pickAxe!.Cooldown;
@@ -239,19 +239,27 @@ public partial class EquipableController : InventoryController
     {
         SetPhysicsProcess(false);
         _playerControllerVariables.IsDigging = false;
-        _playerControllerVariables.CanMove = true;
-        _playerControllerVariables.CanMoveLeftAndRight = true;
+        // if(ReferenceStorage.Instance.MineTutorial.IsMineTutorialPlaying()) return;
+        // if(_playerControllerVariables.IsBrushing) return;
+        // _playerControllerVariables.CanMove = true;
+        // _playerControllerVariables.CanMoveLeftAndRight = true;
     }
 
     #endregion
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_playerControllerVariables.CanDig && _playerControllerVariables.PlayerEnergy > 0)
+        if (_playerControllerVariables.CanDig)
         {
-            _playerControllerVariables.CanMove = false;
-            _playerControllerVariables.CanMoveLeftAndRight = false;
-            _playerControllerVariables.Player.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
+            if (_playerControllerVariables.PlayerEnergy <= 0)
+            {
+                ReferenceStorage.Instance.LogMessageController.ShowLogMessage("You are out of energy.");
+                return;
+            }
+            
+            // _playerControllerVariables.CanMove = false;
+            // _playerControllerVariables.CanMoveLeftAndRight = false;
+            // _playerControllerVariables.Player.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
             MineActions.OnDigActionStarted?.Invoke();
         }
         else

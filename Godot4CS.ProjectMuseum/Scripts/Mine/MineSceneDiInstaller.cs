@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
@@ -7,7 +6,7 @@ using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
-public partial class MineSceneDiInstaller : Node
+public partial class MineSceneDiInstaller : Control
 {
 	public MineSceneDiInstaller()
 	{

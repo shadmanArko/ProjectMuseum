@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using ProjectMuseum.Models;
 
-public partial class MuseumSceneDiInstaller : Node
+public partial class MuseumSceneDiInstaller : Control
 {
 	
 

@@ -82,7 +82,9 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
 
-[node name="Museum Scene Di Installer" type="Node"]
+[node name="Museum Scene Di Installer" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("2_yr8uh")
 
 [node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_apv3a")]
@@ -207,7 +209,9 @@ _shopName = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/La
 _warningText = NodePath("ColorRect/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("AnimationPlayer")
 
-[node name="PauseMenu" parent="museum/CanvasLayer" instance=ExtResource("27_hjqlt")]
+[node name="PauseMenu" parent="museum/CanvasLayer" node_paths=PackedStringArray("_pauseMenu", "_pauseButton") instance=ExtResource("27_hjqlt")]
+_pauseMenu = NodePath("pause_menu")
+_pauseButton = NodePath("pause_menu_button")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
 unique_name_in_owner = true

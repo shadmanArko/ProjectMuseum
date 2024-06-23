@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dcm73qv2wrbhh" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_artifact_tag.tscn" id="3_7ksps"]
 [ext_resource type="PackedScene" uid="uid://bch1nfis5he7t" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggableNewPreview.tscn" id="3_35gd3"]
 [ext_resource type="Texture2D" uid="uid://2qgrks6qkf3s" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Image_hlder.png" id="4_h8s37"]
-[ext_resource type="Texture2D" uid="uid://dqa8gf5sasbp6" path="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png" id="5_5n4c6"]
+[ext_resource type="Texture2D" uid="uid://drikl4536a05t" path="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png" id="5_5n4c6"]
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="5_ptbc1"]
 [ext_resource type="FontFile" uid="uid://bwsjyoc8ldclp" path="res://Assets/Fonts/PixelOperator.ttf" id="6_4l1nu"]
 [ext_resource type="Texture2D" uid="uid://cyvudlbhhg4kq" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Name_hlder.png" id="6_yua1l"]

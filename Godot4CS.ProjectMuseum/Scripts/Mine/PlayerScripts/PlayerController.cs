@@ -255,6 +255,8 @@ public partial class PlayerController : CharacterBody2D, IDamageable, IDeath
 		Velocity = velocity;
 		AnimationController.PlayAnimation("damage1");
 		HealthSystem.ReducePlayerHealth(damageValue, _playerControllerVariables);
+		if (_playerControllerVariables.State == MotionState.Hanging)
+			_playerControllerVariables.State = MotionState.Falling;
 	}
 
 	public void Attack()

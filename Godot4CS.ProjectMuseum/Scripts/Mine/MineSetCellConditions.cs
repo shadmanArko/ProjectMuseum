@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Mine.SpecialWalls;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
@@ -125,8 +126,7 @@ public static class MineSetCellConditions
         
         if(cell.HasArtifact)
             mineGenerationView.SetCell(ResourceAndArtifactLayer,tilePos, 2, new Vector2I(0,0));
-        
-        if (cell.HasResource)
+        else if (cell.HasResource)
         {
             var random = new Random();
             var resources = mineGenerationVariables.Mine.Resources;
@@ -142,13 +142,21 @@ public static class MineSetCellConditions
                 _ => 1
             }));
         }
-
-        if (cell.HasSpecialWall)
+        else if (cell.HasSpecialWall)
         {
             EraseCellsOnAllLayers(mineGenerationView, tilePos);
             var boulderScenePath = ReferenceStorage.Instance.BoulderScenePath;
             var cellSize = mineGenerationVariables.Mine.CellSize;
-            SceneInstantiator.InstantiateScene(boulderScenePath, mineGenerationView, tilePos * cellSize);
+            // SceneInstantiator.InstantiateScene(boulderScenePath, mineGenerationView, tilePos * cellSize);
+            var boulder = ResourceLoader.Load<PackedScene>(boulderScenePath).Instantiate() as Boulder;
+            if (boulder is null)
+            {
+                GD.PrintErr("COULD NOT GENERATE SCENE. FATAL ERROR");
+                
+            }
+            mineGenerationVariables.MineGenView.AddChild(boulder);
+            boulder!.Position = tilePos * cellSize;
+            cell.HasSpecialWall = false;
         }
         
         SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial);

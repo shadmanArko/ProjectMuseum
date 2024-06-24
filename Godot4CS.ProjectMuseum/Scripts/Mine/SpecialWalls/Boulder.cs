@@ -43,7 +43,7 @@ public partial class Boulder : RigidBody2D
         var bottomCellPos = new Vector2I(cell.PositionX, cell.PositionY + 1);
         if(bottomCellPos != brokenCellPos) return;
         
-        _anim.Play("boulderFall");
+        _anim.Play("boulderShake");
         await Task.Delay(1200);
         Freeze = false;
         _isFalling = true;
@@ -55,7 +55,7 @@ public partial class Boulder : RigidBody2D
         var unit = body as IDamageable;
         unit?.TakeDamage(180);
         _isFalling = false;
-        
+        _anim.Play("boulderBreak");
     }
     
     private void UnsubscribeToActions()

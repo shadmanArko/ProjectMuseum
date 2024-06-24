@@ -550,26 +550,28 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         var maxBoulderCount = 25;
         
         var mine = await _mineService.GetMineData();
-        var cells = mine.Cells;
+        var mineCells = mine.Cells.ToList();
         var cellsToRemove = new List<Cell>();
 
         #region Removing ineligible cells from mine cell list
 
-        foreach (var cell in cells)
+        foreach (var cell in mineCells)
         {
             if (cell.IsBroken || cell.HasCave || !cell.IsInstantiated || cell.HasSpecialWall ||!cell.IsBreakable || cell.HasArtifact || cell.HasResource || cell.HasWallPlaceable || cell.HasCellPlaceable) 
                 cellsToRemove.Add(cell);
         }
         
-        foreach (var cell in cellsToRemove) cells.Remove(cell);
+        foreach (var cell in cellsToRemove) mineCells.Remove(cell);
 
         var totalBoulders = random.Next(minBoulderCount, maxBoulderCount);
         for (var i = 0; i < totalBoulders; i++)
         {
-            var randomCell = cells[random.Next(0, cells.Count)];
-            randomCell.HasSpecialWall = true;
+            var randomCell = mineCells[random.Next(0, mineCells.Count)];
+            mine.Cells.FirstOrDefault(tempCell => tempCell.Id == randomCell.Id)!.HasSpecialWall = true;
             Console.WriteLine($"Boulder Location: {randomCell.PositionX}, {randomCell.PositionY}");
         }
+
+        await _mineRepository.Update(mine);
 
         #endregion
     }

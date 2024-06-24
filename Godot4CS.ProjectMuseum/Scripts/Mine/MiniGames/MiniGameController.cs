@@ -122,6 +122,8 @@ public partial class MiniGameController : Node2D
 			GD.PrintErr($"ERROR: Artifact could not be found. Id: {artifactId}");
 			return;
 		}
+		
+		GD.Print($"artifact: {artifact.RawArtifactId}");
 		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
 		MineActions.OnInventoryUpdate?.Invoke();
 		// MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");

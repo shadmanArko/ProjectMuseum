@@ -12,5 +12,33 @@
     "Category": "Forgeable",
     "Variant": "Iron",
     "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/resource_iron.png"
+  },
+  {
+    "Id": "3",
+    "Name": "PinkQuartz",
+    "Category": "Forgeable",
+    "Variant": "PinkQuartz",
+    "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/pink_quartz.png"
+  },
+  {
+    "Id": "4",
+    "Name": "BlueQuartz",
+    "Category": "Forgeable",
+    "Variant": "BlueQuartz",
+    "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/blue_quartz.png"
+  },
+  {
+    "Id": "5",
+    "Name": "SmokyQuartz",
+    "Category": "Forgeable",
+    "Variant": "SmokyQuartz",
+    "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/smoky_quartz.png"
+  },
+  {
+    "Id": "6",
+    "Name": "MilkyQuartz",
+    "Category": "Forgeable",
+    "Variant": "MilkyQuartz",
+    "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/milky_quartz.png"
   }
 ]

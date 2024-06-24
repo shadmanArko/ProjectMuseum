@@ -15,28 +15,28 @@
   },
   {
     "Id": "3",
-    "Name": "PinkQuartz",
+    "Name": "Pink Quartz",
     "Category": "Forgeable",
     "Variant": "PinkQuartz",
     "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/pink_quartz.png"
   },
   {
     "Id": "4",
-    "Name": "BlueQuartz",
+    "Name": "Blue Quartz",
     "Category": "Forgeable",
     "Variant": "BlueQuartz",
     "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/blue_quartz.png"
   },
   {
     "Id": "5",
-    "Name": "SmokyQuartz",
+    "Name": "Smoky Quartz",
     "Category": "Forgeable",
     "Variant": "SmokyQuartz",
     "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/smoky_quartz.png"
   },
   {
     "Id": "6",
-    "Name": "MilkyQuartz",
+    "Name": "Milky Quartz",
     "Category": "Forgeable",
     "Variant": "MilkyQuartz",
     "PNGPath": "res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/milky_quartz.png"

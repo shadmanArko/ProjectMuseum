@@ -534,7 +534,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
     public async Task<List<Resource>> GenerateResources()
     {
         var mineGenData = await _proceduralMineGenerationRepository.GetProceduralMineGenerationData();
-        var resources = await _resourceService.GenerateResources(new List<string>{"Coal", "Iron"});
+        var resources = await _resourceService.GenerateResources(new List<string>{"Coal", "Iron", "PinkQuartz", "BlueQuartz", "SmokyQuartz", "MilkyQuartz"});
         return resources;
     }
 

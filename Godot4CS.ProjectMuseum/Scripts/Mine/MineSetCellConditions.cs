@@ -131,7 +131,16 @@ public static class MineSetCellConditions
             var random = new Random();
             var resources = mineGenerationVariables.Mine.Resources;
             var resource = resources.FirstOrDefault(tempResource => tempResource.PositionX == tilePos.X && tempResource.PositionY == tilePos.Y);
-            mineGenerationView.SetCell(ResourceAndArtifactLayer,tilePos,3,new Vector2I(random.Next(0,2), resource!.Variant == "Iron" ? 0 : 1));
+            mineGenerationView.SetCell(ResourceAndArtifactLayer,tilePos,3,new Vector2I(random.Next(0,2), resource!.Variant switch
+            {
+                "Iron" => 0,
+                "Coal" => 1,
+                "PinkQuartz" => 2,
+                "BlueQuartz" => 3,
+                "SmokyQuartz" => 4,
+                "MilkyQuartz" => 5,
+                _ => 1
+            }));
         }
 
         if (cell.HasSpecialWall)

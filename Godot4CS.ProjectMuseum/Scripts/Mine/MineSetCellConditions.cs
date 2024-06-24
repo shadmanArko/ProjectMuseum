@@ -144,19 +144,19 @@ public static class MineSetCellConditions
         }
         else if (cell.HasSpecialWall)
         {
-            EraseCellsOnAllLayers(mineGenerationView, tilePos);
-            var boulderScenePath = ReferenceStorage.Instance.BoulderScenePath;
-            var cellSize = mineGenerationVariables.Mine.CellSize;
-            // SceneInstantiator.InstantiateScene(boulderScenePath, mineGenerationView, tilePos * cellSize);
-            var boulder = ResourceLoader.Load<PackedScene>(boulderScenePath).Instantiate() as Boulder;
-            if (boulder is null)
-            {
-                GD.PrintErr("COULD NOT GENERATE SCENE. FATAL ERROR");
-                
-            }
-            mineGenerationVariables.MineGenView.AddChild(boulder);
-            boulder!.Position = tilePos * cellSize;
-            cell.HasSpecialWall = false;
+            // EraseCellsOnAllLayers(mineGenerationView, tilePos);
+            // var boulderScenePath = ReferenceStorage.Instance.BoulderScenePath;
+            // var cellSize = mineGenerationVariables.Mine.CellSize;
+            // // SceneInstantiator.InstantiateScene(boulderScenePath, mineGenerationView, tilePos * cellSize);
+            // var boulder = ResourceLoader.Load<PackedScene>(boulderScenePath).Instantiate() as Boulder;
+            // if (boulder is null)
+            // {
+            //     GD.PrintErr("COULD NOT GENERATE SCENE. FATAL ERROR");
+            //     
+            // }
+            // mineGenerationVariables.MineGenView.AddChild(boulder);
+            // boulder!.Position = tilePos * cellSize;
+            // cell.HasSpecialWall = false;
         }
         
         SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial);

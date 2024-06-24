@@ -133,6 +133,15 @@ public static class MineSetCellConditions
             var resource = resources.FirstOrDefault(tempResource => tempResource.PositionX == tilePos.X && tempResource.PositionY == tilePos.Y);
             mineGenerationView.SetCell(ResourceAndArtifactLayer,tilePos,3,new Vector2I(random.Next(0,2), resource!.Variant == "Iron" ? 0 : 1));
         }
+
+        if (cell.HasSpecialWall)
+        {
+            EraseCellsOnAllLayers(mineGenerationView, tilePos);
+            var boulderScenePath = ReferenceStorage.Instance.BoulderScenePath;
+            var cellSize = mineGenerationVariables.Mine.CellSize;
+            SceneInstantiator.InstantiateScene(boulderScenePath, mineGenerationView, tilePos * cellSize);
+        }
+        
         SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial);
     }
 
@@ -193,6 +202,7 @@ public static class MineSetCellConditions
         mineGenerationView.EraseCell(WallLayer, tilePos);
         mineGenerationView.EraseCell(CellCrackLayer, tilePos);
         mineGenerationView.EraseCell(ResourceAndArtifactLayer, tilePos);
+        mineGenerationView.EraseCell(SpecialWallLayer, tilePos);
         mineGenerationView.EraseCell(UnrevealedCellLayer, tilePos);
     }
 

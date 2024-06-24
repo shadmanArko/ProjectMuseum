@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://balpxy7ff7wxo"]
+
+[ext_resource type="PackedScene" uid="uid://crmogels46m81" path="res://Scenes/Mine/Sub Scenes/Special Walls/Boulder.tscn" id="1_hmlgr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_32c2b"]
+size = Vector2(833, 20)
+
+[node name="MineTest" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(371, 427)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(20.5, 0)
+shape = SubResource("RectangleShape2D_32c2b")
+
+[node name="Boulder" parent="." node_paths=PackedStringArray("_anim") instance=ExtResource("1_hmlgr")]
+position = Vector2(389, 2)
+sleeping = false
+lock_rotation = true
+freeze = true
+_anim = NodePath("AnimatedSprite2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(635, 365)

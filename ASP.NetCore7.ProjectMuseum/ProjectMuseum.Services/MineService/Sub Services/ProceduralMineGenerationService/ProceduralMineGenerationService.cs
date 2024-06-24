@@ -67,9 +67,9 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         await GenerateCaves();
         await GenerateSpecialBackdrops();
         await GenerateVines();
-        await GenerateVines();
         await GenerateArtifacts();
         await GenerateResources();
+        await GenerateBoulders();
         var mine = await _mineRepository.Get();
         return mine;
     }
@@ -289,7 +289,6 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
         foreach (var backdrop in cellsWithBackdrops)
             cellsWithoutBackdrops.Remove(backdrop);
-        //TODO: xPos 3 to 50, yPos 3 to 46
 
         var cellsToRemove = new List<Cell>();
         foreach (var cell in cellsWithoutBackdrops)
@@ -324,13 +323,6 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
             vineInfo.SourceId = Guid.NewGuid().ToString();
             vineInfo.VineCellPositions = cellsWithVines;
             listOfVineInformations.Add(vineInfo);
-
-            // foreach (var vineInformation in listOfVineInformations)
-            // {
-            //     Console.WriteLine($"Vine Id: {vineInformation.SourceId}");
-            //     foreach (var cellPosition in vineInformation.VineCellPositions)
-            //         Console.WriteLine($"Vine cells: {cellPosition}");
-            // }
 
             await _vineInformationService.SetVineBackdrops(listOfVineInformations);
         }
@@ -438,6 +430,27 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
                 cellsToRemove.Add(cell);
         }
 
+        #region Tutorial Tiles
+
+        List<Cell?> listOfTutorialCells = new List<Cell?>();
+
+        listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 23, PositionY: 1 })); 
+        listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 24, PositionY: 1 })); 
+        listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 25, PositionY: 1 })); 
+        listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 24, PositionY: 2 }));
+
+        foreach (var cell in listOfTutorialCells)
+        {
+            var tempCell = cells.FirstOrDefault(cell1 =>
+                cell != null && cell1.PositionX == cell.PositionX && cell1.PositionY == cell.PositionY);
+            if (!cellsToRemove.Contains(tempCell))
+            {
+                cellsToRemove.Add(tempCell);
+            }
+        }
+
+        #endregion
+        
         foreach (var cell in cellsToRemove)
         {
             cells.Remove(cell);
@@ -516,6 +529,8 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
 
     #endregion
 
+    #region Generate Resources
+
     public async Task<List<Resource>> GenerateResources()
     {
         var mineGenData = await _proceduralMineGenerationRepository.GetProceduralMineGenerationData();
@@ -523,8 +538,41 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         return resources;
     }
 
-    public Task GenerateUnbreakableRocks()
+    #endregion
+
+    #region Generate Special Walls
+
+    public async Task GenerateBoulders()
     {
-        throw new NotImplementedException();
+        var mineGenData = await _proceduralMineGenerationRepository.GetProceduralMineGenerationData();
+        var random = new Random();
+        var minBoulderCount = 10;   //TODO: these values should come from mine generation database
+        var maxBoulderCount = 25;
+        
+        var mine = await _mineService.GetMineData();
+        var cells = mine.Cells;
+        var cellsToRemove = new List<Cell>();
+
+        #region Removing ineligible cells from mine cell list
+
+        foreach (var cell in cells)
+        {
+            if (cell.IsBroken || cell.HasCave || !cell.IsInstantiated || cell.HasSpecialWall ||!cell.IsBreakable || cell.HasArtifact || cell.HasResource || cell.HasWallPlaceable || cell.HasCellPlaceable) 
+                cellsToRemove.Add(cell);
+        }
+        
+        foreach (var cell in cellsToRemove) cells.Remove(cell);
+
+        var totalBoulders = random.Next(minBoulderCount, maxBoulderCount);
+        for (var i = 0; i < totalBoulders; i++)
+        {
+            var randomCell = cells[random.Next(0, cells.Count)];
+            randomCell.HasSpecialWall = true;
+            Console.WriteLine($"Boulder Location: {randomCell.PositionX}, {randomCell.PositionY}");
+        }
+
+        #endregion
     }
+
+    #endregion
 }

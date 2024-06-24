@@ -23,6 +23,7 @@ public class Cell
 	
 	public bool HasWallPlaceable { get; set; }
 	public bool HasCellPlaceable { get; set; }
+	public bool HasSpecialWall { get; set; }
 	public bool HasArtifact{ get; set; }
 	public bool HasResource { get; set; }
 	public bool HasTransportBlock { get; set; }

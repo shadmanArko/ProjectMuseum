@@ -1,0 +1,101 @@
+[gd_scene load_steps=15 format=3 uid="uid://crmogels46m81"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/SpecialWalls/Boulder.cs" id="1_3u1k8"]
+[ext_resource type="Texture2D" uid="uid://ca0owst80u6hu" path="res://Assets/2D/Sprites/Mine Sprites/SpecialWalls/Boulder.png" id="1_m8py0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fmkeb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i632d"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(1, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nwro"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(22, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thg5s"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(43, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35gj2"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(64, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ornrx"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(85, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmad2"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(106, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbi2r"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(127, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mvhe"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(148, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcyqd"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(169, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tr7c0"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(190, 0, 20, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_akwul"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i632d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nwro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thg5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35gj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ornrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmad2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbi2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mvhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcyqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tr7c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i632d")
+}],
+"loop": false,
+"name": &"boulderFall",
+"speed": 8.0
+}]
+
+[node name="Boulder" type="RigidBody2D" node_paths=PackedStringArray("_anim")]
+sleeping = true
+script = ExtResource("1_3u1k8")
+_anim = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fmkeb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_akwul")
+animation = &"boulderFall"
+frame = 10
+frame_progress = 1.0

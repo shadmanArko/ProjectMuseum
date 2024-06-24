@@ -52,7 +52,7 @@ public partial class ReferenceStorage : Node
     [Export] public string ToolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn";
     [Export] public string ItemDropScenePath = "res://Scenes/Mine/Sub Scenes/Items/ItemDrop.tscn";
     public string ItemCardScenePath = "res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageCard.tscn";
-    
+    public string BoulderScenePath = "res://Scenes/Mine/Sub Scenes/Special Walls/Boulder.tscn";
     
     [Export] public MineSceneTooltip Tooltip;
     

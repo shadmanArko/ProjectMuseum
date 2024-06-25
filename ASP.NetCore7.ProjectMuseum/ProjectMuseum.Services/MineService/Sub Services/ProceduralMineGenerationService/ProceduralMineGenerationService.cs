@@ -437,7 +437,7 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 23, PositionY: 1 })); 
         listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 24, PositionY: 1 })); 
         listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 25, PositionY: 1 })); 
-        listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 24, PositionY: 2 }));
+        // listOfTutorialCells.Add(cells.FirstOrDefault(tempCell => tempCell is { PositionX: 24, PositionY: 2 }));
 
         foreach (var cell in listOfTutorialCells)
         {

@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cmjtexcfmbaxm" path="res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageSystem.tscn" id="7_x8k1i"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/DamageSystem/DamageSystem.cs" id="8_4crix"]
 [ext_resource type="PackedScene" uid="uid://ccshgryravaf2" path="res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn" id="8_mppk2"]
-[ext_resource type="PackedScene" uid="uid://vnv6cso2c6ak" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
+[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
 [ext_resource type="PackedScene" uid="uid://p4pp1nmkb44s" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_uross"]
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]

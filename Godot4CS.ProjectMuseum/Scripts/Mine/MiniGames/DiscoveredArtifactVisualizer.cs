@@ -85,6 +85,7 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 	{
 		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");
 		HideDiscoveredArtifactVisualizerUi();
+		MineActions.OnMiniGameEnded?.Invoke();
 	}
 
 	private void HideDiscoveredArtifactVisualizerUi()

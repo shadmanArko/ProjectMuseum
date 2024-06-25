@@ -40,6 +40,7 @@ public partial class MiniGameController : Node2D
 		MineActions.OnMiniGameWon += MiniGameWon;
 		MineActions.OnMiniGameLost += MiniGameLost;
 		MineActions.OnMiniGameEnded += UnpauseAfterMiniGame;
+		MineActions.OnMiniGameEnded += ContinuePlayerMovementAfterMiniGame;
 	}
 	
 
@@ -78,8 +79,8 @@ public partial class MiniGameController : Node2D
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
 		RemoveArtifactFromMineAndInstantiateInventoryItem(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
-		ContinuePlayerMovementAfterMiniGame();
-		MineActions.OnMiniGameEnded?.Invoke();
+		// ContinuePlayerMovementAfterMiniGame();
+		
 	}
 	
 	private void MiniGameLost()
@@ -102,7 +103,7 @@ public partial class MiniGameController : Node2D
 		_playerControllerVariables.Player.AnimationController.Play("brush");
 	}
 
-	private void ContinuePlayerMovementAfterMiniGame()
+	public void ContinuePlayerMovementAfterMiniGame()
 	{
 		_playerControllerVariables.CanMove = true;
 		_playerControllerVariables.CanMoveLeftAndRight = true;

@@ -196,7 +196,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             foreach (var tempCell in cells)
             {
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
-                MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
+                MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
                     cellCrackMaterial, _mineGenerationVariables);
             }
         }
@@ -229,7 +229,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                 var cellCrackMaterial =
                     _mineCellCrackMaterial.CellCrackMaterials[0];
-                MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
+                MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
                     cellCrackMaterial, _mineGenerationVariables);
             }
             
@@ -238,13 +238,12 @@ public partial class PlayerCollisionWithWallDetector : Node2D
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                 var cellCrackMaterial =
                     _mineCellCrackMaterial.CellCrackMaterials[0];
-                MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
+                MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
                     cellCrackMaterial, _mineGenerationVariables);
             }
 
             _mineGenerationVariables.BrokenCells++;
             MineActions.OnMineCellBroken?.Invoke(tilePos);
-            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
 
             var mouseDirection = _playerControllerVariables.MouseDirection;
             var shakeDirection = mouseDirection.X != 0 ? 

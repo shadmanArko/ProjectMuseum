@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://crmogels46m81"]
+[gd_scene load_steps=23 format=3 uid="uid://crmogels46m81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/SpecialWalls/Boulder.cs" id="1_3u1k8"]
 [ext_resource type="Texture2D" uid="uid://ca0owst80u6hu" path="res://Assets/2D/Sprites/Mine Sprites/SpecialWalls/Boulder.png" id="1_m8py0"]
@@ -50,6 +50,10 @@ region = Rect2(252, 0, 28, 37)
 atlas = ExtResource("2_84k83")
 region = Rect2(280, 0, 28, 37)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bgfm"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(88, 0, 22, 20)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ile6w"]
 atlas = ExtResource("1_m8py0")
 region = Rect2(0, 0, 22, 20)
@@ -65,10 +69,6 @@ region = Rect2(44, 0, 22, 20)
 [sub_resource type="AtlasTexture" id="AtlasTexture_gbauq"]
 atlas = ExtResource("1_m8py0")
 region = Rect2(66, 0, 22, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1bgfm"]
-atlas = ExtResource("1_m8py0")
-region = Rect2(88, 0, 22, 20)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_akwul"]
 animations = [{
@@ -106,11 +106,14 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rhll8")
 }],
-"loop": true,
+"loop": false,
 "name": &"boulderBreak",
 "speed": 8.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bgfm")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ile6w")
 }, {
@@ -131,6 +134,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uyk5k"]
+size = Vector2(7, 2)
+
 [node name="Boulder" type="RigidBody2D" node_paths=PackedStringArray("_anim")]
 collision_layer = 7
 sleeping = true
@@ -145,6 +151,14 @@ shape = SubResource("CircleShape2D_fmkeb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_akwul")
-animation = &"boulderShake"
+animation = &"boulderBreak"
 
-[connection signal="body_entered" from="." to="." method="OnBodyEnter"]
+[node name="BreakArea" type="Area2D" parent="."]
+position = Vector2(0, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakArea"]
+position = Vector2(-0.5, 9)
+shape = SubResource("RectangleShape2D_uyk5k")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnBreakAnimationComplete"]
+[connection signal="body_entered" from="BreakArea" to="." method="OnBodyEnter"]

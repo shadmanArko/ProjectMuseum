@@ -87,7 +87,7 @@ public partial class Dynamite : Node2D
                     var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                     var cellCrackMaterial =
                         _mineCellCrackMaterial.CellCrackMaterials[0];
-                    MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
+                    MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
                         cellCrackMaterial, _mineGenerationVariables);
                 }
             
@@ -96,7 +96,7 @@ public partial class Dynamite : Node2D
                     var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                     var cellCrackMaterial =
                         _mineCellCrackMaterial.CellCrackMaterials[0];
-                    MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
+                    MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
                         cellCrackMaterial, _mineGenerationVariables);
                 }
 

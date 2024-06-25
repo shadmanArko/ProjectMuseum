@@ -275,7 +275,7 @@ public partial class DrillHead : RigidBody2D
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                 var cellCrackMaterial =
                     _mineCellCrackMaterial.CellCrackMaterials[0];
-                MineSetCellConditions.SetTileMapCell(tempCellPos, GetDrillDirection(), tempCell,
+                MineSetCellConditions.SetTileMapCell(GetDrillDirection(), tempCell,
                     cellCrackMaterial, _mineGenerationVariables);
             }
             
@@ -284,7 +284,7 @@ public partial class DrillHead : RigidBody2D
                 var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                 var cellCrackMaterial =
                     _mineCellCrackMaterial.CellCrackMaterials[0];
-                MineSetCellConditions.SetTileMapCell(tempCellPos, GetDrillDirection(), tempCell,
+                MineSetCellConditions.SetTileMapCell(GetDrillDirection(), tempCell,
                     cellCrackMaterial, _mineGenerationVariables);
             }
 

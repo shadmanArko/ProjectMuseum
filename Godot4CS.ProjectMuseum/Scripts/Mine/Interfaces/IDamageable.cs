@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 
-public interface IDamagable
+public interface IDamageable
 {
-    public void TakeDamage();
+    public void TakeDamage(int damageValue);
 }

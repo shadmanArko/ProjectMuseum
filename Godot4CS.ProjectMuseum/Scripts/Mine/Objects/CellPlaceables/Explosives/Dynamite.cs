@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using ProjectMuseum.Models;
 
@@ -12,12 +13,15 @@ public partial class Dynamite : Node2D
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     private MineCellCrackMaterial _mineCellCrackMaterial;
+    
+    private List<IDamageable> _iDamageables;
 
     [Export] private float _timer;
     [Export] private Label _timerLabel;
     public override void _Ready()
     {
         InitializeDiInstaller();
+        _iDamageables = new List<IDamageable>();
         _timer = 6f;
     }
 
@@ -101,9 +105,31 @@ public partial class Dynamite : Node2D
                 cell.HasCellPlaceable = false;
                 GD.Print($"explosion affecting {adjacentCell.PositionX},{adjacentCell.PositionY}");
             }
-            
-            QueueFree();
         }
+        
+        DamageUnitsInRange();
+        QueueFree();
+    }
+    
+    private void DamageUnitsInRange()
+    {
+        if(_iDamageables.Count <= 0) return;
+        foreach (var damageable in _iDamageables)
+            damageable.TakeDamage(150);
+    }
+
+    private void OnBodyEnter(Node2D body)
+    {
+        var affectedUnit = body as IDamageable;
+        if(affectedUnit == null) return;
+        if(_iDamageables.Contains(affectedUnit)) return;
+        _iDamageables.Add(affectedUnit);
+    }
+
+    private void OnBodyExit(Node2D body)
+    {
+        var affectedUnit = body as IDamageable;
+        _iDamageables.Remove(affectedUnit);
     }
     
 

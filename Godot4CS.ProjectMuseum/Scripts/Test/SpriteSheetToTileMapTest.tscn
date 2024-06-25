@@ -72,7 +72,6 @@ format = 2
 layer_0/name = "Backdrop"
 layer_1/name = "Wall"
 layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(150, 500)

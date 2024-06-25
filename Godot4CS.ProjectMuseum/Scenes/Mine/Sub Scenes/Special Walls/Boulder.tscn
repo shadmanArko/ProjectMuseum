@@ -1,0 +1,150 @@
+[gd_scene load_steps=22 format=3 uid="uid://crmogels46m81"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/SpecialWalls/Boulder.cs" id="1_3u1k8"]
+[ext_resource type="Texture2D" uid="uid://ca0owst80u6hu" path="res://Assets/2D/Sprites/Mine Sprites/SpecialWalls/Boulder.png" id="1_m8py0"]
+[ext_resource type="Texture2D" uid="uid://b7j7o7opbvys3" path="res://Assets/2D/Sprites/Mine Sprites/SpecialWalls/BoulderBreak.png" id="2_84k83"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fmkeb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne6xj"]
+atlas = ExtResource("2_84k83")
+region = Rect2(0, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eotxe"]
+atlas = ExtResource("2_84k83")
+region = Rect2(28, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v6e8"]
+atlas = ExtResource("2_84k83")
+region = Rect2(56, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2debt"]
+atlas = ExtResource("2_84k83")
+region = Rect2(84, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ird7"]
+atlas = ExtResource("2_84k83")
+region = Rect2(112, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nktl"]
+atlas = ExtResource("2_84k83")
+region = Rect2(140, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpvpo"]
+atlas = ExtResource("2_84k83")
+region = Rect2(168, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11mum"]
+atlas = ExtResource("2_84k83")
+region = Rect2(196, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slkjo"]
+atlas = ExtResource("2_84k83")
+region = Rect2(224, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wgbb"]
+atlas = ExtResource("2_84k83")
+region = Rect2(252, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhll8"]
+atlas = ExtResource("2_84k83")
+region = Rect2(280, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ile6w"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(0, 0, 22, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j81a"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(22, 0, 22, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwa2g"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(44, 0, 22, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbauq"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(66, 0, 22, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bgfm"]
+atlas = ExtResource("1_m8py0")
+region = Rect2(88, 0, 22, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_akwul"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne6xj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eotxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v6e8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2debt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ird7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nktl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpvpo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11mum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slkjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wgbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhll8")
+}],
+"loop": true,
+"name": &"boulderBreak",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ile6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j81a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwa2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbauq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bgfm")
+}],
+"loop": false,
+"name": &"boulderShake",
+"speed": 8.0
+}]
+
+[node name="Boulder" type="RigidBody2D" node_paths=PackedStringArray("_anim")]
+collision_layer = 7
+sleeping = true
+lock_rotation = true
+freeze = true
+script = ExtResource("1_3u1k8")
+_anim = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+top_level = true
+shape = SubResource("CircleShape2D_fmkeb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_akwul")
+animation = &"boulderShake"
+
+[connection signal="body_entered" from="." to="." method="OnBodyEnter"]

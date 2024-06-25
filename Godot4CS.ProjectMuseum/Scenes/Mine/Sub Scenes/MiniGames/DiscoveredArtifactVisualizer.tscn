@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=7 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
 [ext_resource type="Texture2D" uid="uid://wcewhq3qlnu3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
+[ext_resource type="Theme" uid="uid://bxuxhp8sn6n2n" path="res://Assets/Themes/Mine/UI/Buttons/PromptButtonTheme.tres" id="4_o858m"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5m5pf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xruif"]
 
-[node name="DiscoveredArtifactVisualizer2" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
+[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
 script = ExtResource("1_l5epx")
 _canvasLayer = NodePath("CanvasLayer")
 _artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
@@ -45,9 +46,15 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = -0.065
+anchor_top = -0.1
+anchor_right = 1.065
+anchor_bottom = 1.1
+offset_left = 52.0
+offset_top = 60.0
+offset_right = -52.0001
+offset_bottom = -60.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
@@ -78,20 +85,21 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Artifact Sprite and Description Panel" type="HBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(900, 400)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
 alignment = 1
 
 [node name="Artifact Sprite Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
-custom_minimum_size = Vector2(500, 500)
+custom_minimum_size = Vector2(400, 300)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
 
 [node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel"]
 texture_filter = 1
-scale = Vector2(4, 4)
+scale = Vector2(3, 3)
 texture = ExtResource("2_d333x")
 centered = false
 offset = Vector2(10, 10)
@@ -111,7 +119,7 @@ theme_override_fonts/bold_font = ExtResource("2_q8tpq")
 theme_override_font_sizes/normal_font_size = 22
 theme_override_font_sizes/bold_font_size = 33
 bbcode_enabled = true
-text = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO"
+text = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO"
 fit_content = true
 
 [node name="Okay Button Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
@@ -124,6 +132,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("4_o858m")
 theme_override_fonts/font = ExtResource("2_q8tpq")
 theme_override_font_sizes/font_size = 22
 text = "OKAY"

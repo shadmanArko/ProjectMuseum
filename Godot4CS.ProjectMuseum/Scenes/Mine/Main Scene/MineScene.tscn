@@ -142,10 +142,10 @@ _inventoryViewController = NodePath("../MineUI/Inventory")
 _streamPlayer = NodePath("BackgroundMusicStreamPlayer")
 
 [node name="MineUI" parent="." node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates", "_toolbarPanel") instance=ExtResource("3_ambmn")]
-_healthBar = NodePath("Health Bar")
-_energyBar = NodePath("Energy Bar")
-_playerCoordinates = NodePath("Player Coordinates")
-_toolbarPanel = NodePath("Toolbar Panel")
+_healthBar = NodePath("Control/Panel/Health Bar")
+_energyBar = NodePath("Control/Panel/Energy Bar")
+_playerCoordinates = NodePath("Control/Panel/Player Coordinates")
+_toolbarPanel = NodePath("Control/Panel/Toolbar Panel")
 
 [node name="Tooltip4" parent="MineUI" node_paths=PackedStringArray("_label", "_vBoxContainer", "_marginContainer", "_panel") instance=ExtResource("12_1cu8i")]
 _label = NodePath("MarginContainer/VBoxContainer/Label")
@@ -159,6 +159,9 @@ _popUpText = NodePath("Pop Up Text")
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 process_mode = 3
 visible = false
+offset_top = 34.88
+offset_right = 136.36
+offset_bottom = 153.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

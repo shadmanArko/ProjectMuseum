@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3vhb77ufuw6c"]
+[gd_scene load_steps=5 format=3 uid="uid://b3vhb77ufuw6c"]
 
 [ext_resource type="Texture2D" uid="uid://cq4sgouccwsrj" path="res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png" id="1_5ossi"]
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Explosives/Dynamite.cs" id="1_j4dcf"]
 [ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="3_a83gm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gglwr"]
+radius = 30.0
 
 [node name="Dynamite" type="Node2D" node_paths=PackedStringArray("_timerLabel")]
 script = ExtResource("1_j4dcf")
@@ -30,3 +33,12 @@ text = "20
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DamageRangeArea" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageRangeArea"]
+shape = SubResource("CircleShape2D_gglwr")
+
+[connection signal="body_entered" from="DamageRangeArea" to="." method="OnBodyEnter"]
+[connection signal="body_exited" from="DamageRangeArea" to="." method="OnBodyExit"]

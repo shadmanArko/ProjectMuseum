@@ -106,13 +106,6 @@ script = ExtResource("7_5sphp")
 
 [node name="ArtifactFromInventoryToMuseum" parent="." instance=ExtResource("11_si3nu")]
 
-[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton") instance=ExtResource("8_mppk2")]
-_canvasLayer = NodePath("CanvasLayer")
-_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
-_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel/Artifact Sprite")
-_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel/Artifact Description")
-_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton")
-
 [node name="MiniGameController" type="Node2D" parent="."]
 script = ExtResource("14_oqhev")
 _miniGameScenePaths = PackedStringArray("res://Scenes/Mine/Sub Scenes/MiniGames/AlternateTapMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/LeftRightMouseMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/RepeatedTapMiniGame.tscn", "res://Scenes/Mine/Sub Scenes/MiniGames/UpDownMouseMiniGame.tscn")
@@ -190,6 +183,13 @@ _pauseButton = NodePath("pause_menu_button")
 
 [node name="Log Message Controller" parent="MineUI" node_paths=PackedStringArray("_vBoxContainer") instance=ExtResource("32_rvnlm")]
 _vBoxContainer = NodePath("VBoxContainer")
+
+[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton") instance=ExtResource("8_mppk2")]
+_canvasLayer = NodePath("CanvasLayer")
+_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
+_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel/Artifact Sprite")
+_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel/Artifact Description")
+_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton")
 
 [node name="SceneTransition" parent="." node_paths=PackedStringArray("_colorRect") instance=ExtResource("6_1bas2")]
 visible = false

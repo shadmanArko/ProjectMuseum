@@ -62,35 +62,7 @@ public partial class MineResourceCollector : Node
 		var offset = new Vector2(cellSize, cellSize) / 2;
 		var pos = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
 		InstantiateResourceAsInventoryItem(resource, pos);
-        
-		// if (_inventoryDto == null)
-		// {
-		// 	GD.Print("INVENTORY IS NULL");
-		// 	return;
-		// }
-  //       
-		// if (_inventoryDto.Inventory.OccupiedSlots.Count >= _inventoryDto.Inventory.SlotsUnlocked)
-		// {
-		// 	GD.PrintErr("No empty slots in inventory");
-		// 	ReferenceStorage.Instance.MinePopUp.ShowPopUp("No empty slots in inventory");
-		// }
-		// else
-		// {
-		// 	GD.Print("adding resource to inventory");
-		// 	var resource = _mineGenerationVariables.Mine.Resources.FirstOrDefault(tempResource =>
-		// 		tempResource.PositionX == cell.PositionX && tempResource.PositionY == cell.PositionY);
-		// 	if (resource == null)
-		// 	{
-		// 		GD.PrintErr($"Could not find resource in the mine");
-		// 		return;
-		// 	}
-		//
-		// 	var cellSize = _mineGenerationVariables.Mine.CellSize;
-		// 	var offset = new Vector2(cellSize, cellSize) / 2;
-		// 	var pos = new Vector2(cell.PositionX, cell.PositionY) * cellSize + offset;
-		// 	InstantiateResourceAsInventoryItem(resource, pos);
-		// }
-	}
+    }
 
 	private void InstantiateResourceAsInventoryItem(Resource resource, Vector2 position)
 	{

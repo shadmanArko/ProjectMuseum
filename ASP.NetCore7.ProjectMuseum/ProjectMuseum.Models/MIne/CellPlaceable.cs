@@ -5,6 +5,7 @@ public class CellPlaceable
     public string Id { get; set; }
     public int PositionX { get; set; }
     public int PositionY { get; set; }
+    public string Name { get; set; }
     public string OccupiedCellId { get; set; }
     public int ExtraOccupiedDimensionX { get; set; }
     public int ExtraOccupiedDimensionY { get; set; }

@@ -84,7 +84,6 @@ public partial class Dynamite : Node2D
                 var caveCells = CaveControlManager.RevealCave(_mineGenerationVariables, cells);
                 foreach (var tempCell in cells)
                 {
-                    var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                     var cellCrackMaterial =
                         _mineCellCrackMaterial.CellCrackMaterials[0];
                     MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
@@ -93,7 +92,6 @@ public partial class Dynamite : Node2D
             
                 foreach (var tempCell in caveCells)
                 {
-                    var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                     var cellCrackMaterial =
                         _mineCellCrackMaterial.CellCrackMaterials[0];
                     MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,

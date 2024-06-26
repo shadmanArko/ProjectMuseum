@@ -5,6 +5,7 @@ using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
+using Godot4CS.ProjectMuseum.Scripts.Mine.SpecialWalls;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -256,7 +257,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     private void OnCellBlockEnter(Node2D body)
     {
-        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView;
+        var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView || body is Boulder;
         if (hasCollidedWithMine)
         {
             _playerControllerVariables.State = MotionState.Grounded;

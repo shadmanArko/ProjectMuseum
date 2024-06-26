@@ -17,17 +17,12 @@ public class AdjacentCellRevealer
 
         foreach (var tempCell in cells)
         {
-            var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
-            // var cellCrackMaterial =
-            //     mineCellCrackMaterial.CellCrackMaterials[0];
             MineSetCellConditions.SetTileMapCell(mouseDir, tempCell,
                 cellCrackMaterial, mineGenerationVariables);
         }
             
         foreach (var tempCell in caveCells)
         {
-            // var cellCrackMaterial =
-            //     mineCellCrackMaterial.CellCrackMaterials[0];
             MineSetCellConditions.SetTileMapCell(mouseDir, tempCell,
                 cellCrackMaterial, mineGenerationVariables);
         }

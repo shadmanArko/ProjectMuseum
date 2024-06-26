@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://ca0owst80u6hu" path="res://Assets/2D/Sprites/Mine Sprites/SpecialWalls/Boulder.png" id="1_m8py0"]
 [ext_resource type="Texture2D" uid="uid://b7j7o7opbvys3" path="res://Assets/2D/Sprites/Mine Sprites/SpecialWalls/BoulderBreak.png" id="2_84k83"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fmkeb"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4cmh0"]
+size = Vector2(16, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ne6xj"]
 atlas = ExtResource("2_84k83")
@@ -137,24 +138,27 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uyk5k"]
 size = Vector2(7, 2)
 
-[node name="Boulder" type="RigidBody2D" node_paths=PackedStringArray("_anim")]
-collision_layer = 7
-sleeping = true
+[node name="Boulder" type="RigidBody2D" node_paths=PackedStringArray("_anim", "_collider")]
+collision_mask = 7
+can_sleep = false
 lock_rotation = true
 freeze = true
 script = ExtResource("1_3u1k8")
 _anim = NodePath("AnimatedSprite2D")
+_collider = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 top_level = true
-shape = SubResource("CircleShape2D_fmkeb")
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_4cmh0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_akwul")
-animation = &"boulderBreak"
+animation = &"boulderShake"
 
 [node name="BreakArea" type="Area2D" parent="."]
 position = Vector2(0, 2)
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreakArea"]
 position = Vector2(-0.5, 9)

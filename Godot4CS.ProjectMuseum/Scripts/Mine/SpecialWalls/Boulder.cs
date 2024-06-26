@@ -13,6 +13,7 @@ public partial class Boulder : RigidBody2D
     private MineGenerationVariables _mineGenerationVariables;
 
     [Export] private AnimatedSprite2D _anim;
+    [Export] private CollisionShape2D _collider;
 
     private bool _isFalling;
 
@@ -34,7 +35,7 @@ public partial class Boulder : RigidBody2D
         MineActions.OnMineCellBroken += CheckBoulderFallEligibility;
     }
 
-    private async void CheckBoulderFallEligibility(Vector2I brokenCellPos)
+    private void CheckBoulderFallEligibility(Vector2I brokenCellPos)
     {
         var currentCellPos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
         var cell = _mineGenerationVariables.GetCell(currentCellPos);
@@ -42,7 +43,11 @@ public partial class Boulder : RigidBody2D
         
         var bottomCellPos = new Vector2I(cell.PositionX, cell.PositionY) + Vector2I.Down;
         if(bottomCellPos != brokenCellPos) return;
-        
+        BoulderShakeAndFall();
+    }
+
+    private async void BoulderShakeAndFall()
+    {
         _anim.Play("boulderShake");
         await Task.Delay(1200);
         Freeze = false;
@@ -57,7 +62,7 @@ public partial class Boulder : RigidBody2D
         LinearVelocity = Vector2.Zero;
         unit.TakeDamage(180);
         _isFalling = false;
-        Freeze = true;
+        _collider.SetDeferred("disabled", true);
         _anim.Play("boulderBreak");
     }
 

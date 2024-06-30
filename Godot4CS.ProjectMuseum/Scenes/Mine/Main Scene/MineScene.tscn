@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=41 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -39,6 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://cf5v8nqef7svy" path="res://Scenes/Mine/Sub Scenes/MineSceneView.tscn" id="30_f3st8"]
 [ext_resource type="PackedScene" uid="uid://cye410nrvhc2d" path="res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageController.tscn" id="32_rvnlm"]
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
+[ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/InventoryItemCollector.cs" id="40_dy3xt"]
 
 [node name="MineScene" type="Control"]
 process_mode = 1
@@ -212,3 +213,6 @@ ReturnToMineButton = NodePath("Panel/Control/Button Container/Return To Mine")
 [node name="MineSceneView" parent="." node_paths=PackedStringArray("_savingCanvas", "_mineBackGround") instance=ExtResource("30_f3st8")]
 _savingCanvas = NodePath("UISaving")
 _mineBackGround = NodePath("MineBackground")
+
+[node name="InventoryItemCollector" type="Node" parent="."]
+script = ExtResource("40_dy3xt")

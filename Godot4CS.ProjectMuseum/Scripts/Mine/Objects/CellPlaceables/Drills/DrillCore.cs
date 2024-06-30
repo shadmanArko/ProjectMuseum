@@ -82,7 +82,7 @@ public partial class DrillCore : Node2D, IItemizable
 
     public void ConvertToInventoryItem()
     {
-        ReferenceStorage.Instance.InventoryItemBuilder.BuildCellPlaceableInventoryItem(GlobalPosition);
+        ReferenceStorage.Instance.InventoryItemBuilder.BuildInventoryItem("CellPlaceable", GlobalPosition);
         QueueFree();
     }
 

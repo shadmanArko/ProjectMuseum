@@ -31,7 +31,6 @@ public partial class ArtifactFromMineToInventory : Node2D
     private void SubscribeToActions()
     {
         MineActions.OnArtifactSuccessfullyRetrieved += RemoveFromMineAndInstantiateInventoryItem;
-        MineActions.OnCollectItemDrop += SendArtifactItemToInventory;
     }
 
     #endregion
@@ -93,25 +92,12 @@ public partial class ArtifactFromMineToInventory : Node2D
     }
 
     #endregion
-    
-    private void SendArtifactItemToInventory(InventoryItem inventoryItem)
-    {
-        if (inventoryItem.Type != "Artifact") return;
-        
-        var inventoryManager = ReferenceStorage.Instance.InventoryManager;
-        
-        inventoryItem.Slot = inventoryManager.GetNextEmptySlot();
-        _inventoryDto.Inventory.OccupiedSlots.Add(inventoryItem.Slot);
-        _inventoryDto.Inventory.InventoryItems.Add(inventoryItem);
-        MineActions.OnInventoryUpdate?.Invoke();
-    }
 
     #region Exit Tree
 
     private void UnsubscribeToActions()
     {
         MineActions.OnArtifactSuccessfullyRetrieved -= RemoveFromMineAndInstantiateInventoryItem;
-        MineActions.OnCollectItemDrop -= SendArtifactItemToInventory;
     }
 
     public override void _ExitTree()

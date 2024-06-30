@@ -9,7 +9,6 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.ArtifactStorage;
 
 public partial class ArtifactFromMineToInventory : Node2D
 {
-    private InventoryDTO _inventoryDto;
     private MineGenerationVariables _mineGenerationVariables;
     private RawArtifactDTO _rawArtifactDto;
 
@@ -24,7 +23,7 @@ public partial class ArtifactFromMineToInventory : Node2D
     private void InitializeDiReference()
     {
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
-        _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+        ServiceRegistry.Resolve<InventoryDTO>();
         _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
     }
     

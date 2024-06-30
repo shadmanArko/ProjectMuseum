@@ -35,7 +35,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DamageRangeArea" type="Area2D" parent="."]
-collision_mask = 6
+collision_mask = 38
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageRangeArea"]
 shape = SubResource("CircleShape2D_gglwr")

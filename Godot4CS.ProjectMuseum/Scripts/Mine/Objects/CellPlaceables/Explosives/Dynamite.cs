@@ -15,6 +15,7 @@ public partial class Dynamite : Node2D
     private MineCellCrackMaterial _mineCellCrackMaterial;
     
     private List<IDamageable> _iDamageables;
+    private List<IItemizable> _itemizables;
 
     [Export] private float _timer;
     [Export] private Label _timerLabel;
@@ -22,6 +23,7 @@ public partial class Dynamite : Node2D
     {
         InitializeDiInstaller();
         _iDamageables = new List<IDamageable>();
+        _itemizables = new List<IItemizable>();
         _timer = 6f;
     }
 
@@ -106,6 +108,7 @@ public partial class Dynamite : Node2D
         }
         
         DamageUnitsInRange();
+        ConvertItemizablesInRange();
         QueueFree();
     }
     
@@ -116,18 +119,35 @@ public partial class Dynamite : Node2D
             damageable.TakeDamage(150);
     }
 
+    private void ConvertItemizablesInRange()
+    {
+        if(_itemizables.Count <= 0) return;
+        foreach (var itemizable in _itemizables)
+            itemizable.ConvertToInventoryItem();
+    }
+
     private void OnBodyEnter(Node2D body)
     {
-        var affectedUnit = body as IDamageable;
-        if(affectedUnit == null) return;
-        if(_iDamageables.Contains(affectedUnit)) return;
-        _iDamageables.Add(affectedUnit);
+        if (body is IDamageable damageable)
+        {
+            if(_iDamageables.Contains(damageable)) return;
+            _iDamageables.Add(damageable);
+        }
+
+        if (body is IItemizable itemizable)
+        {
+            if(_itemizables.Contains(itemizable)) return;
+            _itemizables.Add(itemizable);
+        }
     }
 
     private void OnBodyExit(Node2D body)
     {
-        var affectedUnit = body as IDamageable;
-        _iDamageables.Remove(affectedUnit);
+        if (body is IDamageable damageable)
+            _iDamageables.Remove(damageable);
+
+        if (body is IItemizable itemizable)
+            _itemizables.Remove(itemizable);
     }
     
 

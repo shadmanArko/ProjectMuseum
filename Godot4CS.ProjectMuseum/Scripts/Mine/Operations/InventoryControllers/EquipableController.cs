@@ -257,9 +257,6 @@ public partial class EquipableController : InventoryController
                 return;
             }
             
-            // _playerControllerVariables.CanMove = false;
-            // _playerControllerVariables.CanMoveLeftAndRight = false;
-            // _playerControllerVariables.Player.Velocity = new Vector2(0, _playerControllerVariables.Velocity.Y);
             MineActions.OnDigActionStarted?.Invoke();
         }
         else

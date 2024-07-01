@@ -69,7 +69,10 @@ public partial class InventoryItemBuilder : Node2D
         if(cell == null) return;
         var inventoryItem = GetInventoryItem(type, cell);
         if (inventoryItem == null)
+        {
             GD.PrintErr($"Fatal Error: Inventory item could not be created for {type}");
+            return;
+        }
         
         var cellSize = _mineGenerationVariables.Mine.CellSize;
         var cellOffset = new Vector2(cellSize, cellSize) / 2;

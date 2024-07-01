@@ -5,6 +5,7 @@ using System.Text;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.SpecialWalls;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -21,9 +22,9 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     private HttpRequest _getMineArtifactHttpRequest;
     private HttpRequest _mineCrackCellMaterialHttpRequest;
-
     
-
+    #region Initializers
+    
     public override void _Ready()
     {
         CreateHttpRequests();
@@ -31,8 +32,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         SubscribeToActions();
         GetMineCrackMaterialData();
     }
-
-    #region Initializers
 
     private void InitializeDiReferences()
     {
@@ -45,8 +44,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
     {
         MineActions.OnPlayerCollisionDetection += DetectCollision;
         MineActions.OnDigActionEnded += AttackWall;
+        MineActions.OnDigActionEnded += ItemizeOnPickaxeHit;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
-        // MineActions.OnSuccessfulDigActionCompleted += ReferenceStorage.Instance.ScreenShakeController.VerticalCameraShake;
     }
 
     #endregion
@@ -117,6 +116,49 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         }
     }
 
+    #region Placeable Detection
+
+    private List<Node2D> _placeables = new();
+    private void OnPlaceableEnter(Node2D body)
+    {
+        if(body is not IItemizable) return;
+        GD.Print("Adding an itemizable");
+        if(!_placeables.Contains(body))
+            _placeables.Add(body);
+    }
+
+    private void OnPlaceableExit(Node2D body)
+    {
+        if(body is not IItemizable) return;
+        GD.Print("Removing an itemizable");
+        _placeables.Remove(body);
+    }
+
+    private void ItemizeOnPickaxeHit()
+    {
+        if(_placeables.Count <= 0) return;
+        var direction = _playerControllerVariables.MouseDirection;
+        IItemizable itemizable = null;
+        var targetDistance = 1000;
+        foreach (var placeable in _placeables)
+        {
+            GD.Print("Checking palceables");
+            var placeableDirection = (placeable.Position - _playerControllerVariables.Position).Normalized();
+            placeableDirection = new Vector2(Mathf.RoundToInt(placeableDirection.X),
+                Mathf.RoundToInt(placeableDirection.Y));
+            GD.Print($"mouse: {direction}, placeable: {placeableDirection}");
+            if(placeableDirection != direction) continue;
+            GD.Print("placeables are in same direction");
+            var distanceTo = _playerControllerVariables.Position.DistanceTo(placeable.Position);
+            if(distanceTo >= targetDistance) continue;
+            itemizable = placeable as IItemizable;
+        }
+
+        itemizable?.ConvertToInventoryItem();
+    }
+    
+    #endregion
+
     #region Wall Attack Detection
 
     private void AttackWall()
@@ -132,10 +174,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
         MineActions.OnSuccessfulDigActionCompleted?.Invoke();
     }
-
-    // [Export] private string _alternateButtonPressMiniGameScenePath;
-    // [Export] private bool _isMiniGameLoaded;
-    // private Vector2I _artifactTilePos;
     
     private Vector2I FindPositionOfTargetCell()
     {
@@ -208,7 +246,6 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         var cell = _mineGenerationVariables.GetCell(tilePos);
         cell.HitPoint -= _playerControllerVariables.CellDamagePoint;
         Math.Clamp(-_mineGenerationVariables.GetCell(tilePos).HitPoint, 0, 100000);
-        // GD.PrintErr($"cell HP: {cell.HitPoint}");
         var normalCellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
@@ -255,6 +292,8 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     #endregion
 
+    #region Cell Block Enter and Exit
+
     private void OnCellBlockEnter(Node2D body)
     {
         var hasCollidedWithMine = body == _mineGenerationVariables.MineGenView || body is Boulder;
@@ -274,4 +313,23 @@ public partial class PlayerCollisionWithWallDetector : Node2D
             _playerControllerVariables.State = MotionState.Falling;
         }
     }
+
+    #endregion
+
+    #region Finalizers
+
+    private void UnsubscribeToActions()
+    {
+        MineActions.OnPlayerCollisionDetection -= DetectCollision;
+        MineActions.OnDigActionEnded -= AttackWall;
+        MineActions.OnDigActionEnded -= ItemizeOnPickaxeHit;
+        MineActions.OnArtifactCellBroken -= DigOrdinaryCell;
+    }
+
+    public override void _ExitTree()
+    {
+        UnsubscribeToActions();
+    }
+
+    #endregion
 }

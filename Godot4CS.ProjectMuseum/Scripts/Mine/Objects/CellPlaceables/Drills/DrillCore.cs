@@ -9,7 +9,7 @@ using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Objects.CellPlaceables.Drills;
 
-public partial class DrillCore : Node2D, IItemizable
+public partial class DrillCore : RigidBody2D, IItemizable
 {
     private List<DrillDirection> _drillDirections;
     [Export] private DrillHead[] _drillHeads;

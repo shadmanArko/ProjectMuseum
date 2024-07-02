@@ -156,8 +156,8 @@ public partial class CellPlaceableController : InventoryController
             else 
                 _inventoryDto.Inventory.InventoryItems.Remove(_inventoryItem);
         }
-
-        var cellPlaceable = _cellPlaceableDto.CellPlaceables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
+        
+        var cellPlaceable = _cellPlaceableDto.CellPlaceables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant) as CellPlaceable;
         if (cellPlaceable == null)
         {
             GD.PrintErr("Cell Placeable not found in Cell Placeable DTO");
@@ -166,17 +166,23 @@ public partial class CellPlaceableController : InventoryController
         
         var cell = GetTargetCell();
         cell.HasCellPlaceable = true;
-        
-        cellPlaceable.Id = Guid.NewGuid().ToString();
-        cellPlaceable.OccupiedCellId = cell.Id!;
-        cellPlaceable.PositionX = cell.PositionX;
-        cellPlaceable.PositionY = cell.PositionY;
-        _mineGenerationVariables.Mine.CellPlaceables.Add(cellPlaceable);
+
+        var newCellPlaceable = new CellPlaceable
+        {
+            Id = Guid.NewGuid().ToString(),
+            OccupiedCellId = cell.Id!,
+            PositionX = cell.PositionX,
+            PositionY = cell.PositionY,
+            Name = cellPlaceable.Name,
+            Type = cellPlaceable.Type,
+            Category = cellPlaceable.Category,
+            Variant = cellPlaceable.Variant,
+            ScenePath = cellPlaceable.ScenePath,
+            PngPath = cellPlaceable.PngPath
+        };
+        _mineGenerationVariables.Mine.CellPlaceables.Add(newCellPlaceable);
         var cellSize = _mineGenerationVariables.Mine.CellSize;
-        // var cellOffset = new Vector2(cellSize, cellSize) / 2;
-        // GD.Print($"cell pos {cell.PositionX * cellSize}, {cell.PositionY * cellSize}");
-        // GD.Print($"cell offset {cellOffset}");
-        // GD.Print($"cell size {cellSize}");
+        
         var cellPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
         InstantiateCellPlaceable(cellPlaceable.ScenePath, cellPos);
         MineActions.OnInventoryUpdate?.Invoke();
@@ -245,7 +251,7 @@ public partial class CellPlaceableController : InventoryController
 
         if (cell.HasCellPlaceable)
         {
-            GD.Print("Cell Already has a Cell placeable");
+            // GD.Print("Cell Already has a Cell placeable");
             return false;
         }
 
@@ -262,7 +268,7 @@ public partial class CellPlaceableController : InventoryController
             }
         }
 
-        GD.Print("Cell Placeable can be placed");
+        // GD.Print("Cell Placeable can be placed");
         return true;
     }
 

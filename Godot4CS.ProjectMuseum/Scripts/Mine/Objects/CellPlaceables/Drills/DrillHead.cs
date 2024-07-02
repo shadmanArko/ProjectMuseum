@@ -389,6 +389,7 @@ public partial class DrillHead : RigidBody2D
 
     public override void _ExitTree()
     {
+        SetPhysicsProcess(false);
         UnsubscribeToActions();
     }
 }

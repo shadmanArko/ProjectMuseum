@@ -123,22 +123,27 @@ public partial class Dynamite : Node2D
     {
         if(_itemizables.Count <= 0) return;
         foreach (var itemizable in _itemizables)
+        {
+            GD.Print("Converting to itemizable");
             itemizable.ConvertToInventoryItem();
+        }
     }
 
     private void OnBodyEnter(Node2D body)
     {
         if (body is IDamageable damageable)
         {
-            if(_iDamageables.Contains(damageable)) return;
-            _iDamageables.Add(damageable);
+            if(!_iDamageables.Contains(damageable))
+                _iDamageables.Add(damageable);
         }
 
         if (body is IItemizable itemizable)
         {
-            if(_itemizables.Contains(itemizable)) return;
-            _itemizables.Add(itemizable);
+            if(!_itemizables.Contains(itemizable))
+                _itemizables.Add(itemizable);
         }
+        
+        GD.Print($"itemizables count: {_itemizables.Count}");
     }
 
     private void OnBodyExit(Node2D body)

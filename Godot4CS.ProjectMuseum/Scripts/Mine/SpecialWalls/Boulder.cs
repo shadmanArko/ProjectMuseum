@@ -70,9 +70,16 @@ public partial class Boulder : RigidBody2D
             GD.Print("Added a unit to damageables");
             _damageables.Add(damageable);
         }
-        
-        if(_damageables.Count > 0)
+
+        if (_damageables.Count > 0)
+        {
+            foreach (var tempDamageable in _damageables)
+            {
+                GD.Print("damaged a unit");
+                tempDamageable.TakeDamage(180);
+            }
             DestroyBoulder();
+        }
 
         if (body is IItemizable itemizable)
         {
@@ -108,11 +115,7 @@ public partial class Boulder : RigidBody2D
     private void OnBreakAnimationComplete()
     {
         if(_anim.GetAnimation() != "boulderBreak") return;
-        foreach (var damageable in _damageables)
-        {
-            GD.Print("damaged a unit");
-            damageable.TakeDamage(180);
-        }
+        
         QueueFree();
     }
     

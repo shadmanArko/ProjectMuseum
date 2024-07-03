@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=42 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -33,12 +33,13 @@
 [ext_resource type="PackedScene" uid="uid://cy25gubu2ffgk" path="res://Scenes/Mine/Sub Scenes/Camera/ScreenShakeController.tscn" id="21_xw743"]
 [ext_resource type="PackedScene" uid="uid://coi6tcy4grgu3" path="res://Scenes/Mine/Sub Scenes/SceneLoader.tscn" id="22_h2clm"]
 [ext_resource type="PackedScene" uid="uid://cs6e0obahil33" path="res://Scenes/Mine/Sub Scenes/Sounds/Mine Music Scene/BackgroundMusicManager.tscn" id="24_5ul55"]
-[ext_resource type="PackedScene" uid="uid://bik7q8pwktu3o" path="res://Scenes/Mine/Sub Scenes/Items/InventoryItemBuilder.tscn" id="24_xp5yp"]
+[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/Items/InventoryItemBuilder.tscn" id="24_xp5yp"]
 [ext_resource type="PackedScene" uid="uid://dtvk4ujsdo5dg" path="res://Scenes/Test Scenes/CursorFollowSlot.tscn" id="28_v6xuw"]
 [ext_resource type="PackedScene" uid="uid://dwou7mojgk558" path="res://Scenes/Test Scenes/Inventory.tscn" id="29_jdbf1"]
 [ext_resource type="PackedScene" uid="uid://cf5v8nqef7svy" path="res://Scenes/Mine/Sub Scenes/MineSceneView.tscn" id="30_f3st8"]
 [ext_resource type="PackedScene" uid="uid://cye410nrvhc2d" path="res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageController.tscn" id="32_rvnlm"]
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
+[ext_resource type="PackedScene" uid="uid://b5t3adqxgspdo" path="res://Scenes/Mine/Sub Scenes/Enemies/Bat.tscn" id="38_5wolg"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/InventoryItemCollector.cs" id="40_dy3xt"]
 
 [node name="MineScene" type="Control"]
@@ -97,8 +98,8 @@ script = ExtResource("8_4crix")
 _damageVisualizerPath = "res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageVisualizer.tscn"
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_xj3qh")]
-_parentNode = NodePath("../MineSceneInitializer")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
+_parentNode = NodePath("../MineSceneInitializer")
 
 [node name="ParticleEffectSystem" parent="." instance=ExtResource("11_1alc6")]
 
@@ -123,8 +124,7 @@ _camera = NodePath("Camera2D")
 [node name="ScreenShakeController" parent="." instance=ExtResource("21_xw743")]
 _shakeAmount = 1.0
 
-[node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_inventoryControllers", "_wallPlaceableController", "_consumableController", "_equipableController", "_cellPlaceableController") instance=ExtResource("16_ot1vu")]
-_inventoryControllers = [NodePath("WallPlaceableController"), NodePath("ConsumableController"), NodePath("EquipableController"), NodePath("CellPlaceableController")]
+[node name="OperationControllerManager" parent="." node_paths=PackedStringArray("_wallPlaceableController", "_consumableController", "_equipableController", "_cellPlaceableController") instance=ExtResource("16_ot1vu")]
 _wallPlaceableController = NodePath("WallPlaceableController")
 _consumableController = NodePath("ConsumableController")
 _equipableController = NodePath("EquipableController")
@@ -178,8 +178,7 @@ process_mode = 2
 _textureRect = NodePath("Item")
 _counterLabel = NodePath("PanelContainer/Counter Value")
 
-[node name="Inventory" parent="MineUI" node_paths=PackedStringArray("InventoryItems", "_inventoryPanel") instance=ExtResource("29_jdbf1")]
-InventoryItems = [NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer/HBoxContainer/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/FirstRowSlots/InventoryItemSlot12"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot2"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot3"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot4"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot5"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot6"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot7"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot8"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot9"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot10"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot11"), NodePath("InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots/SecondRowSlots/InventoryItemSlot12")]
+[node name="Inventory" parent="MineUI" node_paths=PackedStringArray("_inventoryPanel") instance=ExtResource("29_jdbf1")]
 _inventoryPanel = NodePath("InventoryPanel")
 
 [node name="PauseMenu" parent="MineUI" node_paths=PackedStringArray("_pauseMenu", "_pauseButton") instance=ExtResource("34_a03ws")]
@@ -216,3 +215,5 @@ _mineBackGround = NodePath("MineBackground")
 
 [node name="InventoryItemCollector" type="Node" parent="."]
 script = ExtResource("40_dy3xt")
+
+[node name="Bat" parent="." instance=ExtResource("38_5wolg")]

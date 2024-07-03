@@ -31,7 +31,7 @@ public class MuseumTileContainer
             AStarNode aStarNode = new AStarNode(museumTile.XPosition * -1, museumTile.YPosition *-1, null, 0f, 0f, isWalkable);
 
             // Assign the node to the grid
-            AStarNodes.Add(aStarNode); 
+            AStarNodes.Add(aStarNode); //
         }
     }
 } 

@@ -7,13 +7,17 @@ custom_minimum_size = Vector2(200, 50)
 columns = 2
 
 [node name="DropTarget 1" parent="." instance=ExtResource("1_j8obn")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="DropTarget 2" parent="." instance=ExtResource("1_j8obn")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="DropTarget 3" parent="." instance=ExtResource("1_j8obn")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="DropTarget 4" parent="." instance=ExtResource("1_j8obn")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2

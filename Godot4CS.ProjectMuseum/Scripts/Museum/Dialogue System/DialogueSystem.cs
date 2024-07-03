@@ -21,6 +21,7 @@ public partial class DialogueSystem : Control
 	[Export] private TextureRect _characterPortrait;
 	[Export] private TextureRect _cutsceneArt;
 	[Export] private AnimationPlayer _dialogueSystemAnimationPlayer;
+	[Export] private Control _dialogueBox;
 	private StoryScene _storyScene;
 	private int _storyEntryCount = 0;
 	
@@ -43,6 +44,9 @@ public partial class DialogueSystem : Control
 		_httpRequestForCompletingStory.RequestCompleted += HttpRequestForCompletingStoryOnRequestCompleted;
 		MuseumActions.PlayStoryScene += LoadStoryScene;
 		_nextDialogueButton.Pressed += NextDialogueButtonOnPressed;
+		// SlideIn();
+		// await Task.Delay(1000);
+		// SlideOut();
 	}
 
 	private void HttpRequestForCompletingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -134,7 +138,7 @@ public partial class DialogueSystem : Control
 	{
 		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
 		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
-		_dialogueSystemAnimationPlayer.Play("Slide_Out");
+		SlideOut();
 		await Task.Delay(1000);
 		_cutsceneArt.Visible = false;
 		Visible = false;
@@ -147,6 +151,8 @@ public partial class DialogueSystem : Control
 			MuseumActions.StorySceneEnded?.Invoke(_currentStorySceneNumber);
 		}
 	}
+
+	
 
 	private void LoadAndSetCharacterPortrait()
 	{
@@ -201,10 +207,22 @@ public partial class DialogueSystem : Control
 		 //GD.Print(jsonStr);
 		 _storyScene = JsonSerializer.Deserialize<StoryScene>(jsonStr);
 		 _storyEntryCount = 0;
-		 _dialogueSystemAnimationPlayer.Play("Slide_In");
+		 SlideIn();
 		 ShowNextStoryEntry();
 	}
 
+	private void SlideIn()
+	{
+		// _dialogueSystemAnimationPlayer.Play("Slide_In");
+		_dialogueBox.Position  = new Vector2(_dialogueBox.Position.X, _dialogueBox.Position.Y - _dialogueBox.Size.Y);
+
+		
+	}
+	private void SlideOut()
+	{
+		// _dialogueSystemAnimationPlayer.Play("Slide_Out");
+		_dialogueBox.Position  = new Vector2(_dialogueBox.Position.X, _dialogueBox.Position.Y + _dialogueBox.Size.Y);
+	}
 	private void ShowNextStoryEntry()
 	{
 		Visible = true;

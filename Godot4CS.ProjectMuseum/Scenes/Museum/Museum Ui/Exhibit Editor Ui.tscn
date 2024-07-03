@@ -279,17 +279,21 @@ layout_mode = 2
 theme_override_constants/v_separation = 35
 
 [node name="DropTarget 1" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="DropTarget 2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="DropTarget 3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
 visible = false
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="DropTarget 4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
 visible = false
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer"]

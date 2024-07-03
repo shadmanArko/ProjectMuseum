@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/Museum/Museum Ui/Drag And Drop/DraggableNewPreview.cs" id="2_bxrte"]
 [ext_resource type="PackedScene" uid="uid://dcm73qv2wrbhh" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_artifact_tag.tscn" id="4_drker"]
 [ext_resource type="Texture2D" uid="uid://2qgrks6qkf3s" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Image_hlder.png" id="5_5hw76"]
-[ext_resource type="Texture2D" uid="uid://dqa8gf5sasbp6" path="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png" id="6_01nva"]
+[ext_resource type="Texture2D" uid="uid://drikl4536a05t" path="res://Assets/2D/Sprites/Isometric View Artifacts/ModernAmericanRifle.png" id="6_01nva"]
 [ext_resource type="Texture2D" uid="uid://cyvudlbhhg4kq" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Name_hlder.png" id="7_c3cba"]
 [ext_resource type="Theme" uid="uid://c5rlbqjmqq834" path="res://Themes/Museum ui bold Text.tres" id="8_drmox"]
 [ext_resource type="FontFile" uid="uid://bwsjyoc8ldclp" path="res://Assets/Fonts/PixelOperator.ttf" id="9_i1gnv"]

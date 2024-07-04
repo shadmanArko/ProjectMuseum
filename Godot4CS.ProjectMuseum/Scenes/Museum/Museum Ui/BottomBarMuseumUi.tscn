@@ -1221,13 +1221,16 @@ visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = -3.86
-anchor_right = 1.0
-anchor_bottom = 0.04
-offset_top = -96.0
-offset_bottom = -2.0
+anchor_left = 0.5
+anchor_top = 0.018
+anchor_right = 0.5
+anchor_bottom = 0.018
+offset_left = -640.0
+offset_top = -260.008
+offset_right = 640.0
+offset_bottom = -1.008
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 texture = ExtResource("7_lgch0")
 script = ExtResource("4_egqqe")
 _builderCardScene = ExtResource("5_fc6vt")
@@ -1304,9 +1307,10 @@ text = "X"
 [node name="Search box" type="TextureRect" parent="Builder card panel/Top Bar"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 1406.0
-offset_right = 1559.0
-offset_bottom = 27.0
+offset_left = 1017.0
+offset_top = 3.15997
+offset_right = 1170.0
+offset_bottom = 30.16
 texture = ExtResource("9_qj8lt")
 
 [node name="LineEdit" type="LineEdit" parent="Builder card panel/Top Bar/Search box"]
@@ -1353,10 +1357,10 @@ anchor_left = 0.002
 anchor_top = 0.112
 anchor_right = 0.106
 anchor_bottom = 0.987
-offset_left = 1514.16
-offset_top = 0.0799999
-offset_right = 1714.48
-offset_bottom = 0.0799866
+offset_left = 1012.44
+offset_top = 0.0112038
+offset_right = 1144.32
+offset_bottom = -0.338745
 texture = ExtResource("10_nf2kq")
 
 [node name="Label" type="Label" parent="Builder card panel/Builder Info Panel"]

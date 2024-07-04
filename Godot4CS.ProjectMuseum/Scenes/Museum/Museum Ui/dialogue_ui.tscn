@@ -19,14 +19,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 script = ExtResource("1_60ayo")
 _delayBetweenLetters = 0.05
 _delayForFullStop = 0.5
 _delayForComma = 0.3
 _delayForPause = 1.0
 _dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue")
-_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue/Button")
+_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue/Button2")
 _characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/Character Potrait/portrait")
 _cutsceneArt = NodePath("Panel/Illustration Image")
 _dialogueBox = NodePath("Panel/Dialogue and Potrait Panel")
@@ -39,10 +38,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="Illustration Image" type="TextureRect" parent="Panel"]
-modulate = Color(0.329412, 0.329412, 0.329412, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -56,11 +53,14 @@ texture = ExtResource("2_wt1gy")
 z_index = 10
 layout_mode = 1
 anchors_preset = -1
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_right = -1.0
-offset_bottom = 259.0
+offset_left = -640.0
+offset_top = -2.0
+offset_right = 639.0
+offset_bottom = 257.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -102,7 +102,7 @@ text = "Welcome To The Museum.
 
 "
 
-[node name="Button" type="Button" parent="Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue"]
+[node name="Button2" type="Button" parent="Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -110,16 +110,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_aesdw")
-disabled = true
-text = "
-"
 
 [node name="Character Potrait" type="TextureRect" parent="Panel/Dialogue and Potrait Panel/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 0.3
 texture = ExtResource("6_km2up")
 
 [node name="portrait" type="TextureRect" parent="Panel/Dialogue and Potrait Panel/HBoxContainer/Character Potrait"]

@@ -11,6 +11,8 @@
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MainMenu Ui" parent="CanvasLayer" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton", "SettingsExitButton", "SettingsPanel") instance=ExtResource("1_yi0a2")]
+offset_left = 4.0
+offset_right = 4.0
 ContinueButton = NodePath("BG/Buttons MarginContainer/VBoxContainer/Continue")
 NewGameButton = NodePath("BG/Buttons MarginContainer/VBoxContainer/New Game")
 OptionsButton = NodePath("BG/Buttons MarginContainer/VBoxContainer/Options")

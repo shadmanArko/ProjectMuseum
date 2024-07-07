@@ -17,21 +17,22 @@ public partial class Bat : CharacterBody2D
 
      [Export] private AnimationPlayer _animationPlayer;
      
-     [Export]
-     public float SearchRadius = 30f;
+     [Export] public float SearchRadius = 30f;
+     [Export] private Vector2 _targetPos;
+     [Export] private float _movementSpeed;
 
      #region Initializers
 
      public override void _EnterTree()
      {
-         _path = new List<Vector2I>();
+         
      }
 
      public override void _Ready()
      {
          InitializeDiReference();
          AStarNodes = new List<AStarNode>();
-         _path = new List<Vector2I>();
+         _path = new List<PathNode>();
          _aStarPathfinding = new AStarPathfinding(false);
          MineActions.OnPlayerLandedIntoTheMine += SetChild;
          SetProcess(false);
@@ -56,52 +57,67 @@ public partial class Bat : CharacterBody2D
 
      public override void _PhysicsProcess(double delta)
      {
-         var targetPos = new Vector2(600, 100);
-         var direction = (targetPos - Position).Normalized();
-         Velocity += direction;
-         MoveAndSlide();
+         SearchForPlayer();
+         if(_moveToPlayer)
+             MoveToPlayer();
      }
 
-     private List<Vector2I> _path;
+     private List<PathNode> _path;
      [Export] private bool _moveToPlayer; 
      private void SearchForPlayer()
      {
-         // Calculate the distance between the bat and the player
-         float distance = Position.DistanceTo(_playerControllerVariables.Position);
-         GD.Print($"player to enemy distance: {distance}");
-         if (distance <= SearchRadius)
+         var cellSize = _mineGenerationVariables.Mine.CellSize;
+         var cellOffset = new Vector2(cellSize, cellSize) / 2;
+         var distance = Position.DistanceTo(_playerControllerVariables.Position);
+         if (!(distance <= SearchRadius)) return;
+         if (_path.Count <= 0 || _path[^1].Position != GetCellPos(_playerControllerVariables.Position))
          {
-             if (_path.Count <= 0 || _path[^1] != GetCellPos(_playerControllerVariables.Position))
+             var tempPath = FindPath();
+             if (tempPath.Count > 0)
              {
-                 _path = FindPath();
-                 GD.Print($"path calculated: {_path.Count}");
+                 _path.Clear();
+                 foreach (var pathNode in tempPath)
+                 {
+                     var node = new PathNode
+                     {
+                         Position = pathNode * cellSize + cellOffset,
+                         IsVisited = false
+                     };
+                         
+                     _path.Add(node);
+                 }
              }
-             else
-             {
-                 _moveToPlayer = true;
-                 GD.Print($"move to player set to {_moveToPlayer}");
-             }
-             
-             GD.Print($"path count: {_path.Count}");
-             GD.Print($"last node of path {_path[^1]}");
-             
-             GD.Print("Player found within radius at distance: " + distance);
+                 
+             GD.Print($"path calculated: {_path.Count}");
+             _moveToPlayer = _path.Count > 0;
          }
+         else
+         {
+             _moveToPlayer = true;
+             GD.Print($"move to player set to {_moveToPlayer}");
+         }
+             
+         GD.Print($"path count: {_path.Count}");
+         GD.Print($"last node of path {_path[^1]}");
+         GD.Print("Player found within radius at distance: " + distance);
      }
 
      private void MoveToPlayer()
      {
-         var cellSize = _mineGenerationVariables.Mine.CellSize;
-         Velocity.MoveToward(new Vector2(_path[0].X, _path[0].Y) * cellSize, 0.5f);
-         // foreach (var node in _path)
-         // {
-         //     var pos = new Vector2(node.X, node.Y) * cellSize;
-         //     if (Position.DistanceTo(pos) > 0)
-         //     {
-         //         Velocity.MoveToward(pos, 0.5f);
-         //         MoveAndSlide();
-         //     }
-         // }
+         for (var i = 0; i < _path.Count; i++)
+             if (_path[i].IsVisited)
+                 _path.Remove(_path[i]);
+
+         if (_path.Count <= 0)
+         {
+             _moveToPlayer = false;
+             return;
+         }
+         
+         var targetPos = _path[0].Position;
+         var direction = (targetPos - Position).Normalized();
+         Velocity = new Vector2(_movementSpeed, _movementSpeed) * direction;
+         MoveAndSlide();
      }
 
      private List<Vector2I> FindPath()
@@ -159,4 +175,10 @@ public partial class Bat : CharacterBody2D
      }
 
      #endregion
+}
+
+public class PathNode
+{
+    public Vector2 Position { get; set; }
+    public bool IsVisited { get; set; }
 }

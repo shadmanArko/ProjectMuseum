@@ -146,14 +146,10 @@ _museumGateCheckButton = NodePath("Top Panel/Date time panel/MarginContainer/HBo
 _diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 ItemsParent = NodePath("../../ItemParents")
 
-[node name="Exhibit Editor Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton", "_DeleteExhibitButton", "_moveExhibitButton") instance=ExtResource("10_c21vt")]
+[node name="Exhibit Editor Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_exitButton", "_draggablesParent") instance=ExtResource("10_c21vt")]
 visible = false
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
-_dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
-_glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")
-_DeleteExhibitButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/Delete Exhibit Button")
-_moveExhibitButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/Move Exhibit Button")
 
 [node name="Control" parent="museum/CanvasLayer" instance=ExtResource("12_730rj")]
 process_mode = 4

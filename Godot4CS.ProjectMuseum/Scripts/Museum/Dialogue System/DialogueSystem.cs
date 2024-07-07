@@ -145,6 +145,7 @@ public partial class DialogueSystem : Control
 
 	private async void HandleSceneEnd()
 	{
+		_httpRequestForCompletingStory.CancelRequest();
 		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
 		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
 		await SlideOut();
@@ -207,7 +208,8 @@ public partial class DialogueSystem : Control
 	{
 		_currentStorySceneNumber = storySceneNumber;
 		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{storySceneNumber}";
-		_httpRequestForGettingStory.Request(url);
+		_httpRequestForGettingStory.CancelRequest();
+        _httpRequestForGettingStory.Request(url);
 	}
 
 	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -232,7 +234,7 @@ public partial class DialogueSystem : Control
 			elapsed +=  GetProcessDeltaTime();
 			float t = (float)elapsed / duration ;
 			_dialogueBox.Position = startPosition.Lerp(targetPosition, t);
-			await Task.Delay(1); // wait for a short time before continuing the loop
+			await ToSignal(GetTree().CreateTimer(0.01f), "timeout"); // wait for a short time before continuing the loop
 		}
 
 		_dialogueBox.Position = targetPosition; // ensure it ends exactly at the target position
@@ -251,7 +253,7 @@ public partial class DialogueSystem : Control
 			elapsed +=  GetProcessDeltaTime();
 			float t = (float)elapsed / duration ;
 			_dialogueBox.Position = startPosition.Lerp(targetPosition, t);
-			await Task.Delay(1); // wait for a short time before continuing the loop
+			await ToSignal(GetTree().CreateTimer(0.01f), "timeout"); // wait for a short time before continuing the loop
 		}
 
 		_dialogueBox.Position = targetPosition; // ensure it ends exactly at the target position

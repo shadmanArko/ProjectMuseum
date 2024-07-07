@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqltyu2fgvmyp"]
+[gd_scene load_steps=10 format=3 uid="uid://bqltyu2fgvmyp"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineUiController.cs" id="1_fgd35"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/ToolbarSelector.cs" id="2_64t2a"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://d3w37soodcxua" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Bar fill.png" id="4_qktgs"]
 [ext_resource type="Texture2D" uid="uid://bqnclq7a3ymjd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina Bar fill.png" id="6_o1ooj"]
 [ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="8_geyvw"]
+
+[sub_resource type="Theme" id="Theme_smh8n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2w2e"]
 
 [node name="MineUI" type="CanvasLayer" node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates", "_toolbarPanel")]
 script = ExtResource("1_fgd35")
@@ -31,10 +35,15 @@ anchors_preset = -1
 anchor_top = 0.814
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -0.0800171
+offset_left = 2.0
+offset_top = -2.08002
+offset_right = 2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(960, 300)
+theme = SubResource("Theme_smh8n")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_y2w2e")
 
 [node name="Player Coordinates" type="Label" parent="Control/Panel"]
 texture_filter = 1

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bik7q8pwktu3o"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryItemBuilder.cs" id="1_ejmov"]
+
+[node name="InventoryItemBuilder" type="Node2D"]
+script = ExtResource("1_ejmov")

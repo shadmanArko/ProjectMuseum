@@ -15,6 +15,7 @@ public partial class Dynamite : Node2D
     private MineCellCrackMaterial _mineCellCrackMaterial;
     
     private List<IDamageable> _iDamageables;
+    private List<IItemizable> _itemizables;
 
     [Export] private float _timer;
     [Export] private Label _timerLabel;
@@ -22,6 +23,7 @@ public partial class Dynamite : Node2D
     {
         InitializeDiInstaller();
         _iDamageables = new List<IDamageable>();
+        _itemizables = new List<IItemizable>();
         _timer = 6f;
     }
 
@@ -84,19 +86,17 @@ public partial class Dynamite : Node2D
                 var caveCells = CaveControlManager.RevealCave(_mineGenerationVariables, cells);
                 foreach (var tempCell in cells)
                 {
-                    var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                     var cellCrackMaterial =
                         _mineCellCrackMaterial.CellCrackMaterials[0];
-                    MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
+                    MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
                         cellCrackMaterial, _mineGenerationVariables);
                 }
             
                 foreach (var tempCell in caveCells)
                 {
-                    var tempCellPos = new Vector2I(tempCell.PositionX, tempCell.PositionY);
                     var cellCrackMaterial =
                         _mineCellCrackMaterial.CellCrackMaterials[0];
-                    MineSetCellConditions.SetTileMapCell(tempCellPos, _playerControllerVariables.MouseDirection, tempCell,
+                    MineSetCellConditions.SetTileMapCell(_playerControllerVariables.MouseDirection, tempCell,
                         cellCrackMaterial, _mineGenerationVariables);
                 }
 
@@ -108,6 +108,7 @@ public partial class Dynamite : Node2D
         }
         
         DamageUnitsInRange();
+        ConvertItemizablesInRange();
         QueueFree();
     }
     
@@ -118,18 +119,40 @@ public partial class Dynamite : Node2D
             damageable.TakeDamage(150);
     }
 
+    private void ConvertItemizablesInRange()
+    {
+        if(_itemizables.Count <= 0) return;
+        foreach (var itemizable in _itemizables)
+        {
+            GD.Print("Converting to itemizable");
+            itemizable.ConvertToInventoryItem();
+        }
+    }
+
     private void OnBodyEnter(Node2D body)
     {
-        var affectedUnit = body as IDamageable;
-        if(affectedUnit == null) return;
-        if(_iDamageables.Contains(affectedUnit)) return;
-        _iDamageables.Add(affectedUnit);
+        if (body is IDamageable damageable)
+        {
+            if(!_iDamageables.Contains(damageable))
+                _iDamageables.Add(damageable);
+        }
+
+        if (body is IItemizable itemizable)
+        {
+            if(!_itemizables.Contains(itemizable))
+                _itemizables.Add(itemizable);
+        }
+        
+        GD.Print($"itemizables count: {_itemizables.Count}");
     }
 
     private void OnBodyExit(Node2D body)
     {
-        var affectedUnit = body as IDamageable;
-        _iDamageables.Remove(affectedUnit);
+        if (body is IDamageable damageable)
+            _iDamageables.Remove(damageable);
+
+        if (body is IItemizable itemizable)
+            _itemizables.Remove(itemizable);
     }
     
 

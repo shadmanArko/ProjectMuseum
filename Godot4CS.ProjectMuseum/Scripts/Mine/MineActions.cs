@@ -84,7 +84,6 @@ public partial class MineActions : Node
     public static Action OnPlayerEnergyValueChanged;
 
     #endregion
-
     
     #region Mini Game Actions
 

@@ -56,10 +56,10 @@ public static class MineSetCellConditions
         }
     }
     
-    public static void SetTileMapCell(Vector2I tilePos, Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationVariables mineGenerationVariables)
+    public static void SetTileMapCell(Vector2I mouseDir, Cell cell, CellCrackMaterial cellCrackMaterial, MineGenerationVariables mineGenerationVariables)
     {
         var mineGenerationView = ReferenceStorage.Instance.MineGenerationVariables.MineGenView;
-
+        var tilePos = new Vector2I(cell.PositionX, cell.PositionY);
         if (cell.IsInstantiated && !cell.IsBroken)
         {
             if (!cell.IsBreakable)
@@ -68,7 +68,7 @@ public static class MineSetCellConditions
             {
                 if (cell.IsRevealed)
                 {
-                    SetBreakableCell(mineGenerationVariables, cell, cellCrackMaterial, tilePos, mouseDir);
+                    SetBreakableCell(mineGenerationVariables, cell, cellCrackMaterial, mouseDir);
                 }
                 else
                 {
@@ -108,7 +108,7 @@ public static class MineSetCellConditions
         //MineCellDestroyer.DestroyCellByPosition(tilePos, mineGenerationVariables);
     }
 
-    private static void SetBreakableCell(MineGenerationVariables mineGenerationVariables, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I tilePos, Vector2I mouseDir)
+    private static void SetBreakableCell(MineGenerationVariables mineGenerationVariables, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I mouseDir)
     {
         var mineGenerationView = mineGenerationVariables.MineGenView;
         var n = 0;
@@ -120,7 +120,8 @@ public static class MineSetCellConditions
             n += 4;
         if (cell.LeftBrokenSide)
             n += 8;
-        
+
+        var tilePos = new Vector2I(cell.PositionX, cell.PositionY);
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(WallLayer, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
         
@@ -144,19 +145,20 @@ public static class MineSetCellConditions
         }
         else if (cell.HasSpecialWall)
         {
-            // EraseCellsOnAllLayers(mineGenerationView, tilePos);
-            // var boulderScenePath = ReferenceStorage.Instance.BoulderScenePath;
-            // var cellSize = mineGenerationVariables.Mine.CellSize;
-            // // SceneInstantiator.InstantiateScene(boulderScenePath, mineGenerationView, tilePos * cellSize);
-            // var boulder = ResourceLoader.Load<PackedScene>(boulderScenePath).Instantiate() as Boulder;
-            // if (boulder is null)
-            // {
-            //     GD.PrintErr("COULD NOT GENERATE SCENE. FATAL ERROR");
-            //     
-            // }
-            // mineGenerationVariables.MineGenView.AddChild(boulder);
-            // boulder!.Position = tilePos * cellSize;
-            // cell.HasSpecialWall = false;
+            EraseCellsOnAllLayers(mineGenerationView, tilePos);
+            var boulderScenePath = ReferenceStorage.Instance.BoulderScenePath;
+            var cellSize = mineGenerationVariables.Mine.CellSize;
+            var cellOffset = new Vector2(cellSize, cellSize) / 2;
+            var boulder = ResourceLoader.Load<PackedScene>(boulderScenePath).Instantiate() as Boulder;
+            if (boulder is null)
+            {
+                GD.PrintErr("COULD NOT GENERATE SCENE. FATAL ERROR");
+                
+            }
+            mineGenerationVariables.MineGenView.AddChild(boulder);
+            boulder!.Position = tilePos * cellSize + cellOffset;
+            cell.HasSpecialWall = false;
+            AdjacentCellRevealer.RevealAdjacentCell(tilePos, mouseDir, mineGenerationVariables, cellCrackMaterial);
         }
         
         SetCrackOnTiles(tilePos, mouseDir, cell, cellCrackMaterial);

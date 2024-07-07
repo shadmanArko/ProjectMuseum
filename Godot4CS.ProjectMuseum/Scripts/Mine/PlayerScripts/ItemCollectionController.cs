@@ -116,6 +116,8 @@ public partial class ItemCollectionController : Area2D
             GD.PrintErr($"inventory item is null");
             return;
         }
+        
+        GD.Print($"inv item: {inventoryItem.Type}, {inventoryItem.Variant}");
 
         var canBeCollected = CanItemBeCollected(inventoryItem);
         if (!canBeCollected)

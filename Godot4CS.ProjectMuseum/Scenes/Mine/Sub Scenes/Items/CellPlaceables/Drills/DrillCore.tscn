@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cingdd4u4wht8"]
+[gd_scene load_steps=14 format=3 uid="uid://cingdd4u4wht8"]
 
 [ext_resource type="PackedScene" uid="uid://cguqypy3fxhlx" path="res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillHead.tscn" id="1_v5shb"]
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/CellPlaceables/Drills/DrillCore.cs" id="1_xojfg"]
 [ext_resource type="Texture2D" uid="uid://dweykgjy62cki" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillExtension.png" id="2_s66rn"]
 [ext_resource type="Texture2D" uid="uid://cs0pg3qh1b533" path="res://Assets/2D/Sprites/Mine Sprites/Drills/pistonBase.png" id="6_3p00y"]
 [ext_resource type="Texture2D" uid="uid://bncnqhym6iq61" path="res://Assets/2D/Sprites/Mine Sprites/Drills/drillCore.png" id="6_6bx1t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btago"]
 
 [sub_resource type="Animation" id="Animation_yje0t"]
 length = 0.001
@@ -106,11 +108,20 @@ _data = {
 "thrust": SubResource("Animation_b3q12")
 }
 
-[node name="DrillCore" type="Node2D" node_paths=PackedStringArray("_drillHeads", "_drillCoreSprite2D", "_animationPlayer")]
+[node name="DrillCore" type="RigidBody2D" node_paths=PackedStringArray("_drillHeads", "_drillCoreSprite2D", "_animationPlayer")]
+collision_layer = 32
+collision_mask = 0
+mass = 0.001
+lock_rotation = true
+freeze = true
+freeze_mode = 1
 script = ExtResource("1_xojfg")
 _drillHeads = []
 _drillCoreSprite2D = NodePath("DrillCoreSprite")
 _animationPlayer = NodePath("AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_btago")
 
 [node name="drillExtension" type="Sprite2D" parent="."]
 texture_filter = 1

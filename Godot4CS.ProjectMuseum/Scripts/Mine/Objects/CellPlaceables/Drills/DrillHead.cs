@@ -81,6 +81,7 @@ public partial class DrillHead : RigidBody2D
 
     private void UnsubscribeToActions()
     {
+        SetPhysicsProcess(false);
         MineActions.OnPlayerSleepForTheNightButtonPressed -= BreakAllCellsWhenPlayerSleepsForTheNight;
         MineActions.OnMiniGameEnded -= RestartDrillOnArtifactCellBroken;
     }
@@ -389,7 +390,6 @@ public partial class DrillHead : RigidBody2D
 
     public override void _ExitTree()
     {
-        SetPhysicsProcess(false);
         UnsubscribeToActions();
     }
 }

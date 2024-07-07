@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=41 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cmjtexcfmbaxm" path="res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageSystem.tscn" id="7_x8k1i"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/DamageSystem/DamageSystem.cs" id="8_4crix"]
 [ext_resource type="PackedScene" uid="uid://ccshgryravaf2" path="res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn" id="8_mppk2"]
-[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
+[ext_resource type="PackedScene" uid="uid://vnv6cso2c6ak" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
 [ext_resource type="PackedScene" uid="uid://p4pp1nmkb44s" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_uross"]
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
@@ -39,7 +39,6 @@
 [ext_resource type="PackedScene" uid="uid://cf5v8nqef7svy" path="res://Scenes/Mine/Sub Scenes/MineSceneView.tscn" id="30_f3st8"]
 [ext_resource type="PackedScene" uid="uid://cye410nrvhc2d" path="res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageController.tscn" id="32_rvnlm"]
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
-[ext_resource type="PackedScene" uid="uid://b5t3adqxgspdo" path="res://Scenes/Mine/Sub Scenes/Enemies/Bat.tscn" id="38_5wolg"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/InventoryItemCollector.cs" id="40_dy3xt"]
 
 [node name="MineScene" type="Control"]
@@ -164,13 +163,9 @@ offset_bottom = 153.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 
-[node name="Dialogue Ui" parent="MineUI" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer") instance=ExtResource("15_jb2j0")]
+[node name="Dialogue Ui" parent="MineUI" node_paths=PackedStringArray("_cutsceneArt") instance=ExtResource("15_jb2j0")]
 visible = false
-_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue")
-_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue/Button")
-_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/portrait")
 _cutsceneArt = NodePath("Panel/Illustration Image")
-_dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
 
 [node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
@@ -217,7 +212,3 @@ _mineBackGround = NodePath("MineBackground")
 
 [node name="InventoryItemCollector" type="Node" parent="."]
 script = ExtResource("40_dy3xt")
-
-[node name="Bat" parent="." node_paths=PackedStringArray("_animationPlayer") instance=ExtResource("38_5wolg")]
-collision_mask = 2
-_animationPlayer = NodePath("AnimationPlayer")

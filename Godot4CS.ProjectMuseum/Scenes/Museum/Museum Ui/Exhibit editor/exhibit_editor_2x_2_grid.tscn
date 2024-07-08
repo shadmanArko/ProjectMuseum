@@ -10,20 +10,16 @@ script = ExtResource("1_v41ub")
 _dropTargets = [NodePath("DropTarget 1"), NodePath("DropTarget 2"), NodePath("DropTarget 3"), NodePath("DropTarget 4")]
 
 [node name="DropTarget 1" parent="." instance=ExtResource("1_j8obn")]
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
 [node name="DropTarget 2" parent="." instance=ExtResource("1_j8obn")]
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 SlotNumber = 1
 
 [node name="DropTarget 3" parent="." instance=ExtResource("1_j8obn")]
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 SlotNumber = 2
 
 [node name="DropTarget 4" parent="." instance=ExtResource("1_j8obn")]
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 SlotNumber = 3

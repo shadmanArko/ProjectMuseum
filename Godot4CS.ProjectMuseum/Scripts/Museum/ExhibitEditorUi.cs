@@ -14,8 +14,8 @@ public partial class ExhibitEditorUi : Control
 {
 	[Export] private Button _exitButton;
 	[Export] private PackedScene _draggable;
-	[Export] private PackedScene _dropTarget;
-	[Export] private PackedScene _dropTargetGrid;
+	// [Export] private PackedScene _dropTarget;
+	[Export] private PackedScene _dropTargetGrid2X2;
 	[Export] private Control _draggablesParent;
 	[Export] private Control _dropTargetsParent;
 	[Export] private CheckButton _glassCheckButton;
@@ -163,7 +163,12 @@ public partial class ExhibitEditorUi : Control
 		var numberOfGrids = item.numberOfTilesItTakes < 4 ? 1 : 4;
 		for (int gridNumber = 0; gridNumber < numberOfGrids; gridNumber++)
 		{
-			var instance = _dropTargetGrid.Instantiate();
+			if (_dropTargetGrid2X2 == null)
+			{
+				GD.Print("Drop target grid is null.");
+			}
+            
+			var instance = _dropTargetGrid2X2.Instantiate();
 			int childCount = 0;
 			foreach (var child in instance.GetChildren())
 			{

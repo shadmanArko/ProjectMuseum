@@ -24,7 +24,7 @@ shader_parameter/lod = 5.0
 shader = ExtResource("8_s1vfc")
 shader_parameter/lod = 1.5
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton", "SettingsExitButton", "SettingsPanel")]
+[node name="MainMenu2" type="Control" node_paths=PackedStringArray("ContinueButton", "NewGameButton", "OptionsButton", "ExitButton", "SettingsExitButton", "SettingsPanel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

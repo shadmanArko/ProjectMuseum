@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://bjy2gyknf1lwq"]
+[gd_scene load_steps=22 format=3 uid="uid://bjy2gyknf1lwq"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/ExhibitEditorUi.cs" id="1_5j1h5"]
 [ext_resource type="Theme" uid="uid://xt21gex7v5rn" path="res://Themes/Museum ui.tres" id="2_kqmcg"]
-[ext_resource type="PackedScene" uid="uid://crxjk410778yy" path="res://Scenes/Museum/Museum Ui/Drag And Drop/drop_target.tscn" id="3_gbute"]
 [ext_resource type="PackedScene" uid="uid://bwntmtbpv43ly" path="res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn" id="3_vjpch"]
 [ext_resource type="Texture2D" uid="uid://c11u1or74gs7v" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Exhibit_Editor_Base.png" id="4_3kga1"]
 [ext_resource type="Texture2D" uid="uid://dfmvnp2th32jm" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Exhibit_Name_Holder.png" id="4_lpjnh"]
@@ -53,8 +52,7 @@ grow_vertical = 2
 script = ExtResource("1_5j1h5")
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
 _draggable = ExtResource("3_vjpch")
-_dropTarget = ExtResource("3_gbute")
-_dropTargetGrid = ExtResource("4_vggsg")
+_dropTargetGrid2X2 = ExtResource("4_vggsg")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
 _glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")
@@ -301,22 +299,19 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="DropTarget 1" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
-custom_minimum_size = Vector2(100, 100)
+[node name="Exhibit Editor 2x2 Grid4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
 layout_mode = 2
 
-[node name="DropTarget 2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="DropTarget 3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+[node name="Exhibit Editor 2x2 Grid" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
 visible = false
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="DropTarget 4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_gbute")]
+[node name="Exhibit Editor 2x2 Grid2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
 visible = false
-custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Exhibit Editor 2x2 Grid3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer"]

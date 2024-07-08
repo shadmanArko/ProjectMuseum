@@ -146,6 +146,12 @@ public partial class MineActions : Node
 	public static Action OnPlayerVelocityUpdated;
 
 	#endregion
+
+	#region Camera Actions
+
+	public static Action OnCameraPositionChanged;
+
+	#endregion
 	
 	public static Action OnRawArtifactDTOInitialized;	//TODO: has to be changed later
 }

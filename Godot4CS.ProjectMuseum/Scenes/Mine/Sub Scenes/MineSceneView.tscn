@@ -98,6 +98,7 @@ z_index = 4
 texture_filter = 1
 texture = SubResource("GradientTexture2D_ed4vk")
 centered = false
+offset = Vector2(-640, 0)
 
 [node name="Top Gradient" type="Control" parent="."]
 z_index = 4

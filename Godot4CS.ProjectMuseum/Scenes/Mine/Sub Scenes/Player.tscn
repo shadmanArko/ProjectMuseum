@@ -683,7 +683,7 @@ range_item_cull_mask = 34
 
 [node name="Item Stasher" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 8
+collision_mask = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item Stasher"]
 shape = SubResource("CircleShape2D_l3vm5")
@@ -750,9 +750,11 @@ _digSfxList = Array[AudioStream]([ExtResource("13_nyhml"), ExtResource("14_y1s2w
 _swordSlashSfxList = Array[AudioStream]([ExtResource("13_7q814")])
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnDigAnimationEnded"]
+[connection signal="body_entered" from="Item Stasher" to="CollisionDetector" method="OnPlaceableEnter"]
 [connection signal="body_entered" from="Item Stasher" to="Item Detector" method="OnBodyEnterStashArea"]
+[connection signal="body_exited" from="Item Stasher" to="CollisionDetector" method="OnPlaceableExit"]
 [connection signal="body_entered" from="Item Detector" to="Item Detector" method="OnBodyEntered"]
 [connection signal="body_exited" from="Item Detector" to="Item Detector" method="OnBodyExited"]
 [connection signal="body_entered" from="Gravity Detector" to="CollisionDetector" method="OnCellBlockEnter"]

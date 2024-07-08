@@ -7,7 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.WallPlaceables;
 
-public partial class Stalagmite : Node2D, IDamagable
+public partial class Stalagmite : Node2D, IDamageable
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -84,7 +84,7 @@ public partial class Stalagmite : Node2D, IDamagable
 		GD.Print("Stalagmite destroyed");
 	}
 
-	public void TakeDamage()
+	public void TakeDamage(int damageValue)
 	{
 		if(_isBroken) return;
 		if (_hitPoint <= 0)
@@ -95,7 +95,7 @@ public partial class Stalagmite : Node2D, IDamagable
 		}
 		else
 		{
-			_hitPoint--;
+			_hitPoint -= damageValue;
 			GD.Print($"Stalagmite damaged. hit point: {_hitPoint}");
 		}
 	}

@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://c3njs5gj75ppi"]
+[gd_scene load_steps=20 format=3 uid="uid://c3njs5gj75ppi"]
 
+[ext_resource type="Script" path="res://Scenes/Pause Menu/PauseMenuButton.cs" id="1_6ol0v"]
 [ext_resource type="Script" path="res://Scenes/Pause Menu/pause_menu_button.gd" id="1_x8mop"]
 [ext_resource type="Texture2D" uid="uid://7hu5jvedc3w1" path="res://Assets/2D/Sprites/Museum Ui/Menu_Icon.png" id="1_ygicn"]
 [ext_resource type="Texture2D" uid="uid://dggwn6fbxefyq" path="res://Assets/2D/Sprites/Museum Ui/Untitled_7.png" id="2_8uo1c"]
@@ -29,7 +30,7 @@ shader_parameter/lod = 0.0
 shader = ExtResource("9_vge33")
 shader_parameter/lod = 1.5
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("_pauseMenu", "_pauseButton")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -38,6 +39,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_6ol0v")
+_pauseMenu = NodePath("pause_menu")
+_pauseButton = NodePath("pause_menu_button")
 
 [node name="pause_menu_button" type="Button" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -177,19 +181,25 @@ texture = ExtResource("10_v70c6")
 
 [node name="MarginContainer" type="MarginContainer" parent="settings_menu"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 600
-theme_override_constants/margin_top = 200
-theme_override_constants/margin_right = 600
-theme_override_constants/margin_bottom = 200
-metadata/_edit_use_anchors_ = true
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 80
 
 [node name="VBoxContainer" type="VBoxContainer" parent="settings_menu/MarginContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="settings_menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -523,8 +533,9 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Save"
 
-[connection signal="pressed" from="pause_menu_button" to="pause_menu_button" method="_on_pressed"]
-[connection signal="pressed" from="pause_menu/MarginContainer/VBoxContainer/back_button" to="pause_menu" method="_on_back_button_pressed"]
+[connection signal="button_up" from="pause_menu_button" to="." method="OnPauseButtonPressed"]
+[connection signal="button_up" from="pause_menu/MarginContainer/VBoxContainer/back_button" to="." method="OnBackButtonPressed"]
+[connection signal="button_up" from="pause_menu/MarginContainer/VBoxContainer/back_button" to="pause_menu" method="_on_back_button_pressed"]
 [connection signal="pressed" from="pause_menu/MarginContainer/VBoxContainer/settings_button" to="pause_menu" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="pause_menu/MarginContainer/VBoxContainer/main_menu_button" to="pause_menu" method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="pause_menu/MarginContainer/VBoxContainer/exit_to_desktop_button" to="pause_menu" method="_on_exit_to_desktop_button_pressed"]

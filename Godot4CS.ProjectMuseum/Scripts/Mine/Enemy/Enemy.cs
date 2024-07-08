@@ -7,7 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces.Movement;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
-public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
+public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamageable
 {
     public string Id { get; set; }
     [Export] public NavigationAgent2D NavAgent { get; set; }
@@ -197,7 +197,7 @@ public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamagable
         
     }
 
-    public virtual void TakeDamage()
+    public virtual void TakeDamage(int damageValue)
     {
         
     }

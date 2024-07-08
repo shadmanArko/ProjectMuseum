@@ -21,15 +21,18 @@ public partial class DialogueSystem : Control
 	[Export] private TextureRect _characterPortrait;
 	[Export] private TextureRect _cutsceneArt;
 	[Export] private AnimationPlayer _dialogueSystemAnimationPlayer;
+	[Export] private Control _dialogueBox;
 	private StoryScene _storyScene;
 	private int _storyEntryCount = 0;
-	
 	private HttpRequest _httpRequestForGettingStory;
 	private HttpRequest _httpRequestForCompletingStory;
 	private Task _dialogueShowingTask;
 	private CancellationTokenSource _cancellationTokenSource;// Called when the node enters the scene tree for the first time.
 	private bool _finishedCurrentDialogue = false;
 	private string _playerName;
+	private Vector2 _slideOutPosition;
+	private Vector2 _slideInPosition;
+	
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
@@ -43,6 +46,15 @@ public partial class DialogueSystem : Control
 		_httpRequestForCompletingStory.RequestCompleted += HttpRequestForCompletingStoryOnRequestCompleted;
 		MuseumActions.PlayStoryScene += LoadStoryScene;
 		_nextDialogueButton.Pressed += NextDialogueButtonOnPressed;
+		// SlideIn();
+		//
+		// await Task.Delay(3000);
+		// SlideOut();
+		// await Task.Delay(3000);
+		//
+		// SlideIn();
+		_slideInPosition = new Vector2(_dialogueBox.Position.X, _dialogueBox.Position.Y - _dialogueBox.Size.Y);
+		_slideOutPosition = _dialogueBox.Position;
 	}
 
 	private void HttpRequestForCompletingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -56,6 +68,7 @@ public partial class DialogueSystem : Control
 
 	private async void NextDialogueButtonOnPressed()
 	{
+		GD.Print("next button clicked");
 		// if (!_finishedCurrentDialogue) return;
 		
 		_cancellationTokenSource.Cancel();
@@ -132,10 +145,11 @@ public partial class DialogueSystem : Control
 
 	private async void HandleSceneEnd()
 	{
+		_httpRequestForCompletingStory.CancelRequest();
 		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
 		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
-		_dialogueSystemAnimationPlayer.Play("Slide_Out");
-		await Task.Delay(1000);
+		await SlideOut();
+		
 		_cutsceneArt.Visible = false;
 		Visible = false;
 		if (_storyScene.HasTutorial)
@@ -147,6 +161,8 @@ public partial class DialogueSystem : Control
 			MuseumActions.StorySceneEnded?.Invoke(_currentStorySceneNumber);
 		}
 	}
+
+	
 
 	private void LoadAndSetCharacterPortrait()
 	{
@@ -192,7 +208,8 @@ public partial class DialogueSystem : Control
 	{
 		_currentStorySceneNumber = storySceneNumber;
 		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{storySceneNumber}";
-		_httpRequestForGettingStory.Request(url);
+		_httpRequestForGettingStory.CancelRequest();
+        _httpRequestForGettingStory.Request(url);
 	}
 
 	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -201,10 +218,47 @@ public partial class DialogueSystem : Control
 		 //GD.Print(jsonStr);
 		 _storyScene = JsonSerializer.Deserialize<StoryScene>(jsonStr);
 		 _storyEntryCount = 0;
-		 _dialogueSystemAnimationPlayer.Play("Slide_In");
+		 SlideIn();
 		 ShowNextStoryEntry();
 	}
 
+	private async void SlideIn()
+	{
+		var startPosition = _dialogueBox.Position;
+		Vector2 targetPosition = _slideInPosition;
+		float duration = 1.0f;
+		double elapsed = 0.0f;
+
+		while (elapsed < duration)
+		{
+			elapsed +=  GetProcessDeltaTime();
+			float t = (float)elapsed / duration ;
+			_dialogueBox.Position = startPosition.Lerp(targetPosition, t);
+			await ToSignal(GetTree().CreateTimer(0.01f), "timeout"); // wait for a short time before continuing the loop
+		}
+
+		_dialogueBox.Position = targetPosition; // ensure it ends exactly at the target position
+
+		
+	}
+	private async Task SlideOut()
+	{
+		var startPosition = _dialogueBox.Position;
+		Vector2 targetPosition = _slideOutPosition;
+		float duration = 1.0f;
+		double elapsed = 0.0f;
+
+		while (elapsed < duration)
+		{
+			elapsed +=  GetProcessDeltaTime();
+			float t = (float)elapsed / duration ;
+			_dialogueBox.Position = startPosition.Lerp(targetPosition, t);
+			await ToSignal(GetTree().CreateTimer(0.01f), "timeout"); // wait for a short time before continuing the loop
+		}
+
+		_dialogueBox.Position = targetPosition; // ensure it ends exactly at the target position
+
+	}
 	private void ShowNextStoryEntry()
 	{
 		Visible = true;

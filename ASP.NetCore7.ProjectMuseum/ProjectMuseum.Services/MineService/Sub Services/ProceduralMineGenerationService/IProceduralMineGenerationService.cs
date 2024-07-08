@@ -12,5 +12,5 @@ public interface IProceduralMineGenerationService
     Task GenerateSpecialBackdrops();
     Task GenerateArtifacts();
     Task<List<Resource>> GenerateResources();
-    Task GenerateUnbreakableRocks();
+    Task GenerateBoulders();
 }

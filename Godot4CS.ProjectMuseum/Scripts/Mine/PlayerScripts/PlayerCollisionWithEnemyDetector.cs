@@ -86,7 +86,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     
     private void OnBodyEnter(Node2D body)
     {
-        var enemy = body as IDamagable;
+        var enemy = body as IDamageable;
         if(enemy is null) return;
         GD.Print($"ON BODY ENTER isAttacking:{_playerControllerVariables.IsAttacking}");
         if (!_playerControllerVariables.IsAttacking)
@@ -95,7 +95,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
             return;
         }
         // if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
-        enemy.TakeDamage();
+        enemy.TakeDamage(_playerControllerVariables.EnemyDamagePoint);
         GD.Print($"PLAYER ATTACKING ENEMY {enemy}");
     }
 

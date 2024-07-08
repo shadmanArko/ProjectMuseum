@@ -323,7 +323,7 @@ public partial class Slime : Enemy
 
     #region Take Damage
 
-    public override void TakeDamage()
+    public override void TakeDamage(int damageValue)
     {
         if (IsDead) return;
         if (IsTakingDamage) return;
@@ -331,7 +331,7 @@ public partial class Slime : Enemy
         IsTakingDamage = true;
         _isKnockBack = true;
 
-        HealthSystem.ReduceEnemyHealth(5, 25, this);
+        HealthSystem.ReduceEnemyHealth(damageValue, 25, this);
     }
 
     private async void EnemyDamageAnimation()

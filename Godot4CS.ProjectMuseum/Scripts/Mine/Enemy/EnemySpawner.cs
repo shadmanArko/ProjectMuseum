@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -75,7 +76,10 @@ public partial class EnemySpawner : Node2D
         if(_counter >= _enemySpawnCount.Count) return;
 
         if (_enemySpawnCount[_counter] <= 0)
+        {
             _counter++;
+            _counter = Math.Clamp(_counter, 0, _cellBreakTargetCount.Count-1);
+        }
 
         if (_mineGenerationVariables.BrokenCells >= _cellBreakTargetCount[_counter])
         {

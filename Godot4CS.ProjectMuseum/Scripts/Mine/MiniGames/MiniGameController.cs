@@ -1,16 +1,11 @@
 using System;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
-using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
-using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
-using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
 
@@ -41,8 +36,11 @@ public partial class MiniGameController : Node2D
 	private void SubscribeToActions()
 	{
 		MineActions.OnMiniGameLoad += LoadMiniGame;
+		MineActions.OnMiniGameLoad += PauseDuringMiniGame;
 		MineActions.OnMiniGameWon += MiniGameWon;
 		MineActions.OnMiniGameLost += MiniGameLost;
+		MineActions.OnMiniGameEnded += UnpauseAfterMiniGame;
+		MineActions.OnMiniGameEnded += ContinuePlayerMovementAfterMiniGame;
 	}
 	
 
@@ -62,7 +60,17 @@ public partial class MiniGameController : Node2D
         
 		AddChild(scene);
 	}
-	
+
+	private void PauseDuringMiniGame(Vector2I vector2I)
+	{
+		MineActions.OnGamePaused?.Invoke();
+	}
+
+	private void UnpauseAfterMiniGame()
+	{
+		MineActions.OnGameUnpaused?.Invoke();
+	}
+
 	private async void MiniGameWon()
 	{
 		var animationController = _playerControllerVariables.Player.AnimationController;
@@ -71,7 +79,8 @@ public partial class MiniGameController : Node2D
 		var cell = _mineGenerationVariables.GetCell(_artifactCellPos);
 		RemoveArtifactFromMineAndInstantiateInventoryItem(cell.ArtifactId);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
-		ContinuePlayerMovementAfterMiniGame();
+		// ContinuePlayerMovementAfterMiniGame();
+		
 	}
 	
 	private void MiniGameLost()
@@ -80,6 +89,7 @@ public partial class MiniGameController : Node2D
 		_playerControllerVariables.Player.AnimationController.Play(animationToPlay);
 		MineActions.OnArtifactCellBroken?.Invoke(_artifactCellPos);
 		ContinuePlayerMovementAfterMiniGame();
+		MineActions.OnMiniGameEnded?.Invoke();
 	}
 	
 	private void CeasePlayerMovementDuringMiniGame()
@@ -93,7 +103,7 @@ public partial class MiniGameController : Node2D
 		_playerControllerVariables.Player.AnimationController.Play("brush");
 	}
 
-	private void ContinuePlayerMovementAfterMiniGame()
+	public void ContinuePlayerMovementAfterMiniGame()
 	{
 		_playerControllerVariables.CanMove = true;
 		_playerControllerVariables.CanMoveLeftAndRight = true;
@@ -113,9 +123,11 @@ public partial class MiniGameController : Node2D
 			GD.PrintErr($"ERROR: Artifact could not be found. Id: {artifactId}");
 			return;
 		}
+		
+		GD.Print($"artifact: {artifact.RawArtifactId}");
 		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
 		MineActions.OnInventoryUpdate?.Invoke();
-		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");
+		// MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");
 		_rawArtifactDto.Artifacts.Remove(artifact);
 	}
 
@@ -126,5 +138,7 @@ public partial class MiniGameController : Node2D
 		MineActions.OnMiniGameLoad -= LoadMiniGame;
 		MineActions.OnMiniGameWon -= MiniGameWon;
 		MineActions.OnMiniGameLost -= MiniGameLost;
+		MineActions.OnMiniGameLoad += PauseDuringMiniGame;
+		MineActions.OnMiniGameEnded += UnpauseAfterMiniGame;
 	}
 }

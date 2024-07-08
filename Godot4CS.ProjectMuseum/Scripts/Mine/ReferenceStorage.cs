@@ -7,6 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.InventorySystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ItemCollectionLogSystem;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MineSettings;
 using Godot4CS.ProjectMuseum.Scripts.Mine.MiniGames;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Operations;
 using Godot4CS.ProjectMuseum.Scripts.Mine.ParticleEffects;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Mine.UI;
@@ -34,9 +35,10 @@ public partial class ReferenceStorage : Node
     [Export] public LoadingBarManager LoadingBarManager;
     [Export] public ParticleEffectSystem ParticleEffectSystem;
     [Export] public InventoryManager InventoryManager;
-    [Export] public MinePause MinePause;
+    [Export] public MinePauseManager MinePauseManager;
     [Export] public LogMessageController LogMessageController;
     [Export] public ScreenShakeController ScreenShakeController;
+    [Export] public InventoryItemBuilder InventoryItemBuilder;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;
@@ -52,7 +54,7 @@ public partial class ReferenceStorage : Node
     [Export] public string ToolbarSlotScenePath = "res://Scenes/Mine/Sub Scenes/UI/ToolbarSlot.tscn";
     [Export] public string ItemDropScenePath = "res://Scenes/Mine/Sub Scenes/Items/ItemDrop.tscn";
     public string ItemCardScenePath = "res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageCard.tscn";
-    
+    public string BoulderScenePath = "res://Scenes/Mine/Sub Scenes/Special Walls/Boulder.tscn";
     
     [Export] public MineSceneTooltip Tooltip;
     

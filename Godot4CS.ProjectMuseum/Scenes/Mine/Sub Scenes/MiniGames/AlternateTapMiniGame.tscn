@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="6_j3hg0"]
 
 [node name="AlternateTapMiniGame" type="CanvasLayer" node_paths=PackedStringArray("_timerLabel", "_progressLabel", "_textureProgressBar")]
+process_mode = 3
 script = ExtResource("1_i0xcx")
 _initialCountDownValue = 20.0
 _countDownTimer = 20.0

@@ -9,7 +9,7 @@ using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
-public partial class PlayerController : CharacterBody2D, IDeath
+public partial class PlayerController : CharacterBody2D, IDamageable, IDeath
 {
 	[Export] public AnimationController AnimationController;
 
@@ -247,7 +247,7 @@ public partial class PlayerController : CharacterBody2D, IDeath
 			PlayerControllerVariables.MaxSpeed : PlayerControllerVariables.MaxSpeed / 2;
 	}
 
-	private void TakeDamage(int damageValue)
+	public void TakeDamage(int damageValue)
 	{
 		if(_playerControllerVariables.IsDead) return;
 		var velocity = Velocity;
@@ -255,6 +255,8 @@ public partial class PlayerController : CharacterBody2D, IDeath
 		Velocity = velocity;
 		AnimationController.PlayAnimation("damage1");
 		HealthSystem.ReducePlayerHealth(damageValue, _playerControllerVariables);
+		if (_playerControllerVariables.State == MotionState.Hanging)
+			_playerControllerVariables.State = MotionState.Falling;
 	}
 
 	public void Attack()

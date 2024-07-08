@@ -7,50 +7,116 @@
 [ext_resource type="Texture2D" uid="uid://d3w37soodcxua" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Health Bar fill.png" id="4_qktgs"]
 [ext_resource type="Texture2D" uid="uid://bqnclq7a3ymjd" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/Stamina Bar fill.png" id="6_o1ooj"]
 [ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="8_geyvw"]
-[ext_resource type="Texture2D" uid="uid://drlegajgqcabr" path="res://Assets/2D/Sprites/Keyboard Letters/Keyboard Letters and Symbols.png" id="9_my1nx"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ehlpn"]
-atlas = ExtResource("9_my1nx")
-region = Rect2(0, 48, 16, 16)
+[sub_resource type="Theme" id="Theme_smh8n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2w2e"]
 
 [node name="MineUI" type="CanvasLayer" node_paths=PackedStringArray("_healthBar", "_energyBar", "_playerCoordinates", "_toolbarPanel")]
 script = ExtResource("1_fgd35")
-_healthBar = NodePath("Health Bar")
-_energyBar = NodePath("Energy Bar")
-_playerCoordinates = NodePath("Player Coordinates")
-_toolbarPanel = NodePath("Toolbar Panel")
+_healthBar = NodePath("Control/Panel/Health Bar")
+_energyBar = NodePath("Control/Panel/Energy Bar")
+_playerCoordinates = NodePath("Control/Panel/Player Coordinates")
+_toolbarPanel = NodePath("Control/Panel/Toolbar Panel")
 metadata/_edit_vertical_guides_ = [664.0]
 
-[node name="Toolbar Panel" type="HBoxContainer" parent="."]
+[node name="Control" type="Control" parent="."]
 texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.814
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -2.08002
+offset_right = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 300)
+theme = SubResource("Theme_smh8n")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_y2w2e")
+
+[node name="Player Coordinates" type="Label" parent="Control/Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.545
+anchor_right = 0.172
+anchor_bottom = 0.813
+offset_left = -0.480001
+offset_top = -0.0299988
+offset_right = -0.160004
+offset_bottom = 0.0579987
+grow_vertical = 0
+pivot_offset = Vector2(100, 50)
+theme_override_fonts/font = ExtResource("8_geyvw")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Toolbar Panel" type="HBoxContainer" parent="Control/Panel"]
+texture_filter = 1
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -284.0
-offset_top = -88.0
-offset_right = 316.0
-offset_bottom = -28.0
+offset_left = -300.0
+offset_top = -84.0
+offset_right = 300.0
+offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
+pivot_offset = Vector2(300, 60)
 theme_override_constants/separation = 6
 script = ExtResource("2_64t2a")
 
-[node name="Health Bar" type="TextureProgressBar" parent="."]
+[node name="Toggle Inventory Label" type="Label" parent="Control/Panel"]
 texture_filter = 1
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -92.0
-offset_top = -167.0
-offset_right = -80.0
-offset_bottom = -91.0
+offset_left = -290.0
+offset_top = -34.0
+offset_right = -81.0
+offset_bottom = -18.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(2, 2)
+pivot_offset = Vector2(210, 16)
+theme_override_fonts/font = ExtResource("8_geyvw")
+theme_override_font_sizes/font_size = 11
+text = "Press I to toggle inventory"
+
+[node name="Health Bar" type="TextureProgressBar" parent="Control/Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -93.0
+offset_right = -30.0
+offset_bottom = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(12, 76)
 max_value = 200.0
 value = 200.0
 rounded = true
@@ -58,71 +124,25 @@ fill_mode = 3
 texture_over = ExtResource("3_jkpro")
 texture_progress = ExtResource("4_qktgs")
 
-[node name="Energy Bar" type="TextureProgressBar" parent="."]
+[node name="Energy Bar" type="TextureProgressBar" parent="Control/Panel"]
 texture_filter = 1
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -52.0
-offset_top = -167.0
-offset_right = -39.9999
-offset_bottom = -91.0
+offset_left = -22.0
+offset_top = -93.0
+offset_right = -10.0
+offset_bottom = -17.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(2, 2)
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(12, 76)
 max_value = 200.0
 value = 200.0
 rounded = true
 fill_mode = 3
 texture_over = ExtResource("4_oy7sv")
 texture_progress = ExtResource("6_o1ooj")
-
-[node name="Player Coordinates" type="Label" parent="."]
-texture_filter = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -80.0
-offset_right = 220.0
-offset_bottom = -30.0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("8_geyvw")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="PanelContainer" type="HBoxContainer" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -370.0
-offset_top = -60.0
-offset_right = -120.0
-offset_bottom = -20.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="PanelContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("8_geyvw")
-theme_override_font_sizes/font_size = 11
-text = "Press"
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 6
-texture = SubResource("AtlasTexture_ehlpn")
-expand_mode = 3
-
-[node name="Label2" type="Label" parent="PanelContainer"]
-layout_mode = 2
-text = "to toggle Inventory"

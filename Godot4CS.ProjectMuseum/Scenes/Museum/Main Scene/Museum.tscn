@@ -146,29 +146,25 @@ _museumGateCheckButton = NodePath("Top Panel/Date time panel/MarginContainer/HBo
 _diggingPermitsUi = NodePath("DiggingAndPermitsMenu")
 ItemsParent = NodePath("../../ItemParents")
 
-[node name="Exhibit Editor Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton", "_DeleteExhibitButton", "_moveExhibitButton") instance=ExtResource("10_c21vt")]
+[node name="Exhibit Editor Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_exitButton", "_draggablesParent") instance=ExtResource("10_c21vt")]
 visible = false
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
-_dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
-_glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")
-_DeleteExhibitButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/Delete Exhibit Button")
-_moveExhibitButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/VBoxContainer/VBoxContainer/Move Exhibit Button")
 
 [node name="Control" parent="museum/CanvasLayer" instance=ExtResource("12_730rj")]
 process_mode = 4
 visible = false
 offset_bottom = -50.0
 
-[node name="Dialogue Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueSystemAnimationPlayer") instance=ExtResource("13_bch1s")]
+[node name="Dialogue Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueBox") instance=ExtResource("13_bch1s")]
 visible = false
 z_index = 8
 mouse_filter = 2
-_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue")
-_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/ColorRect/MarginContainer/Dialogue/Button")
-_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/Character Potrait/portrait")
+_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue")
+_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue/Button2")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/Character Potrait/portrait")
 _cutsceneArt = NodePath("Panel/Illustration Image")
-_dialogueSystemAnimationPlayer = NodePath("Panel/AnimationPlayer")
+_dialogueBox = NodePath("Panel/Dialogue and Potrait Panel")
 
 [node name="PopUpUi" parent="museum/CanvasLayer" node_paths=PackedStringArray("_popUpText", "_yesButton", "_noButton") instance=ExtResource("13_k824c")]
 visible = false
@@ -207,7 +203,9 @@ _shopName = NodePath("Shop Ui Bg/MarginContainer/VBox Container/Top Container/La
 _warningText = NodePath("ColorRect/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("AnimationPlayer")
 
-[node name="PauseMenu" parent="museum/CanvasLayer" instance=ExtResource("27_hjqlt")]
+[node name="PauseMenu" parent="museum/CanvasLayer" node_paths=PackedStringArray("_pauseMenu", "_pauseButton") instance=ExtResource("27_hjqlt")]
+_pauseMenu = NodePath("pause_menu")
+_pauseButton = NodePath("pause_menu_button")
 
 [node name="Player" parent="museum" node_paths=PackedStringArray("_characterSprite", "_animationPlayer", "_characterSprite") instance=ExtResource("12_55fh7")]
 unique_name_in_owner = true

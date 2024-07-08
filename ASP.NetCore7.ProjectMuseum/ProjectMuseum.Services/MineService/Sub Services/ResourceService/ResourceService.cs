@@ -72,7 +72,16 @@ public class ResourceService : IResourceService
             var rootNodeVariant = variants[_rand.Next(0, variants.Count)];
             await _resourceRepository.AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY);
 
-            var resourceBranches = rootNodeVariant.Equals("Iron") ? _rand.Next(3, 5) : _rand.Next(5, 8);
+            int resourceBranches = rootNodeVariant switch
+            {
+                "Iron" => _rand.Next(3, 5),
+                "Coal" => _rand.Next(5, 8),
+                "PinkQuartz" => _rand.Next(0, 3),
+                "BlueQuartz" => _rand.Next(0, 3),
+                "SmokyQuartz" => _rand.Next(0, 3),
+                "MilkyQuartz" => _rand.Next(0, 3),
+                _ => _rand.Next(5, 8)
+            };
             var currentBranchCell = cell;
             for (var j = 0; j <= resourceBranches; j++)
             {

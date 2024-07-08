@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
+using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Objects.CellPlaceables.Drills;
 
-public partial class DrillCore : Node2D
+public partial class DrillCore : RigidBody2D, IItemizable
 {
     private List<DrillDirection> _drillDirections;
     [Export] private DrillHead[] _drillHeads;
@@ -77,5 +78,17 @@ public partial class DrillCore : Node2D
     public override void _ExitTree()
     {
         UnSubscribeToActions();
+    }
+
+    public void ConvertToInventoryItem()
+    {
+        ReferenceStorage.Instance.InventoryItemBuilder.BuildInventoryItem("CellPlaceable", GlobalPosition);
+        QueueFree();
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if(@event.IsActionReleased("Test"))
+            ConvertToInventoryItem();
     }
 }

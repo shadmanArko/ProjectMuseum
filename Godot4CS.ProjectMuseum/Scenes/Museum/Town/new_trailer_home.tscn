@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://l7igytu45wrn"]
+
+[ext_resource type="Texture2D" uid="uid://c6umycc63lgon" path="res://Assets/2D/Sprites/Town/trailer home.png" id="1_x4vy5"]
+[ext_resource type="Script" path="res://Scripts/Museum/Town/TownBuilding.cs" id="2_ujaqa"]
+
+[node name="TrailerHome" type="Sprite2D"]
+position = Vector2(372, 186)
+texture = ExtResource("1_x4vy5")
+script = ExtResource("2_ujaqa")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-39, 6, -39, -19, -29, -28, -21, -41, -10, -34, 10, -24, 44, -6, 50, 6, 50, 26, 47, 26, 47, 22, 22, 34, 22, 40, 20, 39, 20, 34, 16, 33, 12, 34, -25, 16, -25, 20, -29, 18, -29, 11, -32, 10, -33, 15, -37, 13)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="OnMouseExit"]

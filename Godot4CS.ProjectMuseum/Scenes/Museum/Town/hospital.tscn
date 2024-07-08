@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dapkevp4d35i"]
+
+[ext_resource type="Texture2D" uid="uid://bi2jx80g03a4h" path="res://Assets/2D/Sprites/New Town/hospital.png" id="1_pdt3c"]
+[ext_resource type="Script" path="res://Scripts/Museum/Town/TownBuilding.cs" id="2_trae4"]
+
+[node name="Hospital" type="Sprite2D"]
+position = Vector2(372, 186)
+texture = ExtResource("1_pdt3c")
+script = ExtResource("2_trae4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-12, 14, -12, 15, 11, 15, 12, 14, 13, 12, 12, 8, 16, 7, 15, 3, 14, 0, 16, 0, 16, -4, 13, -4, 14, -14, 12, -15, -1, -15, -2, -14, -2, -5, -4, -5, -4, -7, -6, -8, -11, -8, -12, -6, -12, -1, -14, 0, -14, 9, -14, 11, -15, 11, -15, 13, -12, 15)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="OnMouseExit"]

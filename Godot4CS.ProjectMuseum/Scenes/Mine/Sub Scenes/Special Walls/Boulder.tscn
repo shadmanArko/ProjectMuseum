@@ -139,6 +139,7 @@ animations = [{
 size = Vector2(16, 2)
 
 [node name="Boulder" type="RigidBody2D" node_paths=PackedStringArray("_anim", "_collider")]
+z_index = 21
 collision_mask = 39
 can_sleep = false
 lock_rotation = true

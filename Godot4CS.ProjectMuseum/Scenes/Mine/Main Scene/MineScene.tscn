@@ -163,9 +163,13 @@ offset_bottom = 153.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 
-[node name="Dialogue Ui" parent="MineUI" node_paths=PackedStringArray("_cutsceneArt") instance=ExtResource("15_jb2j0")]
+[node name="Dialogue Ui" parent="MineUI" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueBox") instance=ExtResource("15_jb2j0")]
 visible = false
+_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue")
+_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue/Button2")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/Character Potrait/portrait")
 _cutsceneArt = NodePath("Panel/Illustration Image")
+_dialogueBox = NodePath("Panel/Dialogue and Potrait Panel")
 
 [node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
@@ -206,7 +210,8 @@ SleepForTheNightButton = NodePath("Panel/Control/Button Container/Sleep For The 
 ReturnToMuseumButton = NodePath("Panel/Control/Button Container/Return To Museum")
 ReturnToMineButton = NodePath("Panel/Control/Button Container/Return To Mine")
 
-[node name="MineSceneView" parent="." node_paths=PackedStringArray("_savingCanvas", "_mineBackGround") instance=ExtResource("30_f3st8")]
+[node name="MineSceneView" parent="." node_paths=PackedStringArray("_mineGenerationView", "_savingCanvas", "_mineBackGround") instance=ExtResource("30_f3st8")]
+_mineGenerationView = NodePath("Mine")
 _savingCanvas = NodePath("UISaving")
 _mineBackGround = NodePath("MineBackground")
 

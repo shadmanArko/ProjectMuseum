@@ -76,6 +76,7 @@ public partial class CameraController : Node2D
 		var smoothLerpX = Mathf.Lerp(cameraPos.X, playerPos.X, 0.5f);
 		var smoothLerpY = Mathf.Lerp(cameraPos.Y, playerPos.Y, 0.5f);
 		_camera.Position = new Vector2(smoothLerpX, smoothLerpY);
+		MineActions.OnCameraPositionChanged?.Invoke();
 	}
 
 	#region Utilities

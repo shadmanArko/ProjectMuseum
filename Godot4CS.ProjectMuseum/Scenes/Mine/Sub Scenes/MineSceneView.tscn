@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cf5v8nqef7svy"]
+[gd_scene load_steps=20 format=3 uid="uid://cf5v8nqef7svy"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineGenerationController.cs" id="1_e57ja"]
 [ext_resource type="PackedScene" uid="uid://ckxklef31mow4" path="res://Scenes/Mine/Sub Scenes/MineBackground.tscn" id="2_xr05r"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://Scripts/Mine/MineEntranceController.cs" id="6_arrba"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineEntranceBlocker.cs" id="6_bkqej"]
 [ext_resource type="Script" path="res://Scripts/Mine/Misc/GradientSettings/MineGradientController.cs" id="7_75n3q"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/Fog.gdshader" id="8_jcsc8"]
+[ext_resource type="Texture2D" uid="uid://d1wpuele0x4hn" path="res://Assets/2D/Sprites/Backgrounds/Solid_white.png" id="9_33bq1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjoij"]
 size = Vector2(32, 14)
@@ -27,15 +29,37 @@ fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
 [sub_resource type="Gradient" id="Gradient_ytuv2"]
-offsets = PackedFloat32Array(0, 0.243056, 0.638889, 1)
+offsets = PackedFloat32Array(0, 0.553797, 0.835443, 1)
 colors = PackedColorArray(0.0470588, 0.0156863, 0.105882, 1, 0.067, 0.02, 0.137, 0.93, 0.101961, 0.0352941, 0.192157, 0.360784, 0.102, 0.035, 0.192, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_7sq75"]
 gradient = SubResource("Gradient_ytuv2")
 width = 1280
-height = 180
+height = 140
 fill_from = Vector2(0.5, 1)
 fill_to = Vector2(0.5, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_85crf"]
+noise_type = 3
+frequency = 0.0439
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ngl3y"]
+width = 1280
+height = 1280
+seamless = true
+seamless_blend_skirt = 0.184
+noise = SubResource("FastNoiseLite_85crf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_na17q"]
+shader = ExtResource("8_jcsc8")
+shader_parameter/color = Color(0.0980392, 0.0352941, 0.192157, 1)
+shader_parameter/OCTAVES = 4
+shader_parameter/enable_pixelation = true
+shader_parameter/pixelation_amount = 2000
+shader_parameter/fog_direction = Vector2(-0.5, 0)
+shader_parameter/scroll_noise_tex = false
+shader_parameter/noise_scroll_direction = Vector2(-1, 0)
+shader_parameter/fog_mask = SubResource("NoiseTexture2D_ngl3y")
 
 [node name="MineSceneView" type="Node2D" node_paths=PackedStringArray("_mineGenerationView", "_savingCanvas", "_mineBackGround")]
 script = ExtResource("1_e57ja")
@@ -85,13 +109,16 @@ shape = SubResource("RectangleShape2D_edtq2")
 
 [node name="Mine Gradient Controller" type="Node2D" parent="." node_paths=PackedStringArray("_topGradSprite", "_bottomGradSprite")]
 script = ExtResource("7_75n3q")
-_topGradSprite = NodePath("../TopGradient")
-_bottomGradSprite = NodePath("../Bottom Gradient/Bottom Gradient")
+_topGradSprite = NodePath("../Top Gradient")
+_bottomGradSprite = NodePath("../Bottom Gradient")
 _topGradientVisibleStartPosition = 200
 _topGradientVisibleEndPosition = 300
+_bottomGradientVisibleStartPosition = 40
+_bottomGradientVisibleEndPosition = 100
 _topGradOffset = Vector2(120, 120)
+_bottomGradOffset = Vector2(120, 120)
 
-[node name="TopGradient" type="Sprite2D" parent="."]
+[node name="Top Gradient" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
 z_index = 4
@@ -100,31 +127,21 @@ texture = SubResource("GradientTexture2D_ed4vk")
 centered = false
 offset = Vector2(-640, 0)
 
-[node name="Top Gradient" type="Control" parent="."]
-z_index = 4
-custom_minimum_size = Vector2(1280, 60)
-layout_mode = 3
-anchors_preset = 10
-anchor_right = 1.0
-offset_right = 1280.0
-offset_bottom = 60.0
-grow_horizontal = 2
-
-[node name="Bottom Gradient" type="Control" parent="."]
-visible = false
+[node name="Bottom Gradient" type="Sprite2D" parent="."]
 z_index = 28
-layout_mode = 3
-anchors_preset = 0
-offset_left = 13.0
-offset_top = -141.0
-offset_right = 1293.0
-offset_bottom = 147.0
-pivot_offset = Vector2(640, 288)
-
-[node name="Bottom Gradient" type="Sprite2D" parent="Bottom Gradient"]
-position = Vector2(640, 261)
-scale = Vector2(1, 0.4375)
 texture = SubResource("GradientTexture2D_7sq75")
+centered = false
+offset = Vector2(-880, -120)
+
+[node name="Fog" type="Sprite2D" parent="."]
+visible = false
+z_index = 4
+texture_filter = 1
+material = SubResource("ShaderMaterial_na17q")
+position = Vector2(-120, 0)
+scale = Vector2(6, 6)
+texture = ExtResource("9_33bq1")
+centered = false
 
 [node name="UISaving" parent="." instance=ExtResource("5_ip856")]
 visible = false

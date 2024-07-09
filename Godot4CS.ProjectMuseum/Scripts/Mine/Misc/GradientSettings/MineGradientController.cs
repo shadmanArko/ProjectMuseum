@@ -1,6 +1,4 @@
 using Godot;
-using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Misc.GradientSettings;
 
@@ -8,10 +6,14 @@ public partial class MineGradientController : Node2D
 {
     [Export] private Sprite2D _topGradSprite;
     [Export] private Sprite2D _bottomGradSprite;
+    
 
     [Export] private int _topGradientVisibleStartPosition;
     [Export] private int _topGradientVisibleEndPosition;
 
+    [Export] private int _bottomGradientVisibleStartPosition;
+    [Export] private int _bottomGradientVisibleEndPosition;
+    
     [Export] private Vector2 _topGradOffset;
     [Export] private Vector2 _bottomGradOffset;
 
@@ -33,6 +35,7 @@ public partial class MineGradientController : Node2D
         _rightLimit = _camera.LimitRight;
         GD.Print($"Camera viewport Size: {_camera.GetViewportRect().Size}");
         var viewportSize = _camera.GetViewportRect().Size;
+        _topGradOffset = new Vector2(viewportSize.X / 16, viewportSize.Y / 9);
         _topGradOffset = new Vector2(viewportSize.X / 16, viewportSize.Y / 9);
     }
 
@@ -80,7 +83,34 @@ public partial class MineGradientController : Node2D
 
     private void ChangeLowerGradientPosition()
     {
+        if (_camera.Position.Y >= _bottomGradientVisibleStartPosition)
+        {
+            var difference = _bottomGradientVisibleEndPosition - _camera.Position.Y;
+
+            if (difference > 0)
+            {
+                var valueChange = difference / 10f;
+                var valuePerUnit = 1 - valueChange * 0.1f; //per unit
+                var alphaVal = Mathf.Clamp(valuePerUnit, 0, 1f);
+                var whiteColor = Colors.White;
+                whiteColor.A = alphaVal;
+                _bottomGradSprite.Modulate = whiteColor;
+            }
+            else
+            {
+                _bottomGradSprite.Modulate = Colors.White;
+            }
+        }
+        else
+        {
+            var zeroAlphaColor = new Color(0, 0, 0, 0);
+            _bottomGradSprite.Modulate = zeroAlphaColor;
+        }
         
+        var viewportSize = _camera.GetViewportRect().Size;
+        _bottomGradOffset = new Vector2(viewportSize.X / 16, viewportSize.Y / 9);
+        _bottomGradSprite.GlobalPosition = _camera.GlobalPosition + _bottomGradOffset;
+
     }
     
     private void UnsubscribeToActions()

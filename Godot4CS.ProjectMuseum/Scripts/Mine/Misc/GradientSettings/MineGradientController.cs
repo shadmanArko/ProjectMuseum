@@ -1,6 +1,4 @@
 using Godot;
-using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Misc.GradientSettings;
 
@@ -8,6 +6,7 @@ public partial class MineGradientController : Node2D
 {
     [Export] private Sprite2D _topGradSprite;
     [Export] private Sprite2D _bottomGradSprite;
+    
 
     [Export] private int _topGradientVisibleStartPosition;
     [Export] private int _topGradientVisibleEndPosition;

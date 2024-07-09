@@ -1217,6 +1217,7 @@ layout_mode = 2
 theme = ExtResource("4_uca33")
 
 [node name="Builder card panel" type="TextureRect" parent="." node_paths=PackedStringArray("_buildersPanelClosingButton", "_builderCardContainer")]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1

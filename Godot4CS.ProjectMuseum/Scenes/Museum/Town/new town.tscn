@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bj3l0sw0oyf6l"]
+[gd_scene load_steps=40 format=3 uid="uid://bj3l0sw0oyf6l"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/TownUi.cs" id="1_spxv3"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_7gwak"]
@@ -28,6 +28,14 @@
 [ext_resource type="Texture2D" uid="uid://c6sisuuquonsx" path="res://Assets/2D/Sprites/New Town/header.png" id="24_tgsi3"]
 [ext_resource type="PackedScene" uid="uid://dtl4poel53b78" path="res://Scenes/Museum/Town/school.tscn" id="25_166u0"]
 [ext_resource type="PackedScene" uid="uid://dapkevp4d35i" path="res://Scenes/Museum/Town/hospital.tscn" id="27_n8tfi"]
+[ext_resource type="Texture2D" uid="uid://fct7clna7an1" path="res://Assets/2D/Sprites/New Town/wheat.png" id="28_64y7m"]
+[ext_resource type="PackedScene" uid="uid://c2qe8mub32nrc" path="res://Scenes/Museum/Town/busStand.tscn" id="29_424hc"]
+[ext_resource type="PackedScene" uid="uid://brhitpdwwrq1d" path="res://Scenes/Museum/Town/mediumHouse.tscn" id="30_sw4k2"]
+[ext_resource type="PackedScene" uid="uid://bxl8l0iharyx" path="res://Scenes/Museum/Town/mediumHouse2.tscn" id="31_46dso"]
+[ext_resource type="PackedScene" uid="uid://b5j3ujlnvcnn2" path="res://Scenes/Museum/Town/carpainterHouse.tscn" id="32_x0kw2"]
+[ext_resource type="PackedScene" uid="uid://dfsl7yrdj601a" path="res://Scenes/Museum/Town/woodcutterHouse.tscn" id="33_63itx"]
+[ext_resource type="PackedScene" uid="uid://cc0doucitwgjx" path="res://Scenes/Museum/Town/smallhouse.tscn" id="34_35p87"]
+[ext_resource type="Texture2D" uid="uid://bxepiuio8egu" path="res://Assets/2D/Sprites/New Town/parking lot 1.png" id="35_7tt13"]
 
 [sub_resource type="Animation" id="Animation_xtnbv"]
 length = 0.001
@@ -83,12 +91,17 @@ _indicatorAnimationPlayer = NodePath("Town Ui/Town Ground With roads/Houses/Trai
 [node name="Town Ui" type="Control" parent="." node_paths=PackedStringArray("_sprite2D", "_townClosingButton")]
 clip_contents = true
 layout_mode = 1
-anchor_left = 0.174
-anchor_right = 0.826
-anchor_bottom = 0.998
-offset_left = 0.919922
-offset_right = -0.920044
-offset_bottom = 2.15991
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -416.36
+offset_top = -360.0
+offset_right = 416.36
+offset_bottom = 360.72
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_7gwak")
 _sprite2D = NodePath("Town Ground With roads")
@@ -790,14 +803,18 @@ texture = ExtResource("22_13l08")
 hframes = 2
 
 [node name="ground" type="Sprite2D" parent="Town Ui"]
+y_sort_enabled = true
 position = Vector2(417.36, 368)
 scale = Vector2(4, 4)
 texture = ExtResource("23_snp2j")
 
 [node name="Museum" parent="Town Ui/ground" instance=ExtResource("24_m6tku")]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(28.5, -53.25)
 
 [node name="trailer houses" type="Node2D" parent="Town Ui/ground"]
+y_sort_enabled = true
 
 [node name="TrailerHome" parent="Town Ui/ground/trailer houses" instance=ExtResource("5_4j5jh")]
 z_index = 1
@@ -825,6 +842,8 @@ z_index = 1
 position = Vector2(-23, 60)
 
 [node name="big houses" type="Node2D" parent="Town Ui/ground"]
+z_index = 1
+y_sort_enabled = true
 
 [node name="Bighouse" parent="Town Ui/ground/big houses" instance=ExtResource("24_k2mrt")]
 position = Vector2(-80, -17.5)
@@ -839,10 +858,76 @@ position = Vector2(-80, 33.5)
 position = Vector2(-80, 60)
 
 [node name="school" parent="Town Ui/ground" instance=ExtResource("25_166u0")]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(-31.5, -9.5)
 
 [node name="Hospital" parent="Town Ui/ground" instance=ExtResource("27_n8tfi")]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(15.5, 12.25)
+
+[node name="Wheat" type="Sprite2D" parent="Town Ui/ground"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(83.25, 57.5)
+texture = ExtResource("28_64y7m")
+
+[node name="bus Stand" parent="Town Ui/ground" instance=ExtResource("29_424hc")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(3.25, -54.5)
+
+[node name="medium houses" type="Node2D" parent="Town Ui/ground"]
+
+[node name="mediumhouse" parent="Town Ui/ground/medium houses" instance=ExtResource("30_sw4k2")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(13, -26)
+
+[node name="mediumhouse2" parent="Town Ui/ground/medium houses" instance=ExtResource("30_sw4k2")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(46.75, -10.5)
+
+[node name="mediumhouse3" parent="Town Ui/ground/medium houses" instance=ExtResource("30_sw4k2")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(83.75, -26.5)
+
+[node name="medium house 2" parent="Town Ui/ground/medium houses" instance=ExtResource("31_46dso")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(11.75, -9)
+
+[node name="medium house 3" parent="Town Ui/ground/medium houses" instance=ExtResource("31_46dso")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(83.25, -9)
+
+[node name="medium house 4" parent="Town Ui/ground/medium houses" instance=ExtResource("31_46dso")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(45.5, -27)
+
+[node name="carpainterHouse" parent="Town Ui/ground" instance=ExtResource("32_x0kw2")]
+z_index = 1
+position = Vector2(13.75, 36.75)
+
+[node name="woodcutterHouse" parent="Town Ui/ground" instance=ExtResource("33_63itx")]
+z_index = 1
+position = Vector2(13, 57.75)
+
+[node name="small house" parent="Town Ui/ground" instance=ExtResource("34_35p87")]
+position = Vector2(43.5, 16.75)
+
+[node name="small house2" parent="Town Ui/ground" instance=ExtResource("34_35p87")]
+position = Vector2(61.75, 16.5)
+
+[node name="parking" type="Sprite2D" parent="Town Ui/ground"]
+z_index = 1
+position = Vector2(-52, -52)
+texture = ExtResource("35_7tt13")
 
 [node name="TextureRect" type="TextureRect" parent="Town Ui"]
 layout_mode = 1
@@ -856,3 +941,8 @@ offset_bottom = 71.49
 grow_horizontal = 2
 texture = ExtResource("24_tgsi3")
 expand_mode = 3
+
+[node name="Wheat" type="Sprite2D" parent="Town Ui"]
+visible = false
+position = Vector2(722.36, 594)
+texture = ExtResource("28_64y7m")

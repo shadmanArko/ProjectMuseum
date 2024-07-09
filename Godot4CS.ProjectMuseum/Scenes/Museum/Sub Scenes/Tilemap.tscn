@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dxtfargoq8wot"]
+[gd_scene load_steps=52 format=3 uid="uid://dxtfargoq8wot"]
 
 [ext_resource type="Texture2D" uid="uid://b5k41sttbq2j5" path="res://Assets/2D/Sprites/Floorings/Ceramic 1.png" id="1_1fvqq"]
 [ext_resource type="Texture2D" uid="uid://hgfj3tv0o21c" path="res://Assets/2D/Sprites/Floorings/Ceramic 2.png" id="2_vr1x6"]
@@ -12,9 +12,19 @@
 [ext_resource type="Texture2D" uid="uid://3xeyh5luiswl" path="res://Assets/2D/Sprites/Floorings/Wood 2.png" id="6_h4mlw"]
 [ext_resource type="Texture2D" uid="uid://i4yd3d2dwu78" path="res://Assets/2D/Sprites/Effects/dirt.png" id="7_2utbt"]
 [ext_resource type="Texture2D" uid="uid://15bn24arw6td" path="res://Assets/2D/Sprites/Floorings/Wood 3.png" id="7_hxakk"]
+[ext_resource type="Texture2D" uid="uid://b0e4gu6tw6rqa" path="res://Assets/2D/Sprites/Floorings/basic grey tile .png" id="8_0swxp"]
 [ext_resource type="Texture2D" uid="uid://dpxd7xi744vwq" path="res://Assets/2D/Sprites/Floorings/Wood 4.png" id="8_xbist"]
+[ext_resource type="Texture2D" uid="uid://dn25cp2q14sq7" path="res://Assets/2D/Sprites/Floorings/blue design tile .png" id="9_yo1dl"]
+[ext_resource type="Texture2D" uid="uid://bxskbnpahpvk0" path="res://Assets/2D/Sprites/Floorings/Ceramic 5.png" id="10_of847"]
+[ext_resource type="Texture2D" uid="uid://chmuqcsbq31pc" path="res://Assets/2D/Sprites/Floorings/double grey basic tile.png" id="11_sv6xm"]
 [ext_resource type="Texture2D" uid="uid://binu4fcexiecc" path="res://Assets/2D/Sprites/Floorings/Damaged Tiles/1.png" id="12_jgmb3"]
+[ext_resource type="Texture2D" uid="uid://cqw7t1844h20t" path="res://Assets/2D/Sprites/Floorings/grey gradiant  basic tile.png" id="12_larff"]
 [ext_resource type="Texture2D" uid="uid://cpbfcrr6gw3im" path="res://Assets/2D/Sprites/Floorings/Damaged Tiles/2.png" id="13_15tbp"]
+[ext_resource type="Texture2D" uid="uid://tprscvrkml4u" path="res://Assets/2D/Sprites/Floorings/light green design tile .png" id="14_0d2h5"]
+[ext_resource type="Texture2D" uid="uid://dfr7iq8abliim" path="res://Assets/2D/Sprites/Floorings/olive tile .png" id="15_vwrc4"]
+[ext_resource type="Texture2D" uid="uid://bqr6qn3xwx0h5" path="res://Assets/2D/Sprites/Floorings/purple design tile .png" id="16_rhgus"]
+[ext_resource type="Texture2D" uid="uid://b072odkvwmnqy" path="res://Assets/2D/Sprites/Floorings/red tile .png" id="17_6gdeo"]
+[ext_resource type="Texture2D" uid="uid://dygrgft3064k5" path="res://Assets/2D/Sprites/Floorings/wooden tile .png" id="18_sai6p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1xacu"]
 texture = ExtResource("1_1fvqq")
@@ -54,8 +64,58 @@ texture_region_size = Vector2i(32, 16)
 1:0/0 = 0
 2:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yo2or"]
+texture = ExtResource("8_0swxp")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xttqg"]
+texture = ExtResource("9_yo1dl")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d6s61"]
+texture = ExtResource("10_of847")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fguup"]
+texture = ExtResource("11_sv6xm")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e1m50"]
+texture = ExtResource("12_larff")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qnr26"]
 texture = ExtResource("3_pxfd2")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bbiye"]
+texture = ExtResource("14_0d2h5")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xbnj0"]
+texture = ExtResource("15_vwrc4")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ndm7a"]
+texture = ExtResource("16_rhgus")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_resrq"]
+texture = ExtResource("17_6gdeo")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_23ray"]
+texture = ExtResource("18_sai6p")
 texture_region_size = Vector2i(32, 16)
 0:0/0 = 0
 
@@ -113,6 +173,16 @@ sources/11 = SubResource("TileSetAtlasSource_fomti")
 sources/12 = SubResource("TileSetAtlasSource_3nexj")
 sources/13 = SubResource("TileSetAtlasSource_a7est")
 sources/14 = SubResource("TileSetAtlasSource_kvdxv")
+sources/15 = SubResource("TileSetAtlasSource_yo2or")
+sources/16 = SubResource("TileSetAtlasSource_xttqg")
+sources/17 = SubResource("TileSetAtlasSource_d6s61")
+sources/18 = SubResource("TileSetAtlasSource_fguup")
+sources/19 = SubResource("TileSetAtlasSource_e1m50")
+sources/20 = SubResource("TileSetAtlasSource_bbiye")
+sources/21 = SubResource("TileSetAtlasSource_xbnj0")
+sources/22 = SubResource("TileSetAtlasSource_ndm7a")
+sources/23 = SubResource("TileSetAtlasSource_resrq")
+sources/24 = SubResource("TileSetAtlasSource_23ray")
 
 [node name="TileMap" type="TileMap"]
 y_sort_enabled = true

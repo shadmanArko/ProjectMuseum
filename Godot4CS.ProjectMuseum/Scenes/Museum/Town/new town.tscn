@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bj3l0sw0oyf6l"]
+[gd_scene load_steps=43 format=3 uid="uid://bj3l0sw0oyf6l"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/UI/TownUi.cs" id="1_spxv3"]
 [ext_resource type="Script" path="res://Scripts/Museum/SpritePanAndZoom.cs" id="2_7gwak"]
@@ -36,6 +36,9 @@
 [ext_resource type="PackedScene" uid="uid://dfsl7yrdj601a" path="res://Scenes/Museum/Town/woodcutterHouse.tscn" id="33_63itx"]
 [ext_resource type="PackedScene" uid="uid://cc0doucitwgjx" path="res://Scenes/Museum/Town/smallhouse.tscn" id="34_35p87"]
 [ext_resource type="Texture2D" uid="uid://bxepiuio8egu" path="res://Assets/2D/Sprites/New Town/parking lot 1.png" id="35_7tt13"]
+[ext_resource type="PackedScene" uid="uid://co4wx5ww1pa85" path="res://Scenes/Museum/Town/tree1.tscn" id="36_ypxdd"]
+[ext_resource type="PackedScene" uid="uid://5jhiittrpu5s" path="res://Scenes/Museum/Town/tree2.tscn" id="37_3h0ih"]
+[ext_resource type="PackedScene" uid="uid://qohoi6cd7ec7" path="res://Scenes/Museum/Town/bush.tscn" id="38_55jim"]
 
 [sub_resource type="Animation" id="Animation_xtnbv"]
 length = 0.001
@@ -928,6 +931,202 @@ position = Vector2(61.75, 16.5)
 z_index = 1
 position = Vector2(-52, -52)
 texture = ExtResource("35_7tt13")
+
+[node name="trees 1" type="Node2D" parent="Town Ui/ground"]
+z_index = 1
+y_sort_enabled = true
+
+[node name="tree1" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(62.75, 42.5)
+
+[node name="tree2" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(97, 37.25)
+
+[node name="tree3" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(29.25, -32.5)
+
+[node name="tree4" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(65.5, -33.5)
+
+[node name="tree5" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(73.75, -53.25)
+
+[node name="tree7" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(-89.75, -51.5)
+
+[node name="tree8" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(-93.25, -16.25)
+
+[node name="tree9" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(-94, 39)
+
+[node name="tree10" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(-65, 37.75)
+
+[node name="tree11" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(-49.75, 9.25)
+
+[node name="tree12" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(-78.25, -77)
+
+[node name="tree13" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(-47.75, -76.75)
+
+[node name="tree14" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(34, -76.25)
+
+[node name="tree15" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(47.75, -75.75)
+
+[node name="tree16" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(85.25, -76.25)
+
+[node name="tree6" parent="Town Ui/ground/trees 1" instance=ExtResource("36_ypxdd")]
+position = Vector2(99, -54.75)
+
+[node name="trees 2" type="Node2D" parent="Town Ui/ground"]
+z_index = 1
+y_sort_enabled = true
+
+[node name="tree2" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+z_index = 1
+position = Vector2(61.25, 60.25)
+
+[node name="tree3" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(80, 37)
+
+[node name="tree4" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(28.75, -13.25)
+
+[node name="tree5" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(64.5, -13.75)
+
+[node name="tree6" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(56.5, -52)
+
+[node name="tree7" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(87, -51.75)
+
+[node name="tree8" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(-93.5, 13.75)
+
+[node name="tree9" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(-63.75, 11.25)
+
+[node name="tree10" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(-96.75, 61.5)
+
+[node name="tree11" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(-51.25, -18.75)
+
+[node name="tree12" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(-64, -76.75)
+
+[node name="tree13" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(-32.75, -77)
+
+[node name="tree14" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(61, -75.75)
+
+[node name="tree15" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(74, -76.25)
+
+[node name="tree16" parent="Town Ui/ground/trees 2" instance=ExtResource("37_3h0ih")]
+position = Vector2(-91, -69.75)
+
+[node name="bushes" type="Node2D" parent="Town Ui/ground"]
+z_index = 1
+y_sort_enabled = true
+
+[node name="tree2" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(30.5, 46)
+
+[node name="tree3" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(56, 66.25)
+
+[node name="tree4" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(50.75, 56.25)
+
+[node name="tree5" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(56.5, 48.5)
+
+[node name="tree6" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(74.25, 12.25)
+
+[node name="tree7" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(61.75, -4.25)
+
+[node name="tree8" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(97.25, -2.5)
+
+[node name="tree9" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(97.75, -21)
+
+[node name="tree10" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(50.75, -45)
+
+[node name="tree11" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(79.75, -45)
+
+[node name="tree12" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(93.5, -45.75)
+
+[node name="tree13" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(39.75, -69.75)
+
+[node name="tree14" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(54, -69.5)
+
+[node name="tree15" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(70.25, -68.75)
+
+[node name="tree16" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(83, -69)
+
+[node name="tree17" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-50, -9)
+
+[node name="tree18" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-50, -2.5)
+
+[node name="tree19" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-41, 16)
+
+[node name="tree20" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-29.75, 16.25)
+
+[node name="tree21" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-48, 27.75)
+
+[node name="tree22" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-38.25, 27.75)
+
+[node name="tree23" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-27.75, 27.5)
+
+[node name="tree24" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-17.75, 27.25)
+
+[node name="tree25" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-97.5, -45.5)
+
+[node name="tree26" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-97.25, -62.75)
+
+[node name="tree27" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-71.75, -71)
+
+[node name="tree28" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-55.25, -71.25)
+
+[node name="tree29" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(-38.75, -71.5)
+
+[node name="tree30" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(7, -68.5)
+
+[node name="tree31" parent="Town Ui/ground/bushes" instance=ExtResource("38_55jim")]
+position = Vector2(23.25, -69)
 
 [node name="TextureRect" type="TextureRect" parent="Town Ui"]
 layout_mode = 1

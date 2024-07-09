@@ -56,7 +56,7 @@ shader_parameter/color = Color(0.0980392, 0.0352941, 0.192157, 1)
 shader_parameter/OCTAVES = 4
 shader_parameter/enable_pixelation = true
 shader_parameter/pixelation_amount = 2000
-shader_parameter/fog_direction = Vector2(-0.5, 0)
+shader_parameter/fog_direction = Vector2(1, 1)
 shader_parameter/scroll_noise_tex = false
 shader_parameter/noise_scroll_direction = Vector2(-1, 0)
 shader_parameter/fog_mask = SubResource("NoiseTexture2D_ngl3y")
@@ -70,7 +70,6 @@ _mineBackGround = NodePath("MineBackground")
 [node name="MineBackground" parent="." instance=ExtResource("2_xr05r")]
 
 [node name="Mine" parent="." node_paths=PackedStringArray("TileMap") instance=ExtResource("3_01lxc")]
-z_as_relative = true
 rendering_quadrant_size = 20
 layer_0/name = "NormalBackdrop"
 layer_1/name = "SpecialBackdrop"
@@ -145,6 +144,24 @@ centered = false
 
 [node name="UISaving" parent="." instance=ExtResource("5_ip856")]
 visible = false
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
+position = Vector2(-4, 0)
+energy = 1.2
+blend_mode = 2
+range_z_min = 6
+range_z_max = 30
+range_layer_max = 20
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 5.0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+light_mask = 135
+visibility_layer = 0
+color = Color(0.650128, 0.650128, 0.650128, 1)
 
 [connection signal="body_entered" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerEnterTrigger"]
 [connection signal="body_exited" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerExitTrigger"]

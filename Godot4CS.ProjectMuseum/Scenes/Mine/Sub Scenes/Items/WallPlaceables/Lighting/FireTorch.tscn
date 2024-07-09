@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://5qvktys7gi0"]
+[gd_scene load_steps=8 format=3 uid="uid://5qvktys7gi0"]
 
 [ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="1_tdkjj"]
 [ext_resource type="Script" path="res://Scripts/Mine/Objects/Variants/FireTorch.cs" id="1_wobj7"]
 [ext_resource type="Texture2D" uid="uid://dslbx4gvrw6vg" path="res://Assets/2D/Animations/Mine Animations/Torch/Torch.png" id="2_6yh75"]
+[ext_resource type="Texture2D" uid="uid://di543djug5e1q" path="res://Assets/2D/Sprites/Mine Sprites/Light/light_mask.png" id="4_cieqc"]
 
 [sub_resource type="Animation" id="Animation_c5n70"]
 length = 0.001
@@ -127,16 +128,17 @@ _torchSprite = NodePath("Sprite2D")
 light_mask = 50
 visibility_layer = 128
 color = Color(0.980392, 0.372549, 0.243137, 1)
-energy = 2.5
-range_z_min = 0
+energy = 0.8
+range_z_min = 1
 range_z_max = 30
 range_layer_max = 30
-range_item_cull_mask = 115
+range_item_cull_mask = 119
 shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 5.0
 shadow_item_cull_mask = 3
 texture = ExtResource("1_tdkjj")
 offset = Vector2(-1, 1)
-texture_scale = 0.95
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 128
@@ -151,3 +153,18 @@ libraries = {
 "": SubResource("AnimationLibrary_q8wom")
 }
 speed_scale = 1.5
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+scale = Vector2(0.27, 0.27)
+color = Color(0.707647, 0.618785, 0.0337757, 1)
+energy = 12.0
+blend_mode = 2
+range_z_min = 0
+range_z_max = 30
+range_layer_max = 30
+range_item_cull_mask = 119
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 2.0
+shadow_item_cull_mask = 119
+texture = ExtResource("4_cieqc")

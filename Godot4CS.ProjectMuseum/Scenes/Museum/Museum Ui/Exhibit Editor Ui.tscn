@@ -299,20 +299,24 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="Exhibit Editor 2x2 Grid4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
+[node name="Exhibit Editor 2x2 Grid4" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" node_paths=PackedStringArray("_dropTargets") instance=ExtResource("4_vggsg")]
 layout_mode = 2
+_dropTargets = []
 
-[node name="Exhibit Editor 2x2 Grid" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
+[node name="Exhibit Editor 2x2 Grid" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" node_paths=PackedStringArray("_dropTargets") instance=ExtResource("4_vggsg")]
 visible = false
 layout_mode = 2
+_dropTargets = []
 
-[node name="Exhibit Editor 2x2 Grid2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
+[node name="Exhibit Editor 2x2 Grid2" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" node_paths=PackedStringArray("_dropTargets") instance=ExtResource("4_vggsg")]
 visible = false
 layout_mode = 2
+_dropTargets = []
 
-[node name="Exhibit Editor 2x2 Grid3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("4_vggsg")]
+[node name="Exhibit Editor 2x2 Grid3" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer" node_paths=PackedStringArray("_dropTargets") instance=ExtResource("4_vggsg")]
 visible = false
 layout_mode = 2
+_dropTargets = []
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

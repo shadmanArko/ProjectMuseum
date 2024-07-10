@@ -7,6 +7,7 @@
 position = Vector2(372, 186)
 texture = ExtResource("1_fan4r")
 script = ExtResource("2_ed6o4")
+_livingHouse = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 input_pickable = true

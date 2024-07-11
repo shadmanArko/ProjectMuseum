@@ -47,7 +47,6 @@ public partial class MineGenerationController : Node2D
 
 	public override void _Ready()
 	{
-		_mineGenerationView = GetNode<MineGenerationView>("Mine");
 		_loadingBarManager = ReferenceStorage.Instance.LoadingBarManager;
 		_mineGenerationVariables.MineGenView = _mineGenerationView;
 		_savingCanvas.Visible = false;

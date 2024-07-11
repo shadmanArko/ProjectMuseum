@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=9 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
+[ext_resource type="Texture2D" uid="uid://1dgf4gglmi0r" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game background.png" id="2_1ohkf"]
 [ext_resource type="Texture2D" uid="uid://wcewhq3qlnu3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
+[ext_resource type="Texture2D" uid="uid://d26013glm27pt" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game frame 2.png" id="4_3th3f"]
 [ext_resource type="Theme" uid="uid://bxuxhp8sn6n2n" path="res://Assets/Themes/Mine/UI/Buttons/PromptButtonTheme.tres" id="4_o858m"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5m5pf"]
@@ -44,6 +46,21 @@ offset_right = 400.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/Panel/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -350.0
+offset_right = 500.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1ohkf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control"]
 layout_mode = 1
@@ -93,10 +110,16 @@ size_flags_vertical = 6
 alignment = 1
 
 [node name="Artifact Sprite Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
-custom_minimum_size = Vector2(400, 300)
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
+
+[node name="Artifact Background" type="TextureRect" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel"]
+layout_mode = 2
+texture = ExtResource("4_3th3f")
+expand_mode = 5
+stretch_mode = 4
 
 [node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel"]
 texture_filter = 1

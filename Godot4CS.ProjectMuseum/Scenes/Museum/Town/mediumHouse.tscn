@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://brhitpdwwrq1d"]
+
+[ext_resource type="Texture2D" uid="uid://c3wc0o7tx7vr7" path="res://Assets/2D/Sprites/New Town/medium house.png" id="1_fan4r"]
+[ext_resource type="Script" path="res://Scripts/Museum/Town/TownBuilding.cs" id="2_ed6o4"]
+
+[node name="mediumhouse" type="Sprite2D"]
+position = Vector2(372, 186)
+texture = ExtResource("1_fan4r")
+script = ExtResource("2_ed6o4")
+_livingHouse = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(6, 3)
+polygon = PackedVector2Array(-17, 1, -18, -8, -13, -13, 2, -13, 8, -6, 5, -4, 5, 0, 3, 2, -7, 2, -7, 6, -9, 6, -15, 6, -17, 4)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="OnMouseExit"]

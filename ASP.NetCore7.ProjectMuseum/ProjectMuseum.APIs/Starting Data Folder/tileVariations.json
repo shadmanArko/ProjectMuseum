@@ -22,5 +22,65 @@
     "Price": 1,
     "NumberOfFrames": 1,
     "SourceId": 7
+  },
+  {
+    "VariationName": "basic grey tile ",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 15
+  },
+  {
+    "VariationName": "blue design tile ",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 16
+  },
+  {
+    "VariationName": "Ceramic 5",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 17
+  },
+  {
+    "VariationName": "double grey basic tile",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 18
+  },
+  {
+    "VariationName": "grey gradiant  basic tile",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 19
+  },
+  {
+    "VariationName": "light green design tile ",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 20
+  },
+  {
+    "VariationName": "olive tile ",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 21
+  },
+  {
+    "VariationName": "purple design tile ",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 22
+  },
+  {
+    "VariationName": "red tile ",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 23
+  },
+  {
+    "VariationName": "wooden tile ",
+    "Price": 1,
+    "NumberOfFrames": 1,
+    "SourceId": 24
   }
 ]

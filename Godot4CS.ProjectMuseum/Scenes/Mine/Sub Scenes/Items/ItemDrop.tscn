@@ -18,6 +18,7 @@ shader_parameter/shine_speed = 1.0
 shader_parameter/shine_wait_cycles = 1.0
 
 [node name="ItemDrop" type="RigidBody2D" node_paths=PackedStringArray("_itemSprite")]
+z_index = 30
 collision_layer = 8
 mass = 0.1
 inertia = 0.5

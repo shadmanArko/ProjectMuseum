@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2qe8mub32nrc"]
+
+[ext_resource type="Texture2D" uid="uid://bvjm1u2mrp1mx" path="res://Assets/2D/Sprites/New Town/bus stand.png" id="1_gef4o"]
+[ext_resource type="Script" path="res://Scripts/Museum/Town/TownBuilding.cs" id="2_hp7ag"]
+
+[node name="bus Stand" type="Sprite2D"]
+position = Vector2(372, 186)
+texture = ExtResource("1_gef4o")
+script = ExtResource("2_hp7ag")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(6, 3)
+polygon = PackedVector2Array(-9, 5, -9, -9, -10, -10, -10, -13, -5, -13, -5, -10, -2, -8, -2, 4, -4, 7, -7, 7)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="OnMouseExit"]

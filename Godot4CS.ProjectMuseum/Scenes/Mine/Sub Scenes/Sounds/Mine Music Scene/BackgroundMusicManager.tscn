@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bb2ymsv53rva8" path="res://Assets/Musics/Mine/Background Music/mineBackgroundMusic3.mp3" id="3_d0i42"]
 
 [node name="BackgroundMusicManager" type="Node2D" node_paths=PackedStringArray("_streamPlayer")]
+process_mode = 3
 script = ExtResource("1_6gt1j")
 _streamPlayer = NodePath("BackgroundMusicStreamPlayer")
 _backgroundMusicList = Array[AudioStream]([ExtResource("2_ko4d5"), ExtResource("3_d0i42")])

@@ -158,7 +158,6 @@ shadow_filter = 2
 shadow_filter_smooth = 5.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 light_mask = 135
 visibility_layer = 0
 color = Color(0.650128, 0.650128, 0.650128, 1)

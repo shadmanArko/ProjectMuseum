@@ -122,21 +122,25 @@ public partial class ExhibitEditorUi : Control
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].AddChild(instance);
+                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}else if (artifact.Id == gridSlots2X2.Slot1)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].AddChild(instance);
+                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}else if (artifact.Id == gridSlots2X2.Slot2)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].AddChild(instance);
+                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}else if (artifact.Id == gridSlots2X2.Slot3)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].AddChild(instance);
+                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}
 

@@ -21,19 +21,33 @@ public partial class ExhibitEditor2x2Grid : GridContainer
 		{
 			return;
 		}
+		GD.Print("Drop targets count " +_dropTargets.Count);
 		if (size == "Medium" )
 		{
 			foreach (var dropTarget in _dropTargets)
 			{
 				dropTarget.hasEmptySlot = false;
+				_dropTargets[0].hasEmptySlot = false;
+				_dropTargets[2].hasEmptySlot = false;
+				_dropTargets[1].hasEmptySlot = false;
+				_dropTargets[3].hasEmptySlot = false;
 			}
 		}
 		if (size == "Small" )
 		{
-			_dropTargets[0].hasEmptySlot = (_dropTargets[0].hasEmptySlot && _dropTargets[2].hasEmptySlot);
-			_dropTargets[2].hasEmptySlot = (_dropTargets[0].hasEmptySlot && _dropTargets[2].hasEmptySlot);
-			_dropTargets[1].hasEmptySlot = (_dropTargets[1].hasEmptySlot && _dropTargets[3].hasEmptySlot);
-			_dropTargets[3].hasEmptySlot = (_dropTargets[1].hasEmptySlot && _dropTargets[3].hasEmptySlot);
+			if (slot == 0 || slot == 2)
+			{
+				_dropTargets[0].hasEmptySlot = false;
+				_dropTargets[2].hasEmptySlot = false;
+			}else if (slot ==1 || slot == 3)
+			{
+				_dropTargets[1].hasEmptySlot = false;
+				_dropTargets[3].hasEmptySlot = false;
+			}
+		}
+		if (size == "Tiny" )
+		{
+			_dropTargets[slot].hasEmptySlot = false;
 		}
 	}
 

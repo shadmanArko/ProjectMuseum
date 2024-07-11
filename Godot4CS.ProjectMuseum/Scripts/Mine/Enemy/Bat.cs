@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -35,16 +36,16 @@ public partial class Bat : CharacterBody2D
          _path = new List<PathNode>();
          _aStarPathfinding = new AStarPathfinding(false);
          MineActions.OnPlayerLandedIntoTheMine += SetChild;
-         SetProcess(false);
+         SetPhysicsProcess(false);
          _moveToPlayer = false;
          _animationPlayer.Play("fly");
      }
      
      private void SetChild()
      {
-         _mineGenerationVariables.MineGenView.AddChild(this);
-         GlobalPosition = new Vector2(480, 100);
-         SetPhysicsProcess(false);
+         // _mineGenerationVariables.MineGenView.AddChild(this);
+         GlobalPosition = new Vector2(480, 100) + new Vector2(20,20);
+         // SetPhysicsProcess(true);
      }
 
      private void InitializeDiReference()
@@ -69,12 +70,32 @@ public partial class Bat : CharacterBody2D
          var cellSize = _mineGenerationVariables.Mine.CellSize;
          var cellOffset = new Vector2(cellSize, cellSize) / 2;
          var distance = Position.DistanceTo(_playerControllerVariables.Position);
-         if (!(distance <= SearchRadius)) return;
-         if (_path.Count <= 0 || _path[^1].Position != GetCellPos(_playerControllerVariables.Position))
+         if (!(distance <= SearchRadius))
          {
+             _moveToPlayer = false;
+             return;
+         }
+         
+         if (_path.Count <= 0) //if no path found or path not updated
+         {
+             GD.Print("path is null or player position not updated");
              var tempPath = FindPath();
-             if (tempPath.Count > 0)
+             if (tempPath.Count > 0)    //populate _path with the new path found
              {
+                 #region path to player not found. doing sth else
+
+                 if (tempPath[^1] != GetCellPos(_playerControllerVariables.Position))
+                 {
+                     _moveToPlayer = false; //do sth else. path to player not found
+                     SetPhysicsProcess(false);
+                     GD.Print("path to player not found. doing sth else.");
+                     return;
+                 }
+
+                 #endregion
+
+                 #region Creating new path for bat to move to player
+//TODO: USE LIST INSTEAD
                  _path.Clear();
                  foreach (var pathNode in tempPath)
                  {
@@ -86,10 +107,19 @@ public partial class Bat : CharacterBody2D
                          
                      _path.Add(node);
                  }
+
+                 #endregion
+             }
+             else
+             {
+                 //cannot find path to player. do sth else
+                 _moveToPlayer = false;
+                 // SetPhysicsProcess(false);
+                 return;
              }
                  
-             GD.Print($"path calculated: {_path.Count}");
-             _moveToPlayer = _path.Count > 0;
+             // GD.Print($"path calculated: {_path.Count}");
+             // _moveToPlayer = _path.Count > 0;
          }
          else
          {
@@ -104,9 +134,19 @@ public partial class Bat : CharacterBody2D
 
      private void MoveToPlayer()
      {
+         for (var index = 0; index < _path.Count; index++)
+         {
+             var pathNode = _path[index];
+             if (pathNode.Position.DistanceTo(GlobalPosition) <= 1)
+                 pathNode.IsVisited = true;
+         }
+
          for (var i = 0; i < _path.Count; i++)
              if (_path[i].IsVisited)
+             {
+                 _path[i].Dispose();
                  _path.Remove(_path[i]);
+             }
 
          if (_path.Count <= 0)
          {
@@ -161,8 +201,27 @@ public partial class Bat : CharacterBody2D
      {
          if (@event.IsActionPressed("Enemy"))
          {
-             SearchForPlayer();
-             _moveToPlayer = true;
+             // SearchForPlayer();
+             SetPhysicsProcess(true);
+             if (_path == null)
+             {
+                 GD.Print("Path is null");
+                 SetPhysicsProcess(false);
+                 return;
+             }
+             
+             if (_path.Count > 0)
+             {
+                 _moveToPlayer = true;
+                 // SetPhysicsProcess(true);
+             }
+             else
+             {
+                 GD.Print("Path count is 0");
+                 // SetPhysicsProcess(false);
+             }
+             
+             
              GD.Print("Searching for player");
          }
      }
@@ -175,10 +234,20 @@ public partial class Bat : CharacterBody2D
      }
 
      #endregion
+
+     public override void _ExitTree()
+     {
+         SetPhysicsProcess(false);
+     }
 }
 
-public class PathNode
+public struct PathNode : IDisposable
 {
     public Vector2 Position { get; set; }
     public bool IsVisited { get; set; }
+
+    public void Dispose()
+    {
+        
+    }
 }

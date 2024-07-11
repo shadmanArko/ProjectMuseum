@@ -173,6 +173,7 @@ _data = {
 size = Vector2(16, 11)
 
 [node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer")]
+z_index = 30
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_iq1da")

@@ -12,27 +12,21 @@ public partial class Bat : CharacterBody2D
      private PlayerControllerVariables _playerControllerVariables;
      private MineGenerationVariables _mineGenerationVariables;
      private RandomNumberGenerator _rand;
-     
-     // public List<AStarNode> AStarNodes { get; private set; }
      private AStarPathfinding _aStarPathfinding;
+     private List<Vector2> _path;
 
      [Export] private AnimationPlayer _animationPlayer;
-     
      [Export] public float SearchRadius = 30f;
      [Export] private Vector2 _targetPos;
      [Export] private float _movementSpeed;
+     [Export] private bool _moveToPlayer; 
 
      #region Initializers
-
-     public override void _EnterTree()
-     {
-         
-     }
+     
 
      public override void _Ready()
      {
          InitializeDiReference();
-         // AStarNodes = new List<AStarNode>();
          _path = new List<Vector2>();
          _rand = new RandomNumberGenerator();
          _aStarPathfinding = new AStarPathfinding(false);
@@ -42,19 +36,17 @@ public partial class Bat : CharacterBody2D
          _animationPlayer.Play("fly");
      }
      
-     private void SetChild()
-     {
-         // _mineGenerationVariables.MineGenView.AddChild(this);
-         GlobalPosition = new Vector2(480, 100) + new Vector2(20,20);
-         // SetPhysicsProcess(true);
-     }
-
      private void InitializeDiReference()
      {
          _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
          _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
      }
-
+     
+     private void SetChild()
+     {
+         GlobalPosition = new Vector2(480, 100) + new Vector2(20,20);
+     }
+     
      #endregion
 
      public override void _PhysicsProcess(double delta)
@@ -64,8 +56,7 @@ public partial class Bat : CharacterBody2D
              MoveToPlayer();
      }
 
-     private List<Vector2> _path;
-     [Export] private bool _moveToPlayer; 
+    
      private void SearchForPlayer()
      {
          var cellSize = _mineGenerationVariables.Mine.CellSize;
@@ -110,24 +101,35 @@ public partial class Bat : CharacterBody2D
              }
              else
              {
-                 //cannot find path to player. do sth else
                  _moveToPlayer = false;
-                 // SetPhysicsProcess(false);
                  return;
              }
-                 
-             // GD.Print($"path calculated: {_path.Count}");
-             // _moveToPlayer = _path.Count > 0;
+             
          }
          else
          {
              _moveToPlayer = true;
-             GD.Print($"move to player set to {_moveToPlayer}");
          }
-             
-         GD.Print($"path count: {_path.Count}");
-         GD.Print($"last node of path {_path[^1]}");
-         GD.Print("Player found within radius at distance: " + distance);
+     }
+     
+     private List<Vector2I> FindPath()
+     {
+         var path = _aStarPathfinding.FindPath(GetCellPos(Position)*-1, GetCellPos(_playerControllerVariables.Position)*-1,
+             _mineGenerationVariables.PathfindingNodes);
+         if (path != null)
+         {
+             for (int i = 0; i < path.Count; i++)
+             {
+                 var temp = path[i];
+                 path[i] = new Vector2I(Mathf.Abs(temp.X), Mathf.Abs(temp.Y));
+             }
+         }
+         else
+         {
+             path = new List<Vector2I> { GetCellPos(Position)};
+         }
+
+         return path;
      }
 
      private void MoveToPlayer()
@@ -152,42 +154,7 @@ public partial class Bat : CharacterBody2D
          MoveAndSlide();
      }
 
-     private List<Vector2I> FindPath()
-     {
-         // foreach (var cell in _mineGenerationVariables.Mine.Cells)
-         // {
-         //     bool isWalkable = cell.IsBroken;
-         //     AStarNode aStarNode = new AStarNode(cell.PositionX, cell.PositionY, null, 0f, 0f, isWalkable);
-         //     AStarNodes.Add(aStarNode);
-         // }
-
-         GD.Print($"getCellPos BAT: {GetCellPos(Position)}");
-         GD.Print($"getCellPos PLAYER: {GetCellPos(_playerControllerVariables.Position)}");
-         // GD.Print($"AStarNodes is null: {AStarNodes == null}");
-         
-         var path = _aStarPathfinding.FindPath(GetCellPos(Position)*-1, GetCellPos(_playerControllerVariables.Position)*-1,
-             _mineGenerationVariables.PathfindingNodes);
-         if (path != null)
-         {
-             for (int i = 0; i < path.Count; i++)
-             {
-                 var temp = path[i];
-                 path[i] = new Vector2I(Mathf.Abs(temp.X), Mathf.Abs(temp.Y));
-             }
-             
-             for (var index = 0; index < path.Count; index++)
-             {
-                 GD.Print($"path {index} is ({path[index].X},{path[index].Y})");
-             }
-         }
-         else
-         {
-             path = new List<Vector2I> { GetCellPos(Position)};
-             GD.PrintErr("Fatal error: path is null");
-         }
-
-         return path;
-     }
+     
 
      public override void _Input(InputEvent @event)
      {

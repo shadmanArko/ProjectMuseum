@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using ProjectMuseum.Models;
@@ -8,6 +9,7 @@ public class MineGenerationVariables
 {
     public global::ProjectMuseum.Models.Mine Mine;
     public MineGenerationView MineGenView;
+    public List<AStarNode> PathfindingNodes { get; set; }
     public int BrokenCells { get; set; }
 
     public Cell GetCell(Vector2I tilePos)

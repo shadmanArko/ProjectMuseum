@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Plugins.AStarPathFinding;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -13,7 +11,9 @@ public partial class Bat : CharacterBody2D
 {
      private PlayerControllerVariables _playerControllerVariables;
      private MineGenerationVariables _mineGenerationVariables;
-     public List<AStarNode> AStarNodes { get; private set; }
+     private RandomNumberGenerator _rand;
+     
+     // public List<AStarNode> AStarNodes { get; private set; }
      private AStarPathfinding _aStarPathfinding;
 
      [Export] private AnimationPlayer _animationPlayer;
@@ -32,8 +32,9 @@ public partial class Bat : CharacterBody2D
      public override void _Ready()
      {
          InitializeDiReference();
-         AStarNodes = new List<AStarNode>();
-         _path = new List<PathNode>();
+         // AStarNodes = new List<AStarNode>();
+         _path = new List<Vector2>();
+         _rand = new RandomNumberGenerator();
          _aStarPathfinding = new AStarPathfinding(false);
          MineActions.OnPlayerLandedIntoTheMine += SetChild;
          SetPhysicsProcess(false);
@@ -63,13 +64,14 @@ public partial class Bat : CharacterBody2D
              MoveToPlayer();
      }
 
-     private List<PathNode> _path;
+     private List<Vector2> _path;
      [Export] private bool _moveToPlayer; 
      private void SearchForPlayer()
      {
          var cellSize = _mineGenerationVariables.Mine.CellSize;
          var cellOffset = new Vector2(cellSize, cellSize) / 2;
          var distance = Position.DistanceTo(_playerControllerVariables.Position);
+         
          if (!(distance <= SearchRadius))
          {
              _moveToPlayer = false;
@@ -95,17 +97,13 @@ public partial class Bat : CharacterBody2D
                  #endregion
 
                  #region Creating new path for bat to move to player
-//TODO: USE LIST INSTEAD
                  _path.Clear();
                  foreach (var pathNode in tempPath)
                  {
-                     var node = new PathNode
-                     {
-                         Position = pathNode * cellSize + cellOffset,
-                         IsVisited = false
-                     };
-                         
-                     _path.Add(node);
+                     var randomX = _rand.RandfRange(5, 10);
+                     var randomY = _rand.RandfRange(5, 15);
+                     var pos = pathNode * cellSize + cellOffset + new Vector2(randomX, randomY);
+                     _path.Add(pos);
                  }
 
                  #endregion
@@ -137,16 +135,10 @@ public partial class Bat : CharacterBody2D
          for (var index = 0; index < _path.Count; index++)
          {
              var pathNode = _path[index];
-             if (pathNode.Position.DistanceTo(GlobalPosition) <= 1)
-                 pathNode.IsVisited = true;
+             if (pathNode.DistanceTo(GlobalPosition) <= 1 || pathNode.X <= 0 || pathNode.Y <= 0)
+                 _path.Remove(pathNode);
          }
-
-         for (var i = 0; i < _path.Count; i++)
-             if (_path[i].IsVisited)
-             {
-                 _path[i].Dispose();
-                 _path.Remove(_path[i]);
-             }
+         
 
          if (_path.Count <= 0)
          {
@@ -154,7 +146,7 @@ public partial class Bat : CharacterBody2D
              return;
          }
          
-         var targetPos = _path[0].Position;
+         var targetPos = _path[0];
          var direction = (targetPos - Position).Normalized();
          Velocity = new Vector2(_movementSpeed, _movementSpeed) * direction;
          MoveAndSlide();
@@ -162,19 +154,19 @@ public partial class Bat : CharacterBody2D
 
      private List<Vector2I> FindPath()
      {
-         foreach (var cell in _mineGenerationVariables.Mine.Cells)
-         {
-             bool isWalkable = cell.IsBroken;
-             AStarNode aStarNode = new AStarNode(cell.PositionX, cell.PositionY, null, 0f, 0f, isWalkable);
-             AStarNodes.Add(aStarNode);
-         }
+         // foreach (var cell in _mineGenerationVariables.Mine.Cells)
+         // {
+         //     bool isWalkable = cell.IsBroken;
+         //     AStarNode aStarNode = new AStarNode(cell.PositionX, cell.PositionY, null, 0f, 0f, isWalkable);
+         //     AStarNodes.Add(aStarNode);
+         // }
 
          GD.Print($"getCellPos BAT: {GetCellPos(Position)}");
          GD.Print($"getCellPos PLAYER: {GetCellPos(_playerControllerVariables.Position)}");
-         GD.Print($"AStarNodes is null: {AStarNodes == null}");
+         // GD.Print($"AStarNodes is null: {AStarNodes == null}");
          
          var path = _aStarPathfinding.FindPath(GetCellPos(Position)*-1, GetCellPos(_playerControllerVariables.Position)*-1,
-             AStarNodes);
+             _mineGenerationVariables.PathfindingNodes);
          if (path != null)
          {
              for (int i = 0; i < path.Count; i++)
@@ -239,15 +231,4 @@ public partial class Bat : CharacterBody2D
      {
          SetPhysicsProcess(false);
      }
-}
-
-public struct PathNode : IDisposable
-{
-    public Vector2 Position { get; set; }
-    public bool IsVisited { get; set; }
-
-    public void Dispose()
-    {
-        
-    }
 }

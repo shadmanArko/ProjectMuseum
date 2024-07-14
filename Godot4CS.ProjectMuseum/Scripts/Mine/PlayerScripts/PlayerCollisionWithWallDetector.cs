@@ -46,6 +46,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnDigActionEnded += AttackWall;
         MineActions.OnDigActionEnded += ItemizeOnPickaxeHit;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
+        MineActions.OnMineCellBroken += UpdatePathfindingNodeOnCellBroken;
     }
 
     #endregion
@@ -303,6 +304,23 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     #endregion
 
+    #region Pathfinding Nodes Update
+
+    private void UpdatePathfindingNodeOnCellBroken(Vector2I brokenCellPos)
+    {
+        var node = _mineGenerationVariables.PathfindingNodes.FirstOrDefault(tempNode =>
+            tempNode.TileCoordinateX == brokenCellPos.X && tempNode.TileCoordinateY == brokenCellPos.Y);
+        if (node == null)
+        {
+            GD.PrintErr($"Astar Node not found");
+            return;
+        }
+
+        node.IsWalkable = true;
+    }
+
+    #endregion
+
     #region Cell Block Enter and Exit
 
     private void OnCellBlockEnter(Node2D body)
@@ -335,6 +353,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnDigActionEnded -= AttackWall;
         MineActions.OnDigActionEnded -= ItemizeOnPickaxeHit;
         MineActions.OnArtifactCellBroken -= DigOrdinaryCell;
+        MineActions.OnMineCellBroken += UpdatePathfindingNodeOnCellBroken;
     }
 
     public override void _ExitTree()

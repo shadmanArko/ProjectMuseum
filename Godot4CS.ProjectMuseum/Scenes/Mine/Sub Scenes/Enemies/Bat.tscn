@@ -179,7 +179,7 @@ collision_mask = 3
 script = ExtResource("1_iq1da")
 _animationPlayer = NodePath("AnimationPlayer")
 SearchRadius = 100.0
-_movementSpeed = 50.0
+_movementSpeed = 30.0
 _moveToPlayer = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

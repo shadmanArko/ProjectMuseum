@@ -33,6 +33,8 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
 
         public List<Vector2I> FindPath(Vector2I startTileCoordinates, Vector2I goalTileCoordinates, List<AStarNode> grid)
         {
+            GD.Print($"Inside A Star Pathfinding Script with Nodes: {grid.Count}");
+            
             startTileCoordinates *= -1;
             goalTileCoordinates *= -1;
             // _grid = new Node[GridSizeX, GridSizeY];

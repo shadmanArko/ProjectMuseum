@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmc4qwwsl3lwg"]
+[gd_scene load_steps=6 format=3 uid="uid://dmc4qwwsl3lwg"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/UI/CampExitPromptUi.cs" id="1_jpjbt"]
-[ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_w1mvd"]
-[ext_resource type="Theme" uid="uid://bxuxhp8sn6n2n" path="res://Assets/Themes/Mine/UI/Buttons/PromptButtonTheme.tres" id="2_2rmr6"]
+[ext_resource type="Theme" uid="uid://d4nuoj106bh6v" path="res://Themes/Theme1.tres" id="2_kcph1"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/CampToMineTransition.cs" id="2_nhs7x"]
 [ext_resource type="PackedScene" uid="uid://dhfg3ykfjk5mp" path="res://Plugins/Scene Changer/SceneChanger.tscn" id="4_oc4fq"]
 
@@ -50,8 +49,7 @@ custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("2_2rmr6")
-theme_override_fonts/font = ExtResource("1_w1mvd")
+theme = ExtResource("2_kcph1")
 theme_override_font_sizes/font_size = 16
 text = "SLEEP FOR THE NIGHT?"
 script = ExtResource("2_nhs7x")
@@ -61,8 +59,7 @@ custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("2_2rmr6")
-theme_override_fonts/font = ExtResource("1_w1mvd")
+theme = ExtResource("2_kcph1")
 theme_override_font_sizes/font_size = 16
 text = "RETURN TO MUSEUM?"
 script = ExtResource("2_nhs7x")
@@ -72,8 +69,7 @@ custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("2_2rmr6")
-theme_override_fonts/font = ExtResource("1_w1mvd")
+theme = ExtResource("2_kcph1")
 theme_override_font_sizes/font_size = 16
 text = "RETURN TO MINE?"
 script = ExtResource("2_nhs7x")

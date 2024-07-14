@@ -482,6 +482,12 @@ public class ProceduralMineGenerationService : IProceduralMineGenerationService
         }
         
         var artifacts = await _mineArtifactService.GenerateNewArtifacts(listOfArtifacts);
+        foreach (var artifact in artifacts)
+        {
+            Console.WriteLine($"Artifact: {artifact.RawArtifactId}");
+            Console.WriteLine($"pos: ({artifact.PositionX},{artifact.PositionY})");
+            Console.WriteLine($"rarity: {artifact.Rarity}");
+        }
         
         await _mineService.AssignArtifactsToMine();
     }

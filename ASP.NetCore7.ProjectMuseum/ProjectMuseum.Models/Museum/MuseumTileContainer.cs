@@ -21,8 +21,6 @@ public class MuseumTileContainer
 
     private void GenerateAStarNodes()
     {
-        var width = 18;
-        var height = 20;
         AStarNodes = new List<AStarNode>();
 
         foreach (var museumTile in museumTiles)

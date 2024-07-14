@@ -132,6 +132,10 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         }
     }
 
+    public void Stepped()
+    {
+        MuseumActions.OnPlayerStepped?.Invoke();
+    }
    
 }
 

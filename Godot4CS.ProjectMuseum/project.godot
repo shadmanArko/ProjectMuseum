@@ -24,6 +24,7 @@ MuseumActions="*res://Scripts/Museum/Museum Actions/MuseumActions.cs"
 SettingsSignalBus="*res://Scripts/SettingsMenu/SettingsSignalBus.gd"
 SaveManager="*res://Scripts/SettingsMenu/SaveManager.gd"
 SettingsDataContainer="*res://Plugins/Keybind/SettingsDataContainer.gd"
+AudioManager="*res://Scripts/Audio Manager/AudioManager.cs"
 
 [display]
 

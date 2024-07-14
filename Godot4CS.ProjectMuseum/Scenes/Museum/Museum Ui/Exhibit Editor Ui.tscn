@@ -52,7 +52,6 @@ grow_vertical = 2
 script = ExtResource("1_5j1h5")
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
 _draggable = ExtResource("3_vjpch")
-_dropTarget = ExtResource("3_gbute")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
 _glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")

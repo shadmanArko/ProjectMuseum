@@ -8,6 +8,7 @@ public partial class DropTarget : Control
 {
     [Export] private bool _parentTarget;
     public bool hasEmptySlot = true;
+    public bool canDropItem = true;
     private bool matchsGrid = false;
     private PackedScene draggableScene = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable.tscn");
     private PackedScene draggableScene100x100 = GD.Load<PackedScene>("res://Scenes/Museum/Museum Ui/Drag And Drop/draggable_100x100.tscn");
@@ -24,6 +25,28 @@ public partial class DropTarget : Control
         MuseumActions.DragEnded += DragEnded;
         MuseumActions.OnRawArtifactDescriptiveDataLoaded += OnRawArtifactDescriptiveDataLoaded;
         MuseumActions.OnRawArtifactFunctionalDataLoaded += OnRawArtifactFunctionalDataLoaded;
+        MuseumActions.OnMakeGridSlotEligible += OnMakeGridSlotEligible;
+        MuseumActions.OnMakeGridSlotDisable += OnMakeGridSlotDisable;
+    }
+
+    private void OnMakeGridSlotDisable(int grid, int slot)
+    {
+        if (grid == GridNumber && slot == SlotNumber)
+        {
+            GD.Print($"Grid {grid}, slot {slot} disable");
+            hasEmptySlot = false;
+            SetGridSizeInfo(false);
+        }
+    }
+
+    private void OnMakeGridSlotEligible(int grid, int slot)
+    {
+        if (grid == GridNumber && slot == SlotNumber)
+        {
+            GD.Print($"Grid {grid}, slot {slot} eligible");
+            hasEmptySlot = true;
+            SetGridSizeInfo(true);
+        }
     }
 
     private void OnRawArtifactFunctionalDataLoaded(List<RawArtifactFunctional> obj)
@@ -38,6 +61,7 @@ public partial class DropTarget : Control
 
     public void Initialize(int slotNumber, int gridNumber, List<RawArtifactDescriptive> rawArtifactDescriptives, List<RawArtifactFunctional> rawArtifactFunctionals)
     {
+        GD.Print($"initialized grid {gridNumber}, slot {slotNumber}");
         SlotNumber = slotNumber;
         GridNumber = gridNumber;
         _rawArtifactDescriptiveDatas = rawArtifactDescriptives;
@@ -64,7 +88,7 @@ public partial class DropTarget : Control
         var canDrop = ((Node)data).IsInGroup("Draggable");
         //GD.Print($"Can drop data has run {Name}");
         // Highlight(canDrop && hasEmptySlot); // Highlight if conditions are met
-        return (canDrop && hasEmptySlot && matchsGrid) || _parentTarget;
+        return (canDrop && hasEmptySlot && matchsGrid && canDropItem) || _parentTarget;
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
@@ -86,9 +110,11 @@ public partial class DropTarget : Control
         }
         else
         {
-            MuseumActions.ArtifactRemovedFromSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact,
+            var artifact = ((Node)data).GetNode<Draggable>(".").Artifact;
+            var artifactSize = ((Node)data).GetNode<Draggable>(".").ArtifactSize;
+            MuseumActions.ArtifactRemovedFromSlot?.Invoke(artifact,
                 ((Node)data).GetNode<Draggable>(".").SlotAtTheStartOfDrag, ((Node)data).GetNode<Draggable>(".").GridAtTheStartOfDrag);
-            MuseumActions.ArtifactDroppedOnSlot?.Invoke(((Node)data).GetNode<Draggable>(".").Artifact, ((Node)data).GetNode<Draggable>(".").ArtifactSize, SlotNumber, GridNumber);
+            MuseumActions.ArtifactDroppedOnSlot?.Invoke(artifact, artifactSize, SlotNumber, GridNumber);
             MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("PlaceArtifactOnDisplaySlot");
 
         }
@@ -105,6 +131,7 @@ public partial class DropTarget : Control
     public void SetGridSizeInfo(bool value)
     {
         matchsGrid = value;
+        canDropItem = value;
         Highlight(matchsGrid);
     }
 
@@ -114,5 +141,7 @@ public partial class DropTarget : Control
         MuseumActions.DragEnded -= DragEnded;
         MuseumActions.OnRawArtifactDescriptiveDataLoaded -= OnRawArtifactDescriptiveDataLoaded;
         MuseumActions.OnRawArtifactFunctionalDataLoaded -= OnRawArtifactFunctionalDataLoaded;
+        MuseumActions.OnMakeGridSlotEligible -= OnMakeGridSlotEligible;
+        MuseumActions.OnMakeGridSlotDisable -= OnMakeGridSlotDisable;
     }
 }

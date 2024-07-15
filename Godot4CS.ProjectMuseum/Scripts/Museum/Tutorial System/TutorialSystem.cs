@@ -67,6 +67,7 @@ public partial class TutorialSystem : Node
         
         //GD.Print("Show tutorial called");
         _currentTutorialNumber = number;
+        _httpRequestForGettingTutorial.CancelRequest();
         _httpRequestForGettingTutorial.Request(ApiAddress.StoryApiPath + $"GetTutorialScene/{number}");
     }
     private void HttpRequestForGettingTutorialOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)

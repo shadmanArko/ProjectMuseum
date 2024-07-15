@@ -272,10 +272,6 @@ public partial class MineGenerationController : Node2D
 
 		_mineGenerationVariables.PathfindingNodes = AStarNodes;
 		GD.Print("path finding nodes generated");
-		foreach (var starNode in _mineGenerationVariables.PathfindingNodes)
-		{
-			GD.Print($"node pos: {starNode.TileCoordinateX}, {starNode.TileCoordinateY}");
-		}
 	}
 
 	#endregion

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cqajq31u1mg6l"
+path="res://.godot/imported/footStepLeft.mp3-93f2770c5b346eb7166f38cb6e6624b4.mp3str"
+
+[deps]
+
+source_file="res://Assets/SFX/Mine SFX/FootSteps/footStepLeft.mp3"
+dest_files=["res://.godot/imported/footStepLeft.mp3-93f2770c5b346eb7166f38cb6e6624b4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

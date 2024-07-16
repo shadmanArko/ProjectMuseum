@@ -23,13 +23,11 @@ public partial class PlayerSfxManager : Node2D
     private void SubscribeToActions()
     {
         MineActions.OnSuccessfulDigActionCompleted += PlayDigSfx;
-        MineActions.OnMeleeAttackActionStarted += PlaySwordSlashSfx;
     }
     
     private void UnsubscribeToActions()
     {
         MineActions.OnSuccessfulDigActionCompleted -= PlayDigSfx;
-        MineActions.OnMeleeAttackActionStarted -= PlaySwordSlashSfx;
     }
 
     #endregion

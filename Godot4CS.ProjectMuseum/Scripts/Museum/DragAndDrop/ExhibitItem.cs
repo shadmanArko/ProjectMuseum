@@ -228,7 +228,7 @@ public partial class ExhibitItem : Item
 
     private void RemoveArtifactFromSlot(int slotNumber)
     {
-	    _artifactSlots[slotNumber-1].Texture = null;
+	    // _artifactSlots[slotNumber-1].Texture = null;
 	    // if (slotNumber == 1)
      //    {
      //        _artifactSlots[0].Texture = null;
@@ -243,6 +243,7 @@ public partial class ExhibitItem : Item
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+        MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
         //GD.Print("Placed Artifact");
     }
 
@@ -261,7 +262,11 @@ public partial class ExhibitItem : Item
 
     private void AssignArtifactToSlot(Artifact artifact, int slotNumber)
     {
-	    _artifactSlots[slotNumber-1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+	    if (slotNumber == 0)
+	    {
+		    return;
+	    }
+	    // _artifactSlots[slotNumber-1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
 	    // if (slotNumber == 1)
      //    {
      //        _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);

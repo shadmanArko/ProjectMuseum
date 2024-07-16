@@ -2,6 +2,30 @@
   {
     "Artifacts": [
       {
+        "Id": "1",
+        "RawArtifactId": "ClassicalNativeAmericanShellNecklace",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },{
+        "Id": "2",
+        "RawArtifactId": "ClassicalNativeAmericanShellNecklace",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },{
+        "Id": "3",
+        "RawArtifactId": "ClassicalNativeAmericanShellNecklace",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },{
         "Id": "4",
         "RawArtifactId": "ClassicalNativeAmericanShellNecklace",
         "PositionX": 22,
@@ -12,6 +36,38 @@
       },
       {
         "Id": "5",
+        "RawArtifactId": "AncientNativeAmericanClayHumanFigurine",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },{
+        "Id": "11",
+        "RawArtifactId": "AncientNativeAmericanClayHumanFigurine",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },{
+        "Id": "8",
+        "RawArtifactId": "AncientNativeAmericanClayHumanFigurine",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },{
+        "Id": "9",
+        "RawArtifactId": "AncientNativeAmericanClayHumanFigurine",
+        "PositionX": 22,
+        "PositionY": 6,
+        "Slot": 0,
+        "Condition": "Decrepit",
+        "Rarity": "Common"
+      },{
+        "Id": "10",
         "RawArtifactId": "AncientNativeAmericanClayHumanFigurine",
         "PositionX": 22,
         "PositionY": 6,

@@ -149,6 +149,7 @@ using ProjectMuseum.Models;
 
 		
 	}
+	
 
 	private void HandleTinySizeArtifactEligibility()
 	{
@@ -157,8 +158,12 @@ using ProjectMuseum.Models;
 		{
 			
 			if (GetArtifactSize(gridSlots2X2.Slot0) == "Medium" || GetArtifactSize(gridSlots2X2.Slot1) == "Medium" || 
-			    (GetArtifactSize(gridSlots2X2.Slot0) == "Small" && GetArtifactSize(gridSlots2X2.Slot1) == "Small"))
+			    (GetArtifactSize(gridSlots2X2.Slot0) == "Small" && GetArtifactSize(gridSlots2X2.Slot1) == "Small")||
+			    (GetArtifactSize(gridSlots2X2.Slot0) == "Tiny" && GetArtifactSize(gridSlots2X2.Slot1) == "Tiny" 
+			    && GetArtifactSize(gridSlots2X2.Slot2) == "Tiny"&& GetArtifactSize(gridSlots2X2.Slot3) == "Tiny")
+			    )
 			{
+				//when no slot is empty
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 1);
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 2);
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
@@ -167,6 +172,8 @@ using ProjectMuseum.Models;
 			}else if (gridSlots2X2.Slot0.IsUnassigned() && gridSlots2X2.Slot1.IsUnassigned() &&
 			          gridSlots2X2.Slot2.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
 			{
+				//when all slot is empty
+				GD.Print("All slots eligible for tiny object");
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 1);
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 2);
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 3);
@@ -175,6 +182,7 @@ using ProjectMuseum.Models;
 			}
 			else if (GetArtifactSize(gridSlots2X2.Slot0) == "Small")
 			{
+				//when 1, 3 slot is booked
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 1);
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
 				if (GetArtifactSize(gridSlots2X2.Slot1).IsUnassigned())
@@ -215,6 +223,22 @@ using ProjectMuseum.Models;
 				{
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
 				}
+			}else if (GetArtifactSize(gridSlots2X2.Slot0).IsUnassigned())
+			{
+				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 1);
+				if (!GetArtifactSize(gridSlots2X2.Slot2).IsUnassigned())
+				{
+					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
+				}
+				
+			}else if (GetArtifactSize(gridSlots2X2.Slot1).IsUnassigned())
+			{
+				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 2);
+				if (!GetArtifactSize(gridSlots2X2.Slot3).IsUnassigned())
+				{
+					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 4);
+				}
+				
 			}
 			
 
@@ -282,11 +306,14 @@ using ProjectMuseum.Models;
 				var artifactFunctional = _rawArtifactFunctionalDatas.FirstOrDefault(functional => functional.Id == displayArtifact.RawArtifactId);
 				if (artifactFunctional == null)
 				{
+					GD.Print($"Artifact not in functional aid: {artifactId}, rid: {displayArtifact.RawArtifactId}");
+
 					return "";
 				}
 				else return artifactFunctional.ObjectSize;
 			}
 		}
+		GD.Print($"Artifact not in display {artifactId}");
 		return "";
 	}
 
@@ -303,6 +330,13 @@ using ProjectMuseum.Models;
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 3);
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 4);
 
+			}
+			else
+			{
+				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 1);
+				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 2);
+				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
+				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 4);
 			}
 
 			gridCount++;
@@ -355,19 +389,43 @@ using ProjectMuseum.Models;
 
 	private void ArtifactDroppedOnSlot(Artifact artifact, string size, int slotNumber, int gridNumber)
 	{
-		if (slotNumber == 1)
+		if (GetArtifactSize(artifact.Id) == "Small")
 		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
-		}else if (slotNumber == 2)
-		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifact.Id;
-		}else if (slotNumber == 3)
-		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = artifact.Id;
-		}else if (slotNumber == 4)
-		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = artifact.Id;
+			if (slotNumber == 3 || slotNumber == 1)
+			{
+				slotNumber = 1;
+				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
+			}else if (slotNumber == 2 || slotNumber == 4)
+			{
+				slotNumber = 2;
+				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifact.Id;
+			}
 		}
+		else if (GetArtifactSize(artifact.Id) == "Medium")
+		{
+			if (slotNumber == 1 || slotNumber == 2 || slotNumber == 3 || slotNumber == 4)
+			{
+				slotNumber = 1;
+				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
+			}
+		}
+		else if (GetArtifactSize(artifact.Id) == "Tiny")
+		{
+			if (slotNumber == 1)
+			{
+				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
+			}else if (slotNumber == 2)
+			{
+				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifact.Id;
+			}else if (slotNumber == 3)
+			{
+				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = artifact.Id;
+			}else if (slotNumber == 4)
+			{
+				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = artifact.Id;
+			}
+		}
+		
 		GD.Print($"Exhibit after adding artifact {JsonConvert.SerializeObject(_selectedExhibit)}");
 		if (!_displayArtifacts.Contains(artifact))
 		{

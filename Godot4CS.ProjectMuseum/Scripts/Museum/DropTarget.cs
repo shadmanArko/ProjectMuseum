@@ -31,6 +31,7 @@ public partial class DropTarget : Control
 
     private void OnMakeGridSlotDisable(int grid, int slot)
     {
+        if (_parentTarget) return;
         if (grid == GridNumber && slot == SlotNumber)
         {
             GD.Print($"Grid {grid}, slot {slot} disable");
@@ -41,6 +42,7 @@ public partial class DropTarget : Control
 
     private void OnMakeGridSlotEligible(int grid, int slot)
     {
+        if (_parentTarget) return;
         if (grid == GridNumber && slot == SlotNumber)
         {
             GD.Print($"Grid {grid}, slot {slot} eligible");
@@ -71,7 +73,7 @@ public partial class DropTarget : Control
     {
         if (obj.IsInGroup("Draggable"))
         {
-            Highlight(false);
+            Modulate = originalColor;
         }
     }
 
@@ -88,7 +90,7 @@ public partial class DropTarget : Control
         var canDrop = ((Node)data).IsInGroup("Draggable");
         //GD.Print($"Can drop data has run {Name}");
         // Highlight(canDrop && hasEmptySlot); // Highlight if conditions are met
-        return (canDrop && hasEmptySlot && matchsGrid && canDropItem) || _parentTarget;
+        return (canDrop && hasEmptySlot) || _parentTarget;
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
@@ -125,7 +127,7 @@ public partial class DropTarget : Control
     public void Highlight(bool highlight)
     {
         // Set the color to the original or a highlighted color based on the 'highlight' parameter
-        Modulate = highlight ? Colors.Green : originalColor;
+        Modulate = highlight ? Colors.Green : Colors.Red;
     }
 
     public void SetGridSizeInfo(bool value)

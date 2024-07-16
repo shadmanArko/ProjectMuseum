@@ -111,6 +111,7 @@ public partial class MuseumActions : Node
     public static Action<List<RawArtifactDescriptive>> OnRawArtifactDescriptiveDataLoaded;
     public static Action<List<RawArtifactFunctional>> OnRawArtifactFunctionalDataLoaded;
     public static Action<string> OnExhibitDeleted;
+    public static Action<Exhibit> OnExhibitUpdated;
     public static Action<string> OnMakeExhibitFloatForMoving;
     public static Action<int, int> OnMakeGridSlotEligible;
     public static Action<int, int> OnMakeGridSlotDisable;

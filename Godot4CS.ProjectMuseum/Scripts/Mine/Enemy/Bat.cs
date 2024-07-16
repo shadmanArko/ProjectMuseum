@@ -83,29 +83,35 @@ public partial class Bat : FlyingEnemy
         }
         else if (Phase == FlyingEnemyPhase.Rest)
         {
-            if (_moveAlongPath)
+            if (_isResting)
             {
-                if (_path.Count > 0)
-                    MoveAlongPath();
+                if (_restTime > 0)
+                {
+                    _restTime -= (float)delta;
+                    _animationPlayer.Play("hang");
+                    await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
+                }
                 else
                 {
-                    if (_restTime > 0)
-                    {
-                        _restTime -= (float)delta;
-                        _animationPlayer.Play("hang");
-                        await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
-                    }
-                    else
-                    {
-                        _animationPlayer.Play("hang_to_fly");
-                        await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
-                        Phase = FlyingEnemyPhase.Chase;
-                        _animationPlayer.Play("fly");
-                    }
+                    _animationPlayer.Play("hang_to_fly");
+                    await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
+                    Phase = FlyingEnemyPhase.Chase;
+                    _animationPlayer.Play("fly");
                 }
             }
             else
-                FindRestingPlace();
+            {
+                if (_moveAlongPath)
+                {
+                    MoveAlongPath();
+                }
+                else
+                {
+                    _animationPlayer.Play("fly_to_hang");
+                    await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
+                    _isResting = true;
+                }
+            }
         }
         else if (Phase == FlyingEnemyPhase.Explore)
         {

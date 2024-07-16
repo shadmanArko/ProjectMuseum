@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bcxa10qjiqp81"]
+[gd_scene load_steps=53 format=3 uid="uid://bcxa10qjiqp81"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
@@ -12,8 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/ItemCollectionController.cs" id="7_wx28y"]
 [ext_resource type="Script" path="res://Scripts/Mine/Sounds/MineSfx/PlayerSfxManager.cs" id="10_elavb"]
 [ext_resource type="AudioStream" uid="uid://ry55m836vsai" path="res://Assets/SFX/Mine SFX/Melee/swordSlash.mp3" id="13_7q814"]
-[ext_resource type="AudioStream" uid="uid://boyu63h2s6y6d" path="res://Assets/SFX/Mine SFX/Dig/dig3.wav" id="13_nyhml"]
-[ext_resource type="AudioStream" uid="uid://16o2ajvfgyd2" path="res://Assets/SFX/Mine SFX/Dig/dig4.wav" id="14_y1s2w"]
+[ext_resource type="AudioStream" uid="uid://duno0frkrgach" path="res://Assets/SFX/Mine SFX/Dig/blockHit.mp3" id="13_mbswu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cq4yg"]
 radius = 5.0
@@ -830,7 +829,7 @@ shape = SubResource("RectangleShape2D_skedj")
 [node name="PlayerSfxManager" type="Node2D" parent="." node_paths=PackedStringArray("_streamPlayer")]
 script = ExtResource("10_elavb")
 _streamPlayer = NodePath("../AudioStreamPlayer2D")
-_digSfxList = Array[AudioStream]([ExtResource("13_nyhml"), ExtResource("14_y1s2w")])
+_blockHitSfxList = Array[AudioStream]([ExtResource("13_mbswu")])
 _swordSlashSfxList = Array[AudioStream]([ExtResource("13_7q814")])
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]

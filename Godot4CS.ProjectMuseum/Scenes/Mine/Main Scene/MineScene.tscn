@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=42 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://cye410nrvhc2d" path="res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageController.tscn" id="32_rvnlm"]
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/InventoryItemCollector.cs" id="40_dy3xt"]
+[ext_resource type="PackedScene" uid="uid://bmv76y46lpu7o" path="res://Scenes/Mine/Sub Scenes/Sounds/Sfx/MineSfxManager.tscn" id="41_737yh"]
 
 [node name="MineScene" type="Control"]
 process_mode = 1
@@ -217,3 +218,6 @@ _mineBackGround = NodePath("MineBackground")
 
 [node name="InventoryItemCollector" type="Node" parent="."]
 script = ExtResource("40_dy3xt")
+
+[node name="MineSfxManager" parent="." node_paths=PackedStringArray("_streamPlayer") instance=ExtResource("41_737yh")]
+_streamPlayer = NodePath("AudioStreamPlayer2D")

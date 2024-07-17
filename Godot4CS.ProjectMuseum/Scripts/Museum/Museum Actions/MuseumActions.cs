@@ -34,8 +34,8 @@ public partial class MuseumActions : Node
     public static Action<BuilderCardType> OnBottomPanelBuilderCardToggleClicked;
     public static Action<Artifact, string, int, int> ArtifactDroppedOnSlot;
     public static Action<Artifact, int, int> ArtifactRemovedFromSlot;
-    public static Action<Artifact, Item, int, int> ArtifactDroppedOnExhibitSlot;
-    public static Action<Artifact, Item, int, int> ArtifactRemovedFromExhibitSlot;
+    public static Action<Artifact, Item, int, int, string> ArtifactDroppedOnExhibitSlot;
+    public static Action<Artifact, Item, int, int, string> ArtifactRemovedFromExhibitSlot;
     public static Action<Texture2D> OnPreviewWallpaperUpdated;
 
     public static Action<bool> OnClickMuseumGateToggle;

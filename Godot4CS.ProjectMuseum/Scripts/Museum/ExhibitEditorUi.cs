@@ -55,6 +55,7 @@ using ProjectMuseum.Models;
 		_httpRequestForDeletingExhibit.RequestCompleted += HttpRequestForDeletingExhibitOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnSlot += ArtifactDroppedOnSlot;
 		MuseumActions.ArtifactRemovedFromSlot += ArtifactRemovedFromSlot;
+		MuseumActions.OnExhibitUpdated += OnExhibitUpdated;
 		MuseumActions.PlayStoryScene += PlayStoryScene;
 		MuseumActions.DragStarted += DragStarted;
 		_exitButton.Pressed += ExitButtonOnPressed;
@@ -65,6 +66,15 @@ using ProjectMuseum.Models;
 		_httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
 		await Task.Delay(1000);
 		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+	}
+
+	private void OnExhibitUpdated(Exhibit obj)
+	{
+		if (_selectedExhibit.Id == obj.Id)
+		{
+			_selectedExhibit = obj;
+			GD.Print($"Exhibit after updated {JsonConvert.SerializeObject(_selectedExhibit)}");
+		}
 	}
 
 	private void MoveExhibitButtonOnPressed()
@@ -109,25 +119,26 @@ using ProjectMuseum.Models;
 
 	private void ArtifactRemovedFromSlot(Artifact artifact, int slotNumber, int gridNumber)
 	{
-		if (slotNumber == 1)
-		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = "";
-		}else if (slotNumber == 2)
-		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = "";
-		}else if (slotNumber == 3)
-		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = "";
-		}else if (slotNumber == 4)
-		{
-			_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = "";
-		}
-		GD.Print($"Exhibit after removing artifact {JsonConvert.SerializeObject(_selectedExhibit)}");
+		var artifactSize = GetArtifactSize(artifact.Id);
+		// if (slotNumber == 1)
+		// {
+		// 	_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = "";
+		// }else if (slotNumber == 2)
+		// {
+		// 	_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = "";
+		// }else if (slotNumber == 3)
+		// {
+		// 	_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = "";
+		// }else if (slotNumber == 4)
+		// {
+		// 	_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = "";
+		// }
+		// GD.Print($"Exhibit after removing artifact {JsonConvert.SerializeObject(_selectedExhibit)}");
 		if (_displayArtifacts.Contains(artifact))
 		{
 			_displayArtifacts.Remove(artifact);
 		}
-		MuseumActions.ArtifactRemovedFromExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber);
+		MuseumActions.ArtifactRemovedFromExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber, artifactSize);
 	}
 	private void DragStarted(Draggable obj)
 	{
@@ -389,49 +400,50 @@ using ProjectMuseum.Models;
 
 	private void ArtifactDroppedOnSlot(Artifact artifact, string size, int slotNumber, int gridNumber)
 	{
-		if (GetArtifactSize(artifact.Id) == "Small")
-		{
-			if (slotNumber == 3 || slotNumber == 1)
-			{
-				slotNumber = 1;
-				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
-			}else if (slotNumber == 2 || slotNumber == 4)
-			{
-				slotNumber = 2;
-				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifact.Id;
-			}
-		}
-		else if (GetArtifactSize(artifact.Id) == "Medium")
-		{
-			if (slotNumber == 1 || slotNumber == 2 || slotNumber == 3 || slotNumber == 4)
-			{
-				slotNumber = 1;
-				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
-			}
-		}
-		else if (GetArtifactSize(artifact.Id) == "Tiny")
-		{
-			if (slotNumber == 1)
-			{
-				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
-			}else if (slotNumber == 2)
-			{
-				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifact.Id;
-			}else if (slotNumber == 3)
-			{
-				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = artifact.Id;
-			}else if (slotNumber == 4)
-			{
-				_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = artifact.Id;
-			}
-		}
+		var artifactSize = GetArtifactSize(artifact.Id); 
+		// if (artifactSize == "Small")
+		// {
+		// 	if (slotNumber == 3 || slotNumber == 1)
+		// 	{
+		// 		slotNumber = 1;
+		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
+		// 	}else if (slotNumber == 2 || slotNumber == 4)
+		// 	{
+		// 		slotNumber = 2;
+		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifact.Id;
+		// 	}
+		// }
+		// else if (artifactSize == "Medium")
+		// {
+		// 	if (slotNumber == 1 || slotNumber == 2 || slotNumber == 3 || slotNumber == 4)
+		// 	{
+		// 		slotNumber = 1;
+		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
+		// 	}
+		// }
+		// else if (artifactSize == "Tiny")
+		// {
+		// 	if (slotNumber == 1)
+		// 	{
+		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifact.Id;
+		// 	}else if (slotNumber == 2)
+		// 	{
+		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifact.Id;
+		// 	}else if (slotNumber == 3)
+		// 	{
+		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = artifact.Id;
+		// 	}else if (slotNumber == 4)
+		// 	{
+		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = artifact.Id;
+		// 	}
+		// }
 		
-		GD.Print($"Exhibit after adding artifact {JsonConvert.SerializeObject(_selectedExhibit)}");
+		
 		if (!_displayArtifacts.Contains(artifact))
 		{
 			_displayArtifacts.Add(artifact);
 		}
-		MuseumActions.ArtifactDroppedOnExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber);
+		MuseumActions.ArtifactDroppedOnExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber, artifactSize);
 	}
 
 	public void ReInitialize(Item item, Exhibit exhibit)

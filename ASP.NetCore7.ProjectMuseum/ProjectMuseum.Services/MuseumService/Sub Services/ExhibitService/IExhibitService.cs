@@ -8,6 +8,6 @@ public interface IExhibitService
     Task<ExhibitVariation?> GetExhibitVariation(string variationName);
     Task<List<Exhibit>?> DeleteAllExhibits();
     Task<List<Exhibit>?> GetAllExhibits();
-    Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot, int gridNumber);
-    Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot, int gridNumber);
+    Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot, int gridNumber, string artifactSize);
+    Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot, int gridNumber, string artifactSize);
 }

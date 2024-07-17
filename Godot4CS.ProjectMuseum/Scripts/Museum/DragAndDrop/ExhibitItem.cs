@@ -212,17 +212,18 @@ public partial class ExhibitItem : Item
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+        MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
         //GD.Print("Removed Artifact");
     }
 
-    private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber)
+    private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber, string artifactSize)
     {
         if (slotNumber == 0) return;
         if (givenItem == this)
         {
             RemoveArtifactFromSlot(slotNumber);
             _httpRequestForArtifactRemoval.Request(ApiAddress.MuseumApiPath +
-                                                   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}");
+                                                   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
         }
     }
 
@@ -242,12 +243,13 @@ public partial class ExhibitItem : Item
     private void HttpRequestForArtifactPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
+        GD.Print("exhibit data: " +jsonStr);
         ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
         MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
         //GD.Print("Placed Artifact");
     }
 
-    private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber)
+    private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber, string artifactSize)
     {
         if (slotNumber == 0) return;
         
@@ -256,7 +258,7 @@ public partial class ExhibitItem : Item
             AssignArtifactToSlot(artifact, slotNumber);
 
             _httpRequestForArtifactPlacement.Request(ApiAddress.MuseumApiPath +
-                                                     $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}");
+                                                     $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
         }
     }
 

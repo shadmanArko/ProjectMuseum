@@ -24,6 +24,10 @@ _label = NodePath("MarginContainer/VBoxContainer/Label")
 _vBoxContainer = NodePath("MarginContainer/VBoxContainer")
 _marginContainer = NodePath("MarginContainer")
 _panel = NodePath("Panel")
+_bottomLeft = Vector2i(5, 40)
+_topLeft = Vector2i(40, 55)
+_topRight = Vector2i(33, 0)
+_bottomRight = Vector2i(28, 23)
 metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]

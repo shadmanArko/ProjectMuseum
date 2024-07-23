@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using ProjectMuseum.Models;
 
@@ -12,15 +13,16 @@ public class FlyingEnemyAi
 
     #region Rest
 
-    private int _searchRadius = 3;
+    private readonly int _restPlaceSearchRadius = 3;
+    private readonly int _explorePlaceSearchRadius = 5;
     
     public List<Vector2I> FindRestingTiles(Vector2I enemyPos, MineGenerationVariables mineGenerationVariables)
     {
         var mine = mineGenerationVariables.Mine;
-        var startingX = Mathf.Clamp(enemyPos.X - _searchRadius, 0, mine.GridWidth);
-        var endingX = Mathf.Clamp(enemyPos.X + _searchRadius, 0, mine.GridWidth);
-        var startingY = Mathf.Clamp(enemyPos.Y - _searchRadius, 0, mine.GridLength);
-        var endingY = Mathf.Clamp(enemyPos.X - _searchRadius, 0, mine.GridLength);
+        var startingX = Mathf.Clamp(enemyPos.X - _restPlaceSearchRadius, 0, mine.GridWidth);
+        var endingX = Mathf.Clamp(enemyPos.X + _restPlaceSearchRadius, 0, mine.GridWidth);
+        var startingY = Mathf.Clamp(enemyPos.Y - _restPlaceSearchRadius, 0, mine.GridLength);
+        var endingY = Mathf.Clamp(enemyPos.X - _restPlaceSearchRadius, 0, mine.GridLength);
 
         var listOfRestingTiles = new List<Vector2I>();
         for (var i = startingX; i < endingX; i++)
@@ -38,6 +40,33 @@ public class FlyingEnemyAi
         }
 
         return listOfRestingTiles;
+    }
+
+    #endregion
+
+    #region Explore
+
+    public List<Vector2I> FindExploringPosition(Vector2I enemyPos, MineGenerationVariables mineGenerationVariables)
+    {
+        var mine = mineGenerationVariables.Mine;
+        var startingX = Mathf.Clamp(enemyPos.X - _explorePlaceSearchRadius, 0, mine.GridWidth);
+        var endingX = Mathf.Clamp(enemyPos.X + _explorePlaceSearchRadius, 0, mine.GridWidth);
+        var startingY = Mathf.Clamp(enemyPos.Y - _explorePlaceSearchRadius, 0, mine.GridLength);
+        var endingY = Mathf.Clamp(enemyPos.X - _explorePlaceSearchRadius, 0, mine.GridLength);
+        
+        var possibleExploreTiles = new List<Vector2I>();
+        for (var i = startingX; i < endingX; i++)
+        {
+            for (var j = startingY; j < endingY; j++)
+            {
+                var cell = mineGenerationVariables.GetCell(new Vector2I(i, j));
+                if(cell == null) continue;
+                if (!cell.IsBroken || !cell.IsBreakable || !cell.IsInstantiated || !cell.IsRevealed) continue;
+                possibleExploreTiles.Add(new Vector2I(cell.PositionX, cell.PositionY));
+            }
+        }
+
+        return possibleExploreTiles;
     }
 
     #endregion

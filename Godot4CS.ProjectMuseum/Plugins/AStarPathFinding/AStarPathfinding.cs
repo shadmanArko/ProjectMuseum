@@ -33,8 +33,6 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
 
         public List<Vector2I> FindPath(Vector2I startTileCoordinates, Vector2I goalTileCoordinates, List<AStarNode> grid)
         {
-            GD.Print($"Inside A Star Pathfinding Script for node: {goalTileCoordinates}");
-            
             startTileCoordinates *= -1;
             goalTileCoordinates *= -1;
             // _grid = new Node[GridSizeX, GridSizeY];
@@ -59,9 +57,6 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             // AStarNode goalNode = grid[goalTileCoordinates.X, goalTileCoordinates.Y];
             AStarNode startNode = GetNode(grid, startTileCoordinates.X, startTileCoordinates.Y);
             AStarNode goalNode = GetNode(grid, goalTileCoordinates.X, goalTileCoordinates.Y);
-            
-            GD.Print($"start node is null: {startNode == null}");
-            GD.Print($"goal node is null: {goalNode == null}");
             
             startNode.GCost = 0; // Set GCost of the start node to zero
             startNode.HCost = GetDistance(startNode, goalNode); // Set HCost using the heuristic

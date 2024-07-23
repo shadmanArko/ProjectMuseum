@@ -16,30 +16,13 @@ public partial class Bat : FlyingEnemy
     private RandomNumberGenerator _rand;
     private AStarPathfinding _aStarPathfinding;
     private List<Vector2> _path;
-
-    [Export] private AnimationPlayer _animationPlayer;
-
-    [Export] private FlyingEnemyPhase _phase;
-
-    private FlyingEnemyPhase Phase
-    {
-        get => _phase;
-        set
-        {
-            _phase = value;
-            GD.Print($"phase changed to {_phase}");
-        }
-    }
-
-    [Export] private float _searchRadius = 30f;
-    [Export] private float _attackRadius = 20f;
-
+    
     [Export] private float _restTime = 3f;
-    [Export] private float _exhaustionTime = 10f;
+    [Export] private float _exploreTimeLimit = 10f;
 
-    [Export] private float _timer;
+    [Export] private float _exploreTime;
 
-    [Export] private float _movementSpeed;
+    [Export] private float _speed;
 
     [Export] private Vector2 _targetPos;
 
@@ -51,6 +34,7 @@ public partial class Bat : FlyingEnemy
     public override void _Ready()
     {
         InitializeDiReference();
+        SubscribeToActions();
         _enemyAi = new FlyingEnemyAi();
         _path = new List<Vector2>();
         _rand = new RandomNumberGenerator();
@@ -58,7 +42,19 @@ public partial class Bat : FlyingEnemy
         MineActions.OnPlayerLandedIntoTheMine += SetChild;
         SetPhysicsProcess(false);
         _moveAlongPath = false;
-        _animationPlayer.Play("fly");
+        Phase = FlyingEnemyPhase.Explore;
+        _exploreTime = 10;
+        AnimPlayer.Play("fly");
+    }
+
+    private void SubscribeToActions()
+    {
+        MineActions.OnPlayerLandedIntoTheMine += FindExplorePosition;
+    }
+
+    private void UnSubscribeToActions()
+    {
+        MineActions.OnPlayerLandedIntoTheMine -= FindExplorePosition;
     }
 
     private void InitializeDiReference()
@@ -88,15 +84,17 @@ public partial class Bat : FlyingEnemy
                 if (_restTime > 0)
                 {
                     _restTime -= (float)delta;
-                    _animationPlayer.Play("hang");
-                    await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
+                    AnimPlayer.Play("hang");
+                    await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
                 }
                 else
                 {
-                    _animationPlayer.Play("hang_to_fly");
-                    await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
-                    Phase = FlyingEnemyPhase.Chase;
-                    _animationPlayer.Play("fly");
+                    AnimPlayer.Play("hang_to_fly");
+                    await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
+                    Phase = FlyingEnemyPhase.Explore;
+                    FindExplorePosition();
+                    _exploreTime = 10;
+                    AnimPlayer.Play("fly");
                 }
             }
             else
@@ -107,30 +105,42 @@ public partial class Bat : FlyingEnemy
                 }
                 else
                 {
-                    _animationPlayer.Play("fly_to_hang");
-                    await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
+                    AnimPlayer.Play("fly_to_hang");
+                    await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
                     _isResting = true;
                 }
             }
         }
         else if (Phase == FlyingEnemyPhase.Explore)
         {
-            if (_timer > 0)
+            if (_exploreTime > 0)
             {
-                _timer -= (float) delta;
+                _exploreTime -= (float) delta;
+                if (_moveAlongPath)
+                {
+                    MoveAlongPath();
+                }
+                else
+                {
+                    FindExplorePosition();
+                }
             }
             else
             {
                 Phase = FlyingEnemyPhase.Rest;
                 _path.Clear();
+                FindRestingPlace();
                 _restTime = 5f;
             }
         }
-        else if (_phase == FlyingEnemyPhase.Damage)
+        else if (Phase == FlyingEnemyPhase.Damage)
         {
-            _animationPlayer.Play("damage");
-            await Task.Delay(Mathf.CeilToInt(_animationPlayer.CurrentAnimationLength * 1000));
-            
+            AnimPlayer.Play("damage");
+            GD.Print("Playing damage animation for bat");
+            await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
+            FindExplorePosition();
+            Phase = FlyingEnemyPhase.Explore;
+            AnimPlayer.Play("fly");
         }
     }
 
@@ -139,7 +149,7 @@ public partial class Bat : FlyingEnemy
     private void SearchForPlayer()
     {
         var distance = Position.DistanceTo(_playerControllerVariables.Position);
-        if (distance <= _searchRadius)
+        if (distance <= SearchRadius)
             Phase = FlyingEnemyPhase.Chase;
     }
 
@@ -158,7 +168,9 @@ public partial class Bat : FlyingEnemy
                 {
                     _moveAlongPath = false;
                     Phase = FlyingEnemyPhase.Explore;
-                    _timer = _exhaustionTime;
+                    FindExplorePosition();
+                    _exploreTime = 10;
+                    _exploreTime = _exploreTimeLimit;
                     return;
                 }
 
@@ -168,7 +180,8 @@ public partial class Bat : FlyingEnemy
             {
                 _moveAlongPath = false;
                 Phase = FlyingEnemyPhase.Explore;
-                _timer = _exhaustionTime;
+                FindExplorePosition();
+                _exploreTime = _exploreTimeLimit;
             }
         }
         else
@@ -188,8 +201,12 @@ public partial class Bat : FlyingEnemy
         var listOfRestingPlaces = _enemyAi.FindRestingTiles(GetCellPos(Position), _mineGenerationVariables);
         if (listOfRestingPlaces.Count <= 0)
         {
-            _timer = _exhaustionTime;
+            _isResting = false;
+            _moveAlongPath = false;
+            _exploreTime = _exploreTimeLimit;
             Phase = FlyingEnemyPhase.Explore;
+            FindExplorePosition();
+            _exploreTime = 10;
             return;
         }
 
@@ -210,8 +227,9 @@ public partial class Bat : FlyingEnemy
             if (_path.Count > 0)
                 _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
             _moveAlongPath = true;
+            _speed = MoveSpeed;
             _isResting = false;
-            _timer = _restTime;
+            _exploreTime = _restTime;
             return;
         }
     }
@@ -220,9 +238,38 @@ public partial class Bat : FlyingEnemy
     
     #region Explore
 
-    private void Explore()
+    private void FindExplorePosition()
     {
-        
+        GD.Print("FINDING EXPLORED POSITIONS");
+        var currentPos = GetCellPos(Position);
+        var exploringPositions = _enemyAi.FindExploringPosition(currentPos, _mineGenerationVariables);
+        if (exploringPositions.Count <= 0)
+        {
+            GD.PrintErr("Fatal Error: Could not find suitable exploring position");
+            return;
+        }
+
+        _path.Clear();
+        var tempCount = exploringPositions.Count - 1;
+        for (var i = 0; i < exploringPositions.Count; i++)
+        {
+            var randomNumber = _rand.RandiRange(0, tempCount);
+            var randomPos = exploringPositions[randomNumber];
+            var tempPath = FindPath(randomPos);
+            if (tempPath == null)
+            {
+                exploringPositions.Remove(randomPos);
+                tempCount--;
+                continue;
+            }
+            
+            SetPath(tempPath);
+            if (_path.Count > 0)
+                _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
+            _speed = ExploreSpeed;
+            _moveAlongPath = true;
+            _isResting = false;
+        }
     }
 
     #endregion
@@ -240,7 +287,8 @@ public partial class Bat : FlyingEnemy
 
     public override void TakeDamage(int damageValue)
     {
-        _phase = FlyingEnemyPhase.Damage;
+        Phase = FlyingEnemyPhase.Damage;
+        GD.Print("Entered into Damage phase");
     }
 
     #endregion
@@ -311,7 +359,7 @@ public partial class Bat : FlyingEnemy
 
         var targetPos = _path[0];
         var direction = (targetPos - Position).Normalized();
-        Velocity = new Vector2(_movementSpeed, _movementSpeed) * direction;
+        Velocity = new Vector2(_speed, _speed) * direction;
         MoveAndSlide();
     }
 
@@ -326,6 +374,7 @@ public partial class Bat : FlyingEnemy
 
     public override void _ExitTree()
     {
+        UnSubscribeToActions();
         SetPhysicsProcess(false);
     }
 

@@ -68,12 +68,12 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     {
         attackDetector.Monitoring = true;
         _playerControllerVariables.IsAttacking = true;
-        GD.Print("Started detecting enemy collision");
-        GD.Print($"is attacking: {_playerControllerVariables.IsAttacking}");
+        // GD.Print("Started detecting enemy collision");
+        // GD.Print($"is attacking: {_playerControllerVariables.IsAttacking}");
         await Task.Delay(Mathf.CeilToInt(_playerControllerVariables.Player.AnimationController.CurrentAnimationLength) * 1000);
         _playerControllerVariables.IsAttacking = false;
         attackDetector.Monitoring = false;
-        GD.Print($"is attacking: {_playerControllerVariables.IsAttacking}");
+        // GD.Print($"is attacking: {_playerControllerVariables.IsAttacking}");
         TurnOffAttackCollider(attackDetector);
     }
     
@@ -81,7 +81,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     {
         attackDetector.Monitoring = false;
         _playerControllerVariables.IsAttacking = false;
-        GD.Print("Stopped detecting enemy collision");
+        // GD.Print("Stopped detecting enemy collision");
     }
     
     private void OnBodyEnter(Node2D body)
@@ -94,7 +94,7 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
             GD.Print("is attacking not true. returning");
             return;
         }
-        // if(_playerControllerVariables.CurrentEquippedItemSlot != 0) return;
+        
         enemy.TakeDamage(_playerControllerVariables.EnemyDamagePoint);
         GD.Print($"PLAYER ATTACKING ENEMY {enemy}");
     }
@@ -102,6 +102,6 @@ public partial class PlayerCollisionWithEnemyDetector : Node2D
     private void OnBodyExit(Node2D body)
     {
         var enemy = body as IUnit;
-        GD.Print($"body exited is null {enemy == null}");
+        // GD.Print($"body exited is null {enemy == null}");
     }
 }

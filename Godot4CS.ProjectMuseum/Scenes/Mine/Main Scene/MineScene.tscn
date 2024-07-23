@@ -219,5 +219,4 @@ _mineBackGround = NodePath("MineBackground")
 [node name="InventoryItemCollector" type="Node" parent="."]
 script = ExtResource("40_dy3xt")
 
-[node name="MineSfxManager" parent="." node_paths=PackedStringArray("_streamPlayer") instance=ExtResource("41_737yh")]
-_streamPlayer = NodePath("AudioStreamPlayer2D")
+[node name="MineSfxManager" parent="." instance=ExtResource("41_737yh")]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://b5t3adqxgspdo"]
+[gd_scene load_steps=16 format=3 uid="uid://b5t3adqxgspdo"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/Enemy/Bat.cs" id="1_iq1da"]
 [ext_resource type="Texture2D" uid="uid://kp3dlaa4ifcm" path="res://Assets/2D/Animations/Enemy Animations/Bat.png" id="1_lsv53"]
+[ext_resource type="Texture2D" uid="uid://bsn0ka4exkaib" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarUnder.png" id="3_s3joh"]
+[ext_resource type="Texture2D" uid="uid://bo7m56d5dvtnu" path="res://Assets/2D/Sprites/Mine Sprites/UI/Progress Bar/healthbarProgress.png" id="4_kb166"]
 
 [sub_resource type="Animation" id="Animation_f1hj2"]
 length = 0.001
@@ -172,13 +174,13 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xse63"]
 size = Vector2(16, 11)
 
-[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayer")]
+[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("HealthBar", "AnimPlayer")]
 z_index = 30
 collision_layer = 4
-collision_mask = 3
 script = ExtResource("1_iq1da")
-_animationPlayer = NodePath("AnimationPlayer")
-_movementSpeed = 30.0
+_canMove = true
+HealthBar = NodePath("Health Bar")
+AnimPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -194,4 +196,16 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_xse63")
-disabled = true
+
+[node name="Health Bar" type="TextureProgressBar" parent="."]
+texture_filter = 1
+offset_left = -10.0
+offset_top = -12.0
+offset_right = 54.0
+offset_bottom = -2.0
+scale = Vector2(0.296658, 0.296658)
+max_value = 25.0
+value = 25.0
+rounded = true
+texture_under = ExtResource("3_s3joh")
+texture_progress = ExtResource("4_kb166")

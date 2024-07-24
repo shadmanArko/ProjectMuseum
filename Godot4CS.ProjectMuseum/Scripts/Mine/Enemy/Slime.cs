@@ -315,7 +315,7 @@ public partial class Slime : Enemy
         var lookAtPlayer = new Vector2(_playerControllerVariables.Position.X - Position.X, 0).Normalized();
         AnimationController.MoveDirection(lookAtPlayer);
         AnimationController.PlayAnimation("attack");
-        MineActions.OnTakeDamageStarted?.Invoke(10);
+        MineActions.OnTakeDamageStarted?.Invoke(5);
         IsMoving = true;
     }
 

@@ -71,15 +71,17 @@ public partial class FlyingEnemy : CharacterBody2D, IDamageable
     
     #region Health
 
+    protected int FullHealthValue;
+    
     private int _health;
-    public int Health
+    protected int Health
     {
         get => _health;
         set
         {
             var newHealth = value;
             var currentHealth = _health;
-            _health = value;
+            _health = Mathf.Clamp(value, 0, FullHealthValue);
             HealthBar.Value = _health;
             
             if(currentHealth > newHealth)
@@ -93,10 +95,10 @@ public partial class FlyingEnemy : CharacterBody2D, IDamageable
 
     #endregion
     
-    [Export] public float MoveSpeed = 30;
+    [Export] public float ChaseSpeed = 30;
     [Export] public float ExploreSpeed = 15;
-    [Export] public float SearchRadius = 30f;
-    [Export] public float AttackRadius = 20f;
+    [Export] public float SearchRadius = 60f;
+    [Export] public float AttackRadius = 10f;
     [Export] public float KnockBackPower = 100f;
     
     [Export] public TextureProgressBar HealthBar;

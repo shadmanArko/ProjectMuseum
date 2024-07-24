@@ -29,22 +29,34 @@ public partial class Bat : FlyingEnemy
     [Export] private bool _moveAlongPath;
     [Export] private bool _attackPlayer;
 
+    private bool _isAttacking;
+
     #region Initializers
 
     public override void _Ready()
     {
         InitializeDiReference();
         SubscribeToActions();
+        InitializeVariables();
+        MineActions.OnPlayerLandedIntoTheMine += SetChild;
+        SetPhysicsProcess(false);
+        
+    }
+
+    private void InitializeVariables()
+    {
         _enemyAi = new FlyingEnemyAi();
         _path = new List<Vector2>();
         _rand = new RandomNumberGenerator();
         _aStarPathfinding = new AStarPathfinding(false);
-        MineActions.OnPlayerLandedIntoTheMine += SetChild;
-        SetPhysicsProcess(false);
+        FullHealthValue = 20;
+        Health = 20;
         _moveAlongPath = false;
         Phase = FlyingEnemyPhase.Explore;
         _exploreTime = 10;
         AnimPlayer.Play("fly");
+        _isAttacking = false;
+        Phase = FlyingEnemyPhase.Chase;
     }
 
     private void SubscribeToActions()
@@ -65,15 +77,34 @@ public partial class Bat : FlyingEnemy
 
     private void SetChild()
     {
-        GlobalPosition = new Vector2(480, 100) + new Vector2(20, 20);
+        GlobalPosition = new Vector2(480, 100) + new Vector2(10, 10);
     }
 
     #endregion
 
     public override async void _PhysicsProcess(double delta)
     {
+        SearchForPlayer();
+        
+        if (Phase == FlyingEnemyPhase.Attack)
+        {
+            if(_isAttacking) return;
+            _isAttacking = true;
+            AnimPlayer.Play("attack");
+            var waitTime = Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000) / 2;
+            await Task.Delay(waitTime);
+            MineActions.OnTakeDamageStarted?.Invoke(5);
+            await Task.Delay(waitTime);
+            AnimPlayer.Play("fly");
+            await Task.Delay(2000);
+            Phase = FlyingEnemyPhase.Explore;
+            FindExplorePosition();
+            _exploreTime = _exploreTimeLimit;
+            _isAttacking = false;
+        }
         if (Phase == FlyingEnemyPhase.Chase)
         {
+            _speed = ChaseSpeed;
             if (_moveAlongPath) MoveAlongPath();
             else ChasePlayer();
         }
@@ -113,6 +144,7 @@ public partial class Bat : FlyingEnemy
         }
         else if (Phase == FlyingEnemyPhase.Explore)
         {
+            _speed = ExploreSpeed;
             if (_exploreTime > 0)
             {
                 _exploreTime -= (float) delta;
@@ -133,15 +165,6 @@ public partial class Bat : FlyingEnemy
                 _restTime = 5f;
             }
         }
-        else if (Phase == FlyingEnemyPhase.Damage)
-        {
-            AnimPlayer.Play("damage");
-            GD.Print("Playing damage animation for bat");
-            await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
-            FindExplorePosition();
-            Phase = FlyingEnemyPhase.Explore;
-            AnimPlayer.Play("fly");
-        }
     }
 
     #region Search Player
@@ -149,8 +172,20 @@ public partial class Bat : FlyingEnemy
     private void SearchForPlayer()
     {
         var distance = Position.DistanceTo(_playerControllerVariables.Position);
-        if (distance <= SearchRadius)
+        if (distance <= AttackRadius)
+            Phase = FlyingEnemyPhase.Attack;
+        else if (distance <= SearchRadius)
             Phase = FlyingEnemyPhase.Chase;
+        else
+        {
+            if (Phase == FlyingEnemyPhase.Chase && distance > SearchRadius)
+            {
+                AnimPlayer.Play("fly");
+                Phase = FlyingEnemyPhase.Explore;
+                FindExplorePosition();
+                _exploreTime = _exploreTimeLimit;
+            }
+        }
     }
 
     #endregion
@@ -159,14 +194,16 @@ public partial class Bat : FlyingEnemy
 
     private void ChasePlayer()
     {
-        if (_path.Count <= 0) 
+        if (_path.Count <= 0 || _path[^1] != GetCellPos(_playerControllerVariables.Position)) 
         {
             var tempPath = FindPath(GetCellPos(_playerControllerVariables.Position));
+            
             if (tempPath.Count > 0)
             {
                 if (tempPath[^1] != GetCellPos(_playerControllerVariables.Position))
                 {
                     _moveAlongPath = false;
+                    GD.Print($"Chase: could not find path to player = {tempPath.Count}");
                     Phase = FlyingEnemyPhase.Explore;
                     FindExplorePosition();
                     _exploreTime = 10;
@@ -175,6 +212,8 @@ public partial class Bat : FlyingEnemy
                 }
 
                 SetPath(tempPath);
+                _moveAlongPath = true;
+                _speed = ChaseSpeed;
             }
             else
             {
@@ -187,7 +226,8 @@ public partial class Bat : FlyingEnemy
         else
         {
             _moveAlongPath = true;
-            Phase = FlyingEnemyPhase.Chase;
+            _speed = ChaseSpeed;
+            // Phase = FlyingEnemyPhase.Chase;
         }
     }
     
@@ -201,6 +241,7 @@ public partial class Bat : FlyingEnemy
         var listOfRestingPlaces = _enemyAi.FindRestingTiles(GetCellPos(Position), _mineGenerationVariables);
         if (listOfRestingPlaces.Count <= 0)
         {
+            GD.PrintErr("Could not find resting position. Phase = Explore");
             _isResting = false;
             _moveAlongPath = false;
             _exploreTime = _exploreTimeLimit;
@@ -227,7 +268,7 @@ public partial class Bat : FlyingEnemy
             if (_path.Count > 0)
                 _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
             _moveAlongPath = true;
-            _speed = MoveSpeed;
+            _speed = ChaseSpeed;
             _isResting = false;
             _exploreTime = _restTime;
             return;
@@ -240,7 +281,6 @@ public partial class Bat : FlyingEnemy
 
     private void FindExplorePosition()
     {
-        GD.Print("FINDING EXPLORED POSITIONS");
         var currentPos = GetCellPos(Position);
         var exploringPositions = _enemyAi.FindExploringPosition(currentPos, _mineGenerationVariables);
         if (exploringPositions.Count <= 0)
@@ -285,10 +325,17 @@ public partial class Bat : FlyingEnemy
 
     #region Take Damage
 
-    public override void TakeDamage(int damageValue)
+    public override async void TakeDamage(int damageValue)
     {
-        Phase = FlyingEnemyPhase.Damage;
-        GD.Print("Entered into Damage phase");
+        SetPhysicsProcess(false);
+        Health -= damageValue;
+        AnimPlayer.Play("damage");
+        await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
+        FindExplorePosition();
+        _path.Clear();
+        Phase = FlyingEnemyPhase.Explore;
+        AnimPlayer.Play("fly");
+        SetPhysicsProcess(true);
     }
 
     #endregion
@@ -315,9 +362,10 @@ public partial class Bat : FlyingEnemy
         _path.Clear();
         foreach (var pathNode in tempPath)
         {
-            var randomX = pathNode == tempPath[^1] ? 0 : _rand.RandfRange(5, 10);
-            var randomY = pathNode == tempPath[^1] ? 0 : _rand.RandfRange(5, 15);
-            var pos = pathNode * cellSize + cellOffset + new Vector2(randomX, randomY);
+            // var randomX = pathNode == tempPath[^1] ? 0 : _rand.RandfRange(5, 10);
+            // var randomY = pathNode == tempPath[^1] ? 0 : _rand.RandfRange(5, 15);
+            // var pos = pathNode * cellSize + cellOffset + new Vector2(randomX, randomY);
+            var pos = pathNode * cellSize + cellOffset; //+ new Vector2(pathNode.X, pathNode.Y);
             _path.Add(pos);
         }
     }
@@ -326,6 +374,7 @@ public partial class Bat : FlyingEnemy
     {
         var path = _aStarPathfinding.FindPath(GetCellPos(Position) * -1, targetPos * -1,
             _mineGenerationVariables.PathfindingNodes);
+        
         if (path != null)
         {
             for (int i = 0; i < path.Count; i++)
@@ -354,6 +403,7 @@ public partial class Bat : FlyingEnemy
         if (_path.Count <= 0)
         {
             _moveAlongPath = false;
+            GD.Print("Move along path made false as path count less than 0");
             return;
         }
 

@@ -236,7 +236,7 @@ size = Vector2(7, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rtvpy"]
 size = Vector2(7, 9)
 
-[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("NavAgent", "HealthBar", "AnimationController")]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("HealthBar", "AnimationController")]
 light_mask = 3
 visibility_layer = 4
 z_index = 30
@@ -245,7 +245,6 @@ script = ExtResource("1_pkl74")
 _moveVelocity = 20.0
 _gravity = 5.0
 _finalGravity = 5.0
-NavAgent = NodePath("NavigationAgent2D")
 KnockBackPower = 250.0
 HealthBar = NodePath("Health Bar")
 AnimationController = NodePath("AnimationPlayer")
@@ -352,11 +351,11 @@ _enemy = NodePath("..")
 wait_time = 3.0
 autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationComplete"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnIdleAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAggroAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigOutAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDigInAnimationFinished"]
 [connection signal="body_entered" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerEnterAttackRange"]
 [connection signal="body_exited" from="Area2D Nodes/AttackArea" to="EnemyAttackInitiator" method="OnPlayerExitAttackRange"]
 [connection signal="body_entered" from="Area2D Nodes/ChaseArea" to="EnemyAttackInitiator" method="OnPlayerEnterChaseRange"]

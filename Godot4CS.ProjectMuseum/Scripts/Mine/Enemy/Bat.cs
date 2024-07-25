@@ -102,7 +102,7 @@ public partial class Bat : FlyingEnemy
             _exploreTime = _exploreTimeLimit;
             _isAttacking = false;
         }
-        if (Phase == FlyingEnemyPhase.Chase)
+        else if (Phase == FlyingEnemyPhase.Chase)
         {
             _speed = ChaseSpeed;
             if (_moveAlongPath) MoveAlongPath();
@@ -328,9 +328,10 @@ public partial class Bat : FlyingEnemy
     public override async void TakeDamage(int damageValue)
     {
         SetPhysicsProcess(false);
-        Health -= damageValue;
         AnimPlayer.Play("damage");
         await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
+        Health -= damageValue;
+        if(Health <= 0) return;
         FindExplorePosition();
         _path.Clear();
         Phase = FlyingEnemyPhase.Explore;
@@ -339,6 +340,47 @@ public partial class Bat : FlyingEnemy
     }
 
     #endregion
+
+    #region Death
+
+    public override async void Death()
+    {
+        if(!IsDead) return;
+        SetPhysicsProcess(false);
+        if(AnimPlayer.CurrentAnimation != "death")
+            await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
+        AnimPlayer.Play("death");
+        await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
+        QueueFree();
+    }
+
+    #endregion
+    
+    #region Knock Back
+
+    [Export] private bool _knockBack;
+
+    private async void KnockBack()
+    {
+        if (!_knockBack) return;
+        _knockBack = false;
+        var playerDirection = _playerControllerVariables.PlayerDirection;
+        var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
+        await ApplyKnockBack(knockBackDirection);
+    }
+
+    private async Task ApplyKnockBack(Vector2 knockBackDirection)
+    {
+        for (var i = 0; i < 5; i++)
+        {
+            Velocity = Velocity.Lerp(new Vector2(knockBackDirection.X, Velocity.Y), 0.8f);
+            MoveAndSlide();
+            await Task.Delay(1);
+        }
+    }
+
+    #endregion
+
     
     #region To Be Removed In The Future
 

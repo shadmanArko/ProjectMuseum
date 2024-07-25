@@ -47,6 +47,7 @@ public partial class FlyingEnemy : CharacterBody2D, IDamageable
             if(_isDead == value) return;
             _isDead = value;
             OnDeath?.Invoke();
+            Death();
         }
     }
 
@@ -86,7 +87,7 @@ public partial class FlyingEnemy : CharacterBody2D, IDamageable
             
             if(currentHealth > newHealth)
                 OnTakeDamage?.Invoke();
-            if(_health <= 0) Death();
+            if (_health <= 0) IsDead = true;
         }
     }
 

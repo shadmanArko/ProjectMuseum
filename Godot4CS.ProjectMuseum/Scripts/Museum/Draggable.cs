@@ -129,7 +129,7 @@ public partial class Draggable : Control
 			draggablePreviewInstance.GetNode<DraggableNewPreview>(".").Initialize(Artifact,
 				_rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 			SetDragPreview((Control)draggablePreviewInstance);
-			
+			StartDrag();
 			return this;
 		}
 

@@ -86,12 +86,12 @@ public class ExhibitRepository : IExhibitRepository
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
-        if (exhibit.ArtifactGridSlots2X2s == null)
-        {
-            Console.WriteLine("2x2 grid is null");
-            exhibit.ArtifactGridSlots2X2s = new List<GridSlots2X2>(){new GridSlots2X2(){Slot0 = "", Slot1 = "", Slot2 = "", Slot3 = ""}};
-            
-        }
+        // if (exhibit.ArtifactGridSlots2X2s == null)
+        // {
+        //     Console.WriteLine("2x2 grid is null");
+        //     exhibit.ArtifactGridSlots2X2s = new List<GridSlots2X2>(){new GridSlots2X2(){Slot0 = "", Slot1 = "", Slot2 = "", Slot3 = ""}};
+        //     
+        // }
         if (artifactSize == "Small")
         {
             if (slot == 3 || slot == 1)
@@ -137,20 +137,21 @@ public class ExhibitRepository : IExhibitRepository
     {
         var exhibits = await _exhibitDatabase.ReadDataAsync();
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
-        if (slot == 1)
+        foreach (var gridSlots2X2 in exhibit.ArtifactGridSlots2X2s)
         {
-            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = "";
-        }else if (slot == 2)
-        {
-            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = "";
-        }
-        else if (slot == 3)
-        {
-            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = "";
-        }
-        else if (slot == 4)
-        {
-            exhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = "";
+            if (gridSlots2X2.Slot0 == artifactId)
+            {
+                gridSlots2X2.Slot0 = "";
+            }else if (gridSlots2X2.Slot1 == artifactId)
+            {
+                gridSlots2X2.Slot1 = "";
+            }else if (gridSlots2X2.Slot2 == artifactId)
+            {
+                gridSlots2X2.Slot2 = "";
+            }else if (gridSlots2X2.Slot3 == artifactId)
+            {
+                gridSlots2X2.Slot3 = "";
+            }
         }
         exhibit.ArtifactIds.Remove(artifactId);
 

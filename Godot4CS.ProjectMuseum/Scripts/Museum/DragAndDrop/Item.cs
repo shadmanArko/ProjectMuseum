@@ -54,8 +54,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     protected Color _originalColor;
     protected HttpRequest _httpRequestForExhibitPlacementConditions;
     protected HttpRequest _httpRequestForExhibitPlacement;
-    protected HttpRequest _httpRequestForArtifactPlacement;
-    protected HttpRequest _httpRequestForArtifactRemoval;
+    
     public string ExhibitVariationName = "default";
     public Exhibit ExhibitData;
     protected MuseumTileContainer _museumTileContainer;
@@ -87,11 +86,9 @@ public partial class Item : Sprite2D, IComparable<Item>
         AddToGroup("ManualSortGroup");
         _httpRequestForExhibitPlacement = new HttpRequest();
         _httpRequestForExhibitPlacementConditions = new HttpRequest();
-        _httpRequestForArtifactPlacement = new HttpRequest();
-        _httpRequestForArtifactRemoval = new HttpRequest();
+        
         AddChild(_httpRequestForExhibitPlacement);
-        AddChild(_httpRequestForArtifactPlacement);
-        AddChild(_httpRequestForArtifactRemoval);
+        
         AddChild(_httpRequestForExhibitPlacementConditions);
         _httpRequestForExhibitPlacementConditions.RequestCompleted += httpRequestForExhibitPlacementConditionsOnRequestCompleted;
         _httpRequestForExhibitPlacement.RequestCompleted += httpRequestForExhibitPlacementOnRequestCompleted;

@@ -15,12 +15,17 @@ public partial class ExhibitItem : Item
 {
 	[Export] private Array<Sprite2D> _artifactSlots;
 	private HttpRequest _httpRequestForGettingExhibitVariation;
-	
+	protected HttpRequest _httpRequestForArtifactPlacement;
+	protected HttpRequest _httpRequestForArtifactRemoval;
 	public override void _Ready()
 	{
 		base._Ready();
 		_httpRequestForGettingExhibitVariation = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitVariation);
+		_httpRequestForArtifactPlacement = new HttpRequest();
+		_httpRequestForArtifactRemoval = new HttpRequest();
+		AddChild(_httpRequestForArtifactPlacement);
+		AddChild(_httpRequestForArtifactRemoval);
 		_httpRequestForGettingExhibitVariation.RequestCompleted += HttpRequestForGettingExhibitVariationOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnExhibitSlot += ArtifactDroppedOnExhibitSlot;
 		MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
@@ -256,9 +261,11 @@ public partial class ExhibitItem : Item
         if (givenItem == this)
         {
             AssignArtifactToSlot(artifact, slotNumber);
-
-            _httpRequestForArtifactPlacement.Request(ApiAddress.MuseumApiPath +
-                                                     $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
+            var url = ApiAddress.MuseumApiPath +
+                      $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}";
+            GD.Print($"url: {url}");
+            _httpRequestForArtifactPlacement.Request(url);
+        
         }
     }
 

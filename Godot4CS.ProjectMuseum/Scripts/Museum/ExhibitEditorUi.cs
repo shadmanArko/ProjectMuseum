@@ -157,6 +157,11 @@ using ProjectMuseum.Models;
 				HandleTinySizeArtifactEligibility();
 			}
 		}
+		else
+		{
+			GD.Print("Drag Started but not in draggable group");
+
+		}
 
 		
 	}
@@ -315,16 +320,26 @@ using ProjectMuseum.Models;
 			if (displayArtifact.Id == artifactId)
 			{
 				var artifactFunctional = _rawArtifactFunctionalDatas.FirstOrDefault(functional => functional.Id == displayArtifact.RawArtifactId);
-				if (artifactFunctional == null)
+				if (artifactFunctional != null)
 				{
-					GD.Print($"Artifact not in functional aid: {artifactId}, rid: {displayArtifact.RawArtifactId}");
-
-					return "";
+					return artifactFunctional.ObjectSize;
 				}
-				else return artifactFunctional.ObjectSize;
 			}
 		}
 		GD.Print($"Artifact not in display {artifactId}");
+
+		foreach (var artifactInStore in _artifactsInStore)
+		{
+			if (artifactInStore.Id == artifactId)
+			{
+				var artifactFunctional = _rawArtifactFunctionalDatas.FirstOrDefault(functional => functional.Id == artifactInStore.RawArtifactId);
+				if (artifactFunctional != null)
+				{
+					return artifactFunctional.ObjectSize;
+				}
+			}
+		}
+		GD.Print($"Artifact not in Store {artifactId}");
 		return "";
 	}
 
@@ -355,6 +370,7 @@ using ProjectMuseum.Models;
 	}
 
 	private List<Artifact> _displayArtifacts;
+	private List<Artifact> _artifactsInStore;
 	private void HttpRequestForGettingArtifactsInDisplayOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
@@ -486,6 +502,7 @@ using ProjectMuseum.Models;
 		
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
+		_artifactsInStore = artifacts;
 		foreach (var artifact in artifacts)
 		{
 			var instance = _draggable.Instantiate();

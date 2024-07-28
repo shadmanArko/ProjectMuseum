@@ -5,6 +5,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
+
+    <ItemGroup>
+      <Folder Include="MIne\MineGenerationParameters\" />
+    </ItemGroup>
+
     </PropertyGroup>
 
 

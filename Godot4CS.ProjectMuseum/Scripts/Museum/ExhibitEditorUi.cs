@@ -134,6 +134,7 @@ using ProjectMuseum.Models;
 		// 	_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = "";
 		// }
 		// GD.Print($"Exhibit after removing artifact {JsonConvert.SerializeObject(_selectedExhibit)}");
+		
 		if (_displayArtifacts.Contains(artifact))
 		{
 			_displayArtifacts.Remove(artifact);

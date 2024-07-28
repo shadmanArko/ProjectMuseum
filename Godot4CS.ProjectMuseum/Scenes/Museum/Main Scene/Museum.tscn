@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=87 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -25,7 +25,6 @@
 [ext_resource type="PackedScene" uid="uid://mna3mnreah7e" path="res://Scenes/Museum/Decorations/decorationOtherItem.tscn" id="16_1ehrh"]
 [ext_resource type="PackedScene" uid="uid://cv4p4yyj4yp8u" path="res://Scenes/Museum/Sanitation/SanitationItem.tscn" id="18_78kbp"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
-[ext_resource type="PackedScene" uid="uid://crxjk410778yy" path="res://Scenes/Museum/Museum Ui/Drag And Drop/drop_target.tscn" id="18_kmxdt"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
@@ -84,6 +83,8 @@
 [ext_resource type="AudioStream" uid="uid://c8i7f1jfj5m75" path="res://Assets/SFX/Museum SFX/MK_Museum_RotateObject.mp3" id="82_nxom5"]
 [ext_resource type="AudioStream" uid="uid://gs8vh452xmae" path="res://Assets/SFX/Museum SFX/MK_Museum_PlaceObject.mp3" id="83_g7xdg"]
 [ext_resource type="AudioStream" uid="uid://2akrycoff06o" path="res://Assets/SFX/Museum SFX/MK_MuseumFootstep.wav" id="84_fc1fb"]
+[ext_resource type="Script" path="res://Scripts/Museum/Managers/MuseumReferenceManager.cs" id="84_w0a7b"]
+[ext_resource type="Script" path="res://Service/MuseumServices/ItemPlacementConditionService.cs" id="85_l8ovi"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -155,7 +156,6 @@ ItemsParent = NodePath("../../ItemParents")
 [node name="Exhibit Editor Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton", "_DeleteExhibitButton", "_moveExhibitButton") instance=ExtResource("10_c21vt")]
 visible = false
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
-_dropTarget = ExtResource("18_kmxdt")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
 _glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")
@@ -1166,3 +1166,10 @@ script = ExtResource("81_uuu8u")
 _rotateSound = ExtResource("82_nxom5")
 _itemPlacingSound = ExtResource("83_g7xdg")
 _footStepSound = ExtResource("84_fc1fb")
+
+[node name="ReferanceManager" type="Node" parent="." node_paths=PackedStringArray("ItemPlacementConditionService")]
+script = ExtResource("84_w0a7b")
+ItemPlacementConditionService = NodePath("../ItemPlacementConditionServices")
+
+[node name="ItemPlacementConditionServices" type="Node" parent="."]
+script = ExtResource("85_l8ovi")

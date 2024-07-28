@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Text;
 using Godot;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.MuseumServices;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using Newtonsoft.Json;
 using ProjectMuseum.DTOs;
@@ -15,10 +17,11 @@ public partial class ExhibitItem : Item
 {
 	[Export] private Array<Sprite2D> _artifactSlots;
 	private HttpRequest _httpRequestForGettingExhibitVariation;
-	
+	private ItemPlacementConditionService _itemPlacementConditionService;
 	public override void _Ready()
 	{
 		base._Ready();
+		_itemPlacementConditionService = MuseumReferenceManager.Instance.ItemPlacementConditionService;
 		_httpRequestForGettingExhibitVariation = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitVariation);
 		_httpRequestForGettingExhibitVariation.RequestCompleted += HttpRequestForGettingExhibitVariationOnRequestCompleted;
@@ -176,7 +179,11 @@ public partial class ExhibitItem : Item
 		var body = JsonConvert.SerializeObject(tileIds);
 		string url =
 			$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}/{Frame}";
-		_httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+		// _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+		var dto = _itemPlacementConditionService.PlaceExhibitOnTiles(tileIds[0], tileIds, ExhibitVariationName, Frame);
+		_museumTileContainer.MuseumTiles = dto.MuseumTiles;
+		_museumTileContainer.Exhibits = dto.Exhibits;
+		ExhibitData = dto.Exhibit;
 		//GD.Print($"Handling exhibit placement for price {ItemPrice}");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();

@@ -9,7 +9,7 @@ public partial class PlayerSfxManager : Node2D
 
     [Export] private AudioStreamPlayer2D _streamPlayer;
     
-    [Export] private AudioStream[] _digSfxList;
+    [Export] private AudioStream[] _blockHitSfxList;
     [Export] private AudioStream[] _swordSlashSfxList;
 
     public override void _Ready()
@@ -22,21 +22,19 @@ public partial class PlayerSfxManager : Node2D
 
     private void SubscribeToActions()
     {
-        MineActions.OnSuccessfulDigActionCompleted += PlayDigSfx;
-        MineActions.OnMeleeAttackActionStarted += PlaySwordSlashSfx;
+        MineActions.OnSuccessfulDigActionCompleted += PlayBlockHitSfx;
     }
     
     private void UnsubscribeToActions()
     {
-        MineActions.OnSuccessfulDigActionCompleted -= PlayDigSfx;
-        MineActions.OnMeleeAttackActionStarted -= PlaySwordSlashSfx;
+        MineActions.OnSuccessfulDigActionCompleted -= PlayBlockHitSfx;
     }
 
     #endregion
 
-    private void PlayDigSfx()
+    private void PlayBlockHitSfx()
     {
-        var randDigSfx = ShuffleAudioStream(_digSfxList);
+        var randDigSfx = ShuffleAudioStream(_blockHitSfxList);
         _streamPlayer.Stream = randDigSfx;
         _streamPlayer.Play();
     }

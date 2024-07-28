@@ -58,9 +58,6 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             AStarNode startNode = GetNode(grid, startTileCoordinates.X, startTileCoordinates.Y);
             AStarNode goalNode = GetNode(grid, goalTileCoordinates.X, goalTileCoordinates.Y);
             
-            GD.Print($"start node is null: {startNode == null}");
-            GD.Print($"goal node is null: {goalNode == null}");
-            
             startNode.GCost = 0; // Set GCost of the start node to zero
             startNode.HCost = GetDistance(startNode, goalNode); // Set HCost using the heuristic
             

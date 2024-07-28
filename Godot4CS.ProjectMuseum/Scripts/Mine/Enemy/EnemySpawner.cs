@@ -42,8 +42,8 @@ public partial class EnemySpawner : Node2D
     {
         InitializeDiInstallers();
         _enemies = new List<Enemy>();
-        _cellBreakTargetCount = new List<int> { 10, 20, 30, 40, 50, 60 };
-        _enemySpawnCount = new List<int> { 1,1,2,1,2,3};
+        _cellBreakTargetCount = new List<int> { 18, 36, 54, 72, 90, 108 };
+        _enemySpawnCount = new List<int> { 1,1,1,1,1,1};
         SetProcess(false);
         SetPhysicsProcess(false);
         _counter = 0;

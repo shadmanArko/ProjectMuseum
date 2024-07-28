@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Mine/InventorySystem/InventoryViewController.cs" id="1_4kdob"]
 [ext_resource type="PackedScene" uid="uid://cndkl8ntjkx8v" path="res://Scenes/Test Scenes/InventoryItemSlot.tscn" id="1_mher3"]
-[ext_resource type="Texture2D" uid="uid://c001v71x5j733" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Tomahawk.png" id="2_emj8r"]
+[ext_resource type="Texture2D" uid="uid://c50ql673kjnuh" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Medieval Native American Tomahawk.png" id="2_emj8r"]
 [ext_resource type="Texture2D" uid="uid://dnjofqj8pvxp6" path="res://Assets/2D/Sprites/Mine Sprites/UI/Mine UI/trash can.png" id="4_2mb7q"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb2kb"]

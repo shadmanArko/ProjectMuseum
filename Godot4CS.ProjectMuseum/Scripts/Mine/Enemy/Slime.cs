@@ -315,7 +315,7 @@ public partial class Slime : Enemy
         var lookAtPlayer = new Vector2(_playerControllerVariables.Position.X - Position.X, 0).Normalized();
         AnimationController.MoveDirection(lookAtPlayer);
         AnimationController.PlayAnimation("attack");
-        MineActions.OnTakeDamageStarted?.Invoke(10);
+        MineActions.OnTakeDamageStarted?.Invoke(5);
         IsMoving = true;
     }
 
@@ -329,7 +329,7 @@ public partial class Slime : Enemy
         if (IsTakingDamage) return;
         IsMoving = false;
         IsTakingDamage = true;
-        _isKnockBack = true;
+        _knockBack = true;
 
         HealthSystem.ReduceEnemyHealth(damageValue, 25, this);
     }
@@ -467,12 +467,12 @@ public partial class Slime : Enemy
 
     #region Knock Back
 
-    [Export] private bool _isKnockBack;
+    [Export] private bool _knockBack;
 
     private async void KnockBack()
     {
-        if (!_isKnockBack) return;
-        _isKnockBack = false;
+        if (!_knockBack) return;
+        _knockBack = false;
         var playerDirection = _playerControllerVariables.PlayerDirection;
         var knockBackDirection = (playerDirection - Velocity).Normalized() * KnockBackPower;
         await ApplyKnockBack(knockBackDirection);

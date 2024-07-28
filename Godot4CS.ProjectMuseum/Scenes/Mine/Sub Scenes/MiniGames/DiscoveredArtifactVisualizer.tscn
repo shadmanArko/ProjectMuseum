@@ -1,15 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=10 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
-[ext_resource type="Texture2D" uid="uid://1dgf4gglmi0r" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game background.png" id="2_1ohkf"]
-[ext_resource type="Texture2D" uid="uid://wcewhq3qlnu3" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
+[ext_resource type="Texture2D" uid="uid://toyxbvr46exq" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
-[ext_resource type="Texture2D" uid="uid://d26013glm27pt" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game frame 2.png" id="4_3th3f"]
-[ext_resource type="Theme" uid="uid://bxuxhp8sn6n2n" path="res://Assets/Themes/Mine/UI/Buttons/PromptButtonTheme.tres" id="4_o858m"]
+[ext_resource type="Texture2D" uid="uid://cj8ouas8ocvhc" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game frame final.png" id="2_uhd7s"]
+[ext_resource type="Theme" uid="uid://d4nuoj106bh6v" path="res://Themes/Theme1.tres" id="5_8e1cs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_whqty"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5m5pf"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xruif"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0dpur"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e883x"]
 
 [node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
 process_mode = 3
@@ -33,46 +36,44 @@ size_flags_vertical = 3
 mouse_filter = 1
 
 [node name="Control" type="Control" parent="CanvasLayer/Panel"]
-custom_minimum_size = Vector2(800, 600)
+custom_minimum_size = Vector2(600, 600)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -400.0
+offset_left = -364.0
 offset_top = -300.0
-offset_right = 400.0
+offset_right = 300.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="TextureRect" parent="CanvasLayer/Panel/Control"]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(47.58, -24.66)
+texture = ExtResource("2_uhd7s")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control"]
+custom_minimum_size = Vector2(550, 550)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -500.0
-offset_top = -350.0
-offset_right = 500.0
-offset_bottom = 350.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_1ohkf")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.065
-anchor_top = -0.1
-anchor_right = 1.065
-anchor_bottom = 1.1
-offset_left = 52.0
-offset_top = 60.0
-offset_right = -52.0001
-offset_bottom = -60.0
+offset_left = -275.0
+offset_top = -275.0
+offset_right = 275.0
+offset_bottom = 323.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
@@ -86,6 +87,7 @@ theme_override_constants/separation = 10
 [node name="You Have Found Text" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label"]
 texture_filter = 1
 layout_mode = 2
+theme_override_colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
 theme_override_fonts/font = ExtResource("2_q8tpq")
 theme_override_font_sizes/font_size = 22
 text = "You have found"
@@ -95,6 +97,7 @@ horizontal_alignment = 1
 texture_filter = 1
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.498039, 0.12549, 0.117647, 1)
 theme_override_fonts/font = ExtResource("2_q8tpq")
 theme_override_font_sizes/font_size = 33
 text = "Tomahawk"
@@ -102,62 +105,72 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Artifact Sprite and Description Panel" type="HBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
-custom_minimum_size = Vector2(900, 400)
+[node name="Artifact Sprite and Description Panel" type="Panel" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-alignment = 1
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_whqty")
 
-[node name="Artifact Sprite Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
-custom_minimum_size = Vector2(300, 300)
+[node name="Artifact Sprite Panel" type="Panel" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+offset_right = 546.0
+offset_bottom = 378.0
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
 
-[node name="Artifact Background" type="TextureRect" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel"]
-layout_mode = 2
-texture = ExtResource("4_3th3f")
-expand_mode = 5
-stretch_mode = 4
-
 [node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel"]
 texture_filter = 1
-scale = Vector2(3, 3)
+position = Vector2(-50, 0)
+scale = Vector2(2, 2)
 texture = ExtResource("2_d333x")
 centered = false
 offset = Vector2(10, 10)
 
-[node name="Artifact Description Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
+[node name="Artifact Description Panel" type="Panel" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
+custom_minimum_size = Vector2(350, 200)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
+offset_left = 213.0
+offset_top = 17.0
+offset_right = 563.0
+offset_bottom = 217.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0dpur")
 
 [node name="Artifact Description" type="RichTextLabel" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel"]
 texture_filter = 1
-custom_minimum_size = Vector2(400, 200)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.239216, 0.0980392, 0.247059, 1)
 theme_override_fonts/normal_font = ExtResource("2_q8tpq")
 theme_override_fonts/bold_font = ExtResource("2_q8tpq")
-theme_override_font_sizes/normal_font_size = 22
-theme_override_font_sizes/bold_font_size = 33
 bbcode_enabled = true
-text = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO"
+text = "HELLOHELLOHELL"
 fit_content = true
+scroll_active = false
+tab_size = 2
 
 [node name="Okay Button Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_xruif")
+theme_override_styles/panel = SubResource("StyleBoxTexture_e883x")
 
 [node name="OkayButton" type="Button" parent="CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel"]
 texture_filter = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("4_o858m")
-theme_override_fonts/font = ExtResource("2_q8tpq")
+theme = ExtResource("5_8e1cs")
 theme_override_font_sizes/font_size = 22
 text = "OKAY"
 

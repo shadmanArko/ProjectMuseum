@@ -252,9 +252,27 @@ public partial class MineGenerationController : Node2D
 		}
 
 		MineSetCellConditions.SetBackdropDuringMineGeneration(_mineGenerationVariables);
+		GenerateAStarPathfindingNodes();
 		MineActions.OnMineGenerated?.Invoke();
 		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
 	}
     
+	#endregion
+
+	#region Astar Pathfinding Node Generator
+
+	private void GenerateAStarPathfindingNodes()
+	{
+		var AStarNodes = new List<AStarNode>();
+		foreach (var cell in _mineGenerationVariables.Mine.Cells)
+		{
+			var aStarNode = new AStarNode(cell.PositionX, cell.PositionY, null, 0f, 0f, cell.IsBroken);
+			AStarNodes.Add(aStarNode);
+		}
+
+		_mineGenerationVariables.PathfindingNodes = AStarNodes;
+		GD.Print("path finding nodes generated");
+	}
+
 	#endregion
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -15,10 +16,22 @@ public partial class ProceduralMineGenerationService : Node
 {
     private MineGenerationVariables _mineGenerationVariables;
     private ProceduralMineGenerationDto _mineGenerationDto;
+
+    #region Variables
+
+    private int _xSize;
+    private int _ySize;
+    private int _cellSize; 
+
+    #endregion
+    
     public override void _EnterTree()
     {
         InitializeDiReference();
+        PopulateMineGenerationData();
     }
+
+    #region Initializers
 
     private void InitializeDiReference()
     {
@@ -31,20 +44,26 @@ public partial class ProceduralMineGenerationService : Node
         var mineGenDataJson =
             File.ReadAllText(
                 "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
-        // _mineGenerationDto.ProceduralMineGenerationParameters
+        var mineGenData = JsonSerializer.Deserialize<ProceduralMineGenerationData>(mineGenDataJson);
+        _mineGenerationDto.ProceduralMineGenerationData = mineGenData;
     }
 
     public async Task GenerateProceduralMine()
     {
-        // var xSize = _mineGenerationDto.ProceduralMineGenerationParameters.
-        // var mine = await GenerateMineCellData();
+        _xSize = _mineGenerationDto.ProceduralMineGenerationData.MineSizeX;
+        _ySize = _mineGenerationDto.ProceduralMineGenerationData.MineSizeY;
+        _cellSize = _mineGenerationDto.ProceduralMineGenerationData.CellSize;
+
+        var mine = GenerateMineCellData(_xSize, _ySize, _cellSize);
     }
+
+    #endregion
 
     #region Generate Ordinary Mine Cells
 
     private int _maxHitPoint = 40;
     
-    public async Task<Mine> GenerateMineCellData(int xSize, int ySize, int cellSize)
+    private Mine GenerateMineCellData(int xSize, int ySize, int cellSize)
     {
         var mine = new Mine
         {
@@ -59,9 +78,9 @@ public partial class ProceduralMineGenerationService : Node
         };
         var cells = new List<Cell>();
 
-        for (int x = 0; x < xSize; x++)
+        for (var x = 0; x < xSize; x++)
         {
-            for (int y = 0; y < ySize; y++)
+            for (var y = 0; y < ySize; y++)
             {
                 var cell = new Cell
                 {

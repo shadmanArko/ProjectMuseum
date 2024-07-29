@@ -5,11 +5,11 @@ namespace Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 
 public static class DataPath
 {
-    public const string GameDataFolderPath = "";
+    public const string GameDataFolderPath = "user://MuseumKeeper/GameData";
     public const string GameDataFilePath = "";
     public const string GameDataSourceFilePath = "";
     
-    public const string SaveDataFolderPath = "";
+    public const string SaveDataFolderPath = "user://MuseumKeeper/SaveData";
     public const string SaveDataFilePath = "";
     
     public const string RunningDataFolderPath = "";
@@ -27,7 +27,6 @@ public static class DataPath
         try
         {
             File.Copy(GameDataSourceFilePath, GameDataFilePath, false);
-            
         }
         catch (IOException)
         {

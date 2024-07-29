@@ -13,6 +13,7 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Mine.UI;
 using Godot4CS.ProjectMuseum.Scripts.Mine.UI.DamageSystem;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
+using Godot4CS.ProjectMuseum.Service.MineServices;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
@@ -39,6 +40,7 @@ public partial class ReferenceStorage : Node
     [Export] public LogMessageController LogMessageController;
     [Export] public ScreenShakeController ScreenShakeController;
     [Export] public InventoryItemBuilder InventoryItemBuilder;
+    [Export] public ProceduralMineGenerationService ProceduralMineGenerationService;
     
     //UI//
     [Export] public MineExitPromptUi MineExitPromptUi;

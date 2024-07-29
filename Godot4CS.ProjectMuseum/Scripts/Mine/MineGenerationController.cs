@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
@@ -34,14 +35,14 @@ public partial class MineGenerationController : Node2D
 	[Export] private Node2D _mineBackGround;
 	private LoadingBarManager _loadingBarManager;
 
-	public override void _EnterTree()
+	public override async void _EnterTree()
 	{
 		CreateHttpRequests();
 		InitializeDiReferences();
 		GetMineCrackMaterialData();
 		GetAllRawArtifactDescriptiveData();
 		GetAllRawArtifactFunctionalData();
-		GenerateProceduralMine();
+		await GenerateProceduralMine();
 		
 	}
 
@@ -209,10 +210,13 @@ public partial class MineGenerationController : Node2D
 
 	#region Assign Artifacts To Mine
 
-	private void GenerateProceduralMine()
+	private async Task GenerateProceduralMine()
 	{
-		var url = ApiAddress.MineApiPath + "GenerateProceduralMine";
-		_generateProceduralMineHttpRequest.Request(url);
+		// var url = ApiAddress.MineApiPath + "GenerateProceduralMine";
+		// _generateProceduralMineHttpRequest.Request(url);
+
+		var mine = await ReferenceStorage.Instance.ProceduralMineGenerationService.GenerateProceduralMine();
+		GenerateGridFromMineData(mine);
 	}
 	
 	private void OnGenerateProceduralMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)

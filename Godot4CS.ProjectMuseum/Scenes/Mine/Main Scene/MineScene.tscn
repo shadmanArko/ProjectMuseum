@@ -1,7 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=43 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
+[ext_resource type="PackedScene" uid="uid://c4tsh6g1rbgdr" path="res://Scenes/Mine/Sub Scenes/ServiceScenes/ProceduralMineGeneratorService.tscn" id="2_i10yb"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
 [ext_resource type="PackedScene" uid="uid://bqltyu2fgvmyp" path="res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn" id="3_ambmn"]
 [ext_resource type="PackedScene" uid="uid://bojefr3ulps6k" path="res://Scenes/Mine/Sub Scenes/Enemies/EnemySpawner.tscn" id="4_xj3qh"]
@@ -48,6 +49,8 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rq1hl")
 
+[node name="ProceduralMineGenerator" parent="." instance=ExtResource("2_i10yb")]
+
 [node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_deqi7")]
 _progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
 _canvasLayer = NodePath("CanvasLayer")
@@ -57,7 +60,7 @@ script = ExtResource("2_t7o23")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePauseManager", "LogMessageController", "ScreenShakeController", "InventoryItemBuilder", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePauseManager", "LogMessageController", "ScreenShakeController", "InventoryItemBuilder", "ProceduralMineGenerationService", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -75,6 +78,7 @@ MinePauseManager = NodePath("../MinePauseManager")
 LogMessageController = NodePath("../MineUI/Log Message Controller")
 ScreenShakeController = NodePath("../ScreenShakeController")
 InventoryItemBuilder = NodePath("../InventoryItemBuilder")
+ProceduralMineGenerationService = NodePath("../ProceduralMineGenerator")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")

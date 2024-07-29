@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4tsh6g1rbgdr"]
+
+[ext_resource type="Script" path="res://Service/MineServices/ProceduralMineGenerationService.cs" id="1_h3dg4"]
+
+[node name="ProceduralMineGenerator" type="Node"]
+script = ExtResource("1_h3dg4")

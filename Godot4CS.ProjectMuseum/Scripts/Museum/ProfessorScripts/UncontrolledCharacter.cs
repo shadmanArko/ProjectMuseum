@@ -27,7 +27,7 @@ public partial class UncontrolledCharacter : PathNavigatorCharacter
         base._Ready();
         await Task.Delay(1000);
         _startColor = Modulate;
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        MuseumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         MuseumActions.PathEnded += PathEnded;
         MuseumActions.OnPlayerInteract += OnPlayerInteract;
     }

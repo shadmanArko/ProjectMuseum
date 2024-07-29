@@ -181,8 +181,8 @@ public partial class ExhibitItem : Item
 			$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}/{Frame}";
 		// _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
 		var dto = _itemPlacementConditionService.PlaceExhibitOnTiles(tileIds[0], tileIds, ExhibitVariationName, Frame);
-		_museumTileContainer.MuseumTiles = dto.MuseumTiles;
-		_museumTileContainer.Exhibits = dto.Exhibits;
+		MuseumRunningDataContainer.MuseumTiles = dto.MuseumTiles;
+		MuseumRunningDataContainer.Exhibits = dto.Exhibits;
 		ExhibitData = dto.Exhibit;
 		//GD.Print($"Handling exhibit placement for price {ItemPrice}");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);

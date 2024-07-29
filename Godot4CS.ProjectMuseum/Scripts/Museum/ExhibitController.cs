@@ -23,7 +23,7 @@ public partial class ExhibitController : Node2D
     private PackedScene item3;
     private PackedScene item4;
     private List<Artifact> _displayArtifacts;
-    private MuseumTileContainer _museumTileContainer;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
 
     [Export] private LoadingBarManager _loadingBarManager;
     public override void _Ready()
@@ -55,8 +55,8 @@ public partial class ExhibitController : Node2D
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(jsonStr);
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-        _museumTileContainer.Exhibits = exhibits;
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+        _museumRunningDataContainer.Exhibits = exhibits;
         SpawnExhibits(exhibits);
         _loadingBarManager.EmitSignal("IncreaseCompletedTask");
         GD.Print("Exhibits request completed" + jsonStr);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -58,7 +59,7 @@ public partial class Item : Sprite2D, IComparable<Item>
     protected HttpRequest _httpRequestForArtifactRemoval;
     public string ExhibitVariationName = "default";
     public Exhibit ExhibitData;
-    protected MuseumTileContainer _museumTileContainer;
+    protected MuseumRunningDataContainer MuseumRunningDataContainer;
     protected ItemTypes _itemType;
     protected int _currentFrame;
     protected int _maxFrame = 4;
@@ -79,7 +80,7 @@ public partial class Item : Sprite2D, IComparable<Item>
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
         // itemShaderMaterial = (ShaderMaterial)Material;
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        MuseumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         greenMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/green.tres");
         redMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/red.tres");
         noBlendMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/White.tres");
@@ -122,8 +123,10 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     protected void GetUpdatedItemPlacementConditions()
     {
-        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
-        _httpRequestForExhibitPlacementConditions.Request(url);
+        // string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
+        // _httpRequestForExhibitPlacementConditions.Request(url);
+        _exhibitPlacementConditionDatas = MuseumReferenceManager.Instance.ItemPlacementConditionService
+            .CanExhibitBePlacedOnThisTile(ExhibitVariationName);
     }
 
 
@@ -158,8 +161,8 @@ public partial class Item : Sprite2D, IComparable<Item>
         // GD.Print("Http1 result " + jsonStr);
         TilesWithExhibitDto tilesWithExhibitDto = JsonSerializer.Deserialize<TilesWithExhibitDto>(jsonStr);
         ExhibitData = tilesWithExhibitDto.Exhibit;
-        _museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
-        if (tilesWithExhibitDto.Exhibits != null) _museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
+        MuseumRunningDataContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
+        if (tilesWithExhibitDto.Exhibits != null) MuseumRunningDataContainer.Exhibits = tilesWithExhibitDto.Exhibits;
         // GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
     }
 

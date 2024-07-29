@@ -29,7 +29,7 @@ public partial class ExhibitEditorUi : Control
 	private static List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
 	private static List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
 	private Exhibit _selectedExhibit;
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 	
     // Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
@@ -59,7 +59,7 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
 		_httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
 		await Task.Delay(1000);
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 	}
 
 	private void MoveExhibitButtonOnPressed()
@@ -78,8 +78,8 @@ public partial class ExhibitEditorUi : Control
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var tilesWithExhibitDto = JsonSerializer.Deserialize<TilesWithExhibitDto>(jsonStr);
-		_museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
-		_museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
+		_museumRunningDataContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
+		_museumRunningDataContainer.Exhibits = tilesWithExhibitDto.Exhibits;
 		MuseumActions.OnExhibitDeleted?.Invoke(_selectedExhibit.Id);
 	}
 

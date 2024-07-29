@@ -17,7 +17,7 @@ public partial class ZoneCreationUi : Control
 	[Export] private ColorPickerButton _colorPickerButton;
 	[Export] private Button _createZoneButton;
 	[Export] private Button _cancelZoneButton;
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 	private List<string> _selectedTileIds = new List<string>();
 
 	private HttpRequest _httpRequestForCreatingZone;
@@ -37,7 +37,7 @@ public partial class ZoneCreationUi : Control
 		_httpRequestForGettingAllZones.RequestCompleted += HttpRequestForGettingAllZonesOnRequestCompleted;
 		GD.Print($"zone creation ui spawned parent {GetParent().Name}");
 		await Task.Delay(1000);
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 
 	}
 
@@ -55,7 +55,7 @@ public partial class ZoneCreationUi : Control
 				tileMap.AddLayer(-1);
 			}
 			tileMap.ClearLayer(layerCount);
-			foreach (var tile in _museumTileContainer.MuseumTiles)
+			foreach (var tile in _museumRunningDataContainer.MuseumTiles)
 			{
 				if (museumZone.OccupiedMuseumTileIds.Contains(tile.Id))
 				{

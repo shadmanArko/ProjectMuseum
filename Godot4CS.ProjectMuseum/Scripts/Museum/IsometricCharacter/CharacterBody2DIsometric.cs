@@ -15,7 +15,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
     [Export] public Sprite2D _characterSprite;
     private bool _playerFacingTheFront = true;
     public Rect2 rect2 = new Rect2(0,0,0,0);
-    private MuseumTileContainer _museumTileContainer;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     // Converts any Vector2 coordinates or motion from the cartesian to the isometric system
     public override async void _Ready()
     {
@@ -23,7 +23,7 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         // AddToGroup("ManualSortGroup");
         _animationPlayerInstance.Play("idle_front_facing");
         await Task.Delay(1000);
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
     }
 
     private Vector2 CartesianToIsometric(Vector2 cartesian)
@@ -97,11 +97,11 @@ public partial class CharacterBody2DIsometric : PathNavigatorCharacter
         Vector2 nextPosition = Position + motion;
         
         // Check if the next position is within the bounds of the TileMap
-        if (_museumTileContainer == null || _museumTileContainer.MuseumTiles.Count == 0)
+        if (_museumRunningDataContainer == null || _museumRunningDataContainer.MuseumTiles.Count == 0)
         {
             return;
         }
-        if (_museumTileContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
+        if (_museumRunningDataContainer.MuseumTiles.CheckIfNextPositionIsEmpty(nextPosition) && (direction.X == 0 || direction.Y == 0))
         {
             // Move only if the next position is within the TileMap bounds
             var newTile = GameManager.tileMap.LocalToMap(Position);

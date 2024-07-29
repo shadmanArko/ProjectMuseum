@@ -28,7 +28,7 @@ public partial class TileSpawner : TileMap
 	private HttpRequest _httpRequestForExpandingMuseumTiles;
 	private HttpRequest _httpRequestForUpdatingMuseumWalls;
 
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 
 	private bool _museumBeingExpanded;
 	// [Export] private Array<int> _dirtyTilesIndex;
@@ -59,7 +59,7 @@ public partial class TileSpawner : TileMap
 		// GD.Print($"wall id put done {jsonStr}");
 
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-		_museumTileContainer.MuseumTiles = museumTiles;
+		_museumRunningDataContainer.MuseumTiles = museumTiles;
 		SpawnWalls(museumTiles);
 		
 		//EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
@@ -102,12 +102,12 @@ public partial class TileSpawner : TileMap
 
 	private void OnRequestCompletedForGettingMuseumTiles(long result, long responseCode, string[] headers, byte[] body)
 	{
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		SpawnTilesAndWalls(museumTiles);
 		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
-		_museumTileContainer.MuseumTiles = museumTiles;
+		_museumRunningDataContainer.MuseumTiles = museumTiles;
 		GD.Print("museum tiles request complete");
 		if (_museumBeingExpanded)
 		{

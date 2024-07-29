@@ -20,7 +20,7 @@ public partial class DecorationItem : Item
 	private BuilderCardType _builderCardType;
 	private Shop _shopData;
 	private List<Product> _allShopProducts;
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 	public int numberOfProductsSold = 0;
 	public float totalRevenue = 0;
 	public override void _Ready()
@@ -32,7 +32,7 @@ public partial class DecorationItem : Item
 		MuseumActions.OnProductPriceUpdated += OnProductPriceUpdated;
 		MuseumActions.OnProductReplaced += OnProductReplaced;
 		MuseumActions.OnGettingAllProducts += OnGettingAllProducts;
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 	}
 
 	private void OnGettingAllProducts(List<Product> obj)
@@ -54,7 +54,7 @@ public partial class DecorationItem : Item
 					GD.Print("Removing product");
 				}
 			}
-			foreach (var product in _museumTileContainer.Products)
+			foreach (var product in _museumRunningDataContainer.Products)
 			{
 				if (product.ProductVariant == newProductName)
 				{
@@ -91,13 +91,13 @@ public partial class DecorationItem : Item
 		if (_builderCardType == BuilderCardType.DecorationShop)
 		{
 			var tilesWithShopsDto = JsonSerializer.Deserialize<TilesWithShopsDTO>(jsonStr);
-			_museumTileContainer.MuseumTiles = tilesWithShopsDto.MuseumTiles;
-			_museumTileContainer.Shops = tilesWithShopsDto.DecorationShops!;
+			_museumRunningDataContainer.MuseumTiles = tilesWithShopsDto.MuseumTiles;
+			_museumRunningDataContainer.Shops = tilesWithShopsDto.DecorationShops!;
 			_shopData = tilesWithShopsDto.Shop;
 		}else if (_builderCardType == BuilderCardType.DecorationOther)
 		{
 			var tiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-			_museumTileContainer.MuseumTiles = tiles;
+			_museumRunningDataContainer.MuseumTiles = tiles;
 		}
 		
 	}

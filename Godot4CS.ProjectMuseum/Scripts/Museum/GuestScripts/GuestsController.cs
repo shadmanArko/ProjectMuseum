@@ -20,7 +20,7 @@ public partial class GuestsController : Node2D
 	[Export] private Vector2I _spawnAtTile;
 	[Export] private double _spawnInterval = 4.0;
 	[Export] private Array<Vector2I> _sceneEntryPositions;
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 	private string _testString;
 	private HttpRequest _httpRequestForGettingMuseumTiles;
 	[Export] private int _maxNumberGuests = 10;
@@ -38,7 +38,7 @@ public partial class GuestsController : Node2D
 	public override async void _Ready()
 	{
 		await Task.Delay(500);
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		
 		_httpRequestForGettingMuseumTiles = new HttpRequest();
 		_httpRequestForGettingGuestBuildingParameter = new HttpRequest();
@@ -150,8 +150,8 @@ public partial class GuestsController : Node2D
 	private void HttpRequestForGettingMuseumTilesOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		_museumTileContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
-		if (_museumTileContainer.MuseumTiles.Count > 0)
+		_museumRunningDataContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		if (_museumRunningDataContainer.MuseumTiles.Count > 0)
 		{
 			//GD.Print($"found museum tiles {_museumTileContainer.MuseumTiles.Count}");
 		}

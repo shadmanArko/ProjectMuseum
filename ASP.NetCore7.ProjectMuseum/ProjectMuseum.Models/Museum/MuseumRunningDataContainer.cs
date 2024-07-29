@@ -1,12 +1,14 @@
-namespace ProjectMuseum.Models;
+using Godot4CS.ProjectMuseum.Scripts.Museum.GameData;
 
-public class MuseumTileContainer
+namespace ProjectMuseum.Models;
+public class MuseumRunningDataContainer
 {
     private List<MuseumTile> museumTiles; // Use a private field to store the list
     public List<Exhibit> Exhibits { get; set; }
     public List<Sanitation> Sanitations { get; set; }
     public List<Shop> Shops { get; set; }
     public List<Product> Products { get; set; }
+    public List<DecorationOther> DecorationOthers;
     public List<MuseumTile> MuseumTiles
     {
         get => museumTiles;

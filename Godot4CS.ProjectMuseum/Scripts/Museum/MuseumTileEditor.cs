@@ -24,7 +24,7 @@ public partial class MuseumTileEditor : Node2D
     private HttpRequest _httpRequestForUpdatingTilesSourceId;
     private List<TileVariation> _tileVariations;
     private string _museumTileVariationsApiPath = "";
-    private MuseumTileContainer _museumTileContainer;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     private bool _canEditTiles = false;
     public override async void _Ready()
     {
@@ -40,7 +40,7 @@ public partial class MuseumTileEditor : Node2D
         _httpRequestForGettingTileVariations.Request(_museumTileVariationsApiPath);
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard; 
         await Task.Delay(1000);
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         //GD.Print("museumTileEditor is ready");
     }
 
@@ -69,7 +69,7 @@ public partial class MuseumTileEditor : Node2D
     {
         //GD.Print("source id put done");
         string jsonStr = Encoding.UTF8.GetString(body);
-        _museumTileContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+        _museumRunningDataContainer.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
         MuseumActions.OnMuseumTilesUpdated?.Invoke();
     }
 
@@ -125,7 +125,7 @@ public partial class MuseumTileEditor : Node2D
                     {
                         GameManager.tileMap.ClearLayer(1);
                         var spawnTilePos = new Vector2I(x, y);
-                        if (!spawnTilePos.IsTilePositionInsideTileMap(_museumTileContainer.MuseumTiles)) continue;
+                        if (!spawnTilePos.IsTilePositionInsideTileMap(_museumRunningDataContainer.MuseumTiles)) continue;
                         tilePositions.Add(spawnTilePos);
                         GameManager.tileMap.SetCell(0, spawnTilePos, _tileSourceId, Vector2I.Zero);
                         // GameManager.TileMap.ClearLayer(0, new Vector2I(x, y), 0, Vector2I.Zero);
@@ -163,7 +163,7 @@ public partial class MuseumTileEditor : Node2D
         List<string> tileIds = new List<string>();
         foreach (var tilePosition in tilePositions)
         {
-            foreach (var museumTile in _museumTileContainer.MuseumTiles)
+            foreach (var museumTile in _museumRunningDataContainer.MuseumTiles)
             {
                 if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y && museumTile.TileSetNumber != sourceId)
                 {

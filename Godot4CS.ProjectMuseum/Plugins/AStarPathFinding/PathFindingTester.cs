@@ -10,7 +10,7 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding;
 public partial class PathFindingTester : Godot.Node
 {
 	private AStarPathfinding _aStarPathfinding;
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 
 	[Export] private Vector2I _startCoordinate;
 	[Export] private Vector2I _targetCoordinate;
@@ -18,15 +18,15 @@ public partial class PathFindingTester : Godot.Node
 	public override async void _Ready()
 	{
 		await Task.Delay(5000);
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 
-		foreach (var aStarNode in _museumTileContainer.AStarNodes)
+		foreach (var aStarNode in _museumRunningDataContainer.AStarNodes)
 		{
 			GD.Print($"Node  {aStarNode.TileCoordinateX}, {aStarNode.TileCoordinateY} is {aStarNode.IsWalkable}");
 		}
 		
 		_aStarPathfinding = new AStarPathfinding( false);
-		List<Vector2I> path = _aStarPathfinding.FindPath(_startCoordinate, _targetCoordinate, _museumTileContainer.AStarNodes);
+		List<Vector2I> path = _aStarPathfinding.FindPath(_startCoordinate, _targetCoordinate, _museumRunningDataContainer.AStarNodes);
 		if(path == null) GD.Print("Path not found");
         foreach (var pathCoordinate in path)
 		{

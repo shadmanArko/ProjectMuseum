@@ -91,8 +91,8 @@ public partial class ProceduralMineGenerationService : Node
         _cellSize = _proceduralMineGenerationDatabase.CellSize;
 
         var mine = await GenerateMineCellData(_xSize, _ySize, _cellSize);
-        // await GenerateBossCave(mine);
-        // await GenerateMineCaves(mine);
+        await GenerateBossCave(mine);
+        await GenerateMineCaves(mine);
         await GenerateSpecialBackdrops(mine);
         await GenerateVines(mine);
         await GenerateArtifacts(mine);
@@ -521,7 +521,7 @@ public partial class ProceduralMineGenerationService : Node
     
     #region Generate Artifacts
 
-    public async Task GenerateArtifacts(Mine mine)
+    private async Task GenerateArtifacts(Mine mine)
     {
         var rawArtifactFunctionals = _rawArtifactDto.RawArtifactFunctionals;
         
@@ -754,5 +754,90 @@ public partial class ProceduralMineGenerationService : Node
 
     #endregion
 
+    #region Generate Resources
 
+    // public async Task<List<Resource>> GenerateResources(Mine mine)
+    // {
+    //     var variants = new List<string> { "Coal", "Iron", "PinkQuartz", "BlueQuartz", "SmokyQuartz", "MilkyQuartz" };
+    //     var rand = new Random(); 
+    //     var cells = new List<Cell>();
+    //     foreach (var mineCell in mine.Cells)
+    //     {
+    //         mineCell.HasResource = false;
+    //         if(mineCell.HasCave || mineCell.HasArtifact || !mineCell.IsInstantiated || mineCell.IsBroken || !mineCell.IsBreakable) continue;
+    //         cells.Add(mineCell);
+    //     }
+    //     mine.Resources.Clear();
+    //     
+    //     var numberOfRootNodes = rand.Next(30,40);
+    //
+    //     for (var i = 0; i < numberOfRootNodes; i++)
+    //     {
+    //         var resourceCells = new List<Cell>();
+    //         var cell = GetRandomCell(cells);
+    //         resourceCells.Add(cell);
+    //         cells.Remove(cell);
+    //         
+    //         var rootNodeVariant = variants[rand.Next(0, variants.Count)];
+    //         await _resourceRepository.AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY);
+    //
+    //         int resourceBranches = rootNodeVariant switch
+    //         {
+    //             "Iron" => rand.Next(3, 5),
+    //             "Coal" => rand.Next(5, 8),
+    //             "PinkQuartz" => rand.Next(0, 3),
+    //             "BlueQuartz" => rand.Next(0, 3),
+    //             "SmokyQuartz" => rand.Next(0, 3),
+    //             "MilkyQuartz" => rand.Next(0, 3),
+    //             _ => rand.Next(5, 8)
+    //         };
+    //         var currentBranchCell = cell;
+    //         for (var j = 0; j <= resourceBranches; j++)
+    //         {
+    //             currentBranchCell = GetRandomAdjacentCell(cells, currentBranchCell);
+    //             if(resourceCells.Contains(currentBranchCell)) continue;
+    //             resourceCells.Add(currentBranchCell);
+    //         }
+    //         
+    //         foreach (var resourceCell in resourceCells)
+    //         {
+    //             var resource = await _resourceRepository.AddResourceToMine(rootNodeVariant, resourceCell.PositionX,
+    //                 resourceCell.PositionY);
+    //             Console.WriteLine($"resource {resource.Variant} {resource.PositionX},{resource.PositionY}");
+    //             mine.Resources.Add(resource);
+    //             FormResourceDistanceOfFourTiles(cells, resourceCell);
+    //         }
+    //     }
+    //
+    //     #region Test
+    //
+    //     int coals = 0;
+    //     int irons = 0;
+    //     foreach (var resource in mine.Resources)
+    //     {
+    //         if (resource.Variant == "Coal")
+    //             coals++;
+    //         else if (resource.Variant == "Iron")
+    //             irons++;
+    //     }
+    //         
+    //     Console.WriteLine($"no of root nodes: {numberOfRootNodes}");
+    //     Console.WriteLine($"Iron:{irons}, Coal:{coals}");
+    //
+    //     #endregion
+    //
+    //     await _mineRepository.Update(mine);
+    //     await AssignResourcesToMine();
+    //     return mine.Resources;
+    // }
+    
+    private Cell GetRandomCell(List<Cell> cells)
+    {
+        var rand = new Random();
+        return cells[rand.Next(0,cells.Count)];
+    }
+
+
+
+    #endregion
 }

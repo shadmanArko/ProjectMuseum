@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -169,12 +170,20 @@ public partial class DecorationItem : Item
 		if (_builderCardType == BuilderCardType.DecorationShop)
 		{
 			url = $"{ApiAddress.MuseumApiPath}PlaceAShopOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
+			var result = MuseumReferenceManager.Instance.ItemPlacementConditionService.PlaceShopOnTiles(tileIds[0], tileIds,
+				_variationName, Frame);
+			_shopData = result.Shop;
+			_museumRunningDataContainer.Shops = result.DecorationShops;
+			_museumRunningDataContainer.MuseumTiles = result.MuseumTiles;
 
 		}else if (_builderCardType == BuilderCardType.DecorationOther)
 		{
 			url = $"{ApiAddress.MuseumApiPath}PlaceOtherDecorationOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
+			var result = MuseumReferenceManager.Instance.ItemPlacementConditionService.PlaceOtherDecorationOnTiles(tileIds[0], tileIds,
+				_variationName, Frame);
+			_museumRunningDataContainer.MuseumTiles = result;
 		}
-		_httpRequestForPlacingDecorationItem.Request(url, headers, HttpClient.Method.Get, body);
+		//_httpRequestForPlacingDecorationItem.Request(url, headers, HttpClient.Method.Get, body);
 		GD.Print("Handling exhibit placement");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();

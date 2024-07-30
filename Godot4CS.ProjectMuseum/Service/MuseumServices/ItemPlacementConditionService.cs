@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.GameData;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.CoreShop;
@@ -15,11 +16,13 @@ namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
 public partial class ItemPlacementConditionService: Node
 {
     private MuseumRunningDataContainer _museumRunningDataContainer;
+    private MuseumGameData _museumGameData;
     public  override async void _Ready()
     {
         base._Ready();
         await Task.Delay(1000);
         _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+        _museumGameData = ServiceRegistry.Resolve<MuseumGameData>();
 
     }
     public List<ExhibitPlacementConditionData> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
@@ -107,6 +110,8 @@ public partial class ItemPlacementConditionService: Node
                 "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CoreShopData/coreShopDescriptiveData.json");
         var shopFunctionalDatas = JsonSerializer.Deserialize<List<CoreShopFunctional>>(shopFunctional);
         var shopDescriptiveDatas = JsonSerializer.Deserialize<List<CoreShopDescriptive>>(shopDescriptives);
+        _museumGameData.CoreShopDescriptives = shopDescriptiveDatas;
+        _museumGameData.CoreShopFunctionals = shopFunctionalDatas;
         foreach (var shopFunctionalData in shopFunctionalDatas)
         {
             if (shopFunctionalData.Variant == shopVariationName)

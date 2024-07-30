@@ -216,6 +216,8 @@ public partial class MineGenerationController : Node2D
 		// _generateProceduralMineHttpRequest.Request(url);
 
 		var mine = await ReferenceStorage.Instance.ProceduralMineGenerationService.GenerateProceduralMine();
+		GD.Print($"Mine cells count: {mine.Cells.Count}");
+		GetAllArtifactData();
 		GenerateGridFromMineData(mine);
 	}
 	

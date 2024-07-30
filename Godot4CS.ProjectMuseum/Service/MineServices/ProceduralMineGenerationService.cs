@@ -16,8 +16,8 @@ namespace Godot4CS.ProjectMuseum.Service.MineServices;
 
 public partial class ProceduralMineGenerationService : Node
 {
-    private MineGenerationVariables _mineGenerationVariables;
     private ProceduralMineGenerationDto _mineGenerationDto;
+    private RawArtifactDTO _rawArtifactDto;
 
     #region Variables
 
@@ -25,8 +25,11 @@ public partial class ProceduralMineGenerationService : Node
     private int _ySize;
     private int _cellSize;
 
-    private ProceduralMineGenerationData _proceduralMineGenerationData;
+    private ProceduralMineGenerationData _proceduralMineGenerationDatabase;
     private List<SpecialBackdropPngInformation> _specialBackdropsDatabase;
+    private List<SiteArtifactChanceData> _siteArtifactChanceDatabase;
+    private List<ArtifactCondition> _artifactConditionsDatabase;
+    private List<ArtifactRarity> _artifactRarityDatabase;
 
     #endregion
 
@@ -44,8 +47,8 @@ public partial class ProceduralMineGenerationService : Node
 
     private void InitializeDiReference()
     {
-        _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _mineGenerationDto = ServiceRegistry.Resolve<ProceduralMineGenerationDto>();
+        _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
     }
 
     private void InitializeDatabases()
@@ -55,24 +58,44 @@ public partial class ProceduralMineGenerationService : Node
                 "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/win-x64/Game Data Folder/SpecialBackdropData/SpecialBackdropPngInformation.json");
         _specialBackdropsDatabase = new List<SpecialBackdropPngInformation>();
         _specialBackdropsDatabase = JsonSerializer.Deserialize<List<SpecialBackdropPngInformation>>(backdropsStr);
-        
+
+        _mineGenerationDto = new ProceduralMineGenerationDto();
         var mineGenDataJson =
             File.ReadAllText(
                 "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
-        _proceduralMineGenerationData = JsonSerializer.Deserialize<ProceduralMineGenerationData>(mineGenDataJson);
-        GD.Print($"procedural mine gen data max caves {_proceduralMineGenerationData.NumberOfMaxCaves}");
+        _proceduralMineGenerationDatabase = JsonSerializer.Deserialize<ProceduralMineGenerationData>(mineGenDataJson);
+        _mineGenerationDto.ProceduralMineGenerationData = _proceduralMineGenerationDatabase;
+        GD.Print($"procedural mine gen data max caves {_proceduralMineGenerationDatabase.NumberOfMaxCaves}");
+
+        var siteArtifactDataJson = File.ReadAllText(
+            "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/SiteArtifactChanceData/SiteArtifactChanceFunctionalData/SiteArtifactChanceFunctionalData.json");
+        _siteArtifactChanceDatabase = JsonSerializer.Deserialize < List<SiteArtifactChanceData>>(siteArtifactDataJson);
+        GD.Print($"site artifact list: {_siteArtifactChanceDatabase.Count}");
+
+        var artifactConditionJson =
+            File.ReadAllText(
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactCondition.json");
+        _artifactConditionsDatabase = JsonSerializer.Deserialize<List<ArtifactCondition>>(artifactConditionJson);
+        GD.Print($"artifact conditions list: {_artifactConditionsDatabase.Count}");
+
+        var artifactRarityJson =
+            File.ReadAllText(
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactRarity.json");
+        _artifactRarityDatabase = JsonSerializer.Deserialize<List<ArtifactRarity>>(artifactRarityJson);
     }
 
     public async Task<Mine> GenerateProceduralMine()
     {
-        _xSize = _proceduralMineGenerationData.MineSizeX;
-        _ySize = _proceduralMineGenerationData.MineSizeY;
-        _cellSize = _proceduralMineGenerationData.CellSize;
+        _xSize = _proceduralMineGenerationDatabase.MineSizeX;
+        _ySize = _proceduralMineGenerationDatabase.MineSizeY;
+        _cellSize = _proceduralMineGenerationDatabase.CellSize;
 
         var mine = await GenerateMineCellData(_xSize, _ySize, _cellSize);
         // await GenerateBossCave(mine);
         // await GenerateMineCaves(mine);
         await GenerateSpecialBackdrops(mine);
+        await GenerateVines(mine);
+        await GenerateArtifacts(mine);
 
         return mine;
     }
@@ -210,7 +233,7 @@ public partial class ProceduralMineGenerationService : Node
         var noOfStalagmites = 3; //Math.Clamp(mineGenData.StalagmiteCount, 0, bossCaveSizeX);    //TODO: change
 
         var cave = GenerateCave(xMin, xMax, yMin, yMax, noOfStalagmites, noOfStalactites, mine);
-        Console.WriteLine($"Boss Cave Location Top:{yMin}, Bottom:{yMax}, Left:{xMin}, Right:{xMax}");
+        GD.Print($"Boss Cave Location Top:{yMin}, Bottom:{yMax}, Left:{xMin}, Right:{xMax}");
         await Task.Delay(500);
     }
     
@@ -283,9 +306,9 @@ public partial class ProceduralMineGenerationService : Node
             var stalagmites = rand.Next(2, xMax - xMin - 1);
             var stalactites = rand.Next(2, xMax - xMin - 1);
 
-            // Console.WriteLine($"cave dim: ({tempCave.X},{tempCave.Y})");
+            // GD.Print($"cave dim: ({tempCave.X},{tempCave.Y})");
             var cave = GenerateCave(xMin, xMax, yMin, yMax, stalagmites, stalactites, mine);
-            Console.WriteLine(
+            GD.Print(
                 $"Cave generated xMin:{cave.LeftBound}, xMax:{cave.RightBound}. yMin:{cave.TopBound}, yMax:{cave.BottomBound}");
         }
 
@@ -359,7 +382,7 @@ public partial class ProceduralMineGenerationService : Node
     
     #region Generate Special Backdrops
     
-    public async Task GenerateSpecialBackdrops(Mine mine)
+    private async Task GenerateSpecialBackdrops(Mine mine)
     {
         var noOfSlotsX = 3;
         var noOfSlotsY = 4;
@@ -408,14 +431,328 @@ public partial class ProceduralMineGenerationService : Node
             listOfCoords.Remove(tempCoord);
         }
     
-        Console.WriteLine($"Backdrop Position");
+        GD.Print($"Backdrop Position");
         foreach (var backdrop in listOfAddedBackdrops)
-            Console.WriteLine($"X:{backdrop.TilePositionX}, Y:{backdrop.TilePositionY}");
+            GD.Print($"X:{backdrop.TilePositionX}, Y:{backdrop.TilePositionY}");
     
         mine.SpecialBackdropPngInformations = listOfAddedBackdrops.ToList();
         await Task.Delay(500);
     }
 
     #endregion
+
+    #region Generate Vines
+
+    private async Task GenerateVines(Mine mine)
+    {
+        var random = new Random();
+        var noOfVinesToGenerate = random.Next(10, 15);
+        var minVeinRange = 4;
+        var maxVeinRange = 8;
+        
+        var cells = mine.Cells;
+        var cellsWithoutBackdrops = new List<Cell>();
+        var cellsWithBackdrops = new List<Cell>();
+
+        foreach (var cell in cells)
+            cellsWithoutBackdrops.Add(cell);
+        
+        foreach (var specialBackdrop in mine.SpecialBackdropPngInformations)
+        {
+            var xMin = specialBackdrop.TilePositionX - specialBackdrop.SizeX / 2;
+            var xMax = specialBackdrop.TilePositionX + specialBackdrop.SizeX / 2;
+            var yMin = specialBackdrop.TilePositionY - specialBackdrop.SizeY / 2;
+            var yMax = specialBackdrop.TilePositionY + specialBackdrop.SizeY / 2;
+
+            for (var i = xMin; i < xMax; i++)
+            {
+                for (var j = yMin; j < yMax; j++)
+                {
+                    var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
+                    if(cell == null) continue;
+                    cellsWithBackdrops.Add(cell);
+                }
+            }
+        }
+
+        foreach (var backdrop in cellsWithBackdrops)
+            cellsWithoutBackdrops.Remove(backdrop);
+
+        var cellsToRemove = new List<Cell>();
+        foreach (var cell in cellsWithoutBackdrops)
+        {
+            if(cell.PositionX <= 3 || cell.PositionX > 45 || cell.PositionY <= 3 || cell.PositionY > 50)
+                cellsToRemove.Add(cell);
+        }
+
+        foreach (var cell in cellsToRemove)
+            cellsWithoutBackdrops.Remove(cell);
+        
+        var listOfVineInformations = new List<VineInformation>();
+        for (var i = 0; i < noOfVinesToGenerate; i++)
+        {
+            var vineInfo = new VineInformation();
+            var veinRange = random.Next(minVeinRange, maxVeinRange);
+            var cellsWithVines = new List<string>();
+            GD.Print($"cells without backdrops: {cellsWithoutBackdrops.Count}");
+            var startingNode = cellsWithoutBackdrops[random.Next(0, cellsWithoutBackdrops.Count)];
+            cellsWithVines.Add(startingNode.Id!);
+            for (var j = 1; j <= veinRange; j++)
+            {
+                var nextNode = cellsWithoutBackdrops.FirstOrDefault(temp =>
+                    temp.PositionX == startingNode.PositionX && temp.PositionY == startingNode.PositionY + j);
+                if(nextNode == null) break;
+                 GD.Print($"Vine Pos: {nextNode.PositionX}, {nextNode.PositionY}");
+                cellsWithVines.Add(nextNode.Id!);
+                cellsWithoutBackdrops.Remove(nextNode);
+            }
+
+            if (cellsWithVines.Count <= 0) continue;
+            vineInfo.SourceId = Guid.NewGuid().ToString();
+            vineInfo.VineCellPositions = cellsWithVines;
+            listOfVineInformations.Add(vineInfo);
+        }
+        
+        mine.VineInformations = listOfVineInformations;
+        await Task.Delay(500);
+    }
+    
+    #endregion
+    
+    #region Generate Artifacts
+
+    public async Task GenerateArtifacts(Mine mine)
+    {
+        var rawArtifactFunctionals = _rawArtifactDto.RawArtifactFunctionals;
+        
+        var siteArtifactChance = GetSiteArtifactChanceDataBySite(_proceduralMineGenerationDatabase.Site);
+        
+        var rand = new Random();
+        var regionalArtifacts = rawArtifactFunctionals!
+            .Where(rawArtifactFunctional => rawArtifactFunctional.Region == _proceduralMineGenerationDatabase.Region).ToList();
+        
+        var weaponCount = (int) (siteArtifactChance.Weapon * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var armorCount = (int) (siteArtifactChance.Armor * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var clothingCount = (int) (siteArtifactChance.Clothing * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var economicCount = (int) (siteArtifactChance.Economic * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var vesselCount = (int) (siteArtifactChance.Vessel * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var leisureCount = (int) (siteArtifactChance.Leisure * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var toolCount = (int) (siteArtifactChance.Tool * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var ceremonialCount = (int) (siteArtifactChance.Ceremonial * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var legendaryCount = (int) (siteArtifactChance.Legendary * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        
+        var listOfRawArtifacts = new List<RawArtifactFunctional>();
+    
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Weapon").ToList()
+            .OrderBy(x => rand.Next()).Take(weaponCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Armor").ToList()
+            .OrderBy(x => rand.Next()).Take(armorCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Clothing").ToList()
+            .OrderBy(x => rand.Next()).Take(clothingCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Economic").ToList()
+            .OrderBy(x => rand.Next()).Take(economicCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Vessel").ToList()
+            .OrderBy(x => rand.Next()).Take(vesselCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Leisure").ToList()
+            .OrderBy(x => rand.Next()).Take(leisureCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Tool").ToList()
+            .OrderBy(x => rand.Next()).Take(toolCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Ceremonial").ToList()
+            .OrderBy(x => rand.Next()).Take(ceremonialCount));
+        listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Legendary").ToList()
+            .OrderBy(x => rand.Next()).Take(legendaryCount));
+        
+        GD.Print($"raw artifact functional: {rawArtifactFunctionals.Count}");
+        GD.Print($"list of raw artifacts: {listOfRawArtifacts.Count}");
+    
+        #region Adding duplicate artifacts in the list of artifacts
+    
+        if (listOfRawArtifacts.Count < _proceduralMineGenerationDatabase.TotalNoOfArtifacts)
+        {
+            var duplicateArtifacts = new List<RawArtifactFunctional>();
+            var duplicateCounter = _proceduralMineGenerationDatabase.TotalNoOfArtifacts - listOfRawArtifacts.Count;
+            
+            for (var i = 0; i < duplicateCounter; i++)
+            {
+                var rawArtifact = listOfRawArtifacts[rand.Next(0, listOfRawArtifacts.Count)];
+                duplicateArtifacts.Add(rawArtifact);
+            }
+            
+            listOfRawArtifacts.AddRange(duplicateArtifacts);
+        }
+    
+        #endregion
+    
+        #region Adding Condition and Rarity to the generated artifacts
+    
+        var listOfArtifactRarityConditions = GetConditionRarityCombination(_proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var rarityConditionCounter = 0;
+        var listOfArtifacts = new List<Artifact>();
+        
+        foreach (var artifactFunctional in listOfRawArtifacts)
+        {
+            var rarityCondition = listOfArtifactRarityConditions[rarityConditionCounter];
+            var artifact = new Artifact
+            {
+                Id = Guid.NewGuid().ToString(),
+                RawArtifactId = artifactFunctional.Id,
+                Condition = rarityCondition.Item1.Condition,
+                Rarity = rarityCondition.Item2.Rarity
+            };
+    
+            rarityConditionCounter++;
+            listOfArtifacts.Add(artifact);
+            GD.Print($"{rarityCondition.Item1.Condition}, {rarityCondition.Item2.Rarity}");
+        }
+    
+        #endregion
+        
+        var cells = mine.Cells.ToList();
+        var cellsToRemove = new List<Cell>();
+        foreach (var cell in cells)
+        {
+            if (cell.IsBroken || cell.HasCave || !cell.IsInstantiated || !cell.IsBreakable) 
+                cellsToRemove.Add(cell);
+        }
+    
+        #region Tutorial Tiles
+    
+        var midPoint = _proceduralMineGenerationDatabase.MineSizeX / 2;
+        for (var i = midPoint -1; i < midPoint +1; i++)
+        {
+            for (var j = 1; j < 3; j++)
+            {
+                if(i == midPoint && j == 2) continue;
+                cellsToRemove.Add(cells.FirstOrDefault(tempCell=> tempCell.PositionX == i && tempCell.PositionY == j));
+            }
+        }
+    
+        #endregion
+        
+        foreach (var cell in cellsToRemove)
+        {
+            cells.Remove(cell);
+        }
+    
+        foreach (var artifact in listOfArtifacts)
+        {
+            var cell = cells[rand.Next(0, cells.Count)];
+            artifact.PositionX = cell.PositionX;
+            artifact.PositionY = cell.PositionY;
+            cells.Remove(cell);
+        }
+    
+        var tutorialCell = cells.FirstOrDefault(tempCell => tempCell is { PositionX: 24, PositionY: 2 });
+        if (tutorialCell is { HasArtifact: false })
+        {
+            var tutorialArtifact = new Artifact
+            {
+                Id = "tutorialArtifact",
+                RawArtifactId = "ClassicalNativeAmericanTomahawk",
+                PositionX = 24,
+                PositionY = 2,
+                Condition = "Decrepit",
+                Rarity = "Common",
+                Slot = 0
+            };
+                
+            listOfArtifacts.Add(tutorialArtifact);
+        }
+        
+        AssignArtifactsToMine(listOfArtifacts, mine);
+    
+        foreach (var mineCell in mine.Cells)
+        {
+            if(!mineCell.HasArtifact) continue;
+            GD.Print($"Artifact: {mineCell.ArtifactId} ||| {mineCell.PositionX}, {mineCell.PositionY}");
+        }
+
+        await Task.Delay(500);
+    }
+
+    private List<Tuple<ArtifactCondition, ArtifactRarity>> GetConditionRarityCombination(int artifactCount)
+    {
+        var artifactConditions = _artifactConditionsDatabase;
+        var artifactRarities = _artifactRarityDatabase;
+        var conditionsRarityList = new List<Tuple<ArtifactCondition, ArtifactRarity>>();
+        
+        GD.Print($"artifact conditions count {artifactConditions.Count}");
+
+        foreach (var condition in artifactConditions)
+            GD.Print($"conditions is {condition.Condition}");
+        
+        foreach (var rarity in artifactRarities)
+            GD.Print($"conditions is {rarity.Rarity}");
+
+        var rand = new Random();
+
+        for (var i = 0; i < artifactCount; i++)
+        {
+            var conditionValue = rand.Next(0, 101);
+            var rarityValue = rand.Next(0, 101);
+
+            var condition = conditionValue switch
+            {
+                <=75 => artifactConditions[0],
+                > 75 and <= 98 => artifactConditions[1],
+                > 98 => artifactConditions[2]
+            };
+
+            var rarity = rarityValue switch
+            {
+                <= 80 => artifactRarities[0],
+                > 80 and <= 99 => artifactRarities[1],
+                > 99 => artifactRarities[2]
+            };
+            
+            var tuple = new Tuple<ArtifactCondition, ArtifactRarity>(condition, rarity);
+            conditionsRarityList.Add(tuple);
+        }
+
+        return conditionsRarityList;
+    }
+
+    private SiteArtifactChanceData GetSiteArtifactChanceDataBySite(string site)
+    {
+        var siteChanceData = _siteArtifactChanceDatabase.FirstOrDefault(temp => temp.Site == site);
+        if (siteChanceData == null)
+        {
+            GD.PrintErr($"Fatal Error: Site does not match the database");
+            return null;
+        }
+
+        GD.Print($"site chance data: legendary- {siteChanceData.Legendary}");
+        return siteChanceData;
+    }
+
+    private void AssignArtifactsToMine(List<Artifact> artifacts, Mine mine)
+    {
+        foreach (var artifact in artifacts)
+        {
+            var cell = mine.Cells.FirstOrDefault(tempCell =>
+                tempCell.PositionX == artifact.PositionX && tempCell.PositionY == artifact.PositionY);
+            if (cell == null)
+            {
+                GD.PrintErr("Fatal Error: artifact position does not match any of the cell positions");
+                continue;
+            }
+                
+            var rawArtifactFunctional =
+                _rawArtifactDto.RawArtifactFunctionals.FirstOrDefault(temp => temp.Id == artifact.RawArtifactId);
+            if (rawArtifactFunctional == null)
+            {
+                GD.PrintErr("Fatal Error: Artifact rawArtifactId does not match any RawArtifactFunctionalId");
+                continue;
+            }
+                
+            cell.HasArtifact = true;
+            cell.ArtifactId = artifact.Id;
+            var mat = rawArtifactFunctional.Materials[0];
+            cell.ArtifactMaterial = mat;
+        }
+    }
+
+    #endregion
+
 
 }

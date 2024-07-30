@@ -135,7 +135,7 @@ public partial class SanitationItem : Item
 		string url = "";
 		GD.Print($"sanitation variation {_variationName}, body {body} ");
 		url = $"{ApiAddress.MuseumApiPath}PlaceSanitationOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
-		_httpRequestForPlacingSanitationItem.Request(url, headers, HttpClient.Method.Get, body);
+		// _httpRequestForPlacingSanitationItem.Request(url, headers, HttpClient.Method.Get, body);
 		var result = MuseumReferenceManager.Instance.ItemPlacementConditionService.PlaceSanitationOnTiles(tileIds[0], tileIds,
 			_variationName, Frame);
 		MuseumRunningDataContainer.MuseumTiles = result.MuseumTiles;

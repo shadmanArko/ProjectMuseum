@@ -18,7 +18,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _saveGeneratedMineHttpRequest;
 	private HttpRequest _loadGeneratedMineHttpRequest;
 	private HttpRequest _generateMineHttpRequest;
-	private HttpRequest _generateProceduralMineHttpRequest;
+	
 	private HttpRequest _mineCrackCellMaterialHttpRequest;
 	private HttpRequest _getAllRawArtifactDescriptiveHttpRequest;
 	private HttpRequest _getAllRawArtifactFunctionalHttpRequest;
@@ -40,8 +40,8 @@ public partial class MineGenerationController : Node2D
 		CreateHttpRequests();
 		InitializeDiReferences();
 		GetMineCrackMaterialData();
-		GetAllRawArtifactDescriptiveData();
-		GetAllRawArtifactFunctionalData();
+		// GetAllRawArtifactDescriptiveData();
+		// GetAllRawArtifactFunctionalData();
 		await GenerateProceduralMine();
 		
 	}
@@ -72,25 +72,21 @@ public partial class MineGenerationController : Node2D
 		AddChild(_generateMineHttpRequest);
 		_generateMineHttpRequest.RequestCompleted += OnGenerateMineDataHttpRequestCompleted;
 		
-		_generateProceduralMineHttpRequest = new HttpRequest();
-		AddChild(_generateProceduralMineHttpRequest);
-		_generateProceduralMineHttpRequest.RequestCompleted += OnGenerateProceduralMineHttpRequestCompleted;
-		
 		_mineCrackCellMaterialHttpRequest = new HttpRequest();
 		AddChild(_mineCrackCellMaterialHttpRequest);
 		_mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
 		
-		_getAllRawArtifactDescriptiveHttpRequest = new HttpRequest();
-		AddChild(_getAllRawArtifactDescriptiveHttpRequest);
-		_getAllRawArtifactDescriptiveHttpRequest.RequestCompleted += OnGetGetAllRawArtifactDescriptiveHttpRequestCompleted;
+		// _getAllRawArtifactDescriptiveHttpRequest = new HttpRequest();
+		// AddChild(_getAllRawArtifactDescriptiveHttpRequest);
+		// _getAllRawArtifactDescriptiveHttpRequest.RequestCompleted += OnGetGetAllRawArtifactDescriptiveHttpRequestCompleted;
+		//
+		// _getAllRawArtifactFunctionalHttpRequest = new HttpRequest();
+		// AddChild(_getAllRawArtifactFunctionalHttpRequest);
+		// _getAllRawArtifactFunctionalHttpRequest.RequestCompleted += OnGetGetAllRawArtifactFunctionalHttpRequestCompleted;
 		
-		_getAllRawArtifactFunctionalHttpRequest = new HttpRequest();
-		AddChild(_getAllRawArtifactFunctionalHttpRequest);
-		_getAllRawArtifactFunctionalHttpRequest.RequestCompleted += OnGetGetAllRawArtifactFunctionalHttpRequestCompleted;
-		
-		_getAllMinArtifactsHttpRequest = new HttpRequest();
-		AddChild(_getAllMinArtifactsHttpRequest);
-		_getAllMinArtifactsHttpRequest.RequestCompleted += OnGetAllMinArtifactsHttpRequestCompleted;
+		// _getAllMinArtifactsHttpRequest = new HttpRequest();
+		// AddChild(_getAllMinArtifactsHttpRequest);
+		// _getAllMinArtifactsHttpRequest.RequestCompleted += OnGetAllMinArtifactsHttpRequestCompleted;
 	}
 
 	#endregion
@@ -120,57 +116,57 @@ public partial class MineGenerationController : Node2D
 
 	#endregion
 	
-	#region Get Raw Artifact Descriptive Data From Server
-
-	private void GetAllRawArtifactDescriptiveData()
-	{
-		var url = ApiAddress.MineApiPath+"GetAllRawArtifactDescriptive";
-		_getAllRawArtifactDescriptiveHttpRequest.Request(url);
-	}
-	
-	private void OnGetGetAllRawArtifactDescriptiveHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var rawArtifactDescriptiveList = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(jsonStr);
-		_rawArtifactDto.RawArtifactDescriptives = rawArtifactDescriptiveList;
-	}
-
-	#endregion
+	// #region Get Raw Artifact Descriptive Data From Server
+	//
+	// private void GetAllRawArtifactDescriptiveData()
+	// {
+	// 	var url = ApiAddress.MineApiPath+"GetAllRawArtifactDescriptive";
+	// 	_getAllRawArtifactDescriptiveHttpRequest.Request(url);
+	// }
+	//
+	// private void OnGetGetAllRawArtifactDescriptiveHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	// {
+	// 	var jsonStr = Encoding.UTF8.GetString(body);
+	// 	var rawArtifactDescriptiveList = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(jsonStr);
+	// 	_rawArtifactDto.RawArtifactDescriptives = rawArtifactDescriptiveList;
+	// }
+	//
+	// #endregion
     
-	#region Get Raw Artifact Functional Data From Server
-
-	private void GetAllRawArtifactFunctionalData()
-	{
-		var url = ApiAddress.MineApiPath+"GetAllRawArtifactFunctional";
-		_getAllRawArtifactFunctionalHttpRequest.Request(url);
-	}
+	// #region Get Raw Artifact Functional Data From Server
+	//
+	// private void GetAllRawArtifactFunctionalData()
+	// {
+	// 	var url = ApiAddress.MineApiPath+"GetAllRawArtifactFunctional";
+	// 	_getAllRawArtifactFunctionalHttpRequest.Request(url);
+	// }
+	//
+	// private void OnGetGetAllRawArtifactFunctionalHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	// {
+	// 	var jsonStr = Encoding.UTF8.GetString(body);
+	// 	var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
+	// 	_rawArtifactDto.RawArtifactFunctionals = rawArtifactFunctionalList;
+	// }
+	//
+	// #endregion
 	
-	private void OnGetGetAllRawArtifactFunctionalHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
-		_rawArtifactDto.RawArtifactFunctionals = rawArtifactFunctionalList;
-	}
-
-	#endregion
-	
-	#region Get Raw Artifact Functional Data From Server
-
-	private void GetAllArtifactData()
-	{
-		var url = ApiAddress.MineApiPath+"GetAllMineArtifacts";
-		_getAllMinArtifactsHttpRequest.Request(url);
-	}
-	
-	private void OnGetAllMinArtifactsHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var artifactsList = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
-		_rawArtifactDto.Artifacts = artifactsList;
-		MineActions.OnRawArtifactDTOInitialized?.Invoke();
-	}
-
-	#endregion
+	// #region Get Raw Artifact Functional Data From Server
+	//
+	// private void GetAllArtifactData()
+	// {
+	// 	var url = ApiAddress.MineApiPath+"GetAllMineArtifacts";
+	// 	_getAllMinArtifactsHttpRequest.Request(url);
+	// }
+	//
+	// private void OnGetAllMinArtifactsHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	// {
+	// 	var jsonStr = Encoding.UTF8.GetString(body);
+	// 	var artifactsList = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
+	// 	_rawArtifactDto.Artifacts = artifactsList;
+	// 	MineActions.OnRawArtifactDTOInitialized?.Invoke();
+	// }
+	//
+	// #endregion
 
 
 	#region Save Mine Data Into Server
@@ -212,22 +208,12 @@ public partial class MineGenerationController : Node2D
 
 	private async Task GenerateProceduralMine()
 	{
-		// var url = ApiAddress.MineApiPath + "GenerateProceduralMine";
-		// _generateProceduralMineHttpRequest.Request(url);
-
 		var mine = await ReferenceStorage.Instance.ProceduralMineGenerationService.GenerateProceduralMine();
 		GD.Print($"Mine cells count: {mine.Cells.Count}");
-		GetAllArtifactData();
 		GenerateGridFromMineData(mine);
 	}
 	
-	private void OnGenerateProceduralMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		GetAllArtifactData();
-		GenerateGridFromMineData(mine);
-	}
+	
 
 	#endregion
 

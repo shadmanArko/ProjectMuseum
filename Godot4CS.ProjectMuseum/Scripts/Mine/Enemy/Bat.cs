@@ -50,7 +50,8 @@ public partial class Bat : FlyingEnemy
         _rand = new RandomNumberGenerator();
         _aStarPathfinding = new AStarPathfinding(false);
         FullHealthValue = 20;
-        Health = 20;
+        HealthBar.MaxValue = FullHealthValue;
+        Health = FullHealthValue;
         _moveAlongPath = false;
         Phase = FlyingEnemyPhase.Explore;
         _exploreTime = 10;

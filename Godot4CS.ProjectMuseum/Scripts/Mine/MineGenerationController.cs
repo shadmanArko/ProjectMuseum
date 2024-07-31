@@ -18,7 +18,7 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _saveGeneratedMineHttpRequest;
 	private HttpRequest _loadGeneratedMineHttpRequest;
 	private HttpRequest _generateMineHttpRequest;
-	private HttpRequest _generateProceduralMineHttpRequest;
+	
 	private HttpRequest _mineCrackCellMaterialHttpRequest;
 	private HttpRequest _getAllRawArtifactDescriptiveHttpRequest;
 	private HttpRequest _getAllRawArtifactFunctionalHttpRequest;
@@ -27,7 +27,6 @@ public partial class MineGenerationController : Node2D
     
 	private MineGenerationVariables _mineGenerationVariables;
 	private PlayerControllerVariables _playerControllerVariables;
-	private MineCellCrackMaterial _mineCellCrackMaterial;
 	private RawArtifactDTO _rawArtifactDto;
 	[Export] private MineGenerationView _mineGenerationView;
 
@@ -39,9 +38,9 @@ public partial class MineGenerationController : Node2D
 	{
 		CreateHttpRequests();
 		InitializeDiReferences();
-		GetMineCrackMaterialData();
-		GetAllRawArtifactDescriptiveData();
-		GetAllRawArtifactFunctionalData();
+		// GetMineCrackMaterialData();
+		// GetAllRawArtifactDescriptiveData();
+		// GetAllRawArtifactFunctionalData();
 		await GenerateProceduralMine();
 		
 	}
@@ -67,30 +66,6 @@ public partial class MineGenerationController : Node2D
 		_loadGeneratedMineHttpRequest = new HttpRequest();
 		AddChild(_loadGeneratedMineHttpRequest);
 		_loadGeneratedMineHttpRequest.RequestCompleted += OnLoadMineDataRequestCompleted;
-		
-		_generateMineHttpRequest = new HttpRequest();
-		AddChild(_generateMineHttpRequest);
-		_generateMineHttpRequest.RequestCompleted += OnGenerateMineDataHttpRequestCompleted;
-		
-		_generateProceduralMineHttpRequest = new HttpRequest();
-		AddChild(_generateProceduralMineHttpRequest);
-		_generateProceduralMineHttpRequest.RequestCompleted += OnGenerateProceduralMineHttpRequestCompleted;
-		
-		_mineCrackCellMaterialHttpRequest = new HttpRequest();
-		AddChild(_mineCrackCellMaterialHttpRequest);
-		_mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
-		
-		_getAllRawArtifactDescriptiveHttpRequest = new HttpRequest();
-		AddChild(_getAllRawArtifactDescriptiveHttpRequest);
-		_getAllRawArtifactDescriptiveHttpRequest.RequestCompleted += OnGetGetAllRawArtifactDescriptiveHttpRequestCompleted;
-		
-		_getAllRawArtifactFunctionalHttpRequest = new HttpRequest();
-		AddChild(_getAllRawArtifactFunctionalHttpRequest);
-		_getAllRawArtifactFunctionalHttpRequest.RequestCompleted += OnGetGetAllRawArtifactFunctionalHttpRequestCompleted;
-		
-		_getAllMinArtifactsHttpRequest = new HttpRequest();
-		AddChild(_getAllMinArtifactsHttpRequest);
-		_getAllMinArtifactsHttpRequest.RequestCompleted += OnGetAllMinArtifactsHttpRequestCompleted;
 	}
 
 	#endregion
@@ -99,80 +74,8 @@ public partial class MineGenerationController : Node2D
 	{
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
-		_mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
-		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
 	}
-
-	#region Get Mine Crack Material From Server
-
-	private void GetMineCrackMaterialData()
-	{
-		var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
-		_mineCrackCellMaterialHttpRequest.Request(url);
-	}
-	
-	private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
-		_mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
-	}
-
-	#endregion
-	
-	#region Get Raw Artifact Descriptive Data From Server
-
-	private void GetAllRawArtifactDescriptiveData()
-	{
-		var url = ApiAddress.MineApiPath+"GetAllRawArtifactDescriptive";
-		_getAllRawArtifactDescriptiveHttpRequest.Request(url);
-	}
-	
-	private void OnGetGetAllRawArtifactDescriptiveHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var rawArtifactDescriptiveList = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(jsonStr);
-		_rawArtifactDto.RawArtifactDescriptives = rawArtifactDescriptiveList;
-	}
-
-	#endregion
     
-	#region Get Raw Artifact Functional Data From Server
-
-	private void GetAllRawArtifactFunctionalData()
-	{
-		var url = ApiAddress.MineApiPath+"GetAllRawArtifactFunctional";
-		_getAllRawArtifactFunctionalHttpRequest.Request(url);
-	}
-	
-	private void OnGetGetAllRawArtifactFunctionalHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var rawArtifactFunctionalList = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(jsonStr);
-		_rawArtifactDto.RawArtifactFunctionals = rawArtifactFunctionalList;
-	}
-
-	#endregion
-	
-	#region Get Raw Artifact Functional Data From Server
-
-	private void GetAllArtifactData()
-	{
-		var url = ApiAddress.MineApiPath+"GetAllMineArtifacts";
-		_getAllMinArtifactsHttpRequest.Request(url);
-	}
-	
-	private void OnGetAllMinArtifactsHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var artifactsList = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
-		_rawArtifactDto.Artifacts = artifactsList;
-		MineActions.OnRawArtifactDTOInitialized?.Invoke();
-	}
-
-	#endregion
-
-
 	#region Save Mine Data Into Server
 
 	private void SaveMineDataIntoServer()
@@ -208,41 +111,14 @@ public partial class MineGenerationController : Node2D
     
 	#endregion
 
-	#region Assign Artifacts To Mine
+	#region Mine Generator
 
 	private async Task GenerateProceduralMine()
 	{
-		// var url = ApiAddress.MineApiPath + "GenerateProceduralMine";
-		// _generateProceduralMineHttpRequest.Request(url);
-
+		
 		var mine = await ReferenceStorage.Instance.ProceduralMineGenerationService.GenerateProceduralMine();
 		GD.Print($"Mine cells count: {mine.Cells.Count}");
-		GetAllArtifactData();
 		GenerateGridFromMineData(mine);
-	}
-	
-	private void OnGenerateProceduralMineHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		var jsonStr = Encoding.UTF8.GetString(body);
-		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		GetAllArtifactData();
-		GenerateGridFromMineData(mine);
-	}
-
-	#endregion
-
-	#region Mine Generator
-
-	private void GenerateMineData()
-	{
-		var url = ApiAddress.MineApiPath+"GenerateProceduralMine";
-		GD.Print("generating procedural mine");
-		_generateMineHttpRequest.Request(url);
-	}
-	
-	private void OnGenerateMineDataHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		GenerateProceduralMine();
 	}
 	
 	private void GenerateGridFromMineData(global::ProjectMuseum.Models.Mine mine)
@@ -269,14 +145,14 @@ public partial class MineGenerationController : Node2D
 
 	private void GenerateAStarPathfindingNodes()
 	{
-		var AStarNodes = new List<AStarNode>();
+		var aStarNodes = new List<AStarNode>();
 		foreach (var cell in _mineGenerationVariables.Mine.Cells)
 		{
 			var aStarNode = new AStarNode(cell.PositionX, cell.PositionY, null, 0f, 0f, cell.IsBroken);
-			AStarNodes.Add(aStarNode);
+			aStarNodes.Add(aStarNode);
 		}
 
-		_mineGenerationVariables.PathfindingNodes = AStarNodes;
+		_mineGenerationVariables.PathfindingNodes = aStarNodes;
 		GD.Print("path finding nodes generated");
 	}
 

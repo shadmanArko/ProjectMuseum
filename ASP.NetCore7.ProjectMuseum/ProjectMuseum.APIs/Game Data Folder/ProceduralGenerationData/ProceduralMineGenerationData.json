@@ -2,7 +2,7 @@
   "MineSizeX": 49,
   "MineSizeY": 64,
   "CellSize": 20,
-  "BossCaveSizeX": 12,
+  "BossCaveSizeX": 13,
   "BossCaveSizeY": 5,
   "NumberOfMaxCaves": 10,
   "CaveMinSizeX": 4,

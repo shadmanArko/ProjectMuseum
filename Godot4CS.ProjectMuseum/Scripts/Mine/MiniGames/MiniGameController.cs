@@ -117,6 +117,14 @@ public partial class MiniGameController : Node2D
 
 	private void RemoveArtifactFromMineAndInstantiateInventoryItem(string artifactId)
 	{
+		GD.Print("Showing artifacts from DTO");
+		GD.Print($"Artifact to remove from DTO: {artifactId}");
+		
+		foreach (var artifact1 in _rawArtifactDto.Artifacts)
+		{
+			GD.Print($"printing artifact before removing from mine: {artifact1.Id}");
+		}
+		
 		var artifact = _rawArtifactDto.Artifacts.FirstOrDefault(temp => temp.Id == artifactId);
 		if (artifact == null)
 		{
@@ -127,7 +135,6 @@ public partial class MiniGameController : Node2D
 		GD.Print($"artifact: {artifact.RawArtifactId}");
 		MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
 		MineActions.OnInventoryUpdate?.Invoke();
-		// MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("MiniGamesWon");
 		_rawArtifactDto.Artifacts.Remove(artifact);
 	}
 

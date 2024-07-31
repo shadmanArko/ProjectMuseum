@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -12,7 +13,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.ArtifactStorage;
 public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 {
 	private HttpRequest _sendAllArtifactsFromInventoryToStorageHttpRequest;
-
+    
 	private InventoryDTO _inventoryDto;
 
 	public override void _Ready()
@@ -22,8 +23,9 @@ public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 		InitializeDiReference();
 	}
 
-	private void InitializeDiReference()
+	private async void InitializeDiReference()
 	{
+		await Task.Delay(2000);
 		_inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
 	}
 
@@ -45,8 +47,16 @@ public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 	{
 		var itemsToRemove = _inventoryDto.Inventory.InventoryItems.Where(item => item.Type == "Artifact").ToList();
 		foreach (var item in itemsToRemove)
+		{
 			_inventoryDto.Inventory.InventoryItems.Remove(item);
-		SendArtifactToStorage(_inventoryDto.Inventory.Artifacts);
+		}
+		// SendArtifactToStorage(_inventoryDto.Inventory.Artifacts);
+
+		foreach (var artifact in _inventoryDto.Inventory.Artifacts)
+		{
+			_inventoryDto.ArtifactStorage.Artifacts.Add(artifact);
+			GD.Print($"added {artifact.RawArtifactId} to artifact storage");
+		}
 	}
 	
 	private void SendArtifactToStorage(List<Artifact> artifacts)

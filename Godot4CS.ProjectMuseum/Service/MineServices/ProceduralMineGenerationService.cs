@@ -6,7 +6,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
@@ -21,15 +20,20 @@ public partial class ProceduralMineGenerationService : Node
 
     #region Variables
 
+    private Random _rand;
+
     private int _xSize;
     private int _ySize;
     private int _cellSize;
 
     private ProceduralMineGenerationData _proceduralMineGenerationDatabase;
+    private List<RawArtifactDescriptive> _rawArtifactDescriptiveDatabase;
+    private List<RawArtifactFunctional> _rawArtifactFunctionalDatabase;
     private List<SpecialBackdropPngInformation> _specialBackdropsDatabase;
     private List<SiteArtifactChanceData> _siteArtifactChanceDatabase;
     private List<ArtifactCondition> _artifactConditionsDatabase;
     private List<ArtifactRarity> _artifactRarityDatabase;
+    private List<Resource> _resourceDatabase;
 
     #endregion
 
@@ -41,6 +45,9 @@ public partial class ProceduralMineGenerationService : Node
     public override void _Ready()
     {
         InitializeDiReference();
+        _rand = new Random();
+        _rawArtifactDto.RawArtifactDescriptives = _rawArtifactDescriptiveDatabase;
+        _rawArtifactDto.RawArtifactFunctionals = _rawArtifactFunctionalDatabase;
     }
 
     #region Initializers
@@ -53,35 +60,53 @@ public partial class ProceduralMineGenerationService : Node
 
     private void InitializeDatabases()
     {
-        var backdropsStr =
+        _rawArtifactDto = new RawArtifactDTO();
+        var rawArtifactDescriptiveJson =
             File.ReadAllText(
-                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/bin/Release/net7.0/win-x64/Game Data Folder/SpecialBackdropData/SpecialBackdropPngInformation.json");
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactDescriptiveData/RawArtifactDescriptiveDataEnglish.json");
+        _rawArtifactDescriptiveDatabase =
+            JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(rawArtifactDescriptiveJson);
+        
+        var rawArtifactFunctionalJson =
+            File.ReadAllText(
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactFunctionalData/RawArtifactFunctionalData.json");
+        _rawArtifactFunctionalDatabase =
+            JsonSerializer.Deserialize<List<RawArtifactFunctional>>(rawArtifactFunctionalJson);
+        
+        var backdropsJson =
+            File.ReadAllText(
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/SpecialBackdropPngInformation.json");
         _specialBackdropsDatabase = new List<SpecialBackdropPngInformation>();
-        _specialBackdropsDatabase = JsonSerializer.Deserialize<List<SpecialBackdropPngInformation>>(backdropsStr);
+        _specialBackdropsDatabase = JsonSerializer.Deserialize<List<SpecialBackdropPngInformation>>(backdropsJson);
 
         _mineGenerationDto = new ProceduralMineGenerationDto();
         var mineGenDataJson =
             File.ReadAllText(
-                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
         _proceduralMineGenerationDatabase = JsonSerializer.Deserialize<ProceduralMineGenerationData>(mineGenDataJson);
         _mineGenerationDto.ProceduralMineGenerationData = _proceduralMineGenerationDatabase;
         GD.Print($"procedural mine gen data max caves {_proceduralMineGenerationDatabase.NumberOfMaxCaves}");
 
         var siteArtifactDataJson = File.ReadAllText(
-            "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/SiteArtifactChanceData/SiteArtifactChanceFunctionalData/SiteArtifactChanceFunctionalData.json");
+            "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/SiteArtifactChanceData/SiteArtifactChanceFunctionalData/SiteArtifactChanceFunctionalData.json");
         _siteArtifactChanceDatabase = JsonSerializer.Deserialize < List<SiteArtifactChanceData>>(siteArtifactDataJson);
         GD.Print($"site artifact list: {_siteArtifactChanceDatabase.Count}");
 
         var artifactConditionJson =
             File.ReadAllText(
-                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactCondition.json");
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactCondition.json");
         _artifactConditionsDatabase = JsonSerializer.Deserialize<List<ArtifactCondition>>(artifactConditionJson);
         GD.Print($"artifact conditions list: {_artifactConditionsDatabase.Count}");
 
         var artifactRarityJson =
             File.ReadAllText(
-                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactRarity.json");
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactRarity.json");
         _artifactRarityDatabase = JsonSerializer.Deserialize<List<ArtifactRarity>>(artifactRarityJson);
+
+        var resourceJson =
+            File.ReadAllText(
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Resource/Resource.json");
+        _resourceDatabase = JsonSerializer.Deserialize<List<Resource>>(resourceJson);
     }
 
     public async Task<Mine> GenerateProceduralMine()
@@ -96,6 +121,7 @@ public partial class ProceduralMineGenerationService : Node
         await GenerateSpecialBackdrops(mine);
         await GenerateVines(mine);
         await GenerateArtifacts(mine);
+        await GenerateResources(mine);
 
         return mine;
     }
@@ -239,7 +265,6 @@ public partial class ProceduralMineGenerationService : Node
     
     private async Task GenerateMineCaves(Mine mine)
     {
-        var rand = new Random();
         var mineGenData = _mineGenerationDto.ProceduralMineGenerationData;
 
         var mineX = mine.GridWidth;
@@ -248,12 +273,12 @@ public partial class ProceduralMineGenerationService : Node
         #region cavesToGenerate contains list of cave dimensions that has to be generated
 
         var maxCaves = 10;
-        var noOfCaves = rand.Next(maxCaves / 2, maxCaves);//(mineGenData.NumberOfMaxCaves / 2, mineGenData.NumberOfMaxCaves);
+        var noOfCaves = _rand.Next(maxCaves / 2, maxCaves);//(mineGenData.NumberOfMaxCaves / 2, mineGenData.NumberOfMaxCaves);
         var cavesToGenerate = new List<Vector2>();
         for (var i = 0; i < noOfCaves; i++)
         {
-            var tempX = rand.Next(4, 7);//(mineGenData.CaveMinSizeX, mineGenData.CaveMaxSizeX);
-            var tempY = rand.Next(4, 5);//(mineGenData.CaveMinSizeY, mineGenData.CaveMaxSizeY);
+            var tempX = _rand.Next(4, 7);//(mineGenData.CaveMinSizeX, mineGenData.CaveMaxSizeX);
+            var tempY = _rand.Next(4, 5);//(mineGenData.CaveMinSizeY, mineGenData.CaveMaxSizeY);
             var caveDimension = new Vector2(tempX, tempY);
             cavesToGenerate.Add(caveDimension);
         }
@@ -296,15 +321,15 @@ public partial class ProceduralMineGenerationService : Node
 
         foreach (var tempCave in cavesToGenerate)
         {
-            var coord = listOfCoords[rand.Next(0, listOfCoords.Count)];
+            var coord = listOfCoords[_rand.Next(0, listOfCoords.Count)];
             var xMin = Math.Clamp((int)coord.X, 1, mineX - 1);
             var yMin = Math.Clamp((int)coord.Y, 1, mineY - 2);
             var xMax = Math.Clamp((int)(coord.X + tempCave.X), 1, mineX - 1);
             var yMax = Math.Clamp((int)(coord.Y + tempCave.Y), 1, mineY - 2);
             listOfCoords.Remove(coord);
 
-            var stalagmites = rand.Next(2, xMax - xMin - 1);
-            var stalactites = rand.Next(2, xMax - xMin - 1);
+            var stalagmites = _rand.Next(2, xMax - xMin - 1);
+            var stalactites = _rand.Next(2, xMax - xMin - 1);
 
             // GD.Print($"cave dim: ({tempCave.X},{tempCave.Y})");
             var cave = GenerateCave(xMin, xMax, yMin, yMax, stalagmites, stalactites, mine);
@@ -359,17 +384,17 @@ public partial class ProceduralMineGenerationService : Node
             StalagmiteCellIds = new List<string>(),
             StalactiteCellIds = new List<string>()
         };
-        var rand = new Random();
+        
         for (var numberOfStalagmites = stalagmiteCount; numberOfStalagmites > 0; numberOfStalagmites--)
         {
-            var cell = possibleStalagmiteCells[rand.Next(0, possibleStalagmiteCells.Count)];
+            var cell = possibleStalagmiteCells[_rand.Next(0, possibleStalagmiteCells.Count)];
             if (newCave.StalagmiteCellIds.Contains(cell.Id)) continue;
             newCave.StalagmiteCellIds.Add(cell.Id);
         }
 
         for (var numberOfStalactites = stalactiteCount; numberOfStalactites > 0; numberOfStalactites--)
         {
-            var cell = possibleStalactiteCells[rand.Next(0, possibleStalactiteCells.Count)];
+            var cell = possibleStalactiteCells[_rand.Next(0, possibleStalactiteCells.Count)];
             if (newCave.StalactiteCellIds.Contains(cell.Id)) continue;
             newCave.StalactiteCellIds.Add(cell.Id);
         }
@@ -408,14 +433,13 @@ public partial class ProceduralMineGenerationService : Node
         }
 
         var listOfBackdrops = _specialBackdropsDatabase.ToList();
-    
-        var rand = new Random();
+        
         var listOfAddedBackdrops = new List<SpecialBackdropPngInformation>();
     
         for (var i = 0; i < noOfBackdrops; i++)
         {
-            var tempBackdrop = listOfBackdrops[rand.Next(0, listOfBackdrops.Count)];
-            var tempCoord = listOfCoords[rand.Next(0, listOfCoords.Count)];
+            var tempBackdrop = listOfBackdrops[_rand.Next(0, listOfBackdrops.Count)];
+            var tempCoord = listOfCoords[_rand.Next(0, listOfCoords.Count)];
     
             tempBackdrop.TilePositionX = (int)tempCoord.X;
             tempBackdrop.TilePositionY = (int)tempCoord.Y;
@@ -445,8 +469,7 @@ public partial class ProceduralMineGenerationService : Node
 
     private async Task GenerateVines(Mine mine)
     {
-        var random = new Random();
-        var noOfVinesToGenerate = random.Next(10, 15);
+        var noOfVinesToGenerate = _rand.Next(10, 15);
         var minVeinRange = 4;
         var maxVeinRange = 8;
         
@@ -492,10 +515,10 @@ public partial class ProceduralMineGenerationService : Node
         for (var i = 0; i < noOfVinesToGenerate; i++)
         {
             var vineInfo = new VineInformation();
-            var veinRange = random.Next(minVeinRange, maxVeinRange);
+            var veinRange = _rand.Next(minVeinRange, maxVeinRange);
             var cellsWithVines = new List<string>();
             GD.Print($"cells without backdrops: {cellsWithoutBackdrops.Count}");
-            var startingNode = cellsWithoutBackdrops[random.Next(0, cellsWithoutBackdrops.Count)];
+            var startingNode = cellsWithoutBackdrops[_rand.Next(0, cellsWithoutBackdrops.Count)];
             cellsWithVines.Add(startingNode.Id!);
             for (var j = 1; j <= veinRange; j++)
             {
@@ -527,7 +550,6 @@ public partial class ProceduralMineGenerationService : Node
         
         var siteArtifactChance = GetSiteArtifactChanceDataBySite(_proceduralMineGenerationDatabase.Site);
         
-        var rand = new Random();
         var regionalArtifacts = rawArtifactFunctionals!
             .Where(rawArtifactFunctional => rawArtifactFunctional.Region == _proceduralMineGenerationDatabase.Region).ToList();
         
@@ -544,23 +566,23 @@ public partial class ProceduralMineGenerationService : Node
         var listOfRawArtifacts = new List<RawArtifactFunctional>();
     
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Weapon").ToList()
-            .OrderBy(x => rand.Next()).Take(weaponCount));
+            .OrderBy(x => _rand.Next()).Take(weaponCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Armor").ToList()
-            .OrderBy(x => rand.Next()).Take(armorCount));
+            .OrderBy(x => _rand.Next()).Take(armorCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Clothing").ToList()
-            .OrderBy(x => rand.Next()).Take(clothingCount));
+            .OrderBy(x => _rand.Next()).Take(clothingCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Economic").ToList()
-            .OrderBy(x => rand.Next()).Take(economicCount));
+            .OrderBy(x => _rand.Next()).Take(economicCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Vessel").ToList()
-            .OrderBy(x => rand.Next()).Take(vesselCount));
+            .OrderBy(x => _rand.Next()).Take(vesselCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Leisure").ToList()
-            .OrderBy(x => rand.Next()).Take(leisureCount));
+            .OrderBy(x => _rand.Next()).Take(leisureCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Tool").ToList()
-            .OrderBy(x => rand.Next()).Take(toolCount));
+            .OrderBy(x => _rand.Next()).Take(toolCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Ceremonial").ToList()
-            .OrderBy(x => rand.Next()).Take(ceremonialCount));
+            .OrderBy(x => _rand.Next()).Take(ceremonialCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Legendary").ToList()
-            .OrderBy(x => rand.Next()).Take(legendaryCount));
+            .OrderBy(x => _rand.Next()).Take(legendaryCount));
         
         GD.Print($"raw artifact functional: {rawArtifactFunctionals.Count}");
         GD.Print($"list of raw artifacts: {listOfRawArtifacts.Count}");
@@ -574,7 +596,7 @@ public partial class ProceduralMineGenerationService : Node
             
             for (var i = 0; i < duplicateCounter; i++)
             {
-                var rawArtifact = listOfRawArtifacts[rand.Next(0, listOfRawArtifacts.Count)];
+                var rawArtifact = listOfRawArtifacts[_rand.Next(0, listOfRawArtifacts.Count)];
                 duplicateArtifacts.Add(rawArtifact);
             }
             
@@ -636,7 +658,7 @@ public partial class ProceduralMineGenerationService : Node
     
         foreach (var artifact in listOfArtifacts)
         {
-            var cell = cells[rand.Next(0, cells.Count)];
+            var cell = cells[_rand.Next(0, cells.Count)];
             artifact.PositionX = cell.PositionX;
             artifact.PositionY = cell.PositionY;
             cells.Remove(cell);
@@ -659,8 +681,15 @@ public partial class ProceduralMineGenerationService : Node
             listOfArtifacts.Add(tutorialArtifact);
         }
         
+        _rawArtifactDto.Artifacts = listOfArtifacts.ToList();
         AssignArtifactsToMine(listOfArtifacts, mine);
-    
+        GD.Print("ARTIFACTS IN DTO");
+        foreach (var artifact in _rawArtifactDto.Artifacts)
+        {
+            GD.Print($"DTO Artifacts: {artifact.Id} === {artifact.PositionX}, {artifact.PositionY}");
+        }
+        
+        GD.Print("ARTIFACTS IN MINE");
         foreach (var mineCell in mine.Cells)
         {
             if(!mineCell.HasArtifact) continue;
@@ -684,12 +713,10 @@ public partial class ProceduralMineGenerationService : Node
         foreach (var rarity in artifactRarities)
             GD.Print($"conditions is {rarity.Rarity}");
 
-        var rand = new Random();
-
         for (var i = 0; i < artifactCount; i++)
         {
-            var conditionValue = rand.Next(0, 101);
-            var rarityValue = rand.Next(0, 101);
+            var conditionValue = _rand.Next(0, 101);
+            var rarityValue = _rand.Next(0, 101);
 
             var condition = conditionValue switch
             {
@@ -755,89 +782,139 @@ public partial class ProceduralMineGenerationService : Node
     #endregion
 
     #region Generate Resources
+ 
+    private async Task GenerateResources(Mine mine)
+    {
+        var variants = new List<string> { "Coal", "Iron", "PinkQuartz", "BlueQuartz", "SmokyQuartz", "MilkyQuartz" };
+        
+        var cells = new List<Cell>();
+        foreach (var mineCell in mine.Cells)
+        {
+            mineCell.HasResource = false;
+            if(mineCell.HasCave || mineCell.HasArtifact || !mineCell.IsInstantiated || mineCell.IsBroken || !mineCell.IsBreakable) continue;
+            cells.Add(mineCell);
+        }
+        mine.Resources.Clear();
+        
+        var numberOfRootNodes = _rand.Next(30,40);
+    
+        for (var i = 0; i < numberOfRootNodes; i++)
+        {
+            var resourceCells = new List<Cell>();
+            var cell = GetRandomCell(cells);
+            resourceCells.Add(cell);
+            cells.Remove(cell);
+            
+            var rootNodeVariant = variants[_rand.Next(0, variants.Count)];
+            AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY, mine);
+    
+            var resourceBranches = rootNodeVariant switch
+            {
+                "Iron" => _rand.Next(3, 5),
+                "Coal" => _rand.Next(5, 8),
+                "PinkQuartz" => _rand.Next(0, 3),
+                "BlueQuartz" => _rand.Next(0, 3),
+                "SmokyQuartz" => _rand.Next(0, 3),
+                "MilkyQuartz" => _rand.Next(0, 3),
+                _ => _rand.Next(5, 8)
+            };
+            var currentBranchCell = cell;
+            for (var j = 0; j <= resourceBranches; j++)
+            {
+                currentBranchCell = GetRandomAdjacentCell(cells, currentBranchCell);
+                if(resourceCells.Contains(currentBranchCell)) continue;
+                resourceCells.Add(currentBranchCell);
+            }
+            
+            foreach (var resourceCell in resourceCells)
+            {
+                var resource = AddResourceToMine(rootNodeVariant, resourceCell.PositionX, resourceCell.PositionY, mine);
+                GD.Print($"resource {resource.Variant} {resource.PositionX},{resource.PositionY}");
+                mine.Resources.Add(resource);
+                FormResourceDistanceOfFourTiles(cells, resourceCell);
+            }
+        }
+    
+        // #region Test
+        //
+        // int coals = 0;
+        // int irons = 0;
+        // foreach (var resource in mine.Resources)
+        // {
+        //     if (resource.Variant == "Coal")
+        //         coals++;
+        //     else if (resource.Variant == "Iron")
+        //         irons++;
+        // }
+        //     
+        // Console.WriteLine($"no of root nodes: {numberOfRootNodes}");
+        // Console.WriteLine($"Iron:{irons}, Coal:{coals}");
+        //
+        // #endregion
 
-    // public async Task<List<Resource>> GenerateResources(Mine mine)
-    // {
-    //     var variants = new List<string> { "Coal", "Iron", "PinkQuartz", "BlueQuartz", "SmokyQuartz", "MilkyQuartz" };
-    //     var rand = new Random(); 
-    //     var cells = new List<Cell>();
-    //     foreach (var mineCell in mine.Cells)
-    //     {
-    //         mineCell.HasResource = false;
-    //         if(mineCell.HasCave || mineCell.HasArtifact || !mineCell.IsInstantiated || mineCell.IsBroken || !mineCell.IsBreakable) continue;
-    //         cells.Add(mineCell);
-    //     }
-    //     mine.Resources.Clear();
-    //     
-    //     var numberOfRootNodes = rand.Next(30,40);
-    //
-    //     for (var i = 0; i < numberOfRootNodes; i++)
-    //     {
-    //         var resourceCells = new List<Cell>();
-    //         var cell = GetRandomCell(cells);
-    //         resourceCells.Add(cell);
-    //         cells.Remove(cell);
-    //         
-    //         var rootNodeVariant = variants[rand.Next(0, variants.Count)];
-    //         await _resourceRepository.AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY);
-    //
-    //         int resourceBranches = rootNodeVariant switch
-    //         {
-    //             "Iron" => rand.Next(3, 5),
-    //             "Coal" => rand.Next(5, 8),
-    //             "PinkQuartz" => rand.Next(0, 3),
-    //             "BlueQuartz" => rand.Next(0, 3),
-    //             "SmokyQuartz" => rand.Next(0, 3),
-    //             "MilkyQuartz" => rand.Next(0, 3),
-    //             _ => rand.Next(5, 8)
-    //         };
-    //         var currentBranchCell = cell;
-    //         for (var j = 0; j <= resourceBranches; j++)
-    //         {
-    //             currentBranchCell = GetRandomAdjacentCell(cells, currentBranchCell);
-    //             if(resourceCells.Contains(currentBranchCell)) continue;
-    //             resourceCells.Add(currentBranchCell);
-    //         }
-    //         
-    //         foreach (var resourceCell in resourceCells)
-    //         {
-    //             var resource = await _resourceRepository.AddResourceToMine(rootNodeVariant, resourceCell.PositionX,
-    //                 resourceCell.PositionY);
-    //             Console.WriteLine($"resource {resource.Variant} {resource.PositionX},{resource.PositionY}");
-    //             mine.Resources.Add(resource);
-    //             FormResourceDistanceOfFourTiles(cells, resourceCell);
-    //         }
-    //     }
-    //
-    //     #region Test
-    //
-    //     int coals = 0;
-    //     int irons = 0;
-    //     foreach (var resource in mine.Resources)
-    //     {
-    //         if (resource.Variant == "Coal")
-    //             coals++;
-    //         else if (resource.Variant == "Iron")
-    //             irons++;
-    //     }
-    //         
-    //     Console.WriteLine($"no of root nodes: {numberOfRootNodes}");
-    //     Console.WriteLine($"Iron:{irons}, Coal:{coals}");
-    //
-    //     #endregion
-    //
-    //     await _mineRepository.Update(mine);
-    //     await AssignResourcesToMine();
-    //     return mine.Resources;
-    // }
+        await Task.Delay(500);
+    }
     
     private Cell GetRandomCell(List<Cell> cells)
     {
-        var rand = new Random();
-        return cells[rand.Next(0,cells.Count)];
+        return cells[_rand.Next(0,cells.Count)];
+    }
+    
+    private Cell GetRandomAdjacentCell(List<Cell> cells, Cell currentCell)
+    {
+        var xMin = currentCell.PositionX - 1;
+        var xMax = currentCell.PositionX + 1;
+        var yMin = currentCell.PositionY - 1;
+        var yMax = currentCell.PositionY + 1;
+
+        var adjacentCells = new List<Cell>();
+        
+        for (var i = xMin; i <= xMax; i++)
+        {
+            for (var j = yMin; j <= yMax; j++)
+            {
+                var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
+                if(cell == null) continue;
+                if(cell == currentCell) continue;
+                if (cell.HasResource || cell.HasCave || cell.HasArtifact
+                    || !cell.IsInstantiated || cell.IsBroken || !cell.IsBreakable) continue;
+                adjacentCells.Add(cell);
+            }
+        }
+
+        return adjacentCells[_rand.Next(0, adjacentCells.Count - 1)];
     }
 
-
+    
+    private Resource AddResourceToMine(string variant, int posX, int posY, Mine mine)
+    {
+        var resources = _resourceDatabase.ToList();
+        var resource = resources.FirstOrDefault(resource1 => resource1.Variant == variant);
+        resource!.Id = Guid.NewGuid().ToString();
+        resource.PositionX = posX;
+        resource.PositionY = posY;
+        mine.Resources.Add(resource);
+        return resource;
+    }
+    
+    private void FormResourceDistanceOfFourTiles(List<Cell> cells, Cell currentCell)
+    {
+        var xMin = currentCell.PositionX - 3;
+        var xMax = currentCell.PositionX + 3;
+        var yMin = currentCell.PositionY - 3;
+        var yMax = currentCell.PositionY + 3;
+        
+        for (var i = xMin; i <= xMax; i++)
+        {
+            for (var j = yMin; j <= yMax; j++)
+            {
+                var cell = cells.FirstOrDefault(tempCell => tempCell.PositionX == i && tempCell.PositionY == j);
+                if(cell == null) continue;
+                if(cell != currentCell) continue;
+                cells.Remove(cell);
+            }
+        }
+    }
 
     #endregion
 }

@@ -79,8 +79,9 @@ TileMap = NodePath(".")
 TileSourceId = 0
 TileCrackSourceId = 1
 
-[node name="Bat" parent="Mine" instance=ExtResource("5_s1bkn")]
-_canMove = false
+[node name="Bat" parent="Mine" node_paths=PackedStringArray("HealthBar", "AnimPlayer") instance=ExtResource("5_s1bkn")]
+HealthBar = NodePath("Health Bar")
+AnimPlayer = NodePath("AnimationPlayer")
 
 [node name="Mine Entrance" type="Node2D" parent="." node_paths=PackedStringArray("_entranceBlockerCollisionShape")]
 position = Vector2(491, -4)

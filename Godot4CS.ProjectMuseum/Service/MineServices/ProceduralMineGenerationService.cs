@@ -17,6 +17,9 @@ public partial class ProceduralMineGenerationService : Node
 {
     private ProceduralMineGenerationDto _mineGenerationDto;
     private RawArtifactDTO _rawArtifactDto;
+    private MineCellCrackMaterial _mineCellCrackMaterial;
+    
+    private InventoryDTO _inventoryDto;
 
     #region Variables
 
@@ -29,10 +32,14 @@ public partial class ProceduralMineGenerationService : Node
     private ProceduralMineGenerationData _proceduralMineGenerationDatabase;
     private List<RawArtifactDescriptive> _rawArtifactDescriptiveDatabase;
     private List<RawArtifactFunctional> _rawArtifactFunctionalDatabase;
+    
     private List<SpecialBackdropPngInformation> _specialBackdropsDatabase;
-    private List<SiteArtifactChanceData> _siteArtifactChanceDatabase;
     private List<ArtifactCondition> _artifactConditionsDatabase;
+    private List<SiteArtifactChanceData> _siteArtifactChanceDatabase;
+    private List<CellCrackMaterial> _cellCrackMaterialsDatabase;
     private List<ArtifactRarity> _artifactRarityDatabase;
+    private ArtifactStorage _artifactStorageArtifactDatabase;
+    
     private List<Resource> _resourceDatabase;
 
     #endregion
@@ -48,6 +55,9 @@ public partial class ProceduralMineGenerationService : Node
         _rand = new Random();
         _rawArtifactDto.RawArtifactDescriptives = _rawArtifactDescriptiveDatabase;
         _rawArtifactDto.RawArtifactFunctionals = _rawArtifactFunctionalDatabase;
+        _mineCellCrackMaterial.CellCrackMaterials = _cellCrackMaterialsDatabase;
+
+        _inventoryDto.ArtifactStorage = _artifactStorageArtifactDatabase;
     }
 
     #region Initializers
@@ -56,11 +66,14 @@ public partial class ProceduralMineGenerationService : Node
     {
         _mineGenerationDto = ServiceRegistry.Resolve<ProceduralMineGenerationDto>();
         _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
+        _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
+        _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
     }
 
     private void InitializeDatabases()
     {
         _rawArtifactDto = new RawArtifactDTO();
+        
         var rawArtifactDescriptiveJson =
             File.ReadAllText(
                 "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactDescriptiveData/RawArtifactDescriptiveDataEnglish.json");
@@ -107,6 +120,17 @@ public partial class ProceduralMineGenerationService : Node
             File.ReadAllText(
                 "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Resource/Resource.json");
         _resourceDatabase = JsonSerializer.Deserialize<List<Resource>>(resourceJson);
+
+        var cellCrackMaterialJson =
+            File.ReadAllText(
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CellCrackMaterial/CellCrackMaterial.json");
+        _cellCrackMaterialsDatabase = JsonSerializer.Deserialize<List<CellCrackMaterial>>(cellCrackMaterialJson);
+        
+        var artifactStorageArtifactsJson =
+            File.ReadAllText(
+                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
+        _artifactStorageArtifactDatabase =
+            JsonSerializer.Deserialize<ArtifactStorage>(artifactStorageArtifactsJson);
     }
 
     public async Task<Mine> GenerateProceduralMine()

@@ -22,7 +22,6 @@ public partial class MineSceneDiInstaller : Control
 		ServiceRegistry.RegisterSingleton<CellPlaceableDTO>();
 		ServiceRegistry.RegisterSingleton<EquipableDTO>();
 		
-		
 		ServiceRegistry.RegisterSingleton<ProceduralMineGenerationDto>();
         
 		

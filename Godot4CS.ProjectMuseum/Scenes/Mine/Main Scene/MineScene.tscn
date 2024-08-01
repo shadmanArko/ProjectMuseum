@@ -51,14 +51,14 @@ script = ExtResource("1_rq1hl")
 
 [node name="ProceduralMineGenerator" parent="." instance=ExtResource("2_i10yb")]
 
-[node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_deqi7")]
-_progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
-_canvasLayer = NodePath("CanvasLayer")
-
 [node name="MineSceneInitializer" type="Node" parent="."]
 script = ExtResource("2_t7o23")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
+
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_deqi7")]
+_progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
+_canvasLayer = NodePath("CanvasLayer")
 
 [node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePauseManager", "LogMessageController", "ScreenShakeController", "InventoryItemBuilder", "ProceduralMineGenerationService", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
 script = ExtResource("5_yk3pc")

@@ -18,18 +18,11 @@ public partial class MineGenerationController : Node2D
 	private HttpRequest _saveGeneratedMineHttpRequest;
 	private HttpRequest _loadGeneratedMineHttpRequest;
 	private HttpRequest _generateMineHttpRequest;
-	
-	private HttpRequest _mineCrackCellMaterialHttpRequest;
-	private HttpRequest _getAllRawArtifactDescriptiveHttpRequest;
-	private HttpRequest _getAllRawArtifactFunctionalHttpRequest;
-	private HttpRequest _getAllMinArtifactsHttpRequest;
-	private HttpRequest _assignResourceToMineHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
 	private PlayerControllerVariables _playerControllerVariables;
-	private RawArtifactDTO _rawArtifactDto;
+	
 	[Export] private MineGenerationView _mineGenerationView;
-
 	[Export] private CanvasLayer _savingCanvas;
 	[Export] private Node2D _mineBackGround;
 	private LoadingBarManager _loadingBarManager;
@@ -38,9 +31,6 @@ public partial class MineGenerationController : Node2D
 	{
 		CreateHttpRequests();
 		InitializeDiReferences();
-		// GetMineCrackMaterialData();
-		// GetAllRawArtifactDescriptiveData();
-		// GetAllRawArtifactFunctionalData();
 		await GenerateProceduralMine();
 		
 	}

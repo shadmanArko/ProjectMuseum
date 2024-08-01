@@ -7,15 +7,19 @@ using ProjectMuseum.Models;
 
 public partial class MuseumSceneDiInstaller : Node
 {
-	
-
-	public override void _Ready()
+	public override void _EnterTree()
 	{
+		base._EnterTree();
 		GD.Print($"museum scene di installer ready");
 		ServiceRegistry.RegisterSingleton<List<ExhibitPlacementConditionData>>();
 		ServiceRegistry.RegisterSingleton<MuseumRunningDataContainer>();
 		ServiceRegistry.RegisterSingleton<MuseumGameData>();
 		
 		ServiceRegistry.Initialize();
+	}
+
+	public override void _Ready()
+	{
+		
 	}
 }

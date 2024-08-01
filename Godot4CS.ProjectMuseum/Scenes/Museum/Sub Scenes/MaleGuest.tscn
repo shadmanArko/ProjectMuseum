@@ -2555,6 +2555,7 @@ _collisionShape2D = NodePath("Charcter Parts/Shadow")
 _selectionIndicator = NodePath("selectionIndicator")
 _selectionIndicatorBottom = NodePath("SelectionIndicatorBottom")
 _selectionIndicatorAnimationPlayer = NodePath("SelectionIndicatorBottom/AnimationPlayer")
+metadata/_edit_vertical_guides_ = [-33.0]
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="."]
 libraries = {

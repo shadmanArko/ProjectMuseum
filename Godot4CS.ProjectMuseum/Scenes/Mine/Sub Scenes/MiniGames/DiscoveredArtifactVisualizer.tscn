@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=28 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
 [ext_resource type="Texture2D" uid="uid://toyxbvr46exq" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
 [ext_resource type="Texture2D" uid="uid://cj8ouas8ocvhc" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game frame final.png" id="2_uhd7s"]
+[ext_resource type="Texture2D" uid="uid://cficnw6pmqadu" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Background Map/north america map temp.png" id="3_a3p80"]
 [ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Conditions/decrepit_Button.png" id="5_yxn4t"]
 [ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Rarity/Common_button.png" id="6_xsepf"]
 [ext_resource type="Texture2D" uid="uid://cpn6pqmbnyxxh" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/eras/Ancient.png" id="7_656it"]
@@ -104,6 +105,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_yvqfa")
 
+[node name="Country Background" type="TextureRect" parent="CanvasLayer/Panel/Control/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("3_a3p80")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer"]
 custom_minimum_size = Vector2(600, 450)
 layout_mode = 2
@@ -137,7 +142,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Artifact Sprite and Description Panel" type="Panel" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 200)
+custom_minimum_size = Vector2(600, 220)
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_whqty")
@@ -152,10 +157,10 @@ grow_vertical = 2
 theme_override_constants/separation = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(200, 220)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme = SubResource("Theme_8t8t7")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2h6vf")
 
@@ -166,7 +171,7 @@ texture = ExtResource("2_d333x")
 centered = false
 
 [node name="Artifact Description Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer"]
-custom_minimum_size = Vector2(300, 200)
+custom_minimum_size = Vector2(300, 220)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -175,7 +180,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_tdkhc")
 [node name="Description" type="Label" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/Artifact Description Panel"]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_vertical = 8
 theme_override_colors/font_color = Color(0.498039, 0.12549, 0.117647, 1)
 theme_override_fonts/font = ExtResource("2_q8tpq")
 text = "MMMM MMMM MMMM MMMM MMMM MMMMM MMMMM MMMMMM MM MMMM MMM MMM MMM MM MMMMMMMMM MMMM MM MMMMMM MMM MMMM MMMM MMMMM MMM MMM MM MMM MMMMMMM MMMMMMMM MMMM MMMM"
@@ -183,9 +188,8 @@ autowrap_mode = 2
 text_overrun_behavior = 4
 
 [node name="Condition Rarity and Tag" type="Panel" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(600, 150)
 layout_mode = 2
-size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_i85xl")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag"]
@@ -196,36 +200,36 @@ anchor_bottom = 1.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 60
+alignment = 1
 
 [node name="Conditions and Rarity" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer"]
-custom_minimum_size = Vector2(360, 0)
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-size_flags_horizontal = 6
-theme_override_constants/separation = 50
+size_flags_horizontal = 2
+theme_override_constants/separation = 10
 
 [node name="Condition Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity"]
-custom_minimum_size = Vector2(120, 50)
+custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_le6xp")
 
 [node name="Condition" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Condition Panel"]
 texture_filter = 1
-scale = Vector2(4, 4)
+scale = Vector2(3, 3)
 texture = ExtResource("5_yxn4t")
 centered = false
 
 [node name="Rarity Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity"]
-custom_minimum_size = Vector2(120, 50)
+custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_b61u0")
 
 [node name="Rarity" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Rarity Panel"]
-scale = Vector2(5, 5)
+scale = Vector2(4, 4)
 texture = ExtResource("6_xsepf")
 centered = false
 

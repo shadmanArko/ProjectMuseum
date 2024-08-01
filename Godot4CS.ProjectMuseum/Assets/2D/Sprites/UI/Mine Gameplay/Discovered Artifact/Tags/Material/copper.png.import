@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv2m64132kras"
-path="res://.godot/imported/Intact_Button.png-77885841207129a550cbb4472fa1afa5.ctex"
+uid="uid://d031nb2q2ff2y"
+path="res://.godot/imported/copper.png-201de52db3ec3518f9c7b5233cc940d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Conditions/Intact_Button.png"
-dest_files=["res://.godot/imported/Intact_Button.png-77885841207129a550cbb4472fa1afa5.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/copper.png"
+dest_files=["res://.godot/imported/copper.png-201de52db3ec3518f9c7b5233cc940d9.ctex"]
 
 [params]
 

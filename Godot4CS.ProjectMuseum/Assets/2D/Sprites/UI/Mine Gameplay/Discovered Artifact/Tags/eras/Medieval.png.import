@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://budh6dyfg53gb"
-path="res://.godot/imported/Rare_button.png-ad4fb49b3ed7e355147e44a746b1e103.ctex"
+uid="uid://b2umrmkvcib2r"
+path="res://.godot/imported/Medieval.png-22727b0e693ea129b5f223d96d6811f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Rarity/Rare_button.png"
-dest_files=["res://.godot/imported/Rare_button.png-ad4fb49b3ed7e355147e44a746b1e103.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/eras/Medieval.png"
+dest_files=["res://.godot/imported/Medieval.png-22727b0e693ea129b5f223d96d6811f8.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0o0x51e5dmx4"
-path="res://.godot/imported/decrepit_Button.png-99d4bee2ef52f70c5bc5fc5e79c21cda.ctex"
+uid="uid://de2il0wtlaqxc"
+path="res://.godot/imported/North America.png-3e0155d2f1e4d7e9c86db49c4aaefffc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/Conditions/decrepit_Button.png"
-dest_files=["res://.godot/imported/decrepit_Button.png-99d4bee2ef52f70c5bc5fc5e79c21cda.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/North America.png"
+dest_files=["res://.godot/imported/North America.png-3e0155d2f1e4d7e9c86db49c4aaefffc.ctex"]
 
 [params]
 

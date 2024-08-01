@@ -1,27 +1,53 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=27 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
 [ext_resource type="Texture2D" uid="uid://toyxbvr46exq" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
 [ext_resource type="Texture2D" uid="uid://cj8ouas8ocvhc" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game frame final.png" id="2_uhd7s"]
-[ext_resource type="Theme" uid="uid://d4nuoj106bh6v" path="res://Themes/Theme1.tres" id="5_8e1cs"]
+[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Conditions/decrepit_Button.png" id="5_yxn4t"]
+[ext_resource type="Texture2D" path="res://Assets/2D/Sprites/Rarity/Common_button.png" id="6_xsepf"]
+[ext_resource type="Texture2D" uid="uid://cpn6pqmbnyxxh" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/eras/Ancient.png" id="7_656it"]
+[ext_resource type="Texture2D" uid="uid://c7x8plvhqbxmd" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/China.png" id="8_w1sdv"]
+[ext_resource type="Texture2D" uid="uid://bkh47xvd1tton" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Object Classes/Armor.png" id="9_inx7q"]
+[ext_resource type="Texture2D" uid="uid://bqxdtrtm6mocc" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/brass.png" id="10_xtdn1"]
+[ext_resource type="Texture2D" uid="uid://d4dt3rxuep544" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/bone.png" id="11_buukt"]
+[ext_resource type="Texture2D" uid="uid://dkulvbjtpi245" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/extra large.png" id="12_t3bec"]
+[ext_resource type="Theme" uid="uid://d0u6xaiq6n58o" path="res://Okay.tres" id="13_oix4g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yvqfa"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_whqty"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5m5pf"]
+[sub_resource type="Theme" id="Theme_8t8t7"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0dpur"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2h6vf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdkhc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i85xl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_le6xp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b61u0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80bt6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2r636"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_01je5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e883x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0ev1"]
 
 [node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
 process_mode = 3
 script = ExtResource("1_l5epx")
 _canvasLayer = NodePath("CanvasLayer")
-_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
-_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel/Artifact Sprite")
-_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel/Artifact Description")
-_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton")
+_artifactName = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Discovered An Item Label/ArtifactName")
+_artifactSprite = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/PanelContainer/Artifact Sprite")
+_artifactDescription = NodePath("")
+_okayButton = NodePath("CanvasLayer/Panel/Control/Okay Button Panel/OkayButton")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -62,29 +88,34 @@ pivot_offset = Vector2(47.58, -24.66)
 texture = ExtResource("2_uhd7s")
 stretch_mode = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control"]
-custom_minimum_size = Vector2(550, 550)
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Panel/Control"]
+custom_minimum_size = Vector2(600, 500)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -275.0
-offset_top = -275.0
-offset_right = 275.0
-offset_bottom = 323.0
+offset_left = -299.0
+offset_top = -286.0
+offset_right = 301.0
+offset_bottom = 264.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yvqfa")
 
-[node name="Discovered An Item Label" type="VBoxContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer"]
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Discovered An Item Label" type="VBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="You Have Found Text" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label"]
+[node name="You Have Found Text" type="Label" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Discovered An Item Label"]
 texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.239216, 0.0980392, 0.247059, 1)
@@ -93,7 +124,7 @@ theme_override_font_sizes/font_size = 22
 text = "You have found"
 horizontal_alignment = 1
 
-[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label"]
+[node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Discovered An Item Label"]
 texture_filter = 1
 layout_mode = 2
 size_flags_vertical = 3
@@ -105,73 +136,205 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Artifact Sprite and Description Panel" type="Panel" parent="CanvasLayer/Panel/Control/VBoxContainer"]
-custom_minimum_size = Vector2(400, 200)
+[node name="Artifact Sprite and Description Panel" type="Panel" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 200)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_whqty")
 
-[node name="Artifact Sprite Panel" type="Panel" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
-offset_right = 546.0
-offset_bottom = 378.0
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_5m5pf")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_8t8t7")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2h6vf")
 
-[node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel"]
+[node name="Artifact Sprite" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/PanelContainer"]
 texture_filter = 1
-position = Vector2(-50, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("2_d333x")
 centered = false
-offset = Vector2(10, 10)
 
-[node name="Artifact Description Panel" type="Panel" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel"]
-custom_minimum_size = Vector2(350, 200)
+[node name="Artifact Description Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer"]
+custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
-offset_left = 213.0
-offset_top = 17.0
-offset_right = 563.0
-offset_bottom = 217.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_0dpur")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tdkhc")
 
-[node name="Artifact Description" type="RichTextLabel" parent="CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel"]
-texture_filter = 1
+[node name="Description" type="Label" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/Artifact Description Panel"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.498039, 0.12549, 0.117647, 1)
+theme_override_fonts/font = ExtResource("2_q8tpq")
+text = "MMMM MMMM MMMM MMMM MMMM MMMMM MMMMM MMMMMM MM MMMM MMM MMM MMM MM MMMMMMMMM MMMM MM MMMMMM MMM MMMM MMMM MMMMM MMM MMM MM MMM MMMMMMM MMMMMMMM MMMM MMMM"
+autowrap_mode = 2
+text_overrun_behavior = 4
+
+[node name="Condition Rarity and Tag" type="Panel" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_i85xl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag"]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -100.0
-offset_bottom = 100.0
+anchor_bottom = 1.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 60
+
+[node name="Conditions and Rarity" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 50
+
+[node name="Condition Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_colors/default_color = Color(0.239216, 0.0980392, 0.247059, 1)
-theme_override_fonts/normal_font = ExtResource("2_q8tpq")
-theme_override_fonts/bold_font = ExtResource("2_q8tpq")
-bbcode_enabled = true
-text = "HELLOHELLOHELL"
-fit_content = true
-scroll_active = false
-tab_size = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_le6xp")
 
-[node name="Okay Button Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/VBoxContainer"]
+[node name="Condition" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Condition Panel"]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("5_yxn4t")
+centered = false
+
+[node name="Rarity Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_b61u0")
+
+[node name="Rarity" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Rarity Panel"]
+scale = Vector2(5, 5)
+texture = ExtResource("6_xsepf")
+centered = false
+
+[node name="Tags" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_80bt6")
+
+[node name="Tags Container" type="VBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Era Container" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="Era Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Era Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2r636")
+
+[node name="Era" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Era Container/Era Panel"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_656it")
+centered = false
+
+[node name="Region and Class Container" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="Region Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2r636")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Region Panel"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("8_w1sdv")
+centered = false
+
+[node name="Object Class Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2r636")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Object Class Panel"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_inx7q")
+centered = false
+
+[node name="Size and Material Container" type="HBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="Material 2 Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_01je5")
+
+[node name="Material2" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 2 Panel"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("10_xtdn1")
+centered = false
+
+[node name="Material 1 Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_01je5")
+
+[node name="Material1" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 1 Panel"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("11_buukt")
+centered = false
+
+[node name="Size Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_01je5")
+
+[node name="Size" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Size Panel"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("12_t3bec")
+centered = false
+
+[node name="Okay Button Panel" type="PanelContainer" parent="CanvasLayer/Panel/Control"]
+texture_filter = 1
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+offset_left = 32.0
+offset_top = 523.0
+offset_right = 632.0
+offset_bottom = 623.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_e883x")
 
-[node name="OkayButton" type="Button" parent="CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel"]
+[node name="OkayButton" type="Button" parent="CanvasLayer/Panel/Control/Okay Button Panel"]
 texture_filter = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("5_8e1cs")
-theme_override_font_sizes/font_size = 22
+theme = ExtResource("13_oix4g")
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s0ev1")
 text = "OKAY"
 
-[connection signal="pressed" from="CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton" to="." method="OnOkayButtonPressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Control/Okay Button Panel/OkayButton" to="." method="OnOkayButtonPressed"]

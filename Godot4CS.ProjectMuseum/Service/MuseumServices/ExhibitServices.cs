@@ -24,7 +24,7 @@ public partial class ExhibitServices: Node
         base._Ready();
     }
 
-    public async Task<Exhibit> Insert(Exhibit exhibit)
+    public Exhibit Insert(Exhibit exhibit)
     {
         var exhibits = _exhibitDatabase;
         exhibits?.Add(exhibit);
@@ -32,7 +32,7 @@ public partial class ExhibitServices: Node
         return exhibit;
     }
 
-    public async Task<Exhibit> Update(string id, Exhibit exhibit)
+    public Exhibit Update(string id, Exhibit exhibit)
     {
         var exhibits = _exhibitDatabase;
         var foundExhibit = exhibits.FirstOrDefault(exhibit1 => exhibit1.Id == exhibit.Id);
@@ -45,39 +45,39 @@ public partial class ExhibitServices: Node
         return exhibit;
     }
 
-    public async Task<Exhibit?> GetById(string id)
+    public Exhibit GetById(string id)
     {
         var exhibits = _exhibitDatabase;
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == id);
         return exhibit;
     }
 
-    public async Task<List<Exhibit>?> GetAll()
+    public List<Exhibit> GetAll()
     {
         var exhibits = _exhibitDatabase;
         return exhibits;
     }
 
-    public async Task<List<ExhibitVariation>?> GetAllExhibitVariations()
+    public List<ExhibitVariation> GetAllExhibitVariations()
     {
         var exhibitVariations = _exhibitVariationDatabase;
         return exhibitVariations;
     }
 
-    public async Task<ExhibitVariation?> GetExhibitVariation(string variationName)
+    public ExhibitVariation GetExhibitVariation(string variationName)
     {
         var exhibitVariations = _exhibitVariationDatabase;
         var exhibitVariation = exhibitVariations!.FirstOrDefault(variation => variation.VariationName == variationName);
         return exhibitVariation;
     }
 
-    public async Task<List<Exhibit>?> GetAllExhibits()
+    public List<Exhibit> GetAllExhibits()
     {
         var exhibits = _exhibitDatabase;
         return exhibits;
     }
 
-    public async Task<List<Exhibit>?> Delete(string id)
+    public List<Exhibit> Delete(string id)
     {
         var exhibits = _exhibitDatabase;
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == id);
@@ -86,14 +86,14 @@ public partial class ExhibitServices: Node
         return _exhibitDatabase;
     }
 
-    public async Task<List<Exhibit>?> DeleteAllExhibits()
+    public List<Exhibit> DeleteAllExhibits()
     {
         var exhibits = new List<Exhibit>();
         _exhibitDatabase = exhibits;
         return exhibits;
     }
 
-    public async Task<Exhibit?> AddArtifactToExhibit(string exhibitId, string artifactId, int slot)
+    public Exhibit AddArtifactToExhibit(string exhibitId, string artifactId, int slot)
     {
         var exhibits = _exhibitDatabase;
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
@@ -114,7 +114,7 @@ public partial class ExhibitServices: Node
         if (exhibits != null) _exhibitDatabase = exhibits;
         return exhibit;
     }
-    public async Task<Exhibit?> RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot)
+    public Exhibit RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot)
     {
         var exhibits = _exhibitDatabase;
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);

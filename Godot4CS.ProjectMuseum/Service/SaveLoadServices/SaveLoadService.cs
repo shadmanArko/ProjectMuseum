@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
 
@@ -7,14 +8,18 @@ namespace Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 
 public static class SaveLoadService
 {
-    private static string filePath = "save.json";
+    
     
     public static void Save(SaveData saveData)
     {
+        if (!Directory.Exists(DataPath.GameDataFolderPath))
+        {
+            Directory.CreateDirectory(DataPath.GameDataFolderPath);
+        }
         try
         {
             string jsonData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
-            File.WriteAllText(filePath, jsonData);
+            File.WriteAllText(DataPath.SaveDataFilePath, jsonData);
         }
         catch (Exception ex)
         {
@@ -26,9 +31,9 @@ public static class SaveLoadService
     {
         try
         {
-            if (File.Exists(filePath))
+            if (File.Exists(DataPath.SaveDataFilePath))
             {
-                string jsonData = File.ReadAllText(filePath);
+                string jsonData = File.ReadAllText(DataPath.SaveDataFilePath);
                 return JsonConvert.DeserializeObject<SaveData>(jsonData);
             }
             else

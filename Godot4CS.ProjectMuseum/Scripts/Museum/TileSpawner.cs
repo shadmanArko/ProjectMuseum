@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
@@ -50,6 +51,8 @@ public partial class TileSpawner : TileMap
 		MuseumActions.OnCallForMuseumExpansion += ExpandMuseum;
 		await Task.Delay(1000);
 		_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/GetAllMuseumTiles");
+		// var museumTiles = MuseumReferenceManager.Instance.TileServices.GetAll();
+		// AfterGettingMuseumTiles(museumTiles);
 	}
 
 	private void HttpRequestForUpdatingMuseumWallsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -59,10 +62,15 @@ public partial class TileSpawner : TileMap
 		// GD.Print($"wall id put done {jsonStr}");
 
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		AfterUpdatingMuseumWalls(museumTiles);
+
+		//EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
+	}
+
+	private void AfterUpdatingMuseumWalls(List<MuseumTile> museumTiles)
+	{
 		_museumRunningDataContainer.MuseumTiles = museumTiles;
 		SpawnWalls(museumTiles);
-		
-		//EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
 	}
 
 	private void SpawnWalls(List<MuseumTile> museumTiles)
@@ -105,6 +113,11 @@ public partial class TileSpawner : TileMap
 		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
+		AfterGettingMuseumTiles(museumTiles);
+	}
+
+	private void AfterGettingMuseumTiles(List<MuseumTile> museumTiles)
+	{
 		SpawnTilesAndWalls(museumTiles);
 		_loadingBarManager.EmitSignal("IncreaseCompletedTask");
 		_museumRunningDataContainer.MuseumTiles = museumTiles;
@@ -226,6 +239,8 @@ public partial class TileSpawner : TileMap
 			//GD.Print(body);
 			Error error = _httpRequestForUpdatingMuseumWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId", headers,
 				HttpClient.Method.Post, body);
+			// var result = MuseumReferenceManager.Instance.TileServices.UpdateMuseumTilesWallId(museumTilesToUpdateWalls);
+			// AfterUpdatingMuseumWalls(result);
 		}
 	}
 

@@ -10,7 +10,7 @@ public static class DataPath
     public const string GameDataSourceFilePath = "";
     
     public const string SaveDataFolderPath = "user://MuseumKeeper/SaveData";
-    public const string SaveDataFilePath = "";
+    public const string SaveDataFilePath = "user://MuseumKeeper/SaveData/Save01.json";
     
     public const string RunningDataFolderPath = "";
     public const string RunningDataFilePath = "";

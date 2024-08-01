@@ -20,7 +20,7 @@ public partial class ItemPlacementConditionService: Node
     public  override async void _Ready()
     {
         base._Ready();
-        await Task.Delay(1000);
+        
         _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         _museumGameData = ServiceRegistry.Resolve<MuseumGameData>();
 

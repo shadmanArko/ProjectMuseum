@@ -72,8 +72,9 @@ public partial class Item : Sprite2D, IComparable<Item>
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
     }
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public override async void _Ready()
     {
+        await Task.Delay(500);
         // var tileMap = GetTree().Root.GetNode<TileMap>("museum/TileMap");
         // tileMap.AddChild(this);
         // //

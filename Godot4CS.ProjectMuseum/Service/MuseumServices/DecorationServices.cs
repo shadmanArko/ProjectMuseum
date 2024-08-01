@@ -14,6 +14,7 @@ public partial class DecorationServices: Node
     public override void _Ready()
     {
         base._Ready();
+        
     }
     //todo problem when uncomment following lines
     

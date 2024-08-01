@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -32,11 +33,12 @@ public partial class DialogueSystem : Control
 	private string _playerName;
 	private Vector2 _slideOutPosition;
 	private Vector2 _slideInPosition;
-	
+	private MuseumRunningDataContainer _runningDataContainer;
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
 		// GD.Print(fullDialogue);
+		_runningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		_cancellationTokenSource = new CancellationTokenSource();
 		_httpRequestForGettingStory = new HttpRequest();
 		_httpRequestForCompletingStory = new HttpRequest();
@@ -63,6 +65,7 @@ public partial class DialogueSystem : Control
 		//GD.Print(jsonStr);
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		_playerName = playerInfo.Name;
+		_runningDataContainer.PlayerInfo = playerInfo;
 		//GD.Print($"Story completion updated to {playerInfo.CompletedStoryScene}");
 	}
 

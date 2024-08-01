@@ -9,6 +9,8 @@ public class MuseumRunningDataContainer
     public List<Shop> Shops { get; set; }
     public List<Product> Products { get; set; }
     public List<DecorationOther> DecorationOthers;
+    public PlayerInfo PlayerInfo { get; set; }
+
     public List<MuseumTile> MuseumTiles
     {
         get => museumTiles;

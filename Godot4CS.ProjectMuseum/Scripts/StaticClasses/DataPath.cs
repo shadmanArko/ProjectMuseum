@@ -11,10 +11,20 @@ public static class DataPath
     
     public const string SaveDataFolderPath = "user://MuseumKeeper/SaveData";
     public const string SaveDataFilePath = "user://MuseumKeeper/SaveData/Save01.json";
+    public const string SaveFileName = "Save01.json";
     
     public const string RunningDataFolderPath = "";
     public const string RunningDataFilePath = "";
+    
+    public static string GetSaveDataFolderPath()
+    {
+        string userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        string gameFolderName = "MuseumKeeper";
+        string gameDataFolderName = "SaveData";
 
+        // Combine paths to create the full directory path
+        return Path.Combine(userFolderPath, gameFolderName, gameDataFolderName);
+    }
     public static void OnGameStart()
     {
         //check for gameData folder existence 

@@ -12,14 +12,24 @@ public static class SaveLoadService
     
     public static void Save(SaveData saveData)
     {
-        if (!Directory.Exists(DataPath.GameDataFolderPath))
+        string gameDataFolderPath = DataPath.GetSaveDataFolderPath();
+
+        // Ensure the directory exists
+        if (!Directory.Exists(gameDataFolderPath))
         {
-            Directory.CreateDirectory(DataPath.GameDataFolderPath);
+            Directory.CreateDirectory(gameDataFolderPath);
         }
+
         try
         {
+            // Serialize the data
             string jsonData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
-            File.WriteAllText(DataPath.SaveDataFilePath, jsonData);
+
+            // Construct the full path for the save file
+            string saveFilePath = Path.Combine(gameDataFolderPath, DataPath.SaveFileName);
+
+            // Write the data to the file
+            File.WriteAllText(saveFilePath, jsonData);
         }
         catch (Exception ex)
         {

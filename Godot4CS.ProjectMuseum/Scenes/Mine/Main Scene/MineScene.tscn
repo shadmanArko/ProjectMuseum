@@ -194,11 +194,18 @@ _pauseButton = NodePath("pause_menu_button")
 [node name="Log Message Controller" parent="MineUI" node_paths=PackedStringArray("_vBoxContainer") instance=ExtResource("32_rvnlm")]
 _vBoxContainer = NodePath("VBoxContainer")
 
-[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_okayButton") instance=ExtResource("8_mppk2")]
+[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton", "_eraIcon", "_regionIcon", "_objectClassIcon", "_objectSizeIcon", "_Material1Icon", "_Material2Icon") instance=ExtResource("8_mppk2")]
 _canvasLayer = NodePath("CanvasLayer")
 _artifactName = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Discovered An Item Label/ArtifactName")
 _artifactSprite = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/PanelContainer/Artifact Sprite")
+_artifactDescription = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/Artifact Description Panel/Description")
 _okayButton = NodePath("CanvasLayer/Panel/Control/Okay Button Panel/OkayButton")
+_eraIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Era Container/Era Panel/Era")
+_regionIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Region Panel/Region")
+_objectClassIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Object Class Panel/ObjectClass")
+_objectSizeIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Size Panel/Size")
+_Material1Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 1 Panel/Material1")
+_Material2Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 2 Panel/Material2")
 
 [node name="SceneTransition" parent="." node_paths=PackedStringArray("_colorRect") instance=ExtResource("6_1bas2")]
 visible = false

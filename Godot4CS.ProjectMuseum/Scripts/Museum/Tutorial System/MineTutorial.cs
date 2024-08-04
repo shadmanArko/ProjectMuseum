@@ -7,6 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Mine;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
@@ -18,15 +19,15 @@ public partial class MineTutorial : Node
 	[Export] private TutorialSystem _tutorialSystem;
 
 	private HttpRequest _getPlayerInfoHttpRequest;
-	private HttpRequest _addTutorialArtifactToMine;
+	// private HttpRequest _addTutorialArtifactToMine;
 
 	private bool _isMineTutorialDonePlaying;
 	
 	public override void _Ready()
 	{
 		CreateHttpRequest();
-		GetPlayerInfo();
-		
+		// GetPlayerInfo();
+		LoadPlayerInfo();
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		SubscribeToActions();
 		SetProcess(false);
@@ -40,8 +41,8 @@ public partial class MineTutorial : Node
 		AddChild(_getPlayerInfoHttpRequest);
 		_getPlayerInfoHttpRequest.RequestCompleted += OnGetPlayerInfoHttpRequestCompleted;
 		
-		_addTutorialArtifactToMine = new HttpRequest();
-		AddChild(_addTutorialArtifactToMine);
+		// _addTutorialArtifactToMine = new HttpRequest();
+		// AddChild(_addTutorialArtifactToMine);
 	}
 
 	#region Get Player Info
@@ -61,6 +62,12 @@ public partial class MineTutorial : Node
 	}
 
 	#endregion
+
+	private void LoadPlayerInfo()
+	{
+		var saveData = SaveLoadService.Load();
+		PlayerInfo = saveData.PlayerInfo;
+	}
 
 	private void SubscribeToActions()
 	{

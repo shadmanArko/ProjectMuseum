@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
@@ -57,7 +58,7 @@ public partial class ProceduralMineGenerationService : Node
         _rawArtifactDto.RawArtifactFunctionals = _rawArtifactFunctionalDatabase;
         _mineCellCrackMaterial.CellCrackMaterials = _cellCrackMaterialsDatabase;
 
-        _inventoryDto.ArtifactStorage = _artifactStorageArtifactDatabase;
+        _inventoryDto.ArtifactStorage = SaveLoadService.Load().ArtifactStorage;
     }
 
     #region Initializers
@@ -76,61 +77,61 @@ public partial class ProceduralMineGenerationService : Node
         
         var rawArtifactDescriptiveJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactDescriptiveData/RawArtifactDescriptiveDataEnglish.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactDescriptiveData/RawArtifactDescriptiveDataEnglish.json");
         _rawArtifactDescriptiveDatabase =
             JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(rawArtifactDescriptiveJson);
         
         var rawArtifactFunctionalJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactFunctionalData/RawArtifactFunctionalData.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactFunctionalData/RawArtifactFunctionalData.json");
         _rawArtifactFunctionalDatabase =
             JsonSerializer.Deserialize<List<RawArtifactFunctional>>(rawArtifactFunctionalJson);
         
         var backdropsJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/SpecialBackdropPngInformation.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/SpecialBackdropPngInformation.json");
         _specialBackdropsDatabase = new List<SpecialBackdropPngInformation>();
         _specialBackdropsDatabase = JsonSerializer.Deserialize<List<SpecialBackdropPngInformation>>(backdropsJson);
 
         _mineGenerationDto = new ProceduralMineGenerationDto();
         var mineGenDataJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
         _proceduralMineGenerationDatabase = JsonSerializer.Deserialize<ProceduralMineGenerationData>(mineGenDataJson);
         _mineGenerationDto.ProceduralMineGenerationData = _proceduralMineGenerationDatabase;
         GD.Print($"procedural mine gen data max caves {_proceduralMineGenerationDatabase.NumberOfMaxCaves}");
 
         var siteArtifactDataJson = File.ReadAllText(
-            "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/SiteArtifactChanceData/SiteArtifactChanceFunctionalData/SiteArtifactChanceFunctionalData.json");
+            "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/SiteArtifactChanceData/SiteArtifactChanceFunctionalData/SiteArtifactChanceFunctionalData.json");
         _siteArtifactChanceDatabase = JsonSerializer.Deserialize < List<SiteArtifactChanceData>>(siteArtifactDataJson);
         GD.Print($"site artifact list: {_siteArtifactChanceDatabase.Count}");
 
         var artifactConditionJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactCondition.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactCondition.json");
         _artifactConditionsDatabase = JsonSerializer.Deserialize<List<ArtifactCondition>>(artifactConditionJson);
         GD.Print($"artifact conditions list: {_artifactConditionsDatabase.Count}");
 
         var artifactRarityJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactRarity.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactRarity.json");
         _artifactRarityDatabase = JsonSerializer.Deserialize<List<ArtifactRarity>>(artifactRarityJson);
 
         var resourceJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Resource/Resource.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Resource/Resource.json");
         _resourceDatabase = JsonSerializer.Deserialize<List<Resource>>(resourceJson);
 
         var cellCrackMaterialJson =
             File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CellCrackMaterial/CellCrackMaterial.json");
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CellCrackMaterial/CellCrackMaterial.json");
         _cellCrackMaterialsDatabase = JsonSerializer.Deserialize<List<CellCrackMaterial>>(cellCrackMaterialJson);
         
-        var artifactStorageArtifactsJson =
-            File.ReadAllText(
-                "D:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
-        _artifactStorageArtifactDatabase =
-            JsonSerializer.Deserialize<ArtifactStorage>(artifactStorageArtifactsJson);
+        // var artifactStorageArtifactsJson =
+        //     File.ReadAllText(
+        //         "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
+        // _artifactStorageArtifactDatabase =
+        //     JsonSerializer.Deserialize<ArtifactStorage>(artifactStorageArtifactsJson);
     }
 
     public async Task<Mine> GenerateProceduralMine()

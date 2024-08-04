@@ -41,7 +41,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0ev1"]
 
-[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton")]
+[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton", "_eraIcon", "_regionIcon", "_objectClassIcon", "_objectSizeIcon", "_Material1Icon", "_Material2Icon")]
 process_mode = 3
 script = ExtResource("1_l5epx")
 _canvasLayer = NodePath("CanvasLayer")
@@ -49,6 +49,13 @@ _artifactName = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer
 _artifactSprite = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/PanelContainer/Artifact Sprite")
 _artifactDescription = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/Artifact Description Panel/Description")
 _okayButton = NodePath("CanvasLayer/Panel/Control/Okay Button Panel/OkayButton")
+_eraIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Era Container/Era Panel/Era")
+_regionIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Region Panel/Region")
+_objectClassIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Object Class Panel/ObjectClass")
+_objectSizeIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Size Panel/Size")
+_Material1Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 1 Panel/Material1")
+_Material2Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 2 Panel/Material2")
+_eraFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/eras/"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -269,7 +276,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2r636")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Region Panel"]
+[node name="Region" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Region Panel"]
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("8_w1sdv")
 centered = false
@@ -279,7 +286,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2r636")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Object Class Panel"]
+[node name="ObjectClass" type="Sprite2D" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Object Class Panel"]
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("9_inx7q")
 centered = false

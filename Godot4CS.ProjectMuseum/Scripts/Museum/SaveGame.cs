@@ -45,7 +45,7 @@ public partial class SaveGame : Node2D
 			saveData.PlayerInfo = _museumRunningDataContainer.PlayerInfo;
 			saveData.MuseumTiles = _museumRunningDataContainer.MuseumTiles;
 			SaveLoadService.Save(saveData);
-			GD.Print($"Saved Game at: {DataPath.GetSaveDataFolderPath()}");
+			GD.Print($"Saved Game at: {DataPath.SaveDataFolderPath}");
 		}
 	}
 

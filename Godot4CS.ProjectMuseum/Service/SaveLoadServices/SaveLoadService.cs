@@ -12,7 +12,7 @@ public static class SaveLoadService
     
     public static void Save(SaveData saveData)
     {
-        string gameDataFolderPath = DataPath.GetSaveDataFolderPath();
+        string gameDataFolderPath = DataPath.SaveDataFolderPath;
 
         // Ensure the directory exists
         if (!Directory.Exists(gameDataFolderPath))

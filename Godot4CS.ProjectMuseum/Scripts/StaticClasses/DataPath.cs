@@ -8,22 +8,29 @@ public static class DataPath
     public const string GameDataFolderPath = "user://MuseumKeeper/GameData";
     public const string GameDataFilePath = "";
     public const string GameDataSourceFilePath = "";
+    private const string GameFolderName = "MuseumKeeper";
+    private const string SaveDataFolderName = "SaveData";
     
-    public const string SaveDataFolderPath = "user://MuseumKeeper/SaveData";
-    public const string SaveDataFilePath = "user://MuseumKeeper/SaveData/Save01.json";
+    // public const string SaveDataFolderPath = "user://MuseumKeeper/SaveData";
+    public static string SaveDataFolderPath => GetSaveDataFolderPath();
+    public static string SaveDataFilePath => GetSaveDataFilePath();
     public const string SaveFileName = "Save01.json";
     
     public const string RunningDataFolderPath = "";
     public const string RunningDataFilePath = "";
-    
-    public static string GetSaveDataFolderPath()
+
+    private static string GetSaveDataFolderPath()
     {
         string userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        string gameFolderName = "MuseumKeeper";
-        string gameDataFolderName = "SaveData";
+        
 
         // Combine paths to create the full directory path
-        return Path.Combine(userFolderPath, gameFolderName, gameDataFolderName);
+        return Path.Combine(userFolderPath, GameFolderName, SaveDataFolderName);
+    }
+    private static string GetSaveDataFilePath()
+    {
+        // Combine paths to create the full directory path
+        return Path.Combine(SaveDataFolderPath, SaveFileName);
     }
     public static void OnGameStart()
     {

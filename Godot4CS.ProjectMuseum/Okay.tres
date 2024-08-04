@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d0u6xaiq6n58o"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bi35i2h3llyj8"]
 
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="1_eegok"]
 [ext_resource type="Texture2D" uid="uid://bpnvy4xymeova" path="res://Assets/2D/Sprites/UI/Mine Gameplay/okay button.png" id="2_wahqu"]

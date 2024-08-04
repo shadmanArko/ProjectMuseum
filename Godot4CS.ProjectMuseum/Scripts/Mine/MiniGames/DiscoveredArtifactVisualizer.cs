@@ -16,8 +16,14 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 	[Export] private CanvasLayer _canvasLayer;
 	[Export] private Label _artifactName;
     [Export] private Sprite2D _artifactSprite;
-    [Export] private RichTextLabel _artifactDescription;
+    [Export] private Label _artifactDescription;
 	[Export] private Button _okayButton;
+
+	[Export] private Sprite2D _eraIcon;
+	[Export] private Sprite2D _regionIcon;
+	[Export] private Sprite2D _objectIcon;
+	[Export] private Sprite2D _objectClassIcon;
+	[Export] private Sprite2D _objectSizeIcon;
 
 	public override void _Ready()
 	{
@@ -64,20 +70,20 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 		GD.Print("SHOWING ARTIFACT FROM ARTIFACT ID IN DISCOVERY ARTIFACT VISUALIZER");
 		_canvasLayer.Visible = true;
 		_artifactName.Text = rawArtifactDescriptive.ArtifactName;
-		var descriptionText =
-			$"[p align=fill]{rawArtifactDescriptive.Description}[/p]" +
-			$"[p] [/p] [p] [/p] [p]Tags: [/p]" +
-			$"[p][font_size={11}]{rawArtifactFunctional.Era}, {rawArtifactFunctional.Region},[/font_size][/p]" +
-			$"[p][font_size={11}]{rawArtifactFunctional.Object}, {rawArtifactFunctional.ObjectClass}," +
-			$" {rawArtifactFunctional.ObjectSize}[/font_size][/p]";
-		var materialText = "[font_size={11}][p]";
-		foreach (var material in rawArtifactFunctional.Materials)
-		{
-			materialText += $"{material}, ";
-		}
+		_artifactDescription.Text = $"{rawArtifactDescriptive.Description}";
+			
+			
+		// 	$"[p][font_size={11}]{rawArtifactFunctional.Era}, {rawArtifactFunctional.Region},[/font_size][/p]" +
+		// 	$"[p][font_size={11}]{rawArtifactFunctional.Object}, {rawArtifactFunctional.ObjectClass}," +
+		// 	$" {rawArtifactFunctional.ObjectSize}[/font_size][/p]";
+		// var materialText = "[font_size={11}][p]";
+		// foreach (var material in rawArtifactFunctional.Materials)
+		// {
+		// 	materialText += $"{material}, ";
+		// }
 
-		descriptionText += materialText+"[/p][/font_size]";
-		_artifactDescription.Text = descriptionText;
+		// descriptionText += materialText+"[/p][/font_size]";
+		// _artifactDescription.Text = descriptionText;
 		_artifactSprite.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
 	}
 

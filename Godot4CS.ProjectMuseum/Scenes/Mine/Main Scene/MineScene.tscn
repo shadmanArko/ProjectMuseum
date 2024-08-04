@@ -162,9 +162,9 @@ _popUpText = NodePath("Pop Up Text")
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 process_mode = 3
 visible = false
-offset_top = 104.0
-offset_right = 409.0
-offset_bottom = 459.0
+offset_top = 34.88
+offset_right = 136.36
+offset_bottom = 153.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 
@@ -194,12 +194,11 @@ _pauseButton = NodePath("pause_menu_button")
 [node name="Log Message Controller" parent="MineUI" node_paths=PackedStringArray("_vBoxContainer") instance=ExtResource("32_rvnlm")]
 _vBoxContainer = NodePath("VBoxContainer")
 
-[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton") instance=ExtResource("8_mppk2")]
+[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_okayButton") instance=ExtResource("8_mppk2")]
 _canvasLayer = NodePath("CanvasLayer")
-_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
-_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel/Artifact Sprite")
-_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel/Artifact Description")
-_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton")
+_artifactName = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Discovered An Item Label/ArtifactName")
+_artifactSprite = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/PanelContainer/Artifact Sprite")
+_okayButton = NodePath("CanvasLayer/Panel/Control/Okay Button Panel/OkayButton")
 
 [node name="SceneTransition" parent="." node_paths=PackedStringArray("_colorRect") instance=ExtResource("6_1bas2")]
 visible = false

@@ -30,7 +30,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         CreateHttpRequests();
         InitializeDiReferences();
         SubscribeToActions();
-        GetMineCrackMaterialData();
+        // GetMineCrackMaterialData();
     }
 
     private void InitializeDiReferences()
@@ -55,50 +55,50 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     private void CreateHttpRequests()
     {
-        _getMineArtifactHttpRequest = new HttpRequest();
-        AddChild(_getMineArtifactHttpRequest);
-        _getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
+        // _getMineArtifactHttpRequest = new HttpRequest();
+        // AddChild(_getMineArtifactHttpRequest);
+        // _getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
 
-        _mineCrackCellMaterialHttpRequest = new HttpRequest();
-        AddChild(_mineCrackCellMaterialHttpRequest);
-        _mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
+        // _mineCrackCellMaterialHttpRequest = new HttpRequest();
+        // AddChild(_mineCrackCellMaterialHttpRequest);
+        // _mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
     }
 
-    #region Get Mine Artifact Request
+    // #region Get Mine Artifact Request
+    //
+    // private void GetMineArtifact(string artifactId)
+    // {
+    //     var url = ApiAddress.MineApiPath + "GetMineArtifactById/" + artifactId;
+    //     _getMineArtifactHttpRequest.Request(url);
+    // }
+    //
+    // private void OnGetMineArtifactHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+    // {
+    //     var jsonStr = Encoding.UTF8.GetString(body);
+    //     var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
+    //     //MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
+    // }
+    //
+    // #endregion
 
-    private void GetMineArtifact(string artifactId)
-    {
-        var url = ApiAddress.MineApiPath + "GetMineArtifactById/" + artifactId;
-        _getMineArtifactHttpRequest.Request(url);
-    }
-
-    private void OnGetMineArtifactHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
-        //MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
-    }
-
-    #endregion
-
-    #region Get Mine Cell Crack Materials
-
-    private void GetMineCrackMaterialData()
-    {
-        var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
-        _mineCrackCellMaterialHttpRequest.Request(url);
-    }
-    
-    private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
-        GD.Print("all cell crack materials");
-        GD.Print(jsonStr);
-        _mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
-    }
-
-    #endregion
+    // #region Get Mine Cell Crack Materials
+    //
+    // private void GetMineCrackMaterialData()
+    // {
+    //     var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
+    //     _mineCrackCellMaterialHttpRequest.Request(url);
+    // }
+    //
+    // private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+    // {
+    //     var jsonStr = Encoding.UTF8.GetString(body);
+    //     var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
+    //     GD.Print("all cell crack materials");
+    //     GD.Print(jsonStr);
+    //     _mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
+    // }
+    //
+    // #endregion
 
     #endregion
 

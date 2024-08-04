@@ -1,22 +1,15 @@
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
-using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
-using Newtonsoft.Json;
-using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineGenerationController : Node2D
 {
-	private HttpRequest _saveGeneratedMineHttpRequest;
-	private HttpRequest _loadGeneratedMineHttpRequest;
 	private HttpRequest _generateMineHttpRequest;
     
 	private MineGenerationVariables _mineGenerationVariables;
@@ -49,13 +42,13 @@ public partial class MineGenerationController : Node2D
 
 	private void CreateHttpRequests()
 	{
-		_saveGeneratedMineHttpRequest = new HttpRequest();
-		AddChild(_saveGeneratedMineHttpRequest);
-		_saveGeneratedMineHttpRequest.RequestCompleted += OnSaveGeneratedMineHttpRequestComplete;
-		
-		_loadGeneratedMineHttpRequest = new HttpRequest();
-		AddChild(_loadGeneratedMineHttpRequest);
-		_loadGeneratedMineHttpRequest.RequestCompleted += OnLoadMineDataRequestCompleted;
+		// _saveGeneratedMineHttpRequest = new HttpRequest();
+		// AddChild(_saveGeneratedMineHttpRequest);
+		// _saveGeneratedMineHttpRequest.RequestCompleted += OnSaveGeneratedMineHttpRequestComplete;
+		//
+		// _loadGeneratedMineHttpRequest = new HttpRequest();
+		// AddChild(_loadGeneratedMineHttpRequest);
+		// _loadGeneratedMineHttpRequest.RequestCompleted += OnLoadMineDataRequestCompleted;
 	}
 
 	#endregion
@@ -66,40 +59,41 @@ public partial class MineGenerationController : Node2D
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 	}
     
-	#region Save Mine Data Into Server
-
-	private void SaveMineDataIntoServer()
-	{
-		string[] headers = { "Content-Type: application/json"};
-		var body = JsonConvert.SerializeObject(_mineGenerationVariables.Mine);
-
-		_saveGeneratedMineHttpRequest.Request(ApiAddress.MineApiPath+"UpdateMineData", headers,
-			HttpClient.Method.Put, body);
-		_savingCanvas.Visible = true;
-	}
-	private void OnSaveGeneratedMineHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
-	{
-		_savingCanvas.Visible = false;
-	}
-
-	#endregion
-
-	#region Load Mine Data From Server
-
-	private void LoadMineDataFromServer()
-	{
-		var url = ApiAddress.MineApiPath+"GetMineData";
-		_loadGeneratedMineHttpRequest.Request(url);
-	}
-	private void OnLoadMineDataRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-	{
-		string jsonStr = Encoding.UTF8.GetString(body);
-		var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
-		
-		GenerateGridFromMineData(mine);
-	}
-    
-	#endregion
+	//TODO: Redo Save and Load without ASP
+	// #region Save Mine Data Into Server
+	//
+	// private void SaveMineDataIntoServer()
+	// {
+	// 	string[] headers = { "Content-Type: application/json"};
+	// 	var body = JsonConvert.SerializeObject(_mineGenerationVariables.Mine);
+	//
+	// 	_saveGeneratedMineHttpRequest.Request(ApiAddress.MineApiPath+"UpdateMineData", headers,
+	// 		HttpClient.Method.Put, body);
+	// 	_savingCanvas.Visible = true;
+	// }
+	// private void OnSaveGeneratedMineHttpRequestComplete(long result, long responseCode, string[] headers, byte[] body)
+	// {
+	// 	_savingCanvas.Visible = false;
+	// }
+	//
+	// #endregion
+	//
+	// #region Load Mine Data From Server
+	//
+	// private void LoadMineDataFromServer()
+	// {
+	// 	var url = ApiAddress.MineApiPath+"GetMineData";
+	// 	_loadGeneratedMineHttpRequest.Request(url);
+	// }
+	// private void OnLoadMineDataRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+	// {
+	// 	string jsonStr = Encoding.UTF8.GetString(body);
+	// 	var mine = JsonSerializer.Deserialize<global::ProjectMuseum.Models.Mine>(jsonStr);
+	// 	
+	// 	GenerateGridFromMineData(mine);
+	// }
+ //    
+	// #endregion
 
 	#region Mine Generator
 

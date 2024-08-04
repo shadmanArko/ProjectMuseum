@@ -29,6 +29,9 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 	[Export] private Sprite2D _Material1Icon;
 	[Export] private Sprite2D _Material2Icon;
 
+	[Export] private Sprite2D _artifactConditionIcon;
+	[Export] private Sprite2D _artifactRarityIcon;
+
 	#endregion
 
 	#region Folder Paths
@@ -38,6 +41,8 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 	[Export] private string _objectClassFolderPath;
 	[Export] private string _objectSizeFolderPath;
 	[Export] private string _materialFolderPath;
+	[Export] private string _conditionFolderPath;
+	[Export] private string _rarityFolderPath;
 
 	#endregion
 
@@ -89,19 +94,16 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 		_artifactDescription.Text = $"{rawArtifactDescriptive.Description}";
 
 		_eraIcon.Texture = GetTexture(_eraFolderPath, rawArtifactFunctional.Era);
-		GD.Print($"Era is {rawArtifactFunctional.Era}");
-			
-		// 	$"[p][font_size={11}]{rawArtifactFunctional.Era}, {rawArtifactFunctional.Region},[/font_size][/p]" +
-		// 	$"[p][font_size={11}]{rawArtifactFunctional.Object}, {rawArtifactFunctional.ObjectClass}," +
-		// 	$" {rawArtifactFunctional.ObjectSize}[/font_size][/p]";
-		// var materialText = "[font_size={11}][p]";
-		// foreach (var material in rawArtifactFunctional.Materials)
-		// {
-		// 	materialText += $"{material}, ";
-		// }
+		_regionIcon.Texture = GetTexture(_regionFolderPath, rawArtifactFunctional.Region);
+		_objectClassIcon.Texture = GetTexture(_objectClassFolderPath, rawArtifactFunctional.ObjectClass);
+		_objectSizeIcon.Texture = GetTexture(_objectSizeFolderPath, rawArtifactFunctional.ObjectSize);
+		_Material1Icon.Texture = GetTexture(_materialFolderPath, rawArtifactFunctional.Materials[0]);
+		if(rawArtifactFunctional.Materials.Count > 1)
+			_Material2Icon.Texture = GetTexture(_materialFolderPath, rawArtifactFunctional.Materials[1]);
 
-		// descriptionText += materialText+"[/p][/font_size]";
-		// _artifactDescription.Text = descriptionText;
+		_artifactConditionIcon.Texture = GetTexture(_conditionFolderPath, artifact.Condition);
+		_artifactRarityIcon.Texture = GetTexture(_rarityFolderPath, artifact.Rarity);
+		
 		_artifactSprite.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
 	}
 

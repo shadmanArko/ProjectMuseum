@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=29 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
 [ext_resource type="Texture2D" uid="uid://toyxbvr46exq" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
@@ -16,6 +16,13 @@
 [ext_resource type="Theme" uid="uid://bi35i2h3llyj8" path="res://Okay.tres" id="13_oix4g"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yvqfa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2jkdc"]
+font = ExtResource("2_q8tpq")
+font_size = 24
+font_color = Color(0.435294, 0.301961, 0.168627, 1)
+outline_size = 2
+outline_color = Color(0, 0.0196078, 0.196078, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_whqty"]
 
@@ -41,7 +48,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0ev1"]
 
-[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton", "_eraIcon", "_regionIcon", "_objectClassIcon", "_objectSizeIcon", "_Material1Icon", "_Material2Icon")]
+[node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton", "_eraIcon", "_regionIcon", "_objectClassIcon", "_objectSizeIcon", "_Material1Icon", "_Material2Icon", "_artifactConditionIcon", "_artifactRarityIcon")]
 process_mode = 3
 script = ExtResource("1_l5epx")
 _canvasLayer = NodePath("CanvasLayer")
@@ -55,7 +62,15 @@ _objectClassIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContai
 _objectSizeIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Size Panel/Size")
 _Material1Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 1 Panel/Material1")
 _Material2Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 2 Panel/Material2")
+_artifactConditionIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Condition Panel/Condition")
+_artifactRarityIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Rarity Panel/Rarity")
 _eraFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/eras/"
+_regionFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/"
+_objectClassFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Object Classes/"
+_objectSizeFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/"
+_materialFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/"
+_conditionFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/"
+_rarityFolderPath = "res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -123,7 +138,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 10
 
 [node name="Discovered An Item Label" type="VBoxContainer" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(600, 100)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -138,14 +153,17 @@ horizontal_alignment = 1
 
 [node name="ArtifactName" type="Label" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Discovered An Item Label"]
 texture_filter = 1
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.498039, 0.12549, 0.117647, 1)
 theme_override_fonts/font = ExtResource("2_q8tpq")
 theme_override_font_sizes/font_size = 33
-text = "Tomahawk"
+text = " Tomahawk"
+label_settings = SubResource("LabelSettings_2jkdc")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Artifact Sprite and Description Panel" type="Panel" parent="CanvasLayer/Panel/Control/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(600, 220)

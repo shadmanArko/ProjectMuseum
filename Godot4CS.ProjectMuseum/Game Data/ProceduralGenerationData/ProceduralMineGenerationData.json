@@ -1,0 +1,16 @@
+{
+  "MineSizeX": 49,
+  "MineSizeY": 64,
+  "CellSize": 20,
+  "BossCaveSizeX": 13,
+  "BossCaveSizeY": 5,
+  "NumberOfMaxCaves": 10,
+  "CaveMinSizeX": 4,
+  "CaveMinSizeY": 4,
+  "CaveMaxSizeX": 7,
+  "CaveMaxSizeY": 5,
+  "MinDistanceBetweenCaves": 10,
+  "Region": "American",
+  "Site": "Battle Site",
+  "TotalNoOfArtifacts": 36
+}

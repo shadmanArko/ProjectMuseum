@@ -1,0 +1,41 @@
+[
+  {
+    "Id": "1",
+    "PositionX": 10,
+    "PositionY": 20,
+    "OccupiedCellIds": [],
+    "ExtraOccupiedDimensionX": 2,
+    "ExtraOccupiedDimensionY": 1,
+    "Type": "WallPlaceable",
+    "Category": "Light",
+    "Variant": "FireTorch",
+    "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/WallPlaceables/Lighting/FireTorch.tscn",
+    "PngPath": "res://Assets/firetorch.png"
+  },
+  {
+    "Id": "2",
+    "PositionX": 15,
+    "PositionY": 25,
+    "OccupiedCellIds": [],
+    "ExtraOccupiedDimensionX": 1,
+    "ExtraOccupiedDimensionY": 2,
+    "Type": "WallPlaceable",
+    "Category": "Light",
+    "Variant": "TubeLight",
+    "ScenePath": "/scenes/garden.json",
+    "PngPath": "/scenes/room1.json"
+  },
+  {
+    "Id": "3",
+    "PositionX": 5,
+    "PositionY": 15,
+    "OccupiedCellIds": [],
+    "ExtraOccupiedDimensionX": 3,
+    "ExtraOccupiedDimensionY": 1,
+    "Type": "WallPlaceable",
+    "Category": "Light",
+    "Variant": "EnergyLight",
+    "ScenePath": "/scenes/office.json",
+    "PngPath": "/scenes/room1.json"
+  }
+]

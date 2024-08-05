@@ -35,6 +35,7 @@ public partial class TileSpawner : TileMap
 	// [Export] private Array<int> _dirtyTilesIndex;
 	public override async void  _Ready()
 	{
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		_loadingBarManager.EmitSignal("IncreaseRegisteredTask");
 		_loadingBarManager.EmitSignal("IncreaseRegisteredTask");
 		//EmitSignal("IncreaseRegisteredTask");
@@ -50,9 +51,9 @@ public partial class TileSpawner : TileMap
 		_httpRequestForUpdatingMuseumWalls.RequestCompleted += HttpRequestForUpdatingMuseumWallsOnRequestCompleted;
 		MuseumActions.OnCallForMuseumExpansion += ExpandMuseum;
 		await Task.Delay(1000);
-		_httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/GetAllMuseumTiles");
-		// var museumTiles = MuseumReferenceManager.Instance.TileServices.GetAll();
-		// AfterGettingMuseumTiles(museumTiles);
+		// _httpRequestForGettingMuseumTiles.Request($"{ApiAddress.UrlPrefix}Museum/GetAllMuseumTiles");
+		 var museumTiles = MuseumReferenceManager.Instance.TileServices.GetAll();
+		AfterGettingMuseumTiles(museumTiles);
 	}
 
 	private void HttpRequestForUpdatingMuseumWallsOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -69,6 +70,8 @@ public partial class TileSpawner : TileMap
 
 	private void AfterUpdatingMuseumWalls(List<MuseumTile> museumTiles)
 	{
+		GD.Print($"Got tiles {museumTiles.Count}");
+		GD.Print($"got container {_museumRunningDataContainer != null}");
 		_museumRunningDataContainer.MuseumTiles = museumTiles;
 		SpawnWalls(museumTiles);
 	}
@@ -237,10 +240,10 @@ public partial class TileSpawner : TileMap
 			string[] headers = { "Content-Type: application/json"};
 			var body = JsonConvert.SerializeObject(museumTilesToUpdateWalls);
 			//GD.Print(body);
-			Error error = _httpRequestForUpdatingMuseumWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId", headers,
-				HttpClient.Method.Post, body);
-			// var result = MuseumReferenceManager.Instance.TileServices.UpdateMuseumTilesWallId(museumTilesToUpdateWalls);
-			// AfterUpdatingMuseumWalls(result);
+			// Error error = _httpRequestForUpdatingMuseumWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId", headers,
+			// 	HttpClient.Method.Post, body);
+			var result = MuseumReferenceManager.Instance.TileServices.UpdateMuseumTilesWallId(museumTilesToUpdateWalls);
+			AfterUpdatingMuseumWalls(result);
 		}
 	}
 

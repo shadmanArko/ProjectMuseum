@@ -17,15 +17,15 @@ public partial class BuilderCardServices: Node
     {
         base._Ready();
         var tileVariationDatabaseJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/exhibit.json");
+            "res://Game Data/BuilderCardsData/tileVariations.json");
         _tileVariationDatabase = JsonSerializer.Deserialize<List<TileVariation>>(tileVariationDatabaseJson);
         
         var wallVariationDatabaseJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/exhibitVariations.json");
+            "res://Game Data/BuilderCardsData/wallVariations.json");
         _wallVariationDatabase = JsonSerializer.Deserialize<List<WallVariation>>(wallVariationDatabaseJson);
         
         var wallpaperVariationDatabaseJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/exhibitVariations.json");
+            "res://Game Data/BuilderCardsData/wallpaperVariations.json");
         _wallpaperVariationDatabase = JsonSerializer.Deserialize<List<WallpaperVariation>>(wallpaperVariationDatabaseJson);
     }
 

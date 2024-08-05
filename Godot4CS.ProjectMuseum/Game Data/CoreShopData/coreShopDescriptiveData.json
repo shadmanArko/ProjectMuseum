@@ -1,0 +1,10 @@
+[
+  {
+    "Variant": "sodaVendingMachine1",
+    "DisplayName": "Soda Vending Machine"
+  },
+  {
+    "Variant": "chipsVendingMachine1",
+    "DisplayName": "Chips Vending Machine"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Rarity": "Common",
+    "ScoreMultiplier": 0.9
+  },
+  {
+    "Rarity": "Rare",
+    "ScoreMultiplier": 1.0
+  },
+  {
+    "Rarity": "Legendary",
+    "ScoreMultiplier": 1.2
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "Id": "",
+    "ShopId": "",
+    "ProductVariant": "Sourcream Chips",
+    "ProductCategory": "Chips",
+    "ProductType": "Food",
+    "FulfilsGuestNeed": 0,
+    "BasePrice": 1.0,
+    "NeedFillAmount": 30
+  },
+  {
+    "Id": "",
+    "ShopId": "",
+    "ProductVariant": "Salt Chips",
+    "ProductCategory": "Chips",
+    "ProductType": "Food",
+    "FulfilsGuestNeed": 0,
+    "BasePrice": 1.0,
+    "NeedFillAmount": 30
+  },
+  {
+    "Id": "",
+    "ShopId": "",
+    "ProductVariant": "Lime Soda",
+    "ProductCategory": "Soda",
+    "ProductType": "Drink",
+    "FulfilsGuestNeed": 1,
+    "BasePrice": 1.0,
+    "NeedFillAmount": 30
+  },
+  {
+    "Id": "",
+    "ShopId": "",
+    "ProductVariant": "Diet Lime Soda",
+    "ProductCategory": "Soda",
+    "ProductType": "Drink",
+    "FulfilsGuestNeed": 1,
+    "BasePrice": 1.2,
+    "NeedFillAmount": 30
+  },
+  {
+    "Id": "",
+    "ShopId": "",
+    "ProductVariant": "Diet Dark Soda",
+    "ProductCategory": "Soda",
+    "ProductType": "Drink",
+    "FulfilsGuestNeed": 1,
+    "BasePrice": 1.2,
+    "NeedFillAmount": 30
+  },
+  {
+    "Id": "",
+    "ShopId": "",
+    "ProductVariant": "Dark Soda",
+    "ProductCategory": "Soda",
+    "ProductType": "Drink",
+    "FulfilsGuestNeed": 1,
+    "BasePrice": 1.0,
+    "NeedFillAmount": 30
+  }
+]

@@ -48,6 +48,7 @@ public partial class BuilderCardSlotsController : Control
 		_httpRequestForGettingTileVariations.RequestCompleted += HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingWallpaperVariations.RequestCompleted += HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
 		_httpRequestForGettingSanitationVariations.RequestCompleted += HttpRequestForGettingSanitationVariationsOnRequestCompleted;
+		
 		_httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
 		_httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
 		_httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");

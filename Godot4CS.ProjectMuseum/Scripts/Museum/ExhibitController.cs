@@ -5,6 +5,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -40,6 +41,7 @@ public partial class ExhibitController : Node2D
         _httpRequestForGettingAllExhibits.RequestCompleted += HttpRequestForGettingAllExhibitsOnRequestCompleted;
         _httpRequestForGettingAllDisplayArtifacts.RequestCompleted += HttpRequestForGettingAllDisplayArtifactsOnRequestCompleted;
         _httpRequestForGettingAllDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+        // MuseumReferenceManager.Instance.ExhibitServices
         MuseumActions.OnClickItem += OnClickItem;
     }
 

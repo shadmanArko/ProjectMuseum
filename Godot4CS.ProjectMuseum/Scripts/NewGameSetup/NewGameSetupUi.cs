@@ -46,6 +46,7 @@ public partial class NewGameSetupUi : Control
 		LoadingPanel.Visible = true;
 		_httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.PlayerApiPath +
 		                                                              "LoadDataForNewGame");
+		// MainMenuReferanceManager.Instance.PlayerInfoServices.
 		GD.Print("new game set Up request done");
 		
 	}

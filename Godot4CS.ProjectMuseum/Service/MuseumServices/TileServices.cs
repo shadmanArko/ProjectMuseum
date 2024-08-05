@@ -18,6 +18,7 @@ public partial class TileServices: Node
         var museumTileDatabaseJson = File.ReadAllText(
             "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/museumTile.json");
         _museumTileDatabase = JsonSerializer.Deserialize<List<MuseumTile>>(museumTileDatabaseJson);
+        GD.Print($"Got Museum tiles {_museumTileDatabase.Count}");
     }
 
     public async Task<MuseumTile> Insert(MuseumTile museumTile)
@@ -74,8 +75,9 @@ public partial class TileServices: Node
                     }
                 }
         }
-        
-        return _museumTileDatabase;
+        GD.Print($"Got return tiles {museumTiles.Count}");
+
+        return museumTiles;
     }
 
     public async Task<MuseumTile?> GetById(string id)

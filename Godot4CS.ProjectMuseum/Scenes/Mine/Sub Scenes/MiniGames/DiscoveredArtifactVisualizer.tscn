@@ -10,9 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://cpn6pqmbnyxxh" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/eras/Ancient.png" id="7_656it"]
 [ext_resource type="Texture2D" uid="uid://c7x8plvhqbxmd" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/China.png" id="8_w1sdv"]
 [ext_resource type="Texture2D" uid="uid://bkh47xvd1tton" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Object Classes/Armor.png" id="9_inx7q"]
-[ext_resource type="Texture2D" uid="uid://bqxdtrtm6mocc" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/brass.png" id="10_xtdn1"]
-[ext_resource type="Texture2D" uid="uid://d4dt3rxuep544" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/bone.png" id="11_buukt"]
-[ext_resource type="Texture2D" uid="uid://dkulvbjtpi245" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/extra large.png" id="12_t3bec"]
+[ext_resource type="Texture2D" uid="uid://bqxdtrtm6mocc" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Brass.png" id="10_xtdn1"]
+[ext_resource type="Texture2D" uid="uid://d4dt3rxuep544" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Bone.png" id="11_buukt"]
+[ext_resource type="Texture2D" uid="uid://dkulvbjtpi245" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/ExtraLarge.png" id="12_t3bec"]
 [ext_resource type="Theme" uid="uid://bi35i2h3llyj8" path="res://Okay.tres" id="13_oix4g"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yvqfa"]

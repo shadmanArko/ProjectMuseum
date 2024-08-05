@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkulvbjtpi245"
-path="res://.godot/imported/extra large.png-fbd51bda6797cffac518666160ce676f.ctex"
+path="res://.godot/imported/ExtraLarge.png-739841065ddbff3c1c490c7fe6b832cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/extra large.png"
-dest_files=["res://.godot/imported/extra large.png-fbd51bda6797cffac518666160ce676f.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/ExtraLarge.png"
+dest_files=["res://.godot/imported/ExtraLarge.png-739841065ddbff3c1c490c7fe6b832cf.ctex"]
 
 [params]
 

@@ -44,6 +44,7 @@ public partial class ToolbarSelector : HBoxContainer
 		MineActions.OnToolbarSlotChanged += SelectItem;
 		MineActions.OnInventoryUpdate += UpdateToolbar;
 		MineActions.OnRawArtifactDTOInitialized += UpdateToolbar;
+		MineActions.OnInventoryInitialized += UpdateToolbar;
 	}
 
 	#endregion
@@ -160,6 +161,7 @@ public partial class ToolbarSelector : HBoxContainer
 		MineActions.OnToolbarSlotChanged -= SelectItem;
 		MineActions.OnInventoryUpdate -= UpdateToolbar;
 		MineActions.OnRawArtifactDTOInitialized -= UpdateToolbar;
+		MineActions.OnInventoryInitialized += UpdateToolbar;
 	}
 
 	public override void _ExitTree()

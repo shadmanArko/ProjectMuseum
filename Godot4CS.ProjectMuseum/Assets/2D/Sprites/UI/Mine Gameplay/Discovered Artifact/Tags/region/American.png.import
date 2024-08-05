@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://de2il0wtlaqxc"
-path="res://.godot/imported/North America.png-3e0155d2f1e4d7e9c86db49c4aaefffc.ctex"
+path="res://.godot/imported/American.png-37db91b62df1024273042c558ed44b06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/North America.png"
-dest_files=["res://.godot/imported/North America.png-3e0155d2f1e4d7e9c86db49c4aaefffc.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/American.png"
+dest_files=["res://.godot/imported/American.png-37db91b62df1024273042c558ed44b06.ctex"]
 
 [params]
 

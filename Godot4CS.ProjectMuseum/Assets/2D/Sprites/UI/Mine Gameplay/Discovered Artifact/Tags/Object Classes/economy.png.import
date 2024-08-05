@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtivshfynw3ma"
-path="res://.godot/imported/economy.png-ae649fc7cd33703c9dbd177e696c51db.ctex"
+path="res://.godot/imported/Economy.png-244726e1cdf8efd8210e83b8af0d1b88.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Object Classes/economy.png"
-dest_files=["res://.godot/imported/economy.png-ae649fc7cd33703c9dbd177e696c51db.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Object Classes/Economy.png"
+dest_files=["res://.godot/imported/Economy.png-244726e1cdf8efd8210e83b8af0d1b88.ctex"]
 
 [params]
 

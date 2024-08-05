@@ -6,10 +6,12 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
+using ProjectMuseum.Models.MIne.Equipables;
 using Resource = ProjectMuseum.Models.MIne.Resource;
 
 namespace Godot4CS.ProjectMuseum.Service.MineServices;
@@ -19,6 +21,10 @@ public partial class ProceduralMineGenerationService : Node
     private ProceduralMineGenerationDto _mineGenerationDto;
     private RawArtifactDTO _rawArtifactDto;
     private MineCellCrackMaterial _mineCellCrackMaterial;
+    private WallPlaceableDTO _wallPlaceableDto;
+    private CellPlaceableDTO _cellPlaceableDto;
+    private EquipableDTO _equipableDto;
+    private ConsumableDTO _consumableDto;
     
     private InventoryDTO _inventoryDto;
 
@@ -39,7 +45,18 @@ public partial class ProceduralMineGenerationService : Node
     private List<SiteArtifactChanceData> _siteArtifactChanceDatabase;
     private List<CellCrackMaterial> _cellCrackMaterialsDatabase;
     private List<ArtifactRarity> _artifactRarityDatabase;
+    
+    private List<WallPlaceable> _wallPlaceableDatabase;
+    private List<CellPlaceable> _cellPlaceableDatabase;
+    
+    private List<EquipableMelee> _equipableMeleeDatabase;
+    private List<EquipablePickaxe> _equipablePickaxeDatabase;
+    private List<EquipableRange> _equipableRangeDatabase;
+
+    private List<Consumable> _consumableDatabase;
+    
     private ArtifactStorage _artifactStorageArtifactDatabase;
+    private Inventory _inventoryDatabase;
     
     private List<Resource> _resourceDatabase;
 
@@ -57,8 +74,17 @@ public partial class ProceduralMineGenerationService : Node
         _rawArtifactDto.RawArtifactDescriptives = _rawArtifactDescriptiveDatabase;
         _rawArtifactDto.RawArtifactFunctionals = _rawArtifactFunctionalDatabase;
         _mineCellCrackMaterial.CellCrackMaterials = _cellCrackMaterialsDatabase;
+        _inventoryDto.ArtifactStorage = _artifactStorageArtifactDatabase;
+        _wallPlaceableDto.WallPlaceables = _wallPlaceableDatabase;
+        _cellPlaceableDto.CellPlaceables = _cellPlaceableDatabase;
+        _equipableDto.MeleeEquipables = _equipableMeleeDatabase;
+        _equipableDto.PickaxeEquipables = _equipablePickaxeDatabase;
+        _equipableDto.RangedEquipables = _equipableRangeDatabase;
+        _inventoryDto.Inventory = _inventoryDatabase;
+        _consumableDto.Consumables = _consumableDatabase;
+        MineActions.OnInventoryInitialized?.Invoke();
 
-        _inventoryDto.ArtifactStorage = SaveLoadService.Load().ArtifactStorage;
+        // _inventoryDto.ArtifactStorage = SaveLoadService.Load().ArtifactStorage;
     }
 
     #region Initializers
@@ -69,6 +95,10 @@ public partial class ProceduralMineGenerationService : Node
         _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
         _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+        _wallPlaceableDto = ServiceRegistry.Resolve<WallPlaceableDTO>();
+        _cellPlaceableDto = ServiceRegistry.Resolve<CellPlaceableDTO>();
+        _equipableDto = ServiceRegistry.Resolve<EquipableDTO>();
+        _consumableDto = ServiceRegistry.Resolve<ConsumableDTO>();
     }
 
     private void InitializeDatabases()
@@ -127,11 +157,38 @@ public partial class ProceduralMineGenerationService : Node
                 "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CellCrackMaterial/CellCrackMaterial.json");
         _cellCrackMaterialsDatabase = JsonSerializer.Deserialize<List<CellCrackMaterial>>(cellCrackMaterialJson);
         
-        // var artifactStorageArtifactsJson =
-        //     File.ReadAllText(
-        //         "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
-        // _artifactStorageArtifactDatabase =
-        //     JsonSerializer.Deserialize<ArtifactStorage>(artifactStorageArtifactsJson);
+        var artifactStorageArtifactsJson =
+            File.ReadAllText(
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
+        _artifactStorageArtifactDatabase =
+            JsonSerializer.Deserialize<ArtifactStorage>(artifactStorageArtifactsJson);
+
+        var inventoryJson =
+            File.ReadAllText(
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/inventory.json");
+        _inventoryDatabase = JsonSerializer.Deserialize<Inventory>(inventoryJson);
+
+        var wallPlaceableJson =
+            File.ReadAllText(
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/WallPlaceableData/WallPlaceable.json");
+        _wallPlaceableDatabase = JsonSerializer.Deserialize<List<WallPlaceable>>(wallPlaceableJson);
+
+        var cellPlaceableJson =
+            File.ReadAllText(
+                "Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CellPlaceableData/CellPlaceable.json");
+        _cellPlaceableDatabase = JsonSerializer.Deserialize<List<CellPlaceable>>(cellPlaceableJson);
+
+        var equipableMeleeJson = File.ReadAllText("Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Equipable/EquipableMelee.json");
+        _equipableMeleeDatabase = JsonSerializer.Deserialize<List<EquipableMelee>>(equipableMeleeJson);
+        
+        var equipablePickaxeJson = File.ReadAllText("Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Equipable/EquipablePickaxe.json");
+        _equipablePickaxeDatabase = JsonSerializer.Deserialize<List<EquipablePickaxe>>(equipablePickaxeJson);
+        
+        var equipableRangedJson = File.ReadAllText("Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Equipable/EquipableRange.json");
+        _equipableRangeDatabase = JsonSerializer.Deserialize<List<EquipableRange>>(equipableRangedJson);
+
+        var consumableJson = File.ReadAllText("Y:/GodotProjects/Office Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Consumable/Consumable.json");
+        _consumableDatabase = JsonSerializer.Deserialize<List<Consumable>>(consumableJson);
     }
 
     public async Task<Mine> GenerateProceduralMine()

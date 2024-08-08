@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwwqjuxhmme0n"
-path="res://.godot/imported/India.png-8fd6056fddab30bcd45d11ee5983b9e1.ctex"
+uid="uid://budh6dyfg53gb"
+path="res://.godot/imported/Rare.png-1afb5d64e008aa6a73a81ac6d393cec7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/India.png"
-dest_files=["res://.godot/imported/India.png-8fd6056fddab30bcd45d11ee5983b9e1.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/Rare.png"
+dest_files=["res://.godot/imported/Rare.png-1afb5d64e008aa6a73a81ac6d393cec7.ctex"]
 
 [params]
 

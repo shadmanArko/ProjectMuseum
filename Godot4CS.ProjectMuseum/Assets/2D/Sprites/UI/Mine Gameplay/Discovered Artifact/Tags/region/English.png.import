@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://budh6dyfg53gb"
-path="res://.godot/imported/Rare_button.png-e6eaa8c57c37c3aa74c1d5d04b9b7151.ctex"
+uid="uid://cq57l0l1uctog"
+path="res://.godot/imported/English.png-9c1fe74246a7fd135519fe926aef1e69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/Rare_button.png"
-dest_files=["res://.godot/imported/Rare_button.png-e6eaa8c57c37c3aa74c1d5d04b9b7151.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/English.png"
+dest_files=["res://.godot/imported/English.png-9c1fe74246a7fd135519fe926aef1e69.ctex"]
 
 [params]
 

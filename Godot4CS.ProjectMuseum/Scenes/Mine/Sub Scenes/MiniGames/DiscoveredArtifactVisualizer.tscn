@@ -5,13 +5,13 @@
 [ext_resource type="FontFile" uid="uid://b43jys5nr80yk" path="res://Assets/Fonts/PIXEARG_.TTF" id="2_q8tpq"]
 [ext_resource type="Texture2D" uid="uid://cj8ouas8ocvhc" path="res://Assets/2D/Sprites/Mine Sprites/Mini Game/mini game frame final.png" id="2_uhd7s"]
 [ext_resource type="Texture2D" uid="uid://cficnw6pmqadu" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Background Map/north america map temp.png" id="3_a3p80"]
-[ext_resource type="Texture2D" uid="uid://0o0x51e5dmx4" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/decrepit_Button.png" id="5_yxn4t"]
-[ext_resource type="Texture2D" uid="uid://dxr24x2flaxvp" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/Common_button.png" id="6_xsepf"]
+[ext_resource type="Texture2D" uid="uid://0o0x51e5dmx4" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/Decrepit.png" id="5_yxn4t"]
+[ext_resource type="Texture2D" uid="uid://dxr24x2flaxvp" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/Common.png" id="6_xsepf"]
 [ext_resource type="Texture2D" uid="uid://cpn6pqmbnyxxh" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/eras/Ancient.png" id="7_656it"]
-[ext_resource type="Texture2D" uid="uid://c7x8plvhqbxmd" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/China.png" id="8_w1sdv"]
+[ext_resource type="Texture2D" uid="uid://c7x8plvhqbxmd" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/Chinese.png" id="8_w1sdv"]
 [ext_resource type="Texture2D" uid="uid://bkh47xvd1tton" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Object Classes/Armor.png" id="9_inx7q"]
-[ext_resource type="Texture2D" uid="uid://bqxdtrtm6mocc" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/brass.png" id="10_xtdn1"]
-[ext_resource type="Texture2D" uid="uid://d4dt3rxuep544" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/bone.png" id="11_buukt"]
+[ext_resource type="Texture2D" uid="uid://bqxdtrtm6mocc" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Brass.png" id="10_xtdn1"]
+[ext_resource type="Texture2D" uid="uid://d4dt3rxuep544" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Bone.png" id="11_buukt"]
 [ext_resource type="Texture2D" uid="uid://dkulvbjtpi245" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/ExtraLarge.png" id="12_t3bec"]
 [ext_resource type="Theme" uid="uid://d0u6xaiq6n58o" path="res://Okay.tres" id="13_oix4g"]
 
@@ -21,7 +21,6 @@
 font = ExtResource("2_q8tpq")
 font_size = 24
 font_color = Color(0.435294, 0.301961, 0.168627, 1)
-outline_size = 2
 outline_color = Color(0, 0.0196078, 0.196078, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_whqty"]

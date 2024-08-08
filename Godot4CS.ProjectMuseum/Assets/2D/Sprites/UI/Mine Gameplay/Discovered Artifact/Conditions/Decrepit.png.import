@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv2m64132kras"
-path="res://.godot/imported/Intact_Button.png-2df369cb926996294b6ac6a7a1d0d81f.ctex"
+uid="uid://0o0x51e5dmx4"
+path="res://.godot/imported/Decrepit.png-1dc4eff7000777e60a7ca9b442d9cdea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/Intact_Button.png"
-dest_files=["res://.godot/imported/Intact_Button.png-2df369cb926996294b6ac6a7a1d0d81f.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/Decrepit.png"
+dest_files=["res://.godot/imported/Decrepit.png-1dc4eff7000777e60a7ca9b442d9cdea.ctex"]
 
 [params]
 

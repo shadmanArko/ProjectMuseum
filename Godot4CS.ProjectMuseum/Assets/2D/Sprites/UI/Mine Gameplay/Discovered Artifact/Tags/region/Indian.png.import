@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di7ukjvafdnri"
-path="res://.godot/imported/pristione_Button.png-348c5041ebe434a00852a25e83ebe039.ctex"
+uid="uid://bwwqjuxhmme0n"
+path="res://.godot/imported/Indian.png-8b85f877e4dbfed2a9db09058fedb60c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/pristione_Button.png"
-dest_files=["res://.godot/imported/pristione_Button.png-348c5041ebe434a00852a25e83ebe039.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/Indian.png"
+dest_files=["res://.godot/imported/Indian.png-8b85f877e4dbfed2a9db09058fedb60c.ctex"]
 
 [params]
 

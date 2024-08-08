@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rtgw3qyy35q3"
-path="res://.godot/imported/Legendary_button.png-4236f0706897c3d4c4c553be8e52a688.ctex"
+uid="uid://bv2m64132kras"
+path="res://.godot/imported/Intact.png-cf45f34a8b626927bade2c773b581a55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/Legendary_button.png"
-dest_files=["res://.godot/imported/Legendary_button.png-4236f0706897c3d4c4c553be8e52a688.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/Intact.png"
+dest_files=["res://.godot/imported/Intact.png-cf45f34a8b626927bade2c773b581a55.ctex"]
 
 [params]
 

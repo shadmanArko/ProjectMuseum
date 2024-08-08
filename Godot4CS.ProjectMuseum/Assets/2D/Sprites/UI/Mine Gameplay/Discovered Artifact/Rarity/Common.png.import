@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxr24x2flaxvp"
-path="res://.godot/imported/Common_button.png-a6f6c4d6c61f0bcc1c08714bc81d62bc.ctex"
+path="res://.godot/imported/Common.png-8463613bde87a521b64cda735e851a16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/Common_button.png"
-dest_files=["res://.godot/imported/Common_button.png-a6f6c4d6c61f0bcc1c08714bc81d62bc.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Rarity/Common.png"
+dest_files=["res://.godot/imported/Common.png-8463613bde87a521b64cda735e851a16.ctex"]
 
 [params]
 

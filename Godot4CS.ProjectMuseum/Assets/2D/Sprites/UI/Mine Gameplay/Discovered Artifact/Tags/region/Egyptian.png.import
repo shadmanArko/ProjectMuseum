@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq57l0l1uctog"
-path="res://.godot/imported/England.png-92d984008e99d1f09fc6a71237b5976d.ctex"
+uid="uid://bdoi4eecbm2yk"
+path="res://.godot/imported/Egyptian.png-8017fa1b5972f85121fc202647af137f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/England.png"
-dest_files=["res://.godot/imported/England.png-92d984008e99d1f09fc6a71237b5976d.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/Egyptian.png"
+dest_files=["res://.godot/imported/Egyptian.png-8017fa1b5972f85121fc202647af137f.ctex"]
 
 [params]
 

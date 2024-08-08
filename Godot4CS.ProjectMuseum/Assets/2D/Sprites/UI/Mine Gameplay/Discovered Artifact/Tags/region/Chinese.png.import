@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7x8plvhqbxmd"
-path="res://.godot/imported/China.png-51a459435c759edfd18f18ffb551a972.ctex"
+path="res://.godot/imported/Chinese.png-aa9a2c8d38bf32ea5cd969a5f325c682.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/China.png"
-dest_files=["res://.godot/imported/China.png-51a459435c759edfd18f18ffb551a972.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/region/Chinese.png"
+dest_files=["res://.godot/imported/Chinese.png-aa9a2c8d38bf32ea5cd969a5f325c682.ctex"]
 
 [params]
 

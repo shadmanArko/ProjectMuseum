@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0o0x51e5dmx4"
-path="res://.godot/imported/decrepit_Button.png-249dbf8a8eef259e9467f024cc620406.ctex"
+uid="uid://di7ukjvafdnri"
+path="res://.godot/imported/Pristiine.png-1db676f20eafc7bbd50662e9375c6080.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/decrepit_Button.png"
-dest_files=["res://.godot/imported/decrepit_Button.png-249dbf8a8eef259e9467f024cc620406.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Conditions/Pristiine.png"
+dest_files=["res://.godot/imported/Pristiine.png-1db676f20eafc7bbd50662e9375c6080.ctex"]
 
 [params]
 

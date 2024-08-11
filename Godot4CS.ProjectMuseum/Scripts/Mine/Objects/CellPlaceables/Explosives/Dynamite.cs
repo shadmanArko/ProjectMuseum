@@ -102,11 +102,12 @@ public partial class Dynamite : Node2D
 
                 _mineGenerationVariables.BrokenCells++;
                 MineActions.OnMineCellBroken?.Invoke(newCellPos);
-                cell.HasCellPlaceable = false;
+                
                 GD.Print($"explosion affecting {adjacentCell.PositionX},{adjacentCell.PositionY}");
             }
         }
         
+        cell.HasCellPlaceable = false;
         DamageUnitsInRange();
         ConvertItemizablesInRange();
         QueueFree();

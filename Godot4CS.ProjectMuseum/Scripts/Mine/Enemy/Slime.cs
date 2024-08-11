@@ -37,8 +37,6 @@ public partial class Slime : Enemy
 
     [Export] private bool _isInsideMine;
 
-    // [Export] private int _idleCount;
-
     #region Initializers
 
     public override void _EnterTree()

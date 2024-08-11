@@ -92,7 +92,6 @@ public partial class EnemySpawner : Node2D
     private void SpawnEnemy()
     {
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
-        // GD.Print($"Slime Scene is null {scene is null}");
         _parentNode.AddChild(scene);
         var enemy = scene as Enemy;
         if (enemy == null)
@@ -104,8 +103,6 @@ public partial class EnemySpawner : Node2D
         GD.Print("Spawning Enemy");
         _newEnemy = enemy;
         enemy.Position = new Vector2(730, -58);
-        // enemy.SetProcess(false);
-        // SetProcess(true);
         _canSpawn = false;
     }
 

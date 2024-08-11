@@ -153,6 +153,13 @@ public partial class MineActions : Node
 	public static Action OnCameraPositionChanged;
 
 	#endregion
+
+	#region Save Load Mine Data
+
+	public static Action OnSaveGameData;
+	public static Action OnLoadGameData;
+
+	#endregion
 	
 	public static Action OnRawArtifactDTOInitialized;	//TODO: has to be changed later
 }

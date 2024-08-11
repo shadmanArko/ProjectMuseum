@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=44 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
@@ -42,6 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/InventoryItemCollector.cs" id="40_dy3xt"]
 [ext_resource type="PackedScene" uid="uid://bmv76y46lpu7o" path="res://Scenes/Mine/Sub Scenes/Sounds/Sfx/MineSfxManager.tscn" id="41_737yh"]
+[ext_resource type="PackedScene" uid="uid://b6xhh67xafayu" path="res://Scenes/Mine/SaveMineGameData/MineSaveData.tscn" id="43_205iv"]
 
 [node name="MineScene" type="Control"]
 process_mode = 1
@@ -232,3 +233,5 @@ _mineBackGround = NodePath("MineBackground")
 script = ExtResource("40_dy3xt")
 
 [node name="MineSfxManager" parent="." instance=ExtResource("41_737yh")]
+
+[node name="MineSaveData" parent="." instance=ExtResource("43_205iv")]

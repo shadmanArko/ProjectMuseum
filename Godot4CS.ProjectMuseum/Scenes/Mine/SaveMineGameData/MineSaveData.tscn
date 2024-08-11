@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6xhh67xafayu"]
+
+[ext_resource type="Script" path="res://Scripts/Mine/MineSave/MineSave.cs" id="1_ke0yv"]
+
+[node name="MineSaveData" type="Node"]
+script = ExtResource("1_ke0yv")

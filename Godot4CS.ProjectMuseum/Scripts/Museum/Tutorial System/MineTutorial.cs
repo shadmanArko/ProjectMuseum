@@ -37,9 +37,9 @@ public partial class MineTutorial : Node
 
 	private void CreateHttpRequest()
 	{
-		_getPlayerInfoHttpRequest = new HttpRequest();
-		AddChild(_getPlayerInfoHttpRequest);
-		_getPlayerInfoHttpRequest.RequestCompleted += OnGetPlayerInfoHttpRequestCompleted;
+		// _getPlayerInfoHttpRequest = new HttpRequest();
+		// AddChild(_getPlayerInfoHttpRequest);
+		// _getPlayerInfoHttpRequest.RequestCompleted += OnGetPlayerInfoHttpRequestCompleted;
 		
 		// _addTutorialArtifactToMine = new HttpRequest();
 		// AddChild(_addTutorialArtifactToMine);
@@ -49,7 +49,10 @@ public partial class MineTutorial : Node
 
 	private void GetPlayerInfo()
 	{
-		_getPlayerInfoHttpRequest.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+		// _getPlayerInfoHttpRequest.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+		PlayerInfo = SaveLoadService.Load().PlayerInfo;
+		if(PlayerInfo.CompletedStoryScene == 10)
+			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
 	private void OnGetPlayerInfoHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)

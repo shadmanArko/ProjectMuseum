@@ -40,7 +40,11 @@ public partial class ExhibitController : Node2D
         AddChild(_httpRequestForGettingAllDisplayArtifacts);
         _httpRequestForGettingAllExhibits.RequestCompleted += HttpRequestForGettingAllExhibitsOnRequestCompleted;
         _httpRequestForGettingAllDisplayArtifacts.RequestCompleted += HttpRequestForGettingAllDisplayArtifactsOnRequestCompleted;
-        _httpRequestForGettingAllDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+        // _httpRequestForGettingAllDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+        
+        _displayArtifacts = MuseumReferenceManager.Instance.DisplayArtifactServices.GetAllArtifacts();
+        var result = MuseumReferenceManager.Instance.ExhibitServices.GetAllExhibits();
+        AfterGettingAllExhibits(result);
         // MuseumReferenceManager.Instance.ExhibitServices
         MuseumActions.OnClickItem += OnClickItem;
     }
@@ -57,13 +61,18 @@ public partial class ExhibitController : Node2D
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(jsonStr);
-        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
-        _museumRunningDataContainer.Exhibits = exhibits;
-        SpawnExhibits(exhibits);
-        _loadingBarManager.EmitSignal("IncreaseCompletedTask");
-        GD.Print("Exhibits request completed" + jsonStr);
+        AfterGettingAllExhibits(exhibits);
         //EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
         //GD.Print($"Number of exhibits {exhibits.Count}");
+    }
+
+    private void AfterGettingAllExhibits(List<Exhibit> exhibits)
+    {
+        // GD.Print($"got exhibits {exhibits.Count}");
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+        _museumRunningDataContainer.Exhibits = exhibits;
+        _loadingBarManager.EmitSignal("IncreaseCompletedTask");
+        SpawnExhibits(exhibits);
     }
 
     private void SpawnExhibits(List<Exhibit> exhibits)

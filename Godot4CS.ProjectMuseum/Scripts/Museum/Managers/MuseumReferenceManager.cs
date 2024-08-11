@@ -11,9 +11,14 @@ public partial class MuseumReferenceManager: Node
 
     [Export] public ExhibitServices ExhibitServices;
     [Export] public StoryAndTutorialServices StoryAndTutorialServices;
-    public override void _Ready()
+    [Export] public ArtifactStoreServices ArtifactStoreServices;
+    [Export] public DisplayArtifactServices DisplayArtifactServices;
+
+    public override void _EnterTree()
     {
-        base._Ready();
+        base._EnterTree();
         Instance ??= this;
     }
+
+    
 }

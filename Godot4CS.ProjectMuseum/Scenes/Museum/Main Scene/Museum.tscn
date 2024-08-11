@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=91 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -88,6 +88,7 @@
 [ext_resource type="Script" path="res://Service/MuseumServices/TileServices.cs" id="86_6e2ic"]
 [ext_resource type="Script" path="res://Service/MuseumServices/ExhibitServices.cs" id="87_uti1w"]
 [ext_resource type="Script" path="res://Service/MuseumServices/StoryAndTutorialServices.cs" id="88_wt6jr"]
+[ext_resource type="Script" path="res://Service/MuseumServices/DisplayArtifactServices.cs" id="89_px6up"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -1170,12 +1171,13 @@ _rotateSound = ExtResource("82_nxom5")
 _itemPlacingSound = ExtResource("83_g7xdg")
 _footStepSound = ExtResource("84_fc1fb")
 
-[node name="ReferanceManager" type="Node" parent="." node_paths=PackedStringArray("ItemPlacementConditionService", "TileServices", "ExhibitServices", "StoryAndTutorialServices")]
+[node name="ReferanceManager" type="Node" parent="." node_paths=PackedStringArray("ItemPlacementConditionService", "TileServices", "ExhibitServices", "StoryAndTutorialServices", "DisplayArtifactServices")]
 script = ExtResource("84_w0a7b")
 ItemPlacementConditionService = NodePath("../Services/ItemPlacementConditionServices")
 TileServices = NodePath("../Services/TileServices")
 ExhibitServices = NodePath("../Services/ExhibitServices")
 StoryAndTutorialServices = NodePath("../Services/StoryAndTutorialServices")
+DisplayArtifactServices = NodePath("../Services/DisplayArtifactServices")
 
 [node name="Services" type="Node" parent="."]
 
@@ -1190,3 +1192,6 @@ script = ExtResource("87_uti1w")
 
 [node name="StoryAndTutorialServices" type="Node" parent="Services"]
 script = ExtResource("88_wt6jr")
+
+[node name="DisplayArtifactServices" type="Node" parent="Services"]
+script = ExtResource("89_px6up")

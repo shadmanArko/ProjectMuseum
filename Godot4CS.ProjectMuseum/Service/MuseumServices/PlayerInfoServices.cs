@@ -4,26 +4,26 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
 
 public partial class PlayerInfoServices: Node
 {
-    private List<PlayerInfo> _playerInfoDatabase;
-
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     public override void _Ready()
     {
-        var playerInfoDatabaseJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/PlayerInfo.json");
-        _playerInfoDatabase = JsonSerializer.Deserialize<List<PlayerInfo>>(playerInfoDatabaseJson);
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+        
+        _museumRunningDataContainer.PlayerInfo = SaveLoadService.Load().PlayerInfo;
         base._Ready();
     }
 
     public PlayerInfo Insert(PlayerInfo playerInfo)
     {
-        var playerInfos =  _playerInfoDatabase;
-        playerInfos?.Add(playerInfo);
+        _museumRunningDataContainer.PlayerInfo = playerInfo;
         return playerInfo;
     }
 
@@ -39,23 +39,20 @@ public partial class PlayerInfoServices: Node
 
     public PlayerInfo GetLastPlayerInfo()
     {
-        var playerInfos =  _playerInfoDatabase;
-        return playerInfos?.Last();
+        return _museumRunningDataContainer.PlayerInfo;
     }
 
     public PlayerInfo UpdateCompletedStory(int completedStoryNumber)
     {
-        var playerInfos =  _playerInfoDatabase;
-        var currentPlayerInfo = playerInfos?.Last();
-        currentPlayerInfo!.CompletedStoryScene = completedStoryNumber;
-        return  currentPlayerInfo;
+        var playerInfo =  _museumRunningDataContainer.PlayerInfo;
+        playerInfo!.CompletedStoryScene = completedStoryNumber;
+        return  playerInfo;
     }
 
     public PlayerInfo UpdateCompletedTutorial(int completedTutorialNumber)
     {
-        var playerInfos =  _playerInfoDatabase;
-        var currentPlayerInfo = playerInfos?.Last();
-        currentPlayerInfo!.CompletedTutorialScene = completedTutorialNumber;
-        return  currentPlayerInfo;
+        var playerInfo =  _museumRunningDataContainer.PlayerInfo;
+        playerInfo!.CompletedTutorialScene = completedTutorialNumber;
+        return  playerInfo;
     }
 }

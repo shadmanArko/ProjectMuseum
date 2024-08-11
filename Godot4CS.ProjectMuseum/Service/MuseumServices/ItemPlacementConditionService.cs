@@ -20,13 +20,19 @@ public partial class ItemPlacementConditionService: Node
     public  override async void _Ready()
     {
         base._Ready();
-        
+
+        InitializeData();
+    }
+
+    private void InitializeData()
+    {
         _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         _museumGameData = ServiceRegistry.Resolve<MuseumGameData>();
-
     }
+
     public List<ExhibitPlacementConditionData> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
     {
+        InitializeData();
         var listOfExhibitPlacementConditionData = new List<ExhibitPlacementConditionData>();
         var museumTiles = _museumRunningDataContainer.MuseumTiles;
         

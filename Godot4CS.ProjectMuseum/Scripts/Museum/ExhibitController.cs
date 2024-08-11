@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
@@ -27,7 +28,7 @@ public partial class ExhibitController : Node2D
     private MuseumRunningDataContainer _museumRunningDataContainer;
 
     [Export] private LoadingBarManager _loadingBarManager;
-    public override void _Ready()
+    public override async void _Ready()
     {
         _loadingBarManager.EmitSignal("IncreaseRegisteredTask");
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
@@ -41,7 +42,7 @@ public partial class ExhibitController : Node2D
         _httpRequestForGettingAllExhibits.RequestCompleted += HttpRequestForGettingAllExhibitsOnRequestCompleted;
         _httpRequestForGettingAllDisplayArtifacts.RequestCompleted += HttpRequestForGettingAllDisplayArtifactsOnRequestCompleted;
         // _httpRequestForGettingAllDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
-        
+        await Task.Delay(1000);
         _displayArtifacts = MuseumReferenceManager.Instance.DisplayArtifactServices.GetAllArtifacts();
         var result = MuseumReferenceManager.Instance.ExhibitServices.GetAllExhibits();
         AfterGettingAllExhibits(result);

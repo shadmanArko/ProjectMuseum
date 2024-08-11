@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -32,11 +33,12 @@ public partial class TutorialSystem : Node
         AddChild(_httpRequestForGettingTutorial);
         AddChild(_httpRequestForGettingPlayerInfo);
         AddChild(_httpRequestForCompletingTutorial);
-        _httpRequestForGettingTutorial.RequestCompleted += HttpRequestForGettingTutorialOnRequestCompleted;
-        _httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
-        _httpRequestForCompletingTutorial.RequestCompleted += HttpRequestForCompletingTutorialOnRequestCompleted;
+        // _httpRequestForGettingTutorial.RequestCompleted += HttpRequestForGettingTutorialOnRequestCompleted;
+        // _httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
+        // _httpRequestForCompletingTutorial.RequestCompleted += HttpRequestForCompletingTutorialOnRequestCompleted;
         MuseumActions.OnPlayerPerformedTutorialRequiringAction += OnPlayerPerformedTutorialRequiringAction;
-        _httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+        // _httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+        _playerInfo = MuseumReferenceManager.Instance.PlayerInfoServices.GetLastPlayerInfo();
         
         MuseumActions.PlayTutorial += LoadTutorial;
     }
@@ -67,26 +69,33 @@ public partial class TutorialSystem : Node
         
         //GD.Print("Show tutorial called");
         _currentTutorialNumber = number;
-        _httpRequestForGettingTutorial.Request(ApiAddress.StoryApiPath + $"GetTutorialScene/{number}");
+        // _httpRequestForGettingTutorial.Request(ApiAddress.StoryApiPath + $"GetTutorialScene/{number}");
+        _currentTutorial = MuseumReferenceManager.Instance.StoryAndTutorialServices.GetTutorialByNumber(number);
+        AfterGettingTutorial();
     }
     private void HttpRequestForGettingTutorialOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         //GD.Print(jsonStr);
         _currentTutorial = JsonSerializer.Deserialize<Tutorial>(jsonStr);
+        AfterGettingTutorial();
+        
+        
+    }
+
+    private void AfterGettingTutorial()
+    {
         if (_playerInfo.Tutorial)
         {
             //GD.Print("Show tutorial invoked");
             _currentTutorialSceneNumber = 0;
             _currentTutorialCompleted = false;
-            ShowNextTutorialScene();    
+            ShowNextTutorialScene();
         }
         else
         {
             MuseumActions.PlayStoryScene?.Invoke(_currentTutorial.StoryNumber);
         }
-        
-        
     }
 
     private void ShowNextTutorialScene()
@@ -102,8 +111,9 @@ public partial class TutorialSystem : Node
         else
         {
             _currentTutorialCompleted = true;
-            _httpRequestForCompletingTutorial.Request(ApiAddress.PlayerApiPath +
-                                                      $"UpdateCompletedTutorial/{_currentTutorialNumber}");
+            // _httpRequestForCompletingTutorial.Request(ApiAddress.PlayerApiPath +
+            //                                           $"UpdateCompletedTutorial/{_currentTutorialNumber}");
+            MuseumReferenceManager.Instance.PlayerInfoServices.UpdateCompletedTutorial(_currentTutorialNumber);
             MuseumActions.OnTutorialEnded?.Invoke();
             //GD.Print($"current tutorial No {_currentTutorialSceneEntry.EntryNo}");
             if (_currentTutorial.ContinuesStory)

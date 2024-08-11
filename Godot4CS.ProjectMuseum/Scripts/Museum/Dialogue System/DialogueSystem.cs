@@ -6,8 +6,10 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 public partial class DialogueSystem : Control
@@ -33,12 +35,10 @@ public partial class DialogueSystem : Control
 	private string _playerName;
 	private Vector2 _slideOutPosition;
 	private Vector2 _slideInPosition;
-	private MuseumRunningDataContainer _runningDataContainer;
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
 		// GD.Print(fullDialogue);
-		_runningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		_cancellationTokenSource = new CancellationTokenSource();
 		_httpRequestForGettingStory = new HttpRequest();
 		_httpRequestForCompletingStory = new HttpRequest();
@@ -65,7 +65,6 @@ public partial class DialogueSystem : Control
 		//GD.Print(jsonStr);
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		_playerName = playerInfo.Name;
-		_runningDataContainer.PlayerInfo = playerInfo;
 		//GD.Print($"Story completion updated to {playerInfo.CompletedStoryScene}");
 	}
 
@@ -149,8 +148,9 @@ public partial class DialogueSystem : Control
 	private async void HandleSceneEnd()
 	{
 		_httpRequestForCompletingStory.CancelRequest();
-		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
-		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
+		// _httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
+		//                                        $"UpdateCompletedStory/{_currentStorySceneNumber}");
+		MuseumReferenceManager.Instance.PlayerInfoServices.UpdateCompletedStory(_currentStorySceneNumber);
 		await SlideOut();
 		
 		_cutsceneArt.Visible = false;
@@ -165,7 +165,12 @@ public partial class DialogueSystem : Control
 		}
 	}
 
-	
+	// public PlayerInfo UpdateCompletedStory(int completedStoryNumber)
+	// {
+	// 	var playerInfo =  SaveLoadService.Load().PlayerInfo;
+	// 	playerInfo!.CompletedStoryScene = completedStoryNumber;
+	// 	return  playerInfo;
+	// }
 
 	private void LoadAndSetCharacterPortrait()
 	{
@@ -211,8 +216,9 @@ public partial class DialogueSystem : Control
 	{
 		_currentStorySceneNumber = storySceneNumber;
 		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{storySceneNumber}";
-		_httpRequestForGettingStory.CancelRequest();
-        _httpRequestForGettingStory.Request(url);
+		// _httpRequestForGettingStory.CancelRequest();
+  //       _httpRequestForGettingStory.Request(url);
+        MuseumReferenceManager.Instance.StoryAndTutorialServices.GetByScene(storySceneNumber);
 	}
 
 	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)

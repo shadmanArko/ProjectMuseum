@@ -17,10 +17,15 @@ public partial class ExhibitServices: Node
     public override void _Ready()
     {
         base._Ready();
+        InitializeData();
+    }
+
+    private void InitializeData()
+    {
         var exhibitDatabseJson = File.ReadAllText(
             "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/exhibit.json");
         _exhibitDatabase = JsonSerializer.Deserialize<List<Exhibit>>(exhibitDatabseJson);
-        
+
         var exhibitVariationDatabseJson = File.ReadAllText(
             "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/exhibitVariations.json");
         _exhibitVariationDatabase = JsonSerializer.Deserialize<List<ExhibitVariation>>(exhibitVariationDatabseJson);
@@ -75,7 +80,7 @@ public partial class ExhibitServices: Node
 
     public List<Exhibit> GetAllExhibits()
     {
-        // _Ready();
+        InitializeData();
         var exhibits = _exhibitDatabase;
         return exhibits;
     }

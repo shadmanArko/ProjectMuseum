@@ -5,6 +5,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
@@ -38,7 +39,7 @@ public partial class TutorialSystem : Node
         // _httpRequestForCompletingTutorial.RequestCompleted += HttpRequestForCompletingTutorialOnRequestCompleted;
         MuseumActions.OnPlayerPerformedTutorialRequiringAction += OnPlayerPerformedTutorialRequiringAction;
         // _httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
-        _playerInfo = MuseumReferenceManager.Instance.PlayerInfoServices.GetLastPlayerInfo();
+        _playerInfo = SaveLoadService.Load().PlayerInfo;
         
         MuseumActions.PlayTutorial += LoadTutorial;
     }
@@ -48,6 +49,7 @@ public partial class TutorialSystem : Node
         string jsonStr = Encoding.UTF8.GetString(body);
         //GD.Print(jsonStr);
         var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+        
         //GD.Print($"tutorial completion updated to {playerInfo.CompletedTutorialScene}");
     }
 
@@ -78,7 +80,7 @@ public partial class TutorialSystem : Node
         string jsonStr = Encoding.UTF8.GetString(body);
         //GD.Print(jsonStr);
         _currentTutorial = JsonSerializer.Deserialize<Tutorial>(jsonStr);
-        AfterGettingTutorial();
+        // AfterGettingTutorial();
         
         
     }
@@ -110,11 +112,7 @@ public partial class TutorialSystem : Node
         }
         else
         {
-            _currentTutorialCompleted = true;
-            // _httpRequestForCompletingTutorial.Request(ApiAddress.PlayerApiPath +
-            //                                           $"UpdateCompletedTutorial/{_currentTutorialNumber}");
-            MuseumReferenceManager.Instance.PlayerInfoServices.UpdateCompletedTutorial(_currentTutorialNumber);
-            MuseumActions.OnTutorialEnded?.Invoke();
+            CompleteTutorial();
             //GD.Print($"current tutorial No {_currentTutorialSceneEntry.EntryNo}");
             if (_currentTutorial.ContinuesStory)
             {
@@ -122,6 +120,18 @@ public partial class TutorialSystem : Node
             }
         }
         
+    }
+
+    private void CompleteTutorial()
+    {
+        _currentTutorialCompleted = true;
+        // _httpRequestForCompletingTutorial.Request(ApiAddress.PlayerApiPath +
+        //                                           $"UpdateCompletedTutorial/{_currentTutorialNumber}");
+        // MuseumReferenceManager.Instance.PlayerInfoServices.UpdateCompletedTutorial(_currentTutorialNumber);
+        _playerInfo.CompletedTutorialScene = _currentTutorialNumber;
+        MuseumActions.OnPlayerInfoUpdated?.Invoke(_playerInfo);
+
+        MuseumActions.OnTutorialEnded?.Invoke();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

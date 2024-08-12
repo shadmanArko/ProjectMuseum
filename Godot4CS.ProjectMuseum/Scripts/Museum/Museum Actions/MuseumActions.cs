@@ -88,6 +88,7 @@ public partial class MuseumActions : Node
     public static Action<string> StorySceneEntryStarted;
     public static Action<string> TutorialSceneEntryEnded;
     public static Action<int> PlayTutorial;
+    public static Action<PlayerInfo> OnPlayerInfoUpdated;
     public static Action<string> OnTutorialUpdated;
     public static Action OnTutorialEnded;
     public static Action<string> OnPlayerPerformedTutorialRequiringAction;

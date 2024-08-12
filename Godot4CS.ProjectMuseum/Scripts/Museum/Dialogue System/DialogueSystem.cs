@@ -35,6 +35,7 @@ public partial class DialogueSystem : Control
 	private string _playerName;
 	private Vector2 _slideOutPosition;
 	private Vector2 _slideInPosition;
+	private PlayerInfo _playerInfo;
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
@@ -47,6 +48,7 @@ public partial class DialogueSystem : Control
 		_httpRequestForGettingStory.RequestCompleted += HttpRequestForGettingStoryOnRequestCompleted;
 		_httpRequestForCompletingStory.RequestCompleted += HttpRequestForCompletingStoryOnRequestCompleted;
 		MuseumActions.PlayStoryScene += LoadStoryScene;
+		MuseumActions.OnPlayerInfoUpdated += OnPlayerInfoUpdated;
 		_nextDialogueButton.Pressed += NextDialogueButtonOnPressed;
 		// SlideIn();
 		//
@@ -57,6 +59,13 @@ public partial class DialogueSystem : Control
 		// SlideIn();
 		_slideInPosition = new Vector2(_dialogueBox.Position.X, _dialogueBox.Position.Y - _dialogueBox.Size.Y);
 		_slideOutPosition = _dialogueBox.Position;
+		_playerInfo = SaveLoadService.Load().PlayerInfo;
+		_playerName = _playerInfo.Name;
+	}
+
+	private void OnPlayerInfoUpdated(PlayerInfo obj)
+	{
+		_playerInfo = obj;
 	}
 
 	private void HttpRequestForCompletingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -150,7 +159,9 @@ public partial class DialogueSystem : Control
 		_httpRequestForCompletingStory.CancelRequest();
 		// _httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
 		//                                        $"UpdateCompletedStory/{_currentStorySceneNumber}");
-		MuseumReferenceManager.Instance.PlayerInfoServices.UpdateCompletedStory(_currentStorySceneNumber);
+		// MuseumReferenceManager.Instance.PlayerInfoServices.UpdateCompletedStory(_currentStorySceneNumber);
+		_playerInfo.CompletedStoryScene = _currentStorySceneNumber;
+		MuseumActions.OnPlayerInfoUpdated?.Invoke(_playerInfo);
 		await SlideOut();
 		
 		_cutsceneArt.Visible = false;
@@ -218,7 +229,8 @@ public partial class DialogueSystem : Control
 		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{storySceneNumber}";
 		// _httpRequestForGettingStory.CancelRequest();
   //       _httpRequestForGettingStory.Request(url);
-        MuseumReferenceManager.Instance.StoryAndTutorialServices.GetByScene(storySceneNumber);
+        _storyScene = MuseumReferenceManager.Instance.StoryAndTutorialServices.GetByScene(storySceneNumber);
+        AfterGettingStory();
 	}
 
 	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -226,9 +238,14 @@ public partial class DialogueSystem : Control
 		 string jsonStr = Encoding.UTF8.GetString(body);
 		 //GD.Print(jsonStr);
 		 _storyScene = JsonSerializer.Deserialize<StoryScene>(jsonStr);
-		 _storyEntryCount = 0;
-		 SlideIn();
-		 ShowNextStoryEntry();
+		 AfterGettingStory();
+	}
+
+	private void AfterGettingStory()
+	{
+		_storyEntryCount = 0;
+		SlideIn();
+		ShowNextStoryEntry();
 	}
 
 	private async void SlideIn()
@@ -381,6 +398,7 @@ public partial class DialogueSystem : Control
 		base._ExitTree();
 		_nextDialogueButton.Pressed -= NextDialogueButtonOnPressed;		
 		MuseumActions.PlayStoryScene -= LoadStoryScene;
+		MuseumActions.OnPlayerInfoUpdated -= OnPlayerInfoUpdated;
 		_httpRequestForGettingStory.RequestCompleted -= HttpRequestForGettingStoryOnRequestCompleted;
 	}
 }

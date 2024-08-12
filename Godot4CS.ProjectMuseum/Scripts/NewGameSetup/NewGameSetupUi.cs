@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 public partial class NewGameSetupUi : Control
@@ -54,13 +57,29 @@ public partial class NewGameSetupUi : Control
 		playerInfo.Tutorial = CheckButton.ButtonPressed;
 		playerInfo.WakeUpHour = 7;
 		playerInfo.ForceSleepHour = 00;
-		MainMenuReferanceManager.Instance.PlayerInfoServices.LoadDataForNewGame(playerInfo);
+		LoadDataForNewGame(playerInfo);
 		LoadMuseumScene();
 		// MainMenuReferanceManager.Instance.PlayerInfoServices.
 		GD.Print("new game set Up request done");
 		
 	}
+	public void LoadDataForNewGame(PlayerInfo playerInfo)
+	{
+		SaveData saveData = new SaveData();
+		var exhibitsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/exhibit.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var museumTileJson = Godot.FileAccess.Open("res://Game Data/Starting Data/museumTile.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var displayArtifactsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/displayArtifact.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var artifactsStorageJson = Godot.FileAccess.Open("res://Game Data/Starting Data/artifactStorage.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 
+        
+		saveData.Exhibits = JsonSerializer.Deserialize<List<Exhibit>>(exhibitsJson);
+		saveData.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(museumTileJson);
+		saveData.DisplayArtifacts = JsonSerializer.Deserialize<DisplayArtifacts>(displayArtifactsJson);
+		saveData.ArtifactStorage = JsonSerializer.Deserialize<ArtifactStorage>(artifactsStorageJson);
+		saveData.PlayerInfo = playerInfo;
+        
+		SaveLoadService.Save(saveData);
+	}
 	private void SavePlayerInfo()
 	{
 		GD.Print($"Name: {LineEdit.Text}, Gender: {OptionButton.Text}, Tutorial: {CheckButton.ButtonPressed}");

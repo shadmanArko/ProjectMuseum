@@ -14,7 +14,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
 
 public partial class MineTutorial : Node
 {
-	public PlayerInfo PlayerInfo;
+	
 	private PlayerControllerVariables _playerControllerVariables;
 	[Export] private TutorialSystem _tutorialSystem;
 
@@ -50,17 +50,15 @@ public partial class MineTutorial : Node
 	private void GetPlayerInfo()
 	{
 		// _getPlayerInfoHttpRequest.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
-		PlayerInfo = SaveLoadService.Load().PlayerInfo;
-		if(PlayerInfo.CompletedStoryScene == 10)
+		if(_playerControllerVariables.PlayerInfo.CompletedStoryScene == 10)
 			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
 	private void OnGetPlayerInfoHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		PlayerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		
-		if(PlayerInfo.CompletedStoryScene == 10)
+		if(_playerControllerVariables.PlayerInfo.CompletedStoryScene == 10)
 			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
@@ -69,7 +67,7 @@ public partial class MineTutorial : Node
 	private void LoadPlayerInfo()
 	{
 		var saveData = SaveLoadService.Load();
-		PlayerInfo = saveData.PlayerInfo;
+		_playerControllerVariables.PlayerInfo = saveData.PlayerInfo;
 	}
 
 	private void SubscribeToActions()
@@ -89,8 +87,8 @@ public partial class MineTutorial : Node
 		if (_isMineTutorialDonePlaying) return false;
 		
 		// GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
-		if (PlayerInfo == null) return false;
-		return PlayerInfo.CompletedTutorialScene == 5;
+		if (_playerControllerVariables.PlayerInfo == null) return false;
+		return _playerControllerVariables.PlayerInfo.CompletedTutorialScene == 5;
 	}
 	
 	public async Task PlayMineTutorials()

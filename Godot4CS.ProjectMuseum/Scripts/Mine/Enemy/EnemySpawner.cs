@@ -9,10 +9,13 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
 public partial class EnemySpawner : Node2D
 {
+    private Random _random;
     private List<Enemy> _enemies;
+    private List<FlyingEnemy> _flyingEnemies;
     
     [Export] private Node _parentNode;
     [Export] private string _slimePrefabPath;
+    [Export] private string _batPrefabPath;
 
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
@@ -41,7 +44,9 @@ public partial class EnemySpawner : Node2D
     public override void _Ready()
     {
         InitializeDiInstallers();
+        _random = new Random();
         _enemies = new List<Enemy>();
+        _flyingEnemies = new List<FlyingEnemy>();
         _cellBreakTargetCount = new List<int> { 18, 36, 54, 72, 90, 108 };
         _enemySpawnCount = new List<int> { 1,1,1,1,1,1};
         SetProcess(false);
@@ -83,13 +88,34 @@ public partial class EnemySpawner : Node2D
 
         if (_mineGenerationVariables.BrokenCells >= _cellBreakTargetCount[_counter])
         {
-            SpawnEnemy();
+            var rand = _random.Next(0, 2);
+            if(rand % 2 == 0) 
+                SpawnGroundEnemy();
+            else
+                SpawnFlyingEnemy();
             GD.Print($"SPAWNING SLIME OF COUNTER {_counter} AFTER BREAKING {_mineGenerationVariables.BrokenCells} CELLS (TARGET:{_cellBreakTargetCount[_counter]})");
             _enemySpawnCount[_counter]--;
         }
     }
 
-    private void SpawnEnemy()
+    private void SpawnFlyingEnemy()
+    {
+        var scene = ResourceLoader.Load<PackedScene>(_batPrefabPath).Instantiate();
+        _parentNode.AddChild(scene);
+        var enemy = scene as FlyingEnemy;
+        if (enemy == null)
+        {
+            GD.PrintErr("Enemy is null");
+            return;
+        }
+
+        GD.Print("Spawning Enemy");
+        enemy.Position = new Vector2(480, -60);
+        enemy.OnSpawn?.Invoke();
+        _canSpawn = false;
+    }
+
+    private void SpawnGroundEnemy()
     {
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
         _parentNode.AddChild(scene);

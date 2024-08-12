@@ -31,6 +31,7 @@ public partial class FlyingEnemy : CharacterBody2D, IDamageable
     public Action OnAttackChanged;
     public Action OnCanMoveChanged;
     public Action OnTakeDamage;
+    public Action OnEnteredIntoMine;
 
     #endregion
 

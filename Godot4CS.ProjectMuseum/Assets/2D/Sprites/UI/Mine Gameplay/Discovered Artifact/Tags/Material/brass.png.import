@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqxdtrtm6mocc"
-path="res://.godot/imported/brass.png-387fdbcf60e98aefd7e461027de1967a.ctex"
+path="res://.godot/imported/Brass.png-d753fbd786ea0fbfa6ce4540f06cc81f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/brass.png"
-dest_files=["res://.godot/imported/brass.png-387fdbcf60e98aefd7e461027de1967a.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Brass.png"
+dest_files=["res://.godot/imported/Brass.png-d753fbd786ea0fbfa6ce4540f06cc81f.ctex"]
 
 [params]
 

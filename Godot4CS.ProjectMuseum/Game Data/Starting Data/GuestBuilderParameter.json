@@ -1,0 +1,155 @@
+[
+  {
+
+    "ArtifactEraTags": [
+      "Ancient",
+      "Classical",
+      "Medieval",
+      "Renaissance",
+      "Industrial",
+      "Modern"
+    ],
+    "ArtifactRegionTags": [
+      "India",
+      "America",
+      "England",
+      "China",
+      "Egypt"
+    ],
+    "ArtifactObjectTags": [
+      "Spear",
+      "Dagger",
+      "Sword",
+      "Shield",
+      "Chestplate",
+      "Helmet",
+      "Vambraces",
+      "Boots",
+      "Rags",
+      "Leggings",
+      "Handgun",
+      "Rifle",
+      "Horse Armor",
+      "Musket",
+      "Vase",
+      "Bowl",
+      "Pitcher",
+      "Coin",
+      "Toy",
+      "Dice",
+      "Arrowhead",
+      "Axe",
+      "Hammer",
+      "Plough",
+      "Sickle",
+      "Scythe",
+      "Handaxe",
+      "Handaxe",
+      "Crown",
+      "Arm Ring",
+      "Tiara",
+      "Ring",
+      "Necklace",
+      "Earrings",
+      "Scale Weights",
+      "Clay Tablets",
+      "Boat",
+      "Toy Sword",
+      "Goblet",
+      "Club",
+      "Carpet",
+      "Robe",
+      "Belt Buckle",
+      "Plate",
+      "Wagon",
+      "Sandals",
+      "Button",
+      "Pipe",
+      "Handfan",
+      "Musical Instrument",
+      "Wagon",
+      "Tunic"
+    ],
+    "ArtifactMaterialTags": [
+      "Wood",
+      "Bone",
+      "Stone",
+      "Copper",
+      "Bronze",
+      "Iron",
+      "Gold",
+      "Silver",
+      "Porcelain",
+      "Clay",
+      "Brass",
+      "Leather",
+      "Steel",
+      "Ivory"
+    ],
+    "NumberOfInterestedTags": {
+      "Min": 1,
+      "Max": 3
+    },
+    "GuestMoneyRange": {
+      "Min": 10.0,
+      "Max": 1000.0
+    },
+    "HungerLevelRange": {
+      "Min": -50.0,
+      "Max": 80.0
+    },
+    "ThirstLevelRange": {
+      "Min": -50.0,
+      "Max": 80.0
+    },
+    "ChargeLevelRange": {
+      "Min": -50.0,
+      "Max": 80.0
+    },
+    "BladderLevelRange": {
+      "Min": -50.0,
+      "Max": 80.0
+    },
+    "EnergyLevelRange": {
+      "Min": -50.0,
+      "Max": 80.0
+    },
+    "InterestInArtifactLevelRange": {
+      "Min": -50.0,
+      "Max": 80.0
+    },
+    "EntertainmentLevelRange": {
+      "Min": -50.0,
+      "Max": 80.0
+    },
+    "HungerDecayRange": {
+      "Min": -10.0,
+      "Max": -2.0
+    },
+    "ThirstDecayRange": {
+      "Min": -10.0,
+      "Max": -2.0
+    },
+    "ChargeDecayRange": {
+      "Min": -10.0,
+      "Max": -2.0
+    },
+    "BladderDecayRange": {
+      "Min": -10.0,
+      "Max": -2.0
+    },
+    "EnergyDecayRange": {
+      "Min": -10.0,
+      "Max": -2.0
+    },
+    "InterestInArtifactDecayRange": {
+      "Min": -10.0,
+      "Max": -2.0
+    },
+    "EntertainmentDecayRange": {
+      "Min": -10.0,
+      "Max": -2.0
+    }
+  }
+
+]

@@ -1,6 +1,7 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using ProjectMuseum.Models;
 
 public partial class NewGameSetupUi : Control
 {
@@ -44,8 +45,17 @@ public partial class NewGameSetupUi : Control
 		}
 		LoadingPanel.SetProcess(true);
 		LoadingPanel.Visible = true;
-		_httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.PlayerApiPath +
-		                                                              "LoadDataForNewGame");
+		// _httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.PlayerApiPath +
+		//                                                               "LoadDataForNewGame");
+		var playerInfo = new PlayerInfo();
+		playerInfo.Id = "string";
+		playerInfo.Name = LineEdit.Text;
+		playerInfo.Gender = OptionButton.Text;
+		playerInfo.Tutorial = CheckButton.ButtonPressed;
+		playerInfo.WakeUpHour = 7;
+		playerInfo.ForceSleepHour = 00;
+		MainMenuReferanceManager.Instance.PlayerInfoServices.LoadDataForNewGame(playerInfo);
+		LoadMuseumScene();
 		// MainMenuReferanceManager.Instance.PlayerInfoServices.
 		GD.Print("new game set Up request done");
 		
@@ -84,9 +94,15 @@ public partial class NewGameSetupUi : Control
 
 	void OnNewGameSetupRequestForNewGameSetUpDataComplete(long result, long responsecode, string[] headers, byte[] body)
 	{
+		LoadMuseumScene();
+	}
+
+	private void LoadMuseumScene()
+	{
 		GD.Print("wil change scene now");
 		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
 	}
+
 	private void OnClinkStartNewGameButton()
 	{
 		Visible = true;

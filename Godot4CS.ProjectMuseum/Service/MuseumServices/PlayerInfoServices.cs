@@ -15,9 +15,9 @@ public partial class PlayerInfoServices: Node
     private MuseumRunningDataContainer _museumRunningDataContainer;
     public override void _Ready()
     {
-        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
-        
-        _museumRunningDataContainer.PlayerInfo = SaveLoadService.Load().PlayerInfo;
+        // _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+        //
+        // _museumRunningDataContainer.PlayerInfo = SaveLoadService.Load().PlayerInfo;
         base._Ready();
     }
 
@@ -40,6 +40,24 @@ public partial class PlayerInfoServices: Node
     public PlayerInfo GetLastPlayerInfo()
     {
         return _museumRunningDataContainer.PlayerInfo;
+    }
+
+    public void LoadDataForNewGame(PlayerInfo playerInfo)
+    {
+        SaveData saveData = new SaveData();
+        var exhibitsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/exhibit.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+        var museumTileJson = Godot.FileAccess.Open("res://Game Data/Starting Data/museumTile.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+        var displayArtifactsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/displayArtifact.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+        var artifactsStorageJson = Godot.FileAccess.Open("res://Game Data/Starting Data/artifactStorage.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+
+        
+        saveData.Exhibits = JsonSerializer.Deserialize<List<Exhibit>>(exhibitsJson);
+        saveData.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(museumTileJson);
+        saveData.DisplayArtifacts = JsonSerializer.Deserialize<DisplayArtifacts>(displayArtifactsJson);
+        saveData.ArtifactStorage = JsonSerializer.Deserialize<ArtifactStorage>(artifactsStorageJson);
+        saveData.PlayerInfo = playerInfo;
+        
+        SaveLoadService.Save(saveData);
     }
 
     public PlayerInfo UpdateCompletedStory(int completedStoryNumber)

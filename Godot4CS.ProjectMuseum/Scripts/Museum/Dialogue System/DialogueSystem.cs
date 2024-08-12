@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -229,9 +230,18 @@ public partial class DialogueSystem : Control
 		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{storySceneNumber}";
 		// _httpRequestForGettingStory.CancelRequest();
   //       _httpRequestForGettingStory.Request(url);
-        _storyScene = MuseumReferenceManager.Instance.StoryAndTutorialServices.GetByScene(storySceneNumber);
+        _storyScene = GetByScene(storySceneNumber);
         AfterGettingStory();
 	}
+	
+	private StoryScene GetByScene(int sceneNo)
+	{
+		var storyScenesJson = Godot.FileAccess.Open("res://Game Data/StoryData/StoryScene.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var storyScenes = JsonSerializer.Deserialize<List<StoryScene>>(storyScenesJson);
+		var storyScene = storyScenes!.FirstOrDefault(story => story.SceneNo == sceneNo);
+		return storyScene;
+	}
+
 
 	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{

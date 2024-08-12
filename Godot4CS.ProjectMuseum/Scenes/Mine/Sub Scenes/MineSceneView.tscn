@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cf5v8nqef7svy"]
+[gd_scene load_steps=20 format=3 uid="uid://cf5v8nqef7svy"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineGenerationController.cs" id="1_e57ja"]
 [ext_resource type="PackedScene" uid="uid://ckxklef31mow4" path="res://Scenes/Mine/Sub Scenes/MineBackground.tscn" id="2_xr05r"]
 [ext_resource type="PackedScene" uid="uid://cptuilp87m4w0" path="res://Scenes/Mine/Sub Scenes/MineTileMap.tscn" id="3_01lxc"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineGenerationView.cs" id="4_lljfn"]
 [ext_resource type="PackedScene" uid="uid://7b6fxueisjuh" path="res://Scenes/Mine/Sub Scenes/UISaving.tscn" id="5_ip856"]
-[ext_resource type="PackedScene" uid="uid://b5t3adqxgspdo" path="res://Scenes/Mine/Sub Scenes/Enemies/Bat.tscn" id="5_s1bkn"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineEntranceController.cs" id="6_arrba"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineEntranceBlocker.cs" id="6_bkqej"]
 [ext_resource type="Script" path="res://Scripts/Mine/Misc/GradientSettings/MineGradientController.cs" id="7_75n3q"]
@@ -78,10 +77,6 @@ script = ExtResource("4_lljfn")
 TileMap = NodePath(".")
 TileSourceId = 0
 TileCrackSourceId = 1
-
-[node name="Bat" parent="Mine" node_paths=PackedStringArray("HealthBar", "AnimPlayer") instance=ExtResource("5_s1bkn")]
-HealthBar = NodePath("Health Bar")
-AnimPlayer = NodePath("AnimationPlayer")
 
 [node name="Mine Entrance" type="Node2D" parent="." node_paths=PackedStringArray("_entranceBlockerCollisionShape")]
 position = Vector2(491, -4)

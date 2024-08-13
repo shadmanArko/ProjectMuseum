@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.DTOs;
@@ -56,10 +57,23 @@ public partial class ExhibitEditorUi : Control
 		_glassCheckButton.Pressed += GlassCheckButtonOnPressed;
 		_DeleteExhibitButton.Pressed += DeleteExhibitButtonOnPressed;
 		_moveExhibitButton.Pressed += MoveExhibitButtonOnPressed;
-		_httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
-		_httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
+		GetRawDatas();
 		await Task.Delay(1000);
 		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+	}
+
+	private void GetRawDatas()
+	{
+		var rawArtifactDescriptiveJson = Godot.FileAccess.Open("res://Game Data/RawArtifactData/RawArtifactDescriptiveData/RawArtifactDescriptiveDataEnglish.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		_rawArtifactDescriptiveDatas = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(rawArtifactDescriptiveJson);
+		MuseumActions.OnRawArtifactDescriptiveDataLoaded?.Invoke(_rawArtifactDescriptiveDatas);
+		
+		var rawArtifactFunctionalJson = Godot.FileAccess.Open("res://Game Data/RawArtifactData/RawArtifactFunctionalData/RawArtifactFunctionalData.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		_rawArtifactFunctionalDatas = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(rawArtifactFunctionalJson);
+		MuseumActions.OnRawArtifactFunctionalDataLoaded?.Invoke(_rawArtifactFunctionalDatas);
+		
+		// _httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
+		// _httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
 	}
 
 	private void MoveExhibitButtonOnPressed()
@@ -111,32 +125,43 @@ public partial class ExhibitEditorUi : Control
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
+		AfterGettingDisplayArtifacts(artifacts);
+	}
+
+	private void AfterGettingDisplayArtifacts(List<Artifact> artifacts)
+	{
 		foreach (var artifact in artifacts)
 		{
 			if (artifact == null || _selectedExhibit == null) continue;
-			
+
 			if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot1)
 			{
 				var instance = _draggable.Instantiate();
 				_dropTargetsParent.GetChildren()[0].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot2)
+				instance.GetNode<Draggable>(".")
+					.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			}
+			else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot2)
 			{
 				var instance = _draggable.Instantiate();
 				_dropTargetsParent.GetChildren()[1].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot3)
+				instance.GetNode<Draggable>(".")
+					.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			}
+			else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot3)
 			{
 				var instance = _draggable.Instantiate();
 				_dropTargetsParent.GetChildren()[2].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-			}else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot4)
+				instance.GetNode<Draggable>(".")
+					.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			}
+			else if (artifact.Id == _selectedExhibit.ExhibitArtifactSlot4)
 			{
 				var instance = _draggable.Instantiate();
 				_dropTargetsParent.GetChildren()[3].AddChild(instance);
-				instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+				instance.GetNode<Draggable>(".")
+					.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 			}
-			
 		}
 	}
 
@@ -150,7 +175,9 @@ public partial class ExhibitEditorUi : Control
 		_selectedExhibit = exhibit;
 		_httpRequestForGettingExhibitsInStore.CancelRequest();
 		_httpRequestForGettingExhibitsInDisplay.CancelRequest();
-		_httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
+		// _httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
+		var artifactsInStore = MuseumReferenceManager.Instance.ArtifactStoreServices.GetAllArtifacts();
+		AfterGettingAftifactsInStore(artifactsInStore);
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
 		_glassCheckButton.ButtonPressed = _selectedItem.IsGlassEnabled();
@@ -175,19 +202,27 @@ public partial class ExhibitEditorUi : Control
 	}
 	private void HttpRequestForGettingExhibitsInStoreOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
-		DeleteChild(_draggablesParent);
+		
 		
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
+		AfterGettingAftifactsInStore(artifacts);
+	}
+
+	private void AfterGettingAftifactsInStore(List<Artifact> artifacts)
+	{
+		DeleteChild(_draggablesParent);
 		foreach (var artifact in artifacts)
 		{
 			var instance = _draggable.Instantiate();
 			_draggablesParent.AddChild(instance);
-			instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			instance.GetNode<Draggable>(".")
+				.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 		}
 
 		_httpRequestForGettingExhibitsInDisplay.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
-
+		var displayArtifacts = MuseumReferenceManager.Instance.DisplayArtifactServices.GetAllArtifacts();
+		AfterGettingDisplayArtifacts(displayArtifacts);
 	}
 
 	private void DeleteChild(Control node)

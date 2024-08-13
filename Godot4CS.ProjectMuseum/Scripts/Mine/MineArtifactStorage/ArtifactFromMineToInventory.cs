@@ -5,7 +5,7 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.Objects;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 
-namespace Godot4CS.ProjectMuseum.Scripts.Mine.ArtifactStorage;
+namespace Godot4CS.ProjectMuseum.Scripts.Mine.MineArtifactStorage;
 
 public partial class ArtifactFromMineToInventory : Node2D
 {

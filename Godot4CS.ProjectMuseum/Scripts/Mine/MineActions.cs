@@ -6,6 +6,12 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineActions : Node
 {
+	#region Database
+
+	public static Action OnDatabaseLoad;
+
+	#endregion
+	
 	#region Play Pause
 
 	public static Action OnGamePaused;

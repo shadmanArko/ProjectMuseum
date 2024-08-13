@@ -1,8 +1,9 @@
-[gd_scene load_steps=44 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=45 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
 [ext_resource type="PackedScene" uid="uid://c4tsh6g1rbgdr" path="res://Scenes/Mine/Sub Scenes/ServiceScenes/ProceduralMineGeneratorService.tscn" id="2_i10yb"]
+[ext_resource type="PackedScene" uid="uid://e4o8gt1cwsdy" path="res://Scenes/Mine/LoadMineGameData/MineLoadData.tscn" id="2_nj1ds"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
 [ext_resource type="PackedScene" uid="uid://bqltyu2fgvmyp" path="res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn" id="3_ambmn"]
 [ext_resource type="PackedScene" uid="uid://bojefr3ulps6k" path="res://Scenes/Mine/Sub Scenes/Enemies/EnemySpawner.tscn" id="4_xj3qh"]
@@ -49,6 +50,8 @@ process_mode = 1
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rq1hl")
+
+[node name="MineLoadData" parent="." instance=ExtResource("2_nj1ds")]
 
 [node name="ProceduralMineGenerator" parent="." instance=ExtResource("2_i10yb")]
 

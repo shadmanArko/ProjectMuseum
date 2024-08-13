@@ -1,16 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
-using Godot4CS.ProjectMuseum.Scripts.Mine;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.MIne;
-using ProjectMuseum.Models.MIne.Equipables;
 using Resource = ProjectMuseum.Models.MIne.Resource;
 
 namespace Godot4CS.ProjectMuseum.Service.MineServices;
@@ -19,13 +15,6 @@ public partial class ProceduralMineGenerationService : Node
 {
     private ProceduralMineGenerationDto _mineGenerationDto;
     private RawArtifactDTO _rawArtifactDto;
-    private MineCellCrackMaterial _mineCellCrackMaterial;
-    private WallPlaceableDTO _wallPlaceableDto;
-    private CellPlaceableDTO _cellPlaceableDto;
-    private EquipableDTO _equipableDto;
-    private ConsumableDTO _consumableDto;
-    
-    private InventoryDTO _inventoryDto;
 
     #region Variables
 
@@ -34,56 +23,18 @@ public partial class ProceduralMineGenerationService : Node
     private int _xSize;
     private int _ySize;
     private int _cellSize;
-
-    private ProceduralMineGenerationData _proceduralMineGenerationDatabase;
-    private List<RawArtifactDescriptive> _rawArtifactDescriptiveDatabase;
-    private List<RawArtifactFunctional> _rawArtifactFunctionalDatabase;
     
-    private List<SpecialBackdropPngInformation> _specialBackdropsDatabase;
-    private List<ArtifactCondition> _artifactConditionsDatabase;
-    private List<SiteArtifactChanceData> _siteArtifactChanceDatabase;
-    private List<CellCrackMaterial> _cellCrackMaterialsDatabase;
-    private List<ArtifactRarity> _artifactRarityDatabase;
-    
-    private List<WallPlaceable> _wallPlaceableDatabase;
-    private List<CellPlaceable> _cellPlaceableDatabase;
-    
-    private List<EquipableMelee> _equipableMeleeDatabase;
-    private List<EquipablePickaxe> _equipablePickaxeDatabase;
-    private List<EquipableRange> _equipableRangeDatabase;
-
-    private List<Consumable> _consumableDatabase;
-    
-    private ArtifactStorage _artifactStorageArtifactDatabase;
-    private Inventory _inventoryDatabase;
-    
-    private List<Resource> _resourceDatabase;
-
     #endregion
 
     public override void _EnterTree()
     {
-        InitializeDatabases();
+        InitializeDiReference();
+        _rand = new Random();
     }
 
     public override void _Ready()
     {
-        InitializeDiReference();
-        _rand = new Random();
         
-        _rawArtifactDto.RawArtifactDescriptives = _rawArtifactDescriptiveDatabase;
-        _rawArtifactDto.RawArtifactFunctionals = _rawArtifactFunctionalDatabase;
-        _mineCellCrackMaterial.CellCrackMaterials = _cellCrackMaterialsDatabase;
-        _mineGenerationDto.ProceduralMineGenerationData = _proceduralMineGenerationDatabase;
-        _inventoryDto.ArtifactStorage = _artifactStorageArtifactDatabase;
-        _wallPlaceableDto.WallPlaceables = _wallPlaceableDatabase;
-        _cellPlaceableDto.CellPlaceables = _cellPlaceableDatabase;
-        _equipableDto.MeleeEquipables = _equipableMeleeDatabase;
-        _equipableDto.PickaxeEquipables = _equipablePickaxeDatabase;
-        _equipableDto.RangedEquipables = _equipableRangeDatabase;
-        _inventoryDto.Inventory = _inventoryDatabase;
-        _consumableDto.Consumables = _consumableDatabase;
-        MineActions.OnInventoryInitialized?.Invoke();
     }
 
     #region Initializers
@@ -92,108 +43,13 @@ public partial class ProceduralMineGenerationService : Node
     {
         _mineGenerationDto = ServiceRegistry.Resolve<ProceduralMineGenerationDto>();
         _rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
-        _mineCellCrackMaterial = ServiceRegistry.Resolve<MineCellCrackMaterial>();
-        _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
-        _wallPlaceableDto = ServiceRegistry.Resolve<WallPlaceableDTO>();
-        _cellPlaceableDto = ServiceRegistry.Resolve<CellPlaceableDTO>();
-        _equipableDto = ServiceRegistry.Resolve<EquipableDTO>();
-        _consumableDto = ServiceRegistry.Resolve<ConsumableDTO>();
     }
-
-    private void InitializeDatabases()
-    {
-        var projectLocation = "D:/Godot Projects/ProjectMuseum/";   //"Y:/GodotProjects/Office Projects/ProjectMuseum/
-        _rawArtifactDto = new RawArtifactDTO();
-
-        var rawArtifactDescriptiveJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactDescriptiveData/RawArtifactDescriptiveDataEnglish.json");
-        _rawArtifactDescriptiveDatabase =
-            JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(rawArtifactDescriptiveJson);
-        
-        var rawArtifactFunctionalJson =
-            File.ReadAllText($"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/RawArtifactData/RawArtifactFunctionalData/RawArtifactFunctionalData.json");
-        _rawArtifactFunctionalDatabase =
-            JsonSerializer.Deserialize<List<RawArtifactFunctional>>(rawArtifactFunctionalJson);
-        
-        var backdropsJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/SpecialBackdropPngInformation.json");
-        _specialBackdropsDatabase = new List<SpecialBackdropPngInformation>();
-        _specialBackdropsDatabase = JsonSerializer.Deserialize<List<SpecialBackdropPngInformation>>(backdropsJson);
-
-        _mineGenerationDto = new ProceduralMineGenerationDto();
-        var mineGenDataJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
-        _proceduralMineGenerationDatabase = JsonSerializer.Deserialize<ProceduralMineGenerationData>(mineGenDataJson);
-        GD.Print($"procedural mine gen data max caves {_proceduralMineGenerationDatabase.NumberOfMaxCaves}");
-
-        var siteArtifactDataJson = File.ReadAllText(
-            $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/SiteArtifactChanceData/SiteArtifactChanceFunctionalData/SiteArtifactChanceFunctionalData.json");
-        _siteArtifactChanceDatabase = JsonSerializer.Deserialize < List<SiteArtifactChanceData>>(siteArtifactDataJson);
-        GD.Print($"site artifact list: {_siteArtifactChanceDatabase.Count}");
-
-        var artifactConditionJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactCondition.json");
-        _artifactConditionsDatabase = JsonSerializer.Deserialize<List<ArtifactCondition>>(artifactConditionJson);
-        GD.Print($"artifact conditions list: {_artifactConditionsDatabase.Count}");
-
-        var artifactRarityJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ArtifactScore/ArtifactRarity.json");
-        _artifactRarityDatabase = JsonSerializer.Deserialize<List<ArtifactRarity>>(artifactRarityJson);
-
-        var resourceJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Resource/Resource.json");
-        _resourceDatabase = JsonSerializer.Deserialize<List<Resource>>(resourceJson);
-
-        var cellCrackMaterialJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CellCrackMaterial/CellCrackMaterial.json");
-        _cellCrackMaterialsDatabase = JsonSerializer.Deserialize<List<CellCrackMaterial>>(cellCrackMaterialJson);
-        
-        var artifactStorageArtifactsJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
-        _artifactStorageArtifactDatabase =
-            JsonSerializer.Deserialize<ArtifactStorage>(artifactStorageArtifactsJson);
-
-        var inventoryJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/inventory.json");
-        _inventoryDatabase = JsonSerializer.Deserialize<Inventory>(inventoryJson);
-
-        var wallPlaceableJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/WallPlaceableData/WallPlaceable.json");
-        _wallPlaceableDatabase = JsonSerializer.Deserialize<List<WallPlaceable>>(wallPlaceableJson);
-
-        var cellPlaceableJson =
-            File.ReadAllText(
-                $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CellPlaceableData/CellPlaceable.json");
-        _cellPlaceableDatabase = JsonSerializer.Deserialize<List<CellPlaceable>>(cellPlaceableJson);
-
-        var equipableMeleeJson = File.ReadAllText($"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Equipable/EquipableMelee.json");
-        _equipableMeleeDatabase = JsonSerializer.Deserialize<List<EquipableMelee>>(equipableMeleeJson);
-        
-        var equipablePickaxeJson = File.ReadAllText($"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Equipable/EquipablePickaxe.json");
-        _equipablePickaxeDatabase = JsonSerializer.Deserialize<List<EquipablePickaxe>>(equipablePickaxeJson);
-        
-        var equipableRangedJson = File.ReadAllText($"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Equipable/EquipableRange.json");
-        _equipableRangeDatabase = JsonSerializer.Deserialize<List<EquipableRange>>(equipableRangedJson);
-
-        var consumableJson = File.ReadAllText($"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/Consumable/Consumable.json");
-        _consumableDatabase = JsonSerializer.Deserialize<List<Consumable>>(consumableJson);
-    }
-
+    
     public async Task<Mine> GenerateProceduralMine()
     {
-        _xSize = _proceduralMineGenerationDatabase.MineSizeX;
-        _ySize = _proceduralMineGenerationDatabase.MineSizeY;
-        _cellSize = _proceduralMineGenerationDatabase.CellSize;
+        _xSize = _mineGenerationDto.ProceduralMineGenerationData.MineSizeX;
+        _ySize = _mineGenerationDto.ProceduralMineGenerationData.MineSizeY;
+        _cellSize = _mineGenerationDto.ProceduralMineGenerationData.CellSize;
 
         var mine = await GenerateMineCellData(_xSize, _ySize, _cellSize);
         await GenerateBossCave(mine);
@@ -338,7 +194,7 @@ public partial class ProceduralMineGenerationService : Node
         var noOfStalactites = Math.Clamp(mineGenData.StalactiteCount, 0, bossCaveSizeX);    //TODO: change
         var noOfStalagmites = Math.Clamp(mineGenData.StalagmiteCount, 0, bossCaveSizeX);    //TODO: change
 
-        var cave = GenerateCave(xMin, xMax, yMin, yMax, noOfStalagmites, noOfStalactites, mine);
+        GenerateCave(xMin, xMax, yMin, yMax, noOfStalagmites, noOfStalactites, mine);
         GD.Print($"Boss Cave Location Top:{yMin}, Bottom:{yMax}, Left:{xMin}, Right:{xMax}");
         await Task.Delay(500);
     }
@@ -513,7 +369,7 @@ public partial class ProceduralMineGenerationService : Node
             }
         }
 
-        var listOfBackdrops = _specialBackdropsDatabase.ToList();
+        var listOfBackdrops = _mineGenerationDto.SpecialBackdropPngInformations.ToList();
         
         var listOfAddedBackdrops = new List<SpecialBackdropPngInformation>();
     
@@ -629,51 +485,51 @@ public partial class ProceduralMineGenerationService : Node
     {
         var rawArtifactFunctionals = _rawArtifactDto.RawArtifactFunctionals;
         
-        var siteArtifactChance = GetSiteArtifactChanceDataBySite(_proceduralMineGenerationDatabase.Site);
+        var siteArtifactChance = GetSiteArtifactChanceDataBySite(_mineGenerationDto.ProceduralMineGenerationData.Site);
         
         var regionalArtifacts = rawArtifactFunctionals!
-            .Where(rawArtifactFunctional => rawArtifactFunctional.Region == _proceduralMineGenerationDatabase.Region).ToList();
+            .Where(rawArtifactFunctional => rawArtifactFunctional.Region == _mineGenerationDto.ProceduralMineGenerationData.Region).ToList();
         
-        var weaponCount = (int) (siteArtifactChance.Weapon * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var armorCount = (int) (siteArtifactChance.Armor * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var clothingCount = (int) (siteArtifactChance.Clothing * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var economicCount = (int) (siteArtifactChance.Economic * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var vesselCount = (int) (siteArtifactChance.Vessel * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var leisureCount = (int) (siteArtifactChance.Leisure * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var toolCount = (int) (siteArtifactChance.Tool * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var ceremonialCount = (int) (siteArtifactChance.Ceremonial * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
-        var legendaryCount = (int) (siteArtifactChance.Legendary * _proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var weaponCount = (int) (siteArtifactChance.Weapon * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var armorCount = (int) (siteArtifactChance.Armor * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var clothingCount = (int) (siteArtifactChance.Clothing * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var economicCount = (int) (siteArtifactChance.Economic * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var vesselCount = (int) (siteArtifactChance.Vessel * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var leisureCount = (int) (siteArtifactChance.Leisure * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var toolCount = (int) (siteArtifactChance.Tool * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var ceremonialCount = (int) (siteArtifactChance.Ceremonial * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
+        var legendaryCount = (int) (siteArtifactChance.Legendary * _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
         
         var listOfRawArtifacts = new List<RawArtifactFunctional>();
     
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Weapon").ToList()
-            .OrderBy(x => _rand.Next()).Take(weaponCount));
+            .OrderBy(_ => _rand.Next()).Take(weaponCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Armor").ToList()
-            .OrderBy(x => _rand.Next()).Take(armorCount));
+            .OrderBy(_ => _rand.Next()).Take(armorCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Clothing").ToList()
-            .OrderBy(x => _rand.Next()).Take(clothingCount));
+            .OrderBy(_ => _rand.Next()).Take(clothingCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Economic").ToList()
-            .OrderBy(x => _rand.Next()).Take(economicCount));
+            .OrderBy(_ => _rand.Next()).Take(economicCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Vessel").ToList()
-            .OrderBy(x => _rand.Next()).Take(vesselCount));
+            .OrderBy(_ => _rand.Next()).Take(vesselCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Leisure").ToList()
-            .OrderBy(x => _rand.Next()).Take(leisureCount));
+            .OrderBy(_ => _rand.Next()).Take(leisureCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Tool").ToList()
-            .OrderBy(x => _rand.Next()).Take(toolCount));
+            .OrderBy(_ => _rand.Next()).Take(toolCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Ceremonial").ToList()
-            .OrderBy(x => _rand.Next()).Take(ceremonialCount));
+            .OrderBy(_ => _rand.Next()).Take(ceremonialCount));
         listOfRawArtifacts.AddRange(regionalArtifacts.Where(rawArtifact => rawArtifact.ObjectClass == "Legendary").ToList()
-            .OrderBy(x => _rand.Next()).Take(legendaryCount));
+            .OrderBy(_ => _rand.Next()).Take(legendaryCount));
         
         GD.Print($"raw artifact functional: {rawArtifactFunctionals.Count}");
         GD.Print($"list of raw artifacts: {listOfRawArtifacts.Count}");
     
         #region Adding duplicate artifacts in the list of artifacts
     
-        if (listOfRawArtifacts.Count < _proceduralMineGenerationDatabase.TotalNoOfArtifacts)
+        if (listOfRawArtifacts.Count < _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts)
         {
             var duplicateArtifacts = new List<RawArtifactFunctional>();
-            var duplicateCounter = _proceduralMineGenerationDatabase.TotalNoOfArtifacts - listOfRawArtifacts.Count;
+            var duplicateCounter = _mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts - listOfRawArtifacts.Count;
             
             for (var i = 0; i < duplicateCounter; i++)
             {
@@ -688,7 +544,7 @@ public partial class ProceduralMineGenerationService : Node
     
         #region Adding Condition and Rarity to the generated artifacts
     
-        var listOfArtifactRarityConditions = GetConditionRarityCombination(_proceduralMineGenerationDatabase.TotalNoOfArtifacts);
+        var listOfArtifactRarityConditions = GetConditionRarityCombination(_mineGenerationDto.ProceduralMineGenerationData.TotalNoOfArtifacts);
         var rarityConditionCounter = 0;
         var listOfArtifacts = new List<Artifact>();
         
@@ -720,7 +576,7 @@ public partial class ProceduralMineGenerationService : Node
     
         #region Tutorial Tiles
     
-        var midPoint = _proceduralMineGenerationDatabase.MineSizeX / 2;
+        var midPoint = _mineGenerationDto.ProceduralMineGenerationData.MineSizeX / 2;
         for (var i = midPoint -1; i < midPoint +1; i++)
         {
             for (var j = 1; j < 3; j++)
@@ -782,8 +638,8 @@ public partial class ProceduralMineGenerationService : Node
 
     private List<Tuple<ArtifactCondition, ArtifactRarity>> GetConditionRarityCombination(int artifactCount)
     {
-        var artifactConditions = _artifactConditionsDatabase;
-        var artifactRarities = _artifactRarityDatabase;
+        var artifactConditions = _mineGenerationDto.ArtifactConditions;
+        var artifactRarities = _mineGenerationDto.ArtifactRarities;
         var conditionsRarityList = new List<Tuple<ArtifactCondition, ArtifactRarity>>();
         
         GD.Print($"artifact conditions count {artifactConditions.Count}");
@@ -822,7 +678,7 @@ public partial class ProceduralMineGenerationService : Node
 
     private SiteArtifactChanceData GetSiteArtifactChanceDataBySite(string site)
     {
-        var siteChanceData = _siteArtifactChanceDatabase.FirstOrDefault(temp => temp.Site == site);
+        var siteChanceData = _mineGenerationDto.SiteArtifactChances.FirstOrDefault(temp => temp.Site == site);
         if (siteChanceData == null)
         {
             GD.PrintErr($"Fatal Error: Site does not match the database");
@@ -969,7 +825,7 @@ public partial class ProceduralMineGenerationService : Node
     
     private Resource AddResourceToMine(string variant, int posX, int posY, Mine mine)
     {
-        var resources = _resourceDatabase.ToList();
+        var resources = _mineGenerationDto.Resources.ToList();
         var resource = resources.FirstOrDefault(resource1 => resource1.Variant == variant);
         resource!.Id = Guid.NewGuid().ToString();
         resource.PositionX = posX;

@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.Artifact_and_Inventory;
 
 namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
 

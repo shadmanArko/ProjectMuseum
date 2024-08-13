@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bxw2eomwugcsu"]
 
-[ext_resource type="Script" path="res://Scripts/Mine/ArtifactStorage/ArtifactFromMineToInventory.cs" id="1_irrq2"]
+[ext_resource type="Script" path="res://Scripts/Mine/MineArtifactStorage/ArtifactFromMineToInventory.cs" id="1_3whi1"]
 
 [node name="ArtifactFromMineToInventory" type="Node2D"]
-script = ExtResource("1_irrq2")
+script = ExtResource("1_3whi1")

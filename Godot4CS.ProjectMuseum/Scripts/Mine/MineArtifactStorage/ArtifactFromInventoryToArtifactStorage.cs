@@ -4,7 +4,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using ProjectMuseum.DTOs;
 
-namespace Godot4CS.ProjectMuseum.Scripts.Mine.ArtifactStorage;
+namespace Godot4CS.ProjectMuseum.Scripts.Mine.MineArtifactStorage;
 
 public partial class ArtifactFromInventoryToArtifactStorage : Node2D
 {

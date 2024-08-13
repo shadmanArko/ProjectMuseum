@@ -14,7 +14,7 @@ public partial class ToolbarSelector : HBoxContainer
 	
 	private RawArtifactDTO _rawArtifactDto;
     
-	private InventoryDTO _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+	private InventoryDTO _inventoryDto;
 	private HttpRequest _getPlayerInventoryHttpRequest;
 
 	private string _toolbarSlotScenePath;
@@ -23,9 +23,13 @@ public partial class ToolbarSelector : HBoxContainer
 
 	#region Initializers
 
-	public override async void _Ready()
+	public override void _EnterTree()
 	{
 		InitializeDiReferences();
+	}
+
+	public override async void _Ready()
+	{
 		SubscribeToActions();
 		_toolbarSlots = new List<ToolbarSlot>();
 		_toolbarSlotScenePath = ReferenceStorage.Instance.ToolbarSlotScenePath;
@@ -37,6 +41,7 @@ public partial class ToolbarSelector : HBoxContainer
 	{
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		_rawArtifactDto = ServiceRegistry.Resolve<RawArtifactDTO>();
+		_inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
 	}
 	
 	private void SubscribeToActions()
@@ -44,7 +49,7 @@ public partial class ToolbarSelector : HBoxContainer
 		MineActions.OnToolbarSlotChanged += SelectItem;
 		MineActions.OnInventoryUpdate += UpdateToolbar;
 		MineActions.OnRawArtifactDTOInitialized += UpdateToolbar;
-		MineActions.OnInventoryInitialized += UpdateToolbar;
+		// MineActions.OnInventoryInitialized += UpdateToolbar;
 	}
 
 	#endregion
@@ -161,7 +166,7 @@ public partial class ToolbarSelector : HBoxContainer
 		MineActions.OnToolbarSlotChanged -= SelectItem;
 		MineActions.OnInventoryUpdate -= UpdateToolbar;
 		MineActions.OnRawArtifactDTOInitialized -= UpdateToolbar;
-		MineActions.OnInventoryInitialized += UpdateToolbar;
+		// MineActions.OnInventoryInitialized += UpdateToolbar;
 	}
 
 	public override void _ExitTree()

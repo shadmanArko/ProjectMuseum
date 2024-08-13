@@ -39,7 +39,7 @@ public partial class MineSave : Node
 
     #region Saving Artifacts to Artifact Storage
 
-    private void AddMineArtifactsToSaveArtifactStorage(global::ProjectMuseum.Models.ArtifactStorage saveArtifactStorage)
+    private void AddMineArtifactsToSaveArtifactStorage(global::ProjectMuseum.Models.Artifact_and_Inventory.ArtifactStorage saveArtifactStorage)
     {
         var artifactStorage = _inventoryDto.ArtifactStorage;
         foreach (var artifact in artifactStorage.Artifacts)

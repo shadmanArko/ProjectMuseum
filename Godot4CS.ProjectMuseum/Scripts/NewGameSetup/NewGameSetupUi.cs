@@ -5,6 +5,7 @@ using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.Artifact_and_Inventory;
 
 public partial class NewGameSetupUi : Control
 {

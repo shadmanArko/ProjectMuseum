@@ -7,6 +7,7 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.Artifact_and_Inventory;
 
 namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
 

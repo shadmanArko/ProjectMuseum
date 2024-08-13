@@ -22,7 +22,6 @@ public partial class MineGenerationController : Node2D
 
 	public override async void _EnterTree()
 	{
-		CreateHttpRequests();
 		InitializeDiReferences();
 		await GenerateProceduralMine();
 		
@@ -37,26 +36,21 @@ public partial class MineGenerationController : Node2D
 		_mineBackGround.Position = new Vector2(482, -107);
 		_loadingBarManager.EmitSignal("IncreaseRegisteredTask");
 	}
-
-	#region Http Requests
-
-	private void CreateHttpRequests()
-	{
-		// _saveGeneratedMineHttpRequest = new HttpRequest();
-		// AddChild(_saveGeneratedMineHttpRequest);
-		// _saveGeneratedMineHttpRequest.RequestCompleted += OnSaveGeneratedMineHttpRequestComplete;
-		//
-		// _loadGeneratedMineHttpRequest = new HttpRequest();
-		// AddChild(_loadGeneratedMineHttpRequest);
-		// _loadGeneratedMineHttpRequest.RequestCompleted += OnLoadMineDataRequestCompleted;
-	}
-
-	#endregion
     
 	private void InitializeDiReferences()
 	{
 		_mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
 		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+	}
+
+	private void SubscribeToActions()
+	{
+		MineActions.OnDatabaseLoad += GenerateMine;
+	}
+
+	private async void GenerateMine()
+	{
+		await GenerateProceduralMine();
 	}
     
 	//TODO: Redo Save and Load without ASP

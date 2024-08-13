@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.Artifact_and_Inventory;
 
 namespace ProjectMuseum.DTOs;
 

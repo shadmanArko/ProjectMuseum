@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
@@ -22,12 +23,9 @@ public partial class ExhibitServices: Node
 
     private void InitializeData()
     {
-        var exhibitDatabseJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/exhibit.json");
-        _exhibitDatabase = JsonSerializer.Deserialize<List<Exhibit>>(exhibitDatabseJson);
+        _exhibitDatabase = SaveLoadService.Load().Exhibits;
 
-        var exhibitVariationDatabseJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/exhibitVariations.json");
+        var exhibitVariationDatabseJson = Godot.FileAccess.Open("res://Game Data/Starting Data/exhibitVariations.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
         _exhibitVariationDatabase = JsonSerializer.Deserialize<List<ExhibitVariation>>(exhibitVariationDatabseJson);
     }
 

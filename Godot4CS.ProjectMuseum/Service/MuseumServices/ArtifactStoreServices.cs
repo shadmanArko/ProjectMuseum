@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
 
 public partial class ArtifactStoreServices: Node
 {
-    private List<ArtifactStorage> _artifactStorageDatabase;
+    private ArtifactStorage _artifactStorageDatabase;
 
     public override void _Ready()
     {
         base._Ready();
         var artifactStorageJson = File.ReadAllText(
             "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
-        _artifactStorageDatabase = JsonSerializer.Deserialize<List<ArtifactStorage>>(artifactStorageJson);
+        _artifactStorageDatabase = SaveLoadService.Load().ArtifactStorage;
     }
     
 
@@ -25,7 +26,7 @@ public partial class ArtifactStoreServices: Node
     public  List<Artifact> GetAllArtifacts()
     {
         var listOfArtifactStorage =  _artifactStorageDatabase;
-        var artifactStorage = listOfArtifactStorage?[0];
+        var artifactStorage = listOfArtifactStorage;
         var artifacts = artifactStorage?.Artifacts;
         return artifacts;
     }
@@ -33,7 +34,7 @@ public partial class ArtifactStoreServices: Node
     public  Artifact AddArtifact(Artifact artifact)
     {
         var listOfArtifactStorage = _artifactStorageDatabase;
-        var artifactStorage = listOfArtifactStorage?[0];
+        var artifactStorage = listOfArtifactStorage;
         var artifacts = artifactStorage?.Artifacts;
         artifacts?.Add(artifact);
         return artifact;
@@ -42,7 +43,7 @@ public partial class ArtifactStoreServices: Node
     public List<Artifact> AddListOfArtifacts(List<Artifact> listOfArtifacts)
     {
         var listOfArtifactStorage = _artifactStorageDatabase;
-        var artifactStorage = listOfArtifactStorage?[0];
+        var artifactStorage = listOfArtifactStorage;
         var artifacts = artifactStorage?.Artifacts;
         foreach (var artifact in listOfArtifacts)
         {
@@ -54,7 +55,7 @@ public partial class ArtifactStoreServices: Node
     public Artifact RemoveArtifactById(string id)
     {
         var listOfArtifactStorage = _artifactStorageDatabase;
-        var artifactStorage = listOfArtifactStorage?[0];
+        var artifactStorage = listOfArtifactStorage;
         var artifacts = artifactStorage?.Artifacts;
         var artifactToRemove = artifacts.FirstOrDefault(artifact => artifact.Id == id); //todo If this reference causes any problem please make a new instance of an object
         artifacts.Remove(artifactToRemove);

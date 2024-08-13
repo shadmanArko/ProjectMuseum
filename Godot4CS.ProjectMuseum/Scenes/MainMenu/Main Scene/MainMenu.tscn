@@ -42,6 +42,5 @@ bus = &"Music"
 [node name="GamepadCursor" type="Node2D" parent="."]
 script = ExtResource("6_80643")
 
-[node name="MainMenuReferanceManager" type="Node" parent="." node_paths=PackedStringArray("PlayerInfoServices")]
+[node name="MainMenuReferanceManager" type="Node" parent="."]
 script = ExtResource("7_h8xe2")
-PlayerInfoServices = NodePath("")

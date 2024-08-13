@@ -62,12 +62,14 @@ public partial class Bat : FlyingEnemy
 
     private void SubscribeToActions()
     {
-        MineActions.OnPlayerLandedIntoTheMine += FindExplorePosition;
+        OnEnteredIntoMine += FindExplorePosition;
+        OnSpawn += SetValuesOnSpawn;
     }
 
     private void UnSubscribeToActions()
     {
-        MineActions.OnPlayerLandedIntoTheMine -= FindExplorePosition;
+        OnEnteredIntoMine += FindExplorePosition;
+        OnSpawn += SetValuesOnSpawn;
     }
 
     private void InitializeDiReference()
@@ -78,7 +80,7 @@ public partial class Bat : FlyingEnemy
 
     private void SetChild()
     {
-        GlobalPosition = new Vector2(480, 100) + new Vector2(10, 10);
+        GlobalPosition = new Vector2(480, -100) + new Vector2(10, 10);
     }
 
     #endregion
@@ -176,20 +178,29 @@ public partial class Bat : FlyingEnemy
 
     #region Move Into Mine
 
-    private async void MoveIntoTheMine()
+    private void MoveIntoTheMine()
     {
-        if (Position.X <= _targetPos.X + 20 && Position.Y >= 0)
+        if (Position.X <= _targetPos.X && Position.Y >= 10)
         {
             _isInsideMine = true;
-            OnSpawn?.Invoke();
+            OnEnteredIntoMine?.Invoke();
             return;
         }
 
-        var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
+        var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 1));
         var cellSize = _mineGenerationVariables.Mine.CellSize;
-        _targetPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize;
+        var cellOffset = new Vector2(cellSize, cellSize) / 2;
+        _targetPos = new Vector2(cell.PositionX, cell.PositionY) * cellSize + cellOffset;
+        Position = Position.MoveToward(_targetPos, 0.5f);
     }
 
+    private void SetValuesOnSpawn()
+    {
+        IsDead = false;
+        Health = 20;
+        CanMove = true;
+        SetPhysicsProcess(true);
+    }
 
     #endregion
 
@@ -385,7 +396,7 @@ public partial class Bat : FlyingEnemy
     #region Knock Back
 
     [Export] private bool _knockBack;
-    private bool _isInsideMine;
+    [Export] private bool _isInsideMine;
 
     private async void KnockBack()
     {

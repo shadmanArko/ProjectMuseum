@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Godot;
@@ -72,9 +73,18 @@ public partial class TutorialSystem : Node
         //GD.Print("Show tutorial called");
         _currentTutorialNumber = number;
         // _httpRequestForGettingTutorial.Request(ApiAddress.StoryApiPath + $"GetTutorialScene/{number}");
-        _currentTutorial = MuseumReferenceManager.Instance.StoryAndTutorialServices.GetTutorialByNumber(number);
+        _currentTutorial = GetTutorialByNumber(number);
         AfterGettingTutorial();
     }
+    
+    private Tutorial GetTutorialByNumber(int sceneNo)
+    {
+        var tutorialsJson = Godot.FileAccess.Open("res://Game Data/TutorialData/Tutorials.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+        var tutorials = JsonSerializer.Deserialize<List<Tutorial>>(tutorialsJson);
+        var tutorial = tutorials!.FirstOrDefault(story => story.SceneNo == sceneNo);
+        return tutorial;
+    }
+
     private void HttpRequestForGettingTutorialOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
     {
         string jsonStr = Encoding.UTF8.GetString(body);

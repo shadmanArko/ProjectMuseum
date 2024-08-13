@@ -25,14 +25,20 @@ public partial class MineTutorial : Node
 	
 	public override void _Ready()
 	{
+		InitializeDiInstaller();
 		CreateHttpRequest();
 		// GetPlayerInfo();
 		LoadPlayerInfo();
-		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+		
 		SubscribeToActions();
 		SetProcess(false);
 		
 		MoveLeftAndRightTutorial();
+	}
+
+	private void InitializeDiInstaller()
+	{
+		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 	}
 
 	private void CreateHttpRequest()
@@ -75,11 +81,17 @@ public partial class MineTutorial : Node
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
 		MineActions.OnPlayerReachFirstWarning += GetPlayerInfo;
 		
+		MuseumActions.OnPlayerInfoUpdated += OnPlayerInfoUpdated;
 		MuseumActions.TutorialSceneEntryEnded += DigOrdinaryAndArtifactCellTutorial;
 		MuseumActions.TutorialSceneEntryEnded += SelectPickaxeTutorial;
 		MuseumActions.TutorialSceneEntryEnded += PlayMiniGameTutorial;
 		MuseumActions.TutorialSceneEntryEnded += ToggleClimbTutorial;
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
+	}
+
+	private void OnPlayerInfoUpdated(PlayerInfo obj)
+	{
+		_playerControllerVariables.PlayerInfo = obj;
 	}
 
 	public bool IsMineTutorialPlaying()

@@ -5,7 +5,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 
 public static class DataPath
 {
-    public const string GameDataFolderPath = "user://MuseumKeeper/GameData";
+    public const string GameDataFolderPath = "res://Game Data/";
     public const string GameDataFilePath = "";
     public const string GameDataSourceFilePath = "";
     private const string GameFolderName = "MuseumKeeper";

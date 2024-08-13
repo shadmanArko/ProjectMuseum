@@ -104,7 +104,6 @@ _damageVisualizerPath = "res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/Damage
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_xj3qh")]
 _parentNode = NodePath("../MineSceneInitializer")
-_slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
 [node name="ParticleEffectSystem" parent="." instance=ExtResource("11_1alc6")]
 

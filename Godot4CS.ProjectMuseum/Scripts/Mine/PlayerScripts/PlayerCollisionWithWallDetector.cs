@@ -252,19 +252,12 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         var normalCellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
-
-        foreach (var material in _mineCellCrackMaterial.CellCrackMaterials)
-        {
-            GD.Print($"material type is {material.MaterialType}");
-        }
-        GD.Print($"list of cell crack mats COUNT {_mineCellCrackMaterial.CellCrackMaterials.Count}");
-        GD.Print($"mine cell crack mat is null {_mineCellCrackMaterial == null}");
-        GD.Print($"normal cell crack mat is null {normalCellCrackMaterial == null}");
-        GD.Print($"list of cell crack mats is null {_mineCellCrackMaterial?.CellCrackMaterials == null}");
+        
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             normalCellCrackMaterial);
         if (cell.HitPoint <= 0)
         {
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
             var caveCells = CaveControlManager.RevealCave(_mineGenerationVariables, cells);
             

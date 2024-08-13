@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.DTOs;
@@ -10,6 +11,7 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.MineSave;
 
 public partial class MineSave : Node
 {
+    private PlayerControllerVariables _playerControllerVariables;
     private InventoryDTO _inventoryDto;
 
     public override void _Ready()
@@ -26,6 +28,7 @@ public partial class MineSave : Node
     private void InitializeDiReference()
     {
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
+        _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
     }
 
     private void SaveGame()
@@ -34,6 +37,8 @@ public partial class MineSave : Node
         
         GD.Print($"save file location: {DataPath.SaveDataFolderPath}");
         AddMineArtifactsToSaveArtifactStorage(saveData.ArtifactStorage);
+        saveData.Inventory = _inventoryDto.Inventory;
+        saveData.PlayerInfo = _playerControllerVariables.PlayerInfo;
         SaveLoadService.Save(saveData);
     }
 

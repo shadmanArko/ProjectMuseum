@@ -70,9 +70,11 @@ public partial class ProceduralMineGenerationService : Node
     {
         InitializeDiReference();
         _rand = new Random();
+        
         _rawArtifactDto.RawArtifactDescriptives = _rawArtifactDescriptiveDatabase;
         _rawArtifactDto.RawArtifactFunctionals = _rawArtifactFunctionalDatabase;
         _mineCellCrackMaterial.CellCrackMaterials = _cellCrackMaterialsDatabase;
+        _mineGenerationDto.ProceduralMineGenerationData = _proceduralMineGenerationDatabase;
         _inventoryDto.ArtifactStorage = _artifactStorageArtifactDatabase;
         _wallPlaceableDto.WallPlaceables = _wallPlaceableDatabase;
         _cellPlaceableDto.CellPlaceables = _cellPlaceableDatabase;
@@ -82,8 +84,6 @@ public partial class ProceduralMineGenerationService : Node
         _inventoryDto.Inventory = _inventoryDatabase;
         _consumableDto.Consumables = _consumableDatabase;
         MineActions.OnInventoryInitialized?.Invoke();
-
-        // _inventoryDto.ArtifactStorage = SaveLoadService.Load().ArtifactStorage;
     }
 
     #region Initializers
@@ -127,7 +127,6 @@ public partial class ProceduralMineGenerationService : Node
             File.ReadAllText(
                 $"{projectLocation}ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/ProceduralGenerationData/ProceduralMineGenerationData.json");
         _proceduralMineGenerationDatabase = JsonSerializer.Deserialize<ProceduralMineGenerationData>(mineGenDataJson);
-        _mineGenerationDto.ProceduralMineGenerationData = _proceduralMineGenerationDatabase;
         GD.Print($"procedural mine gen data max caves {_proceduralMineGenerationDatabase.NumberOfMaxCaves}");
 
         var siteArtifactDataJson = File.ReadAllText(
@@ -318,26 +317,26 @@ public partial class ProceduralMineGenerationService : Node
 
     private async Task GenerateBossCave(Mine mine)
     {
-        // var mineGenData = _mineGenerationDto.ProceduralMineGenerationData;
+        var mineGenData = _mineGenerationDto.ProceduralMineGenerationData;
         // var mine = _mineGenerationVariables.Mine;
 
         foreach (var cell in mine.Cells)
             cell.HasCave = false;
         mine.Caves = new List<Cave>();
 
-        var bossCaveSizeX = 12;//mineGenData.BossCaveSizeX; //TODO: change
-        var bossCaveSizeY = 5;//mineGenData.BossCaveSizeY;  //TODO: change
+        var bossCaveSizeX = mineGenData.BossCaveSizeX; //TODO: change
+        var bossCaveSizeY = mineGenData.BossCaveSizeY;  //TODO: change
 
-        var yAxisBottomIndex = 64 - 2;//mineGenData.MineSizeY - 2;  //TODO: change
-        var xAxisCenterIndex = 49 - 2;//mineGenData.MineSizeX / 2;  //TODO: change
+        var yAxisBottomIndex = mineGenData.MineSizeY - 2;  //TODO: change
+        var xAxisCenterIndex = mineGenData.MineSizeX / 2;  //TODO: change
 
         var xMin = xAxisCenterIndex - bossCaveSizeX / 2;
         var xMax = xAxisCenterIndex + bossCaveSizeX / 2;
         var yMin = yAxisBottomIndex - bossCaveSizeY;
         var yMax = yAxisBottomIndex;
 
-        var noOfStalactites = 3; //Math.Clamp(mineGenData.StalactiteCount, 0, bossCaveSizeX);    //TODO: change
-        var noOfStalagmites = 3; //Math.Clamp(mineGenData.StalagmiteCount, 0, bossCaveSizeX);    //TODO: change
+        var noOfStalactites = Math.Clamp(mineGenData.StalactiteCount, 0, bossCaveSizeX);    //TODO: change
+        var noOfStalagmites = Math.Clamp(mineGenData.StalagmiteCount, 0, bossCaveSizeX);    //TODO: change
 
         var cave = GenerateCave(xMin, xMax, yMin, yMax, noOfStalagmites, noOfStalactites, mine);
         GD.Print($"Boss Cave Location Top:{yMin}, Bottom:{yMax}, Left:{xMin}, Right:{xMax}");
@@ -353,13 +352,13 @@ public partial class ProceduralMineGenerationService : Node
 
         #region cavesToGenerate contains list of cave dimensions that has to be generated
 
-        var maxCaves = 10;
-        var noOfCaves = _rand.Next(maxCaves / 2, maxCaves);//(mineGenData.NumberOfMaxCaves / 2, mineGenData.NumberOfMaxCaves);
+        // var maxCaves = 10;
+        var noOfCaves = _rand.Next(mineGenData.NumberOfMaxCaves / 2, mineGenData.NumberOfMaxCaves);
         var cavesToGenerate = new List<Vector2>();
         for (var i = 0; i < noOfCaves; i++)
         {
-            var tempX = _rand.Next(4, 7);//(mineGenData.CaveMinSizeX, mineGenData.CaveMaxSizeX);
-            var tempY = _rand.Next(4, 5);//(mineGenData.CaveMinSizeY, mineGenData.CaveMaxSizeY);
+            var tempX = _rand.Next(mineGenData.CaveMinSizeX, mineGenData.CaveMaxSizeX);
+            var tempY = _rand.Next(mineGenData.CaveMinSizeY, mineGenData.CaveMaxSizeY);
             var caveDimension = new Vector2(tempX, tempY);
             cavesToGenerate.Add(caveDimension);
         }
@@ -382,6 +381,7 @@ public partial class ProceduralMineGenerationService : Node
         {
             for (var j = 0; j < noOfSlotsY; j++)
             {
+                if(i == noOfSlotsX / 2 && j == noOfSlotsY -1) continue; //omitting the second last cave
                 var xPos = Math.Clamp(caveSlotPosX * i + offsetX, 1, mineX - 1);
                 var yPos = Math.Clamp(caveSlotPosY * j + offsetY, 1, mineY - 2);
 

@@ -274,16 +274,18 @@ public partial class DialogueSystem : Control
 		}
 
 		_dialogueBox.Position = targetPosition; // ensure it ends exactly at the target position
+		_nextDialogueButton.ProcessMode = ProcessModeEnum.Inherit;
 
 		
 	}
 	private async Task SlideOut()
 	{
+		_nextDialogueButton.ProcessMode = ProcessModeEnum.Disabled;
 		var startPosition = _dialogueBox.Position;
 		Vector2 targetPosition = _slideOutPosition;
 		float duration = 1.0f;
 		double elapsed = 0.0f;
-
+		
 		while (elapsed < duration)
 		{
 			elapsed +=  GetProcessDeltaTime();

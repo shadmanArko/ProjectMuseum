@@ -299,7 +299,7 @@ public partial class ExhibitItem : Item
 	    MuseumActions.ArtifactRemovedFromExhibitSlot -= ArtifactRemovedFromExhibitSlot;
 	    // _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
 	    // _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
-	    _httpRequestForGettingExhibitVariation.RequestCompleted -= HttpRequestForGettingExhibitVariationOnRequestCompleted;
+	    // _httpRequestForGettingExhibitVariation.RequestCompleted -= HttpRequestForGettingExhibitVariationOnRequestCompleted;
 	    MuseumActions.OnExhibitDeleted -= OnExhibitDeleted;
 	    MuseumActions.OnMakeExhibitFloatForMoving -= OnMakeExhibitFloatForMoving;
     }

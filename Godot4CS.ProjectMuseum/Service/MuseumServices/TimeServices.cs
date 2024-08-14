@@ -11,13 +11,18 @@ public partial class TimeServices: Node
     public override void _Ready()
     {
         base._Ready();
-        _timeDatabase = SaveLoadService.Load().Time;
-        
+        LoadTime();
     }
-    
+
+    private void LoadTime()
+    {
+        _timeDatabase = SaveLoadService.Load().Time;
+    }
+
 
     public Time GetTime()
     {
+        LoadTime();
         return _timeDatabase;
     }
 

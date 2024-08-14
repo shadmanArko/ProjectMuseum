@@ -27,6 +27,7 @@ public partial class BuilderCardServices: Node
         var wallpaperVariationDatabaseJson = File.ReadAllText(
             "res://Game Data/BuilderCardsData/wallpaperVariations.json");
         _wallpaperVariationDatabase = JsonSerializer.Deserialize<List<WallpaperVariation>>(wallpaperVariationDatabaseJson);
+        GD.Print($"Tile Count {_tileVariationDatabase.Count}");
     }
 
     public List<TileVariation> GetAllTileVariations()

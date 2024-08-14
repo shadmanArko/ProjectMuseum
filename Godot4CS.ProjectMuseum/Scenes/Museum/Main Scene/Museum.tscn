@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=94 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -91,6 +91,7 @@
 [ext_resource type="Script" path="res://Service/MuseumServices/StoryAndTutorialServices.cs" id="88_wt6jr"]
 [ext_resource type="Script" path="res://Service/MuseumServices/DisplayArtifactServices.cs" id="89_px6up"]
 [ext_resource type="Script" path="res://Service/MuseumServices/ArtifactStoreServices.cs" id="91_yr5vs"]
+[ext_resource type="Script" path="res://Service/MuseumServices/TimeServices.cs" id="92_ex2un"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -1173,10 +1174,11 @@ _rotateSound = ExtResource("82_nxom5")
 _itemPlacingSound = ExtResource("83_g7xdg")
 _footStepSound = ExtResource("84_fc1fb")
 
-[node name="ReferanceManager" type="Node" parent="." node_paths=PackedStringArray("ItemPlacementConditionService", "TileServices", "ExhibitServices", "StoryAndTutorialServices", "ArtifactStoreServices", "DisplayArtifactServices", "PlayerInfoServices")]
+[node name="ReferanceManager" type="Node" parent="." node_paths=PackedStringArray("ItemPlacementConditionService", "TileServices", "TimeServices", "ExhibitServices", "StoryAndTutorialServices", "ArtifactStoreServices", "DisplayArtifactServices", "PlayerInfoServices")]
 script = ExtResource("84_w0a7b")
 ItemPlacementConditionService = NodePath("../Services/ItemPlacementConditionServices")
 TileServices = NodePath("../Services/TileServices")
+TimeServices = NodePath("../Services/TimeServices")
 ExhibitServices = NodePath("../Services/ExhibitServices")
 StoryAndTutorialServices = NodePath("../Services/StoryAndTutorialServices")
 ArtifactStoreServices = NodePath("../Services/ArtifactStoreServices")
@@ -1205,3 +1207,6 @@ script = ExtResource("89_px6up")
 
 [node name="ArtifactStoreServices" type="Node" parent="Services"]
 script = ExtResource("91_yr5vs")
+
+[node name="TimeServices" type="Node" parent="Services"]
+script = ExtResource("92_ex2un")

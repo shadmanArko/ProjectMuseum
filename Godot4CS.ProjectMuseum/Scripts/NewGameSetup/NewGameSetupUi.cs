@@ -6,6 +6,7 @@ using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.Artifact_and_Inventory;
+using Time = ProjectMuseum.Models.Time;
 
 public partial class NewGameSetupUi : Control
 {
@@ -71,12 +72,14 @@ public partial class NewGameSetupUi : Control
 		var museumTileJson = Godot.FileAccess.Open("res://Game Data/Starting Data/museumTile.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 		var displayArtifactsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/displayArtifact.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 		var artifactsStorageJson = Godot.FileAccess.Open("res://Game Data/Starting Data/artifactStorage.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var timeJson = Godot.FileAccess.Open("res://Game Data/Starting Data/time.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 
         
 		saveData.Exhibits = JsonSerializer.Deserialize<List<Exhibit>>(exhibitsJson);
 		saveData.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(museumTileJson);
 		saveData.DisplayArtifacts = JsonSerializer.Deserialize<DisplayArtifacts>(displayArtifactsJson);
 		saveData.ArtifactStorage = JsonSerializer.Deserialize<ArtifactStorage>(artifactsStorageJson);
+		saveData.Time = JsonSerializer.Deserialize<Time>(timeJson);
 		saveData.PlayerInfo = playerInfo;
         
 		SaveLoadService.Save(saveData);

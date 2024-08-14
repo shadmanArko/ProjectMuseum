@@ -24,7 +24,7 @@ public partial class CampToMineTransition : Button
     
     public override void _Ready()
     {
-        CreateHttpRequest();
+        // CreateHttpRequest();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _autoAnimationController = ReferenceStorage.Instance.AutoAnimationController;
         _campExitPromptUi = ReferenceStorage.Instance.CampExitPromptUi;
@@ -114,7 +114,8 @@ public partial class CampToMineTransition : Button
         var sceneTransition = ReferenceStorage.Instance.SceneTransition;
         await sceneTransition.FadeIn();
         _playerControllerVariables.CanMove = false;
-        GetAndSaveTime();
+        // GetAndSaveTime();
+        ReferenceStorage.Instance.SceneLoader.LoadMuseumScene();
         await Task.Delay(2000);
     }
 

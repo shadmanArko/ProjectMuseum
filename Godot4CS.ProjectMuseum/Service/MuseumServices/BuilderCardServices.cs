@@ -16,18 +16,23 @@ public partial class BuilderCardServices: Node
     public override void _Ready()
     {
         base._Ready();
-        var tileVariationDatabaseJson = File.ReadAllText(
-            "res://Game Data/BuilderCardsData/tileVariations.json");
+        var tileVariationDatabaseJson = Godot.FileAccess.Open(
+            "res://Game Data/BuilderCardsData/tileVariations.json", 
+            Godot.FileAccess.ModeFlags.Read).GetAsText();
         _tileVariationDatabase = JsonSerializer.Deserialize<List<TileVariation>>(tileVariationDatabaseJson);
-        
-        var wallVariationDatabaseJson = File.ReadAllText(
-            "res://Game Data/BuilderCardsData/wallVariations.json");
+
+        var wallVariationDatabaseJson = Godot.FileAccess.Open(
+            "res://Game Data/BuilderCardsData/wallVariations.json", 
+            Godot.FileAccess.ModeFlags.Read).GetAsText();
         _wallVariationDatabase = JsonSerializer.Deserialize<List<WallVariation>>(wallVariationDatabaseJson);
-        
-        var wallpaperVariationDatabaseJson = File.ReadAllText(
-            "res://Game Data/BuilderCardsData/wallpaperVariations.json");
+
+        var wallpaperVariationDatabaseJson = Godot.FileAccess.Open(
+            "res://Game Data/BuilderCardsData/wallpaperVariations.json", 
+            Godot.FileAccess.ModeFlags.Read).GetAsText();
         _wallpaperVariationDatabase = JsonSerializer.Deserialize<List<WallpaperVariation>>(wallpaperVariationDatabaseJson);
+
         GD.Print($"Tile Count {_tileVariationDatabase.Count}");
+
     }
 
     public List<TileVariation> GetAllTileVariations()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=95 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -92,6 +92,7 @@
 [ext_resource type="Script" path="res://Service/MuseumServices/DisplayArtifactServices.cs" id="89_px6up"]
 [ext_resource type="Script" path="res://Service/MuseumServices/ArtifactStoreServices.cs" id="91_yr5vs"]
 [ext_resource type="Script" path="res://Service/MuseumServices/TimeServices.cs" id="92_ex2un"]
+[ext_resource type="Script" path="res://Service/MuseumServices/BuilderCardServices.cs" id="93_8er5n"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vpg7c"]
 load_path = "res://.godot/imported/ROAD CHUNK .png-21ae7b75ab38625a18253af76f60412c.ctex"
@@ -1210,3 +1211,6 @@ script = ExtResource("91_yr5vs")
 
 [node name="TimeServices" type="Node" parent="Services"]
 script = ExtResource("92_ex2un")
+
+[node name="BuilderCardServices" type="Node" parent="Services"]
+script = ExtResource("93_8er5n")

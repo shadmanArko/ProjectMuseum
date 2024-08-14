@@ -15,6 +15,7 @@ public partial class MuseumReferenceManager: Node
     [Export] public ArtifactStoreServices ArtifactStoreServices;
     [Export] public DisplayArtifactServices DisplayArtifactServices;
     [Export] public PlayerInfoServices PlayerInfoServices;
+    [Export] public BuilderCardServices BuilderCardServices;
 
     public override void _EnterTree()
     {

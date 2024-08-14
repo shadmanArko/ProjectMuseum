@@ -193,7 +193,7 @@ public partial class TutorialSystem : Node
     public override void _ExitTree()
     {
         base._ExitTree();
-        _httpRequestForGettingTutorial.RequestCompleted -= HttpRequestForGettingTutorialOnRequestCompleted;
+        // _httpRequestForGettingTutorial.RequestCompleted -= HttpRequestForGettingTutorialOnRequestCompleted;
         MuseumActions.OnPlayerPerformedTutorialRequiringAction -= OnPlayerPerformedTutorialRequiringAction;
         MuseumActions.PlayTutorial -= LoadTutorial;
 

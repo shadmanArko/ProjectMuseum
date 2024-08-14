@@ -24,7 +24,7 @@ public partial class ExhibitItem : Item
 		_itemPlacementConditionService = MuseumReferenceManager.Instance.ItemPlacementConditionService;
 		_httpRequestForGettingExhibitVariation = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitVariation);
-		_httpRequestForGettingExhibitVariation.RequestCompleted += HttpRequestForGettingExhibitVariationOnRequestCompleted;
+		// _httpRequestForGettingExhibitVariation.RequestCompleted += HttpRequestForGettingExhibitVariationOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnExhibitSlot += ArtifactDroppedOnExhibitSlot;
 		MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
 		// _httpRequestForArtifactPlacement.RequestCompleted += HttpRequestForArtifactPlacementOnRequestCompleted;
@@ -297,8 +297,8 @@ public partial class ExhibitItem : Item
 	    base._ExitTree();
 	    MuseumActions.ArtifactDroppedOnExhibitSlot -= ArtifactDroppedOnExhibitSlot;
 	    MuseumActions.ArtifactRemovedFromExhibitSlot -= ArtifactRemovedFromExhibitSlot;
-	    _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
-	    _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
+	    // _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
+	    // _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
 	    _httpRequestForGettingExhibitVariation.RequestCompleted -= HttpRequestForGettingExhibitVariationOnRequestCompleted;
 	    MuseumActions.OnExhibitDeleted -= OnExhibitDeleted;
 	    MuseumActions.OnMakeExhibitFloatForMoving -= OnMakeExhibitFloatForMoving;

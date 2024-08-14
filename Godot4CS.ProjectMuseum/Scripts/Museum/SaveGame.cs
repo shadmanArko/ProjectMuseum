@@ -49,6 +49,7 @@ public partial class SaveGame : Node2D
 			var inventoryJson = Godot.FileAccess.Open("res://Game Data/Starting Data/inventory.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 			saveData.Inventory = JsonSerializer.Deserialize<Inventory>(inventoryJson);
 			saveData.Exhibits = _museumRunningDataContainer.Exhibits;
+			saveData.ArtifactStorage = _museumRunningDataContainer.ArtifactStorage;
 			SaveLoadService.Save(saveData);
 			GD.Print($"Saved Game at: {DataPath.SaveDataFolderPath}");
 		}

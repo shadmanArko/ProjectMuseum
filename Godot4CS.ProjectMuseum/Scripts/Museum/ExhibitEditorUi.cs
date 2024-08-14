@@ -177,6 +177,7 @@ public partial class ExhibitEditorUi : Control
 		_httpRequestForGettingExhibitsInDisplay.CancelRequest();
 		// _httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		var artifactsInStore = MuseumReferenceManager.Instance.ArtifactStoreServices.GetAllArtifacts();
+		
 		AfterGettingAftifactsInStore(artifactsInStore);
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;

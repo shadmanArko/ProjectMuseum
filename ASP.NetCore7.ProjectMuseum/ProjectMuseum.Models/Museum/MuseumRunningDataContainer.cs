@@ -1,4 +1,5 @@
 using Godot4CS.ProjectMuseum.Scripts.Museum.GameData;
+using ProjectMuseum.Models.Artifact_and_Inventory;
 
 namespace ProjectMuseum.Models;
 public class MuseumRunningDataContainer
@@ -10,6 +11,7 @@ public class MuseumRunningDataContainer
     public List<Product> Products { get; set; }
     public List<DecorationOther> DecorationOthers;
     public PlayerInfo PlayerInfo { get; set; }
+    public ArtifactStorage ArtifactStorage { get; set; }
 
     public List<MuseumTile> MuseumTiles
     {

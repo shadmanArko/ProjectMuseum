@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Text.Json;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -44,6 +46,8 @@ public partial class SaveGame : Node2D
 			var saveData = new SaveData();
 			saveData.PlayerInfo = _museumRunningDataContainer.PlayerInfo;
 			saveData.MuseumTiles = _museumRunningDataContainer.MuseumTiles;
+			var inventoryJson = Godot.FileAccess.Open("res://Game Data/Starting Data/inventory.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+			saveData.Inventory = JsonSerializer.Deserialize<Inventory>(inventoryJson);
 			saveData.Exhibits = _museumRunningDataContainer.Exhibits;
 			SaveLoadService.Save(saveData);
 			GD.Print($"Saved Game at: {DataPath.SaveDataFolderPath}");

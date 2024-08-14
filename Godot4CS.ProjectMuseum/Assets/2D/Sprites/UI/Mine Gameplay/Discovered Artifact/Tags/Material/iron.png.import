@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds5f7wk2jr1mr"
-path="res://.godot/imported/Iron.png-5055c043aabad82cb3a3a8c9925dff37.ctex"
+path="res://.godot/imported/iron.png-45881ec980fc65a7ee480daeaeb531b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Iron.png"
-dest_files=["res://.godot/imported/Iron.png-5055c043aabad82cb3a3a8c9925dff37.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/iron.png"
+dest_files=["res://.godot/imported/iron.png-45881ec980fc65a7ee480daeaeb531b8.ctex"]
 
 [params]
 

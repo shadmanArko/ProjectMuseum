@@ -15,8 +15,6 @@ public partial class DisplayArtifactServices: Node
     public override void _EnterTree()
     {
         base._EnterTree();
-        var displayArtifactJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/displayArtifact.json");
         _displayArtifactDatabase = SaveLoadService.Load().DisplayArtifacts;
         // GD.Print($"Got display Artifacts {_displayArtifactDatabase[0].Artifacts.Count}");
     }

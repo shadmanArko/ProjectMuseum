@@ -49,12 +49,12 @@ public partial class BuilderCardSlotsController : Control
 		_httpRequestForGettingWallpaperVariations.RequestCompleted += HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
 		_httpRequestForGettingSanitationVariations.RequestCompleted += HttpRequestForGettingSanitationVariationsOnRequestCompleted;
 		
-		_httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
-		_httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
-		_httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
-		_httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
-		_httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
-		_httpRequestForGettingSanitationVariations.Request(ApiAddress.MuseumApiPath + "GetAllSanitationVariations");
+		// _httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
+		// _httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
+		// _httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
+		// _httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
+		// _httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
+		// _httpRequestForGettingSanitationVariations.Request(ApiAddress.MuseumApiPath + "GetAllSanitationVariations");
 		if (_buildersPanelClosingButton != null)
 		{
 			_buildersPanelClosingButton.Pressed += BuildersPanelClosingButtonOnPressed;

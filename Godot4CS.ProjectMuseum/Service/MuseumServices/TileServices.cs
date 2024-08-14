@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
@@ -15,9 +16,7 @@ public partial class TileServices: Node
     public override void _Ready()
     {
         base._Ready();
-        var museumTileDatabaseJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/museumTile.json");
-        _museumTileDatabase = JsonSerializer.Deserialize<List<MuseumTile>>(museumTileDatabaseJson);
+        _museumTileDatabase = SaveLoadService.Load().MuseumTiles;
         GD.Print($"Got Museum tiles {_museumTileDatabase.Count}");
     }
 

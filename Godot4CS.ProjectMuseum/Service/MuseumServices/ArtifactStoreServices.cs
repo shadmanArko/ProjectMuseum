@@ -17,8 +17,6 @@ public partial class ArtifactStoreServices: Node
     public override void _Ready()
     {
         base._Ready();
-        var artifactStorageJson = File.ReadAllText(
-            "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Dummy Data Folder/artifactStorage.json");
         _artifactStorageDatabase = SaveLoadService.Load().ArtifactStorage;
     }
     

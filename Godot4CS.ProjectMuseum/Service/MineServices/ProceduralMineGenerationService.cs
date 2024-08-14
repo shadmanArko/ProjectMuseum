@@ -237,9 +237,12 @@ public partial class ProceduralMineGenerationService : Node
         {
             for (var j = 0; j < noOfSlotsY; j++)
             {
-                if(i == noOfSlotsX / 2 && j == noOfSlotsY -1) continue; //omitting the second last cave
-                var xPos = Math.Clamp(caveSlotPosX * i + offsetX, 1, mineX - 1);
-                var yPos = Math.Clamp(caveSlotPosY * j + offsetY, 1, mineY - 2);
+                if(i == 1 && j == 2) continue; //omitting the second last cave
+                var posXToClamp = caveSlotPosX * i + offsetX;
+                var posYToClamp = caveSlotPosY * j + offsetY;
+                
+                var xPos = Math.Clamp(posXToClamp, 1, mineX - 1);
+                var yPos = Math.Clamp(posYToClamp, 1, mineY - 2);
 
                 var coord = new Vector2(xPos, yPos);
                 if (listOfCoords.Contains(coord))
@@ -743,7 +746,7 @@ public partial class ProceduralMineGenerationService : Node
             cells.Remove(cell);
             
             var rootNodeVariant = variants[_rand.Next(0, variants.Count)];
-            AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY, mine);
+            // AddResourceToMine(rootNodeVariant, cell.PositionX, cell.PositionY, mine);
     
             var resourceBranches = rootNodeVariant switch
             {
@@ -758,36 +761,39 @@ public partial class ProceduralMineGenerationService : Node
             var currentBranchCell = cell;
             for (var j = 0; j <= resourceBranches; j++)
             {
-                currentBranchCell = GetRandomAdjacentCell(cells, currentBranchCell);
-                if(resourceCells.Contains(currentBranchCell)) continue;
-                resourceCells.Add(currentBranchCell);
+                var tempAdjCell = GetRandomAdjacentCell(cells, currentBranchCell);
+                if(resourceCells.Contains(tempAdjCell)) continue;
+                resourceCells.Add(tempAdjCell);
+                currentBranchCell = tempAdjCell;
             }
             
             foreach (var resourceCell in resourceCells)
             {
                 var resource = AddResourceToMine(rootNodeVariant, resourceCell.PositionX, resourceCell.PositionY, mine);
+                resourceCell.HasResource = true;
                 GD.Print($"resource {resource.Variant} {resource.PositionX},{resource.PositionY}");
-                mine.Resources.Add(resource);
-                FormResourceDistanceOfFourTiles(cells, resourceCell);
+                // FormResourceDistanceOfFourTiles(cells, resourceCell);
             }
         }
     
-        // #region Test
-        //
-        // int coals = 0;
-        // int irons = 0;
-        // foreach (var resource in mine.Resources)
-        // {
-        //     if (resource.Variant == "Coal")
-        //         coals++;
-        //     else if (resource.Variant == "Iron")
-        //         irons++;
-        // }
-        //     
-        // Console.WriteLine($"no of root nodes: {numberOfRootNodes}");
-        // Console.WriteLine($"Iron:{irons}, Coal:{coals}");
-        //
-        // #endregion
+        #region Test
+        
+        int coals = 0;
+        int irons = 0;
+        foreach (var resource in mine.Resources)
+        {
+            if (resource.Variant == "Coal")
+                coals++;
+            else if (resource.Variant == "Iron")
+                irons++;
+            
+            GD.Print($"mine resource: {resource.Variant} {resource.PositionX},{resource.PositionY}");
+        }
+            
+        Console.WriteLine($"no of root nodes: {numberOfRootNodes}");
+        Console.WriteLine($"Iron:{irons}, Coal:{coals}");
+        
+        #endregion
 
         await Task.Delay(500);
     }
@@ -827,11 +833,27 @@ public partial class ProceduralMineGenerationService : Node
     {
         var resources = _mineGenerationDto.Resources.ToList();
         var resource = resources.FirstOrDefault(resource1 => resource1.Variant == variant);
-        resource!.Id = Guid.NewGuid().ToString();
-        resource.PositionX = posX;
-        resource.PositionY = posY;
-        mine.Resources.Add(resource);
-        return resource;
+        if (resource == null)
+        {
+            GD.PrintErr($"Fatal Error: Could not find resource in Database {variant}");
+            return new Resource();
+        }
+        var resourceToSend = new Resource
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = resource.Name,
+            PositionX = posX,
+            PositionY = posY,
+            Type = "Resource",
+            Category = resource.Category,
+            Variant = resource.Variant,
+            PNGPath = resource.PNGPath
+        };
+
+        if (!mine.Resources.Contains(resourceToSend))
+            mine.Resources.Add(resourceToSend);
+        
+        return resourceToSend;
     }
     
     private void FormResourceDistanceOfFourTiles(List<Cell> cells, Cell currentCell)

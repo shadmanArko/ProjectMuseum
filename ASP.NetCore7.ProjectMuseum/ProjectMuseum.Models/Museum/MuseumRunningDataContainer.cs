@@ -1,6 +1,6 @@
 using Godot4CS.ProjectMuseum.Scripts.Museum.GameData;
 using ProjectMuseum.Models.Artifact_and_Inventory;
-
+using Time = ProjectMuseum.Models.Time;
 namespace ProjectMuseum.Models;
 public class MuseumRunningDataContainer
 {
@@ -10,6 +10,7 @@ public class MuseumRunningDataContainer
     public List<Shop> Shops { get; set; }
     public List<Product> Products { get; set; }
     public List<DecorationOther> DecorationOthers;
+    public Time Time { get; set; }
     public PlayerInfo PlayerInfo { get; set; }
     public ArtifactStorage ArtifactStorage { get; set; }
 

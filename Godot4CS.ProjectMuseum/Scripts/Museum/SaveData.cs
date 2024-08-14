@@ -11,6 +11,7 @@ public class SaveData
 
     public ArtifactStorage ArtifactStorage { get; set; }
     public Inventory Inventory { get; set; }
+    public Time Time { get; set; }
     public DisplayArtifacts DisplayArtifacts { get; set; }
     public List<Exhibit> Exhibits { get; set; }
     public List<Sanitation> Sanitations { get; set; }

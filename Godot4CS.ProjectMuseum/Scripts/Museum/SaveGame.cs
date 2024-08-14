@@ -50,6 +50,7 @@ public partial class SaveGame : Node2D
 			saveData.Inventory = JsonSerializer.Deserialize<Inventory>(inventoryJson);
 			saveData.Exhibits = _museumRunningDataContainer.Exhibits;
 			saveData.ArtifactStorage = _museumRunningDataContainer.ArtifactStorage;
+			saveData.Time = _museumRunningDataContainer.Time;
 			SaveLoadService.Save(saveData);
 			GD.Print($"Saved Game at: {DataPath.SaveDataFolderPath}");
 		}

@@ -8,6 +8,7 @@ public partial class MuseumReferenceManager: Node
     public static MuseumReferenceManager Instance;
     [Export] public ItemPlacementConditionService ItemPlacementConditionService;
     [Export] public TileServices TileServices;
+    [Export] public TimeServices TimeServices;
 
     [Export] public ExhibitServices ExhibitServices;
     [Export] public StoryAndTutorialServices StoryAndTutorialServices;

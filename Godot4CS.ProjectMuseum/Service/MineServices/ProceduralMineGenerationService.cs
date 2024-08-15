@@ -32,11 +32,6 @@ public partial class ProceduralMineGenerationService : Node
         _rand = new Random();
     }
 
-    public override void _Ready()
-    {
-        
-    }
-
     #region Initializers
 
     private void InitializeDiReference()
@@ -174,7 +169,6 @@ public partial class ProceduralMineGenerationService : Node
     private async Task GenerateBossCave(Mine mine)
     {
         var mineGenData = _mineGenerationDto.ProceduralMineGenerationData;
-        // var mine = _mineGenerationVariables.Mine;
 
         foreach (var cell in mine.Cells)
             cell.HasCave = false;
@@ -321,6 +315,7 @@ public partial class ProceduralMineGenerationService : Node
             TopBound = yMin,
             BottomBound = yMax,
             CellIds = caveCellIds,
+            NoOfFlyingEnemies = _rand.Next(2,xMax-xMin / 2 < 2 ? 3 : xMax-xMin / 2),
             StalagmiteCellIds = new List<string>(),
             StalactiteCellIds = new List<string>()
         };

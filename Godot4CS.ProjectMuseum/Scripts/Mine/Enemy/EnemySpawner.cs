@@ -92,13 +92,13 @@ public partial class EnemySpawner : Node2D
             if(rand % 2 == 0) 
                 SpawnGroundEnemy();
             else
-                SpawnFlyingEnemy();
+                SpawnFlyingEnemy(new Vector2(480, -60));
             GD.Print($"SPAWNING SLIME OF COUNTER {_counter} AFTER BREAKING {_mineGenerationVariables.BrokenCells} CELLS (TARGET:{_cellBreakTargetCount[_counter]})");
             _enemySpawnCount[_counter]--;
         }
     }
 
-    private void SpawnFlyingEnemy()
+    public FlyingEnemy SpawnFlyingEnemy(Vector2 position)
     {
         var scene = ResourceLoader.Load<PackedScene>(_batPrefabPath).Instantiate();
         _parentNode.AddChild(scene);
@@ -106,13 +106,16 @@ public partial class EnemySpawner : Node2D
         if (enemy == null)
         {
             GD.PrintErr("Enemy is null");
-            return;
+            return new FlyingEnemy();
         }
 
         GD.Print("Spawning Enemy");
-        enemy.Position = new Vector2(480, -60);
+        enemy.Position = position;
         enemy.OnSpawn?.Invoke();
+        _flyingEnemies.Add(enemy);
         _canSpawn = false;
+
+        return enemy;
     }
 
     private void SpawnGroundEnemy()

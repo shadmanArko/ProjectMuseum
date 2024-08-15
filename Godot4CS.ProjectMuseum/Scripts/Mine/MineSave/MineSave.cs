@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.DTOs;
-using ProjectMuseum.Models;
+using Time = ProjectMuseum.Models.Time;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.MineSave;
 
@@ -22,7 +21,7 @@ public partial class MineSave : Node
 
     private void SubscribeToActions()
     {
-        MineActions.OnPlayerReturnToMuseumButtonPressed += SaveGame;
+        MineActions.OnMineGameEnd += SaveGame;
     }
 
     private void InitializeDiReference()
@@ -39,8 +38,22 @@ public partial class MineSave : Node
         AddMineArtifactsToSaveArtifactStorage(saveData.ArtifactStorage);
         saveData.Inventory = _inventoryDto.Inventory;
         saveData.PlayerInfo = _playerControllerVariables.PlayerInfo;
+        SaveTime(saveData.Time);
         SaveLoadService.Save(saveData);
     }
+
+    #region Save Time
+
+    private void SaveTime(Time time)
+    {
+        time.Days++;
+        var daysInMuseum = time.Days;
+        var daysInMine = ReferenceStorage.Instance.MineTimeSystem.GetTime().Days;
+        var totalTimePassed = daysInMuseum + daysInMine;
+        time.Days = totalTimePassed;
+    }
+
+    #endregion
 
     #region Saving Artifacts to Artifact Storage
 
@@ -70,7 +83,7 @@ public partial class MineSave : Node
 
     private void UnsubscribeToActions()
     {
-        // MineActions.OnSaveGameData -= SaveGame;
+        MineActions.OnMineGameEnd -= SaveGame;
     }
 
     public override void _ExitTree()

@@ -58,7 +58,6 @@ public partial class MineLoad : Node
         LoadDataFromDatabaseToDiReference();
         LoadFromSaveData();
         MineActions.OnDatabaseLoad?.Invoke();
-        // MineActions.OnInventoryInitialized?.Invoke();
     }
 
     private void InitializeDiReference()
@@ -75,7 +74,7 @@ public partial class MineLoad : Node
     
     private void InitializeDatabases()
     {
-        var gameDataFolderLocation = DataPath.GameDataFolderPath; //"D:/Godot Projects/ProjectMuseum/";   //"Y:/GodotProjects/Office Projects/ProjectMuseum/
+        var gameDataFolderLocation = DataPath.GameDataFolderPath;
         
         _rawArtifactDto = new RawArtifactDTO();
         _proceduralMineGenerationDto = new ProceduralMineGenerationDto();

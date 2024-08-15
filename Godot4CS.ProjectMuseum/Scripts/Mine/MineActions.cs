@@ -11,6 +11,13 @@ public partial class MineActions : Node
 	public static Action OnDatabaseLoad;
 
 	#endregion
+
+	#region Mine Game Start and End
+
+	public static Action OnMineGameStart;
+	public static Action OnMineGameEnd;
+
+	#endregion
 	
 	#region Play Pause
 

@@ -239,11 +239,11 @@ public partial class ProceduralMineGenerationService : Node
                 var yPos = Math.Clamp(posYToClamp, 1, mineY - 2);
 
                 var coord = new Vector2(xPos, yPos);
-                if (listOfCoords.Contains(coord))
-                {
-                    i--;
-                    continue;
-                }
+                // if (listOfCoords.Contains(coord))
+                // {
+                //     i--;
+                //     continue;
+                // }
 
                 listOfCoords.Add(coord);
             }

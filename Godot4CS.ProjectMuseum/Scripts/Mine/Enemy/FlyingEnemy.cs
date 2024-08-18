@@ -105,6 +105,7 @@ public partial class FlyingEnemy : CharacterBody2D, IDamageable
     
     [Export] public TextureProgressBar HealthBar;
     [Export] public AnimationPlayer AnimPlayer;
+    [Export] public Sprite2D EnemySprite;
 
     
     public virtual void TakeDamage(int damageValue)

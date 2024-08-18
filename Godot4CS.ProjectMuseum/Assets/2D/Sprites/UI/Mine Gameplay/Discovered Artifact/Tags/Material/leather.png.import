@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1tkc64v8rro4"
-path="res://.godot/imported/leather.png-414b52e36f9085ba230c4b1133f6827c.ctex"
+path="res://.godot/imported/Leather.png-19a94b6a32164586ec46d775d75be14e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/leather.png"
-dest_files=["res://.godot/imported/leather.png-414b52e36f9085ba230c4b1133f6827c.ctex"]
+source_file="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Leather.png"
+dest_files=["res://.godot/imported/Leather.png-19a94b6a32164586ec46d775d75be14e.ctex"]
 
 [params]
 

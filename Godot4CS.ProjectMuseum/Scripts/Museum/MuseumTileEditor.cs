@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -37,7 +38,8 @@ public partial class MuseumTileEditor : Node2D
         AddChild(_httpRequestForUpdatingTilesSourceId);
         _httpRequestForGettingTileVariations.RequestCompleted += OnRequestForGettingTileVariationsCompleted;
         _httpRequestForUpdatingTilesSourceId.RequestCompleted += OnRequestForUpdatingTilesSourceIdCompleted;
-        _httpRequestForGettingTileVariations.Request(_museumTileVariationsApiPath);
+        // _httpRequestForGettingTileVariations.Request(_museumTileVariationsApiPath);
+        _tileVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllTileVariations();
         MuseumActions.OnClickBuilderCard += OnClickBuilderCard; 
         await Task.Delay(1000);
         _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
@@ -174,6 +176,8 @@ public partial class MuseumTileEditor : Node2D
         MuseumActions.OnMuseumBalanceReduced?.Invoke(tileIds.Count * _selectedTileVariation.Price );
         string[] headers = { "Content-Type: application/json"};
         var body = JsonConvert.SerializeObject(tileIds);
+        _museumRunningDataContainer.MuseumTiles = MuseumReferenceManager.Instance.TileServices.UpdateMuseumTilesSourceId(tileIds, sourceId);
+        MuseumActions.OnMuseumTilesUpdated?.Invoke();
         Error error = _httpRequestForUpdatingTilesSourceId.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesSourceId/{sourceId}", headers,
             HttpClient.Method.Put, body);
     }

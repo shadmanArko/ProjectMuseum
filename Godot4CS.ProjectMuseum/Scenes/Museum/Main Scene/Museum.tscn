@@ -1175,7 +1175,7 @@ _rotateSound = ExtResource("82_nxom5")
 _itemPlacingSound = ExtResource("83_g7xdg")
 _footStepSound = ExtResource("84_fc1fb")
 
-[node name="ReferanceManager" type="Node" parent="." node_paths=PackedStringArray("ItemPlacementConditionService", "TileServices", "TimeServices", "ExhibitServices", "StoryAndTutorialServices", "ArtifactStoreServices", "DisplayArtifactServices", "PlayerInfoServices")]
+[node name="ReferanceManager" type="Node" parent="." node_paths=PackedStringArray("ItemPlacementConditionService", "TileServices", "TimeServices", "ExhibitServices", "StoryAndTutorialServices", "ArtifactStoreServices", "DisplayArtifactServices", "PlayerInfoServices", "BuilderCardServices")]
 script = ExtResource("84_w0a7b")
 ItemPlacementConditionService = NodePath("../Services/ItemPlacementConditionServices")
 TileServices = NodePath("../Services/TileServices")
@@ -1185,6 +1185,7 @@ StoryAndTutorialServices = NodePath("../Services/StoryAndTutorialServices")
 ArtifactStoreServices = NodePath("../Services/ArtifactStoreServices")
 DisplayArtifactServices = NodePath("../Services/DisplayArtifactServices")
 PlayerInfoServices = NodePath("../Services/PlayerInfoServices")
+BuilderCardServices = NodePath("../Services/BuilderCardServices")
 
 [node name="Services" type="Node" parent="."]
 

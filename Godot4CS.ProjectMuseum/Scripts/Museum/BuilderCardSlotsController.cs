@@ -31,24 +31,24 @@ public partial class BuilderCardSlotsController : Control
 	private BuilderCardType _builderCardType;
 	public override void _Ready()
 	{
-		_httpRequestForGettingExhibitVariations = new HttpRequest();
-		_httpRequestForGettingDecorationShopVariations = new HttpRequest();
-		_httpRequestForGettingDecorationOtherVariations = new HttpRequest();
-		_httpRequestForGettingTileVariations = new HttpRequest();
-		_httpRequestForGettingWallpaperVariations = new HttpRequest();
-		_httpRequestForGettingSanitationVariations = new HttpRequest();
-		AddChild(_httpRequestForGettingExhibitVariations);
-		AddChild(_httpRequestForGettingDecorationShopVariations);
-		AddChild(_httpRequestForGettingDecorationOtherVariations);
-		AddChild(_httpRequestForGettingTileVariations);
-		AddChild(_httpRequestForGettingWallpaperVariations);
-		AddChild(_httpRequestForGettingSanitationVariations);
-		_httpRequestForGettingExhibitVariations.RequestCompleted += HttpRequestForGettingExhibitVariationsOnRequestCompleted;
-		_httpRequestForGettingDecorationShopVariations.RequestCompleted += HttpRequestForGettingDecorationShopVariationsOnRequestCompleted;
-		_httpRequestForGettingDecorationOtherVariations.RequestCompleted += HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted;
-		_httpRequestForGettingTileVariations.RequestCompleted += HttpRequestForGettingTileVariationsOnRequestCompleted;
-		_httpRequestForGettingWallpaperVariations.RequestCompleted += HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
-		_httpRequestForGettingSanitationVariations.RequestCompleted += HttpRequestForGettingSanitationVariationsOnRequestCompleted;
+		// _httpRequestForGettingExhibitVariations = new HttpRequest();
+		// _httpRequestForGettingDecorationShopVariations = new HttpRequest();
+		// _httpRequestForGettingDecorationOtherVariations = new HttpRequest();
+		// _httpRequestForGettingTileVariations = new HttpRequest();
+		// _httpRequestForGettingWallpaperVariations = new HttpRequest();
+		// _httpRequestForGettingSanitationVariations = new HttpRequest();
+		// AddChild(_httpRequestForGettingExhibitVariations);
+		// AddChild(_httpRequestForGettingDecorationShopVariations);
+		// AddChild(_httpRequestForGettingDecorationOtherVariations);
+		// AddChild(_httpRequestForGettingTileVariations);
+		// AddChild(_httpRequestForGettingWallpaperVariations);
+		// AddChild(_httpRequestForGettingSanitationVariations);
+		// _httpRequestForGettingExhibitVariations.RequestCompleted += HttpRequestForGettingExhibitVariationsOnRequestCompleted;
+		// _httpRequestForGettingDecorationShopVariations.RequestCompleted += HttpRequestForGettingDecorationShopVariationsOnRequestCompleted;
+		// _httpRequestForGettingDecorationOtherVariations.RequestCompleted += HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted;
+		// _httpRequestForGettingTileVariations.RequestCompleted += HttpRequestForGettingTileVariationsOnRequestCompleted;
+		// _httpRequestForGettingWallpaperVariations.RequestCompleted += HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
+		// _httpRequestForGettingSanitationVariations.RequestCompleted += HttpRequestForGettingSanitationVariationsOnRequestCompleted;
 		
 		// _httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
 		// _httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
@@ -57,7 +57,12 @@ public partial class BuilderCardSlotsController : Control
 		// _httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
 		// _httpRequestForGettingSanitationVariations.Request(ApiAddress.MuseumApiPath + "GetAllSanitationVariations");
 		_tileVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllTileVariations();
+		_decorationShopVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllShopVariations();
+		_decorationOtherVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllDecorationOtherVariations();
+		_exhibitVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllExhibitVariations();
+		_sanitationVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllSanitationVariations();
 		_wallpaperVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllWallpaperVariations();
+		GD.Print($"Builder, {_tileVariations.Count} tiles, {_wallpaperVariations.Count} walls");
 		if (_buildersPanelClosingButton != null)
 		{
 			_buildersPanelClosingButton.Pressed += BuildersPanelClosingButtonOnPressed;
@@ -105,6 +110,7 @@ public partial class BuilderCardSlotsController : Control
 
 	private void ReInitialize(BuilderCardType builderCardType)
 	{
+		GD.Print("Builder reinitialized");
 		ClearCardsContainer();
 		_builderCardType = builderCardType;
 		switch (builderCardType)

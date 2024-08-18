@@ -49,25 +49,40 @@ public class FlyingEnemyAi
     public List<Vector2I> FindExploringPosition(Vector2I enemyPos, MineGenerationVariables mineGenerationVariables)
     {
         var mine = mineGenerationVariables.Mine;
-        var startingX = Mathf.Clamp(enemyPos.X - _explorePlaceSearchRadius, 0, mine.GridWidth);
-        var endingX = Mathf.Clamp(enemyPos.X + _explorePlaceSearchRadius, 0, mine.GridWidth);
-        var startingY = Mathf.Clamp(enemyPos.Y - _explorePlaceSearchRadius, 0, mine.GridLength);
-        var endingY = Mathf.Clamp(enemyPos.X - _explorePlaceSearchRadius, 0, mine.GridLength);
-        
-        var possibleExploreTiles = new List<Vector2I>();
-        for (var i = startingX; i < endingX; i++)
+        var searchPositions = new List<Vector2I>();
+
+        for (int i = 0; i <= _explorePlaceSearchRadius; i++)
         {
-            for (var j = startingY; j < endingY; j++)
+            int[] offsets = { -i, i };
+            foreach (var offsetX in offsets)
             {
-                var cell = mineGenerationVariables.GetCell(new Vector2I(i, j));
-                if(cell == null) continue;
-                if (!cell.IsBroken || !cell.IsBreakable || !cell.IsInstantiated || !cell.IsRevealed) continue;
-                possibleExploreTiles.Add(new Vector2I(cell.PositionX, cell.PositionY));
+                foreach (var offsetY in offsets)
+                {
+                    int newX = enemyPos.X + offsetX;
+                    int newY = enemyPos.Y + offsetY;
+
+                    if (newX >= 0 && newX < mine.GridWidth && newY >= 0 && newY < mine.GridLength)
+                    {
+                        searchPositions.Add(new Vector2I(newX, newY));
+                    }
+                }
             }
+        }
+
+        var possibleExploreTiles = new List<Vector2I>();
+    
+        foreach (var pos in searchPositions)
+        {
+            var cell = mineGenerationVariables.GetCell(pos);
+            if (cell == null || !cell.IsBreakable || !cell.IsBroken || !cell.IsInstantiated || !cell.IsRevealed)
+                continue;
+
+            possibleExploreTiles.Add(pos);
         }
 
         return possibleExploreTiles;
     }
+
 
     #endregion
 

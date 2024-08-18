@@ -9,12 +9,16 @@ public partial class PauseMenuButton : Node
 
 	private void OnPauseButtonPressed()
 	{
-		var pauseManager = ReferenceStorage.Instance.MinePauseManager;
+		if (GetTree().GetCurrentScene().GetName() == "MineScene")
+		{
+			var pauseManager = ReferenceStorage.Instance.MinePauseManager;
+			if(pauseManager.IsPaused) return;
+			MineActions.OnGamePaused?.Invoke();
+		}
 		
-		if(pauseManager.IsPaused) return;
 		_pauseMenu.Visible = true;
 		_pauseButton.Visible = false;
-		MineActions.OnGamePaused?.Invoke();
+		
 	}
 
 	private void OnBackButtonPressed()

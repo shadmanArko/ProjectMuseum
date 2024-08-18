@@ -211,7 +211,15 @@ public partial class Bat : FlyingEnemy
         if (distance <= AttackRadius)
             Phase = FlyingEnemyPhase.Attack;
         else if (distance <= SearchRadius)
+        {
+            if (Phase == FlyingEnemyPhase.Rest)
+            {
+                AnimPlayer.Play("hang_to_fly");
+                await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
+                AnimPlayer.Play("fly");
+            }
             Phase = FlyingEnemyPhase.Chase;
+        }
         else
         {
             if (Phase == FlyingEnemyPhase.Chase && distance > SearchRadius)
@@ -274,6 +282,7 @@ public partial class Bat : FlyingEnemy
     [Export] private bool _isResting;
     private async Task FindRestingPlace()
     {
+        if(IsDead) return;
         var listOfRestingPlaces = _enemyAi.FindRestingTiles(GetCellPos(Position), _mineGenerationVariables);
         if (listOfRestingPlaces.Count <= 0)
         {
@@ -301,8 +310,8 @@ public partial class Bat : FlyingEnemy
             }
 
             SetPath(tempPath);
-            if (_path.Count > 0)
-                _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
+            // if (_path.Count > 0)
+            //     _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
             _moveAlongPath = true;
             _speed = ChaseSpeed;
             _isResting = false;
@@ -317,6 +326,7 @@ public partial class Bat : FlyingEnemy
 
     private async Task FindExplorePosition()
     {
+        if(IsDead) return;
         var currentPos = GetCellPos(Position);
         var exploringPositions = _enemyAi.FindExploringPosition(currentPos, _mineGenerationVariables);
         if (exploringPositions.Count <= 0)
@@ -340,11 +350,12 @@ public partial class Bat : FlyingEnemy
             }
             
             SetPath(tempPath);
-            if (_path.Count > 0)
-                _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
+            // if (_path.Count > 0)
+            //     _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
             _speed = ExploreSpeed;
             _moveAlongPath = true;
             _isResting = false;
+            break;
         }
 
         await Task.Delay(100);
@@ -365,6 +376,7 @@ public partial class Bat : FlyingEnemy
 
     public override async void TakeDamage(int damageValue)
     {
+        if(IsDead) return;
         SetPhysicsProcess(false);
         AnimPlayer.Play("damage");
         await Task.Delay(Mathf.CeilToInt(AnimPlayer.CurrentAnimationLength * 1000));
@@ -419,7 +431,6 @@ public partial class Bat : FlyingEnemy
     }
 
     #endregion
-
     
     #region To Be Removed In The Future
 
@@ -491,6 +502,7 @@ public partial class Bat : FlyingEnemy
         var targetPos = _path[0];
         var direction = (targetPos - Position).Normalized();
         Velocity = new Vector2(_speed, _speed) * direction;
+        EnemySprite.FlipH = direction.X >= 0;
         MoveAndSlide();
     }
 

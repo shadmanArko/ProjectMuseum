@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cmjtexcfmbaxm" path="res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageSystem.tscn" id="7_x8k1i"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/DamageSystem/DamageSystem.cs" id="8_4crix"]
 [ext_resource type="PackedScene" uid="uid://ccshgryravaf2" path="res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn" id="8_mppk2"]
-[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
+[ext_resource type="PackedScene" uid="uid://vnv6cso2c6ak" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
 [ext_resource type="PackedScene" uid="uid://p4pp1nmkb44s" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_uross"]
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
@@ -32,7 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://boobbvr80bqqf" path="res://Scenes/Mine/Sub Scenes/Tutorials/MineTutorial.tscn" id="16_37v3a"]
 [ext_resource type="PackedScene" uid="uid://b7xekoa5ueyf3" path="res://Scenes/Mine/Sub Scenes/Operation Controller/OperationControllerManager.tscn" id="16_ot1vu"]
 [ext_resource type="PackedScene" uid="uid://wq7j3y20sfmm" path="res://Scenes/Mine/Sub Scenes/Managers/InventoryManager.tscn" id="21_r7x7f"]
-[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/Camera/ScreenShakeController.tscn" id="21_xw743"]
+[ext_resource type="PackedScene" uid="uid://cy25gubu2ffgk" path="res://Scenes/Mine/Sub Scenes/Camera/ScreenShakeController.tscn" id="21_xw743"]
 [ext_resource type="PackedScene" uid="uid://coi6tcy4grgu3" path="res://Scenes/Mine/Sub Scenes/SceneLoader.tscn" id="22_h2clm"]
 [ext_resource type="PackedScene" uid="uid://cs6e0obahil33" path="res://Scenes/Mine/Sub Scenes/Sounds/Mine Music Scene/BackgroundMusicManager.tscn" id="24_5ul55"]
 [ext_resource type="PackedScene" uid="uid://bik7q8pwktu3o" path="res://Scenes/Mine/Sub Scenes/Items/InventoryItemBuilder.tscn" id="24_xp5yp"]
@@ -105,13 +105,12 @@ process_mode = 3
 script = ExtResource("8_4crix")
 _damageVisualizerPath = "res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageVisualizer.tscn"
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_xj3qh")]
-_parentNode = NodePath("../MineSceneInitializer")
-
 [node name="ParticleEffectSystem" parent="." instance=ExtResource("11_1alc6")]
 
 [node name="Auto Animation Controller" type="Node2D" parent="."]
 script = ExtResource("7_5sphp")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("4_xj3qh")]
 
 [node name="ArtifactFromMineToInventory" parent="." instance=ExtResource("10_ebucy")]
 
@@ -165,9 +164,9 @@ _popUpText = NodePath("Pop Up Text")
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 process_mode = 3
 visible = false
-offset_top = 104.0
-offset_right = 409.0
-offset_bottom = 459.0
+offset_top = 34.88
+offset_right = 136.36
+offset_bottom = 153.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 

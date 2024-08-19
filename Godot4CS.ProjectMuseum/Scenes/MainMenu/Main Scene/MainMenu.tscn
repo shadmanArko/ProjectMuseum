@@ -38,6 +38,7 @@ script = ExtResource("3_y8duy")
 stream = ExtResource("4_1iujt")
 autoplay = true
 bus = &"Music"
+parameters/looping = true
 
 [node name="GamepadCursor" type="Node2D" parent="."]
 script = ExtResource("6_80643")

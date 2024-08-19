@@ -22,14 +22,14 @@ public partial class ShopManager: Node
     public float revenueFromFoodSell;
     public float revenueFromDrinkSell;
     public float revenueFromSouvenirSell;
-    private MuseumTileContainer _museumTileContainer;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     //Find suitable shop, destination and product
     public override async void _Ready()
     {
         base._Ready();
         await Task.Delay(1000);
         MuseumActions.DayEndReportGenerated += DayEndReportGenerated;
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
     }
 
     private void DayEndReportGenerated(MuseumDayEndReport obj)
@@ -66,7 +66,7 @@ public partial class ShopManager: Node
     {
         product = null;
         shop = null;
-        var shops = _museumTileContainer.Shops;
+        var shops = _museumRunningDataContainer.Shops;
         //if need related shops length> 0 ? continue:return null
         if (shops.Count < 1) return;
         //get all the need related shops

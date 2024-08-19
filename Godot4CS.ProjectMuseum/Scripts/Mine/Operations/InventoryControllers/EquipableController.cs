@@ -35,9 +35,9 @@ public partial class EquipableController : InventoryController
     {
         InitializeDiReference();
         SetProcess(false);
-        GetAllMeleeEquipables();
-        GetAllRangedEquipables();
-        GetAllPickaxeEquipables(); 
+        // GetAllMeleeEquipables();
+        // GetAllRangedEquipables();
+        // GetAllPickaxeEquipables(); 
     }
 
     private void InitializeDiReference()
@@ -48,20 +48,20 @@ public partial class EquipableController : InventoryController
     
     private void CreateHttpRequests()
     {
-        _getAllMeleeEquipablesHttpRequest = new HttpRequest();
-        AddChild(_getAllMeleeEquipablesHttpRequest);
-        _getAllMeleeEquipablesHttpRequest.RequestCompleted +=
-            OnGetAllMeleeEquipablesHttpRequestComplete;
-        
-        _getAllRangedEquipablesHttpRequest = new HttpRequest();
-        AddChild(_getAllRangedEquipablesHttpRequest);
-        _getAllRangedEquipablesHttpRequest.RequestCompleted +=
-            OnGetAllRangedEquipablesHttpRequestComplete;
-        
-        _getAllPickaxeEquipablesHttpRequest = new HttpRequest();
-        AddChild(_getAllPickaxeEquipablesHttpRequest);
-        _getAllPickaxeEquipablesHttpRequest.RequestCompleted +=
-            OnGetAllPickaxeEquipablesHttpRequestComplete;
+        // _getAllMeleeEquipablesHttpRequest = new HttpRequest();
+        // AddChild(_getAllMeleeEquipablesHttpRequest);
+        // _getAllMeleeEquipablesHttpRequest.RequestCompleted +=
+        //     OnGetAllMeleeEquipablesHttpRequestComplete;
+        //
+        // _getAllRangedEquipablesHttpRequest = new HttpRequest();
+        // AddChild(_getAllRangedEquipablesHttpRequest);
+        // _getAllRangedEquipablesHttpRequest.RequestCompleted +=
+        //     OnGetAllRangedEquipablesHttpRequestComplete;
+        //
+        // _getAllPickaxeEquipablesHttpRequest = new HttpRequest();
+        // AddChild(_getAllPickaxeEquipablesHttpRequest);
+        // _getAllPickaxeEquipablesHttpRequest.RequestCompleted +=
+        //     OnGetAllPickaxeEquipablesHttpRequestComplete;
     }
     
     #region Populate Equipables DTO

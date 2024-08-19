@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://gs8vh452xmae"
+path="res://.godot/imported/MK_Museum_PlaceObject.mp3-c34849bdb8d7a2bb418983ba6e98461e.mp3str"
+
+[deps]
+
+source_file="res://Assets/SFX/Museum SFX/MK_Museum_PlaceObject.mp3"
+dest_files=["res://.godot/imported/MK_Museum_PlaceObject.mp3-c34849bdb8d7a2bb418983ba6e98461e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

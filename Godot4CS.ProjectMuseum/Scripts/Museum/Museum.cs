@@ -11,9 +11,14 @@ public partial class Museum : Node2D
 
     private List<AStarNode> _aStarNodes;
     // Called when the node enters the scene tree for the first time.
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        GameManager.tileMap = GetNode<TileMap>("TileMap");
+    }
+
     public override void _Ready()
     {
-        GameManager.tileMap = GetNode<TileMap>("TileMap");
         // GameManager.outSideMuseumNodes = new AStarNode[,]
         SetupAStarNodesOutsideMuseum();
     }

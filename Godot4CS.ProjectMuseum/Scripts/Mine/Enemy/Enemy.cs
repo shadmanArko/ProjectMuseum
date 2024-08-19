@@ -7,11 +7,9 @@ using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces.Movement;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
-public partial class Enemy : CharacterBody2D, IUnit, IMovement, IDamageable
+public partial class Enemy : CharacterBody2D, IMovement, IDamageable
 {
     public string Id { get; set; }
-    [Export] public NavigationAgent2D NavAgent { get; set; }
-    [Export] protected AnimationTree AnimTree;
 
     #region Phase
 

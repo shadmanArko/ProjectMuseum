@@ -94,7 +94,7 @@ public partial class AutoAnimationController : Node2D
 			var cell = _mineGenerationVariables.GetCell(new Vector2I(24, 0));
 			var cellSize = _mineGenerationVariables.Mine.CellSize;
 			_p0 = _playerControllerVariables.Player.Position;
-			_p2 = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);	//_playerControllerVariables.Player.Position + new Vector2(60, 0);
+			_p2 = new Vector2(cell.PositionX * cellSize, cell.PositionY * cellSize);
 			_p1 = new Vector2((_p0.X + _p2.X) / 2, _p0.Y - 75);
 
 			SetProcess(false);

@@ -6,6 +6,19 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine;
 
 public partial class MineActions : Node
 {
+	#region Database
+
+	public static Action OnDatabaseLoad;
+
+	#endregion
+
+	#region Mine Game Start and End
+
+	public static Action OnMineGameStart;
+	public static Action OnMineGameEnd;
+
+	#endregion
+	
 	#region Play Pause
 
 	public static Action OnGamePaused;
@@ -115,6 +128,7 @@ public partial class MineActions : Node
 
     #region Inventory Actions
 
+    public static Action OnInventoryInitialized;
     public static Action<int> OnToolbarSlotChanged;
     public static Action DeselectAllInventoryControllers;
     public static Action OnInventoryUpdate;
@@ -144,6 +158,19 @@ public partial class MineActions : Node
 
 	public static Action OnPlayerPositionUpdated;
 	public static Action OnPlayerVelocityUpdated;
+
+	#endregion
+
+	#region Camera Actions
+
+	public static Action OnCameraPositionChanged;
+
+	#endregion
+
+	#region Save Load Mine Data
+
+	public static Action OnSaveGameData;
+	public static Action OnLoadGameData;
 
 	#endregion
 	

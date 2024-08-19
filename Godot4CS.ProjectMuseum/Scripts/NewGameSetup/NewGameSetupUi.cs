@@ -1,6 +1,12 @@
+using System.Collections.Generic;
+using System.Text.Json;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
+using ProjectMuseum.Models;
+using ProjectMuseum.Models.Artifact_and_Inventory;
+using Time = ProjectMuseum.Models.Time;
 
 public partial class NewGameSetupUi : Control
 {
@@ -44,12 +50,40 @@ public partial class NewGameSetupUi : Control
 		}
 		LoadingPanel.SetProcess(true);
 		LoadingPanel.Visible = true;
-		_httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.PlayerApiPath +
-		                                                              "LoadDataForNewGame");
+		// _httpRequestForClearingPreviousDataAndStartingNewGame.Request(ApiAddress.PlayerApiPath +
+		//                                                               "LoadDataForNewGame");
+		var playerInfo = new PlayerInfo();
+		playerInfo.Id = "string";
+		playerInfo.Name = LineEdit.Text;
+		playerInfo.Gender = OptionButton.Text;
+		playerInfo.Tutorial = CheckButton.ButtonPressed;
+		playerInfo.WakeUpHour = 7;
+		playerInfo.ForceSleepHour = 00;
+		LoadDataForNewGame(playerInfo);
+		LoadMuseumScene();
+		// MainMenuReferanceManager.Instance.PlayerInfoServices.
 		GD.Print("new game set Up request done");
 		
 	}
+	public void LoadDataForNewGame(PlayerInfo playerInfo)
+	{
+		SaveData saveData = new SaveData();
+		var exhibitsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/exhibit.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var museumTileJson = Godot.FileAccess.Open("res://Game Data/Starting Data/museumTile.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var displayArtifactsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/displayArtifact.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var artifactsStorageJson = Godot.FileAccess.Open("res://Game Data/Starting Data/artifactStorage.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var timeJson = Godot.FileAccess.Open("res://Game Data/Starting Data/time.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 
+        
+		saveData.Exhibits = JsonSerializer.Deserialize<List<Exhibit>>(exhibitsJson);
+		saveData.MuseumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(museumTileJson);
+		saveData.DisplayArtifacts = JsonSerializer.Deserialize<DisplayArtifacts>(displayArtifactsJson);
+		saveData.ArtifactStorage = JsonSerializer.Deserialize<ArtifactStorage>(artifactsStorageJson);
+		saveData.Time = JsonSerializer.Deserialize<Time>(timeJson);
+		saveData.PlayerInfo = playerInfo;
+        
+		SaveLoadService.Save(saveData);
+	}
 	private void SavePlayerInfo()
 	{
 		GD.Print($"Name: {LineEdit.Text}, Gender: {OptionButton.Text}, Tutorial: {CheckButton.ButtonPressed}");
@@ -83,9 +117,15 @@ public partial class NewGameSetupUi : Control
 
 	void OnNewGameSetupRequestForNewGameSetUpDataComplete(long result, long responsecode, string[] headers, byte[] body)
 	{
+		LoadMuseumScene();
+	}
+
+	private void LoadMuseumScene()
+	{
 		GD.Print("wil change scene now");
 		GetTree().ChangeSceneToFile("res://Scenes/Museum/Main Scene/Museum.tscn");
 	}
+
 	private void OnClinkStartNewGameButton()
 	{
 		Visible = true;

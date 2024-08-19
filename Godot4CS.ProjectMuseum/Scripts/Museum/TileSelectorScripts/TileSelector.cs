@@ -12,7 +12,7 @@ public partial class TileSelector : Node2D
 {
     private TileMap _tileMap;
     private int _tileSize;
-    private MuseumTileContainer _museumTileContainer;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     private bool _canEditTiles = true;
     private Vector2I _atlasCoordinates = new Vector2I(8, 0);
     private int _tileSourceId = 14;
@@ -21,7 +21,7 @@ public partial class TileSelector : Node2D
 	{
         _tileMap = GameManager.tileMap;
         await Task.Delay(1000);
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -60,7 +60,7 @@ public partial class TileSelector : Node2D
                     {
                         // _tileMap.ClearLayer(1);
                         var spawnTilePos = new Vector2I(x, y);
-                        if (!spawnTilePos.IsTilePositionInsideTileMap(_museumTileContainer.MuseumTiles)) continue;
+                        if (!spawnTilePos.IsTilePositionInsideTileMap(_museumRunningDataContainer.MuseumTiles)) continue;
                         tilePositions.Add(spawnTilePos);
                         
                         // _tileMap.SetCell(1, spawnTilePos, _tileSourceId, Vector2I.Zero);
@@ -109,7 +109,7 @@ public partial class TileSelector : Node2D
         foreach (var tilePosition in tilePositions)
         {
             SetTile(tilePosition.X, tilePosition.Y);
-            foreach (var museumTile in _museumTileContainer.MuseumTiles)
+            foreach (var museumTile in _museumRunningDataContainer.MuseumTiles)
             {
                 if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
                 {

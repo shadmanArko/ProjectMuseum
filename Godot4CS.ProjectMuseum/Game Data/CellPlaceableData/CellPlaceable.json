@@ -1,0 +1,28 @@
+[
+  {
+    "Id": "1",
+    "PositionX": 10,
+    "PositionY": 20,
+    "OccupiedCellId": "",
+    "ExtraOccupiedDimensionX": 0,
+    "ExtraOccupiedDimensionY": 0,
+    "Type": "CellPlaceable",
+    "Category": "Explosives",
+    "Variant": "Dynamite",
+    "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Explosives/Dynamite.tscn",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Explosives/dynamite.png"
+  },
+  {
+    "Id": "2",
+    "PositionX": 20,
+    "PositionY": 20,
+    "OccupiedCellId": "",
+    "ExtraOccupiedDimensionX": 0,
+    "ExtraOccupiedDimensionY": 0,
+    "Type": "CellPlaceable",
+    "Category": "Drill",
+    "Variant": "DownDrill",
+    "ScenePath": "res://Scenes/Mine/Sub Scenes/Items/CellPlaceables/Drills/DrillCore.tscn",
+    "PngPath": "res://Assets/2D/Sprites/Mine Sprites/Drills/drillCoreSprite.png"
+  }
+]

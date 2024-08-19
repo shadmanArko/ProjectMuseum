@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://f7mag5o4d6ps"]
+[gd_scene load_steps=7 format=3 uid="uid://f7mag5o4d6ps"]
 
 [ext_resource type="PackedScene" uid="uid://b36m03rmoip3m" path="res://Scenes/MainMenu/Sub Scenes/MainMenu Ui.tscn" id="1_yi0a2"]
 [ext_resource type="PackedScene" uid="uid://bubw1v2o1o04u" path="res://Scenes/NewGameSetUp/NewGameSetupUi.tscn" id="2_nx8bi"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuMiscellaneousDataManager.cs" id="3_y8duy"]
 [ext_resource type="AudioStream" uid="uid://t7ctatgdpp5f" path="res://Assets/Musics/Museum/Background Musics/8bittownthemesong-59266.mp3" id="4_1iujt"]
 [ext_resource type="Script" path="res://Plugins/Gamepad Cursor/gamepad_cursor.gd" id="6_80643"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/Main Scene/MainMenuReferanceManager.cs" id="7_h8xe2"]
 
 [node name="MainMenu" type="Node2D"]
 
@@ -40,3 +41,6 @@ bus = &"Music"
 
 [node name="GamepadCursor" type="Node2D" parent="."]
 script = ExtResource("6_80643")
+
+[node name="MainMenuReferanceManager" type="Node" parent="."]
+script = ExtResource("7_h8xe2")

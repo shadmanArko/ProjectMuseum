@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Text;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
@@ -21,17 +23,20 @@ public partial class MuseumTimeSystem : Node
     private  Time _time = new Time();
     private HttpRequest _httpRequestForGettingTime;
     private HttpRequest _httpRequestForUpdatingTime;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     public override void _Ready()
 	{
 		_originalClockUnitSpeed = _secondsIn10Minutes;
-
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		_httpRequestForGettingTime = new HttpRequest();
 		_httpRequestForUpdatingTime = new HttpRequest();
 		AddChild(_httpRequestForGettingTime);
 		AddChild(_httpRequestForUpdatingTime);
 		_httpRequestForGettingTime.RequestCompleted += HttpRequestForGettingTimeOnRequestCompleted;
 		_httpRequestForUpdatingTime.RequestCompleted += HttpRequestForUpdatingTimeOnRequestCompleted;
-		_httpRequestForGettingTime.Request(ApiAddress.PlayerApiPath + "GetTime");
+		// _httpRequestForGettingTime.Request(ApiAddress.PlayerApiPath + "GetTime");
+		_time = MuseumReferenceManager.Instance.TimeServices.GetTime();
+		MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 		// MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
 		MuseumActions.OnClickTimeSpeedButton += SetClockSpeed;
 		MuseumActions.OnPlayerSleepAndSavedGame += OnPlayerSleepAndSavedGame;
@@ -79,7 +84,7 @@ public partial class MuseumTimeSystem : Node
 	    string jsonStr = Encoding.UTF8.GetString(body);
 	    GD.Print(jsonStr);
 	    _time = JsonSerializer.Deserialize<Time>(jsonStr);
-	    MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+	    
     }
 
 
@@ -161,6 +166,7 @@ public partial class MuseumTimeSystem : Node
 			}
 		}
 		MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
+		_museumRunningDataContainer.Time = _time;
 	}
 
 	private void SaveTime()

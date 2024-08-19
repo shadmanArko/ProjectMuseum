@@ -1,12 +1,16 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 public partial class DialogueSystem : Control
@@ -32,7 +36,7 @@ public partial class DialogueSystem : Control
 	private string _playerName;
 	private Vector2 _slideOutPosition;
 	private Vector2 _slideInPosition;
-	
+	private PlayerInfo _playerInfo;
 	public override async void _Ready()
 	{
 		// fullDialogue = $"My name is {PLAYER_NAME()} {PAUSE()}";
@@ -45,6 +49,7 @@ public partial class DialogueSystem : Control
 		_httpRequestForGettingStory.RequestCompleted += HttpRequestForGettingStoryOnRequestCompleted;
 		_httpRequestForCompletingStory.RequestCompleted += HttpRequestForCompletingStoryOnRequestCompleted;
 		MuseumActions.PlayStoryScene += LoadStoryScene;
+		MuseumActions.OnPlayerInfoUpdated += OnPlayerInfoUpdated;
 		_nextDialogueButton.Pressed += NextDialogueButtonOnPressed;
 		// SlideIn();
 		//
@@ -55,6 +60,13 @@ public partial class DialogueSystem : Control
 		// SlideIn();
 		_slideInPosition = new Vector2(_dialogueBox.Position.X, _dialogueBox.Position.Y - _dialogueBox.Size.Y);
 		_slideOutPosition = _dialogueBox.Position;
+		_playerInfo = SaveLoadService.Load().PlayerInfo;
+		_playerName = _playerInfo.Name;
+	}
+
+	private void OnPlayerInfoUpdated(PlayerInfo obj)
+	{
+		_playerInfo = obj;
 	}
 
 	private void HttpRequestForCompletingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -146,8 +158,11 @@ public partial class DialogueSystem : Control
 	private async void HandleSceneEnd()
 	{
 		_httpRequestForCompletingStory.CancelRequest();
-		_httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
-		                                       $"UpdateCompletedStory/{_currentStorySceneNumber}");
+		// _httpRequestForCompletingStory.Request(ApiAddress.PlayerApiPath +
+		//                                        $"UpdateCompletedStory/{_currentStorySceneNumber}");
+		// MuseumReferenceManager.Instance.PlayerInfoServices.UpdateCompletedStory(_currentStorySceneNumber);
+		_playerInfo.CompletedStoryScene = _currentStorySceneNumber;
+		MuseumActions.OnPlayerInfoUpdated?.Invoke(_playerInfo);
 		await SlideOut();
 		
 		_cutsceneArt.Visible = false;
@@ -162,7 +177,12 @@ public partial class DialogueSystem : Control
 		}
 	}
 
-	
+	// public PlayerInfo UpdateCompletedStory(int completedStoryNumber)
+	// {
+	// 	var playerInfo =  SaveLoadService.Load().PlayerInfo;
+	// 	playerInfo!.CompletedStoryScene = completedStoryNumber;
+	// 	return  playerInfo;
+	// }
 
 	private void LoadAndSetCharacterPortrait()
 	{
@@ -208,18 +228,34 @@ public partial class DialogueSystem : Control
 	{
 		_currentStorySceneNumber = storySceneNumber;
 		var url = ApiAddress.StoryApiPath + $"GetStoryScene/{storySceneNumber}";
-		_httpRequestForGettingStory.CancelRequest();
-        _httpRequestForGettingStory.Request(url);
+		// _httpRequestForGettingStory.CancelRequest();
+  //       _httpRequestForGettingStory.Request(url);
+        _storyScene = GetByScene(storySceneNumber);
+        AfterGettingStory();
 	}
+	
+	private StoryScene GetByScene(int sceneNo)
+	{
+		var storyScenesJson = Godot.FileAccess.Open("res://Game Data/StoryData/StoryScene.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var storyScenes = JsonSerializer.Deserialize<List<StoryScene>>(storyScenesJson);
+		var storyScene = storyScenes!.FirstOrDefault(story => story.SceneNo == sceneNo);
+		return storyScene;
+	}
+
 
 	private async void HttpRequestForGettingStoryOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
 		 string jsonStr = Encoding.UTF8.GetString(body);
 		 //GD.Print(jsonStr);
 		 _storyScene = JsonSerializer.Deserialize<StoryScene>(jsonStr);
-		 _storyEntryCount = 0;
-		 SlideIn();
-		 ShowNextStoryEntry();
+		 AfterGettingStory();
+	}
+
+	private void AfterGettingStory()
+	{
+		_storyEntryCount = 0;
+		SlideIn();
+		ShowNextStoryEntry();
 	}
 
 	private async void SlideIn()
@@ -238,16 +274,18 @@ public partial class DialogueSystem : Control
 		}
 
 		_dialogueBox.Position = targetPosition; // ensure it ends exactly at the target position
+		_nextDialogueButton.ProcessMode = ProcessModeEnum.Inherit;
 
 		
 	}
 	private async Task SlideOut()
 	{
+		_nextDialogueButton.ProcessMode = ProcessModeEnum.Disabled;
 		var startPosition = _dialogueBox.Position;
 		Vector2 targetPosition = _slideOutPosition;
 		float duration = 1.0f;
 		double elapsed = 0.0f;
-
+		
 		while (elapsed < duration)
 		{
 			elapsed +=  GetProcessDeltaTime();
@@ -372,6 +410,7 @@ public partial class DialogueSystem : Control
 		base._ExitTree();
 		_nextDialogueButton.Pressed -= NextDialogueButtonOnPressed;		
 		MuseumActions.PlayStoryScene -= LoadStoryScene;
+		MuseumActions.OnPlayerInfoUpdated -= OnPlayerInfoUpdated;
 		_httpRequestForGettingStory.RequestCompleted -= HttpRequestForGettingStoryOnRequestCompleted;
 	}
 }

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1",
+    "Name": "Basic Pickaxe",
+    "Type": "Equipable",
+    "Category": "Pickaxe",
+    "Variant": "BasicPickaxe",
+    "AnimantionSpriteSheetPath": "sprites/iron_pickaxe.png",
+    "Damage": 10,
+    "Cooldown": 1.5,
+    "HasStatusEffect": false,
+    "ListOfStatusEffects": []
+  },
+  {
+    "Id": "2",
+    "Name": "Diamond Pickaxe",
+    "Type": "Equipable",
+    "Category": "Pickaxe",
+    "Variant": "CopperPickaxe",
+    "AnimantionSpriteSheetPath": "sprites/diamond_pickaxe.png",
+    "Damage": 20,
+    "Cooldown": 2.0,
+    "HasStatusEffect": true,
+    "ListOfStatusEffects": ["Durability"]
+  }
+]

@@ -7,66 +7,81 @@ using Godot4CS.ProjectMuseum.Scripts.Mine;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Museum.Tutorial_System;
 
 public partial class MineTutorial : Node
 {
-	public PlayerInfo PlayerInfo;
+	
 	private PlayerControllerVariables _playerControllerVariables;
 	[Export] private TutorialSystem _tutorialSystem;
 
 	private HttpRequest _getPlayerInfoHttpRequest;
-	private HttpRequest _addTutorialArtifactToMine;
+	// private HttpRequest _addTutorialArtifactToMine;
 
 	private bool _isMineTutorialDonePlaying;
 	
 	public override void _Ready()
 	{
+		InitializeDiInstaller();
 		CreateHttpRequest();
-		GetPlayerInfo();
+		// GetPlayerInfo();
+		LoadPlayerInfo();
 		
-		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
 		SubscribeToActions();
 		SetProcess(false);
 		
 		MoveLeftAndRightTutorial();
 	}
 
+	private void InitializeDiInstaller()
+	{
+		_playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
+	}
+
 	private void CreateHttpRequest()
 	{
-		_getPlayerInfoHttpRequest = new HttpRequest();
-		AddChild(_getPlayerInfoHttpRequest);
-		_getPlayerInfoHttpRequest.RequestCompleted += OnGetPlayerInfoHttpRequestCompleted;
+		// _getPlayerInfoHttpRequest = new HttpRequest();
+		// AddChild(_getPlayerInfoHttpRequest);
+		// _getPlayerInfoHttpRequest.RequestCompleted += OnGetPlayerInfoHttpRequestCompleted;
 		
-		_addTutorialArtifactToMine = new HttpRequest();
-		AddChild(_addTutorialArtifactToMine);
+		// _addTutorialArtifactToMine = new HttpRequest();
+		// AddChild(_addTutorialArtifactToMine);
 	}
 
 	#region Get Player Info
 
 	private void GetPlayerInfo()
 	{
-		_getPlayerInfoHttpRequest.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+		// _getPlayerInfoHttpRequest.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+		if(_playerControllerVariables.PlayerInfo.CompletedStoryScene == 10)
+			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
 	private void OnGetPlayerInfoHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
-		PlayerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
 		
-		if(PlayerInfo.CompletedStoryScene == 10)
+		if(_playerControllerVariables.PlayerInfo.CompletedStoryScene == 10)
 			MuseumActions.PlayStoryScene?.Invoke(11);
 	}
 
 	#endregion
+
+	private void LoadPlayerInfo()
+	{
+		var saveData = SaveLoadService.Load();
+		_playerControllerVariables.PlayerInfo = saveData.PlayerInfo;
+	}
 
 	private void SubscribeToActions()
 	{
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
 		MineActions.OnPlayerReachFirstWarning += GetPlayerInfo;
 		
+		MuseumActions.OnPlayerInfoUpdated += OnPlayerInfoUpdated;
 		MuseumActions.TutorialSceneEntryEnded += DigOrdinaryAndArtifactCellTutorial;
 		MuseumActions.TutorialSceneEntryEnded += SelectPickaxeTutorial;
 		MuseumActions.TutorialSceneEntryEnded += PlayMiniGameTutorial;
@@ -74,13 +89,18 @@ public partial class MineTutorial : Node
 		MuseumActions.TutorialSceneEntryEnded += BasicMineTutorialEnded;
 	}
 
+	private void OnPlayerInfoUpdated(PlayerInfo obj)
+	{
+		_playerControllerVariables.PlayerInfo = obj;
+	}
+
 	public bool IsMineTutorialPlaying()
 	{
 		if (_isMineTutorialDonePlaying) return false;
 		
 		// GD.Print($"Tutorial No: "+PlayerInfo.CompletedTutorialScene);
-		if (PlayerInfo == null) return false;
-		return PlayerInfo.CompletedTutorialScene == 5;
+		if (_playerControllerVariables.PlayerInfo == null) return false;
+		return _playerControllerVariables.PlayerInfo.CompletedTutorialScene == 5;
 	}
 	
 	public async Task PlayMineTutorials()

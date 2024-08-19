@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -33,8 +34,8 @@ public partial class SanitationItem : Item
 		string jsonStr = Encoding.UTF8.GetString(body);
 		GD.Print("Http1 result " + jsonStr);
 		var tilesWithSanitationsDto = JsonSerializer.Deserialize<TilesWithSanitationsDTO>(jsonStr);
-		_museumTileContainer.MuseumTiles = tilesWithSanitationsDto.MuseumTiles;
-		_museumTileContainer.Sanitations = tilesWithSanitationsDto.Sanitations!;
+		MuseumRunningDataContainer.MuseumTiles = tilesWithSanitationsDto.MuseumTiles;
+		MuseumRunningDataContainer.Sanitations = tilesWithSanitationsDto.Sanitations!;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -134,7 +135,12 @@ public partial class SanitationItem : Item
 		string url = "";
 		GD.Print($"sanitation variation {_variationName}, body {body} ");
 		url = $"{ApiAddress.MuseumApiPath}PlaceSanitationOnTiles/{tileIds[0]}/{_variationName}/{Frame}";
-		_httpRequestForPlacingSanitationItem.Request(url, headers, HttpClient.Method.Get, body);
+		// _httpRequestForPlacingSanitationItem.Request(url, headers, HttpClient.Method.Get, body);
+		var result = MuseumReferenceManager.Instance.ItemPlacementConditionService.PlaceSanitationOnTiles(tileIds[0], tileIds,
+			_variationName, Frame);
+		MuseumRunningDataContainer.MuseumTiles = result.MuseumTiles;
+		MuseumRunningDataContainer.Sanitations = result.Sanitations;
+		_sanitationData = result.Sanitation;
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 		OnItemPlacedOnTile(GlobalPosition);

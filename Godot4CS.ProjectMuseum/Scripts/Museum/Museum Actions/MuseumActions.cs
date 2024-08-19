@@ -12,6 +12,7 @@ public partial class MuseumActions : Node
 {
     public static Action<Item, Exhibit> OnClickItem;
     public static Action<Item, Shop> OnClickShopItem;
+    public static Action OnItemRotated;
     public static Action<GuestAi> OnClickGuestAi;
     public static Action<GuestAi> OnGuestAiUpdated;
     public static Action<string> OnClickWallForUpdatingWallPaper;
@@ -65,7 +66,7 @@ public partial class MuseumActions : Node
     public static Action<string> OnPlayerInteractWith;
     public static Action<PlayerInfo> OnPlayerGetPlayerInfo;
     public static Action OnPlayerClickedAnEmptyHouse;
-
+    public static Action OnPlayerStepped;
 
     #endregion
     #region PopUpUi
@@ -87,6 +88,7 @@ public partial class MuseumActions : Node
     public static Action<string> StorySceneEntryStarted;
     public static Action<string> TutorialSceneEntryEnded;
     public static Action<int> PlayTutorial;
+    public static Action<PlayerInfo> OnPlayerInfoUpdated;
     public static Action<string> OnTutorialUpdated;
     public static Action OnTutorialEnded;
     public static Action<string> OnPlayerPerformedTutorialRequiringAction;

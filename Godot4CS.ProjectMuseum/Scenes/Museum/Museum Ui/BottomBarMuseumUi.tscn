@@ -1235,7 +1235,7 @@ texture = ExtResource("7_lgch0")
 script = ExtResource("4_egqqe")
 _builderCardScene = ExtResource("5_fc6vt")
 _buildersPanelClosingButton = NodePath("Top Bar/closing button")
-_builderCardContainer = NodePath("Objects Panel/MarginContainer/GridContainer")
+_builderCardContainer = NodePath("Objects Panel/MarginContainer2/MarginContainer/GridContainer")
 
 [node name="Objects Panel" type="ColorRect" parent="Builder card panel"]
 layout_mode = 1
@@ -1250,31 +1250,29 @@ offset_right = 15.48
 offset_bottom = 6.85699
 color = Color(0.0196078, 0.0196078, 0.0196078, 0.376471)
 
-[node name="MarginContainer" type="MarginContainer" parent="Builder card panel/Objects Panel"]
+[node name="MarginContainer2" type="MarginContainer" parent="Builder card panel/Objects Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 1.0
-offset_right = 2.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="GridContainer" type="GridContainer" parent="Builder card panel/Objects Panel/MarginContainer"]
+[node name="MarginContainer" type="ScrollContainer" parent="Builder card panel/Objects Panel/MarginContainer2"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Builder card panel/Objects Panel/MarginContainer2/MarginContainer"]
 custom_minimum_size = Vector2(100, 90)
 layout_mode = 2
 theme = ExtResource("4_uca33")
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
-columns = 5
+columns = 7
 
-[node name="Builder Card" parent="Builder card panel/Objects Panel/MarginContainer/GridContainer" node_paths=PackedStringArray("textureButton") instance=ExtResource("5_fc6vt")]
+[node name="Builder Card" parent="Builder card panel/Objects Panel/MarginContainer2/MarginContainer/GridContainer" node_paths=PackedStringArray("textureButton") instance=ExtResource("5_fc6vt")]
 visible = false
 layout_mode = 2
 textureButton = NodePath("Builder Button With Texture")

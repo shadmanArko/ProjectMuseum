@@ -1,4 +1,5 @@
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.Artifact_and_Inventory;
 using ProjectMuseum.Models.CoreShop;
 using ProjectMuseum.Models.MIne;
 using ProjectMuseum.Models.MIne.Equipables;

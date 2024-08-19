@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Text;
 using Godot;
 using Godot.Collections;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.MuseumServices;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
 using Newtonsoft.Json;
 using ProjectMuseum.DTOs;
@@ -15,41 +17,37 @@ public partial class ExhibitItem : Item
 {
 	[Export] private Array<Sprite2D> _artifactSlots;
 	private HttpRequest _httpRequestForGettingExhibitVariation;
-	protected HttpRequest _httpRequestForArtifactPlacement;
-	protected HttpRequest _httpRequestForArtifactRemoval;
+	private ItemPlacementConditionService _itemPlacementConditionService;
 	public override void _Ready()
 	{
 		base._Ready();
+		_itemPlacementConditionService = MuseumReferenceManager.Instance.ItemPlacementConditionService;
 		_httpRequestForGettingExhibitVariation = new HttpRequest();
 		AddChild(_httpRequestForGettingExhibitVariation);
-		_httpRequestForArtifactPlacement = new HttpRequest();
-		_httpRequestForArtifactRemoval = new HttpRequest();
-		AddChild(_httpRequestForArtifactPlacement);
-		AddChild(_httpRequestForArtifactRemoval);
-		_httpRequestForGettingExhibitVariation.RequestCompleted += HttpRequestForGettingExhibitVariationOnRequestCompleted;
+		// _httpRequestForGettingExhibitVariation.RequestCompleted += HttpRequestForGettingExhibitVariationOnRequestCompleted;
 		MuseumActions.ArtifactDroppedOnExhibitSlot += ArtifactDroppedOnExhibitSlot;
 		MuseumActions.ArtifactRemovedFromExhibitSlot += ArtifactRemovedFromExhibitSlot;
-		_httpRequestForArtifactPlacement.RequestCompleted += HttpRequestForArtifactPlacementOnRequestCompleted;
-		_httpRequestForArtifactRemoval.RequestCompleted += HttpRequestForArtifactRemovalOnRequestCompleted;
+		// _httpRequestForArtifactPlacement.RequestCompleted += HttpRequestForArtifactPlacementOnRequestCompleted;
+		// _httpRequestForArtifactRemoval.RequestCompleted += HttpRequestForArtifactRemovalOnRequestCompleted;
 		MuseumActions.OnExhibitDeleted += OnExhibitDeleted;
 		MuseumActions.OnMakeExhibitFloatForMoving += OnMakeExhibitFloatForMoving;
 	}
 
 	private void OnMakeExhibitFloatForMoving(string obj)
 	{
-		if (obj== ExhibitData.Id)
+		if (obj == ExhibitData.Id)
 		{
 			selectedItem = true;
 			_moving = true;
 			_movingFromPos = Position;
 			GetUpdatedItemPlacementConditions();
 		}
-		
+
 	}
 
 	private void OnExhibitDeleted(string obj)
 	{
-		if (obj== ExhibitData.Id)
+		if (obj == ExhibitData.Id)
 		{
 			QueueFree();
 		}
@@ -65,12 +63,12 @@ public partial class ExhibitItem : Item
 
 	public void Initialize(string exhibitVariationName)
 	{
-        
+
 		ExhibitVariationName = exhibitVariationName;
 		selectedItem = true;
 		_itemType = ItemTypes.Exhibit;
 		_httpRequestForGettingExhibitVariation.Request(ApiAddress.MuseumApiPath +
-		                                               $"GetExhibitVariation/variationName?variationName={exhibitVariationName}");
+													   $"GetExhibitVariation/variationName?variationName={exhibitVariationName}");
 		MakeObjectsFloating();
 		//GD.Print("Item Initialized");
 	}
@@ -85,7 +83,7 @@ public partial class ExhibitItem : Item
 	{
 		if (!selectedItem) return;
 		Vector2I mouseTile = GameManager.tileMap.LocalToMap(GetGlobalMousePosition());
-        
+
 		// Check if the tile is eligible for this item placement
 		if (_lastCheckedTile != mouseTile)
 		{
@@ -150,11 +148,11 @@ public partial class ExhibitItem : Item
 		foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
 		{
 			tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
-			
+
 		}
 
-		var exhibitWithNewTiles = new ExhibitWithNewTiles(){Exhibit = ExhibitData, NewTileIds = tileIds};
-		string[] headers = { "Content-Type: application/json"};
+		var exhibitWithNewTiles = new ExhibitWithNewTiles() { Exhibit = ExhibitData, NewTileIds = tileIds };
+		string[] headers = { "Content-Type: application/json" };
 		var body = JsonConvert.SerializeObject(exhibitWithNewTiles);
 		string url =
 			$"{ApiAddress.MuseumApiPath}MoveExhibitOnTiles/{tileIds[0]}/{Frame}";
@@ -173,144 +171,151 @@ public partial class ExhibitItem : Item
 		foreach (var matchingExhibitPlacementConditionData in _listOfMatchingExhibitPlacementConditionDatas)
 		{
 			tileIds.Add(GetTileId(new Vector2I(matchingExhibitPlacementConditionData.TileXPosition, matchingExhibitPlacementConditionData.TileYPosition)));
-			
+
 		}
 
-		
-		string[] headers = { "Content-Type: application/json"};
+
+		string[] headers = { "Content-Type: application/json" };
 		var body = JsonConvert.SerializeObject(tileIds);
 		string url =
 			$"{ApiAddress.MuseumApiPath}PlaceAnExhibitOnTiles/{tileIds[0]}/{ExhibitVariationName}/{Frame}";
-		_httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+		// _httpRequestForExhibitPlacement.Request(url, headers, HttpClient.Method.Get, body);
+		var dto = _itemPlacementConditionService.PlaceExhibitOnTiles(tileIds[0], tileIds, ExhibitVariationName, Frame);
+		MuseumRunningDataContainer.MuseumTiles = dto.MuseumTiles;
+		MuseumRunningDataContainer.Exhibits = dto.Exhibits;
+		ExhibitData = dto.Exhibit;
 		//GD.Print($"Handling exhibit placement for price {ItemPrice}");
 		MuseumActions.OnMuseumBalanceReduced?.Invoke(ItemPrice);
 		MuseumActions.OnItemUpdated?.Invoke();
 		DisableItemPlacementShadow();
 	}
 	public void SetUpArtifacts(List<Artifact> displayArtifact)
-    {
-        foreach (var artifact in displayArtifact)
-        {
-            if (artifact == null ) continue;
+	{
+		foreach (var artifact in displayArtifact)
+		{
+			if (artifact == null) continue;
 
-            foreach (var gridSlots2X2 in ExhibitData.ArtifactGridSlots2X2s)
-            {
-	            if (artifact.Id == gridSlots2X2.Slot0)
-	            {
-		            AssignArtifactToSlot(artifact, 1);
-	            }else if (artifact.Id == gridSlots2X2.Slot1)
-	            {
-		            AssignArtifactToSlot(artifact, 2);
-	            }else if (artifact.Id == gridSlots2X2.Slot2)
-	            {
-		            AssignArtifactToSlot(artifact, 3);
-	            }else if (artifact.Id == gridSlots2X2.Slot3)
-	            {
-		            AssignArtifactToSlot(artifact, 4);
-	            }
-            }
-        }
-    }
-    
-
-    private void HttpRequestForArtifactRemovalOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
-    {
-        string jsonStr = Encoding.UTF8.GetString(body);
-        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
-        MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
-        //GD.Print("Removed Artifact");
-    }
-
-    private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber, string artifactSize)
-    {
-        if (slotNumber == 0) return;
-        if (givenItem == this)
-        {
-            RemoveArtifactFromSlot(slotNumber);
-            _httpRequestForArtifactRemoval.Request(ApiAddress.MuseumApiPath +
-                                                   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
-        }
-    }
-
-    private void RemoveArtifactFromSlot(int slotNumber)
-    {
-	    // _artifactSlots[slotNumber-1].Texture = null;
-	    // if (slotNumber == 1)
-     //    {
-     //        _artifactSlots[0].Texture = null;
-     //    }
-     //    else if (slotNumber == 2)
-     //    {
-     //        _artifactSlots[1].Texture = null;
-     //    }
-    }
-
-    private void HttpRequestForArtifactPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
-    {
-        string jsonStr = Encoding.UTF8.GetString(body);
-        GD.Print("exhibit data: " +jsonStr);
-        ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
-        MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
-        //GD.Print("Placed Artifact");
-    }
-
-    private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber, string artifactSize)
-    {
-        if (slotNumber == 0) return;
-        
-        if (givenItem == this)
-        {
-            AssignArtifactToSlot(artifact, slotNumber);
-            var url = ApiAddress.MuseumApiPath +
-                      $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}";
-            GD.Print($"url: {url}");
-            _httpRequestForArtifactPlacement.Request(url);
-        
-        }
-    }
-
-    private void AssignArtifactToSlot(Artifact artifact, int slotNumber)
-    {
-	    if (slotNumber == 0)
-	    {
-		    return;
-	    }
-	    // _artifactSlots[slotNumber-1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-	    // if (slotNumber == 1)
-     //    {
-     //        _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-     //    }
-     //    else if (slotNumber == 2)
-     //    {
-     //        _artifactSlots[1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-     //    }
-    }
+			foreach (var gridSlots2X2 in ExhibitData.ArtifactGridSlots2X2s)
+			{
+				if (artifact.Id == gridSlots2X2.Slot0)
+				{
+					AssignArtifactToSlot(artifact, 1);
+				}
+				else if (artifact.Id == gridSlots2X2.Slot1)
+				{
+					AssignArtifactToSlot(artifact, 2);
+				}
+				else if (artifact.Id == gridSlots2X2.Slot2)
+				{
+					AssignArtifactToSlot(artifact, 3);
+				}
+				else if (artifact.Id == gridSlots2X2.Slot3)
+				{
+					AssignArtifactToSlot(artifact, 4);
+				}
+			}
+		}
+	}
 
 
-    private Texture2D LoadArtifactTexture(string artifactIconName)
-    {
-        string spritePath = $"res://Assets/2D/Sprites/Isometric View Artifacts/{artifactIconName}.png"; // Change the extension if your sprites have a different format
+	private void HttpRequestForArtifactRemovalOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+		MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
+		//GD.Print("Removed Artifact");
+	}
 
-        // Use ResourceLoader.Load to load the texture
-        Texture2D texture = (Texture2D)ResourceLoader.Load(spritePath);
+	private void ArtifactRemovedFromExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber, string artifactSize)
+	{
+		if (slotNumber == 0) return;
+		if (givenItem == this)
+		{
+			RemoveArtifactFromSlot(slotNumber);
+			_httpRequestForArtifactRemoval.Request(ApiAddress.MuseumApiPath +
+												   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
+		}
+	}
 
-        if (texture == null)
-        {
-            //GD.Print($"Failed to load texture for artifact: {artifactIconName}");
-        }
+	private void RemoveArtifactFromSlot(int slotNumber)
+	{
+		// _artifactSlots[slotNumber-1].Texture = null;
+		// if (slotNumber == 1)
+		//    {
+		//        _artifactSlots[0].Texture = null;
+		//    }
+		//    else if (slotNumber == 2)
+		//    {
+		//        _artifactSlots[1].Texture = null;
+		//    }
+	}
 
-        return texture;
-    }
+	private void HttpRequestForArtifactPlacementOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
+	{
+		string jsonStr = Encoding.UTF8.GetString(body);
+		GD.Print("exhibit data: " + jsonStr);
+		ExhibitData = JsonSerializer.Deserialize<Exhibit>(jsonStr);
+		MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
+		//GD.Print("Placed Artifact");
+	}
 
-    public override void _ExitTree()
-    {
-	    base._ExitTree();
-	    MuseumActions.ArtifactDroppedOnExhibitSlot -= ArtifactDroppedOnExhibitSlot;
-	    MuseumActions.ArtifactRemovedFromExhibitSlot -= ArtifactRemovedFromExhibitSlot;
-	    _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
-	    _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
-	    _httpRequestForGettingExhibitVariation.RequestCompleted -= HttpRequestForGettingExhibitVariationOnRequestCompleted;
-	    MuseumActions.OnExhibitDeleted -= OnExhibitDeleted;
-	    MuseumActions.OnMakeExhibitFloatForMoving -= OnMakeExhibitFloatForMoving;
-    }
+	private void ArtifactDroppedOnExhibitSlot(Artifact artifact, Item givenItem, int slotNumber, int gridNumber, string artifactSize)
+	{
+		if (slotNumber == 0) return;
+
+		if (givenItem == this)
+		{
+			AssignArtifactToSlot(artifact, slotNumber);
+			var url = ApiAddress.MuseumApiPath +
+					  $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}";
+			GD.Print($"url: {url}");
+			_httpRequestForArtifactPlacement.Request(url);
+
+		}
+	}
+
+	private void AssignArtifactToSlot(Artifact artifact, int slotNumber)
+	{
+		if (slotNumber == 0)
+		{
+			return;
+		}
+		// _artifactSlots[slotNumber-1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+		// if (slotNumber == 1)
+		//    {
+		//        _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+		//    }
+		//    else if (slotNumber == 2)
+		//    {
+		//        _artifactSlots[1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+		//    }
+	}
+
+
+	private Texture2D LoadArtifactTexture(string artifactIconName)
+	{
+		string spritePath = $"res://Assets/2D/Sprites/Isometric View Artifacts/{artifactIconName}.png"; // Change the extension if your sprites have a different format
+
+		// Use ResourceLoader.Load to load the texture
+		Texture2D texture = (Texture2D)ResourceLoader.Load(spritePath);
+
+		if (texture == null)
+		{
+			//GD.Print($"Failed to load texture for artifact: {artifactIconName}");
+		}
+
+		return texture;
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		MuseumActions.ArtifactDroppedOnExhibitSlot -= ArtifactDroppedOnExhibitSlot;
+		MuseumActions.ArtifactRemovedFromExhibitSlot -= ArtifactRemovedFromExhibitSlot;
+		// _httpRequestForArtifactPlacement.RequestCompleted -= HttpRequestForArtifactPlacementOnRequestCompleted;
+		// _httpRequestForArtifactRemoval.RequestCompleted -= HttpRequestForArtifactRemovalOnRequestCompleted;
+		// _httpRequestForGettingExhibitVariation.RequestCompleted -= HttpRequestForGettingExhibitVariationOnRequestCompleted;
+		MuseumActions.OnExhibitDeleted -= OnExhibitDeleted;
+		MuseumActions.OnMakeExhibitFloatForMoving -= OnMakeExhibitFloatForMoving;
+	}
 }

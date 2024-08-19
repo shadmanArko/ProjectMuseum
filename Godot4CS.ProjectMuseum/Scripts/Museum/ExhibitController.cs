@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Loading_Bar;
 using Godot4CS.ProjectMuseum.Scripts.Museum.DragAndDrop;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -23,10 +25,10 @@ public partial class ExhibitController : Node2D
     private PackedScene item3;
     private PackedScene item4;
     private List<Artifact> _displayArtifacts;
-    private MuseumTileContainer _museumTileContainer;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
 
     [Export] private LoadingBarManager _loadingBarManager;
-    public override void _Ready()
+    public override async void _Ready()
     {
         _loadingBarManager.EmitSignal("IncreaseRegisteredTask");
         item1 = (PackedScene)ResourceLoader.Load("res://Scenes/Museum/Sub Scenes/exhibitItemNode_1.tscn");
@@ -39,7 +41,12 @@ public partial class ExhibitController : Node2D
         AddChild(_httpRequestForGettingAllDisplayArtifacts);
         _httpRequestForGettingAllExhibits.RequestCompleted += HttpRequestForGettingAllExhibitsOnRequestCompleted;
         _httpRequestForGettingAllDisplayArtifacts.RequestCompleted += HttpRequestForGettingAllDisplayArtifactsOnRequestCompleted;
-        _httpRequestForGettingAllDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+        // _httpRequestForGettingAllDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+        await Task.Delay(1000);
+        _displayArtifacts = MuseumReferenceManager.Instance.DisplayArtifactServices.GetAllArtifacts();
+        var result = MuseumReferenceManager.Instance.ExhibitServices.GetAllExhibits();
+        AfterGettingAllExhibits(result);
+        // MuseumReferenceManager.Instance.ExhibitServices
         MuseumActions.OnClickItem += OnClickItem;
     }
 
@@ -55,13 +62,18 @@ public partial class ExhibitController : Node2D
     {
         string jsonStr = Encoding.UTF8.GetString(body);
         var exhibits = JsonSerializer.Deserialize<List<Exhibit>>(jsonStr);
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-        _museumTileContainer.Exhibits = exhibits;
-        SpawnExhibits(exhibits);
-        _loadingBarManager.EmitSignal("IncreaseCompletedTask");
-        GD.Print("Exhibits request completed" + jsonStr);
+        AfterGettingAllExhibits(exhibits);
         //EmitSignal(LoadingBarManager.SignalName.IncreaseCompletedTask);
         //GD.Print($"Number of exhibits {exhibits.Count}");
+    }
+
+    private void AfterGettingAllExhibits(List<Exhibit> exhibits)
+    {
+        // GD.Print($"got exhibits {exhibits.Count}");
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+        _museumRunningDataContainer.Exhibits = exhibits;
+        _loadingBarManager.EmitSignal("IncreaseCompletedTask");
+        SpawnExhibits(exhibits);
     }
 
     private void SpawnExhibits(List<Exhibit> exhibits)

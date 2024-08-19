@@ -30,7 +30,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         CreateHttpRequests();
         InitializeDiReferences();
         SubscribeToActions();
-        GetMineCrackMaterialData();
+        // GetMineCrackMaterialData();
     }
 
     private void InitializeDiReferences()
@@ -46,6 +46,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnDigActionEnded += AttackWall;
         MineActions.OnDigActionEnded += ItemizeOnPickaxeHit;
         MineActions.OnArtifactCellBroken += DigOrdinaryCell;
+        MineActions.OnMineCellBroken += UpdatePathfindingNodeOnCellBroken;
     }
 
     #endregion
@@ -54,48 +55,50 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     private void CreateHttpRequests()
     {
-        _getMineArtifactHttpRequest = new HttpRequest();
-        AddChild(_getMineArtifactHttpRequest);
-        _getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
+        // _getMineArtifactHttpRequest = new HttpRequest();
+        // AddChild(_getMineArtifactHttpRequest);
+        // _getMineArtifactHttpRequest.RequestCompleted += OnGetMineArtifactHttpRequestCompleted;
 
-        _mineCrackCellMaterialHttpRequest = new HttpRequest();
-        AddChild(_mineCrackCellMaterialHttpRequest);
-        _mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
+        // _mineCrackCellMaterialHttpRequest = new HttpRequest();
+        // AddChild(_mineCrackCellMaterialHttpRequest);
+        // _mineCrackCellMaterialHttpRequest.RequestCompleted += OnGetMineCrackCellMaterialHttpRequestCompleted;
     }
 
-    #region Get Mine Artifact Request
+    // #region Get Mine Artifact Request
+    //
+    // private void GetMineArtifact(string artifactId)
+    // {
+    //     var url = ApiAddress.MineApiPath + "GetMineArtifactById/" + artifactId;
+    //     _getMineArtifactHttpRequest.Request(url);
+    // }
+    //
+    // private void OnGetMineArtifactHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+    // {
+    //     var jsonStr = Encoding.UTF8.GetString(body);
+    //     var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
+    //     //MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
+    // }
+    //
+    // #endregion
 
-    private void GetMineArtifact(string artifactId)
-    {
-        var url = ApiAddress.MineApiPath + "GetMineArtifactById/" + artifactId;
-        _getMineArtifactHttpRequest.Request(url);
-    }
-
-    private void OnGetMineArtifactHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var artifact = JsonSerializer.Deserialize<Artifact>(jsonStr);
-        //MineActions.OnArtifactSuccessfullyRetrieved?.Invoke(artifact);
-    }
-
-    #endregion
-
-    #region Get Mine Cell Crack Materials
-
-    private void GetMineCrackMaterialData()
-    {
-        var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
-        _mineCrackCellMaterialHttpRequest.Request(url);
-    }
-    
-    private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
-        _mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
-    }
-
-    #endregion
+    // #region Get Mine Cell Crack Materials
+    //
+    // private void GetMineCrackMaterialData()
+    // {
+    //     var url = ApiAddress.MineApiPath+"GetAllMineCellCrackMaterials";
+    //     _mineCrackCellMaterialHttpRequest.Request(url);
+    // }
+    //
+    // private void OnGetMineCrackCellMaterialHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+    // {
+    //     var jsonStr = Encoding.UTF8.GetString(body);
+    //     var cellCrackMaterials = JsonSerializer.Deserialize<List<CellCrackMaterial>>(jsonStr);
+    //     GD.Print("all cell crack materials");
+    //     GD.Print(jsonStr);
+    //     _mineCellCrackMaterial.CellCrackMaterials = cellCrackMaterials;
+    // }
+    //
+    // #endregion
 
     #endregion
 
@@ -249,10 +252,12 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         var normalCellCrackMaterial =
             _mineCellCrackMaterial!.CellCrackMaterials.FirstOrDefault(cellCrackMat =>
                 cellCrackMat.MaterialType == "Normal");
+        
         MineSetCellConditions.SetCrackOnTiles(tilePos, _playerControllerVariables.MouseDirection, cell,
             normalCellCrackMaterial);
         if (cell.HitPoint <= 0)
         {
+            MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("OnDigFirstOrdinaryCell");
             var cells = MineCellDestroyer.DestroyCellByPosition(tilePos, _mineGenerationVariables);
             var caveCells = CaveControlManager.RevealCave(_mineGenerationVariables, cells);
             
@@ -292,6 +297,23 @@ public partial class PlayerCollisionWithWallDetector : Node2D
 
     #endregion
 
+    #region Pathfinding Nodes Update
+
+    private void UpdatePathfindingNodeOnCellBroken(Vector2I brokenCellPos)
+    {
+        var node = _mineGenerationVariables.PathfindingNodes.FirstOrDefault(tempNode =>
+            tempNode.TileCoordinateX == brokenCellPos.X && tempNode.TileCoordinateY == brokenCellPos.Y);
+        if (node == null)
+        {
+            GD.PrintErr($"Astar Node not found");
+            return;
+        }
+
+        node.IsWalkable = true;
+    }
+
+    #endregion
+
     #region Cell Block Enter and Exit
 
     private void OnCellBlockEnter(Node2D body)
@@ -324,6 +346,7 @@ public partial class PlayerCollisionWithWallDetector : Node2D
         MineActions.OnDigActionEnded -= AttackWall;
         MineActions.OnDigActionEnded -= ItemizeOnPickaxeHit;
         MineActions.OnArtifactCellBroken -= DigOrdinaryCell;
+        MineActions.OnMineCellBroken += UpdatePathfindingNodeOnCellBroken;
     }
 
     public override void _ExitTree()

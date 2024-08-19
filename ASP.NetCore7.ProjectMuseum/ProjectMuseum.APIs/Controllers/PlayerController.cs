@@ -64,7 +64,7 @@ public class PlayerController : ControllerBase
     [HttpGet("LoadData")]
     public async Task<IActionResult> LoadData()
     {
-        await _loadService.LoadData();
+        await _loadService.LoadData(); 
         return Ok();
     }
     [HttpGet("LoadDataForNewGame")]

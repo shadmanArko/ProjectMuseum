@@ -7,11 +7,11 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
 {
     public class AStarPathfinding
     {
-        
+
         //todo Connect with main program
         // public int GridSizeX = 10; // Adjust this based on your grid size
         // public int GridSizeY = 10; // Adjust this based on your grid size
-        
+
         //private Node[,] _grid;
         private List<AStarNode> _openSet;
         private HashSet<AStarNode> _closedSet;
@@ -57,13 +57,13 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             // AStarNode goalNode = grid[goalTileCoordinates.X, goalTileCoordinates.Y];
             AStarNode startNode = GetNode(grid, startTileCoordinates.X, startTileCoordinates.Y);
             AStarNode goalNode = GetNode(grid, goalTileCoordinates.X, goalTileCoordinates.Y);
-            
+
             // GD.Print($"start node is null: {startNode == null}");
             // GD.Print($"goal node is null: {goalNode == null}");
-            
+
             startNode.GCost = 0; // Set GCost of the start node to zero
             startNode.HCost = GetDistance(startNode, goalNode); // Set HCost using the heuristic
-            
+
             _openSet.Add(startNode);
 
             while (_openSet.Count > 0)
@@ -114,7 +114,7 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
 
             return lowestFCostAStarNode;
         }
-        
+
         private List<AStarNode> GetNeighbors(AStarNode aStarNode, List<AStarNode> grid)
         {
             List<AStarNode> neighbors = new List<AStarNode>();
@@ -126,12 +126,12 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
                 foreach (int yOffset in neighborOffsets)
                 {
                     // include diagonal neighbors
-                     if (!_canMoveDiagonally &&  !(xOffset ==0 || yOffset ==0) )
+                    if (!_canMoveDiagonally && !(xOffset == 0 || yOffset == 0))
                     {
                         continue;
                     }
                     // Skip the center (current) node 
-                    if (xOffset != 0 || yOffset != 0  )
+                    if (xOffset != 0 || yOffset != 0)
                     {
                         int neighborX = aStarNode.TileCoordinateX + xOffset;
                         int neighborY = aStarNode.TileCoordinateY + yOffset;
@@ -169,15 +169,15 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
                     return starNode;
                 }
             }
-            
+
             GD.PrintErr($"Fatal Error: Node not found for {xPos},{yPos}");
-            
+
             foreach (var node in grid)
                 GD.Print($"node Pos: {node.TileCoordinateX},{node.TileCoordinateY}");
-            
+
             return null;
         }
-        
+
         private List<Vector2I> RetracePath(AStarNode startAStarNode, AStarNode endAStarNode)
         {
             List<Vector2I> path = new List<Vector2I>();
@@ -190,9 +190,9 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             }
 
             path.Reverse();
-            return path ;
+            return path;
         }
-        
+
         private int GetDistance(AStarNode aStarNodeA, AStarNode aStarNodeB)
         {
             int distanceX = Math.Abs(aStarNodeA.TileCoordinateX - aStarNodeB.TileCoordinateX);
@@ -211,14 +211,14 @@ namespace Godot4CS.ProjectMuseum.Plugins.AStarPathFinding
             }
             else
             {
-                return  ((diagonalCost * diagonalSteps) + (straightCost * straightSteps));
+                return ((diagonalCost * diagonalSteps) + (straightCost * straightSteps));
             }
 
-            
+
         }
 
 
     }
-    
-    
+
+
 }

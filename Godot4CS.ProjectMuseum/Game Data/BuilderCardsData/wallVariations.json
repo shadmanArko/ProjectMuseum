@@ -1,0 +1,22 @@
+[
+  {
+	"VariationName": "BrickWall",
+	"NumberOfFrames": 3,
+	"Price": 2
+  },
+  {
+	"VariationName": "StoneWall",
+	"NumberOfFrames": 3,
+	"Price": 2
+  },
+  {
+	"VariationName": "WoodenWall",
+	"NumberOfFrames": 3,
+	"Price": 2
+  },
+  {
+	"VariationName": "ConcreteWall",
+	"NumberOfFrames": 3,
+	"Price": 2
+  }
+]

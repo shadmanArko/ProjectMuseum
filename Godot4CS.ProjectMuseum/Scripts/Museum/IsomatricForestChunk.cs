@@ -20,7 +20,7 @@ public partial class IsomatricForestChunk : Sprite2D
 	[Export] public Node2D _trees;
 	private Color _startColor;
 	private Vector2I _lastMuseumExpansionOrigin;
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
@@ -32,7 +32,7 @@ public partial class IsomatricForestChunk : Sprite2D
 		MuseumActions.OnMuseumExpanded += OnMuseumExpanded;
 		MuseumActions.OnCallForMuseumExpansion += OnCallForMuseumExpansion;
 		await Task.Delay(1000);
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		CheckIfThisChunkIsExpanded();
 		CheckForExpansionEligibility();
 	}
@@ -85,7 +85,7 @@ public partial class IsomatricForestChunk : Sprite2D
 	}
 	private async Task WaitForMuseumTiles()
 	{
-		while (_museumTileContainer.MuseumTiles == null)
+		while (_museumRunningDataContainer.MuseumTiles == null)
 		{
 			GD.Print("Waiting");
 			await Task.Delay(100); // Wait for 100 milliseconds before checking again
@@ -94,7 +94,7 @@ public partial class IsomatricForestChunk : Sprite2D
 	private async void CheckIfThisChunkIsExpanded()
 	{
 		await WaitForMuseumTiles();
-		foreach (var museumTile in _museumTileContainer.MuseumTiles)
+		foreach (var museumTile in _museumRunningDataContainer.MuseumTiles)
 		{
 			if (museumTile.XPosition == expansionOrigin.X && museumTile.YPosition == expansionOrigin.Y)
 			{

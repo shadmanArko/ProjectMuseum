@@ -13,6 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Mine\Objects\CellPlaceables\Traps\" />
+    <Folder Include="Scripts\Museum\GameData\" />
   </ItemGroup>
   <!--  <ItemGroup>-->
   <!--    <ProjectReference Include="..\ProjectMuseum\ASP.NetCore7.ProjectMuseum\ProjectMuseum.Models\ProjectMuseum.Models.csproj" />-->

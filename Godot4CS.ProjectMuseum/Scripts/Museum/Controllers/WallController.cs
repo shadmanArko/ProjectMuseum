@@ -16,7 +16,7 @@ public partial class WallController : Node2D
 {
 	private HttpRequest _httpRequestForUpdatingWalls;
 
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 
 	private List<string> _wallTileIds = new List<string>();
 
@@ -30,7 +30,7 @@ public partial class WallController : Node2D
 	public override async void _Ready()
 	{
 		await Task.Delay(500);
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
 		_httpRequestForUpdatingWalls = new HttpRequest();
 		AddChild(_httpRequestForUpdatingWalls);
 		_httpRequestForUpdatingWalls.RequestCompleted += HttpRequestForUpdatingWallsOnRequestCompleted;
@@ -66,7 +66,7 @@ public partial class WallController : Node2D
 		var museumTiles = JsonSerializer.Deserialize<List<MuseumTile>>(jsonStr);
 		if (museumTiles.Count > 0)
 		{
-			_museumTileContainer.MuseumTiles = museumTiles;
+			_museumRunningDataContainer.MuseumTiles = museumTiles;
 			MuseumActions.OnWallpaperSuccessfullyUpdated?.Invoke();
 		}
 	}
@@ -103,7 +103,7 @@ public partial class WallController : Node2D
 			var validWallTileIds = new List<TileWallInfo>();
 			foreach (var wallTileId in _wallTileIds)
 			{
-				foreach (var museumTile in _museumTileContainer.MuseumTiles)
+				foreach (var museumTile in _museumRunningDataContainer.MuseumTiles)
 				{
 					if (museumTile.Id == wallTileId && museumTile.BackLeftWallId != _currentCardName)
 					{

@@ -1,0 +1,114 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw3elf2ip42gv"]
+
+[ext_resource type="Script" path="res://Plugins/Arko's Tooltip/Scripts/MuseumSceneTooltip.cs" id="1_ki3fg"]
+[ext_resource type="Theme" uid="uid://bty1kdie3hqyi" path="res://Plugins/Arko's Tooltip/Assets/MineSceneTooltipTheme.tres" id="2_j7xg5"]
+[ext_resource type="FontFile" uid="uid://bwsjyoc8ldclp" path="res://Assets/Fonts/PixelOperator.ttf" id="3_mfg8p"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_44dsh"]
+texture_margin_left = 13.3265
+texture_margin_top = 13.6563
+texture_margin_right = 13.6476
+texture_margin_bottom = 13.8081
+region_rect = Rect2(2, 34, 44, 44)
+
+[sub_resource type="Theme" id="Theme_0xa5c"]
+VBoxContainer/constants/separation = 4
+VBoxContainer/styles/Stylebox = SubResource("StyleBoxTexture_44dsh")
+
+[node name="MuseumSceneTooltip" type="Control" node_paths=PackedStringArray("_label", "_vBoxContainer", "_marginContainer", "_panel")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+script = ExtResource("1_ki3fg")
+_label = NodePath("MarginContainer/VBoxContainer/Label")
+_vBoxContainer = NodePath("MarginContainer/VBoxContainer")
+_marginContainer = NodePath("MarginContainer")
+_panel = NodePath("Panel")
+_bottomLeft = Vector2i(5, 40)
+_topLeft = Vector2i(40, 55)
+_topRight = Vector2i(33, 0)
+_bottomRight = Vector2i(28, 23)
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 159.0
+theme = ExtResource("2_j7xg5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme = SubResource("Theme_0xa5c")
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+text = "Exhibit Name
+"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(213.62, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Decoration Class"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "The object has:"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "-- 4x4 Artifact Slots
+-- 3 Beauty Rating"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+text = "Cost: 10
+"
+fit_content = true
+scroll_active = false
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_constants/table_v_separation = 5
+theme_override_fonts/normal_font = ExtResource("3_mfg8p")
+theme_override_fonts/bold_font = ExtResource("3_mfg8p")
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 28
+bbcode_enabled = true
+text = "HelloHelloHelloHelloHelloHelloHelloHello
+HelloHelloHelloHelloHelloHelloHelloHello
+HelloHelloHelloHelloHelloHelloHelloHello"
+fit_content = true
+scroll_active = false

@@ -3,8 +3,10 @@ using System;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
 public partial class StoryController : Node2D
@@ -12,15 +14,26 @@ public partial class StoryController : Node2D
 	private HttpRequest _httpRequestForGettingPlayerInfo;
 
 	private int _totalStoryNumber = 15;
+
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_httpRequestForGettingPlayerInfo = new HttpRequest();
 		AddChild(_httpRequestForGettingPlayerInfo);
-		_httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
-		_httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
-		
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+		// _httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
+		// _httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
+		var playerInfo = SaveLoadService.Load().PlayerInfo;
+		AfterGettingPlayerInfo(playerInfo);
+		_museumRunningDataContainer.PlayerInfo = playerInfo;
 		MuseumActions.StorySceneEnded += StorySceneEnded;
+		MuseumActions.OnPlayerInfoUpdated += OnPlayerInfoUpdated;
+	}
+
+	private void OnPlayerInfoUpdated(PlayerInfo obj)
+	{
+		_museumRunningDataContainer.PlayerInfo = obj;
 	}
 
 	private void HttpRequestForGettingPlayerInfoOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
@@ -28,20 +41,24 @@ public partial class StoryController : Node2D
 		string jsonStr = Encoding.UTF8.GetString(body);
 		//GD.Print( "Player info " +jsonStr);
 		var playerInfo = JsonSerializer.Deserialize<PlayerInfo>(jsonStr);
+		AfterGettingPlayerInfo(playerInfo);
+	}
+
+	private void AfterGettingPlayerInfo(PlayerInfo playerInfo)
+	{
 		MuseumActions.OnPlayerGetPlayerInfo?.Invoke(playerInfo);
 		var nextStoryNumber = playerInfo.CompletedStoryScene + 1;
 		if (nextStoryNumber <= 8 || nextStoryNumber >= 12)
 		{
-			if (nextStoryNumber<= _totalStoryNumber)
+			if (nextStoryNumber <= _totalStoryNumber)
 			{
 				MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber);
 			}
-
-		}else if (nextStoryNumber == 11)
-		{
-			MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber+1);
 		}
-		
+		else if (nextStoryNumber == 11)
+		{
+			MuseumActions.PlayStoryScene?.Invoke(nextStoryNumber + 1);
+		}
 	}
 
 	private async void StorySceneEnded(int sceneNumber)
@@ -66,6 +83,7 @@ public partial class StoryController : Node2D
 	{
 		base._ExitTree();
 		MuseumActions.StorySceneEnded -= StorySceneEnded;
+		MuseumActions.OnPlayerInfoUpdated -= OnPlayerInfoUpdated;
 
 	}
 }

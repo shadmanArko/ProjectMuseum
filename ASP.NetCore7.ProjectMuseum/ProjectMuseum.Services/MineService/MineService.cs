@@ -88,7 +88,7 @@ public class MineService : IMineService
                     RawArtifactId = "ClassicalNativeAmericanTomahawk",
                     Slot = 0
                 };
-                Console.WriteLine("tutorial artifact added");
+                
                 await _mineArtifactRepository.AddArtifact(newArtifact);
             }
         }

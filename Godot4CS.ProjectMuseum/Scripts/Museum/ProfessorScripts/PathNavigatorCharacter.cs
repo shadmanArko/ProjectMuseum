@@ -26,7 +26,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
     private double _decisionChangingIntervalMin = 2f;
     private double _decisionChangingIntervalMax = 5f;
     private string _testString;
-    protected MuseumTileContainer _museumTileContainer;
+    protected MuseumRunningDataContainer MuseumRunningDataContainer;
     private bool _canMove = false;
     private List<Vector2I> _path; // New variable to store the path
     [Export] private int _currentPathIndex = 0;
@@ -98,7 +98,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         if (_targetTileCoordinate != new Vector2I(1000, 1000))
         {
             var aStarPathfinding = new AStarPathfinding(false);
-            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
+            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, MuseumRunningDataContainer.AStarNodes);
             if (path == null)
             {
                 //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
@@ -202,7 +202,7 @@ public partial class PathNavigatorCharacter: CharacterBody2D
         }
 
         _lastCheckedPosition = tilePosition;
-        foreach (var museumTile in _museumTileContainer.MuseumTiles)
+        foreach (var museumTile in MuseumRunningDataContainer.MuseumTiles)
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {

@@ -1,19 +1,19 @@
- using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
- using System.Linq;
- using System.Text;
- using System.Threading.Tasks;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
- using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
- using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
- using Newtonsoft.Json;
- using ProjectMuseum.DTOs;
+using Newtonsoft.Json;
+using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
- using JsonSerializer = System.Text.Json.JsonSerializer;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
- public partial class ExhibitEditorUi : Control
+public partial class ExhibitEditorUi : Control
 {
 	[Export] private Button _exitButton;
 	[Export] private PackedScene _draggable;
@@ -33,9 +33,9 @@ using ProjectMuseum.Models;
 	private static List<RawArtifactDescriptive> _rawArtifactDescriptiveDatas;
 	private static List<RawArtifactFunctional> _rawArtifactFunctionalDatas;
 	private Exhibit _selectedExhibit;
-	private MuseumTileContainer _museumTileContainer;
-	
-    // Called when the node enters the scene tree for the first time.
+	private MuseumRunningDataContainer _museumRunningDataContainer;
+
+	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
 		_httpRequestForGettingArtifactsInStore = new HttpRequest();
@@ -62,10 +62,23 @@ using ProjectMuseum.Models;
 		_glassCheckButton.Pressed += GlassCheckButtonOnPressed;
 		_DeleteExhibitButton.Pressed += DeleteExhibitButtonOnPressed;
 		_moveExhibitButton.Pressed += MoveExhibitButtonOnPressed;
-		_httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
-		_httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
+		GetRawDatas();
 		await Task.Delay(1000);
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+	}
+
+	private void GetRawDatas()
+	{
+		var rawArtifactDescriptiveJson = Godot.FileAccess.Open("res://Game Data/RawArtifactData/RawArtifactDescriptiveData/RawArtifactDescriptiveDataEnglish.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		_rawArtifactDescriptiveDatas = JsonSerializer.Deserialize<List<RawArtifactDescriptive>>(rawArtifactDescriptiveJson);
+		MuseumActions.OnRawArtifactDescriptiveDataLoaded?.Invoke(_rawArtifactDescriptiveDatas);
+
+		var rawArtifactFunctionalJson = Godot.FileAccess.Open("res://Game Data/RawArtifactData/RawArtifactFunctionalData/RawArtifactFunctionalData.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		_rawArtifactFunctionalDatas = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(rawArtifactFunctionalJson);
+		MuseumActions.OnRawArtifactFunctionalDataLoaded?.Invoke(_rawArtifactFunctionalDatas);
+
+		// _httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
+		// _httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
 	}
 
 	private void OnExhibitUpdated(Exhibit obj)
@@ -93,8 +106,8 @@ using ProjectMuseum.Models;
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var tilesWithExhibitDto = JsonSerializer.Deserialize<TilesWithExhibitDto>(jsonStr);
-		_museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
-		_museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
+		_museumRunningDataContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
+		_museumRunningDataContainer.Exhibits = tilesWithExhibitDto.Exhibits;
 		MuseumActions.OnExhibitDeleted?.Invoke(_selectedExhibit.Id);
 	}
 
@@ -134,7 +147,7 @@ using ProjectMuseum.Models;
 		// 	_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = "";
 		// }
 		// GD.Print($"Exhibit after removing artifact {JsonConvert.SerializeObject(_selectedExhibit)}");
-		
+
 		if (_displayArtifacts.Contains(artifact))
 		{
 			_displayArtifacts.Remove(artifact);
@@ -150,10 +163,12 @@ using ProjectMuseum.Models;
 			if (draggableSize == "Medium")
 			{
 				HandleMediumSizeArtifactEligibility();
-			}else if (draggableSize == "Small")
+			}
+			else if (draggableSize == "Small")
 			{
 				HandleSmallSizeArtifactEligibility();
-			}else if (draggableSize == "Tiny")
+			}
+			else if (draggableSize == "Tiny")
 			{
 				HandleTinySizeArtifactEligibility();
 			}
@@ -164,21 +179,21 @@ using ProjectMuseum.Models;
 
 		}
 
-		
+
 	}
-	
+
 
 	private void HandleTinySizeArtifactEligibility()
 	{
 		int gridCount = 0;
 		foreach (var gridSlots2X2 in _selectedExhibit.ArtifactGridSlots2X2s)
 		{
-			
-			if (GetArtifactSize(gridSlots2X2.Slot0) == "Medium" || GetArtifactSize(gridSlots2X2.Slot1) == "Medium" || 
-			    (GetArtifactSize(gridSlots2X2.Slot0) == "Small" && GetArtifactSize(gridSlots2X2.Slot1) == "Small")||
-			    (GetArtifactSize(gridSlots2X2.Slot0) == "Tiny" && GetArtifactSize(gridSlots2X2.Slot1) == "Tiny" 
-			    && GetArtifactSize(gridSlots2X2.Slot2) == "Tiny"&& GetArtifactSize(gridSlots2X2.Slot3) == "Tiny")
-			    )
+
+			if (GetArtifactSize(gridSlots2X2.Slot0) == "Medium" || GetArtifactSize(gridSlots2X2.Slot1) == "Medium" ||
+				(GetArtifactSize(gridSlots2X2.Slot0) == "Small" && GetArtifactSize(gridSlots2X2.Slot1) == "Small") ||
+				(GetArtifactSize(gridSlots2X2.Slot0) == "Tiny" && GetArtifactSize(gridSlots2X2.Slot1) == "Tiny"
+				&& GetArtifactSize(gridSlots2X2.Slot2) == "Tiny" && GetArtifactSize(gridSlots2X2.Slot3) == "Tiny")
+				)
 			{
 				//when no slot is empty
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 1);
@@ -186,8 +201,9 @@ using ProjectMuseum.Models;
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 4);
 
-			}else if (gridSlots2X2.Slot0.IsUnassigned() && gridSlots2X2.Slot1.IsUnassigned() &&
-			          gridSlots2X2.Slot2.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
+			}
+			else if (gridSlots2X2.Slot0.IsUnassigned() && gridSlots2X2.Slot1.IsUnassigned() &&
+					  gridSlots2X2.Slot2.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
 			{
 				//when all slot is empty
 				GD.Print("All slots eligible for tiny object");
@@ -210,7 +226,7 @@ using ProjectMuseum.Models;
 				{
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 2);
 				}
-				
+
 				if (GetArtifactSize(gridSlots2X2.Slot3).IsUnassigned())
 				{
 					MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 4);
@@ -219,7 +235,8 @@ using ProjectMuseum.Models;
 				{
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 4);
 				}
-			}else if (GetArtifactSize(gridSlots2X2.Slot1) == "Small")
+			}
+			else if (GetArtifactSize(gridSlots2X2.Slot1) == "Small")
 			{
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 2);
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 4);
@@ -231,7 +248,7 @@ using ProjectMuseum.Models;
 				{
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 1);
 				}
-				
+
 				if (GetArtifactSize(gridSlots2X2.Slot2).IsUnassigned())
 				{
 					MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 3);
@@ -240,24 +257,26 @@ using ProjectMuseum.Models;
 				{
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
 				}
-			}else if (GetArtifactSize(gridSlots2X2.Slot0).IsUnassigned())
+			}
+			else if (GetArtifactSize(gridSlots2X2.Slot0).IsUnassigned())
 			{
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 1);
 				if (!GetArtifactSize(gridSlots2X2.Slot2).IsUnassigned())
 				{
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
 				}
-				
-			}else if (GetArtifactSize(gridSlots2X2.Slot1).IsUnassigned())
+
+			}
+			else if (GetArtifactSize(gridSlots2X2.Slot1).IsUnassigned())
 			{
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 2);
 				if (!GetArtifactSize(gridSlots2X2.Slot3).IsUnassigned())
 				{
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 4);
 				}
-				
+
 			}
-			
+
 
 			gridCount++;
 		}
@@ -268,7 +287,7 @@ using ProjectMuseum.Models;
 		int gridCount = 0;
 		foreach (var gridSlots2X2 in _selectedExhibit.ArtifactGridSlots2X2s)
 		{
-			
+
 			if (GetArtifactSize(gridSlots2X2.Slot0) == "Medium" || GetArtifactSize(gridSlots2X2.Slot1) == "Medium")
 			{
 				MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 1);
@@ -278,33 +297,34 @@ using ProjectMuseum.Models;
 
 			}
 			else if (gridSlots2X2.Slot0.IsUnassigned() && gridSlots2X2.Slot1.IsUnassigned() &&
-			    gridSlots2X2.Slot2.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
+				gridSlots2X2.Slot2.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
 			{
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 1);
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 2);
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 3);
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 4);
 
-			}else if(gridSlots2X2.Slot0.IsUnassigned() && gridSlots2X2.Slot2.IsUnassigned())
+			}
+			else if (gridSlots2X2.Slot0.IsUnassigned() && gridSlots2X2.Slot2.IsUnassigned())
 			{
 				var artifactSize = GetArtifactSize(gridSlots2X2.Slot1);
 				if (!artifactSize.IsUnassigned() && artifactSize == "Small")
 				{
 					MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 1);
 					MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 3);
-					
+
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 2);
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 4);
 				}
 			}
-			else if(gridSlots2X2.Slot1.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
+			else if (gridSlots2X2.Slot1.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
 			{
 				var artifactSize = GetArtifactSize(gridSlots2X2.Slot0);
 				if (!artifactSize.IsUnassigned() && artifactSize == "Small")
 				{
 					MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 2);
 					MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 4);
-					
+
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 1);
 					MuseumActions.OnMakeGridSlotDisable?.Invoke(gridCount, 3);
 				}
@@ -350,7 +370,7 @@ using ProjectMuseum.Models;
 		foreach (var gridSlots2X2 in _selectedExhibit.ArtifactGridSlots2X2s)
 		{
 			if (gridSlots2X2.Slot0.IsUnassigned() && gridSlots2X2.Slot1.IsUnassigned() &&
-			    gridSlots2X2.Slot2.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
+				gridSlots2X2.Slot2.IsUnassigned() && gridSlots2X2.Slot3.IsUnassigned())
 			{
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 1);
 				MuseumActions.OnMakeGridSlotEligible?.Invoke(gridCount, 2);
@@ -387,37 +407,39 @@ using ProjectMuseum.Models;
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].AddChild(instance);
-                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].GetNode<DropTarget>(".").hasEmptySlot = false;
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-				}else if (artifact.Id == gridSlots2X2.Slot1)
+				}
+				else if (artifact.Id == gridSlots2X2.Slot1)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].AddChild(instance);
-                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].GetNode<DropTarget>(".").hasEmptySlot = false;
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-				}else if (artifact.Id == gridSlots2X2.Slot2)
+				}
+				else if (artifact.Id == gridSlots2X2.Slot2)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].AddChild(instance);
-                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].GetNode<DropTarget>(".").hasEmptySlot = false;
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
-				}else if (artifact.Id == gridSlots2X2.Slot3)
+				}
+				else if (artifact.Id == gridSlots2X2.Slot3)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].AddChild(instance);
-                    _dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].GetNode<DropTarget>(".").hasEmptySlot = false;
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].GetNode<DropTarget>(".").hasEmptySlot = false;
 					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}
 
 				gridCount++;
 			}
-			
 		}
 	}
 
 	private void ArtifactDroppedOnSlot(Artifact artifact, string size, int slotNumber, int gridNumber)
 	{
-		var artifactSize = GetArtifactSize(artifact.Id); 
+		var artifactSize = GetArtifactSize(artifact.Id);
 		// if (artifactSize == "Small")
 		// {
 		// 	if (slotNumber == 3 || slotNumber == 1)
@@ -454,8 +476,8 @@ using ProjectMuseum.Models;
 		// 		_selectedExhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = artifact.Id;
 		// 	}
 		// }
-		
-		
+
+
 		if (!_displayArtifacts.Contains(artifact))
 		{
 			_displayArtifacts.Add(artifact);
@@ -466,9 +488,12 @@ using ProjectMuseum.Models;
 	public void ReInitialize(Item item, Exhibit exhibit)
 	{
 		_selectedExhibit = exhibit;
-		_httpRequestForGettingArtifactsInStore.CancelRequest();
-		_httpRequestForGettingArtifactsInDisplay.CancelRequest();
-		_httpRequestForGettingArtifactsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
+		_httpRequestForGettingExhibitsInStore.CancelRequest();
+		_httpRequestForGettingExhibitsInDisplay.CancelRequest();
+		// _httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
+		var artifactsInStore = MuseumReferenceManager.Instance.ArtifactStoreServices.GetAllArtifacts();
+
+		AfterGettingAftifactsInStore(artifactsInStore);
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
 		_glassCheckButton.ButtonPressed = _selectedItem.IsGlassEnabled();
@@ -479,19 +504,19 @@ using ProjectMuseum.Models;
 			{
 				GD.Print("Drop target grid is null.");
 			}
-            
+
 			var instance = _dropTargetGrid2X2.Instantiate();
 			int childCount = 0;
 			foreach (var child in instance.GetChildren())
 			{
 				childCount++;
-				child.GetNode<DropTarget>(".").Initialize(childCount, gridNumber, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);	
+				child.GetNode<DropTarget>(".").Initialize(childCount, gridNumber, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 			}
-			
+
 			_dropTargetsParent.AddChild(instance);
 		}
-		
-		
+
+
 		// if ()
 		// {
 		// 	
@@ -499,20 +524,27 @@ using ProjectMuseum.Models;
 	}
 	private void HttpRequestForGettingArtifactsInStoreOnRequestCompleted(long result, long responsecode, string[] headers, byte[] body)
 	{
-		DeleteChild(_draggablesParent);
-		
+
+
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
-		_artifactsInStore = artifacts;
+		AfterGettingAftifactsInStore(artifacts);
+	}
+
+	private void AfterGettingAftifactsInStore(List<Artifact> artifacts)
+	{
+		DeleteChild(_draggablesParent);
 		foreach (var artifact in artifacts)
 		{
 			var instance = _draggable.Instantiate();
 			_draggablesParent.AddChild(instance);
-			instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+			instance.GetNode<Draggable>(".")
+				.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 		}
 
-		_httpRequestForGettingArtifactsInDisplay.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
-
+		_httpRequestForGettingExhibitsInDisplay.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+		var displayArtifacts = MuseumReferenceManager.Instance.DisplayArtifactServices.GetAllArtifacts();
+		AfterGettingDisplayArtifacts(displayArtifacts);
 	}
 
 	private void DeleteChild(Control node)

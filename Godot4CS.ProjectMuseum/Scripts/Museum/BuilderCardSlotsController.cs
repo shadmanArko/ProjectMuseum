@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -48,12 +49,15 @@ public partial class BuilderCardSlotsController : Control
 		_httpRequestForGettingTileVariations.RequestCompleted += HttpRequestForGettingTileVariationsOnRequestCompleted;
 		_httpRequestForGettingWallpaperVariations.RequestCompleted += HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
 		_httpRequestForGettingSanitationVariations.RequestCompleted += HttpRequestForGettingSanitationVariationsOnRequestCompleted;
-		_httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
-		_httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
-		_httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
-		_httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
-		_httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
-		_httpRequestForGettingSanitationVariations.Request(ApiAddress.MuseumApiPath + "GetAllSanitationVariations");
+		
+		// _httpRequestForGettingExhibitVariations.Request(ApiAddress.MuseumApiPath + "GetAllExhibitVariations");
+		// _httpRequestForGettingDecorationShopVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationShopVariations");
+		// _httpRequestForGettingDecorationOtherVariations.Request(ApiAddress.MuseumApiPath + "GetAllDecorationOtherVariations");
+		// _httpRequestForGettingTileVariations.Request(ApiAddress.MuseumApiPath + "GetAllTileVariations");
+		// _httpRequestForGettingWallpaperVariations.Request(ApiAddress.MuseumApiPath + "GetAllWallpaperVariations");
+		// _httpRequestForGettingSanitationVariations.Request(ApiAddress.MuseumApiPath + "GetAllSanitationVariations");
+		_tileVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllTileVariations();
+		_wallpaperVariations = MuseumReferenceManager.Instance.BuilderCardServices.GetAllWallpaperVariations();
 		if (_buildersPanelClosingButton != null)
 		{
 			_buildersPanelClosingButton.Pressed += BuildersPanelClosingButtonOnPressed;

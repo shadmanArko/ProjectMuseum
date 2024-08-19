@@ -12,6 +12,12 @@ public partial class MuseumSceneTooltip : Control
     [Export] private VBoxContainer _vBoxContainer;
     [Export] private MarginContainer _marginContainer;
     [Export] private Panel _panel;
+
+    [Export] private Vector2I _bottomLeft;
+    [Export] private Vector2I _topLeft;
+    [Export] private Vector2I _topRight;
+    [Export] private Vector2I _bottomRight;
+    
     private Rect2 _rect;
     
 
@@ -46,25 +52,29 @@ public partial class MuseumSceneTooltip : Control
         // Bottom Left
         if (mousePosition.X < centerPositionOfScreen.X && mousePosition.Y > centerPositionOfScreen.Y)
         {
-            Position = GetViewport().GetMousePosition() + new Vector2(25, -_rect.Size.Y-75) ; 
+            //Position = GetViewport().GetMousePosition() + new Vector2(25, -_rect.Size.Y-75) ; 
+            Position = GetViewport().GetMousePosition() + new Vector2(_bottomLeft.X, -_rect.Size.Y-_bottomLeft.Y) ; 
         }
         
         // Top Left
         else if (mousePosition.X < centerPositionOfScreen.X && mousePosition.Y < centerPositionOfScreen.Y)
         {
-            Position = GetViewport().GetMousePosition() + new Vector2(50, 50) ; 
+            //Position = GetViewport().GetMousePosition() + new Vector2(50, 50) ; 
+            Position = GetViewport().GetMousePosition() + new Vector2(_topLeft.X, _topLeft.Y) ; 
         }
         
         // Top Right
         else if (mousePosition.X > centerPositionOfScreen.X && mousePosition.Y < centerPositionOfScreen.Y)
         {
-            Position = GetViewport().GetMousePosition() + new Vector2(-_rect.Size.X-50, 50) ;
+            //Position = GetViewport().GetMousePosition() + new Vector2(-_rect.Size.X-50, 50) ;
+            Position = GetViewport().GetMousePosition() + new Vector2(-_rect.Size.X-_topRight.X, _topRight.Y) ;
         }
         
         // Bottom Right
         else
         {
-            Position = GetViewport().GetMousePosition() + new Vector2(-_rect.Size.X-50, -_rect.Size.Y-75) ; 
+            //Position = GetViewport().GetMousePosition() + new Vector2(-_rect.Size.X-50, -_rect.Size.Y-75) ;
+            Position = GetViewport().GetMousePosition() + new Vector2(-_rect.Size.X-_bottomRight.X, -_rect.Size.Y-_bottomRight.Y) ; 
         }
         
         _rect.Size = new Vector2(_vBoxContainer.GetRect().Size.X + 10, _vBoxContainer.GetRect().Size.Y + 5);

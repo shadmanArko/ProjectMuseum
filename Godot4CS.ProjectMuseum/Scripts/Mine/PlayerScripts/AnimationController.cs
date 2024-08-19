@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
@@ -16,7 +15,6 @@ public partial class AnimationController : AnimationPlayer
 
 	public override void _Ready()
 	{
-		//_audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("");
 		InitializeDiReferences();
 		SubscribeToActions();
 	}

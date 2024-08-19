@@ -38,10 +38,10 @@ public partial class WallPlaceableController : InventoryController
 
     private void CreateHttpRequests()
     {
-        _getWallPlaceablesHttpRequest = new HttpRequest();
-        AddChild(_getWallPlaceablesHttpRequest);
-        _getWallPlaceablesHttpRequest.RequestCompleted +=
-            OnGetWallPlaceablesHttpRequestComplete;
+        // _getWallPlaceablesHttpRequest = new HttpRequest();
+        // AddChild(_getWallPlaceablesHttpRequest);
+        // _getWallPlaceablesHttpRequest.RequestCompleted +=
+        //     OnGetWallPlaceablesHttpRequestComplete;
     }
 
     private void SubscribeToActions()
@@ -61,7 +61,7 @@ public partial class WallPlaceableController : InventoryController
     public override void _Ready()
     {
         InitializeDiInstaller();
-        GetAllWallPlaceables();
+        // GetAllWallPlaceables();
     }
 
     #endregion
@@ -103,9 +103,9 @@ public partial class WallPlaceableController : InventoryController
 
     private void GetAllWallPlaceables()
     {
-        var url = ApiAddress.MineApiPath + "GetAllWallPlaceables";
-        _getWallPlaceablesHttpRequest.CancelRequest();
-        _getWallPlaceablesHttpRequest.Request(url);
+        // var url = ApiAddress.MineApiPath + "GetAllWallPlaceables";
+        // _getWallPlaceablesHttpRequest.CancelRequest();
+        // _getWallPlaceablesHttpRequest.Request(url);
     }
     
     private void OnGetWallPlaceablesHttpRequestComplete(long result, long responseCode,
@@ -119,7 +119,7 @@ public partial class WallPlaceableController : InventoryController
             GD.PrintErr("Wall placeables is null in wall placeable DTO");
             return;
         }
-        _wallPlaceableDto.WallPlaceables = wallPlaceables;
+        // _wallPlaceableDto.WallPlaceables = wallPlaceables;
     }
 
     #endregion

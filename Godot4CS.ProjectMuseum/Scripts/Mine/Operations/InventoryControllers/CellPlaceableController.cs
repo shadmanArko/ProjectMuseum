@@ -63,10 +63,10 @@ public partial class CellPlaceableController : InventoryController
     
     private void CreateHttpRequests()
     {
-        _getCellPlaceablesHttpRequest = new HttpRequest();
-        AddChild(_getCellPlaceablesHttpRequest);
-        _getCellPlaceablesHttpRequest.RequestCompleted +=
-            OnGetCellPlaceablesHttpRequestComplete;
+        // _getCellPlaceablesHttpRequest = new HttpRequest();
+        // AddChild(_getCellPlaceablesHttpRequest);
+        // _getCellPlaceablesHttpRequest.RequestCompleted +=
+        //     OnGetCellPlaceablesHttpRequestComplete;
     }
     
     #region Activate Deactivate Controller
@@ -103,9 +103,9 @@ public partial class CellPlaceableController : InventoryController
 
     private void GetAllCellPlaceables()
     {
-        var url = ApiAddress.MineApiPath + "GetAllCellPlaceables";
-        _getCellPlaceablesHttpRequest.CancelRequest();
-        _getCellPlaceablesHttpRequest.Request(url);
+        // var url = ApiAddress.MineApiPath + "GetAllCellPlaceables";
+        // _getCellPlaceablesHttpRequest.CancelRequest();
+        // _getCellPlaceablesHttpRequest.Request(url);
     }
     
     private void OnGetCellPlaceablesHttpRequestComplete(long result, long responseCode,
@@ -119,7 +119,7 @@ public partial class CellPlaceableController : InventoryController
             GD.PrintErr("Wall placeables is null in wall placeable DTO");
             return;
         }
-        _cellPlaceableDto.CellPlaceables = cellPlaceables;
+        // _cellPlaceableDto.CellPlaceables = cellPlaceables;
     }
 
     #endregion

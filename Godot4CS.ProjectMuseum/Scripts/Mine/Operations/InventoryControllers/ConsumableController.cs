@@ -33,7 +33,7 @@ public partial class ConsumableController : InventoryController
 
     private void InitializeDiInstaller()
     {
-        CreateHttpRequests();
+        // CreateHttpRequests();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         ServiceRegistry.Resolve<MineGenerationVariables>();
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
@@ -43,16 +43,16 @@ public partial class ConsumableController : InventoryController
     public override void _Ready()
     {
         InitializeDiInstaller();
-        GetAllConsumableData();
+        // GetAllConsumableData();
     }
 
     #region Populate Consumable DTO
 
     private void GetAllConsumableData()
     {
-        var url = ApiAddress.MineApiPath + "GetAllConsumables";
-        _getAllConsumableDtoHttpRequest.CancelRequest();
-        _getAllConsumableDtoHttpRequest.Request(url);
+        // var url = ApiAddress.MineApiPath + "GetAllConsumables";
+        // _getAllConsumableDtoHttpRequest.CancelRequest();
+        // _getAllConsumableDtoHttpRequest.Request(url);
     }
     
     private void OnGetAllConsumableDataComplete(long result, long responseCode, string[] headers, byte[] body)
@@ -66,7 +66,7 @@ public partial class ConsumableController : InventoryController
             return;
         }
         
-        _consumableDto.Consumables = consumables;
+        // _consumableDto.Consumables = consumables;
     }
 
     #endregion

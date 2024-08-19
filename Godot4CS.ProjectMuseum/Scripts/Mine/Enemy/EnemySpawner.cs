@@ -9,10 +9,13 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Enemy;
 
 public partial class EnemySpawner : Node2D
 {
+    private Random _random;
     private List<Enemy> _enemies;
+    private List<FlyingEnemy> _flyingEnemies;
     
     [Export] private Node _parentNode;
     [Export] private string _slimePrefabPath;
+    [Export] private string _batPrefabPath;
 
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
@@ -41,9 +44,11 @@ public partial class EnemySpawner : Node2D
     public override void _Ready()
     {
         InitializeDiInstallers();
+        _random = new Random();
         _enemies = new List<Enemy>();
-        _cellBreakTargetCount = new List<int> { 10, 20, 30, 40, 50, 60 };
-        _enemySpawnCount = new List<int> { 1,1,2,1,2,3};
+        _flyingEnemies = new List<FlyingEnemy>();
+        _cellBreakTargetCount = new List<int> { 18, 36, 54, 72, 90, 108 };
+        _enemySpawnCount = new List<int> { 1,1,1,1,1,1};
         SetProcess(false);
         SetPhysicsProcess(false);
         _counter = 0;
@@ -83,16 +88,39 @@ public partial class EnemySpawner : Node2D
 
         if (_mineGenerationVariables.BrokenCells >= _cellBreakTargetCount[_counter])
         {
-            SpawnEnemy();
+            var rand = _random.Next(0, 2);
+            if(rand % 2 == 0) 
+                SpawnGroundEnemy();
+            else
+                SpawnFlyingEnemy(new Vector2(480, -60));
             GD.Print($"SPAWNING SLIME OF COUNTER {_counter} AFTER BREAKING {_mineGenerationVariables.BrokenCells} CELLS (TARGET:{_cellBreakTargetCount[_counter]})");
             _enemySpawnCount[_counter]--;
         }
     }
 
-    private void SpawnEnemy()
+    public FlyingEnemy SpawnFlyingEnemy(Vector2 position)
+    {
+        var scene = ResourceLoader.Load<PackedScene>(_batPrefabPath).Instantiate();
+        _parentNode.AddChild(scene);
+        var enemy = scene as FlyingEnemy;
+        if (enemy == null)
+        {
+            GD.PrintErr("Enemy is null");
+            return new FlyingEnemy();
+        }
+
+        GD.Print("Spawning Enemy");
+        enemy.Position = position;
+        enemy.OnSpawn?.Invoke();
+        _flyingEnemies.Add(enemy);
+        _canSpawn = false;
+
+        return enemy;
+    }
+
+    private void SpawnGroundEnemy()
     {
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
-        // GD.Print($"Slime Scene is null {scene is null}");
         _parentNode.AddChild(scene);
         var enemy = scene as Enemy;
         if (enemy == null)
@@ -104,8 +132,6 @@ public partial class EnemySpawner : Node2D
         GD.Print("Spawning Enemy");
         _newEnemy = enemy;
         enemy.Position = new Vector2(730, -58);
-        // enemy.SetProcess(false);
-        // SetProcess(true);
         _canSpawn = false;
     }
 

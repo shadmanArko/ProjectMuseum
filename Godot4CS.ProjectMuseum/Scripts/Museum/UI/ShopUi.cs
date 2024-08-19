@@ -19,7 +19,7 @@ public partial class ShopUi : Control
 
 	private HttpRequest _httpRequestForGettingAllProducts;
 
-	private MuseumTileContainer _museumTileContainer;
+	private MuseumRunningDataContainer _museumRunningDataContainer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -38,8 +38,8 @@ public partial class ShopUi : Control
 		string jsonStr = Encoding.UTF8.GetString(body);
 		_allProducts = JsonSerializer.Deserialize<List<Product>>(jsonStr);
 		GD.Print($"Got products {_allProducts.Count}");
-		_museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
-		_museumTileContainer.Products = _allProducts;
+		_museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+		_museumRunningDataContainer.Products = _allProducts;
 		// MuseumActions.OnGettingAllProducts?.Invoke(_allProducts);
 	}
 

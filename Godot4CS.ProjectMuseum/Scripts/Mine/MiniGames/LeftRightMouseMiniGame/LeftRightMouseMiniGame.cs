@@ -99,7 +99,6 @@ public partial class LeftRightMouseMiniGame : Node2D
         {
             if (GetGlobalMousePosition().X > _lastRegisteredMousePos.X)
             {
-                GD.Print("moving right");
                 _isMovingLeft = false;
                 for (var i = 0; i < _successPoints; i++)
                 {
@@ -107,26 +106,17 @@ public partial class LeftRightMouseMiniGame : Node2D
                     _progressValue += 1;
                 }
             }
-            else if (GetGlobalMousePosition().X < _lastRegisteredMousePos.X)
-            {
-                GD.Print("moving left");
-            }
         }
         else
         {
             if (GetGlobalMousePosition().X < _lastRegisteredMousePos.X)
             {
-                GD.Print("moving left");
                 _isMovingLeft = true;
                 for (var i = 0; i < _successPoints; i++)
                 {
                     await Task.Delay(1);
                     _progressValue += 1;
                 }
-            }
-            else
-            {
-                GD.Print("moving right");
             }
         }
 

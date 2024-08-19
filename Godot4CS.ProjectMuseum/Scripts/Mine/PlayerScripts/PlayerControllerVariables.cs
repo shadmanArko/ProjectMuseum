@@ -1,13 +1,15 @@
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Enums;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
+using ProjectMuseum.Models;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
 
 public class PlayerControllerVariables
 {
     public PlayerController Player;
-
+    public PlayerInfo PlayerInfo;
+    
     #region Tutorial Booleans
 
     public bool CanMoveLeftAndRight;

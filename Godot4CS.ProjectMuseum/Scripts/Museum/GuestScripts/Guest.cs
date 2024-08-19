@@ -49,7 +49,7 @@ public partial class Guest : GuestAi
     private double _decisionChangingIntervalMin = 2f;
     private double _decisionChangingIntervalMax = 5f;
     private string _testString;
-    private MuseumTileContainer _museumTileContainer;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     private bool _canMove = false;
     private List<Vector2I> _path; // New variable to store the path
     [Export] private int _currentPathIndex = 0;
@@ -72,7 +72,7 @@ public partial class Guest : GuestAi
     public override void _Ready()
     {
         base._Ready();
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
         MuseumActions.OnClickGuestAi += OnClickGuestAi;
         GetRandomInterval();
@@ -216,7 +216,7 @@ public partial class Guest : GuestAi
             if (_targetTileCoordinate != new Vector2I(1000, 1000))
             {
                 var aStarPathfinding = new AStarPathfinding( false);
-                List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
+                List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumRunningDataContainer.AStarNodes);
                 if (path == null)
                 {
                     //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
@@ -296,10 +296,10 @@ public partial class Guest : GuestAi
 
     private Vector2I GetClosestShopLocation()
     {
-        if (_museumTileContainer.Shops.Count > 0)
+        if (_museumRunningDataContainer.Shops.Count > 0)
         {
             _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
-            var shop = _museumTileContainer.Shops.GetClosestShopToLocation(_startTileCoordinate);
+            var shop = _museumRunningDataContainer.Shops.GetClosestShopToLocation(_startTileCoordinate);
             _currentViewingObjectOrigin = new Vector2I(shop.XPosition, shop.YPosition);
             Vector2I coordinate = Vector2I.Zero;
             if (shop.RotationFrame == 0)
@@ -326,12 +326,12 @@ public partial class Guest : GuestAi
     }
     private Vector2I GetClosestWashroomLocation()
     {
-        if (_museumTileContainer.Sanitations.Count > 0)
+        if (_museumRunningDataContainer.Sanitations.Count > 0)
         {
             _startTileCoordinate = GameManager.tileMap.LocalToMap(Position);
-            var washroomToLocation = _museumTileContainer.Sanitations.GetClosestWashroomToLocation(_startTileCoordinate);
+            var washroomToLocation = _museumRunningDataContainer.Sanitations.GetClosestWashroomToLocation(_startTileCoordinate);
             _currentViewingObjectOrigin = new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition);
-            Vector2I coordinate = _museumTileContainer.MuseumTiles.GetClosestEmptyTileToCoordinate(new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition));
+            Vector2I coordinate = _museumRunningDataContainer.MuseumTiles.GetClosestEmptyTileToCoordinate(new Vector2I(washroomToLocation.XPosition, washroomToLocation.YPosition));
             GD.Print($"Found closest washroom coordinate {coordinate}");
             return coordinate;
         }
@@ -362,7 +362,7 @@ public partial class Guest : GuestAi
         if (_targetTileCoordinate != new Vector2I(1000, 1000))
         {
             var aStarPathfinding = new AStarPathfinding(false);
-            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumTileContainer.AStarNodes);
+            List<Vector2I> path = aStarPathfinding.FindPath(_startTileCoordinate, _targetTileCoordinate, _museumRunningDataContainer.AStarNodes);
             if (path == null)
             {
                 //GD.Print($"Path failed from {_startTileCoordinate} to {_targetTileCoordinate}");
@@ -376,11 +376,11 @@ public partial class Guest : GuestAi
 
     private Vector2I GetTargetExhibitViewingLocation()
     {
-        if (_currentExhibitIndex < _museumTileContainer.Exhibits.Count)
+        if (_currentExhibitIndex < _museumRunningDataContainer.Exhibits.Count)
         {
-            var exhibit = _museumTileContainer.Exhibits[_currentExhibitIndex];
+            var exhibit = _museumRunningDataContainer.Exhibits[_currentExhibitIndex];
             _currentViewingObjectOrigin = new Vector2I(exhibit.XPosition, exhibit.YPosition);
-            TileHelpers.TargetWthOrigin coordinate = _museumTileContainer.MuseumTiles.GetRandomEmptyTileClosestToExhibit(exhibit);
+            TileHelpers.TargetWthOrigin coordinate = _museumRunningDataContainer.MuseumTiles.GetRandomEmptyTileClosestToExhibit(exhibit);
             GD.Print($"Found Exhibit viewing coordinate {coordinate.target} origin {coordinate.origin}");
             _currentViewingObjectOrigin = coordinate.origin;
             _currentExhibitIndex++;
@@ -607,7 +607,7 @@ public partial class Guest : GuestAi
         }
 
         _lastCheckedPosition = tilePosition;
-        foreach (var museumTile in _museumTileContainer.MuseumTiles)
+        foreach (var museumTile in _museumRunningDataContainer.MuseumTiles)
         {
             if (museumTile.XPosition == tilePosition.X && museumTile.YPosition == tilePosition.Y)
             {

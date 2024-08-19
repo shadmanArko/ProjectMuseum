@@ -28,9 +28,10 @@ sub_emitter_keep_velocity = true
 [sub_resource type="CanvasTexture" id="CanvasTexture_fhlom"]
 
 [node name="DepletedParticleExplosion" type="GPUParticles2D"]
+process_mode = 3
 top_level = true
 visibility_layer = 32
-z_index = 15
+z_index = 33
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_lhn50")
 texture = SubResource("CanvasTexture_fhlom")

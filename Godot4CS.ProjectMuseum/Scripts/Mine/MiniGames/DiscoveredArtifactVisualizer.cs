@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
@@ -16,8 +17,34 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 	[Export] private CanvasLayer _canvasLayer;
 	[Export] private Label _artifactName;
     [Export] private Sprite2D _artifactSprite;
-    [Export] private RichTextLabel _artifactDescription;
+    [Export] private Label _artifactDescription;
 	[Export] private Button _okayButton;
+
+	#region Icon Sprites
+
+	[Export] private Sprite2D _eraIcon;
+	[Export] private Sprite2D _regionIcon;
+	[Export] private Sprite2D _objectClassIcon;
+	[Export] private Sprite2D _objectSizeIcon;
+	[Export] private Sprite2D _Material1Icon;
+	[Export] private Sprite2D _Material2Icon;
+
+	[Export] private Sprite2D _artifactConditionIcon;
+	[Export] private Sprite2D _artifactRarityIcon;
+
+	#endregion
+
+	#region Folder Paths
+
+	[Export] private string _eraFolderPath;
+	[Export] private string _regionFolderPath;
+	[Export] private string _objectClassFolderPath;
+	[Export] private string _objectSizeFolderPath;
+	[Export] private string _materialFolderPath;
+	[Export] private string _conditionFolderPath;
+	[Export] private string _rarityFolderPath;
+
+	#endregion
 
 	public override void _Ready()
 	{
@@ -64,21 +91,50 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 		GD.Print("SHOWING ARTIFACT FROM ARTIFACT ID IN DISCOVERY ARTIFACT VISUALIZER");
 		_canvasLayer.Visible = true;
 		_artifactName.Text = rawArtifactDescriptive.ArtifactName;
-		var descriptionText =
-			$"[p align=fill]{rawArtifactDescriptive.Description}[/p]" +
-			$"[p] [/p] [p] [/p] [p]Tags: [/p]" +
-			$"[p][font_size={11}]{rawArtifactFunctional.Era}, {rawArtifactFunctional.Region},[/font_size][/p]" +
-			$"[p][font_size={11}]{rawArtifactFunctional.Object}, {rawArtifactFunctional.ObjectClass}," +
-			$" {rawArtifactFunctional.ObjectSize}[/font_size][/p]";
-		var materialText = "[font_size={11}][p]";
-		foreach (var material in rawArtifactFunctional.Materials)
+		_artifactDescription.Text = $"{rawArtifactDescriptive.Description}";
+
+		_eraIcon.Texture = GetTexture(_eraFolderPath, rawArtifactFunctional.Era);
+		_regionIcon.Texture = GetTexture(_regionFolderPath, rawArtifactFunctional.Region);
+		_objectClassIcon.Texture = GetTexture(_objectClassFolderPath, rawArtifactFunctional.ObjectClass);
+		_objectSizeIcon.Texture = GetTexture(_objectSizeFolderPath, rawArtifactFunctional.ObjectSize);
+		_Material1Icon.Texture = GetTexture(_materialFolderPath, rawArtifactFunctional.Materials[0]);
+		if(rawArtifactFunctional.Materials.Count > 1)
+			_Material2Icon.Texture = GetTexture(_materialFolderPath, rawArtifactFunctional.Materials[1]);
+
+		_artifactConditionIcon.Texture = GetTexture(_conditionFolderPath, artifact.Condition);
+		_artifactRarityIcon.Texture = GetTexture(_rarityFolderPath, artifact.Rarity);
+		
+		_artifactSprite.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
+	}
+
+	private Texture2D GetTexture(string folderPath, string iconFileName)
+	{
+		using var dir = DirAccess.Open(folderPath);
+		if (dir != null)
 		{
-			materialText += $"{material}, ";
+			dir.ListDirBegin();
+			string fileName = dir.GetNext();
+			
+			while (fileName != "")
+			{
+				if (!dir.CurrentIsDir() && fileName == iconFileName+".png")
+				{
+					var texturePath = Path.Combine(folderPath, fileName);
+					var texture = GD.Load<Texture2D>(texturePath);
+
+					if (texture == null)
+					{
+						GD.PrintErr($"FATAL ERROR: Could not find texture");
+						continue;
+					}
+					GD.Print("Texture: " + texturePath);
+					return texture;
+				}
+				fileName = dir.GetNext();
+			}
 		}
 
-		descriptionText += materialText+"[/p][/font_size]";
-		_artifactDescription.Text = descriptionText;
-		_artifactSprite.Texture = GD.Load<Texture2D>(rawArtifactFunctional.LargeImageLocation);
+		return null;
 	}
 
 	private void OnOkayButtonPressed()
@@ -93,6 +149,8 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 		_canvasLayer.Visible = false;
 	}
 
+	#region Finalizers
+
 	private void UnsubscribeToActions()
 	{
 		MineActions.OnArtifactSuccessfullyRetrieved -= ShowDiscoveredArtifactVisualizerUi;
@@ -102,4 +160,6 @@ public partial class DiscoveredArtifactVisualizer : Node2D
 	{
 		UnsubscribeToActions();
 	}
+
+	#endregion
 }

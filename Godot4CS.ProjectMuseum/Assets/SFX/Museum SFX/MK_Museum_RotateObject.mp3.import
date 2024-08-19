@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c8i7f1jfj5m75"
+path="res://.godot/imported/MK_Museum_RotateObject.mp3-37b7d312027d6bcac6b34efc7638f501.mp3str"
+
+[deps]
+
+source_file="res://Assets/SFX/Museum SFX/MK_Museum_RotateObject.mp3"
+dest_files=["res://.godot/imported/MK_Museum_RotateObject.mp3-37b7d312027d6bcac6b34efc7638f501.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

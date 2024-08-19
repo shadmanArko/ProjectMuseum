@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ujg1ek4sdjg4"]
+
+[ext_resource type="Texture2D" uid="uid://owbcljdsxcf1" path="res://Assets/2D/Sprites/New Town/big house.png" id="1_on23n"]
+[ext_resource type="Script" path="res://Scripts/Museum/Town/TownBuilding.cs" id="2_ktdlu"]
+
+[node name="Bighouse" type="Sprite2D"]
+position = Vector2(372, 186)
+texture = ExtResource("1_on23n")
+script = ExtResource("2_ktdlu")
+_livingHouse = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(6, 3)
+polygon = PackedVector2Array(0, 7, 0, 2, 8, 2, 9, 1, 10, -1, 10, -5, 11, -5, 12, -6, 13, -8, 6, -14, -18, -14, -25, -6, -22, -6, -22, -1, -21, -1, -20, 2, -12, 2, -12, 8, -10, 8, -10, 5, -7.31754, 5, -4, 5, -3, 5, -2, 5, -2, 3, -2, 7)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="OnMouseExit"]

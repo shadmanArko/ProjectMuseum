@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://qohoi6cd7ec7"]
+
+[ext_resource type="Texture2D" uid="uid://d17cgoo5ssie6" path="res://Assets/2D/Sprites/New Town/bushes.png" id="1_5t8qy"]
+[ext_resource type="Script" path="res://Scripts/Museum/Town/TownTree.cs" id="2_bhpss"]
+
+[node name="tree2" type="Sprite2D"]
+position = Vector2(372, 186)
+texture = ExtResource("1_5t8qy")
+script = ExtResource("2_bhpss")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(6, 3)
+polygon = PackedVector2Array(-9, -1, -9, -3, -10, -3, -10, -4, -9, -4, -9, -5, -8, -5, -8, -6, -7, -6, -7, -4, -6, -4, -6, -5, -4, -5, -4, -4, -3, -5, -3, -5, -2, -5, -2, -4, -3, -4, -3, -1, -4, -1, -4, 0, -8, 0, -8, -1)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="OnMouseExit"]

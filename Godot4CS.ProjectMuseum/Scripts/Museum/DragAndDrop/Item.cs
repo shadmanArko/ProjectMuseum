@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Godot4CS.ProjectMuseum.Tests.DragAndDrop;
@@ -57,12 +58,11 @@ public partial class Item : Sprite2D, IComparable<Item>
     
     public string ExhibitVariationName = "default";
     public Exhibit ExhibitData;
-    protected MuseumTileContainer _museumTileContainer;
+    protected MuseumRunningDataContainer MuseumRunningDataContainer;
     protected ItemTypes _itemType;
     protected int _currentFrame;
     protected int _maxFrame = 4;
     private float _offsetBeforeItemPlacement = 10;
-    
     protected bool _moving = false;
     protected Vector2 _movingFromPos = new Vector2();
 
@@ -71,15 +71,16 @@ public partial class Item : Sprite2D, IComparable<Item>
         _exhibitPlacementConditionDatas = ServiceRegistry.Resolve<List<ExhibitPlacementConditionData>>();
     }
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public override async void _Ready()
     {
+        await Task.Delay(500);
         // var tileMap = GetTree().Root.GetNode<TileMap>("museum/TileMap");
         // tileMap.AddChild(this);
         // //
         // // // GameManager.TileMap.GetNode()
         // GD.Print("child count " +  tileMap.GetChildCount());
         // itemShaderMaterial = (ShaderMaterial)Material;
-        _museumTileContainer = ServiceRegistry.Resolve<MuseumTileContainer>();
+        MuseumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         greenMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/green.tres");
         redMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/red.tres");
         noBlendMaterial = (ShaderMaterial) GD.Load("res://Assets/Materials/White.tres");
@@ -120,8 +121,10 @@ public partial class Item : Sprite2D, IComparable<Item>
 
     protected void GetUpdatedItemPlacementConditions()
     {
-        string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
-        _httpRequestForExhibitPlacementConditions.Request(url);
+        // string url = ApiAddress.MuseumApiPath + ExhibitVariationName;
+        // _httpRequestForExhibitPlacementConditions.Request(url);
+        _exhibitPlacementConditionDatas = MuseumReferenceManager.Instance.ItemPlacementConditionService
+            .CanExhibitBePlacedOnThisTile(ExhibitVariationName);
     }
 
 
@@ -156,8 +159,8 @@ public partial class Item : Sprite2D, IComparable<Item>
         // GD.Print("Http1 result " + jsonStr);
         TilesWithExhibitDto tilesWithExhibitDto = JsonSerializer.Deserialize<TilesWithExhibitDto>(jsonStr);
         ExhibitData = tilesWithExhibitDto.Exhibit;
-        _museumTileContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
-        if (tilesWithExhibitDto.Exhibits != null) _museumTileContainer.Exhibits = tilesWithExhibitDto.Exhibits;
+        MuseumRunningDataContainer.MuseumTiles = tilesWithExhibitDto.MuseumTiles;
+        if (tilesWithExhibitDto.Exhibits != null) MuseumRunningDataContainer.Exhibits = tilesWithExhibitDto.Exhibits;
         // GD.Print( $"dto exhibit {ExhibitData.ExhibitVariationName}, has tiles {tilesWithExhibitDto.MuseumTiles.Count}");
     }
 
@@ -262,12 +265,14 @@ public partial class Item : Sprite2D, IComparable<Item>
         {
             
             Frame = (_currentFrame+=1) % _maxFrame;
+            MuseumActions.OnItemRotated?.Invoke();
             
         }else if (Input.IsActionJustPressed("PressE") && selectedItem)
         {
             if (_currentFrame == 0) _currentFrame = _maxFrame;
             Frame = (_currentFrame-=1) % _maxFrame;
-            
+            MuseumActions.OnItemRotated?.Invoke();
+
         }
     }
 

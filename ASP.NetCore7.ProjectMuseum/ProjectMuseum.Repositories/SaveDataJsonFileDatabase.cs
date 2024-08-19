@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ProjectMuseum.Models;
+using ProjectMuseum.Models.Artifact_and_Inventory;
 
 namespace ProjectMuseum.Repositories;
 

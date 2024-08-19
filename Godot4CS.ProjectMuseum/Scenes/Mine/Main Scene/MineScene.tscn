@@ -1,7 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://ckk3th8y6u1s"]
+[gd_scene load_steps=45 format=3 uid="uid://ckk3th8y6u1s"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneDiInstaller.cs" id="1_rq1hl"]
 [ext_resource type="PackedScene" uid="uid://u5l8h4kujkyh" path="res://Scenes/LoadingScene/LoadingScene.tscn" id="2_deqi7"]
+[ext_resource type="PackedScene" uid="uid://c4tsh6g1rbgdr" path="res://Scenes/Mine/Sub Scenes/ServiceScenes/ProceduralMineGeneratorService.tscn" id="2_i10yb"]
+[ext_resource type="PackedScene" uid="uid://e4o8gt1cwsdy" path="res://Scenes/Mine/LoadMineGameData/MineLoadData.tscn" id="2_nj1ds"]
 [ext_resource type="Script" path="res://Scripts/Mine/MineSceneInitializer.cs" id="2_t7o23"]
 [ext_resource type="PackedScene" uid="uid://bqltyu2fgvmyp" path="res://Scenes/Mine/Sub Scenes/UI/MineUI.tscn" id="3_ambmn"]
 [ext_resource type="PackedScene" uid="uid://bojefr3ulps6k" path="res://Scenes/Mine/Sub Scenes/Enemies/EnemySpawner.tscn" id="4_xj3qh"]
@@ -11,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cmjtexcfmbaxm" path="res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageSystem.tscn" id="7_x8k1i"]
 [ext_resource type="Script" path="res://Scripts/Mine/UI/DamageSystem/DamageSystem.cs" id="8_4crix"]
 [ext_resource type="PackedScene" uid="uid://ccshgryravaf2" path="res://Scenes/Mine/Sub Scenes/MiniGames/DiscoveredArtifactVisualizer.tscn" id="8_mppk2"]
-[ext_resource type="PackedScene" uid="uid://vnv6cso2c6ak" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
+[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/MineSettings/MinePauseManager.tscn" id="8_pdymc"]
 [ext_resource type="PackedScene" uid="uid://p4pp1nmkb44s" path="res://Scenes/Mine/Sub Scenes/UI/MineExitPromptUI.tscn" id="8_uross"]
 [ext_resource type="PackedScene" uid="uid://dmc4qwwsl3lwg" path="res://Scenes/Mine/Sub Scenes/UI/CampExitPromptUI.tscn" id="9_ybt60"]
 [ext_resource type="PackedScene" uid="uid://bxw2eomwugcsu" path="res://Scenes/Mine/Sub Scenes/Artifact Storage/ArtifactFromMineToInventory.tscn" id="10_ebucy"]
@@ -30,7 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://boobbvr80bqqf" path="res://Scenes/Mine/Sub Scenes/Tutorials/MineTutorial.tscn" id="16_37v3a"]
 [ext_resource type="PackedScene" uid="uid://b7xekoa5ueyf3" path="res://Scenes/Mine/Sub Scenes/Operation Controller/OperationControllerManager.tscn" id="16_ot1vu"]
 [ext_resource type="PackedScene" uid="uid://wq7j3y20sfmm" path="res://Scenes/Mine/Sub Scenes/Managers/InventoryManager.tscn" id="21_r7x7f"]
-[ext_resource type="PackedScene" uid="uid://cy25gubu2ffgk" path="res://Scenes/Mine/Sub Scenes/Camera/ScreenShakeController.tscn" id="21_xw743"]
+[ext_resource type="PackedScene" path="res://Scenes/Mine/Sub Scenes/Camera/ScreenShakeController.tscn" id="21_xw743"]
 [ext_resource type="PackedScene" uid="uid://coi6tcy4grgu3" path="res://Scenes/Mine/Sub Scenes/SceneLoader.tscn" id="22_h2clm"]
 [ext_resource type="PackedScene" uid="uid://cs6e0obahil33" path="res://Scenes/Mine/Sub Scenes/Sounds/Mine Music Scene/BackgroundMusicManager.tscn" id="24_5ul55"]
 [ext_resource type="PackedScene" uid="uid://bik7q8pwktu3o" path="res://Scenes/Mine/Sub Scenes/Items/InventoryItemBuilder.tscn" id="24_xp5yp"]
@@ -40,6 +42,8 @@
 [ext_resource type="PackedScene" uid="uid://cye410nrvhc2d" path="res://Scenes/Mine/Sub Scenes/Log Message System/LogMessageController.tscn" id="32_rvnlm"]
 [ext_resource type="PackedScene" uid="uid://c3njs5gj75ppi" path="res://Scenes/Pause Menu/pause_menu.tscn" id="34_a03ws"]
 [ext_resource type="Script" path="res://Scripts/Mine/Operations/InventoryControllers/InventoryItemCollector.cs" id="40_dy3xt"]
+[ext_resource type="PackedScene" uid="uid://bmv76y46lpu7o" path="res://Scenes/Mine/Sub Scenes/Sounds/Sfx/MineSfxManager.tscn" id="41_737yh"]
+[ext_resource type="PackedScene" uid="uid://b6xhh67xafayu" path="res://Scenes/Mine/SaveMineGameData/MineSaveData.tscn" id="43_205iv"]
 
 [node name="MineScene" type="Control"]
 process_mode = 1
@@ -47,16 +51,20 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rq1hl")
 
-[node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_deqi7")]
-_progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
-_canvasLayer = NodePath("CanvasLayer")
+[node name="MineLoadData" parent="." instance=ExtResource("2_nj1ds")]
+
+[node name="ProceduralMineGenerator" parent="." instance=ExtResource("2_i10yb")]
 
 [node name="MineSceneInitializer" type="Node" parent="."]
 script = ExtResource("2_t7o23")
 _playerScenePrefabPath = "res://Scenes/Mine/Sub Scenes/Player.tscn"
 _mineSceneViewPrefabPath = "res://Scenes/Mine/Sub Scenes/MineSceneView.tscn"
 
-[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePauseManager", "LogMessageController", "ScreenShakeController", "InventoryItemBuilder", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
+[node name="LoadingScene" parent="." node_paths=PackedStringArray("_progressBar", "_canvasLayer") instance=ExtResource("2_deqi7")]
+_progressBar = NodePath("CanvasLayer/Control/Panel/ColorRect/ProgressBar")
+_canvasLayer = NodePath("CanvasLayer")
+
+[node name="ReferenceStorage" type="Node" parent="." node_paths=PackedStringArray("SceneTransition", "AutoAnimationController", "EnemySpawner", "MiniGameController", "MineTutorial", "CameraController", "MineTimeSystem", "SceneLoader", "DamageSystem", "LoadingBarManager", "ParticleEffectSystem", "InventoryManager", "MinePauseManager", "LogMessageController", "ScreenShakeController", "InventoryItemBuilder", "ProceduralMineGenerationService", "MineExitPromptUi", "CampExitPromptUi", "DiscoveredArtifactVisualizer", "MinePopUp", "MineUiController", "InventoryViewController", "Tooltip")]
 script = ExtResource("5_yk3pc")
 SceneTransition = NodePath("../SceneTransition")
 AutoAnimationController = NodePath("../Auto Animation Controller")
@@ -74,6 +82,7 @@ MinePauseManager = NodePath("../MinePauseManager")
 LogMessageController = NodePath("../MineUI/Log Message Controller")
 ScreenShakeController = NodePath("../ScreenShakeController")
 InventoryItemBuilder = NodePath("../InventoryItemBuilder")
+ProceduralMineGenerationService = NodePath("../ProceduralMineGenerator")
 MineExitPromptUi = NodePath("../MineExitPromptUI")
 CampExitPromptUi = NodePath("../CampExitPromptUI")
 DiscoveredArtifactVisualizer = NodePath("../DiscoveredArtifactVisualizer")
@@ -98,7 +107,6 @@ _damageVisualizerPath = "res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/Damage
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("_parentNode") instance=ExtResource("4_xj3qh")]
 _parentNode = NodePath("../MineSceneInitializer")
-_slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
 
 [node name="ParticleEffectSystem" parent="." instance=ExtResource("11_1alc6")]
 
@@ -157,15 +165,19 @@ _popUpText = NodePath("Pop Up Text")
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 process_mode = 3
 visible = false
-offset_top = 34.88
-offset_right = 136.36
-offset_bottom = 153.0
+offset_top = 104.0
+offset_right = 409.0
+offset_bottom = 459.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 
-[node name="Dialogue Ui" parent="MineUI" node_paths=PackedStringArray("_cutsceneArt") instance=ExtResource("15_jb2j0")]
+[node name="Dialogue Ui" parent="MineUI" node_paths=PackedStringArray("_dialogueRichTextLabel", "_nextDialogueButton", "_characterPortrait", "_cutsceneArt", "_dialogueBox") instance=ExtResource("15_jb2j0")]
 visible = false
+_dialogueRichTextLabel = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue")
+_nextDialogueButton = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/ColorRect/MarginContainer/Dialogue/Button2")
+_characterPortrait = NodePath("Panel/Dialogue and Potrait Panel/HBoxContainer/Character Potrait/portrait")
 _cutsceneArt = NodePath("Panel/Illustration Image")
+_dialogueBox = NodePath("Panel/Dialogue and Potrait Panel")
 
 [node name="TimeSystem" parent="MineUI" instance=ExtResource("16_2lo0e")]
 
@@ -185,12 +197,20 @@ _pauseButton = NodePath("pause_menu_button")
 [node name="Log Message Controller" parent="MineUI" node_paths=PackedStringArray("_vBoxContainer") instance=ExtResource("32_rvnlm")]
 _vBoxContainer = NodePath("VBoxContainer")
 
-[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton") instance=ExtResource("8_mppk2")]
+[node name="DiscoveredArtifactVisualizer" parent="." node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton", "_eraIcon", "_regionIcon", "_objectClassIcon", "_objectSizeIcon", "_Material1Icon", "_Material2Icon", "_artifactConditionIcon", "_artifactRarityIcon") instance=ExtResource("8_mppk2")]
 _canvasLayer = NodePath("CanvasLayer")
-_artifactName = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Discovered An Item Label/ArtifactName")
-_artifactSprite = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Sprite Panel/Artifact Sprite")
-_artifactDescription = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Artifact Sprite and Description Panel/Artifact Description Panel/Artifact Description")
-_okayButton = NodePath("CanvasLayer/Panel/Control/VBoxContainer/Okay Button Panel/OkayButton")
+_artifactName = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Discovered An Item Label/ArtifactName")
+_artifactSprite = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/PanelContainer/Artifact Sprite")
+_artifactDescription = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Artifact Sprite and Description Panel/HBoxContainer/Artifact Description Panel/Description")
+_okayButton = NodePath("CanvasLayer/Panel/Control/Okay Button Panel/OkayButton")
+_eraIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Era Container/Era Panel/Era")
+_regionIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Region Panel/Region")
+_objectClassIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Region and Class Container/Object Class Panel/ObjectClass")
+_objectSizeIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Size Panel/Size")
+_Material1Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 1 Panel/Material1")
+_Material2Icon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Tags/Tags Container/Size and Material Container/Material 2 Panel/Material2")
+_artifactConditionIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Condition Panel/Condition")
+_artifactRarityIcon = NodePath("CanvasLayer/Panel/Control/PanelContainer/VBoxContainer/Condition Rarity and Tag/HBoxContainer/Conditions and Rarity/Rarity Panel/Rarity")
 
 [node name="SceneTransition" parent="." node_paths=PackedStringArray("_colorRect") instance=ExtResource("6_1bas2")]
 visible = false
@@ -206,9 +226,14 @@ SleepForTheNightButton = NodePath("Panel/Control/Button Container/Sleep For The 
 ReturnToMuseumButton = NodePath("Panel/Control/Button Container/Return To Museum")
 ReturnToMineButton = NodePath("Panel/Control/Button Container/Return To Mine")
 
-[node name="MineSceneView" parent="." node_paths=PackedStringArray("_savingCanvas", "_mineBackGround") instance=ExtResource("30_f3st8")]
+[node name="MineSceneView" parent="." node_paths=PackedStringArray("_mineGenerationView", "_savingCanvas", "_mineBackGround") instance=ExtResource("30_f3st8")]
+_mineGenerationView = NodePath("Mine")
 _savingCanvas = NodePath("UISaving")
 _mineBackGround = NodePath("MineBackground")
 
 [node name="InventoryItemCollector" type="Node" parent="."]
 script = ExtResource("40_dy3xt")
+
+[node name="MineSfxManager" parent="." instance=ExtResource("41_737yh")]
+
+[node name="MineSaveData" parent="." instance=ExtResource("43_205iv")]

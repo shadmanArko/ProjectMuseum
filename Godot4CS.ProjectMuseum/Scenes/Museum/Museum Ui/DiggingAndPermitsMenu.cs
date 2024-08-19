@@ -32,6 +32,7 @@ public partial class DiggingAndPermitsMenu : Control
 	private void SubcontinentButtonOnPressed()
 	{
 		MuseumActions.OnPlayerPerformedTutorialRequiringAction?.Invoke("SelectedMineSite");
+		MuseumActions.OnPlayerSavedGame?.Invoke();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

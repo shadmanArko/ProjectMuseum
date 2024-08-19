@@ -33,19 +33,20 @@ public partial class InventoryManager : Node2D
         _inventorySlots = _inventoryViewController.InventoryItems;
         InitializeDiReferences();
         SubscribeToActions();
-        GetInventory();
+        // GetInventory();
         _isGamePausedByInventory = false;
     }
 
     private void CreateHttpRequest()
     {
-        _getInventoryHttpRequest = new HttpRequest();
-        AddChild(_getInventoryHttpRequest);
-        _getInventoryHttpRequest.RequestCompleted += OnGetInventoryHttpRequestCompleted;
+        // _getInventoryHttpRequest = new HttpRequest();
+        // AddChild(_getInventoryHttpRequest);
+        // _getInventoryHttpRequest.RequestCompleted += OnGetInventoryHttpRequestCompleted;
     }
     private void SubscribeToActions()
     {
         MineActions.OnInventoryUpdate += SetInventoryItemsToSlotsOnInventoryOpen;
+        MineActions.OnInventoryInitialized += SetUpInventoryOnInventoryDataInitialized;
     }
 
     private void InitializeDiReferences()
@@ -53,22 +54,30 @@ public partial class InventoryManager : Node2D
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
     }
 
-    private void GetInventory()
-    {
-        var url = ApiAddress.PlayerApiPath + "GetInventory";
-        _getInventoryHttpRequest.CancelRequest();
-        _getInventoryHttpRequest.Request(url);
-    }
-    
-    private void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-        _inventoryDto.Inventory = inventory;
+    // private void GetInventory()
+    // {
+    //     var url = ApiAddress.PlayerApiPath + "GetInventory";
+    //     _getInventoryHttpRequest.CancelRequest();
+    //     _getInventoryHttpRequest.Request(url);
+    // }
+    //
+    // private void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
+    // {
+    //     var jsonStr = Encoding.UTF8.GetString(body);
+    //     var inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
+    //     _inventoryDto.Inventory = inventory;
+    //
+    //     InitializeInventorySlots();
+    //     SetInventorySlotUnlockStatus();
+    //     SetInventoryItemsToSlotsOnInventoryOpen();
+    // }
 
+    private void SetUpInventoryOnInventoryDataInitialized()
+    {
         InitializeInventorySlots();
         SetInventorySlotUnlockStatus();
         SetInventoryItemsToSlotsOnInventoryOpen();
+        MineActions.OnInventoryUpdate?.Invoke();
     }
     
     private void InitializeInventorySlots()
@@ -392,6 +401,7 @@ public partial class InventoryManager : Node2D
     private void UnsubscribeToActions()
     {
         MineActions.OnInventoryUpdate -= SetInventoryItemsToSlotsOnInventoryOpen;
+        MineActions.OnInventoryInitialized -= SetUpInventoryOnInventoryDataInitialized;
     }
     
     public override void _ExitTree()

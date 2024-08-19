@@ -109,6 +109,7 @@ _data = {
 }
 
 [node name="DrillCore" type="RigidBody2D" node_paths=PackedStringArray("_drillHeads", "_drillCoreSprite2D", "_animationPlayer")]
+z_index = 21
 collision_layer = 32
 collision_mask = 0
 mass = 0.001

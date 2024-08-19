@@ -80,6 +80,17 @@ public class CaveControlManager
                     GD.Print($"Stalactite instantiated {stalactiteCell.PositionX},{stalactiteCell.PositionY}");
                 }
             }
+
+            var random = new RandomNumberGenerator();
+            for (var i = 0; i < requiredCave.NoOfFlyingEnemies; i++)
+            {
+                var cellPosX = random.RandiRange(requiredCave.LeftBound +1, requiredCave.RightBound -1);
+                var cellPosY = random.RandiRange(requiredCave.TopBound +1, requiredCave.BottomBound -1);
+                var cellPos = new Vector2(cellPosX, cellPosY) * cellSize + new Vector2(cellSize/2f,cellSize/2f);
+                var enemy = ReferenceStorage.Instance.EnemySpawner.SpawnFlyingEnemy(cellPos);
+                
+                GD.Print("GENERATING FLYING ENEMY IN CAVE");
+            }
         }
 
         return totalCellsToReveal;

@@ -24,6 +24,7 @@ MuseumActions="*res://Scripts/Museum/Museum Actions/MuseumActions.cs"
 SettingsSignalBus="*res://Scripts/SettingsMenu/SettingsSignalBus.gd"
 SaveManager="*res://Scripts/SettingsMenu/SaveManager.gd"
 SettingsDataContainer="*res://Plugins/Keybind/SettingsDataContainer.gd"
+AudioManager="*res://Scripts/Audio Manager/AudioManager.cs"
 
 [display]
 
@@ -270,6 +271,7 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/msaa_3d=1
 viewport/hdr_2d=true

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Godot.Collections;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
@@ -119,8 +120,10 @@ public partial class WallController : Node2D
 				string[] headers = { "Content-Type: application/json"};
 				var body = JsonConvert.SerializeObject(validWallTileIds);
 				//GD.Print(body);
-				Error error = _httpRequestForUpdatingWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId", headers,
-					HttpClient.Method.Post, body);
+				_museumRunningDataContainer.MuseumTiles = MuseumReferenceManager.Instance.TileServices.UpdateMuseumTilesWallId(validWallTileIds);
+				MuseumActions.OnWallpaperSuccessfullyUpdated?.Invoke();
+				// Error error = _httpRequestForUpdatingWalls.Request(ApiAddress.MuseumApiPath+ $"UpdateMuseumTilesWallId", headers,
+				// 	HttpClient.Method.Post, body);
 			}
 			else
 			{

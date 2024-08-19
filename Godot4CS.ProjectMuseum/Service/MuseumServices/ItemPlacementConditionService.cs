@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.GameData;
+using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.DTOs;
 using ProjectMuseum.Models;
 using ProjectMuseum.Models.CoreShop;
@@ -28,6 +29,10 @@ public partial class ItemPlacementConditionService: Node
     {
         _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         _museumGameData = ServiceRegistry.Resolve<MuseumGameData>();
+        _museumRunningDataContainer.Shops = SaveLoadService.Load().Shops;
+        _museumRunningDataContainer.Products = SaveLoadService.Load().Products;
+        _museumRunningDataContainer.Sanitations = SaveLoadService.Load().Sanitations;
+        _museumRunningDataContainer.DecorationOthers = SaveLoadService.Load().DecorationOthers;
     }
 
     public List<ExhibitPlacementConditionData> CanExhibitBePlacedOnThisTile(string exhibitVariationName)
@@ -110,10 +115,14 @@ public partial class ItemPlacementConditionService: Node
         var coreShopFunctional = new CoreShopFunctional();
         var coreShopDescriptive = new CoreShopDescriptive();
         //
-        var shopFunctional = File.ReadAllText(
-                "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CoreShopData/coreShopDescriptiveData.json");
-        var shopDescriptives = File.ReadAllText(
-                "E:/Godot Projects/ProjectMuseum/ASP.NetCore7.ProjectMuseum/ProjectMuseum.APIs/Game Data Folder/CoreShopData/coreShopDescriptiveData.json");
+        var shopFunctional = Godot.FileAccess.Open(
+            "res://Game Data/CoreShopData/coreShopFunctionalData.json", 
+            Godot.FileAccess.ModeFlags.Read).GetAsText();
+
+        var shopDescriptives = Godot.FileAccess.Open(
+            "res://Game Data/CoreShopData/coreShopDescriptiveData.json", 
+            Godot.FileAccess.ModeFlags.Read).GetAsText();
+
         var shopFunctionalDatas = JsonSerializer.Deserialize<List<CoreShopFunctional>>(shopFunctional);
         var shopDescriptiveDatas = JsonSerializer.Deserialize<List<CoreShopDescriptive>>(shopDescriptives);
         _museumGameData.CoreShopDescriptives = shopDescriptiveDatas;

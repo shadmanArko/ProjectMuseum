@@ -10,9 +10,9 @@
 [ext_resource type="Shader" path="res://Scripts/Shaders/SimpleBlur.gdshader" id="8_s1vfc"]
 [ext_resource type="Texture2D" uid="uid://dmvybcmnlotge" path="res://Assets/2D/Sprites/Mine Sprites/Mine Scene Background/bg.png" id="9_74who"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Audio.cs" id="11_wqld0"]
-[ext_resource type="PackedScene" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="12_fgqi3"]
+[ext_resource type="PackedScene" uid="uid://ouhmqp7q5h10" path="res://Scenes/Settings Menu/Volume_Slider_Settings.tscn" id="12_fgqi3"]
 [ext_resource type="Script" path="res://Scripts/SettingsMenu/Graphics.cs" id="13_ujfby"]
-[ext_resource type="PackedScene" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="14_bkhl4"]
+[ext_resource type="PackedScene" uid="uid://bffmgqpet85vg" path="res://Scenes/Settings Menu/Hotkey_Rebind_Button.tscn" id="14_bkhl4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bgg5s"]
 

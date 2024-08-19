@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://xruw3003nd0r"]
 
-[ext_resource type="PackedScene" uid="uid://d2igll2u72jvt" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="1_cpt2a"]
+[ext_resource type="PackedScene" uid="uid://dwrtwt0aj6gqu" path="res://Plugins/Arko's Tooltip/Scenes/MineSceneTooltip.tscn" id="1_cpt2a"]
 [ext_resource type="PackedScene" uid="uid://dl72pvaxmdk0m" path="res://Plugins/Arko's Tooltip/Scenes/Demo/For Sprite2d 02/Sprite2DTest02.tscn" id="2_f8qss"]
 [ext_resource type="PackedScene" uid="uid://cuiv1oiwajgel" path="res://Plugins/Arko's Tooltip/Scenes/Demo/ForUI/ForUITooltip.tscn" id="3_u0aj0"]
 
@@ -16,5 +16,9 @@ position = Vector2(1016, 373)
 
 [node name="ForUITooltip" parent="." instance=ExtResource("3_u0aj0")]
 
-[node name="Tooltip4" parent="." instance=ExtResource("1_cpt2a")]
+[node name="Tooltip4" parent="." node_paths=PackedStringArray("_label", "_vBoxContainer", "_marginContainer", "_panel") instance=ExtResource("1_cpt2a")]
 visible = false
+_label = NodePath("MarginContainer/VBoxContainer/Label")
+_vBoxContainer = NodePath("MarginContainer/VBoxContainer")
+_marginContainer = NodePath("MarginContainer")
+_panel = NodePath("Panel")

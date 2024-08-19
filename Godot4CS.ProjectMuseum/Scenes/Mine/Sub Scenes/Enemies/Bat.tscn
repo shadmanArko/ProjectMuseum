@@ -155,13 +155,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xse63"]
 size = Vector2(16, 11)
 
-[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("HealthBar", "AnimPlayer", "EnemySprite")]
+[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("HealthBar", "AnimPlayer")]
 z_index = 30
 collision_layer = 4
 script = ExtResource("1_iq1da")
 HealthBar = NodePath("Health Bar")
 AnimPlayer = NodePath("AnimationPlayer")
-EnemySprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -30,7 +30,6 @@ public partial class CellPlaceableController : InventoryController
     
     private void InitializeDiInstaller()
     {
-        CreateHttpRequests();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
@@ -58,15 +57,6 @@ public partial class CellPlaceableController : InventoryController
     public override void _Ready()
     {
         InitializeDiInstaller();
-        GetAllCellPlaceables();
-    }
-    
-    private void CreateHttpRequests()
-    {
-        // _getCellPlaceablesHttpRequest = new HttpRequest();
-        // AddChild(_getCellPlaceablesHttpRequest);
-        // _getCellPlaceablesHttpRequest.RequestCompleted +=
-        //     OnGetCellPlaceablesHttpRequestComplete;
     }
     
     #region Activate Deactivate Controller
@@ -95,31 +85,6 @@ public partial class CellPlaceableController : InventoryController
         _cellPlaceableSprite.Visible = false;
         UnsubscribeToActions();
         GD.Print("Wall placeable controller deactivated");
-    }
-
-    #endregion
-
-    #region Populate Cell Placeable DTO
-
-    private void GetAllCellPlaceables()
-    {
-        // var url = ApiAddress.MineApiPath + "GetAllCellPlaceables";
-        // _getCellPlaceablesHttpRequest.CancelRequest();
-        // _getCellPlaceablesHttpRequest.Request(url);
-    }
-    
-    private void OnGetCellPlaceablesHttpRequestComplete(long result, long responseCode,
-        string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var cellPlaceables = JsonSerializer.Deserialize<List<CellPlaceable>>(jsonStr);
-        
-        if (cellPlaceables == null)
-        {
-            GD.PrintErr("Wall placeables is null in wall placeable DTO");
-            return;
-        }
-        // _cellPlaceableDto.CellPlaceables = cellPlaceables;
     }
 
     #endregion
@@ -157,7 +122,7 @@ public partial class CellPlaceableController : InventoryController
                 _inventoryDto.Inventory.InventoryItems.Remove(_inventoryItem);
         }
         
-        var cellPlaceable = _cellPlaceableDto.CellPlaceables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant) as CellPlaceable;
+        var cellPlaceable = _cellPlaceableDto.CellPlaceables.FirstOrDefault(temp => temp.Variant == _inventoryItem.Variant);
         if (cellPlaceable == null)
         {
             GD.PrintErr("Cell Placeable not found in Cell Placeable DTO");
@@ -249,7 +214,7 @@ public partial class CellPlaceableController : InventoryController
             return false;
         }
 
-        if (cell.HasCellPlaceable)
+        if (cell.HasCellPlaceable || cell.HasWallPlaceable)
         {
             // GD.Print("Cell Already has a Cell placeable");
             return false;

@@ -15,8 +15,6 @@ namespace Godot4CS.ProjectMuseum.Scripts.Mine.Operations.InventoryControllers;
 
 public partial class WallPlaceableController : InventoryController
 {
-    private HttpRequest _getWallPlaceablesHttpRequest;
-
     private PlayerControllerVariables _playerControllerVariables;
     private MineGenerationVariables _mineGenerationVariables;
     private InventoryDTO _inventoryDto;
@@ -29,19 +27,10 @@ public partial class WallPlaceableController : InventoryController
 
     private void InitializeDiInstaller()
     {
-        CreateHttpRequests();
         _playerControllerVariables = ServiceRegistry.Resolve<PlayerControllerVariables>();
         _mineGenerationVariables = ServiceRegistry.Resolve<MineGenerationVariables>();
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
         _wallPlaceableDto = ServiceRegistry.Resolve<WallPlaceableDTO>();
-    }
-
-    private void CreateHttpRequests()
-    {
-        // _getWallPlaceablesHttpRequest = new HttpRequest();
-        // AddChild(_getWallPlaceablesHttpRequest);
-        // _getWallPlaceablesHttpRequest.RequestCompleted +=
-        //     OnGetWallPlaceablesHttpRequestComplete;
     }
 
     private void SubscribeToActions()
@@ -61,7 +50,6 @@ public partial class WallPlaceableController : InventoryController
     public override void _Ready()
     {
         InitializeDiInstaller();
-        // GetAllWallPlaceables();
     }
 
     #endregion
@@ -98,32 +86,7 @@ public partial class WallPlaceableController : InventoryController
     #endregion
 
     #endregion
-
-    #region From inventory to mine
-
-    private void GetAllWallPlaceables()
-    {
-        // var url = ApiAddress.MineApiPath + "GetAllWallPlaceables";
-        // _getWallPlaceablesHttpRequest.CancelRequest();
-        // _getWallPlaceablesHttpRequest.Request(url);
-    }
     
-    private void OnGetWallPlaceablesHttpRequestComplete(long result, long responseCode,
-        string[] headers, byte[] body)
-    {
-        var jsonStr = Encoding.UTF8.GetString(body);
-        var wallPlaceables = JsonSerializer.Deserialize<List<WallPlaceable>>(jsonStr);
-        
-        if (wallPlaceables == null)
-        {
-            GD.PrintErr("Wall placeables is null in wall placeable DTO");
-            return;
-        }
-        // _wallPlaceableDto.WallPlaceables = wallPlaceables;
-    }
-
-    #endregion
-
     #region Set Wall Placeable to Mine from Inventory
 
     private void SetWallPlaceableFromInventoryToMine()
@@ -234,7 +197,7 @@ public partial class WallPlaceableController : InventoryController
             return false;
         }
 
-        if (cell.HasWallPlaceable)
+        if (cell.HasWallPlaceable || cell.HasCellPlaceable)
         {
             GD.Print("Cell Already has a wall placeable");
             return false;

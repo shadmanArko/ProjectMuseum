@@ -13,7 +13,7 @@ public partial class EnemySpawner : Node2D
     private List<Enemy> _enemies;
     private List<FlyingEnemy> _flyingEnemies;
     
-    [Export] private Node _parentNode;
+    // [Export] private Node _parentNode;
     [Export] private string _slimePrefabPath;
     [Export] private string _batPrefabPath;
 
@@ -101,7 +101,7 @@ public partial class EnemySpawner : Node2D
     public FlyingEnemy SpawnFlyingEnemy(Vector2 position)
     {
         var scene = ResourceLoader.Load<PackedScene>(_batPrefabPath).Instantiate();
-        _parentNode.AddChild(scene);
+        AddChild(scene);
         var enemy = scene as FlyingEnemy;
         if (enemy == null)
         {
@@ -121,7 +121,7 @@ public partial class EnemySpawner : Node2D
     private void SpawnGroundEnemy()
     {
         var scene = ResourceLoader.Load<PackedScene>(_slimePrefabPath).Instantiate();
-        _parentNode.AddChild(scene);
+        AddChild(scene);
         var enemy = scene as Enemy;
         if (enemy == null)
         {

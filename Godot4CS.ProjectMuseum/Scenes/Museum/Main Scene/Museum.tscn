@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://bclpm0kveaxk6"]
+[gd_scene load_steps=96 format=3 uid="uid://bclpm0kveaxk6"]
 
 [ext_resource type="Script" path="res://Scripts/Museum/Museum.cs" id="1_3ql1b"]
 [ext_resource type="PackedScene" uid="uid://dxtfargoq8wot" path="res://Scenes/Museum/Sub Scenes/Tilemap.tscn" id="2_2v5tj"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://mna3mnreah7e" path="res://Scenes/Museum/Decorations/decorationOtherItem.tscn" id="16_1ehrh"]
 [ext_resource type="PackedScene" uid="uid://cv4p4yyj4yp8u" path="res://Scenes/Museum/Sanitation/SanitationItem.tscn" id="18_78kbp"]
 [ext_resource type="Script" path="res://Scripts/Museum/GuestScripts/GuestsController.cs" id="18_iea1i"]
+[ext_resource type="PackedScene" uid="uid://dfskhvya13su5" path="res://Scenes/Museum/Museum Ui/Exhibit editor/exhibit_editor_2x_2_grid.tscn" id="18_qnthi"]
 [ext_resource type="Script" path="res://Scripts/Museum/ManualSorting.cs" id="18_rds1y"]
 [ext_resource type="PackedScene" uid="uid://b5hoveiehnseh" path="res://Scenes/Museum/Sub Scenes/Player_Uncontrolled.tscn" id="19_1kq7h"]
 [ext_resource type="PackedScene" uid="uid://dj4qpmv17d2tv" path="res://Scenes/Museum/Sub Scenes/Professor.tscn" id="19_yibo3"]
@@ -164,6 +165,7 @@ ItemsParent = NodePath("../../ItemParents")
 [node name="Exhibit Editor Ui" parent="museum/CanvasLayer" node_paths=PackedStringArray("_exitButton", "_draggablesParent", "_dropTargetsParent", "_glassCheckButton", "_DeleteExhibitButton", "_moveExhibitButton") instance=ExtResource("10_c21vt")]
 visible = false
 _exitButton = NodePath("Panel/Exhibit Editor Ui BG/MarginContainer/Top Panel/Button")
+_dropTargetGrid2X2 = ExtResource("18_qnthi")
 _draggablesParent = NodePath("Panel/Exhibit Editor Ui BG/Left Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 _dropTargetsParent = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer")
 _glassCheckButton = NodePath("Panel/Exhibit Editor Ui BG/Right Panel/MarginContainer/MarginContainer/VBoxContainer/VBoxContainer/CheckButton")

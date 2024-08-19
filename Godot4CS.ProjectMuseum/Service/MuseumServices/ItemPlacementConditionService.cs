@@ -62,6 +62,11 @@ public partial class ItemPlacementConditionService: Node
         var museumTiles = _museumRunningDataContainer.MuseumTiles;
         tilesWithExhibitDto.Exhibit = exhibit;
         tilesWithExhibitDto.MuseumTiles = museumTiles;
+        List<GridSlots2X2> artifactGridSlots2X2S = new List<GridSlots2X2>();
+        if (tileIds.Count > 1)
+        {
+            artifactGridSlots2X2S = new List<GridSlots2X2>(4);
+        }
         foreach (var tileId in tileIds)
         {
             if (tileId == originTileId)
@@ -78,6 +83,7 @@ public partial class ItemPlacementConditionService: Node
                     OccupiedTileIds = tileIds,
                     ArtifactIds = new List<string>(),
                     RotationFrame = rotationFrame,
+                    ArtifactGridSlots2X2s = artifactGridSlots2X2S,
                     ExhibitDecoration = "string",
                     ExhibitArtifactSlot1 = "string",
                     ExhibitArtifactSlot2 = "string",

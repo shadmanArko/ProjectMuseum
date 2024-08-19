@@ -7,7 +7,7 @@
 custom_minimum_size = Vector2(200, 200)
 columns = 2
 script = ExtResource("1_v41ub")
-_dropTargets = [NodePath("DropTarget 1"), NodePath("DropTarget 2"), NodePath("DropTarget 3"), NodePath("DropTarget 4")]
+_dropTargets = []
 
 [node name="DropTarget 1" parent="." instance=ExtResource("1_j8obn")]
 layout_mode = 2

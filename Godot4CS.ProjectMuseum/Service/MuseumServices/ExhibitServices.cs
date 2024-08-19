@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
@@ -13,18 +14,20 @@ public partial class ExhibitServices: Node
 {
     private  List<Exhibit> _exhibitDatabase;
     private  List<ExhibitVariation> _exhibitVariationDatabase;
-   
+    private MuseumRunningDataContainer _museumRunningDataContainer;
 
     public override void _Ready()
     {
         base._Ready();
+        
         InitializeData();
     }
 
     private void InitializeData()
     {
         _exhibitDatabase = SaveLoadService.Load().Exhibits;
-
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
+        _museumRunningDataContainer.Exhibits = _exhibitDatabase;
         var exhibitVariationDatabseJson = Godot.FileAccess.Open("res://Game Data/Starting Data/exhibitVariations.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
         _exhibitVariationDatabase = JsonSerializer.Deserialize<List<ExhibitVariation>>(exhibitVariationDatabseJson);
     }
@@ -99,49 +102,77 @@ public partial class ExhibitServices: Node
         return exhibits;
     }
 
-    public Exhibit AddArtifactToExhibit(string exhibitId, string artifactId, int slot)
+    public Exhibit AddArtifactToExhibit(string exhibitId, string artifactId, int slot, int gridNumber, string artifactSize)
     {
-        var exhibits = _exhibitDatabase;
+        var exhibits = _museumRunningDataContainer.Exhibits; ;
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
-        if (slot == 1)
+        // if (exhibit.ArtifactGridSlots2X2s == null)
+        // {
+        //     Console.WriteLine("2x2 grid is null");
+        //     exhibit.ArtifactGridSlots2X2s = new List<GridSlots2X2>(){new GridSlots2X2(){Slot0 = "", Slot1 = "", Slot2 = "", Slot3 = ""}};
+        //     
+        // }
+        if (artifactSize == "Small")
         {
-            exhibit.ExhibitArtifactSlot1 = artifactId;
-        }else if (slot == 2)
-        {
-            exhibit.ExhibitArtifactSlot2 = artifactId;
-        }else if (slot == 3)
-        {
-            exhibit.ExhibitArtifactSlot3 = artifactId;
-        }else if (slot == 4)
-        {
-            exhibit.ExhibitArtifactSlot4 = artifactId;
+            if (slot == 3 || slot == 1)
+            {
+                slot = 1;
+                exhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifactId;
+            }else if (slot == 2 || slot == 4)
+            {
+                slot = 2;
+                exhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifactId;
+            }
         }
+        else if (artifactSize == "Medium")
+        {
+            if (slot == 1 || slot == 2 || slot == 3 || slot == 4)
+            {
+                slot = 1;
+                exhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifactId;
+            }
+        }
+        else if (artifactSize == "Tiny")
+        {
+            if (slot == 1)
+            {
+                exhibit.ArtifactGridSlots2X2s[gridNumber].Slot0 = artifactId;
+            }else if (slot == 2)
+            {
+                exhibit.ArtifactGridSlots2X2s[gridNumber].Slot1 = artifactId;
+            }else if (slot == 3)
+            {
+                exhibit.ArtifactGridSlots2X2s[gridNumber].Slot2 = artifactId;
+            }else if (slot == 4)
+            {
+                exhibit.ArtifactGridSlots2X2s[gridNumber].Slot3 = artifactId;
+            }
+        }
+        
         exhibit.ArtifactIds.Add(artifactId);
-        if (exhibits != null) _exhibitDatabase = exhibits;
         return exhibit;
     }
-    public Exhibit RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot)
+    public  Exhibit RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot, int gridNumber, string artifactSize)
     {
-        var exhibits = _exhibitDatabase;
+        var exhibits = _museumRunningDataContainer.Exhibits;
         var exhibit = exhibits!.FirstOrDefault(tile => tile.Id == exhibitId);
-        if (slot == 1)
+        foreach (var gridSlots2X2 in exhibit.ArtifactGridSlots2X2s)
         {
-            exhibit.ExhibitArtifactSlot1 = "";
-        }else if (slot == 2)
-        {
-            exhibit.ExhibitArtifactSlot2 = "";
-        }
-        else if (slot == 3)
-        {
-            exhibit.ExhibitArtifactSlot3 = "";
-        }
-        else if (slot == 4)
-        {
-            exhibit.ExhibitArtifactSlot4 = "";
+            if (gridSlots2X2.Slot0 == artifactId)
+            {
+                gridSlots2X2.Slot0 = "";
+            }else if (gridSlots2X2.Slot1 == artifactId)
+            {
+                gridSlots2X2.Slot1 = "";
+            }else if (gridSlots2X2.Slot2 == artifactId)
+            {
+                gridSlots2X2.Slot2 = "";
+            }else if (gridSlots2X2.Slot3 == artifactId)
+            {
+                gridSlots2X2.Slot3 = "";
+            }
         }
         exhibit.ArtifactIds.Remove(artifactId);
-
-        if (exhibits != null) _exhibitDatabase = exhibits;
         return exhibit;
     }
 }

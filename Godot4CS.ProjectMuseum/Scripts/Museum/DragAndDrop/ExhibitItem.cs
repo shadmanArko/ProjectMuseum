@@ -232,8 +232,10 @@ public partial class ExhibitItem : Item
 		if (givenItem == this)
 		{
 			RemoveArtifactFromSlot(slotNumber);
-			_httpRequestForArtifactRemoval.Request(ApiAddress.MuseumApiPath +
-												   $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
+			// _httpRequestForArtifactRemoval.Request(ApiAddress.MuseumApiPath +
+												   // $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
+		   ExhibitData = MuseumReferenceManager.Instance.ExhibitServices.RemoveArtifactFromExhibit(ExhibitData.Id, artifact.Id,
+			   slotNumber, gridNumber, artifactSize);
 		}
 	}
 
@@ -269,7 +271,8 @@ public partial class ExhibitItem : Item
 			var url = ApiAddress.MuseumApiPath +
 					  $"AddArtifactToExhibitSlotFromStore/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}";
 			GD.Print($"url: {url}");
-			_httpRequestForArtifactPlacement.Request(url);
+			ExhibitData = MuseumReferenceManager.Instance.ExhibitServices.AddArtifactToExhibit(ExhibitData.Id, artifact.Id,
+				slotNumber, gridNumber, artifactSize);
 
 		}
 	}

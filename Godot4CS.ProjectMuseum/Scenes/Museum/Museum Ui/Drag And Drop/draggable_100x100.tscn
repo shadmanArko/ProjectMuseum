@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c40axanicdt3s"]
+[gd_scene load_steps=10 format=3 uid="uid://nlsv2dqt0olf"]
 
 [ext_resource type="Texture2D" uid="uid://b6rikaohqik58" path="res://Assets/2D/Sprites/Museum Ui/Exhibit Editor/Artifact_Card_Base.png" id="1_igq7k"]
 [ext_resource type="Script" path="res://Scripts/Museum/Draggable.cs" id="2_rmsdw"]

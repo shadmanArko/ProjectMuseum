@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Museum.HelperScripts;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
@@ -396,6 +397,11 @@ public partial class ExhibitEditorUi : Control
 	{
 		string jsonStr = Encoding.UTF8.GetString(body);
 		var artifacts = JsonSerializer.Deserialize<List<Artifact>>(jsonStr);
+		AfterGettingDisplayArtifacts(artifacts);
+	}
+
+	private void AfterGettingDisplayArtifacts(List<Artifact> artifacts)
+	{
 		_displayArtifacts = artifacts;
 		foreach (var artifact in artifacts)
 		{
@@ -407,29 +413,37 @@ public partial class ExhibitEditorUi : Control
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].AddChild(instance);
-					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].GetNode<DropTarget>(".").hasEmptySlot = false;
-					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[0].GetNode<DropTarget>(".").hasEmptySlot =
+						false;
+					instance.GetNode<Draggable>(".")
+						.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}
 				else if (artifact.Id == gridSlots2X2.Slot1)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].AddChild(instance);
-					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].GetNode<DropTarget>(".").hasEmptySlot = false;
-					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[1].GetNode<DropTarget>(".").hasEmptySlot =
+						false;
+					instance.GetNode<Draggable>(".")
+						.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}
 				else if (artifact.Id == gridSlots2X2.Slot2)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].AddChild(instance);
-					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].GetNode<DropTarget>(".").hasEmptySlot = false;
-					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[2].GetNode<DropTarget>(".").hasEmptySlot =
+						false;
+					instance.GetNode<Draggable>(".")
+						.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}
 				else if (artifact.Id == gridSlots2X2.Slot3)
 				{
 					var instance = _draggable.Instantiate();
 					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].AddChild(instance);
-					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].GetNode<DropTarget>(".").hasEmptySlot = false;
-					instance.GetNode<Draggable>(".").Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
+					_dropTargetsParent.GetChildren()[gridCount].GetChildren()[3].GetNode<DropTarget>(".").hasEmptySlot =
+						false;
+					instance.GetNode<Draggable>(".")
+						.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 				}
 
 				gridCount++;
@@ -488,8 +502,7 @@ public partial class ExhibitEditorUi : Control
 	public void ReInitialize(Item item, Exhibit exhibit)
 	{
 		_selectedExhibit = exhibit;
-		_httpRequestForGettingExhibitsInStore.CancelRequest();
-		_httpRequestForGettingExhibitsInDisplay.CancelRequest();
+		
 		// _httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		var artifactsInStore = MuseumReferenceManager.Instance.ArtifactStoreServices.GetAllArtifacts();
 
@@ -542,7 +555,7 @@ public partial class ExhibitEditorUi : Control
 				.Initialize(artifact, _rawArtifactDescriptiveDatas, _rawArtifactFunctionalDatas);
 		}
 
-		_httpRequestForGettingExhibitsInDisplay.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+		
 		var displayArtifacts = MuseumReferenceManager.Instance.DisplayArtifactServices.GetAllArtifacts();
 		AfterGettingDisplayArtifacts(displayArtifacts);
 	}

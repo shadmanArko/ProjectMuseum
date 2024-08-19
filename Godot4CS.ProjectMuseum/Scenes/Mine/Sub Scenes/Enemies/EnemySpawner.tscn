@@ -5,7 +5,7 @@
 [node name="EnemySpawner" type="Node2D"]
 script = ExtResource("1_fkuwd")
 _slimePrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Slime.tscn"
-_batPrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Bat.tscn"
+_batPrefabPath = "res://Scenes/Mine/Sub Scenes/Enemies/Bat.tsc"
 
 [node name="Enemy Spawn Timer" type="Timer" parent="."]
 wait_time = 15.0

@@ -7,7 +7,7 @@ using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.WallPlaceables;
 
-public partial class Stalagmite : Node2D, IDamageable
+public partial class Stalagmite : RigidBody2D, IDamageable
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -23,6 +23,7 @@ public partial class Stalagmite : Node2D, IDamageable
 	{
 		InitializeDiReferences();
 		SubscribeToActions();
+		Freeze = true;
 		_hitPoint = 1;
 		_isBroken = false;
 	}
@@ -52,7 +53,9 @@ public partial class Stalagmite : Node2D, IDamageable
 		var cave = _mineGenerationVariables.Mine.Caves.FirstOrDefault(tempCave =>
 			tempCave.StalagmiteCellIds.Contains(stalagmiteCell.Id));
 		cave?.StalagmiteCellIds.Remove(stalagmiteCell.Id);
+		stalagmiteCell.HasCellPlaceable = false;
 		PlayAnimation("stalagmite_broken");
+		FreeBlockedCellForPathfinding(stalagmitePos);
 	}
 
 	private void PlayAnimation(string state)
@@ -72,6 +75,14 @@ public partial class Stalagmite : Node2D, IDamageable
 		if(player == null) return;
 		if(_playerControllerVariables.IsDead) return;
 		HealthSystem.ReducePlayerHealth(10, _playerControllerVariables);
+	}
+	
+	private void FreeBlockedCellForPathfinding(Vector2I stalagmiteCellPos)
+	{
+		var node = _mineGenerationVariables.PathfindingNodes.FirstOrDefault(tempNode =>
+			tempNode.TileCoordinateX == stalagmiteCellPos.X && tempNode.TileCoordinateY == stalagmiteCellPos.Y);
+		if(node == null) return;
+		node.IsWalkable = true;
 	}
 
 	private void UnsubscribeToActions()

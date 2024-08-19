@@ -34,7 +34,7 @@ public class FlyingEnemyAi
                 if(!cell.IsBreakable || cell.IsBroken || !cell.IsInstantiated) continue;
                 var lowerCell = mineGenerationVariables.GetCell(new Vector2I(i, j + 1));
                 if(lowerCell == null) continue;
-                if(!lowerCell.IsBreakable || !lowerCell.IsBroken || !lowerCell.IsInstantiated) continue;
+                if(!lowerCell.IsBreakable || !lowerCell.IsBroken || !lowerCell.IsInstantiated || lowerCell.HasWallPlaceable || lowerCell.HasCellPlaceable) continue;
                 listOfRestingTiles.Add(new Vector2I(lowerCell.PositionX, lowerCell.PositionY));
             }
         }
@@ -74,7 +74,7 @@ public class FlyingEnemyAi
         foreach (var pos in searchPositions)
         {
             var cell = mineGenerationVariables.GetCell(pos);
-            if (cell == null || !cell.IsBreakable || !cell.IsBroken || !cell.IsInstantiated || !cell.IsRevealed)
+            if (cell == null || !cell.IsBreakable || !cell.IsBroken || !cell.IsInstantiated || !cell.IsRevealed || cell.HasCellPlaceable || cell.HasWallPlaceable)
                 continue;
 
             possibleExploreTiles.Add(pos);

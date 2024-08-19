@@ -286,7 +286,7 @@ public partial class Bat : FlyingEnemy
         var listOfRestingPlaces = _enemyAi.FindRestingTiles(GetCellPos(Position), _mineGenerationVariables);
         if (listOfRestingPlaces.Count <= 0)
         {
-            GD.PrintErr("Could not find resting position. Phase = Explore");
+            // GD.PrintErr("Could not find resting position. Phase = Explore");
             _isResting = false;
             _moveAlongPath = false;
             _exploreTime = _exploreTimeLimit;

@@ -126,7 +126,7 @@ public partial class MineGenerationController : Node2D
 		var aStarNodes = new List<AStarNode>();
 		foreach (var cell in _mineGenerationVariables.Mine.Cells)
 		{
-			var aStarNode = new AStarNode(cell.PositionX, cell.PositionY, null, 0f, 0f, cell.IsBroken);
+			var aStarNode = new AStarNode(cell.PositionX, cell.PositionY, null, 0f, 0f, cell.IsBroken && !cell.HasWallPlaceable && !cell.HasCellPlaceable);
 			aStarNodes.Add(aStarNode);
 		}
 

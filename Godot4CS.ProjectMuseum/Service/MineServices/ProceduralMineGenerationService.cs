@@ -325,6 +325,7 @@ public partial class ProceduralMineGenerationService : Node
             var cell = possibleStalagmiteCells[_rand.Next(0, possibleStalagmiteCells.Count)];
             if (newCave.StalagmiteCellIds.Contains(cell.Id)) continue;
             newCave.StalagmiteCellIds.Add(cell.Id);
+            cell.HasCellPlaceable = true;
         }
 
         for (var numberOfStalactites = stalactiteCount; numberOfStalactites > 0; numberOfStalactites--)
@@ -332,6 +333,7 @@ public partial class ProceduralMineGenerationService : Node
             var cell = possibleStalactiteCells[_rand.Next(0, possibleStalactiteCells.Count)];
             if (newCave.StalactiteCellIds.Contains(cell.Id)) continue;
             newCave.StalactiteCellIds.Add(cell.Id);
+            cell.HasCellPlaceable = true;
         }
 
         mine.Caves.Add(newCave);

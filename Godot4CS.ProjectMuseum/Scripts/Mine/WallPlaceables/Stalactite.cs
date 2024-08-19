@@ -3,11 +3,10 @@ using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine.Interfaces;
 using Godot4CS.ProjectMuseum.Scripts.Mine.PlayerScripts;
-using Godot4CS.ProjectMuseum.Scripts.Player.Systems;
 
 namespace Godot4CS.ProjectMuseum.Scripts.Mine.WallPlaceables;
 
-public partial class Stalactite : Node2D, IDamageable
+public partial class Stalactite : RigidBody2D, IDamageable
 {
 	private PlayerControllerVariables _playerControllerVariables;
 	private MineGenerationVariables _mineGenerationVariables;
@@ -47,16 +46,18 @@ public partial class Stalactite : Node2D, IDamageable
 	{
 		if (_isFalling) return;
 		var stalactitePos = _mineGenerationVariables.MineGenView.LocalToMap(Position);
-		var cell = _mineGenerationVariables.GetCell(stalactitePos);
-		var rootCellPos = new Vector2I(cell.PositionX, cell.PositionY - 1);
+		var stalactiteCell = _mineGenerationVariables.GetCell(stalactitePos);
+		var rootCellPos = new Vector2I(stalactiteCell.PositionX, stalactiteCell.PositionY - 1);
 		if(rootCellPos != tilePos) return;
 		var rootCell = _mineGenerationVariables.GetCell(rootCellPos);
 		if(!rootCell.IsBroken) return;
 
 		var cave = _mineGenerationVariables.Mine.Caves.FirstOrDefault(tempCave =>
-			tempCave.StalagmiteCellIds.Contains(cell.Id));
-		cave?.StalagmiteCellIds.Remove(cell.Id);
+			tempCave.StalagmiteCellIds.Contains(stalactiteCell.Id));
+		cave?.StalagmiteCellIds.Remove(stalactiteCell.Id);
+		stalactiteCell.HasCellPlaceable = false;
 		PlayAnimation("stalactite_collapse");
+		FreeBlockedCellForPathfinding(stalactitePos);
 	}
 	
 	private void PlayAnimation(string state)
@@ -74,21 +75,27 @@ public partial class Stalactite : Node2D, IDamageable
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (body == _playerControllerVariables.Player)
+		if (body is IDamageable damageable)
 		{
-			GD.Print("Collided with player");
-			if(_playerControllerVariables.IsDead) return;
-			HealthSystem.ReducePlayerHealth(10, _playerControllerVariables);
-			if(_isFalling)
-				QueueFree();
+			if(!_isFalling) return;
+			damageable.TakeDamage(5);
+			QueueFree();
 		}
-
+        
 		if (body == _mineGenerationVariables.MineGenView.TileMap)
 		{
 			GD.Print("Collided with tilemap");
 			if(!_isFalling) return;
 			QueueFree();
 		}
+	}
+
+	private void FreeBlockedCellForPathfinding(Vector2I stalactiteCellPos)
+	{
+		var node = _mineGenerationVariables.PathfindingNodes.FirstOrDefault(tempNode =>
+			tempNode.TileCoordinateX == stalactiteCellPos.X && tempNode.TileCoordinateY == stalactiteCellPos.Y);
+		if(node == null) return;
+		node.IsWalkable = true;
 	}
 
 	private void UnsubscribeToActions()
@@ -104,6 +111,8 @@ public partial class Stalactite : Node2D, IDamageable
 	public void TakeDamage(int damageValue)
 	{
 		if(_isBroken) return;
+		_hitPoint -= damageValue;
+		
 		if (_hitPoint <= 0)
 		{
 			_isBroken = true;

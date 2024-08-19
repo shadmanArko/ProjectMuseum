@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Managers;
 using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using ProjectMuseum.Models;
@@ -35,9 +36,9 @@ public partial class ArtifactScoreUi : Control
 		MuseumActions.OnRawArtifactDescriptiveDataLoaded += OnRawArtifactDescriptiveDataLoaded;
 		MuseumActions.OnClickArtifactsLensButton += OnClickArtifactsLensButton;
 		_closingButton.Pressed += ClosingButtonOnPressed;
-		_httpRequestForGettingDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+		// _httpRequestForGettingDisplayArtifacts.Request(ApiAddress.MuseumApiPath + "GetAllDisplayArtifacts");
+		_displayArtifacts = MuseumReferenceManager.Instance.DisplayArtifactServices.GetAllArtifacts();
 
-		
 	}
 
 	private void OnClickArtifactsLensButton()

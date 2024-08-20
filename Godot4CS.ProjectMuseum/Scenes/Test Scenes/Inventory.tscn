@@ -23,6 +23,7 @@ _inventoryPanel = NodePath("InventoryPanel")
 
 [node name="InventoryPanel" type="Panel" parent="."]
 visible = false
+light_mask = 0
 custom_minimum_size = Vector2(1600, 800)
 layout_direction = 1
 anchors_preset = 8
@@ -40,6 +41,7 @@ size_flags_vertical = 8
 mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="InventoryPanel"]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,25 +54,30 @@ theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_constants/separation = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="InventorySlotsContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qb2kb")
 
 [node name="InventorySlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
 theme = SubResource("Theme_bv6w0")
 
 [node name="ToolbarContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
+light_mask = 0
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 0
@@ -78,6 +85,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3fyoa")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/ToolbarContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
 layout_mode = 2
@@ -160,18 +168,21 @@ _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
 [node name="InventoryContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots"]
+light_mask = 0
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_85utp")
 
 [node name="BagPackSlots" type="VBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer"]
+light_mask = 0
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="FirstRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
+light_mask = 0
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
@@ -249,6 +260,7 @@ _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
 [node name="SecondRowSlots" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/InventorySlotsContainer/InventorySlots/InventoryContainer/BagPackSlots"]
+light_mask = 0
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
@@ -326,35 +338,42 @@ _frameTextureRect = NodePath("Frame")
 _itemCounter = NodePath("PanelContainer/Counter Value")
 
 [node name="ItemDetails" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
 
 [node name="DetailsContainer" type="HBoxContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails"]
+light_mask = 0
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
 [node name="ItemImageContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="ItemImage" type="TextureRect" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemImageContainer"]
+light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 texture = ExtResource("2_emj8r")
 
 [node name="ItemDescriptionContainer" type="PanelContainer" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(1000, 300)
 layout_mode = 2
 size_flags_vertical = 4
 
 [node name="ItemDescriptionText" type="RichTextLabel" parent="InventoryPanel/MarginContainer/HBoxContainer/VBoxContainer/ItemDetails/DetailsContainer/ItemDescriptionContainer"]
+light_mask = 0
 layout_mode = 2
 
 [node name="Trash Button" type="Button" parent="InventoryPanel/MarginContainer/HBoxContainer"]
+light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2

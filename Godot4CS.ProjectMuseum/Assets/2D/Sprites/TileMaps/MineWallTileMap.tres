@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=20 format=3 uid="uid://fp1turhp7v3g"]
+[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://fp1turhp7v3g"]
 
 [ext_resource type="Texture2D" uid="uid://ba1tjq5haf74d" path="res://Assets/2D/Sprites/Mine Sprites/Tiles/new new tiles/new new tiles.png" id="1_ydiuw"]
 [ext_resource type="Texture2D" uid="uid://bmdi1gwvqmabd" path="res://Assets/2D/Sprites/Mine Sprites/Artifact/Artifact.png" id="3_8pu6h"]
@@ -11,6 +11,9 @@
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vwjl6"]
 polygon = PackedVector2Array(-10, -10, -8.75, -8.75, 8.75, -8.75, 10, -10, 8.75, -8.75, 8.75, 8.75, 10, 10, 8.75, 8.75, -8.75, 8.75, -10, 10, -8.75, 8.75, -8.75, -8.75)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_a0xl3"]
+polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_esl8g"]
 vertices = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
@@ -26,6 +29,7 @@ texture_region_size = Vector2i(20, 20)
 5:2/0 = 0
 5:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_esl8g")
 2:3/0 = 0
+2:3/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_a0xl3")
 2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.75, -8.75, 8.75, -8.75, 8.75, 8.75, -8.75, 8.75)
 1:3/0 = 0
 0:0/0 = 0

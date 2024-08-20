@@ -9,57 +9,69 @@
 [ext_resource type="Texture2D" uid="uid://dafi3wbnlcsrv" path="res://Assets/2D/Sprites/Mine Sprites/Props/Tent.png" id="7_pbljn"]
 
 [node name="MineBackground" type="Node2D"]
+light_mask = 0
 z_index = -1
 texture_filter = 1
 position = Vector2(483, -105)
 
 [node name="Sky" type="Sprite2D" parent="."]
+light_mask = 0
 texture_filter = 1
 texture = ExtResource("1_i68hl")
 
 [node name="Clouds" type="Sprite2D" parent="."]
+light_mask = 0
 texture_filter = 1
 position = Vector2(0, -50)
 texture = ExtResource("2_sxt3n")
 
 [node name="Mountains" type="Sprite2D" parent="."]
+light_mask = 0
 texture_filter = 1
 texture = ExtResource("3_bmqhi")
 
 [node name="Inner Mine Background" type="Sprite2D" parent="."]
+light_mask = 0
 texture_filter = 1
 position = Vector2(0, 102)
 texture = ExtResource("4_568kj")
 
 [node name="Stones" type="Sprite2D" parent="."]
+light_mask = 0
 z_index = 11
 texture_filter = 1
 position = Vector2(0, 60)
 texture = ExtResource("6_erw7y")
 
 [node name="Terrain" type="Sprite2D" parent="."]
+light_mask = 0
 z_index = 10
 texture_filter = 1
 position = Vector2(0, 78)
 texture = ExtResource("5_v4xei")
 
 [node name="Left Terrain" type="RigidBody2D" parent="Terrain"]
+light_mask = 0
 collision_mask = 7
 freeze = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/Left Terrain"]
+light_mask = 0
 position = Vector2(-105, 0)
 polygon = PackedVector2Array(68, -14, 82, -4, 95, 12, 99, 27, -492, 27, -492, -16)
 
 [node name="Right Terrain" type="RigidBody2D" parent="Terrain"]
+light_mask = 0
 collision_mask = 7
 freeze = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/Right Terrain"]
+light_mask = 0
 position = Vector2(185, 2)
 polygon = PackedVector2Array(-161, 25, 412, 25, 412, -17, -135, -18, -148, -6, -158, 10)
 
 [node name="Tent" type="Sprite2D" parent="."]
+light_mask = 0
 z_index = 10
 position = Vector2(-282, 40)
 texture = ExtResource("7_pbljn")

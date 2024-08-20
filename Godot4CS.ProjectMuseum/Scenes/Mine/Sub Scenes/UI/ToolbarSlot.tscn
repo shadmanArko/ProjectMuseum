@@ -23,21 +23,25 @@ _selectedHighlighter = ExtResource("2_jx65y")
 _defaultHighlighter = ExtResource("3_eo1oc")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+light_mask = 0
 layout_mode = 2
 offset_right = 60.0
 offset_bottom = 60.0
 
 [node name="Highlighter" type="Sprite2D" parent="PanelContainer"]
+light_mask = 0
 texture_filter = 1
 position = Vector2(30, 30)
 scale = Vector2(2.72727, 2.72727)
 texture = ExtResource("3_eo1oc")
 
 [node name="ItemSlot" type="Sprite2D" parent="PanelContainer/Highlighter"]
+light_mask = 0
 texture_filter = 1
 position = Vector2(-4.19617e-06, -4.19617e-06)
 
 [node name="Item Counter" type="Control" parent="PanelContainer"]
+light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(32, 21)
 layout_direction = 1
@@ -47,6 +51,7 @@ size_flags_vertical = 8
 theme = SubResource("Theme_gnv56")
 
 [node name="Counter Value" type="Label" parent="PanelContainer/Item Counter"]
+light_mask = 0
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8

@@ -10,6 +10,7 @@ script = ExtResource("1_fot8p")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Time Panel" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("_time")]
+light_mask = 0
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -22,10 +23,12 @@ script = ExtResource("2_clfyr")
 _time = NodePath("HBoxContainer/Time")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Time Panel"]
+light_mask = 0
 layout_mode = 2
 alignment = 1
 
 [node name="Time" type="Label" parent="CanvasLayer/Time Panel/HBoxContainer"]
+light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(100, 70)
 layout_mode = 2

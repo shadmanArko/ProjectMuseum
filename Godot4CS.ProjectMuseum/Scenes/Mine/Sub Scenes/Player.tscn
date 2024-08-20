@@ -758,11 +758,11 @@ _animationPlayer = NodePath("../AnimationPlayer")
 
 [node name="Torch" parent="." instance=ExtResource("7_s7umg")]
 color = Color(0.874698, 0.766141, 0.468232, 1)
-energy = 0.6
 range_z_min = 0
 range_z_max = 30
 range_layer_max = 10
-range_item_cull_mask = 214
+range_item_cull_mask = 215
+shadow_item_cull_mask = 1
 
 [node name="Item Stasher" type="Area2D" parent="."]
 collision_layer = 2

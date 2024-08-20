@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.Mine;
@@ -43,10 +44,6 @@ public partial class MineLoad : Node
 
     private List<Consumable> _consumableDatabase;
     
-    // private ArtifactStorage _artifactStorageArtifactDatabase;
-    private ArtifactScore _artifactScore;
-    // private Inventory _inventoryDatabase;
-    
     private List<Resource> _resourceDatabase;
 
     #endregion
@@ -58,6 +55,7 @@ public partial class MineLoad : Node
         LoadDataFromDatabaseToDiReference();
         LoadFromSaveData();
         MineActions.OnDatabaseLoad?.Invoke();
+        InitializeInventory();
     }
 
     private void InitializeDiReference()
@@ -183,6 +181,12 @@ public partial class MineLoad : Node
 
         _inventoryDto.Inventory = inventory;
         _inventoryDto.ArtifactStorage = artifactStorage;
+    }
+
+    private async void InitializeInventory()
+    {
+        await Task.Delay(2000);
+        MineActions.OnInventoryInitialized?.Invoke();
     }
 
 }

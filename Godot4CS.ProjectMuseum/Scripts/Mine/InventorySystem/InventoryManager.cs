@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
@@ -29,20 +30,12 @@ public partial class InventoryManager : Node2D
 
     public override void _EnterTree()
     {
-        CreateHttpRequest();
         _inventorySlots = _inventoryViewController.InventoryItems;
         InitializeDiReferences();
         SubscribeToActions();
-        // GetInventory();
         _isGamePausedByInventory = false;
     }
-
-    private void CreateHttpRequest()
-    {
-        // _getInventoryHttpRequest = new HttpRequest();
-        // AddChild(_getInventoryHttpRequest);
-        // _getInventoryHttpRequest.RequestCompleted += OnGetInventoryHttpRequestCompleted;
-    }
+    
     private void SubscribeToActions()
     {
         MineActions.OnInventoryUpdate += SetInventoryItemsToSlotsOnInventoryOpen;
@@ -53,23 +46,11 @@ public partial class InventoryManager : Node2D
     {
         _inventoryDto = ServiceRegistry.Resolve<InventoryDTO>();
     }
-
-    // private void GetInventory()
+    
+    // public override async void _Ready()
     // {
-    //     var url = ApiAddress.PlayerApiPath + "GetInventory";
-    //     _getInventoryHttpRequest.CancelRequest();
-    //     _getInventoryHttpRequest.Request(url);
-    // }
-    //
-    // private void OnGetInventoryHttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body)
-    // {
-    //     var jsonStr = Encoding.UTF8.GetString(body);
-    //     var inventory = JsonSerializer.Deserialize<Inventory>(jsonStr);
-    //     _inventoryDto.Inventory = inventory;
-    //
-    //     InitializeInventorySlots();
-    //     SetInventorySlotUnlockStatus();
-    //     SetInventoryItemsToSlotsOnInventoryOpen();
+    //     await Task.Delay(2000);
+    //     SetUpInventoryOnInventoryDataInitialized();
     // }
 
     private void SetUpInventoryOnInventoryDataInitialized()
@@ -77,12 +58,11 @@ public partial class InventoryManager : Node2D
         InitializeInventorySlots();
         SetInventorySlotUnlockStatus();
         SetInventoryItemsToSlotsOnInventoryOpen();
-        MineActions.OnInventoryUpdate?.Invoke();
     }
     
     private void InitializeInventorySlots()
     {
-        for (int i = 0; i < _inventorySlots.Length; i++)
+        for (var i = 0; i < _inventorySlots.Length; i++)
             _inventorySlots[i].SetSlotNumber(i);
     }
 
@@ -91,7 +71,7 @@ public partial class InventoryManager : Node2D
         foreach (var slot in _inventorySlots)
             slot.SetSlotUnlockStatus(false);
 
-        for (int i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
+        for (var i = 0; i < _inventoryDto.Inventory.SlotsUnlocked; i++)
             _inventorySlots[i].SetSlotUnlockStatus(true);
     }
 

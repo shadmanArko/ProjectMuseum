@@ -47,6 +47,11 @@ public partial class MineGenerationController : Node2D
 	{
 		MineActions.OnDatabaseLoad += GenerateMine;
 	}
+	
+	private void UnsubscribeToActions()
+	{
+		MineActions.OnDatabaseLoad -= GenerateMine;
+	}
 
 	private async void GenerateMine()
 	{
@@ -135,4 +140,9 @@ public partial class MineGenerationController : Node2D
 	}
 
 	#endregion
+
+	public override void _ExitTree()
+	{
+		UnsubscribeToActions();
+	}
 }

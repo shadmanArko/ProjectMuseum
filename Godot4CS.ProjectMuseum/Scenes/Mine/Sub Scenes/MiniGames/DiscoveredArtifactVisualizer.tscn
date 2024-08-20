@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ccshgryravaf2"]
+[gd_scene load_steps=33 format=3 uid="uid://ccshgryravaf2"]
 
 [ext_resource type="Script" path="res://Scripts/Mine/MiniGames/DiscoveredArtifactVisualizer.cs" id="1_l5epx"]
 [ext_resource type="Texture2D" uid="uid://toyxbvr46exq" path="res://Assets/2D/Sprites/Mine Sprites/UI/Artifacts/Classical Native American Tomahawk.png" id="2_d333x"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://d4dt3rxuep544" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/Material/Bone.png" id="11_buukt"]
 [ext_resource type="Texture2D" uid="uid://d4imym6g1giyb" path="res://Assets/2D/Sprites/UI/Mine Gameplay/Discovered Artifact/Tags/size/ExtraLarge.png" id="12_t3bec"]
 [ext_resource type="Theme" uid="uid://d0u6xaiq6n58o" path="res://Okay.tres" id="13_oix4g"]
+[ext_resource type="FontFile" uid="uid://bnheqnttx5gpj" path="res://Assets/Fonts/PIXEAB__.TTF" id="15_gmjot"]
+[ext_resource type="Texture2D" uid="uid://bpnvy4xymeova" path="res://Assets/2D/Sprites/UI/Mine Gameplay/okay button.png" id="15_ohpuh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yvqfa"]
 
@@ -45,7 +47,14 @@ outline_color = Color(0, 0.0196078, 0.196078, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e883x"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0ev1"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iw8i5"]
+texture = ExtResource("15_ohpuh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m1q78"]
+texture = ExtResource("15_ohpuh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cdtc3"]
+texture = ExtResource("15_ohpuh")
 
 [node name="DiscoveredArtifactVisualizer" type="Node2D" node_paths=PackedStringArray("_canvasLayer", "_artifactName", "_artifactSprite", "_artifactDescription", "_okayButton", "_eraIcon", "_regionIcon", "_objectClassIcon", "_objectSizeIcon", "_Material1Icon", "_Material2Icon", "_artifactConditionIcon", "_artifactRarityIcon")]
 process_mode = 3
@@ -403,7 +412,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("13_oix4g")
 theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_s0ev1")
+theme_override_fonts/font = ExtResource("15_gmjot")
+theme_override_styles/hover = SubResource("StyleBoxTexture_iw8i5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m1q78")
+theme_override_styles/normal = SubResource("StyleBoxTexture_cdtc3")
 text = "OKAY"
 
 [connection signal="pressed" from="CanvasLayer/Panel/Control/Okay Button Panel/OkayButton" to="." method="OnOkayButtonPressed"]

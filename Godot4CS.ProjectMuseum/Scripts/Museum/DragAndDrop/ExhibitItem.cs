@@ -236,6 +236,8 @@ public partial class ExhibitItem : Item
 												   // $"AddArtifactToStorageFromExhibit/{artifact.Id}/{ExhibitData.Id}/{slotNumber}/{gridNumber}/{artifactSize}");
 		   ExhibitData = MuseumReferenceManager.Instance.ExhibitServices.RemoveArtifactFromExhibit(ExhibitData.Id, artifact.Id,
 			   slotNumber, gridNumber, artifactSize);
+		   MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
+
 		}
 	}
 
@@ -273,6 +275,7 @@ public partial class ExhibitItem : Item
 			GD.Print($"url: {url}");
 			ExhibitData = MuseumReferenceManager.Instance.ExhibitServices.AddArtifactToExhibit(ExhibitData.Id, artifact.Id,
 				slotNumber, gridNumber, artifactSize);
+			MuseumActions.OnExhibitUpdated?.Invoke(ExhibitData);
 
 		}
 	}
@@ -283,15 +286,15 @@ public partial class ExhibitItem : Item
 		{
 			return;
 		}
-		// _artifactSlots[slotNumber-1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-		// if (slotNumber == 1)
-		//    {
-		//        _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-		//    }
-		//    else if (slotNumber == 2)
-		//    {
-		//        _artifactSlots[1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
-		//    }
+		_artifactSlots[slotNumber-1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+		if (slotNumber == 1)
+	    {
+	       _artifactSlots[0].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+	    }
+	    else if (slotNumber == 2)
+	    {
+	       _artifactSlots[1].Texture = LoadArtifactTexture(artifact.RawArtifactId);
+	    }
 	}
 
 

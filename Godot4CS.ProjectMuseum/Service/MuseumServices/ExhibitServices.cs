@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
 using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
+using Godot4CS.ProjectMuseum.Scripts.Museum.Museum_Actions;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
@@ -150,6 +151,10 @@ public partial class ExhibitServices: Node
         }
         
         exhibit.ArtifactIds.Add(artifactId);
+        
+        var artifact = _museumRunningDataContainer.ArtifactStorage.Artifacts.FirstOrDefault(artifact => artifact.Id == artifactId);
+        _museumRunningDataContainer.ArtifactStorage.Artifacts.Remove(artifact);
+        _museumRunningDataContainer.DisplayArtifacts.Artifacts.Add(artifact);
         return exhibit;
     }
     public  Exhibit RemoveArtifactFromExhibit(string exhibitId, string artifactId, int slot, int gridNumber, string artifactSize)
@@ -173,6 +178,9 @@ public partial class ExhibitServices: Node
             }
         }
         exhibit.ArtifactIds.Remove(artifactId);
+        var artifact = _museumRunningDataContainer.DisplayArtifacts.Artifacts.FirstOrDefault(artifact => artifact.Id == artifactId);
+        _museumRunningDataContainer.DisplayArtifacts.Artifacts.Remove(artifact);
+        _museumRunningDataContainer.ArtifactStorage.Artifacts.Add(artifact);
         return exhibit;
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Godot;
+using Godot4CS.ProjectMuseum.Scripts.Dependency_Injection;
 using Godot4CS.ProjectMuseum.Service.SaveLoadServices;
 using ProjectMuseum.Models;
 
@@ -12,10 +13,13 @@ namespace Godot4CS.ProjectMuseum.Service.MuseumServices;
 public partial class DisplayArtifactServices: Node
 {
     private DisplayArtifacts _displayArtifactDatabase;
+    private MuseumRunningDataContainer _museumRunningDataContainer;
     public override void _EnterTree()
     {
         base._EnterTree();
+        _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
         _displayArtifactDatabase = SaveLoadService.Load().DisplayArtifacts;
+        _museumRunningDataContainer.DisplayArtifacts = _displayArtifactDatabase;
         // GD.Print($"Got display Artifacts {_displayArtifactDatabase[0].Artifacts.Count}");
     }
 
@@ -27,7 +31,7 @@ public partial class DisplayArtifactServices: Node
 
     public List<Artifact> GetAllArtifacts()
     {
-        var listOfDisplayArtifact =  _displayArtifactDatabase;
+        var listOfDisplayArtifact = _museumRunningDataContainer.DisplayArtifacts;
         var displayArtifacts = listOfDisplayArtifact;
         var artifacts = displayArtifacts?.Artifacts;
         GD.Print($"got display artifacts {artifacts.Count}");

@@ -14,6 +14,7 @@ public class MuseumRunningDataContainer
     public PlayerInfo PlayerInfo { get; set; }
     public Museum Museum { get; set; }
     public ArtifactStorage ArtifactStorage { get; set; }
+    public DisplayArtifacts DisplayArtifacts { get; set; }
 
     public List<MuseumTile> MuseumTiles
     {

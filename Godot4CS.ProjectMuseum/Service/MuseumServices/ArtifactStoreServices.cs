@@ -27,7 +27,7 @@ public partial class ArtifactStoreServices: Node
 
     public  List<Artifact> GetAllArtifacts()
     {
-        var listOfArtifactStorage =  _artifactStorageDatabase;
+        var listOfArtifactStorage =  _museumRunningDataContainer.ArtifactStorage;
         var artifactStorage = listOfArtifactStorage;
         var artifacts = artifactStorage?.Artifacts;
         return artifacts;

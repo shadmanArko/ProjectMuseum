@@ -8,6 +8,48 @@
 		"Slot": 0,
 		"Condition": "Decrepit",
 		"Rarity": "Common"
-	  }
+	  },{
+			"Id": "5",
+			"RawArtifactId": "AncientNativeAmericanBowl",
+			"PositionX": 22,
+			"PositionY": 6,
+			"Slot": 0,
+			"Condition": "Decrepit",
+			"Rarity": "Common"
+		},
+		{
+			"Id": "6",
+			"RawArtifactId": "ClassicalNativeAmericanShellCurrency",
+			"PositionX": 22,
+			"PositionY": 6,
+			"Slot": 0,
+			"Condition": "Decrepit",
+			"Rarity": "Common"
+		},{
+			"Id": "7",
+			"RawArtifactId": "ClassicalNativeAmericanShellCurrency",
+			"PositionX": 22,
+			"PositionY": 6,
+			"Slot": 0,
+			"Condition": "Decrepit",
+			"Rarity": "Common"
+		},{
+			"Id": "8",
+			"RawArtifactId": "ClassicalNativeAmericanShellCurrency",
+			"PositionX": 22,
+			"PositionY": 6,
+			"Slot": 0,
+			"Condition": "Decrepit",
+			"Rarity": "Common"
+		},
+		{
+			"Id": "5",
+			"RawArtifactId": "AncientNativeAmericanBowl",
+			"PositionX": 22,
+			"PositionY": 6,
+			"Slot": 0,
+			"Condition": "Decrepit",
+			"Rarity": "Common"
+		}
 	]
   }

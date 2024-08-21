@@ -77,7 +77,7 @@ public partial class ExhibitEditorUi : Control
 		var rawArtifactFunctionalJson = Godot.FileAccess.Open("res://Game Data/RawArtifactData/RawArtifactFunctionalData/RawArtifactFunctionalData.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 		_rawArtifactFunctionalDatas = JsonSerializer.Deserialize<List<RawArtifactFunctional>>(rawArtifactFunctionalJson);
 		MuseumActions.OnRawArtifactFunctionalDataLoaded?.Invoke(_rawArtifactFunctionalDatas);
-
+		GD.Print($"Got Raw functional Data {_rawArtifactFunctionalDatas.Count}, des {rawArtifactDescriptiveJson.Length}");
 		// _httpRequestForGettingRawArtifactFunctionalData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactFunctional");
 		// _httpRequestForGettingRawArtifactDescriptiveData.Request(ApiAddress.MineApiPath + "GetAllRawArtifactDescriptive");
 	}
@@ -546,6 +546,7 @@ public partial class ExhibitEditorUi : Control
 
 	private void AfterGettingAftifactsInStore(List<Artifact> artifacts)
 	{
+		_artifactsInStore = artifacts;
 		DeleteChild(_draggablesParent);
 		foreach (var artifact in artifacts)
 		{

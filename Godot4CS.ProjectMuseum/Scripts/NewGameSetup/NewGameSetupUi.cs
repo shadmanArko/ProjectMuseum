@@ -73,7 +73,7 @@ public partial class NewGameSetupUi : Control
 		var displayArtifactsJson = Godot.FileAccess.Open("res://Game Data/Starting Data/displayArtifact.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 		var artifactsStorageJson = Godot.FileAccess.Open("res://Game Data/Starting Data/artifactStorage.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 		var timeJson = Godot.FileAccess.Open("res://Game Data/Starting Data/time.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
-		var MuseumJson = Godot.FileAccess.Open("res://Game Data/Starting Data/museum.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
+		var museumJson = Godot.FileAccess.Open("res://Game Data/Starting Data/museum.json", Godot.FileAccess.ModeFlags.Read).GetAsText();
 
         
 		saveData.Exhibits = JsonSerializer.Deserialize<List<Exhibit>>(exhibitsJson);
@@ -81,7 +81,7 @@ public partial class NewGameSetupUi : Control
 		saveData.DisplayArtifacts = JsonSerializer.Deserialize<DisplayArtifacts>(displayArtifactsJson);
 		saveData.ArtifactStorage = JsonSerializer.Deserialize<ArtifactStorage>(artifactsStorageJson);
 		saveData.Time = JsonSerializer.Deserialize<Time>(timeJson);
-		saveData.Museum = JsonSerializer.Deserialize<ProjectMuseum.Models.Museum>(timeJson);
+		saveData.Museum = JsonSerializer.Deserialize<ProjectMuseum.Models.Museum>(museumJson);
 		saveData.PlayerInfo = playerInfo;
 		saveData.Shops = new List<Shop>();
 		saveData.DecorationOthers = new List<DecorationOther>();

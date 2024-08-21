@@ -63,9 +63,20 @@ public partial class ItemPlacementConditionService: Node
         tilesWithExhibitDto.Exhibit = exhibit;
         tilesWithExhibitDto.MuseumTiles = museumTiles;
         List<GridSlots2X2> artifactGridSlots2X2S = new List<GridSlots2X2>();
-        if (tileIds.Count > 1)
+        var gridNumber = tileIds.Count> 1? 4:1;
+        for (int i = 0; i < gridNumber; i++)
         {
-            artifactGridSlots2X2S = new List<GridSlots2X2>(4);
+            var grid = new GridSlots2X2();
+            artifactGridSlots2X2S.Add(grid);
+        }
+        
+
+        foreach (var gridSlots2X2 in artifactGridSlots2X2S)
+        {
+            gridSlots2X2.Slot0 = "";
+            gridSlots2X2.Slot1 = "";
+            gridSlots2X2.Slot2 = "";
+            gridSlots2X2.Slot3 = "";
         }
         foreach (var tileId in tileIds)
         {

@@ -310,8 +310,6 @@ public partial class Bat : FlyingEnemy
             }
 
             SetPath(tempPath);
-            // if (_path.Count > 0)
-            //     _path[^1] += new Vector2(_mineGenerationVariables.Mine.CellSize / 2f, 0);
             _moveAlongPath = true;
             _speed = ChaseSpeed;
             _isResting = false;

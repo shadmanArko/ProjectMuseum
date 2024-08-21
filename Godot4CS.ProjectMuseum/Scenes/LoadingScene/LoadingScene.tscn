@@ -23,9 +23,9 @@ _canvasLayer = NodePath("CanvasLayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 4
-visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
+light_mask = 0
 z_index = 20
 layout_mode = 3
 anchors_preset = 15
@@ -33,16 +33,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/Panel"]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,8 +54,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.212305, 0.212305, 0.212305, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Loading" type="Label" parent="CanvasLayer/Control/Panel/ColorRect" node_paths=PackedStringArray("_timer")]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -71,11 +77,13 @@ theme_override_font_sizes/font_size = 35
 text = "Loading..."
 script = ExtResource("4_uvph7")
 _timer = NodePath("../Timer")
+metadata/_edit_use_anchors_ = true
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Control/Panel/ColorRect"]
 wait_time = 0.5
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/Panel/ColorRect"]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -94,5 +102,6 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
 theme_override_styles/background = SubResource("StyleBoxFlat_5rfe0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_0wix5")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="CanvasLayer/Control/Panel/ColorRect/Timer" to="CanvasLayer/Control/Panel/ColorRect/Loading" method="OnTimerTimeout"]

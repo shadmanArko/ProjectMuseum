@@ -7,6 +7,7 @@
 
 [node name="LeftRightMouseMiniGame" type="Node2D" node_paths=PackedStringArray("_timerLabel", "_progressLabel", "_textureProgressBar")]
 process_mode = 3
+light_mask = 0
 script = ExtResource("1_3cnca")
 _timerLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Timer Label")
 _progressLabel = NodePath("CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container/Progress Label")
@@ -21,6 +22,7 @@ _timeReduceInterval = 0.25
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+light_mask = 0
 layout_direction = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,11 +31,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
 [node name="Mini Game Title" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_w15kw")
@@ -43,12 +47,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Progress Bar Container" type="PanelContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(800, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container"]
+light_mask = 0
 texture_filter = 1
 layout_mode = 2
 nine_patch_stretch = true
@@ -56,6 +62,7 @@ texture_under = ExtResource("3_7b14a")
 texture_progress = ExtResource("4_r4psi")
 
 [node name="Progress Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/Progress Bar Container"]
+light_mask = 0
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_w15kw")
@@ -65,6 +72,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Timer Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer"]
+light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2

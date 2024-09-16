@@ -105,7 +105,6 @@ public static class MineSetCellConditions
     {
         var mineGenerationView = mineGenerationVariables.MineGenView;
         EraseCellsOnAllLayers(mineGenerationView,tilePos);
-        //MineCellDestroyer.DestroyCellByPosition(tilePos, mineGenerationVariables);
     }
 
     private static void SetBreakableCell(MineGenerationVariables mineGenerationVariables, Cell cell, CellCrackMaterial cellCrackMaterial, Vector2I mouseDir)
@@ -124,6 +123,8 @@ public static class MineSetCellConditions
         var tilePos = new Vector2I(cell.PositionX, cell.PositionY);
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(WallLayer, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
+        if(cell.MaxHitPoint == 64)
+            mineGenerationView.SetCell(WallLayer,tilePos, 2, new Vector2I(0,0));
         
         if(cell.HasArtifact)
             mineGenerationView.SetCell(ResourceAndArtifactLayer,tilePos, 2, new Vector2I(0,0));

@@ -116,6 +116,7 @@ public partial class ProceduralMineGenerationService : Node
         }
 
         mine.Cells = cells;
+        CellHealthPatternGenerationService.GeneratePatternsForMineCells(mine);
         mine.Caves = new List<Cave>();
         mine.SpecialBackdropPngInformations = new List<SpecialBackdropPngInformation>();
         mine.Resources = new List<Resource>();

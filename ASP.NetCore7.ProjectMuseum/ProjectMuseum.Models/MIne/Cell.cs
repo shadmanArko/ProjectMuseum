@@ -20,6 +20,11 @@ public class Cell
 	public bool RightBrokenSide { get; set; }
 	public bool BottomBrokenSide { get; set; }
 	public bool LeftBrokenSide { get; set; }
+	public bool TopLeftBrokenCorner { get; set; }
+	public bool BottomLeftBrokenCorner { get; set; }
+	public bool TopRightBrokenCorner { get; set; }
+	public bool BottomRightBrokenCorner { get; set; }
+	
 	
 	public bool HasWallPlaceable { get; set; }
 	public bool HasCellPlaceable { get; set; }

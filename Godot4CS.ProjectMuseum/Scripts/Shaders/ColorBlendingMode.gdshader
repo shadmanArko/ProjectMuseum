@@ -21,18 +21,18 @@ vec3 hsv_to_rgb(vec3 c) {
 
 void fragment() {
     vec4 tex_color = texture(TEXTURE, UV);
-    
+
     // Convert the base texture color to HSV
     vec3 base_hsv = rgb_to_hsv(tex_color.rgb);
     // Convert the blend color to HSV
     vec3 blend_hsv = rgb_to_hsv(blend_color.rgb);
-    
+
     // Preserve the luminance from the base color, and use hue and saturation from the blend color
     vec3 final_hsv = vec3(blend_hsv.x, base_hsv.y*1.035, base_hsv.z*1.2);
     vec3 final_rgb = hsv_to_rgb(final_hsv);
-    
+
     // Blend the result with the original texture color
     vec4 result_color = mix(tex_color, vec4(final_rgb, tex_color.a), float(blend));
-    
+
     COLOR = result_color;
 }

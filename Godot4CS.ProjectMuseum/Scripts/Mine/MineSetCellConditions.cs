@@ -119,12 +119,22 @@ public static class MineSetCellConditions
             n += 4;
         if (cell.LeftBrokenSide)
             n += 8;
+        
+        
+        if (n == 0 && cell.TopLeftBrokenCorner)
+            n += 16;
+        if (n is 0 or > 15 && cell.TopRightBrokenCorner)
+            n += 32;
+        if (n is 0 or > 15 && cell.BottomRightBrokenCorner)
+            n += 64;
+        if (n is 0 or > 15 && cell.BottomLeftBrokenCorner)
+            n += 128;
 
         var tilePos = new Vector2I(cell.PositionX, cell.PositionY);
         EraseCellsOnAllLayers(mineGenerationView, tilePos);
         mineGenerationView.SetCell(WallLayer, tilePos,mineGenerationView.TileSourceId, TileAtlasCoords(n));
-        if(cell.MaxHitPoint == 64)
-            mineGenerationView.SetCell(WallLayer,tilePos, 2, new Vector2I(0,0));
+        // if(cell.MaxHitPoint == 64)
+        //     mineGenerationView.SetCell(WallLayer,tilePos, 2, new Vector2I(0,0));
         
         if(cell.HasArtifact)
             mineGenerationView.SetCell(ResourceAndArtifactLayer,tilePos, 2, new Vector2I(0,0));
@@ -225,27 +235,40 @@ public static class MineSetCellConditions
         mineGenerationView.EraseCell(SpecialWallLayer, tilePos);
         mineGenerationView.EraseCell(UnrevealedCellLayer, tilePos);
     }
-
-    private static Vector2I TileAtlasCoords(int tileValue)
+    
+    private static Vector2I TileAtlasCoords(int n)
     {
-        return tileValue switch
+        return n switch
         {
-            0 => new Vector2I(1, 1),
-            1 => new Vector2I(1, 0),
-            2 => new Vector2I(2, 1),
-            3 => new Vector2I(2, 0),
-            4 => new Vector2I(1, 2),
-            5 => new Vector2I(4, 0),
-            6 => new Vector2I(2, 2),
-            7 => new Vector2I(5, 0),
-            8 => new Vector2I(0, 1),
-            9 => new Vector2I(0, 0),
-            10 => new Vector2I(3, 2),
-            11 => new Vector2I(3, 1),
-            12 => new Vector2I(0, 2),
-            13 => new Vector2I(3, 0),
-            14 => new Vector2I(3, 3),
-            _ => new Vector2I(6, 0)
+            0 => new Vector2I(1, 1),   // No broken sides
+            1 => new Vector2I(1, 0),   // Top broken
+            2 => new Vector2I(2, 1),   // Right broken
+            3 => new Vector2I(2, 0),   // Top and Right broken
+            4 => new Vector2I(1, 2),   // Bottom broken
+            5 => new Vector2I(4, 0),   // Top and Bottom broken
+            6 => new Vector2I(2, 2),   // Right and Bottom broken
+            7 => new Vector2I(5, 0),   // Top, Right, and Bottom broken
+            8 => new Vector2I(0, 1),   // Left broken
+            9 => new Vector2I(0, 0),   // Left and Top broken
+            10 => new Vector2I(3, 2),  // Left and Right broken
+            11 => new Vector2I(3, 1),  // Left, Top, and Right broken
+            12 => new Vector2I(0, 2),  // Left and Bottom broken
+            13 => new Vector2I(3, 0),  // Left, Top, and Bottom broken
+            14 => new Vector2I(3, 3),  // Left, Right, and Bottom broken
+            15 => new Vector2I(6, 0),  // All sides broken
+        
+            // New mappings for additional configurations
+            16 => new Vector2I(4, 1),  // top left
+            32 => new Vector2I(6,1),  // top right
+            64 => new Vector2I(6, 3),  // bottom right
+            128 => new Vector2I(4,3),  //bottom left
+            // 20 => new Vector2I(5, 2),  // Custom configuration 5
+            // 21 => new Vector2I(5, 3),  // Custom configuration 6
+            // 22 => new Vector2I(6, 1),  // Custom configuration 7
+            // 23 => new Vector2I(6, 2),  // Custom configuration 8
+            // 24 => new Vector2I(6, 3),  // Custom configuration 9
+        
+            _ => new Vector2I(1,1)    // Default case (all sides broken)
         };
     }
 }

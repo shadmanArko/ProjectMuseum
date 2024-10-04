@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://cu8nyqc2e52fx"]
+[gd_scene load_steps=4 format=3 uid="uid://cu8nyqc2e52fx"]
+
+[ext_resource type="Shader" path="res://Scenes/Test Scenes/LightInverseMasking.gdshader" id="1_7fb30"]
+[ext_resource type="Texture2D" uid="uid://bxpxsn7v2dth8" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light_2.png" id="2_os1oj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h73fn"]
+shader = ExtResource("1_7fb30")
+shader_parameter/light_color = Color(1, 1, 1, 1)
 
 [node name="Darkening" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(724, 413)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+light_mask = 524288
+offset_right = 1565.0
+offset_bottom = 806.0
+color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 0
+material = SubResource("ShaderMaterial_h73fn")
+position = Vector2(724.85, 373)
+energy = 5.91
+blend_mode = 2
+range_item_cull_mask = 524288
+texture = ExtResource("2_os1oj")
+texture_scale = 7.82

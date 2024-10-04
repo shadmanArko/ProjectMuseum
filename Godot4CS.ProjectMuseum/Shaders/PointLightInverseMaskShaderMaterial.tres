@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bqn71hfs3cjrs"]
+
+[ext_resource type="Shader" path="res://Scenes/Test Scenes/LightInverseMasking.gdshader" id="1_qgnvh"]
+
+[resource]
+shader = ExtResource("1_qgnvh")
+shader_parameter/light_color = Color(1, 1, 1, 1)

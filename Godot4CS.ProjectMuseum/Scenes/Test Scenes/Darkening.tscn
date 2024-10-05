@@ -12,18 +12,27 @@ shader_parameter/light_color = Color(1, 1, 1, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(724, 413)
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="."]
 light_mask = 524288
-offset_right = 1565.0
-offset_bottom = 806.0
-color = Color(0.103744, 0.103744, 0.103744, 1)
+offset_right = 1682.0
+offset_bottom = 964.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 light_mask = 0
+visibility_layer = 0
+texture_filter = 1
 material = SubResource("ShaderMaterial_h73fn")
-position = Vector2(724.85, 373)
-energy = 5.91
+position = Vector2(1240, 424)
+energy = 4.5
 blend_mode = 2
 range_item_cull_mask = 524288
 texture = ExtResource("2_os1oj")
-texture_scale = 7.82
+texture_scale = 6.97
+
+[node name="ColorRect" type="ColorRect" parent="."]
+light_mask = 524288
+offset_left = -96.0
+offset_top = 3.0
+offset_right = 1469.0
+offset_bottom = 809.0
+color = Color(0.133333, 0.133333, 0.133333, 0.8)

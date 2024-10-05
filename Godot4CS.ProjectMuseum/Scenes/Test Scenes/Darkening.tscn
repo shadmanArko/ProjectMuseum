@@ -41,36 +41,38 @@ offset_right = 1469.0
 offset_bottom = 809.0
 color = Color(0.133333, 0.133333, 0.133333, 0.8)
 
+[node name="ColorRect2" type="ColorRect" parent="."]
+light_mask = 524288
+offset_right = 1682.0
+offset_bottom = 964.0
+color = Color(1, 1, 0.239216, 1)
+
+[node name="Baki Shob" type="Sprite2D" parent="."]
+position = Vector2(424, 339)
+texture = ExtResource("3_1k4y5")
+
+[node name="Mask" type="Sprite2D" parent="."]
+z_index = 3
+material = SubResource("ShaderMaterial_wr7lb")
+position = Vector2(389, 331)
+texture = ExtResource("2_mb6ut")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+z_index = 2
+position = Vector2(444, 343.5)
+scale = Vector2(2.24, 1.615)
+copy_mode = 2
+
+[node name="Darkener" type="Sprite2D" parent="BackBufferCopy"]
+position = Vector2(98.8123, -2.78637)
+scale = Vector2(0.98456, 0.619195)
+texture = ExtResource("5_tb54j")
+
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 424.0
 offset_top = 339.0
 offset_right = 464.0
 offset_bottom = 379.0
-
-[node name="Baki Shob" type="Sprite2D" parent="Control"]
-texture = ExtResource("3_1k4y5")
-
-[node name="BackBufferCopy" type="BackBufferCopy" parent="Control"]
-position = Vector2(6.5, 4.49998)
-scale = Vector2(2.105, 1.615)
-copy_mode = 2
-
-[node name="Darkener" type="Sprite2D" parent="Control/BackBufferCopy"]
-position = Vector2(-3.08788, -2.78637)
-scale = Vector2(0.475059, 0.619195)
-texture = ExtResource("5_tb54j")
-
-[node name="Mask" type="Sprite2D" parent="Control/BackBufferCopy"]
-material = SubResource("ShaderMaterial_wr7lb")
-position = Vector2(-3.56295, -2.78638)
-scale = Vector2(0.475059, 0.619195)
-texture = ExtResource("2_mb6ut")
-
-[node name="ColorRect2" type="ColorRect" parent="."]
-visible = false
-light_mask = 524288
-offset_right = 1682.0
-offset_bottom = 964.0
-color = Color(1, 1, 0.239216, 1)

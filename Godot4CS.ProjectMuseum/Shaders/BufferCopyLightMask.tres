@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b8iox0c80u6of"]
+
+[ext_resource type="Shader" path="res://Scenes/Test Scenes/Test2LightMask.gdshader" id="1_h3qqe"]
+
+[resource]
+shader = ExtResource("1_h3qqe")

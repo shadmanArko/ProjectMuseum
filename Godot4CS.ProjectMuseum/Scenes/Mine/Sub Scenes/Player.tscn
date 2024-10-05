@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerController.cs" id="1_bhvr3"]
 [ext_resource type="Texture2D" uid="uid://b5qkyvepmjeaq" path="res://Assets/2D/Animations/Player Animations/mine_player_animations.png" id="2_eymdr"]
-[ext_resource type="Shader" path="res://Scenes/Test Scenes/LightInverseMasking.gdshader" id="2_lyut5"]
 [ext_resource type="AudioStream" uid="uid://cqajq31u1mg6l" path="res://Assets/SFX/Mine SFX/FootSteps/footStepLeft.mp3" id="2_uhrdd"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 [ext_resource type="AudioStream" uid="uid://1oxp1kt37hyc" path="res://Assets/SFX/Mine SFX/FootSteps/footStepRight.mp3" id="3_157mf"]
@@ -15,10 +14,8 @@
 [ext_resource type="Script" path="res://Scripts/Mine/Sounds/MineSfx/PlayerSfxManager.cs" id="10_elavb"]
 [ext_resource type="AudioStream" uid="uid://ry55m836vsai" path="res://Assets/SFX/Mine SFX/Melee/swordSlash.mp3" id="13_7q814"]
 [ext_resource type="AudioStream" uid="uid://duno0frkrgach" path="res://Assets/SFX/Mine SFX/Dig/blockHit.mp3" id="13_mbswu"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_74u0d"]
-shader = ExtResource("2_lyut5")
-shader_parameter/light_color = Color(1, 1, 1, 1)
+[ext_resource type="Material" uid="uid://b8iox0c80u6of" path="res://Shaders/BufferCopyLightMask.tres" id="15_6aylt"]
+[ext_resource type="Texture2D" uid="uid://beg03kikrwft7" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light3.png" id="16_rc140"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cq4yg"]
 radius = 5.0
@@ -724,9 +721,9 @@ _maxVerticalVelocity = 200.0
 _fallTimeThreshold = 0.2
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 light_mask = 0
 visibility_layer = 0
-material = SubResource("ShaderMaterial_74u0d")
 energy = 3.9
 range_z_min = 0
 range_z_max = 30
@@ -774,11 +771,12 @@ _collisionShape2D = NodePath("../Item Detector/Item Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
 [node name="Torch" parent="." instance=ExtResource("7_s7umg")]
+visible = false
 color = Color(0.368627, 0.109804, 0.258824, 1)
-energy = 11.0
+energy = 0.69
 range_z_min = 0
 range_z_max = 30
-range_item_cull_mask = 214
+range_item_cull_mask = 211
 shadow_item_cull_mask = 1
 texture_scale = 0.75
 
@@ -849,6 +847,11 @@ script = ExtResource("10_elavb")
 _streamPlayer = NodePath("../AudioStreamPlayer2D")
 _blockHitSfxList = Array[AudioStream]([ExtResource("13_mbswu")])
 _swordSlashSfxList = Array[AudioStream]([ExtResource("13_7q814")])
+
+[node name="InverseMask" type="Sprite2D" parent="."]
+z_index = 35
+material = ExtResource("15_6aylt")
+texture = ExtResource("16_rc140")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnDeathAnimationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="OnMeleeAttackAnimationEnded"]

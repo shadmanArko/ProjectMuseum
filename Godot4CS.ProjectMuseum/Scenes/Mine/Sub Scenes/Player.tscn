@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://cqajq31u1mg6l" path="res://Assets/SFX/Mine SFX/FootSteps/footStepLeft.mp3" id="2_uhrdd"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/AnimationController.cs" id="3_8nu7c"]
 [ext_resource type="AudioStream" uid="uid://1oxp1kt37hyc" path="res://Assets/SFX/Mine SFX/FootSteps/footStepRight.mp3" id="3_157mf"]
-[ext_resource type="Texture2D" uid="uid://bxpxsn7v2dth8" path="res://Assets/2D/Sprites/Mine Sprites/Light/Light_2.png" id="3_cxff0"]
+[ext_resource type="Texture2D" uid="uid://4n4xt8d5421k" path="res://Assets/2D/Sprites/Mine Sprites/Light/light mask.png" id="3_wnabk"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithWallDetector.cs" id="4_rq7pk"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerInputHandler.cs" id="5_0x0fh"]
 [ext_resource type="Script" path="res://Scripts/Mine/PlayerScripts/PlayerCollisionWithEnemyDetector.cs" id="7_3m1a8"]
@@ -727,12 +727,12 @@ _fallTimeThreshold = 0.2
 light_mask = 0
 visibility_layer = 0
 material = SubResource("ShaderMaterial_74u0d")
-energy = 4.0
+energy = 3.9
 range_z_min = 0
 range_z_max = 30
-range_item_cull_mask = 524323
-texture = ExtResource("3_cxff0")
-texture_scale = 0.8
+range_item_cull_mask = 524288
+texture = ExtResource("3_wnabk")
+texture_scale = 0.1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
@@ -774,12 +774,13 @@ _collisionShape2D = NodePath("../Item Detector/Item Collider")
 _animationPlayer = NodePath("../AnimationPlayer")
 
 [node name="Torch" parent="." instance=ExtResource("7_s7umg")]
-color = Color(0.874698, 0.766141, 0.468232, 1)
-energy = 2.5
+color = Color(0.368627, 0.109804, 0.258824, 1)
+energy = 11.0
 range_z_min = 0
 range_z_max = 30
-range_item_cull_mask = 215
+range_item_cull_mask = 214
 shadow_item_cull_mask = 1
+texture_scale = 0.75
 
 [node name="Item Stasher" type="Area2D" parent="."]
 collision_layer = 2

@@ -147,12 +147,13 @@ visible = false
 
 [node name="ColorRect" type="ColorRect" parent="."]
 light_mask = 524288
-z_index = 35
+visibility_layer = 524288
+z_index = 30
 offset_left = -1527.0
 offset_right = -1399.0
 offset_bottom = 141.0
 scale = Vector2(29.08, 18.6)
-color = Color(0.0980392, 0.0352941, 0.192157, 0.784314)
+color = Color(0.0980392, 0.0352941, 0.192157, 0.752941)
 
 [connection signal="body_entered" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerEnterTrigger"]
 [connection signal="body_exited" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerExitTrigger"]

@@ -200,12 +200,12 @@ _torchSprite = NodePath("Sprite2D")
 [node name="OuterGlow" type="PointLight2D" parent="."]
 light_mask = 50
 visibility_layer = 128
-color = Color(0.71651, 0.18229, 0.0551335, 1)
-energy = 16.0
+color = Color(0.960383, 0.281019, 0.128546, 1)
+energy = 2.5
 range_z_min = 0
 range_z_max = 3
 range_layer_max = 30
-range_item_cull_mask = 119
+range_item_cull_mask = 524407
 shadow_enabled = true
 shadow_filter = 2
 shadow_filter_smooth = 5.0
@@ -215,9 +215,11 @@ offset = Vector2(-1, -1)
 texture_scale = 0.95
 
 [node name="LightMask" type="PointLight2D" parent="."]
+visible = false
 light_mask = 50
 visibility_layer = 128
 material = ExtResource("3_qesmw")
+color = Color(0.782562, 0.77016, 0.116062, 1)
 energy = 16.0
 range_z_min = 0
 range_z_max = 3
@@ -233,6 +235,7 @@ texture_scale = 0.957143
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 128
 visibility_layer = 128
+z_index = 30
 texture_filter = 1
 texture = ExtResource("2_6yh75")
 hframes = 7
@@ -252,7 +255,7 @@ energy = 11.0
 range_z_min = 0
 range_z_max = 30
 range_layer_max = 30
-range_item_cull_mask = 119
+range_item_cull_mask = 524407
 shadow_enabled = true
 shadow_filter = 2
 shadow_filter_smooth = 2.0

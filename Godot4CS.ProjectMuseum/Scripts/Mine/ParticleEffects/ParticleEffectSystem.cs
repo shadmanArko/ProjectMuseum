@@ -70,7 +70,7 @@ public partial class ParticleEffectSystem : Node2D
                 break;
         }
 
-        _mineGenerationVariables.MineGenView.AddChild(particle);
+        AddChild(particle);
         var direction = _playerControllerVariables.MouseDirection * -1;
         particle.EmitParticle(direction);
     }

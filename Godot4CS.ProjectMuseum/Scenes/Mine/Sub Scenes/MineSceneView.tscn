@@ -78,6 +78,19 @@ TileMap = NodePath(".")
 TileSourceId = 0
 TileCrackSourceId = 1
 
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Mine"]
+z_index = 33
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Mine/BackBufferCopy"]
+light_mask = 524288
+visibility_layer = 524288
+offset_left = -1527.0
+offset_right = -1399.0
+offset_bottom = 141.0
+scale = Vector2(29.08, 18.6)
+color = Color(0.0980392, 0.0352941, 0.192157, 0.862745)
+
 [node name="Mine Entrance" type="Node2D" parent="." node_paths=PackedStringArray("_entranceBlockerCollisionShape")]
 position = Vector2(491, -4)
 script = ExtResource("6_arrba")
@@ -144,19 +157,6 @@ centered = false
 
 [node name="UISaving" parent="." instance=ExtResource("5_ip856")]
 visible = false
-
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-z_index = 33
-copy_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="BackBufferCopy"]
-light_mask = 524288
-visibility_layer = 524288
-offset_left = -1527.0
-offset_right = -1399.0
-offset_bottom = 141.0
-scale = Vector2(29.08, 18.6)
-color = Color(0.0980392, 0.0352941, 0.192157, 0.862745)
 
 [connection signal="body_entered" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerEnterTrigger"]
 [connection signal="body_exited" from="Mine Entrance/Entrance Trigger" to="Mine Entrance" method="OnPlayerExitTrigger"]

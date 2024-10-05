@@ -105,8 +105,6 @@ process_mode = 3
 script = ExtResource("8_4crix")
 _damageVisualizerPath = "res://Scenes/Mine/Sub Scenes/UI/MineDamageSystem/DamageVisualizer.tscn"
 
-[node name="ParticleEffectSystem" parent="." instance=ExtResource("11_1alc6")]
-
 [node name="Auto Animation Controller" type="Node2D" parent="."]
 script = ExtResource("7_5sphp")
 
@@ -164,6 +162,9 @@ _popUpText = NodePath("Pop Up Text")
 [node name="Tutorial" parent="MineUI" node_paths=PackedStringArray("_tutorialBody", "_animationPlayer") instance=ExtResource("13_d8f08")]
 process_mode = 3
 visible = false
+offset_top = 104.0
+offset_right = 409.0
+offset_bottom = 459.0
 _tutorialBody = NodePath("Tutorial Body/MarginContainer/RichTextLabel")
 _animationPlayer = NodePath("Tutorial panel Animation Player")
 
@@ -234,3 +235,7 @@ script = ExtResource("40_dy3xt")
 [node name="MineSfxManager" parent="." instance=ExtResource("41_737yh")]
 
 [node name="MineSaveData" parent="." instance=ExtResource("43_205iv")]
+
+[node name="ParticleEffectSystem" parent="." instance=ExtResource("11_1alc6")]
+z_index = 35
+scale = Vector2(0.983859, 0.970873)

@@ -32,14 +32,14 @@ range_item_cull_mask = 524288
 texture = ExtResource("2_mb6ut")
 texture_scale = 2.14
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
+[node name="ColorRect" type="ColorRect" parent="PointLight2D"]
 light_mask = 524288
-offset_left = -96.0
-offset_top = 3.0
-offset_right = 1469.0
-offset_bottom = 809.0
-color = Color(0.133333, 0.133333, 0.133333, 0.8)
+z_index = 3
+offset_left = -1051.0
+offset_top = -433.0
+offset_right = 514.0
+offset_bottom = 373.0
+color = Color(0.133333, 0.133333, 0.133333, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 light_mask = 524288
@@ -67,12 +67,3 @@ copy_mode = 2
 position = Vector2(98.8123, -2.78637)
 scale = Vector2(0.98456, 0.619195)
 texture = ExtResource("5_tb54j")
-
-[node name="Control" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = 424.0
-offset_top = 339.0
-offset_right = 464.0
-offset_bottom = 379.0

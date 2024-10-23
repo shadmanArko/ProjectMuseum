@@ -51,6 +51,7 @@ public partial class SoundController : Node2D
 		base._ExitTree();
 		MuseumActions.OnItemRotated -= OnItemRotated;
 		MuseumActions.OnItemPlacedOnTile -= OnItemPlacedOnTile;
+		MuseumActions.OnPlayerStepped -= OnPlayerStepped;
 
 	}
 }

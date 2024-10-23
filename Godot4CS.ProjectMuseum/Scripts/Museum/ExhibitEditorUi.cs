@@ -152,6 +152,7 @@ public partial class ExhibitEditorUi : Control
 		if (_displayArtifacts.Contains(artifact))
 		{
 			_displayArtifacts.Remove(artifact);
+			_museumRunningDataContainer.DisplayArtifacts.Artifacts = _displayArtifacts;
 		}
 		MuseumActions.ArtifactRemovedFromExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber, artifactSize);
 	}
@@ -426,6 +427,7 @@ public partial class ExhibitEditorUi : Control
 		if (!_displayArtifacts.Contains(artifact))
 		{
 			_displayArtifacts.Add(artifact);
+			_museumRunningDataContainer.DisplayArtifacts.Artifacts = _displayArtifacts;
 		}
 		MuseumActions.ArtifactDroppedOnExhibitSlot?.Invoke(artifact, _selectedItem, slotNumber, gridNumber, artifactSize);
 	}
@@ -437,7 +439,6 @@ public partial class ExhibitEditorUi : Control
 		// _httpRequestForGettingExhibitsInStore.Request(ApiAddress.MuseumApiPath + "GetAllArtifactsInStorage");
 		var artifactsInStore = MuseumReferenceManager.Instance.ArtifactStoreServices.GetAllArtifacts();
 
-		AfterGettingAftifactsInStore(artifactsInStore);
 		DeleteChild(_dropTargetsParent);
 		_selectedItem = item;
 		_glassCheckButton.ButtonPressed = _selectedItem.IsGlassEnabled();
@@ -459,8 +460,9 @@ public partial class ExhibitEditorUi : Control
 
 			_dropTargetsParent.AddChild(instance);
 		}
+		AfterGettingAftifactsInStore(artifactsInStore);
 
-
+		//here spawn all the artifacts child
 		// if ()
 		// {
 		// 	

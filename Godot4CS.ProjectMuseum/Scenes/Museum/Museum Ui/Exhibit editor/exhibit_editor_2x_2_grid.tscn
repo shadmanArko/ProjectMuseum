@@ -14,12 +14,9 @@ layout_mode = 2
 
 [node name="DropTarget 2" parent="." instance=ExtResource("1_j8obn")]
 layout_mode = 2
-SlotNumber = 1
 
 [node name="DropTarget 3" parent="." instance=ExtResource("1_j8obn")]
 layout_mode = 2
-SlotNumber = 2
 
 [node name="DropTarget 4" parent="." instance=ExtResource("1_j8obn")]
 layout_mode = 2
-SlotNumber = 3

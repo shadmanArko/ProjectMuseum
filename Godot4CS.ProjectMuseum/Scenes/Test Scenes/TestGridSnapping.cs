@@ -27,6 +27,7 @@ public partial class TestGridSnapping : Control
 		{
 			_currentItem.Reparent(GridContainer);
 			_currentItem.GlobalPosition = GetGlobalMousePosition();
+			_currentItem.GlobalPosition = GetGlobalMousePosition();
 			placedItem = true;
 		}
 		

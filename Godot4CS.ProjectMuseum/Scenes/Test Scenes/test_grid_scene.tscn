@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cr5ep5t5w2l03"]
 
 [ext_resource type="Script" path="res://Scenes/Test Scenes/TestGridSnapping.cs" id="1_ykogn"]
-[ext_resource type="PackedScene" uid="uid://bqgj88lh2ep1f" path="res://Scenes/Test Scenes/TestItem.tscn" id="2_s7nn7"]
+[ext_resource type="PackedScene" uid="uid://c0d8hw0o68iv5" path="res://Scenes/Test Scenes/TestItem1x2.tscn" id="2_5npsg"]
 
 [node name="Test grid scene" type="Control" node_paths=PackedStringArray("GridContainer")]
 layout_mode = 3
@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ykogn")
-_item = ExtResource("2_s7nn7")
+_item = ExtResource("2_5npsg")
 GridContainer = NodePath("Panel/Panel/MarginContainer/VBoxContainer/ScrollContainer/GridContainer")
 
 [node name="Panel" type="Panel" parent="."]

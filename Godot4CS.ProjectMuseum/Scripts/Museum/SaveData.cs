@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Godot;
 using ProjectMuseum.Models.Artifact_and_Inventory;
 

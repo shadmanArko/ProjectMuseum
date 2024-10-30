@@ -27,7 +27,7 @@ public partial class DayEndController : Node2D
 	{
 		_httpRequestForGettingPlayerInfo = new HttpRequest();
 		AddChild(_httpRequestForGettingPlayerInfo);
-		_httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
+		// _httpRequestForGettingPlayerInfo.RequestCompleted += HttpRequestForGettingPlayerInfoOnRequestCompleted;
 		_httpRequestForGettingPlayerInfo.Request(ApiAddress.PlayerApiPath + "GetPlayerInfo");
 		MuseumActions.PlayerEnteredNewTile += PlayerEnteredNewTile;
 
@@ -108,7 +108,7 @@ public partial class DayEndController : Node2D
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		_httpRequestForGettingPlayerInfo.RequestCompleted -= HttpRequestForGettingPlayerInfoOnRequestCompleted;
+		// _httpRequestForGettingPlayerInfo.RequestCompleted -= HttpRequestForGettingPlayerInfoOnRequestCompleted;
 		MuseumActions.PlayerEnteredNewTile -= PlayerEnteredNewTile;
 
 		MuseumActions.OnMuseumTilesUpdated -=  SetDayEndCell;

@@ -17,8 +17,13 @@ public partial class PlayerInfoServices: Node
     public override void _Ready()
     {
         _museumRunningDataContainer = ServiceRegistry.Resolve<MuseumRunningDataContainer>();
-        
-        _museumRunningDataContainer.PlayerInfo = SaveLoadService.Load().PlayerInfo;
+        var saveData = SaveLoadService.Load();
+        _museumRunningDataContainer.PlayerInfo = saveData.PlayerInfo;
+        _museumRunningDataContainer.Products = saveData.Products;
+        _museumRunningDataContainer.Exhibits = saveData.Exhibits;
+        _museumRunningDataContainer.Sanitations = saveData.Sanitations;
+        _museumRunningDataContainer.Shops = saveData.Shops;
+        _museumRunningDataContainer.DecorationOthers = saveData.DecorationOthers;
         base._Ready();
     }
 

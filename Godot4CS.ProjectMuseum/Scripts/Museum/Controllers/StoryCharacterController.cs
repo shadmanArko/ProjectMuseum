@@ -12,10 +12,16 @@ public partial class StoryCharacterController : Node2D
 	[Export] private UncontrolledCharacter _storyEmily;
 	[Export] private CharacterBody2DIsometric _gameCharacter;
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public override void _EnterTree()
 	{
+		base._EnterTree();
 		MuseumActions.StorySceneEntryEnded += StorySceneEntryEndedPlaying;
 		MuseumActions.StorySceneEntryStarted += StorySceneEntryStarted;
+	}
+
+	public override void _Ready()
+	{
+		
 		_storyPlayer.Visible = false;
 		_storyProfessor.Visible = false;
 		_storyAlex.Visible = false;
@@ -39,6 +45,7 @@ public partial class StoryCharacterController : Node2D
 		if (obj == "12a")
 		{
 			await Task.Delay(1000);
+			_storyProfessor.Visible = true;
 			_storyProfessor.StartFollowingDirection();
 		}
 		if (obj == "9a")

@@ -31,9 +31,9 @@ public partial class DecorationsController : Node2D
 		AddChild(_httpRequestForGettingShops);
 		AddChild(_httpRequestForGettingOthers);
 		AddChild(_httpRequestForSanitations);
-		_httpRequestForGettingShops.RequestCompleted += HttpRequestForGettingShopsOnRequestCompleted;
-		_httpRequestForGettingOthers.RequestCompleted += HttpRequestForGettingOthersOnRequestCompleted;
-		_httpRequestForSanitations.RequestCompleted += HttpRequestForSanitationsOnRequestCompleted;
+		// _httpRequestForGettingShops.RequestCompleted += HttpRequestForGettingShopsOnRequestCompleted;
+		// _httpRequestForGettingOthers.RequestCompleted += HttpRequestForGettingOthersOnRequestCompleted;
+		// _httpRequestForSanitations.RequestCompleted += HttpRequestForSanitationsOnRequestCompleted;
 		_httpRequestForGettingShops.Request(ApiAddress.MuseumApiPath + "GetAllShops");
 		_httpRequestForGettingOthers.Request(ApiAddress.MuseumApiPath + "GetAllOtherDecorations");
 		_httpRequestForSanitations.Request(ApiAddress.MuseumApiPath + "GetAllSanitations");
@@ -120,9 +120,9 @@ public partial class DecorationsController : Node2D
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		_httpRequestForGettingShops.RequestCompleted -= HttpRequestForGettingShopsOnRequestCompleted;
-		_httpRequestForGettingOthers.RequestCompleted -= HttpRequestForGettingOthersOnRequestCompleted;
-		_httpRequestForSanitations.RequestCompleted -= HttpRequestForSanitationsOnRequestCompleted;
+		// _httpRequestForGettingShops.RequestCompleted -= HttpRequestForGettingShopsOnRequestCompleted;
+		// _httpRequestForGettingOthers.RequestCompleted -= HttpRequestForGettingOthersOnRequestCompleted;
+		// _httpRequestForSanitations.RequestCompleted -= HttpRequestForSanitationsOnRequestCompleted;
 
 
 	}

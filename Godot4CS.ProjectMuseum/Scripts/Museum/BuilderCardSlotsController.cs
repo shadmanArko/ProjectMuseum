@@ -236,12 +236,6 @@ public partial class BuilderCardSlotsController : Control
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		_httpRequestForGettingExhibitVariations.RequestCompleted -= HttpRequestForGettingExhibitVariationsOnRequestCompleted;
-		_httpRequestForGettingDecorationShopVariations.RequestCompleted -= HttpRequestForGettingDecorationShopVariationsOnRequestCompleted;
-		_httpRequestForGettingDecorationOtherVariations.RequestCompleted -= HttpRequestForGettingDecorationOtherVariationsOnRequestCompleted;
-		_httpRequestForGettingTileVariations.RequestCompleted -= HttpRequestForGettingTileVariationsOnRequestCompleted;
-		_httpRequestForGettingWallpaperVariations.RequestCompleted -= HttpRequestForGettingWallpaperVariationsOnRequestCompleted;
-		_httpRequestForGettingSanitationVariations.RequestCompleted -= HttpRequestForGettingSanitationVariationsOnRequestCompleted;
 		MuseumActions.OnBottomPanelBuilderCardToggleClicked -= ReInitialize;
 		if (_buildersPanelClosingButton != null)
 		{

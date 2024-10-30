@@ -43,7 +43,7 @@ public partial class SaveGame : Node2D
 		if (!_savingGame)
 		{
 			// _httpRequestForSavingGame.Request(ApiAddress.PlayerApiPath + "SaveData");
-			var saveData = new SaveData();
+			var saveData = SaveLoadService.Load();
 			saveData.PlayerInfo = _museumRunningDataContainer.PlayerInfo;
 			saveData.MuseumTiles = _museumRunningDataContainer.MuseumTiles;
 			var inventoryJson = Godot.FileAccess.Open("res://Game Data/Starting Data/inventory.json", Godot.FileAccess.ModeFlags.Read).GetAsText();

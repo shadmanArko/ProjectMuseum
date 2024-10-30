@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Godot;
 using Godot4CS.ProjectMuseum.Scripts.StaticClasses;
 using Newtonsoft.Json;
 using ProjectMuseum.Models;
@@ -30,6 +31,7 @@ public static class SaveLoadService
 
             // Write the data to the file
             File.WriteAllText(saveFilePath, jsonData);
+            GD.Print($"Saved data at {saveFilePath}");
         }
         catch (Exception ex)
         {

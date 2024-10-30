@@ -25,7 +25,7 @@ public partial class ShopUi : Control
 	{
 		_httpRequestForGettingAllProducts = new HttpRequest();
 		AddChild(_httpRequestForGettingAllProducts);
-		_httpRequestForGettingAllProducts.RequestCompleted += HttpRequestForGettingAllProductsOnRequestCompleted;
+		// _httpRequestForGettingAllProducts.RequestCompleted += HttpRequestForGettingAllProductsOnRequestCompleted;
 		_httpRequestForGettingAllProducts.Request(ApiAddress.MuseumApiPath + "GetAllProducts");
 		MuseumActions.OnClickShopItem += OnClickShopItem;
 		_closeButton.Pressed += CloseButtonOnPressed;
@@ -80,7 +80,7 @@ public partial class ShopUi : Control
 	{
 		base._ExitTree();
 		MuseumActions.OnClickShopItem -= OnClickShopItem;
-		_httpRequestForGettingAllProducts.RequestCompleted -= HttpRequestForGettingAllProductsOnRequestCompleted;
+		// _httpRequestForGettingAllProducts.RequestCompleted -= HttpRequestForGettingAllProductsOnRequestCompleted;
 		_closeButton.Pressed -= CloseButtonOnPressed;
 	}
 }

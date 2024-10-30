@@ -44,8 +44,8 @@ public partial class GuestsController : Node2D
 		_httpRequestForGettingGuestBuildingParameter = new HttpRequest();
 		AddChild(_httpRequestForGettingMuseumTiles);
 		AddChild(_httpRequestForGettingGuestBuildingParameter);
-		_httpRequestForGettingMuseumTiles.RequestCompleted += HttpRequestForGettingMuseumTilesOnRequestCompleted;
-		_httpRequestForGettingGuestBuildingParameter.RequestCompleted += HttpRequestForGettingGuestBuildingParameterOnRequestCompleted;
+		// _httpRequestForGettingMuseumTiles.RequestCompleted += HttpRequestForGettingMuseumTilesOnRequestCompleted;
+		// _httpRequestForGettingGuestBuildingParameter.RequestCompleted += HttpRequestForGettingGuestBuildingParameterOnRequestCompleted;
 		MuseumActions.OnClickMuseumGateToggle += OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated += OnTimePauseValueUpdated;
 		MuseumActions.OnGuestExitMuseum += OnGuestExitMuseum;
@@ -160,7 +160,7 @@ public partial class GuestsController : Node2D
 	public override void _ExitTree()
 	{
 		base._ExitTree();
-		_httpRequestForGettingMuseumTiles.RequestCompleted -= HttpRequestForGettingMuseumTilesOnRequestCompleted;
+		// _httpRequestForGettingMuseumTiles.RequestCompleted -= HttpRequestForGettingMuseumTilesOnRequestCompleted;
 		MuseumActions.OnClickMuseumGateToggle -= OnClickMuseumGateToggle;
 		MuseumActions.OnTimePauseValueUpdated -= OnTimePauseValueUpdated;
 		MuseumActions.OnGuestExitMuseum -= OnGuestExitMuseum;

@@ -32,8 +32,8 @@ public partial class MuseumTimeSystem : Node
 		_httpRequestForUpdatingTime = new HttpRequest();
 		AddChild(_httpRequestForGettingTime);
 		AddChild(_httpRequestForUpdatingTime);
-		_httpRequestForGettingTime.RequestCompleted += HttpRequestForGettingTimeOnRequestCompleted;
-		_httpRequestForUpdatingTime.RequestCompleted += HttpRequestForUpdatingTimeOnRequestCompleted;
+		// _httpRequestForGettingTime.RequestCompleted += HttpRequestForGettingTimeOnRequestCompleted;
+		// _httpRequestForUpdatingTime.RequestCompleted += HttpRequestForUpdatingTimeOnRequestCompleted;
 		// _httpRequestForGettingTime.Request(ApiAddress.PlayerApiPath + "GetTime");
 		_time = MuseumReferenceManager.Instance.TimeServices.GetTime();
 		MuseumActions.OnTimeUpdated?.Invoke(_time.Minutes, _time.Hours, _time.Days, _time.Months, _time.Years);
